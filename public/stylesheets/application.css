@@ -1,0 +1,39 @@
+.error {
+    color: red;
+}
+
+.right {
+    float: right
+}
+
+.left {
+    float: left;
+}
+
+table.form {
+    border-spacing: 10px;    
+    width: 100%;    
+}
+
+table.form td {
+    vertical-align: top;
+}
+
+table.listing {
+    border-spacing: 10px;    
+    width: 100%;
+}
+
+table.listing th {    
+    text-align: left;
+    font-weight: bold;
+}
+
+table.listing td {
+    vertical-align: top;
+    text-align: left;
+}
+
+table.listing td.icon, table.listing th.icon {
+    text-align: center;
+}

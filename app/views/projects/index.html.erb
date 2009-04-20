@@ -1,0 +1,22 @@
+<h1>Project Listing</h1>
+<hr>
+
+<table class="listing">
+  
+  <tr>
+    <th>Project Title</th>
+    <th class="icon">User/Studio</th>
+    <th>Stats</th>
+    <th>Description</th>
+  </tr>
+  
+  <%= render :partial => "projects/project_tr", :collection => @projects %>
+  
+</table>
+
+<%= pagination_controls_for @projects if @projects.respond_to? :total_pages %>
+
+<div style="float: right;">
+  <%= link_to "List a Project", new_project_path %>|
+  <%= link_to "All Projects", projects_path %>
+</div>

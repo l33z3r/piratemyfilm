@@ -1,0 +1,9 @@
+/usr/bin/ruby1.8 extconf.rb gems:build --trace
+checking for main() in -lc... yes
+creating Makefile
+
+make
+cc -shared -o hpricot_scan.so hpricot_scan.o -L"." -L"/usr/lib" -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic    -lruby1.8 -lc  -lpthread -ldl -lcrypt -lm   -lc
+hpricot_scan.o: file not recognized: File format not recognized
+collect2: ld returned 1 exit status
+make: *** [hpricot_scan.so] Error 1

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+
+<html>
+		<head>
+		<meta name="description" content="From the inventor of prediction markets and the Hollywood Stock Exchange, Kinooga - the future of entertainment">
+		<meta name="keywords" content="Kinooga,user financed content,hollywood, max keiser,hollywood stock exchange,prebuy movies,prebuy downloads,presell,investment,digidaq,karmabanque,karmabank, monetise dissent,hollywood,bollywood,french new wave,podcast,crowd sourcing, affinity finance,specfilms">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta name="copyright" content="&copy; 2006 Kinooga">
+
+
+		<title>From the inventor of prediction markets and the Hollywood Stock Exchange, Kinooga - the future of entertainment</title>
+
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="stylesheets/kinooga-green.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/beta-tester.css">
+
+		</head>
+          
+        <body>
+        
+            <div id="stage">
+            
+                <div id="header">
+                </div><!--/HEADER-->
+            
+                <div id="content">
+                
+                	<div class="splash"><!--SPLASH SCREEN-->
+                    	
+                   		<div class="large-logo">
+                        		<img src="images/clock.gif" alt="Coming soon - Kinooga" style="margin:1px 200px;" width="88" height="88">
+                        		<img src="images/kinooga-large.png" alt="Kinooga" width="560" height="140" /></div>
+                    </div><!--/SPLASH SCREEN-->    
+    
+                </div><!--/CONTENT-->
+            
+                <br>
+            
+                <div id="footer">
+                  <ul>
+                    <li><a href="id_09_1.php?option=contact">CONTACT</a></li>
+                    <li><a href="id_09_1.php?option=about">ABOUT US</a></li>
+                    <li><a href="id_09_1.php?option=faq">FAQ</a></li>
+                    <li><a href="id_09_1.php?option=privacy">PRIVACY</a></li>
+                  </ul>
+                <br>
+                  <ul>
+                    <li>Copyright &copy; 2007-2008</li>
+                    <li>Kinooga Technology</li>
+                    <li>All rights reserved</li>
+                    <li>Patent pending</li>
+                    <li>Alpha Version first appeared on web April 2006</li>
+                  </ul>
+                </div><!--/FOOTER-->
+                
+            </div><!--/STAGE-->
+        
+        </body>
+</html>

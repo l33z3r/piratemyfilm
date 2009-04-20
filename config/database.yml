@@ -1,0 +1,15 @@
+development:
+  adapter: mysql
+  database: piratemyfilm_development
+  username: piratemyfilm
+  password: piratemyfilm
+  host: 127.0.0.1
+  encoding: utf8
+
+test:
+  adapter: mysql
+  database: piratemyfilm_test
+  username: piratemyfilm
+  password: piratemyfilm
+  host: 127.0.0.1
+  encoding: utf8

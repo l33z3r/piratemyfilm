@@ -1,0 +1,115 @@
+<% form_for @project, projects_path do |f| %>  
+  <div class="banner">
+    <h3>List a Project</h3>
+  </div>
+
+  <table class="form">
+  
+    <tr>
+      <td>
+        Enter project title
+      
+      </td>
+      <td>
+        <%= f.text_field :title%>
+        <%= display_error_on(@project, :title) -%>
+      </td>
+    </tr>
+  
+    <tr>
+      <td>
+        Enter the name of the producer
+      </td>
+      <td>
+        <%= f.text_field :producer_name%>    
+        <%= display_error_on(@project, :producer_name) -%>
+      </td>
+    </tr>
+  
+    <tr>
+      <td>
+        Please Select Genre
+      </td>
+      <td>
+        <%= f.select :genre_id, [[]]+@genres.map {|genre| [genre.title.titlecase, genre.id] }, :id=>"project-genre" %>
+        <%= display_error_on(@project, :genre_id) -%>
+      </td>
+    </tr>
+  
+    <tr>
+      <td>
+        Enter a short synopsis for your project       
+      </td>
+      <td>
+        <%= f.text_area :synopsis, :cols => 20, :rows => 5 %>
+        <%= display_error_on(@project, :synopsis) -%>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Enter a description for your project
+      </td>
+      <td>
+        <%= f.text_area :description, :cols => 20, :rows => 5 %>
+        <%= display_error_on(@project, :description) -%>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Enter a brief list of cast in your project 
+      </td>
+      <td>
+        <%= f.text_area :cast, :cols => 20, :rows => 3 %>
+        <%= display_error_on(@project, :cast) -%>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Enter a site address associated with your project
+      </td>
+      <td>
+        <%= f.text_field :web_address %>
+        <%= display_error_on(@project, :web_address) -%>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        How much capital do you require for your project
+      </td>
+      <td>
+        <%= f.text_field :capital_required %>
+        <%= display_error_on(@project, :capital_required) -%>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        What percentage of future download sales are you 
+        <br/>
+        offering per buyers of your project?
+      </td>
+      <td>
+        <%= f.text_field :share_percent %>
+        <%= display_error_on(@project, :share_percent) -%>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        What price would you like per download
+      </td>
+      <td>
+        <%= f.text_field :ipo_price %>
+        <%= display_error_on(@project, :ipo_price) -%>
+      </td>
+    </tr>    
+  
+    <tr>
+      <td colspan="2" align="right">
+        <input type="submit" value="List Project"/>
+      </td>
+    </tr>
+    
+  </table>
+
+
+
+<% end %>

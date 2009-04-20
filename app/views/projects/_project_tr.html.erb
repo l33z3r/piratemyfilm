@@ -1,0 +1,21 @@
+<tr>
+  <td>
+    <%= link_to h(project_tr.title), project_path(project_tr) %>
+  </td>
+  <td class="icon">    
+    <%= render :partial => "profiles/profile", :object => project_tr.owner.profile %>           
+  </td>
+  <td>
+    Funding Required:
+    <%=h project_tr.capital_required%>
+    <br/>
+    Percent Funded:
+    <%=h project_tr.percent_funded%>
+    <br/>
+    Price Per Download:
+    <%=h project_tr.ipo_price%>
+  </td>
+  <td>
+    <%=h project_tr.description%>
+  </td>
+</tr>

@@ -1,0 +1,109 @@
+<h1><%=h @project.title%></h1>
+
+<% if @my_subscription.nil? %>
+  <form class="right" method="post" action="<%= project_project_subscriptions_path(@project) -%>">
+    <input type="submit" value="Prebuy Now!"/>
+  </form>
+<% else %>  
+  <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "right" do %>
+    <input type="submit" value="Revoke Prebuy!"/>
+  <% end %>
+<% end %>
+
+<table>
+  <tr>
+    <td>
+      Owned by: 
+    </td>
+    <td>
+      <%= link_to @project.owner.login, profile_path(@project.owner.profile) %>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Producer: 
+    </td>
+    <td>
+      <%=h @project.producer_name%>        
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Genre: 
+    </td>
+    <td>
+      <%=h @project.genre.title%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Synopsis: 
+    </td>
+    <td>
+      <%=h @project.synopsis%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Description: 
+    </td>
+    <td>
+      <%=h @project.description%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Cast: 
+    </td>
+    <td>
+      <%=h @project.cast%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Web Address: 
+    </td>
+    <td>
+      <%=h @project.web_address%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Capital Required: 
+    </td>
+    <td>
+      <%=h @project.capital_required%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Percentage Funded: 
+    </td>
+    <td>
+      <%=h @project.percent_funded%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Price Per Download: 
+    </td>
+    <td>
+      <%=h @project.ipo_price%>        
+    </td>
+  </tr>
+</table>
+
+<h2>Project Subscribers</h2>
+<hr>
+
+<div style="width: 100%">
+  <% for s in @project.subscribers do %>
+      <div style="float: left; padding: 10px;">
+        <%= render :partial => "profiles/profile", :object => s.profile %>      
+      </div>
+    <% end %>
+  </div>
+
+  <div style="clear: both;"></div>
+
+  <%= link_to "All Projects", projects_path, :class => "right"%>

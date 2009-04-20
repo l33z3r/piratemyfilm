@@ -1,0 +1,2 @@
+Edit Global Variables in config/initializers
+set up assets host

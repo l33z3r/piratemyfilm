@@ -1,0 +1,63 @@
+<h1><%=@profile.user.login%>'s Profile</h1>
+
+<div class="half left">
+  
+  <%= render :partial => 'profiles/bio' %>
+  
+</div>
+
+<div class="half right">
+  
+  <%= render :partial => 'friends/list', :locals => {:type => 'friends'} %>
+  <%= render :partial => 'friends/list', :locals => {:type => 'followers'} %>
+  <%= render :partial => 'friends/list', :locals => {:type => 'followings'} %>
+  
+</div>
+
+<div style="clear: both;"></div>
+
+<%= get_friend_link @p, @profile %>
+
+<h2><%=@profile.user.login%>'s Projects</h2>
+<hr>
+
+<table class="listing">
+  
+  <tr>
+    <th>Project Title</th>
+    <th class="icon">User/Studio</th>
+    <th>Stats</th>
+    <th>Description</th>
+  </tr>
+  
+  <%= render :partial => "projects/project_tr", :collection => @user_projects %>
+        
+</table>
+
+<%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
+
+<h2><%=@profile.user.login%>'s Subscriptions</h2>
+<hr>
+
+<table class="listing">
+  
+  <tr>
+    <th>Project Title</th>
+    <th class="icon">User/Studio</th>
+    <th>Stats</th>
+    <th>Description</th>
+  </tr>
+  
+  <%= render :partial => "projects/project_tr", :collection => @user_subscriptions %>
+        
+</table>
+
+<%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
+
+<div style="float: right;">
+  <%= link_to "List a Project", new_project_path %>|
+  <%= link_to "All Projects", projects_path %>
+</div>
+
+
+
