@@ -1,13 +1,14 @@
 ## Generated with 'brightbox' on Mon Jan 05 08:34:46 +0000 2009
-gem 'brightbox', '>=2.1.2'
+gem 'brightbox', '>=2.2.2'
 require 'brightbox/recipes'
+require 'brightbox/passenger'
 
 # The name of your application.  Used for deployment directory and filenames
 # and Apache configs. Should be unique on the Brightbox
 set :application, "piratemyfilm"
 
 # Primary domain name of your application. Used in the Apache configs
-set :domain, "piratemyfilm-001.vm.brightbox.net"
+set :domain, "www.piratemyfilm.com"
 set :domain_aliases, "piratemyfilm.com,*.piratemyfilm.com"
 
 ## List of servers
