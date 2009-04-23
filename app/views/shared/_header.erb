@@ -1,22 +1,24 @@
-<div id="header">
-  <%= link_to(image_tag('pmf-logo.gif', :class=>'logo'), home_path) %>
-  
-  <div class="login-panel">
-    
-  <div id="login">
-    <% if @u.nil? or @u.new_record? %>
-      <%= link_to 'Login', login_path %> or <%= link_to 'Sign-up', signup_path %>
-    <% else %>	
-      <%= icon(@p, :small) unless @p.blank? %> <strong>Hi, <%= @u.f %></strong> <%= link_to '(logout)', logout_path %> 
-    <% end %>
-  </div>  
-  
+<%= link_to(image_tag('pirate-my-film-finance-your-self.png', :class=>'logo'), home_path) %>
+
+<% if !@u.nil? && !@u.new_record? %>
+
+  <div id="usernav">
+
+    <p>CHOOSE A PROJECT<br />TO&nbsp;PREBUY</p>
+
+    <ul class="usernavmenu">
+      <li><a href="#"><span>My</span>PreBuys</a></li>
+      <li><a href="#"><span>My</span>Portfolio</a></li>
+      <li><a href="#"><span>My</span>Transactions</a></li>
+      <li><a href="#">Account</a></li>
+    </ul>
+
+    <div class="clearfloat"></div>
+
+  </div><!--/usernav-->
+
+  <div id="flashes">
+    <%= show_default_flash -%>
   </div>
-  
-  <div id="search">
-    <%= render :partial => "shared/#{params[:controller].match(/admin/) ? 'admin_search' : 'search'}" %>
-  </div>
-  
-  <div style="clear: both;"></div>
-  
-</div>
+
+<% end %>

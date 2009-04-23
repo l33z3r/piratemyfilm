@@ -1,0 +1,22 @@
+<div id="header">
+  <%= link_to(image_tag('pmf-logo.gif', :class=>'logo'), home_path) %>
+  
+  <div class="login-panel">
+    
+  <div id="login">
+    <% if @u.nil? or @u.new_record? %>
+      <%= link_to 'Login', login_path %> or <%= link_to 'Sign-up', signup_path %>
+    <% else %>	
+      <%= icon(@p, :small) unless @p.blank? %> <strong>Hi, <%= @u.f %></strong> <%= link_to '(logout)', logout_path %> 
+    <% end %>
+  </div>  
+  
+  </div>
+  
+  <div id="search">
+    <%= render :partial => "shared/#{params[:controller].match(/admin/) ? 'admin_search' : 'search'}" %>
+  </div>
+  
+  <div style="clear: both;"></div>
+  
+</div>

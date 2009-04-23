@@ -1,45 +1,39 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <title><%= @title || SITE_NAME %></title>      
-    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Pirate My Film - Finance Yourself</title>
+
     <%= render :partial => 'shared/head_load' %>
-    
-    <%= yield :head%>
-                    
-    <!--[if lt IE 7.]>
-    <script defer type="text/javascript" src="/javascripts/pngfix.js"></script>
-    <![endif]-->
+
+    <%= yield :head %>
 
   </head>
-  
-  <body>
-    
-    
-    <div id="stage">     
-      
-      <%= render :partial => 'shared/header' %>
-                
-      <div id="content">  
-        
-        <div id="flashes">
-          <%= show_default_flash -%>
-        </div>                                    
-        
-        <div id="main">
-          
-          <%= yield %>
-                   
-        </div>
-        
-      </div><!-- /CONTENT -->
-      
-    </div>
-    
-    <%= render :partial => 'shared/footer' %>        
-            
+
+  <body class="thrColFix">
+
+    <div id="container">
+
+      <div id="sidebar1">
+        <%= render :partial => 'shared/sidebar1' %>
+      </div><!-- end #sidebar1 -->
+
+      <div id="sidebar2">
+        <%= render :partial => 'shared/sidebar2' %>
+      </div><!-- end #sidebar2 -->
+
+      <div id="mainContent">
+
+        <%= render :partial => 'shared/header' %>
+
+        <%= yield %>
+
+        <%= render :partial => 'shared/footer' %>
+
+      </div><!-- end #mainContent -->
+
+      <br class="clearfloat" /><!-- This clearing element should immediately follow the #mainContent div in order to force the #container div to contain all child floats -->
+
+    </div><!-- end #container -->
   </body>
 </html>
