@@ -122,4 +122,8 @@ module ApplicationHelper
     end
   end
   
+  def logged_in
+    !@u.nil? and !@u.new_record?
+  end
+  
 end

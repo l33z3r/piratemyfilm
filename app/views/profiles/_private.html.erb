@@ -1,49 +1,43 @@
-<h1>Your Profile</h1>
-<div id="sub_nav">  
-  <%= link_to 'Account Settings', edit_profile_path(@p) %>
+<div class="pageTitle">Your Profile</div>
+<hr>
+
+<div class="half left">
+  
+  <%= render :partial => 'profiles/bio' %>
+            
 </div>
 
-<%= render :partial => 'friends/list', :locals => {:type => 'friends'} %>
-<%= render :partial => 'friends/list', :locals => {:type => 'followers'} %>
-<%= render :partial => 'friends/list', :locals => {:type => 'followings'} %>
+<div class="half right">
+  
+  <%= render :partial => 'friends/list', :locals => {:type => 'friends'} %>
+  <%= render :partial => 'friends/list', :locals => {:type => 'followers'} %>
+  <%= render :partial => 'friends/list', :locals => {:type => 'followings'} %>        
+    
+</div>
 
 <div style="clear: both;"></div>
 
-<h2>Your Projects</h2>
-<hr>
+<% if !@user_projects.nil? and !@user_projects.empty? %>
 
-<table class="listing">
-  
-  <tr>
-    <th>Project Title</th>
-    <th class="icon">User/Studio</th>
-    <th>Stats</th>
-    <th>Description</th>
-  </tr>
-  
-  <%= render :partial => "projects/project_tr", :collection => @user_projects %>
-      
-</table>  
+  <div class="pageTitle">Your Portfolio</div>
+  <hr>
 
-<%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
+  <%= render :partial => "projects/listings", :object => @user_projects %>
 
-<h2>Your Subscriptions</h2>
-<hr>
+  <%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
 
-<table class="listing">
-  
-  <tr>
-    <th>Project Title</th>
-    <th class="icon">User/Studio</th>
-    <th>Stats</th>
-    <th>Description</th>
-  </tr>
-  
-  <%= render :partial => "projects/project_tr", :collection => @user_subscriptions %>
-        
-</table>
+<% end %>
 
-<%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
+<% if !@user_subscriptions.nil? and !@user_subscriptions.empty? %>
+
+  <div class="pageTitle">Your PreBuys</div>
+  <hr>
+
+  <%= render :partial => "projects/listings", :object => @user_subscriptions %>
+
+  <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
+
+<% end %>
 
 <div style="float: right;">
   <%= link_to "List a Project", new_project_path %>|

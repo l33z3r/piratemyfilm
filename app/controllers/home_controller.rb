@@ -1,8 +1,6 @@
 class HomeController < ApplicationController
   skip_before_filter :login_required	
 
-  @@homepage_blog_name = "homepage"
-  
   def contact
     return unless request.post?
     body = []
@@ -15,8 +13,7 @@ class HomeController < ApplicationController
  
   def index
     check_featured
-    @recent_projects = Project.find(:all, :order => "created_at DESC", :limit => 5)
-    @homepage_blogs = Blog.find_all_by_is_homepage_blog(true)
+    @recent_projects = Project.find(:all, :order => "created_at DESC", :limit => 8)
     respond_to do |wants|
       wants.html {render}
       wants.rss {render :partial =>  'profiles/newest_member', :collection => new_members}

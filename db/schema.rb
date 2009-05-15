@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090423050335) do
+ActiveRecord::Schema.define(:version => 20090109170016) do
 
   create_table "blogs", :force => true do |t|
     t.string   "title"
@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(:version => 20090423050335) do
     t.integer  "profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_homepage_blog", :default => false
   end
 
   add_index "blogs", ["profile_id"], :name => "index_blogs_on_profile_id"
@@ -152,6 +151,7 @@ ActiveRecord::Schema.define(:version => 20090423050335) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "amount",     :limit => 10, :precision => 10, :scale => 0, :default => 1
   end
 
   create_table "projects", :force => true do |t|
@@ -163,13 +163,16 @@ ActiveRecord::Schema.define(:version => 20090423050335) do
     t.text     "description"
     t.text     "cast"
     t.string   "web_address"
-    t.decimal  "capital_required",              :precision => 12, :scale => 2
-    t.decimal  "ipo_price",                     :precision => 10, :scale => 2
-    t.integer  "share_percent",    :limit => 3, :precision => 3,  :scale => 0
-    t.integer  "percent_funded",   :limit => 3, :precision => 3,  :scale => 0
+    t.decimal  "capital_required",                 :precision => 12, :scale => 2
+    t.decimal  "ipo_price",                        :precision => 10, :scale => 2
+    t.integer  "share_percent",       :limit => 3, :precision => 3,  :scale => 0
+    t.integer  "percent_funded",      :limit => 3, :precision => 3,  :scale => 0
     t.string   "icon"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "downloads_reserved",               :precision => 12, :scale => 2
+    t.decimal  "downloads_available",              :precision => 12, :scale => 2
+    t.string   "youtube_vid_id"
   end
 
   create_table "sessions", :force => true do |t|

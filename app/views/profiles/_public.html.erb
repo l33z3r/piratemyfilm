@@ -1,9 +1,10 @@
-<h1><%=@profile.user.login%>'s Profile</h1>
+<div class="pageTitle"><%=@profile.user.login%>'s Profile</div>
+<hr>
 
 <div class="half left">
   
   <%= render :partial => 'profiles/bio' %>
-  
+          
 </div>
 
 <div class="half right">
@@ -11,53 +12,47 @@
   <%= render :partial => 'friends/list', :locals => {:type => 'friends'} %>
   <%= render :partial => 'friends/list', :locals => {:type => 'followers'} %>
   <%= render :partial => 'friends/list', :locals => {:type => 'followings'} %>
+      
+  <div class="friend_link"><%= get_friend_link @p, @profile %></div>
   
 </div>
 
 <div style="clear: both;"></div>
 
-<%= get_friend_link @p, @profile %>
-
-<h2><%=@profile.user.login%>'s Projects</h2>
-<hr>
-
-<table class="listing">
+<div class="project_listing_box">
   
-  <tr>
-    <th>Project Title</th>
-    <th class="icon">User/Studio</th>
-    <th>Stats</th>
-    <th>Description</th>
-  </tr>
+  <% if !@user_projects.nil? and !@user_projects.empty? %>
+    
+    <div class="pageTitle"><%=@profile.user.login%>'s Portfolio</div>
+    <hr>
   
-  <%= render :partial => "projects/project_tr", :collection => @user_projects %>
-        
-</table>
-
-<%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
-
-<h2><%=@profile.user.login%>'s Subscriptions</h2>
-<hr>
-
-<table class="listing">
+    <%= render :partial => "projects/listings", :object => @user_projects %>
   
-  <tr>
-    <th>Project Title</th>
-    <th class="icon">User/Studio</th>
-    <th>Stats</th>
-    <th>Description</th>
-  </tr>
+    <%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
   
-  <%= render :partial => "projects/project_tr", :collection => @user_subscriptions %>
-        
-</table>
+  <% end %>
+    
+</div>
 
-<%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
+<div style="clear: both;"></div>
+
+<div class="project_listing_box">
+  
+  <% if !@user_subscriptions.nil? and !@user_subscriptions.empty? %>
+    
+    <div class="pageTitle"><%=@profile.user.login%>'s PreBuys</div>
+    <hr>
+  
+    <%= render :partial => "projects/listings", :object => @user_subscriptions %>
+  
+    <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
+  
+  <% end %>
+    
+</div>
 
 <div style="float: right;">
   <%= link_to "List a Project", new_project_path %>|
   <%= link_to "All Projects", projects_path %>
 </div>
-
-
 

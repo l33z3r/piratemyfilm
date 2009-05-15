@@ -19,11 +19,7 @@ class BlogsController < ApplicationController
   
   def create
     @blog = @p.blogs.build params[:blog]
-
-    if !@p.user.is_admin
-      @blog.is_homepage_blog = false
-    end
-
+    
     respond_to do |wants|
       if @blog.save
         wants.html do

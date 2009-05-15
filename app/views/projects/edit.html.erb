@@ -1,2 +1,10 @@
-<h1>Projects#edit</h1>
-<p>Find me in app/views/projects/edit.html.erb</p>
+<div class="pageTitle">Edit Project</div>
+<hr>
+
+<% form_for @project, edit_project_path do |f| %>   
+
+  <%= render :partial => "projects/form", :locals => {:project => @project, :f => f } %>
+
+<% end %>
+
+<%= render :partial => "projects/icon_upload", :locals => {:project => @project } %>

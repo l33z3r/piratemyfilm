@@ -1,24 +1,41 @@
-<%= link_to(image_tag('pirate-my-film-finance-your-self.png', :class=>'logo'), home_path) %>
+<div id="header"><!--OPEN HEADER-->
 
-<% if !@u.nil? && !@u.new_record? %>
+<div id="brand"><!--OPEN BRAND-->
+  <a href="/"><img src="/images/pirate-my-film-finance-your-self.png" border="0" title="Pirate My Film!" style="float:left; margin:10px 60px 0 0;" /></a>
 
-  <div id="usernav">
+  <div class="big-number">
+    <p>Pirate My Film!</p>
+  </div><!--CLOSE BIG-NUMBER-->
 
-    <p>CHOOSE A PROJECT<br />TO&nbsp;PREBUY</p>
+  <div style="clear:both;"></div>
 
-    <ul class="usernavmenu">
-      <li><a href="#"><span>My</span>PreBuys</a></li>
-      <li><a href="#"><span>My</span>Portfolio</a></li>
-      <li><a href="#"><span>My</span>Transactions</a></li>
-      <li><a href="#">Account</a></li>
-    </ul>
+</div><!--CLOSE BRAND-->
 
-    <div class="clearfloat"></div>
+<div style="clear:both;"></div>
 
-  </div><!--/usernav-->
+<div id="icatch">
+<div class="icatch-pictures">
 
-  <div id="flashes">
-    <%= show_default_flash -%>
-  </div>
+<div class="local-navbar-button"><span><%= link_to 'Browse', projects_path %></a></span><p>All Projects</p></div>
+<div class="local-navbar-button"><span><%= link_to 'New Project', new_project_path %></a></span><p>List A Project</p></div>
 
+<% if logged_in %>
+  <div class="local-navbar-button"><span><%= link_to 'My PMF', profile_path(@p, :show_portfolio => "true") %></span><p>Your Portfolio</p></div>
+  <div class="local-navbar-button"><span><%= link_to 'Account', edit_profile_path(@p) %></span><p>Edit your personal settings</p></div>
 <% end %>
+
+<% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
+  <div id="search">
+    <img src="/images/brand-search.gif" alt="Search" />
+    <%= text_field_tag 'search[q]', (params[:search] && params[:search][:q] ? params[:search][:q] : 'Search'), :id => 'search_q', :size => 16 %>
+    <input type="image" src="/images/brand-go-off.gif" name="submit" />
+  </div>
+<%- end -%>
+
+</div><!--CLOSE ICATCH-PICTURES-->
+
+</div><!--CLOSE ICATCH-->
+<div style="clear:both;"></div>
+
+</div><!--CLOSE HEADER-->
+<div style="clear:both;"></div>

@@ -1,7 +1,68 @@
 ## YAML Template.
 
 genre_1:
-    title: Action
+    title: Drama
 
 genre_2:
+    title: Romance
+
+
+genre_3:
+    title: Family 	
+
+genre_4:
+    title: Sci-Fi 	
+
+genre_5:
+    title: War
+
+genre_6:
+    title: Adventure 	
+
+genre_7:
+    title: Fantasy 	
+
+genre_8:
+    title: Animation 	
+
+genre_9:
+    title: Short 	
+
+genre_10:
+    title: Horror 	
+
+genre_11:
+    title: Silent 
+
+genre_12:
+    title: Comedy 	
+
+genre_13:
+    title: Martial Arts 	
+
+genre_14:
+    title: Sports
+
+genre_15:
+    title: Crime 	
+
+genre_16:
+    title: Musical 	
+
+genre_17:
+    title: Western
+
+genre_18:
+    title: Documentary 	
+
+genre_19:
+    title: Mystery 	
+
+genre_20:
+    title: Religious
+
+genre_21:
     title: Thriller
+
+genre_22:
+    title: Action

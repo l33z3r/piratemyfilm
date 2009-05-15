@@ -3,18 +3,17 @@
 blog ||= @blog
 %>
 
+
+
+
 <div id="blog">
   <% less_form_for [@profile, blog] do |f| %>
     <%= f.text_field :title %>
-
-    <% if @p && @p.user.is_admin %>
-       <%= f.check_box :is_homepage_blog %>
-    <% end %>
-
     <%= f.text_area :body %>
     
-    <div class="row button">
-      <%= f.submit 'Save', :class=>'button' %>
-    </div>
+		To include a youtube video use: [youtube: address_of_video]
+	  <div class="row button">
+    	<%= f.submit 'Save', :class=>'button' %>
+  	</div>
   <% end %>
 </div>

@@ -1,0 +1,126 @@
+<div id="MENU_HEADER" class="pageTitle"><%=h @project.title%></div>
+
+<hr>
+
+<div class="right">
+  <% if logged_in %>
+    <% if @my_subscription.nil? %>
+      <form method="post" action="<%= project_project_subscriptions_path(@project) -%>">
+        <input type="submit" value="Prebuy Now!"/>
+      </form>
+    <% else %>  
+      <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "right" do %>
+        <input type="submit" value="Revoke Prebuy!"/>
+      <% end %>
+    <% end %>
+  <% else %>
+    Please <%= link_to "log in", login_path %> to prebuy this project
+  <% end %>
+</div>
+
+<table>
+  <tr>
+    <td>
+      Owned by: 
+    </td>
+    <td>
+      <%= link_to @project.owner.login, profile_path(@project.owner.profile) %>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Producer: 
+    </td>
+    <td>
+      <%=h @project.producer_name%>        
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Genre: 
+    </td>
+    <td>
+      <%=h @project.genre.title%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Synopsis: 
+    </td>
+    <td>
+      <%=h @project.synopsis%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Description: 
+    </td>
+    <td>
+      <%=h @project.description%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Cast: 
+    </td>
+    <td>
+      <%=h @project.cast%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Web Address: 
+    </td>
+    <td>
+      <%=h @project.web_address%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Capital Required: 
+    </td>
+    <td>
+      <%=h @project.capital_required%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Percentage Funded: 
+    </td>
+    <td>
+      <%=h @project.percent_funded%>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Price Per Download: 
+    </td>
+    <td>
+      <%=h @project.ipo_price%>        
+    </td>
+  </tr>
+</table>
+
+<div class="right">
+  <% if @u and @project.owner == @u %>
+    <%= link_to "Edit Project", edit_project_path(@project) %> |     
+  <% end %>
+  <%= link_to "List a Project", new_project_path %> |
+  <%= link_to "All Projects", projects_path %> 
+</div>
+
+<br/>
+
+<div class="pageTitle">Project Subscribers</div>
+<hr>
+
+<div style="width: 100%">
+  <% for s in @project.subscribers do %>
+      <div class="user-icon">
+        <%= link_to icon(s.profile, :small), profile_path(s.profile) %>
+        <span><%= link_to s.profile.user.login, profile_path(s.profile) %></span>    
+      </div>
+    <% end %>
+  </div>
+
+  <div style="clear: both;"></div>

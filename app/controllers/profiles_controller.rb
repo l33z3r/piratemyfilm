@@ -19,9 +19,9 @@ class ProfilesController < ApplicationController
     rescue Exception, OpenURI::HTTPError
       @flickr = []
     end
-          
+      
     @user_projects = @profile.user.owned_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
-    
+
     @user_subscriptions = @profile.user.subscribed_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
     
     @comments = @profile.comments.paginate(:page => @page, :per_page => @per_page)
@@ -48,7 +48,6 @@ class ProfilesController < ApplicationController
   def edit
     render
   end
-    
   
   def update
     case params[:switch]
@@ -73,15 +72,12 @@ class ProfilesController < ApplicationController
     end
   end
 
-
   def delete_icon
     respond_to do |wants|
       @p.update_attribute :icon, nil
       wants.js {render :update do |page| page.visual_effect 'Puff', 'profile_icon_picture' end  }
     end      
   end
-
-
 
   def destroy
     respond_to do |wants|
@@ -96,10 +92,6 @@ class ProfilesController < ApplicationController
       end
     end
   end
-
-
-
-
 
   private
   
@@ -124,4 +116,5 @@ class ProfilesController < ApplicationController
     end
     @results = Profile.search((p.delete(:q) || ''), p).paginate(:page => @page, :per_page => @per_page)
   end
+  
 end

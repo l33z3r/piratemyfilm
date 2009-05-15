@@ -1,109 +1,175 @@
-<h1><%=h @project.title%></h1>
-
-<% if @my_subscription.nil? %>
-  <form class="right" method="post" action="<%= project_project_subscriptions_path(@project) -%>">
-    <input type="submit" value="Prebuy Now!"/>
-  </form>
-<% else %>  
-  <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "right" do %>
-    <input type="submit" value="Revoke Prebuy!"/>
+<% if logged_in %>
+  <% if @my_subscription.nil? %>
+    <h3>You are currently not subscribed to this project</h3>
+  <% else %>  
+    <h3>You have <%= @my_subscription.amount %> subscriptions to this project</h3>
   <% end %>
 <% end %>
 
-<table>
-  <tr>
-    <td>
-      Owned by: 
-    </td>
-    <td>
-      <%= link_to @project.owner.login, profile_path(@project.owner.profile) %>      
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Producer: 
-    </td>
-    <td>
-      <%=h @project.producer_name%>        
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Genre: 
-    </td>
-    <td>
-      <%=h @project.genre.title%>      
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Synopsis: 
-    </td>
-    <td>
-      <%=h @project.synopsis%>      
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Description: 
-    </td>
-    <td>
-      <%=h @project.description%>      
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Cast: 
-    </td>
-    <td>
-      <%=h @project.cast%>      
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Web Address: 
-    </td>
-    <td>
-      <%=h @project.web_address%>      
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Capital Required: 
-    </td>
-    <td>
-      <%=h @project.capital_required%>      
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Percentage Funded: 
-    </td>
-    <td>
-      <%=h @project.percent_funded%>      
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Price Per Download: 
-    </td>
-    <td>
-      <%=h @project.ipo_price%>        
-    </td>
-  </tr>
-</table>
+<div class="left">
+  <% if logged_in %>      
+        
+    <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
+      <input type="submit" value="Prebuy Now!"/>
+    </form>
+    <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
+      <input type="submit" value="Revoke Prebuy!"/>
+    <% end %>
+  
+  <% else %>
+    <%= link_to "Log In", login_path %> to Prebuy
+  <% end %>
+</div>
 
-<h2>Project Subscribers</h2>
+<div class="right">
+  <% if @u and @project.owner == @u %>
+    <%= link_to "Edit Project", edit_project_path(@project) %> |     
+  <% end %>
+  <%= link_to "List a Project", new_project_path %> |
+  <%= link_to "All Projects", projects_path %>   
+</div>
+
+<div style="clear: both;"></div>
+<hr>
+<div id="project-overview">        
+  
+  <div class="project-overview-buttonszone">
+    
+    <div class="project-overview-button" style="width:250px;">
+      <span>Project title</span>
+      <p><%=h @project.title%></p>
+    </div>        
+    
+    <div class="project-overview-button">
+      <span>Budget</span>
+      <p>$<%=h @project.capital_required%></p>
+    </div>
+    
+    <div class="project-overview-button">
+      <span>Symbol</span>
+      <p>top</p>
+    </div>
+    
+    <div class="project-overview-button">
+      <span>Ratings</span>
+      <p>KINDEX:99</p>
+    </div>
+    
+  </div><!--CLOSE PROJECT-OVERVIEW-BUTTONSZONE-->
+</div><!--CLOSE PROJECT-OVERVIEW-->
+
+<div style="clear:both;"></div>
+
+<form action="#">
+  <!--fieldset>
+    
+    <legend><span>Video</span></legend>    
+    <ol>
+      <li>
+        if !@project.youtube_vid_id.nil? and !@project.youtube_vid_id.empty?        
+           render :partial => "shared/youtube_embed", :locals => { :vid_id => @project.youtube_vid_id, :width => "570", :height => "351" }          
+        else 
+          No Video Id has been assigned to this project.
+         end 
+      </li>
+    </ol>
+    
+  </fieldset-->
+  
+  <fieldset>
+    <legend><span>Project</span></legend>
+    
+    <ol>
+      <li><label>Project title</label><%=h @project.title%></li>
+      <li><label>Producer name</label><%=h @project.producer_name%></li>
+      <li><label>Budget</label>$<%=h @project.capital_required%>
+        
+        <ul>		
+          <li><label>Downloads reserved</label>$<%=h @project.downloads_reserved %></li>
+          <li><label>Downloads available</label>$<%=h @project.downloads_available %></li>
+          <li><label>Percent funded</label>%<%=h @project.percent_funded %></li>
+        </ul>
+        
+      </li>
+      <!--li><label>Project phase</label>Pitch <a href="#" class="edit">Edit</a></li-->
+    </ol>
+  </fieldset>
+  
+  <fieldset>
+    <legend><span>Coupons</span></legend>
+    
+    <ol>
+      <li><label>Percentage</label>%<%=h @project.share_percent %>
+        
+        <ul>		
+          <li><label>Total return / $1000,000 of downloads</label>$ -</li>
+          <li><label>Producers return / $1000,000 of downloads</label>$ -</li>
+        </ul>
+        
+      </li>
+      <li><label>For how long<nbsp;>?</label>Three years</li>
+      <li><label>Are you allowing prebuyers to recoup first<nbsp;>?</label>Yes </li>
+    </ol>
+  </fieldset>
+  
+  <fieldset>
+    <legend><span>Prices</span></legend>
+    
+    <ol>
+      <li><label>Price per Download Coupon Offering</label>% -</li>
+      <li><label>Estimated distribution cash deal</label>$ -</li>
+      <li><label>Price per download</label>$<%=h @project.share_percent %></li>
+    </ol>
+  </fieldset>
+  
+  <fieldset>
+    <legend><span>Project Information</span></legend>
+    
+    <ol>
+      <!--li><label>Logline</label>Logline <a href="#" class="edit">Edit</a></li-->
+      <li><label>Project Abstract</label><%=h @project.synopsis %></li>
+      <li><label>Project Description</label><%=h @project.description %></li>
+      <li><label>Genre</label><%=h @project.genre.title %></li>
+      <!--li><label>Tags</label>Tags <a href="#" class="edit">Edit</a></li-->
+      <li><label>Project web site</label><a href="http://<%=h @project.web_address %>" target="_blank"><%=h @project.web_address %></a></li>
+      <!--li><label>Project blog</label><a href="#" target="kinooga-child">Title Of Project blog</a> <a href="#" class="edit">Edit</a></li-->
+    </ol>
+  </fieldset>
+  
+  <fieldset>
+    <legend><span>Project Icon</span></legend>
+    
+    <ol>
+      <li>
+        <label>
+          <% if !@project.icon.nil? %>
+            <%= image_tag url_for_file_column(@project, "icon", "medium") %>
+          <% else %>
+            <img src="/images/generic-project-icon.png" id="project-icon" height="75px" alt="Generic icon" border="0" />
+          <% end %>
+        </label>
+      </li>
+    </ol>
+  </fieldset>
+  
+</form>
+
+<div class="right">
+  <% if @u and @project.owner == @u %>
+    <%= link_to "Edit Project", edit_project_path(@project) %> |     
+  <% end %>
+  <%= link_to "List a Project", new_project_path %> |
+  <%= link_to "All Projects", projects_path %> 
+</div>
+
+<div class="pageTitle">Project Subscribers</div>
 <hr>
 
 <div style="width: 100%">
   <% for s in @project.subscribers do %>
-      <div style="float: left; padding: 10px;">
-        <%= render :partial => "profiles/profile", :object => s.profile %>      
+      <div class="user-icon">
+        <%= link_to icon(s.profile, :small), profile_path(s.profile) %>
+        <span><%= link_to s.profile.user.login, profile_path(s.profile) %></span>    
       </div>
     <% end %>
   </div>
-
-  <div style="clear: both;"></div>
-
-  <%= link_to "All Projects", projects_path, :class => "right"%>

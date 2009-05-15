@@ -5,8 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :profiles, 
-  :member=>{:delete_icon=>:post}, :collection=>{:search=>:get}, 
-  :has_many=>[:friends, :blogs, :photos, :comments, :feed_items, :messages]
+    :member=>{:delete_icon=>:post}, :collection=>{:search=>:get}, 
+    :has_many=>[:friends, :blogs, :photos, :comments, :feed_items, :messages]
 
   map.resources :messages, :collection => {:sent => :get}
   map.resources :blogs do |blog|
@@ -33,10 +33,13 @@ ActionController::Routing::Routes.draw do |map|
     home.contact '/contact', :action => 'contact'
   end
 
-  map.resources :projects do | project |
+  map.resources :projects, 
+    :member=>{:delete_icon=>:post}, :collection=>{:search=>:get} do | project |
     project.resources :project_subscriptions, :member => {:destroy=>:delete}
   end
   
   map.root :controller => "home", :action => "index"
+  
+  map.static '/:action', :controller=>'static'
   
 end

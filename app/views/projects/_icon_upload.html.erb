@@ -1,0 +1,32 @@
+<div class="pageTitle">Upload Icon</div>
+<hr>
+
+<table width="100%">
+  <tr>
+    <td>
+      
+      <% less_form_for project, :html=>{:method=>:put, :multipart=>true, :class=>"box no_top"} do |p| %>
+      
+        <% unless project.icon.blank? %>
+          <div id="avatar_edit">
+            <span id="project_icon_picture">
+              <%= image_tag url_for_file_column(project, "icon", "small") %>                    
+            </span>
+          </div>
+          <%= link_to_remote 'delete icon', :url=>delete_icon_project_path(project), :confirm=>DELETE_CONFIRM  %>
+        <% end %>
+        <%= p.back :icon %>
+                  
+        <div class="clear"></div>
+      
+        Upload an Icon:
+        <%= file_column_field( "project", "icon", :size => 15)%>
+      
+        <%= p.submit 'Save', :class => 'button' %>
+                                              
+        <input type="hidden" name="switch" value="image" />
+      <% end %>
+    </td>
+  </tr>
+</table>
+
