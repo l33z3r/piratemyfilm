@@ -1,21 +1,21 @@
 <% if logged_in %>
   <% if @my_subscription.nil? %>
     <h3>You are currently not subscribed to this project</h3>
-  <% else %>  
+  <% else %>
     <h3>You have <%= @my_subscription.amount %> subscriptions to this project</h3>
   <% end %>
 <% end %>
 
 <div class="left">
-  <% if logged_in %>      
-        
+  <% if logged_in %>
+
     <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
       <input type="submit" value="Prebuy Now!"/>
     </form>
     <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
       <input type="submit" value="Revoke Prebuy!"/>
     <% end %>
-  
+
   <% else %>
     <%= link_to "Log In", login_path %> to Prebuy
   <% end %>
@@ -23,38 +23,53 @@
 
 <div class="right">
   <% if @u and @project.owner == @u %>
-    <%= link_to "Edit Project", edit_project_path(@project) %> |     
+    <%= link_to "Edit Project", edit_project_path(@project) %> |
   <% end %>
   <%= link_to "List a Project", new_project_path %> |
-  <%= link_to "All Projects", projects_path %>   
+  <%= link_to "All Projects", projects_path %>
 </div>
 
 <div style="clear: both;"></div>
 <hr>
 <div id="project-overview">        
-  
+
   <div class="project-overview-buttonszone">
-    
+
     <div class="project-overview-button" style="width:250px;">
       <span>Project title</span>
       <p><%=h @project.title%></p>
-    </div>        
-    
+    </div>
+
     <div class="project-overview-button">
       <span>Budget</span>
       <p>$<%=h @project.capital_required%></p>
     </div>
-    
+
     <div class="project-overview-button">
       <span>Symbol</span>
       <p>top</p>
     </div>
-    
+
     <div class="project-overview-button">
-      <span>Ratings</span>
-      <p>KINDEX:99</p>
+      <span>User Rating</span>
+      <p>
+        <%= @user_rating %>
+        <% if logged_in && !@my_project_rating %>
+          <a href="#user_rating">(Rate)</a>
+        <% end %>
+      </p>
     </div>
-    
+
+    <div class="project-overview-button">
+      <span>PMF Rating</span>
+      <p>
+        <%= @admin_rating %>
+        <% if_admin do %>
+          <a href="#admin_rating">(Rate)</a>
+        <% end %>
+      </p>
+    </div>
+
   </div><!--CLOSE PROJECT-OVERVIEW-BUTTONSZONE-->
 </div><!--CLOSE PROJECT-OVERVIEW-->
 
@@ -62,69 +77,69 @@
 
 <form action="#">
   <!--fieldset>
-    
-    <legend><span>Video</span></legend>    
+
+    <legend><span>Video</span></legend>
     <ol>
       <li>
-        if !@project.youtube_vid_id.nil? and !@project.youtube_vid_id.empty?        
-           render :partial => "shared/youtube_embed", :locals => { :vid_id => @project.youtube_vid_id, :width => "570", :height => "351" }          
-        else 
+        if !@project.youtube_vid_id.nil? and !@project.youtube_vid_id.empty?
+           render :partial => "shared/youtube_embed", :locals => { :vid_id => @project.youtube_vid_id, :width => "570", :height => "351" }
+        else
           No Video Id has been assigned to this project.
-         end 
+         end
       </li>
     </ol>
-    
+
   </fieldset-->
-  
+
   <fieldset>
     <legend><span>Project</span></legend>
-    
+
     <ol>
       <li><label>Project title</label><%=h @project.title%></li>
       <li><label>Producer name</label><%=h @project.producer_name%></li>
       <li><label>Budget</label>$<%=h @project.capital_required%>
-        
-        <ul>		
+
+        <ul>
           <li><label>Downloads reserved</label>$<%=h @project.downloads_reserved %></li>
           <li><label>Downloads available</label>$<%=h @project.downloads_available %></li>
           <li><label>Percent funded</label>%<%=h @project.percent_funded %></li>
         </ul>
-        
+
       </li>
       <!--li><label>Project phase</label>Pitch <a href="#" class="edit">Edit</a></li-->
     </ol>
   </fieldset>
-  
+
   <fieldset>
     <legend><span>Coupons</span></legend>
-    
+
     <ol>
       <li><label>Percentage</label>%<%=h @project.share_percent %>
-        
-        <ul>		
+
+        <ul>
           <li><label>Total return / $1000,000 of downloads</label>$ -</li>
           <li><label>Producers return / $1000,000 of downloads</label>$ -</li>
         </ul>
-        
+
       </li>
       <li><label>For how long<nbsp;>?</label>Three years</li>
       <li><label>Are you allowing prebuyers to recoup first<nbsp;>?</label>Yes </li>
     </ol>
   </fieldset>
-  
+
   <fieldset>
     <legend><span>Prices</span></legend>
-    
+
     <ol>
       <li><label>Price per Download Coupon Offering</label>% -</li>
       <li><label>Estimated distribution cash deal</label>$ -</li>
       <li><label>Price per download</label>$<%=h @project.share_percent %></li>
     </ol>
   </fieldset>
-  
+
   <fieldset>
     <legend><span>Project Information</span></legend>
-    
+
     <ol>
       <!--li><label>Logline</label>Logline <a href="#" class="edit">Edit</a></li-->
       <li><label>Project Abstract</label><%=h @project.synopsis %></li>
@@ -135,10 +150,10 @@
       <!--li><label>Project blog</label><a href="#" target="kinooga-child">Title Of Project blog</a> <a href="#" class="edit">Edit</a></li-->
     </ol>
   </fieldset>
-  
+
   <fieldset>
     <legend><span>Project Icon</span></legend>
-    
+
     <ol>
       <li>
         <label>
@@ -151,15 +166,68 @@
       </li>
     </ol>
   </fieldset>
-  
+
 </form>
+
+<% if_admin do %>
+  <a name="admin_rating">&nbsp;</a>
+<% end %>
+
+
+<% form_tag :controller => "admin/project_rating", :action => "rate", :project_id => @project.id do %>
+  <fieldset>
+    <legend><span>PMF Rating</span></legend>
+    <ol>
+      <li>
+        <label>Current Rating</label>
+        <%= @admin_rating %>
+      </li>
+
+      <% if_admin do %>
+        <li>
+          <label>Set Rating</label>
+          <%= select_tag  "rating", options_for_select(1..AdminProjectRating.max_rating, @admin_rating) %>
+          <%= submit_tag "Submit" %>
+        </li>
+      <% end %>
+
+    </ol>
+  </fieldset>
+<% end %>
+
+<a name="user_rating">&nbsp;</a>
+
+<% form_tag :controller => "project_rating", :action => "rate", :project_id => @project.id do %>
+  <fieldset>
+    <legend><span>User Rating</span></legend>
+    <ol>
+      <li>
+        <label>Current Rating</label>
+        <%= @user_rating %>
+      </li>
+
+      <% if logged_in %>
+        <li>
+          <label>Your Rating</label>
+          <% if @my_project_rating %>
+            <%= @my_project_rating.rating %>
+          <% else %>
+            <%= select_tag  "rating", options_for_select(1..ProjectRating.max_rating, @user_rating) %>
+            <input type="submit" name="submit" value="Submit"/>
+          <% end %>
+        </li>
+      <% end %>
+
+    </ol>
+  </fieldset>
+<% end %>
 
 <div class="right">
   <% if @u and @project.owner == @u %>
-    <%= link_to "Edit Project", edit_project_path(@project) %> |     
+    <%= link_to "Edit Project", edit_project_path(@project) %> |
   <% end %>
   <%= link_to "List a Project", new_project_path %> |
-  <%= link_to "All Projects", projects_path %> 
+  <%= link_to "All Projects", projects_path %>
 </div>
 
 <div class="pageTitle">Project Subscribers</div>
@@ -169,7 +237,7 @@
   <% for s in @project.subscribers do %>
       <div class="user-icon">
         <%= link_to icon(s.profile, :small), profile_path(s.profile) %>
-        <span><%= link_to s.profile.user.login, profile_path(s.profile) %></span>    
+        <span><%= link_to s.profile.user.login, profile_path(s.profile) %></span>
       </div>
     <% end %>
   </div>

@@ -37,7 +37,9 @@ ActionController::Routing::Routes.draw do |map|
     :member=>{:delete_icon=>:post}, :collection=>{:search=>:get} do | project |
     project.resources :project_subscriptions, :member => {:destroy=>:delete}
   end
-  
+
+  map.connect ':controller/:action/:id'
+
   map.root :controller => "home", :action => "index"
   
   map.static '/:action', :controller=>'static'

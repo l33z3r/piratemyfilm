@@ -15,7 +15,9 @@ class Project < ActiveRecord::Base
   validates_numericality_of :capital_required, :ipo_price, :share_percent
   
   acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote=>true
-  
+
+  has_one :project_rating
+
   file_column :icon, :magick => {
     :versions => { 
       :big => {:crop => "1:1", :size => "150x150", :name => "big"},

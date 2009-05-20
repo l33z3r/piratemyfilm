@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090109170016) do
+ActiveRecord::Schema.define(:version => 20090519233550) do
+
+  create_table "admin_project_ratings", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "blogs", :force => true do |t|
     t.string   "title"
@@ -145,6 +152,21 @@ ActiveRecord::Schema.define(:version => 20090109170016) do
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
+
+  create_table "project_rating_histories", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "project_ratings", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "average_rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "project_subscriptions", :force => true do |t|
     t.integer  "project_id"
