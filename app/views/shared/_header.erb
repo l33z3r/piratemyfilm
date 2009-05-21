@@ -7,6 +7,10 @@
     <p>Pirate My Film!</p>
   </div><!--CLOSE BIG-NUMBER-->
 
+  <div class="twitter-link">
+    <%= link_to image_tag("twitter.gif"), "http://www.twitter.com/piratemyfilm", :target => "_blank" %>
+  </div>
+
   <div style="clear:both;"></div>
 
 </div><!--CLOSE BRAND-->
@@ -20,7 +24,7 @@
 <div class="local-navbar-button"><span><%= link_to 'New Project', new_project_path %></a></span><p>List A Project</p></div>
 
 <% if logged_in %>
-  <div class="local-navbar-button"><span><%= link_to 'My PMF', profile_path(@p, :show_portfolio => "true") %></span><p>Your Portfolio</p></div>
+  <div class="local-navbar-button"><span><%= link_to 'My PMF', profile_path(@p, :show_portfolio => "true") %></span><p>&nbsp;</p></div>
   <div class="local-navbar-button"><span><%= link_to 'Account', edit_profile_path(@p) %></span><p>Edit your personal settings</p></div>
 <% end %>
 

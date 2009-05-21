@@ -1,5 +1,7 @@
 class Project < ActiveRecord::Base    
 
+  @@PROJECT_STATUSES = ["Funding", "In Production", "Release"]
+
   belongs_to :owner, :class_name=>'User', :foreign_key=>'owner_id'
   
   has_many   :project_subscriptions, :dependent => :destroy
@@ -9,10 +11,13 @@ class Project < ActiveRecord::Base
   
   validates_presence_of :owner_id, :title, :producer_name, :synopsis
   validates_presence_of :description, :capital_required, :ipo_price, :share_percent
-  
+  validates_presence_of :status, :project_length
+
+  validates_inclusion_of :status, :in => @@PROJECT_STATUSES
+
   validates_uniqueness_of :title
   
-  validates_numericality_of :capital_required, :ipo_price, :share_percent
+  validates_numericality_of :capital_required, :ipo_price, :share_percent, :project_length
   
   acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote=>true
 
@@ -35,7 +40,11 @@ class Project < ActiveRecord::Base
     logger.debug arr.inspect
     arr
   end   
-  
+
+  def self.statuses
+    @@PROJECT_STATUSES
+  end
+
   def update_funding
     logger.debug "Updating percent funded"
     self.downloads_reserved = (project_subscriptions.collect { |s| s.amount }.sum ) * ipo_price

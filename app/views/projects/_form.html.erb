@@ -1,36 +1,36 @@
 <table class="project_form" style="border-spacing: 10px; width: 100%;">
-  
+
   <tr>
     <td>
       Enter project title
-      
+
     </td>
     <td>
       <%= f.text_field :title%>
       <%= display_error_on(project, :title) -%>
     </td>
   </tr>
-  
+
   <tr>
     <td>
       Enter the name of the producer
     </td>
     <td>
-      <%= f.text_field :producer_name%>    
+      <%= f.text_field :producer_name%>
       <%= display_error_on(project, :producer_name) -%>
     </td>
   </tr>
-  
+
   <!--tr>
     <td>
       Enter a youtube video id for your project
     </td>
     <td>
-       f.text_field :youtube_vid_id   
+       f.text_field :youtube_vid_id
       display_error_on(project, :youtube_vid_id)
     </td>
   </tr-->
-  
+
   <tr>
     <td>
       Please Select Genre
@@ -40,10 +40,10 @@
       <%= display_error_on(project, :genre_id) -%>
     </td>
   </tr>
-  
+
   <tr>
     <td>
-      Enter a short synopsis for your project       
+      Enter a short synopsis for your project
     </td>
     <td>
       <%= f.text_area :synopsis, :cols => 20, :rows => 5 %>
@@ -61,11 +61,37 @@
   </tr>
   <tr>
     <td>
-      Enter a brief list of cast in your project 
+      Enter a brief list of cast in your project
     </td>
     <td>
       <%= f.text_area :cast, :cols => 20, :rows => 3 %>
       <%= display_error_on(project, :cast) -%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      How long is your film in minutes?
+    </td>
+    <td>
+      <%= f.text_field :project_length %>
+      <%= display_error_on(project, :project_length) -%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      What is the status of your film?
+    </td>
+    <td>
+      <%= f.select :status, Project.statuses, :id=>"project-status" %>
+      <%= display_error_on(project, :status) -%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Notify project subscribers of any project detail changes?
+    </td>
+    <td>
+      Coming Soon!
     </td>
   </tr>
   <tr>
@@ -88,30 +114,94 @@
   </tr>
   <tr>
     <td>
-      What price would you like per download ($)
+      Are you using a Creative Commons license?
     </td>
     <td>
-      <%= f.text_field :ipo_price %>
-      <%= display_error_on(project, :ipo_price) -%>
+      Coming Soon!
     </td>
-  </tr>  
+  </tr>
   <tr>
     <td>
-      What percentage of future download 
-      <br/>sales are youoffering per 
+      Are you charging any producers fees?
+    </td>
+    <td>
+      Coming Soon!
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Price per download
+    </td>
+    <td>
+      <input type="hidden" name="project[ipo_price]" value="5"/>$5
+    </td>
+    <!--td>
+    <%= f.text_field :ipo_price %>
+    <%= display_error_on(project, :ipo_price) -%>
+    </td-->
+  </tr>
+  <tr>
+    <td>
+      What percentage of future download
+      <br/>sales are you offering per
       <br/>buyers of your project? (0 - 100)%
     </td>
     <td>
+      <input type="hidden" name="project[share_percent]" value="1"/>
+      Coming Soon!
+    </td>
+    <!--td>
       <%= f.text_field :share_percent %>
       <%= display_error_on(project, :share_percent) -%>
+    </td-->
+  </tr>
+  <tr>
+    <td>
+      For how long are you offering download sales returns (in months)?
+    </td>
+    <td>
+      Coming Soon!
     </td>
   </tr>
-  
-  
+  <tr>
+    <td>
+      Are you allowing producer copy holders to recoup first for download sales?
+    </td>
+    <td>
+      Coming Soon!
+    </td>
+  </tr>
+  <tr>
+    <td>
+      What percentage of future
+      <br/>pirate copy ad sales are you offering
+      <br/>per producer copy? (0 - 100)%
+    </td>
+    <td>
+      Coming Soon!
+    </td>
+  </tr>
+  <tr>
+    <td>
+      For how long are you offering ad sales returns (in months)?
+    </td>
+    <td>
+      Coming Soon!
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Are you allowing producer copy holders to recoup first for ad sales?
+    </td>
+    <td>
+      Coming Soon!
+    </td>
+  </tr>
+
   <tr>
     <td colspan="2" align="right">
       <input type="submit" value="Submit"/>
     </td>
   </tr>
-  
+
 </table>

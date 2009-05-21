@@ -346,6 +346,7 @@ fieldset#select	{
 }
 
 .big-number	{
+    margin-right: 60px;
     margin-top:30px;
     float:left;
 }
@@ -355,6 +356,14 @@ fieldset#select	{
     color:#015353;
     font-weight:bold;
     margin:0px;
+}
+
+.twitter-link {
+    float:right;
+}
+
+.twitter-link a img {
+    margin-top: 7px;
 }
 
 form	{

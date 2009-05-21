@@ -37,15 +37,23 @@ class ProjectsController < ApplicationController
     #load the users subscription to this project
     @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
 
+    @max_subscription = ProjectSubscription.max_subscriptions
+    @max_subscription_reached = @my_subscription && @my_subscription.amount == @max_subscription
+
     #load ratings for this project
     @admin_project_rating = AdminProjectRating.find_by_project_id @project.id
-    @admin_rating = @admin_project_rating ? @admin_project_rating.rating : 1
+    @admin_rating = @admin_project_rating ? @admin_project_rating.rating_symbol : 1
 
     @user_project_rating = ProjectRating.find_by_project_id @project.id
-    @user_rating = @user_project_rating ? @user_project_rating.average_rating : 1
+    @user_rating = @user_project_rating ? @user_project_rating.rating_symbol : 1
 
     #has this user rated this project
-    @my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u)
+    #@my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u)
+
+    #load rating select opts
+    @admin_rating_select_opts = AdminProjectRating.rating_select_opts
+    @rating_select_opts = ProjectRating.rating_select_opts
+    
   end
 
   def edit

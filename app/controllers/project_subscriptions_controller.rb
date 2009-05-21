@@ -5,10 +5,13 @@ class ProjectSubscriptionsController < ApplicationController
   
   def create
     begin            
-      
+
+      @max_subscription = ProjectSubscription.max_subscriptions
+      @max_subscription_reached = @project_subscription && @project_subscription.amount == @max_subscription
+
       if !@project_subscription.nil?
         
-        if @project_subscription.amount == ProjectSubscription.max_subscriptions
+        if @max_subscription_reached
           flash[:positive] = "You have reached the maximum prebuys for this project"
         else
           @project_subscription.amount += 1
@@ -22,7 +25,7 @@ class ProjectSubscriptionsController < ApplicationController
       
       @project_subscription = ProjectSubscription.create( :user => @u, :project => @project, :amount => 1 )      
       
-      flash[:positive] = "You have subscribed to this project"
+      flash[:positive] = "You have reserved a producer copy for this project!"
     rescue ActiveRecord::RecordInvalid
       flash[:error] = "Error subscribing".x
     end    
@@ -42,13 +45,12 @@ class ProjectSubscriptionsController < ApplicationController
           @project_subscription.amount -= 1
           @project_subscription.save!
         
-          flash[:positive] = "You have now got #{@project_subscription.amount} subscriptions to this project"
-          
           redirect_to project_path(@project) and return
         else
-          @project_subscription.destroy            
-          flash[:positive] = "You have un-subscribed from this project"
+          @project_subscription.destroy
         end
+
+        flash[:positive] = "You have canceled a producer copy for this project!"
       end
       
     rescue ActiveRecord::RecordInvalid

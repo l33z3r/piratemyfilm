@@ -1,23 +1,31 @@
 <% if logged_in %>
-  <% if @my_subscription.nil? %>
-    <h3>You are currently not subscribed to this project</h3>
-  <% else %>
-    <h3>You have <%= @my_subscription.amount %> subscriptions to this project</h3>
-  <% end %>
+  <h3>
+    You have <%= @my_subscription.nil? ? 0 : @my_subscription.amount %> producer copies reserved for this project.
+    <% if @max_subscription_reached %>
+      Your limit for this project has been reached.
+    <% else %>
+      You can reserve up to <%= @max_subscription %> producer copies.
+    <% end %>
+  </h3>
 <% end %>
 
 <div class="left">
   <% if logged_in %>
 
-    <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
-      <input type="submit" value="Prebuy Now!"/>
-    </form>
-    <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
-      <input type="submit" value="Revoke Prebuy!"/>
+    <% if !@max_subscription_reached %>
+      <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
+        <input type="submit" value="Reserve Producer Copy"/>
+      </form>
+    <% end %>
+
+    <% if @my_subscription %>
+      <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
+        <input type="submit" value="Cancel Producer Copy"/>
+      <% end %>
     <% end %>
 
   <% else %>
-    <%= link_to "Log In", login_path %> to Prebuy
+    You must <%= link_to "Log In", login_path %> in order to reserve producer copies.
   <% end %>
 </div>
 
@@ -41,13 +49,13 @@
     </div>
 
     <div class="project-overview-button">
-      <span>Budget</span>
-      <p>$<%=h @project.capital_required%></p>
+      <span>Project ID</span>
+      <p><%= @project.id %></p>
     </div>
 
     <div class="project-overview-button">
-      <span>Symbol</span>
-      <p>top</p>
+      <span>Budget</span>
+      <p>$<%=h @project.capital_required%></p>
     </div>
 
     <div class="project-overview-button">
@@ -92,6 +100,36 @@
   </fieldset-->
 
   <fieldset>
+    <legend><span>Project Icon</span></legend>
+
+    <ol>
+      <li>
+        <label>
+          <% if !@project.icon.nil? %>
+            <%= image_tag url_for_file_column(@project, "icon", "medium") %>
+          <% else %>
+            <img src="/images/generic-project-icon.png" id="project-icon" height="75px" alt="Generic icon" border="0" />
+          <% end %>
+        </label>
+      </li>
+    </ol>
+  </fieldset>
+  
+  <fieldset>
+    <legend><span>Project Information</span></legend>
+
+    <ol>
+      <!--li><label>Logline</label>Logline <a href="#" class="edit">Edit</a></li-->
+      <li><label>Project Abstract</label><%=h @project.synopsis %></li>
+      <li><label>Project Description</label><%=h @project.description %></li>
+      <li><label>Genre</label><%=h @project.genre.title %></li>
+      <!--li><label>Tags</label>Tags <a href="#" class="edit">Edit</a></li-->
+      <li><label>Project web site</label><a href="http://<%=h @project.web_address %>" target="_blank"><%=h @project.web_address %></a></li>
+      <!--li><label>Project blog</label><a href="#" target="kinooga-child">Title Of Project blog</a> <a href="#" class="edit">Edit</a></li-->
+    </ol>
+  </fieldset>
+
+  <fieldset>
     <legend><span>Project</span></legend>
 
     <ol>
@@ -122,8 +160,8 @@
         </ul>
 
       </li>
-      <li><label>For how long<nbsp;>?</label>Three years</li>
-      <li><label>Are you allowing prebuyers to recoup first<nbsp;>?</label>Yes </li>
+      <li><label>For how long?</label>Three years</li>
+      <li><label>Are you allowing prebuyers to recoup first?</label>Yes </li>
     </ol>
   </fieldset>
 
@@ -134,36 +172,6 @@
       <li><label>Price per Download Coupon Offering</label>% -</li>
       <li><label>Estimated distribution cash deal</label>$ -</li>
       <li><label>Price per download</label>$<%=h @project.share_percent %></li>
-    </ol>
-  </fieldset>
-
-  <fieldset>
-    <legend><span>Project Information</span></legend>
-
-    <ol>
-      <!--li><label>Logline</label>Logline <a href="#" class="edit">Edit</a></li-->
-      <li><label>Project Abstract</label><%=h @project.synopsis %></li>
-      <li><label>Project Description</label><%=h @project.description %></li>
-      <li><label>Genre</label><%=h @project.genre.title %></li>
-      <!--li><label>Tags</label>Tags <a href="#" class="edit">Edit</a></li-->
-      <li><label>Project web site</label><a href="http://<%=h @project.web_address %>" target="_blank"><%=h @project.web_address %></a></li>
-      <!--li><label>Project blog</label><a href="#" target="kinooga-child">Title Of Project blog</a> <a href="#" class="edit">Edit</a></li-->
-    </ol>
-  </fieldset>
-
-  <fieldset>
-    <legend><span>Project Icon</span></legend>
-
-    <ol>
-      <li>
-        <label>
-          <% if !@project.icon.nil? %>
-            <%= image_tag url_for_file_column(@project, "icon", "medium") %>
-          <% else %>
-            <img src="/images/generic-project-icon.png" id="project-icon" height="75px" alt="Generic icon" border="0" />
-          <% end %>
-        </label>
-      </li>
     </ol>
   </fieldset>
 
@@ -186,7 +194,7 @@
       <% if_admin do %>
         <li>
           <label>Set Rating</label>
-          <%= select_tag  "rating", options_for_select(1..AdminProjectRating.max_rating, @admin_rating) %>
+          <%= select_tag  "rating", options_for_select(@admin_rating_select_opts, @admin_rating) %>
           <%= submit_tag "Submit" %>
         </li>
       <% end %>
@@ -212,7 +220,7 @@
           <% if @my_project_rating %>
             <%= @my_project_rating.rating %>
           <% else %>
-            <%= select_tag  "rating", options_for_select(1..ProjectRating.max_rating, @user_rating) %>
+            <%= select_tag  "rating", options_for_select(@rating_select_opts, @user_rating) %>
             <input type="submit" name="submit" value="Submit"/>
           <% end %>
         </li>

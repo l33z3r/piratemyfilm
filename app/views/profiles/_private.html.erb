@@ -1,4 +1,4 @@
-<div class="pageTitle">Your Profile</div>
+<div class="pageTitle">My Profile</div>
 <hr>
 
 <div class="half left">
@@ -19,7 +19,7 @@
 
 <% if !@user_projects.nil? and !@user_projects.empty? %>
 
-  <div class="pageTitle">Your Portfolio</div>
+  <div class="pageTitle">My Projects</div>
   <hr>
 
   <%= render :partial => "projects/listings", :object => @user_projects %>
@@ -30,7 +30,7 @@
 
 <% if !@user_subscriptions.nil? and !@user_subscriptions.empty? %>
 
-  <div class="pageTitle">Your PreBuys</div>
+  <div class="pageTitle">My Friends Projects</div>
   <hr>
 
   <%= render :partial => "projects/listings", :object => @user_subscriptions %>

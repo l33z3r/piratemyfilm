@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090519233550) do
+ActiveRecord::Schema.define(:version => 20090520131801) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -195,6 +195,8 @@ ActiveRecord::Schema.define(:version => 20090519233550) do
     t.decimal  "downloads_reserved",               :precision => 12, :scale => 2
     t.decimal  "downloads_available",              :precision => 12, :scale => 2
     t.string   "youtube_vid_id"
+    t.string   "status",                                                          :default => "Funding"
+    t.integer  "project_length",                                                  :default => 0
   end
 
   create_table "sessions", :force => true do |t|
