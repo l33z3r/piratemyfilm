@@ -12,12 +12,22 @@ a img {
     float: left;
 }
 
+div.clear {
+    clear: both;
+    height: 1px;
+}
+
 .bio_stuff {
     margin-left: 20px;
 }
 
 .project_listing_box {
     margin-top: 20px;
+}
+
+div.project_listings {
+    clear: both;
+    margin: 4px 0px;
 }
 
 .friend_link {
@@ -690,6 +700,8 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 #content .pageTitle {
     font-size: 1.4em;
     color:#015353;
+    clear: both;
+    margin-top: 15px;
 }
 #content .pageSubTitle {
     font-size: 14px;
@@ -1248,7 +1260,7 @@ width:75px;
 float:left;
 border-right:2px dotted #fff;
 text-align:center;
-margin-top:15px;
+margin-top:5px;
 }
 
 .view-lite-row-user-icon span	{

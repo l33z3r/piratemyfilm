@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   before_filter :search_results, :only => [:search]
   
   def index
-    @projects = Project.find(:all).paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 8    
+    @projects = Project.find(:all, :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
   end
 
   def new
@@ -23,6 +23,7 @@ class ProjectsController < ApplicationController
       @genres = Genre.find(:all)      
       render :action=>'new' and return unless @project.valid?
       @project.save!
+      @project.update_funding
       flash[:positive] = "Your project has been added"
       redirect_to project_path(@project)
     rescue ActiveRecord::RecordInvalid
@@ -42,10 +43,10 @@ class ProjectsController < ApplicationController
 
     #load ratings for this project
     @admin_project_rating = AdminProjectRating.find_by_project_id @project.id
-    @admin_rating = @admin_project_rating ? @admin_project_rating.rating_symbol : 1
+    @admin_rating = @admin_project_rating ? @admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]
 
     @user_project_rating = ProjectRating.find_by_project_id @project.id
-    @user_rating = @user_project_rating ? @user_project_rating.rating_symbol : 1
+    @user_rating = @user_project_rating ? @user_project_rating.rating_symbol : ProjectRating.ratings_map[1]
 
     #has this user rated this project
     #@my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u)

@@ -66,7 +66,9 @@ class ApplicationController < ActionController::Base
   def check_permissions
     logger.debug "IN check_permissions :: @level => #{@level.inspect}"
     return failed_check_permissions if @p && !@p.is_active
+    logger.debug "IN check_permissions :: @level => #{@level.inspect}"
     return true if @u && @u.is_admin
+    logger.debug "IN check_permissions :: @level => #{@level.inspect}"
     raise '@level is blank. Did you override the allow_to method in your controller?' if @level.blank?
     @level.each do |l|
       next unless (l[0] == :all) || 

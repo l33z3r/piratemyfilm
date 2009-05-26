@@ -1,45 +1,48 @@
-<!--title ROW-->
-<div class="view-lite-row-title">  
-  <div class="view-lite-row-title-icon">ICON</div>  
-  <div class="view-lite-row-title-project-name">PROJECT TITLE</div>  
-  <div class="view-lite-row-title-user-icon">USERNAME</div>  
-  <div class="view-lite-row-title-numbers">STATS</div>  
-  <div class="view-lite-row-title-description">BRIEF DESCRIPTION</div>  
-  <div style="clear:both;"></div>  
-</div><!--END title ROW-->
+<div class="project_listings">
+  <!--title ROW-->
+  <div class="view-lite-row-title">
+    <div class="view-lite-row-title-icon">ICON</div>
+    <div class="view-lite-row-title-project-name">PROJECT TITLE</div>
+    <div class="view-lite-row-title-user-icon">USERNAME</div>
+    <div class="view-lite-row-title-numbers">STATS</div>
+    <div class="view-lite-row-title-description">BRIEF DESCRIPTION</div>
+    <div style="clear:both;"></div>
+  </div><!--END title ROW-->
 
 <% for @project in listings do %>
 
-    <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %>">
-  
-      <div class="view-lite-row-icon">
-        <% if !@project.icon.nil? %>
-          <%= image_tag url_for_file_column(@project, "icon", "medium") %>
-        <% else %>
-            <img src="/images/generic-project-icon.png" id="project-icon" height="75px" alt="Generic icon" border="0" />
-        <% end %>
-      </div>
-  
-      <div class="view-lite-row-project-name"><%= link_to h(@project.title), project_path(@project) %></div>
-  
-      <div class="view-lite-row-user-icon">
-        <%= link_to icon(@project.owner.profile, :small), profile_path(@project.owner.profile) %>
-        <span><%= link_to @project.owner.profile.user.login, profile_path(@project.owner.profile) %></span>
-      </div>
-  
-      <div class="view-lite-row-numbers">
-        <ul>
-          <li>Funding Required: <span>$<%= @project.capital_required %></span></li>
-          <li>Percent Funded: <span><%= @project.percent_funded %>&#37</span></li>
-        </ul>
-      </div>
-  
-      <div class="view-lite-row-description">
-        <%=truncate(h(@project.description), 100)%>
-        (<%= link_to "More", project_path(@project) %>)
-      </div>
-  
-      <div style="clear:both;"></div>
-    </div>
+      <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %>">
 
-  <% end %>
+        <div class="view-lite-row-icon">
+          <% if !@project.icon.nil? %>
+            <%= image_tag url_for_file_column(@project, "icon", "medium") %>
+          <% else %>
+            <img src="/images/generic-project-icon.png" id="project-icon" height="75px" alt="Generic icon" border="0" />
+          <% end %>
+        </div>
+
+        <div class="view-lite-row-project-name"><%= link_to h(@project.title), project_path(@project) %></div>
+
+        <div class="view-lite-row-user-icon">
+          <%= link_to icon(@project.owner.profile, :small), profile_path(@project.owner.profile) %>
+          <span><%= link_to @project.owner.profile.user.login, profile_path(@project.owner.profile) %></span>
+        </div>
+
+        <div class="view-lite-row-numbers">
+          <ul>
+            <li>Funding Required: <span>$<%= @project.capital_required %></span></li>
+            <li>Percent Funded: <span><%= @project.percent_funded %>&#37</span></li>
+          </ul>
+        </div>
+
+        <div class="view-lite-row-description">
+          <%=truncate(h(@project.description), 100)%>
+          (<%= link_to "More", project_path(@project) %>)
+        </div>
+
+        <div style="clear:both;"></div>
+      </div>
+
+    <% end %>
+  </div>
+  <div class="clear">&nbsp;</div>

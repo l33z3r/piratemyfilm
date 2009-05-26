@@ -6,6 +6,11 @@ class ProjectSubscriptionsController < ApplicationController
   def create
     begin            
 
+      if @project.downloads_available <= 0
+        flash[:error] = "There are no more copies available for reservation"
+        redirect_to project_path(@project) and return
+      end
+      
       @max_subscription = ProjectSubscription.max_subscriptions
       @max_subscription_reached = @project_subscription && @project_subscription.amount == @max_subscription
 

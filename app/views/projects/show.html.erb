@@ -1,44 +1,18 @@
 <% if logged_in %>
   <h3>
-    You have <%= @my_subscription.nil? ? 0 : @my_subscription.amount %> producer copies reserved for this project.
+    You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> producer copies reserved for this project.<br>
     <% if @max_subscription_reached %>
       Your limit for this project has been reached.
     <% else %>
-      You can reserve up to <%= @max_subscription %> producer copies.
+      <% if @project.downloads_available > 0 %>
+        You can reserve up to <%= @max_subscription > @project.downloads_available ? @max_subscription : @project.downloads_available %> producer copies.
+      <% else %>
+        There are no copies of this project available for download
+      <% end %>
     <% end %>
   </h3>
 <% end %>
 
-<div class="left">
-  <% if logged_in %>
-
-    <% if !@max_subscription_reached %>
-      <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
-        <input type="submit" value="Reserve Producer Copy"/>
-      </form>
-    <% end %>
-
-    <% if @my_subscription %>
-      <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
-        <input type="submit" value="Cancel Producer Copy"/>
-      <% end %>
-    <% end %>
-
-  <% else %>
-    You must <%= link_to "Log In", login_path %> in order to reserve producer copies.
-  <% end %>
-</div>
-
-<div class="right">
-  <% if @u and @project.owner == @u %>
-    <%= link_to "Edit Project", edit_project_path(@project) %> |
-  <% end %>
-  <%= link_to "List a Project", new_project_path %> |
-  <%= link_to "All Projects", projects_path %>
-</div>
-
-<div style="clear: both;"></div>
-<hr>
 <div id="project-overview">        
 
   <div class="project-overview-buttonszone">
@@ -78,10 +52,75 @@
       </p>
     </div>
 
+  </div>
+
+  <div class="project-overview-buttonszone">
+
+    <div class="project-overview-button" style="width:250px;">
+      <span></span>
+      <p></p>
+    </div>
+
+    <div class="project-overview-button">
+      <span>Downloads Reserved</span>
+      <p><%= @project.downloads_reserved %></p>
+    </div>
+
+    <div class="project-overview-button">
+      <span>Downloads Available</span>
+      <p><%=h @project.downloads_available %></p>
+    </div>
+
+    <div class="project-overview-button">
+      <span>Percent Funded</span>
+      <p>
+        <%= @project.percent_funded %>
+      </p>
+    </div>
+
+    <div class="project-overview-button">
+      <span>Project Status</span>
+      <p>
+        <%= @project.status %>
+      </p>
+    </div>
+
   </div><!--CLOSE PROJECT-OVERVIEW-BUTTONSZONE-->
 </div><!--CLOSE PROJECT-OVERVIEW-->
 
-<div style="clear:both;"></div>
+<div class="left">
+  <% if logged_in %>
+
+    <% if !@max_subscription_reached %>
+      <% if @project.downloads_available > 0 %>
+        <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
+          <input type="submit" value="Reserve Producer Copy"/>
+        </form>
+      <% end %>
+    <% end %>
+
+    <% if @my_subscription %>
+      <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
+        <input type="submit" value="Cancel Producer Copy"/>
+      <% end %>
+    <% end %>
+
+  <% else %>
+    You must <%= link_to "Log In", login_path %> in order to reserve producer copies.
+  <% end %>
+</div>
+
+<div class="right">
+  <% if @u and @project.owner == @u %>
+    <%= link_to "Edit Project", edit_project_path(@project) %> |
+  <% end %>
+  <%= link_to "List a Project", new_project_path %> |
+  <%= link_to "All Projects", projects_path %> |
+  <%= link_to "Invite My Friend to Reserve This Project (NYA)", "#" %>
+</div>
+
+<div style="clear: both;"></div>
+<hr>
 
 <form action="#">
   <!--fieldset>
@@ -114,7 +153,7 @@
       </li>
     </ol>
   </fieldset>
-  
+
   <fieldset>
     <legend><span>Project Information</span></legend>
 
@@ -149,29 +188,13 @@
   </fieldset>
 
   <fieldset>
-    <legend><span>Coupons</span></legend>
+    <legend><span>Estimates</span></legend>
 
     <ol>
-      <li><label>Percentage</label>%<%=h @project.share_percent %>
-
-        <ul>
-          <li><label>Total return / $1000,000 of downloads</label>$ -</li>
-          <li><label>Producers return / $1000,000 of downloads</label>$ -</li>
-        </ul>
-
-      </li>
-      <li><label>For how long?</label>Three years</li>
-      <li><label>Are you allowing prebuyers to recoup first?</label>Yes </li>
-    </ol>
-  </fieldset>
-
-  <fieldset>
-    <legend><span>Prices</span></legend>
-
-    <ol>
-      <li><label>Price per Download Coupon Offering</label>% -</li>
-      <li><label>Estimated distribution cash deal</label>$ -</li>
-      <li><label>Price per download</label>$<%=h @project.share_percent %></li>
+      <li><label>Return per producer copy per 100,000 pirated copies</label></li>
+      <li><label>Breakeven Point:</label></li>
+      <li><label>Return per producer copy per 100,000 retailed copies</label></li>
+      <li><label>Breakeven Point:</label></li>
     </ol>
   </fieldset>
 

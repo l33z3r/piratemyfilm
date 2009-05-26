@@ -12,8 +12,8 @@ class ProjectRating < ActiveRecord::Base
   end
 
   @@ratings_map = {
-    1 => "NR", 2 => "C-", 3 => "C", 4 => "C+", 5 => "B-",
-    6 => "B", 7 => "B+", 8 => "A-", 9 => "A", 10 => "A+"
+    1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5",
+    6 => "6", 7 => "7", 8 => "8", 9 => "9", 10 => "10"
   }
 
   def self.rating_select_opts
@@ -29,6 +29,10 @@ class ProjectRating < ActiveRecord::Base
 
   def rating_symbol
     @@ratings_map[average_rating]
+  end
+
+  def self.ratings_map
+    @@ratings_map
   end
   
 end

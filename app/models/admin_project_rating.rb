@@ -29,4 +29,8 @@ class AdminProjectRating < ActiveRecord::Base
     @@ratings_map[rating]
   end
 
+  def self.ratings_map
+    @@ratings_map
+  end
+
 end

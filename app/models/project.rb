@@ -9,15 +9,15 @@ class Project < ActiveRecord::Base
   
   belongs_to :genre, :foreign_key=>'genre_id'
   
-  validates_presence_of :owner_id, :title, :producer_name, :synopsis
-  validates_presence_of :description, :capital_required, :ipo_price, :share_percent
-  validates_presence_of :status, :project_length
+  validates_presence_of :owner_id, :title, :status
+  validates_presence_of :capital_required, :ipo_price
 
   validates_inclusion_of :status, :in => @@PROJECT_STATUSES
 
   validates_uniqueness_of :title
   
-  validates_numericality_of :capital_required, :ipo_price, :share_percent, :project_length
+  validates_numericality_of :capital_required, :ipo_price, :project_length
+  validates_numericality_of :share_percent_downloads, :share_percent_ads, :allow_nil => true
   
   acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote=>true
 
@@ -47,16 +47,20 @@ class Project < ActiveRecord::Base
 
   def update_funding
     logger.debug "Updating percent funded"
-    self.downloads_reserved = (project_subscriptions.collect { |s| s.amount }.sum ) * ipo_price
-    self.downloads_available = capital_required - downloads_reserved
-    self.percent_funded = (downloads_reserved * 100) / capital_required
+    @total_copies = capital_required / ipo_price
+    self.downloads_reserved = project_subscriptions.collect { |s| s.amount }.sum 
+    self.downloads_available = @total_copies - self.downloads_reserved
+    self.percent_funded = (self.downloads_reserved * 100) / @total_copies
     self.save!
   end
   
   protected
   
   def validate
-    errors.add(:share_percent, "Must be a percentage (0 - 100)") if share_percent.nil? || share_percent < 0 || share_percent > 100
+    errors.add(:share_percent_downloads, "Must be a percentage (0 - 100)") if share_percent_downloads && (share_percent_downloads < 0 || share_percent_downloads > 100)
+    errors.add(:share_percent_ads, "Must be a percentage (0 - 100)") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
+    errors.add(:capital_required, "Capital Required must be a multiple of your download unit price") if capital_required % ipo_price !=0 || capital_required < ipo_price
+    errors.add(:capital_required, "Capital Required must be above your outstanding copies (#{self.downloads_reserved * self.ipo_price})") if (capital_required / ipo_price) < self.downloads_reserved
   end
   
 end

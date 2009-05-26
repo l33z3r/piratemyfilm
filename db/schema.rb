@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090520131801) do
+ActiveRecord::Schema.define(:version => 20090526045351) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -185,18 +185,19 @@ ActiveRecord::Schema.define(:version => 20090520131801) do
     t.text     "description"
     t.text     "cast"
     t.string   "web_address"
-    t.decimal  "capital_required",                 :precision => 12, :scale => 2
-    t.decimal  "ipo_price",                        :precision => 10, :scale => 2
-    t.integer  "share_percent",       :limit => 3, :precision => 3,  :scale => 0
-    t.integer  "percent_funded",      :limit => 3, :precision => 3,  :scale => 0
+    t.decimal  "ipo_price",                             :precision => 10, :scale => 2
+    t.integer  "percent_funded",          :limit => 3,  :precision => 3,  :scale => 0
     t.string   "icon"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "downloads_reserved",               :precision => 12, :scale => 2
-    t.decimal  "downloads_available",              :precision => 12, :scale => 2
     t.string   "youtube_vid_id"
-    t.string   "status",                                                          :default => "Funding"
-    t.integer  "project_length",                                                  :default => 0
+    t.string   "status",                                                               :default => "Funding"
+    t.integer  "project_length",                                                       :default => 0
+    t.integer  "share_percent_downloads", :limit => 3,  :precision => 3,  :scale => 0
+    t.integer  "share_percent_ads",       :limit => 3,  :precision => 3,  :scale => 0
+    t.integer  "downloads_reserved",      :limit => 10, :precision => 10, :scale => 0, :default => 0
+    t.integer  "downloads_available",     :limit => 10, :precision => 10, :scale => 0, :default => 0
+    t.integer  "capital_required",        :limit => 12, :precision => 12, :scale => 0
   end
 
   create_table "sessions", :force => true do |t|
