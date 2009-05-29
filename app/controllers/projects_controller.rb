@@ -29,17 +29,7 @@ class ProjectsController < ApplicationController
         redirect_to :controller => "projects" and return
       end
 
-      #round the funding to multiple of premium copy price
-      @unrounded_budget = params[:project][:capital_required].to_f
-      @premium_copy_price = params[:project][:ipo_price].to_f
-
-      if @unrounded_budget % @premium_copy_price != 0
-        @trim = @unrounded_budget % @premium_copy_price
-        @trimmed_budget = @unrounded_budget - @trim
-        @rounded_budget = @trimmed_budget + @premium_copy_price
-
-        params[:project][:capital_required] = @rounded_budget.to_i
-      end
+      round_budget_from_params
       
       @project = Project.new(params[:project])
       @project.percent_funded = 0
@@ -84,11 +74,11 @@ class ProjectsController < ApplicationController
     @return_premium_ads_based_on = 100000
 
     if @project.share_percent_downloads > 0
-    @return_premium_sales = ((@premium_price_assumption * @return_premium_sales_based_on) * (@project.share_percent_downloads / 100.0)) / @project.total_copies
-    @breakeven_premium_sales = (@premium_price_assumption * 100 * @project.total_copies) / (@project.share_percent_downloads * @premium_price_assumption)
+      @return_premium_sales = ((@premium_price_assumption * @return_premium_sales_based_on) * (@project.share_percent_downloads / 100.0)) / @project.total_copies
+      @breakeven_premium_sales = (@premium_price_assumption * 100 * @project.total_copies) / (@project.share_percent_downloads * @premium_price_assumption)
     else
-    @return_premium_sales = 0
-    @breakeven_premium_sales = 0
+      @return_premium_sales = 0
+      @breakeven_premium_sales = 0
     end
 
   end
@@ -100,6 +90,9 @@ class ProjectsController < ApplicationController
   def update
     if request.put?
       begin
+
+        round_budget_from_params
+      
         @project.update_attributes(params[:project])
         @project.save!
         @project.update_funding
@@ -157,6 +150,21 @@ class ProjectsController < ApplicationController
     end
     @search_string = p.delete(:q) || ''
     @results = Project.search(@search_string, p).paginate(:page => @page, :per_page => @per_page)
+  end
+
+  def round_budget_from_params
+    #round the funding to multiple of premium copy price
+    @unrounded_budget = params[:project][:capital_required].to_f
+    @premium_copy_price = params[:project][:ipo_price].to_f
+
+    logger.debug "!!!!!!!!!!!!#{@unrounded_budget % @premium_copy_price}"
+    if @unrounded_budget % @premium_copy_price != 0
+      @trim = @unrounded_budget % @premium_copy_price
+      @trimmed_budget = @unrounded_budget - @trim
+      @rounded_budget = @trimmed_budget + @premium_copy_price
+
+      params[:project][:capital_required] = @rounded_budget.to_i
+    end
   end
 
 end
