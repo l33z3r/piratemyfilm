@@ -58,6 +58,24 @@ class Project < ActiveRecord::Base
     capital_required / ipo_price
   end
 
+  def share_percent_downloads
+    if !super
+      self.share_percent_downloads = 0
+      self.save!
+    end
+
+    super
+  end
+
+  def share_percent_ads
+    if !super
+      self.share_percent_ads = 0
+      self.save!
+    end
+
+    super
+  end
+
   protected
   
   def validate
