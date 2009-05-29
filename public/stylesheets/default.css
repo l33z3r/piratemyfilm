@@ -12,7 +12,7 @@ a img {
     float: left;
 }
 
-div.clear {
+div.pmf_clear {
     clear: both;
     height: 1px;
 }
@@ -373,6 +373,14 @@ fieldset#select	{
 }
 
 .twitter-link a img {
+    margin-top: 7px;
+}
+
+.mk-link {
+    float:right;
+}
+
+.mk-link a img {
     margin-top: 7px;
 }
 

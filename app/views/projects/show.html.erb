@@ -1,13 +1,13 @@
 <% if logged_in %>
   <h3>
-    You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> producer copies reserved for this project.<br>
+    You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> premium copies reserved for this project.<br>
     <% if @max_subscription_reached %>
       Your limit for this project has been reached.
     <% else %>
       <% if @project.downloads_available > 0 %>
-        You can reserve up to <%= @max_subscription > @project.downloads_available ? @max_subscription : @project.downloads_available %> producer copies.
+        You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> premium copies.
       <% else %>
-        There are no copies of this project available for download
+        There are no premium copies of this project available for download
       <% end %>
     <% end %>
   </h3>
@@ -28,8 +28,8 @@
     </div>
 
     <div class="project-overview-button">
-      <span>Budget</span>
-      <p>$<%=h @project.capital_required%></p>
+      <span>Project Status</span>
+      <p><%= @project.status %>$</p>
     </div>
 
     <div class="project-overview-button">
@@ -57,18 +57,13 @@
   <div class="project-overview-buttonszone">
 
     <div class="project-overview-button" style="width:250px;">
-      <span></span>
-      <p></p>
+      <span>Project Owner</span>
+      <p><%= h @project.owner.login %></p>
     </div>
 
     <div class="project-overview-button">
-      <span>Downloads Reserved</span>
-      <p><%= @project.downloads_reserved %></p>
-    </div>
-
-    <div class="project-overview-button">
-      <span>Downloads Available</span>
-      <p><%=h @project.downloads_available %></p>
+      <span>Funds Needed</span>
+      <p>$<%=h @project.capital_required%></p>
     </div>
 
     <div class="project-overview-button">
@@ -79,13 +74,16 @@
     </div>
 
     <div class="project-overview-button">
-      <span>Project Status</span>
-      <p>
-        <%= @project.status %>
-      </p>
+      <span>Premium Copies Reserved</span>
+      <p><%= @project.downloads_reserved %></p>
     </div>
 
-  </div><!--CLOSE PROJECT-OVERVIEW-BUTTONSZONE-->
+    <div class="project-overview-button">
+      <span>Premium Copies Available</span>
+      <p><%=h @project.downloads_available %></p>
+    </div>
+
+    </div><!--CLOSE PROJECT-OVERVIEW-BUTTONSZONE-->
 </div><!--CLOSE PROJECT-OVERVIEW-->
 
 <div class="left">
@@ -94,19 +92,19 @@
     <% if !@max_subscription_reached %>
       <% if @project.downloads_available > 0 %>
         <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
-          <input type="submit" value="Reserve Producer Copy"/>
+          <input type="submit" value="Reserve Premium Copy"/>
         </form>
       <% end %>
     <% end %>
 
     <% if @my_subscription %>
       <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
-        <input type="submit" value="Cancel Producer Copy"/>
+        <input type="submit" value="Cancel Premium Copy"/>
       <% end %>
     <% end %>
 
   <% else %>
-    You must <%= link_to "Log In", login_path %> in order to reserve producer copies.
+    You must <%= link_to "Log In", login_path %> in order to reserve premium copies.
   <% end %>
 </div>
 
@@ -139,7 +137,7 @@
   </fieldset-->
 
   <fieldset>
-    <legend><span>Project Icon</span></legend>
+    <legend><span>Project Information</span></legend>
 
     <ol>
       <li>
@@ -151,50 +149,132 @@
           <% end %>
         </label>
       </li>
-    </ol>
-  </fieldset>
 
-  <fieldset>
-    <legend><span>Project Information</span></legend>
-
-    <ol>
-      <!--li><label>Logline</label>Logline <a href="#" class="edit">Edit</a></li-->
-      <li><label>Project Abstract</label><%=h @project.synopsis %></li>
-      <li><label>Project Description</label><%=h @project.description %></li>
-      <li><label>Genre</label><%=h @project.genre.title %></li>
-      <!--li><label>Tags</label>Tags <a href="#" class="edit">Edit</a></li-->
-      <li><label>Project web site</label><a href="http://<%=h @project.web_address %>" target="_blank"><%=h @project.web_address %></a></li>
-      <!--li><label>Project blog</label><a href="#" target="kinooga-child">Title Of Project blog</a> <a href="#" class="edit">Edit</a></li-->
-    </ol>
-  </fieldset>
-
-  <fieldset>
-    <legend><span>Project</span></legend>
-
-    <ol>
       <li><label>Project title</label><%=h @project.title%></li>
-      <li><label>Producer name</label><%=h @project.producer_name%></li>
-      <li><label>Budget</label>$<%=h @project.capital_required%>
+      <li><label>Funds Needed</label>$<%=h @project.capital_required%></li>
 
-        <ul>
-          <li><label>Downloads reserved</label>$<%=h @project.downloads_reserved %></li>
-          <li><label>Downloads available</label>$<%=h @project.downloads_available %></li>
-          <li><label>Percent funded</label>%<%=h @project.percent_funded %></li>
-        </ul>
-
+      <li>
+        <label>
+          Percentage of future download sales
+          <br>per premium copy of project
+        </label>
+        <%= @project.share_percent_downloads %>%
       </li>
-      <!--li><label>Project phase</label>Pitch <a href="#" class="edit">Edit</a></li-->
+
+      <li>
+        <label>
+          Length of time producer is offering download sales returns (in months)
+        </label>
+        NYA
+      </li>
+
+      <li>
+        <label>
+          Can you recoup first on download sales?
+        </label>
+        NYA
+      </li>
+
+      <li>
+        <label>
+          Percentage of pirate copy ad sales
+          <br>per premium copy of project
+        </label>
+        <%= @project.share_percent_ads %>%
+      </li>
+
+      <li>
+        <label>
+          Length of time producer is offering ad sales returns (in months)
+        </label>
+        NYA
+      </li>
+
+      <li>
+        <label>
+          Can you recoup first on ad sales?
+        </label>
+        NYA
+      </li>
+
+      <li>
+        <label>
+          Price per premium copy
+        </label>
+        <%= @project.ipo_price %>
+      </li>
+
+      <li><label>Producer name</label><%=h @project.producer_name%></li>
+      <li><label>Genre</label><%=h @project.genre.title %></li>
+      <li><label>Synopsis</label><%=h @project.synopsis %></li>
+      <li><label>Cast</label><%=h @project.cast %></li>
+      <li><label>Project Length (in minutes)</label><%=h @project.project_length %></li>
+      <li><label>Status</label><%=h @project.status %></li>
+      <li><label>Project web site</label><a href="http://<%=h @project.web_address %>" target="_blank"><%=h @project.web_address %></a></li>
+      <li><label>Project under Creative Commons Licence?</label>NYA</li>
+      <li><label>Producer Fee</label>NYA</li>
+
     </ol>
   </fieldset>
 
   <fieldset>
-    <legend><span>Estimates</span></legend>
+
+    <legend><span>Premium Copies</span></legend>
 
     <ol>
-      <li><label>Return per producer copy per 100,000 pirated copies</label></li>
-      <li><label>Breakeven Point:</label></li>
-      <li><label>Return per producer copy per 100,000 retailed copies</label></li>
-      <li><label>Breakeven Point:</label></li>
+      <li><label>Total Premium Copies</label><%=h @project.total_copies.to_i %></li>
+      <li><label>Premium Copies Available</label><%=h @project.downloads_available %></li>
+      <li><label>Premium Copies Reserved</label><%=h @project.downloads_reserved %></li>
+      <li><label>Percent funded</label><%=h @project.percent_funded %>%</li>
+    </ol>
+  </fieldset>
+
+  <fieldset>
+
+    <legend><span>Premium Copy Estimates</span></legend>
+
+    <ol>
+      <li>
+        <label>
+          Return per premium copy per <%= @return_premium_sales_based_on %> premium copies
+          (Assuming $<%= @premium_price_assumption.to_i %> per copy)
+        </label>
+        $<%= @return_premium_sales %>
+      </li>
+      <li><label>Breakeven Point</label><%= @breakeven_premium_sales.to_i %> copies</li>
+      <li>
+        <label>
+          Producer return per premium copy per <%= @return_premium_ads_based_on %> retailed copies
+        </label>
+        NYA
+      </li>
+      <li>
+        <label>
+          Advertising return per premium copy per <%= @return_premium_ads_based_on %> retailed copies
+        </label>
+        NYA
+      </li>
+      <li><label>Breakeven Point</label>NYA</li>
+      
+    </ol>
+  </fieldset>
+
+  <fieldset>
+
+    <legend><span>Pirated Copy Estimates</span></legend>
+
+    <ol>
+     <li><label>Return per pirated copy per 100000 pirated copies</label>NYA</li>
+      <li><label>Breakeven Point:</label>NYA</li>
+      <li>
+        <label>
+          Producer return per pirated copy per 100000 pirated copies
+        </label>
+        NYA
+      </li>
+      <li><label>Advertising return per pirated copy per 100000 pirated copies</label>NYA</li>
+      <li><label>Breakeven Point:</label>NYA</li>
+
     </ol>
   </fieldset>
 

@@ -5,18 +5,42 @@ class ProjectsController < ApplicationController
   before_filter :setup
   before_filter :check_owner, :only => [:edit, :update, :destroy]  
   before_filter :search_results, :only => [:search]
+
+  PROJECT_LIST_LIMIT = 3
   
   def index
     @projects = Project.find(:all, :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
   end
 
   def new
+    if @u.owned_projects.size >= PROJECT_LIST_LIMIT
+      flash[:negative] = "Sorry you have reached your limit of #{PROJECT_LIST_LIMIT} project listings"
+      redirect_to :controller => "projects" and return
+    end
+      
     @project = Project.new
     @genres = Genre.find(:all)
   end
 
   def create
     begin
+      if @u.owned_projects.size >= PROJECT_LIST_LIMIT
+        flash[:negative] = "Sorry you have reached your limit of #{PROJECT_LIST_LIMIT} project listings"
+        redirect_to :controller => "projects" and return
+      end
+
+      #round the funding to multiple of premium copy price
+      @unrounded_budget = params[:project][:capital_required].to_f
+      @premium_copy_price = params[:project][:ipo_price].to_f
+
+      if @unrounded_budget % @premium_copy_price != 0
+        @trim = @unrounded_budget % @premium_copy_price
+        @trimmed_budget = @unrounded_budget - @trim
+        @rounded_budget = @trimmed_budget + @premium_copy_price
+
+        params[:project][:capital_required] = @rounded_budget.to_i
+      end
+      
       @project = Project.new(params[:project])
       @project.percent_funded = 0
       @project.owner = @u
@@ -49,12 +73,18 @@ class ProjectsController < ApplicationController
     @user_rating = @user_project_rating ? @user_project_rating.rating_symbol : ProjectRating.ratings_map[1]
 
     #has this user rated this project
-    #@my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u)
+    @my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u)
 
     #load rating select opts
     @admin_rating_select_opts = AdminProjectRating.rating_select_opts
     @rating_select_opts = ProjectRating.rating_select_opts
     
+    @premium_price_assumption = 5.0
+    @return_premium_sales_based_on = 100000
+    @return_premium_ads_based_on = 100000
+    
+    @return_premium_sales = ((@premium_price_assumption * @return_premium_sales_based_on) * (@project.share_percent_downloads / 100.0)) / @project.total_copies
+    @breakeven_premium_sales = (@premium_price_assumption * 100 * @project.total_copies) / (@project.share_percent_downloads * @premium_price_assumption)
   end
 
   def edit

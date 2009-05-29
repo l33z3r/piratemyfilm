@@ -15,7 +15,7 @@
     
 </div>
 
-<div style="clear: both;"></div>
+<div class="pmf_clear">&nbsp;</div>
 
 <% if !@user_projects.nil? and !@user_projects.empty? %>
 
@@ -27,6 +27,8 @@
   <%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
 
 <% end %>
+
+<div class="pmf_clear">&nbsp;</div>
 
 <% if !@user_subscriptions.nil? and !@user_subscriptions.empty? %>
 

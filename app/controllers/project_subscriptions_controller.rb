@@ -7,7 +7,7 @@ class ProjectSubscriptionsController < ApplicationController
     begin            
 
       if @project.downloads_available <= 0
-        flash[:error] = "There are no more copies available for reservation"
+        flash[:error] = "There are no more premium copies available for reservation"
         redirect_to project_path(@project) and return
       end
       
@@ -17,12 +17,12 @@ class ProjectSubscriptionsController < ApplicationController
       if !@project_subscription.nil?
         
         if @max_subscription_reached
-          flash[:positive] = "You have reached the maximum prebuys for this project"
+          flash[:positive] = "You have reached the maximum premium copies of this project"
         else
           @project_subscription.amount += 1
           @project_subscription.save!
         
-          flash[:positive] = "You have now got #{@project_subscription.amount} subscriptions to this project"  
+          flash[:positive] = "You now have #{@project_subscription.amount} premium copies of this project"
         end
                 
         redirect_to project_path(@project) and return
@@ -30,9 +30,9 @@ class ProjectSubscriptionsController < ApplicationController
       
       @project_subscription = ProjectSubscription.create( :user => @u, :project => @project, :amount => 1 )      
       
-      flash[:positive] = "You have reserved a producer copy for this project!"
+      flash[:positive] = "You have reserved a premium copy of this project!"
     rescue ActiveRecord::RecordInvalid
-      flash[:error] = "Error subscribing".x
+      flash[:error] = "Error reserving premium copy".x
     end    
     redirect_to project_path(@project)    
   end
@@ -41,7 +41,7 @@ class ProjectSubscriptionsController < ApplicationController
     begin            
       
       if @project_subscription.nil?       
-        flash[:negative] = "You are not subscribed to this project"
+        flash[:negative] = "You do not have any premium copies of this project to cancel!"
         redirect_to project_path(@project) and return
         
       else
@@ -55,11 +55,11 @@ class ProjectSubscriptionsController < ApplicationController
           @project_subscription.destroy
         end
 
-        flash[:positive] = "You have canceled a producer copy for this project!"
+        flash[:positive] = "You have canceled a premium copy of this project!"
       end
       
     rescue ActiveRecord::RecordInvalid
-      flash[:error] = "Error un-subscribing from this project"
+      flash[:error] = "Error canceling premium copy of this project"
     end    
     redirect_to project_path(@project)
   end

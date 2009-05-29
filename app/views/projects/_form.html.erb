@@ -19,6 +19,83 @@
 
   <tr>
     <td>
+      * Funds Needed ($)
+    </td>
+    <td>
+      <%= f.text_field :capital_required %>
+      <%= display_error_on(project, :capital_required) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      * What percentage of future download
+      <br/>sales are you offering per
+      <br/>premium copy of your project? (0 - 100)%
+    </td>
+    <td>
+      <%= f.text_field :share_percent_downloads %>
+      <%= display_error_on(project, :share_percent_downloads) -%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      For how long are you offering download sales returns (in months)?
+    </td>
+    <td>
+      NYA
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Are you allowing premium copy holders to recoup first for download sales?
+    </td>
+    <td>
+      NYA
+    </td>
+  </tr>
+  <tr>
+    <td>
+      * What percentage of future
+      <br/>pirate copy ad sales are you offering
+      <br/>per premium copy of your project? (0 - 100)%
+    </td>
+    <td>
+      <%= f.text_field :share_percent_ads %>
+      <%= display_error_on(project, :share_percent_ads) -%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      For how long are you offering ad sales returns (in months)?
+    </td>
+    <td>
+      NYA
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Are you allowing producer copy holders to recoup first for ad sales?
+    </td>
+    <td>
+      NYA
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Price per premium copy (Variable Prices NYA)
+    </td>
+    <td>
+      <input type="hidden" name="project[ipo_price]" value="5"/>$5
+    </td>
+    <!--td>
+    <%= f.text_field :ipo_price %>
+    <%= display_error_on(project, :ipo_price) -%>
+    </td-->
+  </tr>
+
+  <tr>
+    <td>
       Enter the name of the producer
     </td>
     <td>
@@ -94,14 +171,6 @@
   </tr>
   <tr>
     <td>
-      Notify project subscribers of any project detail changes?
-    </td>
-    <td>
-      NYA
-    </td>
-  </tr>
-  <tr>
-    <td>
       Enter a site address associated with your project
     </td>
     <td>
@@ -111,11 +180,10 @@
   </tr>
   <tr>
     <td>
-      * How much capital do you require for your project ($)
+      Notify project subscribers of any project detail changes?
     </td>
     <td>
-      <%= f.text_field :capital_required %>
-      <%= display_error_on(project, :capital_required) -%>
+      NYA
     </td>
   </tr>
   <tr>
@@ -129,72 +197,6 @@
   <tr>
     <td>
       Are you charging any producers fees?
-    </td>
-    <td>
-      NYA
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Price per download (Variable Prices NYA)
-    </td>
-    <td>
-      <input type="hidden" name="project[ipo_price]" value="5"/>$5
-    </td>
-    <!--td>
-    <%= f.text_field :ipo_price %>
-    <%= display_error_on(project, :ipo_price) -%>
-    </td-->
-  </tr>
-  <tr>
-    <td>
-      * What percentage of future download
-      <br/>sales are you offering per
-      <br/>buyers of your project? (0 - 100)%
-    </td>
-    <td>
-      <%= f.text_field :share_percent_downloads %>
-      <%= display_error_on(project, :share_percent_downloads) -%>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      For how long are you offering download sales returns (in months)?
-    </td>
-    <td>
-      NYA
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Are you allowing producer copy holders to recoup first for download sales?
-    </td>
-    <td>
-      NYA
-    </td>
-  </tr>
-  <tr>
-    <td>
-      * What percentage of future
-      <br/>pirate copy ad sales are you offering
-      <br/>per producer copy? (0 - 100)%
-    </td>
-    <td>
-      <%= f.text_field :share_percent_ads %>
-      <%= display_error_on(project, :share_percent_ads) -%>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      For how long are you offering ad sales returns (in months)?
-    </td>
-    <td>
-      NYA
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Are you allowing producer copy holders to recoup first for ad sales?
     </td>
     <td>
       NYA

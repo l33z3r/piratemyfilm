@@ -47,20 +47,23 @@ class Project < ActiveRecord::Base
 
   def update_funding
     logger.debug "Updating percent funded"
-    @total_copies = capital_required / ipo_price
+    @total_copies = total_copies
     self.downloads_reserved = project_subscriptions.collect { |s| s.amount }.sum 
     self.downloads_available = @total_copies - self.downloads_reserved
     self.percent_funded = (self.downloads_reserved * 100) / @total_copies
     self.save!
   end
-  
+
+  def total_copies
+    capital_required / ipo_price
+  end
+
   protected
   
   def validate
     errors.add(:share_percent_downloads, "Must be a percentage (0 - 100)") if share_percent_downloads && (share_percent_downloads < 0 || share_percent_downloads > 100)
     errors.add(:share_percent_ads, "Must be a percentage (0 - 100)") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
     errors.add(:capital_required, "Capital Required must be a multiple of your download unit price") if capital_required % ipo_price !=0 || capital_required < ipo_price
-    errors.add(:capital_required, "Capital Required must be above your outstanding copies (#{self.downloads_reserved * self.ipo_price})") if (capital_required / ipo_price) < self.downloads_reserved
   end
   
 end
