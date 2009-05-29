@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   before_filter :check_owner, :only => [:edit, :update, :destroy]  
   before_filter :search_results, :only => [:search]
 
-  PROJECT_LIST_LIMIT = 3
+  PROJECT_LIST_LIMIT = 5
   
   def index
     @projects = Project.find(:all, :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
@@ -153,18 +153,22 @@ class ProjectsController < ApplicationController
   end
 
   def round_budget_from_params
-    #round the funding to multiple of premium copy price
-    @unrounded_budget = params[:project][:capital_required].to_f
-    @premium_copy_price = params[:project][:ipo_price].to_f
 
-    logger.debug "!!!!!!!!!!!!#{@unrounded_budget % @premium_copy_price}"
-    if @unrounded_budget % @premium_copy_price != 0
-      @trim = @unrounded_budget % @premium_copy_price
-      @trimmed_budget = @unrounded_budget - @trim
-      @rounded_budget = @trimmed_budget + @premium_copy_price
+    if params[:project][:capital_required] && params[:project][:ipo_price]
+      #round the funding to multiple of premium copy price
+      @unrounded_budget = params[:project][:capital_required].to_f
+      @premium_copy_price = params[:project][:ipo_price].to_f
 
-      params[:project][:capital_required] = @rounded_budget.to_i
+      logger.debug "!!!!!!!!!!!!#{@unrounded_budget % @premium_copy_price}"
+      if @unrounded_budget % @premium_copy_price != 0
+        @trim = @unrounded_budget % @premium_copy_price
+        @trimmed_budget = @unrounded_budget - @trim
+        @rounded_budget = @trimmed_budget + @premium_copy_price
+
+        params[:project][:capital_required] = @rounded_budget.to_i
+      end
     end
+    
   end
 
 end

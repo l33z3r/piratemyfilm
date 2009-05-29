@@ -29,7 +29,7 @@
 
     <div class="project-overview-button">
       <span>Project Status</span>
-      <p><%= @project.status %>$</p>
+      <p><%= @project.status %></p>
     </div>
 
     <div class="project-overview-button">
@@ -83,8 +83,9 @@
       <p><%=h @project.downloads_available %></p>
     </div>
 
-    </div><!--CLOSE PROJECT-OVERVIEW-BUTTONSZONE-->
+  </div><!--CLOSE PROJECT-OVERVIEW-BUTTONSZONE-->
 </div><!--CLOSE PROJECT-OVERVIEW-->
+
 
 <div class="left">
   <% if logged_in %>
@@ -107,6 +108,8 @@
     You must <%= link_to "Log In", login_path %> in order to reserve premium copies.
   <% end %>
 </div>
+
+<div class="pmf_clear"></div>
 
 <div class="right">
   <% if @u and @project.owner == @u %>
@@ -231,9 +234,19 @@
 
   <fieldset>
 
-    <legend><span>Premium Copy Estimates</span></legend>
+    <legend><span>Estimates</span></legend>
 
     <ol>
+      <li><label>Return per pirated copy per 100000 pirated copies</label>NYA</li>
+      <li><label>Breakeven Point:</label>NYA</li>
+      <li>
+        <label>
+          Producer return per pirated copy per 100000 pirated copies
+        </label>
+        NYA
+      </li>
+      <li><label>Advertising return per pirated copy per 100000 pirated copies</label>NYA</li>
+      <li><label>Breakeven Point:</label>NYA</li>
       <li>
         <label>
           Return per premium copy per <%= @return_premium_sales_based_on %> premium copies
@@ -255,26 +268,6 @@
         NYA
       </li>
       <li><label>Breakeven Point</label>NYA</li>
-      
-    </ol>
-  </fieldset>
-
-  <fieldset>
-
-    <legend><span>Pirated Copy Estimates</span></legend>
-
-    <ol>
-     <li><label>Return per pirated copy per 100000 pirated copies</label>NYA</li>
-      <li><label>Breakeven Point:</label>NYA</li>
-      <li>
-        <label>
-          Producer return per pirated copy per 100000 pirated copies
-        </label>
-        NYA
-      </li>
-      <li><label>Advertising return per pirated copy per 100000 pirated copies</label>NYA</li>
-      <li><label>Breakeven Point:</label>NYA</li>
-
     </ol>
   </fieldset>
 
