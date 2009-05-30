@@ -237,7 +237,9 @@
     <legend><span>Estimates</span></legend>
 
     <ol>
-      <li><label>Return per pirated copy per 100000 pirated copies</label>NYA</li>
+      <li><label><b>PirateMyFilm</b></label>&nbsp;
+    <ul>
+      <li><label>Return per premium copy per per 100000 pirated copies:</label>NYA</li>
       <li><label>Breakeven Point:</label>NYA</li>
       <li>
         <label>
@@ -245,16 +247,25 @@
         </label>
         NYA
       </li>
-      <li><label>Advertising return per pirated copy per 100000 pirated copies</label>NYA</li>
-      <li><label>Breakeven Point:</label>NYA</li>
+    </ul>
+    <li><label><b>Don't PirateMyFilm</b></label>&nbsp;
+    <ul>
       <li>
         <label>
-          Return per premium copy per <%= @return_premium_sales_based_on %> premium copies
-          (Assuming $<%= @premium_price_assumption.to_i %> per copy)
-        </label>
+          Return per permium copy per per 100000 retailed copies
+      (Assuming $<%= @premium_price_assumption.to_i %> per copy):
+      </label>
         $<%= @return_premium_sales %>
       </li>
       <li><label>Breakeven Point</label><%= @breakeven_premium_sales.to_i %> copies</li>
+      <li>
+        <label>
+          Producer return per <%= @return_premium_sales_based_on %> retailed copies
+          (Assuming $<%= @premium_price_assumption.to_i %> per copy):
+        </label>
+        NYA
+      </li>
+      </ul>
       <li>
         <label>
           Producer return per premium copy per <%= @return_premium_ads_based_on %> retailed copies
