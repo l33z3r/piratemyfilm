@@ -156,50 +156,57 @@
       <li><label>Project title</label><%=h @project.title%></li>
       <li><label>Funds Needed</label>$<%=h @project.capital_required%></li>
 
-      <li>
-        <label>
-          Percentage of future download sales
-          <br>per premium copy of project
-        </label>
-        <%= @project.share_percent_downloads %>%
+      <li><label><b>PirateMyFilm</b></label>&nbsp;
+        <ul>
+          <li>
+            <label>
+              Percentage of pirate copy ad sales
+              <br>per premium copy of project
+            </label>
+            <%= @project.share_percent_ads %>%
+          </li>
+
+          <li>
+            <label>
+              Length of time producer is offering ad sales returns (in months)
+            </label>
+            NYA
+          </li>
+
+          <li>
+            <label>
+              Can you recoup first on ad sales?
+            </label>
+            NYA
+          </li>
+        </ul>
       </li>
 
-      <li>
-        <label>
-          Length of time producer is offering download sales returns (in months)
-        </label>
-        NYA
-      </li>
+      <li><label><b>Don't PirateMyFilm</b></label>&nbsp;
+      <ul>
+        <li>
+          <label>
+            Percentage of future download sales
+            <br>per premium copy of project
+          </label>
+          <%= @project.share_percent_downloads %>%
+        </li>
 
-      <li>
-        <label>
-          Can you recoup first on download sales?
-        </label>
-        NYA
-      </li>
+        <li>
+          <label>
+            Length of time producer is offering download sales returns (in months)
+          </label>
+          NYA
+        </li>
 
-      <li>
-        <label>
-          Percentage of pirate copy ad sales
-          <br>per premium copy of project
-        </label>
-        <%= @project.share_percent_ads %>%
-      </li>
-
-      <li>
-        <label>
-          Length of time producer is offering ad sales returns (in months)
-        </label>
-        NYA
-      </li>
-
-      <li>
-        <label>
-          Can you recoup first on ad sales?
-        </label>
-        NYA
-      </li>
-
+        <li>
+          <label>
+            Can you recoup first on download sales?
+          </label>
+          NYA
+        </li>
+      </ul>
+      
       <li>
         <label>
           Price per premium copy
@@ -238,33 +245,33 @@
 
     <ol>
       <li><label><b>PirateMyFilm</b></label>&nbsp;
-    <ul>
-      <li><label>Return per premium copy per per 100000 pirated copies:</label>NYA</li>
-      <li><label>Breakeven Point:</label>NYA</li>
-      <li>
-        <label>
-          Producer return per pirated copy per 100000 pirated copies
-        </label>
-        NYA
-      </li>
-    </ul>
-    <li><label><b>Don't PirateMyFilm</b></label>&nbsp;
-    <ul>
-      <li>
-        <label>
-          Return per permium copy per per 100000 retailed copies
-      (Assuming $<%= @premium_price_assumption.to_i %> per copy):
-      </label>
-        $<%= @return_premium_sales %>
-      </li>
-      <li><label>Breakeven Point</label><%= @breakeven_premium_sales.to_i %> copies</li>
-      <li>
-        <label>
-          Producer return per <%= @return_premium_sales_based_on %> retailed copies
-          (Assuming $<%= @premium_price_assumption.to_i %> per copy):
-        </label>
-        NYA
-      </li>
+      <ul>
+        <li><label>Return per premium copy per per 100000 pirated copies:</label>NYA</li>
+        <li><label>Breakeven Point:</label>NYA</li>
+        <li>
+          <label>
+            Producer return per pirated copy per 100000 pirated copies
+          </label>
+          NYA
+        </li>
+      </ul>
+      <li><label><b>Don't PirateMyFilm</b></label>&nbsp;
+      <ul>
+        <li>
+          <label>
+            Return per permium copy per per 100000 retailed copies
+            (Assuming $<%= @premium_price_assumption.to_i %> per copy):
+          </label>
+          $<%= @return_premium_sales %>
+        </li>
+        <li><label>Breakeven Point</label><%= @breakeven_premium_sales.to_i %> copies</li>
+        <li>
+          <label>
+            Producer return per <%= @return_premium_sales_based_on %> retailed copies
+            (Assuming $<%= @premium_price_assumption.to_i %> per copy):
+          </label>
+          NYA
+        </li>
       </ul>
     </ol>
   </fieldset>
