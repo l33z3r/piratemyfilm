@@ -304,6 +304,36 @@
   </fieldset>
 <% end %>
 
+  <!--added by Paul, lines 308 - 335-->
+  <% form_tag :controller => "admin/project_comments", :action => "update_comment", :project_id => @project.id do %>
+  <fieldset>
+    <legend><span>PMF Comment</span></legend>
+    <ol>
+      <% if @admin_comment %>
+        <li>
+          <label>Comment added by <%= @admin_comment.user.login %> :</label>
+          <%= @admin_comment.body %>
+        </li>
+      <% end %>
+
+      <% if_admin do %>
+        <li>
+          <% if @admin_comment %>
+            <label>Edit Comment</label>
+            <%= text_area_tag :body, @admin_comment.body %>
+          <% else %>
+            <label>Add Comment</label>
+            <%= text_area_tag :body %>
+          <% end %>
+            
+          <%= submit_tag "Submit" %>
+        </li>
+      <% end %>
+
+    </ol>
+  </fieldset>
+<% end %>
+
 <a name="user_rating">&nbsp;</a>
 
 <% form_tag :controller => "project_rating", :action => "rate", :project_id => @project.id do %>

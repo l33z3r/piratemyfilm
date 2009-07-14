@@ -4,7 +4,7 @@ SHELL = /bin/sh
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /usr/local/lib/ruby/1.8/i686-darwin8.10.3
+topdir = /usr/local/lib/ruby/1.8/i686-darwin9.5.0
 hdrdir = $(topdir)
 VPATH = $(srcdir):$(topdir):$(hdrdir)
 prefix = $(DESTDIR)/usr/local
@@ -41,19 +41,19 @@ LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 
 RUBY_EXTCONF_H = 
-CFLAGS   =  -fno-common -g -O2  -fno-common -pipe -fno-common -D_FILE_OFFSET_BITS=64 
+CFLAGS   =  -fno-common -D_XOPEN_SOURCE=1  -fno-common -pipe -fno-common -D_FILE_OFFSET_BITS=64 
 INCFLAGS = -I. -I$(topdir) -I$(hdrdir) -I$(srcdir)
 CPPFLAGS =  
 CXXFLAGS = $(CFLAGS) 
-DLDFLAGS =   
+DLDFLAGS = -L.   
 LDSHARED = cc -dynamic -bundle -undefined suppress -flat_namespace
 AR = ar
 EXEEXT = 
 
 RUBY_INSTALL_NAME = ruby
 RUBY_SO_NAME = ruby
-arch = i686-darwin8.10.3
-sitearch = i686-darwin8.10.3
+arch = i686-darwin9.5.0
+sitearch = i686-darwin9.5.0
 ruby_version = 1.8
 ruby = /usr/local/bin/ruby
 RUBY = $(ruby)
@@ -68,11 +68,11 @@ COPY = cp
 
 preload = 
 
-libpath = $(libdir)
-LIBPATH =  -L"$(libdir)"
+libpath = . $(libdir)
+LIBPATH =  -L"." -L"$(libdir)"
 DEFFILE = 
 
-CLEANFILES = 
+CLEANFILES = mkmf.log
 DISTCLEANFILES = 
 
 extout = 
@@ -88,8 +88,8 @@ EXTSTATIC =
 STATIC_LIB = 
 
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /Users/steve/rails/lovd-by-less/vendor/gems/ferret-0.11.4/bin$(target_prefix)
-RUBYARCHDIR = /Users/steve/rails/lovd-by-less/vendor/gems/ferret-0.11.4/bin$(target_prefix)
+RUBYLIBDIR = /Users/nellboy/Documents/MacStuff/rails_apps/piratemyfilm/vendor/gems/ferret-0.11.4/bin$(target_prefix)
+RUBYARCHDIR = /Users/nellboy/Documents/MacStuff/rails_apps/piratemyfilm/vendor/gems/ferret-0.11.4/bin$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
 CLEANLIBS     = $(TARGET).bundle $(TARGET).il? $(TARGET).tds $(TARGET).map
@@ -142,7 +142,7 @@ site-install-rb: install-rb
 
 $(DLLIB): $(OBJS)
 	@-$(RM) $@
-	$(LDSHARED) $(DLDFLAGS) $(LIBPATH) -o $@ $(OBJS) $(LOCAL_LIBS) $(LIBS)
+	$(LDSHARED) -o $@ $(OBJS) $(LIBPATH) $(DLDFLAGS) $(LOCAL_LIBS) $(LIBS)
 
 
 

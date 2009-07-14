@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090526045351) do
+ActiveRecord::Schema.define(:version => 20090714210030) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -153,6 +153,14 @@ ActiveRecord::Schema.define(:version => 20090526045351) do
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
+  create_table "project_comments", :force => true do |t|
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "project_rating_histories", :force => true do |t|
     t.integer  "project_id"
     t.integer  "user_id"
@@ -198,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20090526045351) do
     t.integer  "downloads_reserved",      :limit => 10, :precision => 10, :scale => 0, :default => 0
     t.integer  "downloads_available",     :limit => 10, :precision => 10, :scale => 0, :default => 0
     t.integer  "capital_required",        :limit => 12, :precision => 12, :scale => 0
+    t.datetime "rated_at"
   end
 
   create_table "sessions", :force => true do |t|

@@ -1,3 +1,32 @@
+# == Schema Information
+# Schema version: 20090526045351
+#
+# Table name: projects
+#
+#  id                      :integer(4)    not null, primary key
+#  owner_id                :integer(4)    
+#  title                   :string(255)   
+#  producer_name           :string(255)   
+#  synopsis                :text          
+#  genre_id                :integer(4)    
+#  description             :text          
+#  cast                    :text          
+#  web_address             :string(255)   
+#  ipo_price               :decimal(10, 2 
+#  percent_funded          :integer(3)    
+#  icon                    :string(255)   
+#  created_at              :datetime      
+#  updated_at              :datetime      
+#  youtube_vid_id          :string(255)   
+#  status                  :string(255)   default("Funding")
+#  project_length          :integer(4)    default(0)
+#  share_percent_downloads :integer(3)    
+#  share_percent_ads       :integer(3)    
+#  downloads_reserved      :integer(10)   default(0)
+#  downloads_available     :integer(10)   default(0)
+#  capital_required        :integer(12)   
+#
+
 class Project < ActiveRecord::Base    
 
   @@PROJECT_STATUSES = ["Funding", "In Production", "Release"]
@@ -22,6 +51,11 @@ class Project < ActiveRecord::Base
   acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote=>true
 
   has_one :project_rating
+
+  #added by Paul, lines 56, 58
+  has_one :admin_project_rating
+
+  has_one :project_comment
 
   file_column :icon, :magick => {
     :versions => { 

@@ -13,7 +13,11 @@ class HomeController < ApplicationController
  
   def index
     check_featured
-    @recent_projects = Project.find(:all, :order => "created_at DESC", :limit => 8)
+    #@recent_projects = Project.find(:all, :order => "created_at DESC", :limit => 8)
+    
+    #added by Paul, line 19
+    @recent_projects = Project.find(:all, :order => "rated_at DESC, created_at DESC", :limit => 8)
+
     respond_to do |wants|
       wants.html {render}
       wants.rss {render :partial =>  'profiles/newest_member', :collection => new_members}

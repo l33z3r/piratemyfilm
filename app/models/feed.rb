@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 2008100601002
+# Schema version: 20090526045351
 #
 # Table name: feeds
 #

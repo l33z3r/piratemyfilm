@@ -4,12 +4,12 @@ SHELL = /bin/sh
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /usr/lib/ruby/1.8/i486-linux
+topdir = /usr/local/lib/ruby/1.8/i686-darwin9.5.0
 hdrdir = $(topdir)
 VPATH = $(srcdir):$(topdir):$(hdrdir)
-prefix = $(DESTDIR)/usr
+prefix = $(DESTDIR)/usr/local
 exec_prefix = $(prefix)
-sitedir = $(DESTDIR)/usr/local/lib/site_ruby
+sitedir = $(prefix)/lib/ruby/site_ruby
 rubylibdir = $(libdir)/ruby/$(ruby_version)
 docdir = $(datarootdir)/doc/$(PACKAGE)
 dvidir = $(docdir)
@@ -21,41 +21,41 @@ localedir = $(datarootdir)/locale
 htmldir = $(docdir)
 datadir = $(datarootdir)
 includedir = $(prefix)/include
-infodir = $(prefix)/share/info
-sysconfdir = $(DESTDIR)/etc
-mandir = $(prefix)/share/man
+infodir = $(datarootdir)/info
+sysconfdir = $(prefix)/etc
+mandir = $(datarootdir)/man
 libdir = $(exec_prefix)/lib
 sharedstatedir = $(prefix)/com
 oldincludedir = $(DESTDIR)/usr/include
 pdfdir = $(docdir)
 sitearchdir = $(sitelibdir)/$(sitearch)
 bindir = $(exec_prefix)/bin
-localstatedir = $(DESTDIR)/var
+localstatedir = $(prefix)/var
 sitelibdir = $(sitedir)/$(ruby_version)
-libexecdir = $(prefix)/lib/ruby1.8
+libexecdir = $(exec_prefix)/libexec
 
-CC = cc
+CC = gcc
 LIBRUBY = $(LIBRUBY_SO)
 LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
 LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 
 RUBY_EXTCONF_H = 
-CFLAGS   =  -fPIC -fno-strict-aliasing -g -g -O2  -fPIC 
-INCFLAGS = -I. -I. -I/usr/lib/ruby/1.8/i486-linux -I.
+CFLAGS   =  -fno-common -D_XOPEN_SOURCE=1  -fno-common -pipe -fno-common 
+INCFLAGS = -I. -I. -I/usr/local/lib/ruby/1.8/i686-darwin9.5.0 -I.
 CPPFLAGS =  
 CXXFLAGS = $(CFLAGS) 
-DLDFLAGS = -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic  
-LDSHARED = $(CC) -shared
+DLDFLAGS = -L.   
+LDSHARED = cc -dynamic -bundle -undefined suppress -flat_namespace
 AR = ar
 EXEEXT = 
 
-RUBY_INSTALL_NAME = ruby1.8
-RUBY_SO_NAME = ruby1.8
-arch = i486-linux
-sitearch = i486-linux
+RUBY_INSTALL_NAME = ruby
+RUBY_SO_NAME = ruby
+arch = i686-darwin9.5.0
+sitearch = i686-darwin9.5.0
 ruby_version = 1.8
-ruby = /usr/bin/ruby1.8
+ruby = /usr/local/bin/ruby
 RUBY = $(ruby)
 RM = rm -f
 MAKEDIRS = mkdir -p
@@ -79,20 +79,20 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED) -lc  -lpthread -ldl -lcrypt -lm   -lc
+LIBS = $(LIBRUBYARG_SHARED) -lc  -lpthread -ldl -lobjc  
 SRCS = hpricot_scan.c
 OBJS = hpricot_scan.o
 TARGET = hpricot_scan
-DLLIB = $(TARGET).so
+DLLIB = $(TARGET).bundle
 EXTSTATIC = 
 STATIC_LIB = 
 
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /home/lee/work/mine/ruby/rails/lovdbyless/vendor/gems/hpricot-0.6/bin$(target_prefix)
-RUBYARCHDIR = /home/lee/work/mine/ruby/rails/lovdbyless/vendor/gems/hpricot-0.6/bin$(target_prefix)
+RUBYLIBDIR = /Users/nellboy/Documents/MacStuff/rails_apps/piratemyfilm/vendor/gems/_hpricot-0.6-malfunction/bin$(target_prefix)
+RUBYARCHDIR = /Users/nellboy/Documents/MacStuff/rails_apps/piratemyfilm/vendor/gems/_hpricot-0.6-malfunction/bin$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
-CLEANLIBS     = $(TARGET).so $(TARGET).il? $(TARGET).tds $(TARGET).map
+CLEANLIBS     = $(TARGET).bundle $(TARGET).il? $(TARGET).tds $(TARGET).map
 CLEANOBJS     = *.o *.a *.s[ol] *.pdb *.exp *.bak
 
 all:		$(DLLIB)

@@ -14,8 +14,9 @@ config.action_controller.perform_caching             = false
 config.action_view.debug_rjs                         = true
 
 # needed for Avatar::Source::RailsAssetSource
-config.action_controller.asset_host                  = "http://192.168.1.99:3000"
+#config.action_controller.asset_host                  = "http://192.168.1.99:3000"
+config.action_controller.asset_host                  = "http://piratemyfilm.piratemyfilm-001.vm.brightbox.net"
 
 # Don't care if the mailer can't send
-config.action_mailer.raise_delivery_errors = true
+config.action_mailer.raise_delivery_errors = false
 config.action_mailer.delivery_method = :test

@@ -13,7 +13,15 @@ class Admin::ProjectRatingController < ApplicationController
 
       @rating = params[:rating]
       @current_rating.rating = @rating
-      @current_rating.save!
+
+      #added by Paul, lines 18 - 22
+      if @current_rating.save!
+        @project = Project.find_by_id(@project_id)
+        @project.rated_at = Time.now
+        @project.save!
+      end
+
+      #@current_rating.save!
 
       flash[:positive] = "Project Rated!"
       redirect_to :controller => "/projects", :action => "show", :id => @project_id

@@ -31,7 +31,7 @@ Rails::Initializer.run do |config|
   config.gem 'uuidtools', :version=> '1.0.3'
   config.gem 'acts_as_ferret', :version=> '0.4.3'
   config.gem 'ferret', :version=> '0.11.4'
-  config.gem 'hpricot', :version=>"0.6"
+  config.gem 'hpricot', :version=>"0.8.1"
   config.gem 'mocha', :version=>"0.5.6"
   config.gem 'redgreen', :version=>"1.2.2" unless ENV['TM_MODE']
   config.gem 'gcnovus-avatar', :version=>"0.0.7", :lib => 'avatar'

@@ -10,7 +10,11 @@
   </div><!--END title ROW-->
 
 
-<% for @project in listings do %>
+<% for @project in home_listings do %>
+
+  <!--added by Paul, lines 16, 17 -->
+  <% if @project.admin_project_rating %>
+  <% unless @project.admin_project_rating.rating == 1 %>
 
       <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %>">
 
@@ -43,6 +47,11 @@
 
         <div style="clear:both;"></div>
       </div>
+
+  <!--added by Paul, lines 53, 54-->
+        <% end %>
+      <% end %>
+  
     <% end %>
   </div>
   <div class="pmf_clear">&nbsp;</div>

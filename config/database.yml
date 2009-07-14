@@ -1,15 +1,19 @@
 development:
   adapter: mysql
-  database: piratemyfilm_development
-  username: piratemyfilm
-  password: piratemyfilm
-  host: 127.0.0.1
   encoding: utf8
+  reconnect: false
+  database: piratemyfilm1_development
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/mysql.sock
 
 test:
   adapter: mysql
-  database: piratemyfilm_test
-  username: piratemyfilm
-  password: piratemyfilm
-  host: 127.0.0.1
   encoding: utf8
+  reconnect: false
+  database: piratemyfilm1_test
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/mysql.sock

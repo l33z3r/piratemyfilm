@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20090526045351
+#
+# Table name: project_ratings
+#
+#  id             :integer(4)    not null, primary key
+#  project_id     :integer(4)    
+#  average_rating :integer(4)    
+#  created_at     :datetime      
+#  updated_at     :datetime      
+#
+
 class ProjectRating < ActiveRecord::Base
   belongs_to :project
   has_many :project_rating_histories

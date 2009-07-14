@@ -59,6 +59,9 @@ class ProjectsController < ApplicationController
     @admin_project_rating = AdminProjectRating.find_by_project_id @project.id
     @admin_rating = @admin_project_rating ? @admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]
 
+    #added by Paul, line 63
+    @admin_comment = ProjectComment.find_by_project_id @project.id
+
     @user_project_rating = ProjectRating.find_by_project_id @project.id
     @user_rating = @user_project_rating ? @user_project_rating.rating_symbol : ProjectRating.ratings_map[1]
 
