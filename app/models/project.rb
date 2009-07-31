@@ -52,9 +52,7 @@ class Project < ActiveRecord::Base
 
   has_one :project_rating
 
-  #added by Paul, lines 56, 58
   has_one :admin_project_rating
-
   has_one :project_comment
 
   file_column :icon, :magick => {
@@ -64,6 +62,47 @@ class Project < ActiveRecord::Base
       :small => {:crop => "1:1", :size => "50x50", :name => "small"}
     }
   }
+
+  #find projects that have been given initial rating and are not deleted
+  def self.find_public(*args)
+
+    case args.first
+    when :first then @find = :first
+    when :last  then @find = :last
+    when :all   then @find = :all
+    end
+
+    options = {}
+
+    logger.debug "args: #{args[1]}"
+    if args[0].is_a?(Hash)
+      options = args[0]
+    elsif args[1].is_a?(Hash)
+      options = args[1]
+    end
+
+    if options[:conditions]
+      options[:conditions] << sanitize_sql(' AND rated_at IS NOT NULL')
+    else
+      options[:conditions] = sanitize_sql('rated_at IS NOT NULL')
+    end
+
+    #dont return deleted projects
+    #options[:conditions] << sanitize_sql(' AND deleted = 0')
+
+    if !@find
+      @projects = self.find(args, options)
+      if @projects.size == 0
+        return nil
+      elsif @projects.size == 1
+        return @projects [0]
+      else
+        return @projects
+      end
+    else
+      self.find(@find, options)
+    end
+  end
   
   def self.search query = '', options = {}
     logger.debug "Searching for projects with query #{query}"

@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     #@recent_projects = Project.find(:all, :order => "created_at DESC", :limit => 8)
     
     #added by Paul, line 19
-    @recent_projects = Project.find(:all, :order => "rated_at DESC, created_at DESC", :limit => 8)
+    @recent_projects = Project.find_public(:all, :order => "rated_at DESC, created_at DESC", :limit => 8)
 
     respond_to do |wants|
       wants.html {render}

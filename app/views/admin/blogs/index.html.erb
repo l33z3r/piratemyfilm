@@ -1,0 +1,21 @@
+<% content_for :head do  -%>
+Homepage Blogs<%= auto_discovery_link_tag :rss, formatted_profile_blogs_url(@profile, :rss), :title=>"#{@profile.f}'s Blogs" %>
+<% end -%>
+
+<div class="left" id="column_l">
+
+  <h1><%= icon @profile %> <%= @profile.f %>'s Blog</h1>
+
+  <div id="sub_nav">
+    <%= link_to 'Write a new homepage blog', new_profile_blog_path(@profile) %>
+    </div>
+  
+  <% if @blogs.empty? %>
+  <%= @profile.f %> has no blog posts.
+  <% else %>
+  <%= render :partial => 'blogs/blog', :collection => @blogs %>
+  <% end %>
+</div>
+<!-- END CURRENT POST -->
+
+<%= render :partial => 'history' %>

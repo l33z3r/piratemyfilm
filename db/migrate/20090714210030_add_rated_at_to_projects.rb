@@ -1,6 +1,4 @@
 class AddRatedAtToProjects < ActiveRecord::Migration
-  #added by Paul, all
-  
   def self.up
     add_column :projects, :rated_at, :datetime
   end

@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
 #      @flickr = []
 #    end
       
-    @user_projects = @profile.user.owned_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
+    @user_projects = @profile.user.owned_public_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
 
     @user_subscriptions = @profile.user.subscribed_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
     

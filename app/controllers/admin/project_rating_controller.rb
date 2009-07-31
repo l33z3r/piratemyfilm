@@ -1,4 +1,8 @@
-class Admin::ProjectRatingController < ApplicationController
+class Admin::ProjectRatingController < Admin::AdminController
+
+  def index
+    @projects = Project.find(:all, :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
+  end
 
   def rate
     begin
@@ -20,8 +24,6 @@ class Admin::ProjectRatingController < ApplicationController
       @rating = params[:rating]
       @current_rating.rating = @rating
 
-
-      #added by Paul, lines 18 - 22
       if @current_rating.save!
         @project = Project.find_by_id(@project_id)
         @project.rated_at = Time.now
@@ -34,8 +36,6 @@ class Admin::ProjectRatingController < ApplicationController
       @current_comment.project_id = @project_id
       @current_comment.save!
 
-      #@current_rating.save!
-
       flash[:positive] = "Project Rated!"
       redirect_to :controller => "/projects", :action => "show", :id => @project_id
 
@@ -43,12 +43,6 @@ class Admin::ProjectRatingController < ApplicationController
       flash[:negative] = "Error rating project!"
       redirect_to :controller => "/projects", :action => "show", :id => @project_id
     end
-  end
-
-  private
-
-  def allow_to
-    super :admin, :all => true
   end
   
 end

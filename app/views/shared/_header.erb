@@ -34,10 +34,6 @@
 <% if logged_in %>
   <div class="local-navbar-button"><span><%= link_to 'My PMF', profile_path(@p, :show_portfolio => "true") %></span><p>&nbsp;</p></div>
   <div class="local-navbar-button"><span><%= link_to 'Account', edit_profile_path(@p) %></span><p>Edit your personal settings</p></div>
-  <!--added by Paul, 30-07-2009, lines 38 - 40-->
-  <%- if_admin do %>
-    <div class="local-navbar-button"><span><%= link_to 'Admin', :controller => :admin %></span><p>Site Admin</p></div>
-  <% end %>
 <% end %>
 
 <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>

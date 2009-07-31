@@ -4,18 +4,22 @@
       <ul>
         <li>Welcome <% if(@u.nil? or @u.new_record?) %> Guest <% else %> <%=  @u.f %> <% end %> </li>
         <li style="width: 150px; overflow: hidden; text-align: left;">&nbsp; &nbsp;</li>
-        
+
         <li><a href="/">Home</a></li>
-        
+
         <% if(@u.nil? or @u.new_record?) %>
           <li><%= link_to 'Sign Up', signup_path %></li>
-          <li><a href="#"><%= link_to 'Sign In', login_path %></a></li>    
+          <li><%= link_to 'Sign In', login_path %></li>
         <% else %>
-          <li><a href="#"><%= link_to 'Sign Out', logout_path %></a></li>
+          <li><%= link_to 'Sign Out', logout_path %></li>
+          <%- if_admin do %>
+            <li><%= link_to 'Admin', :controller => "admin/home" %><li>
+          <% end %>
+
         <% end %>
-        
-      </ul>      
-      
+
+      </ul>
+
     </div><!--CLOSE LOGIN-CONTENTS-->
   </div><!--CLOSE LOGIN PANEL-->
 </div><!--CLOSE LOGIN-->

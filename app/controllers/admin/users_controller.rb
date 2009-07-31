@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < Admin::AdminController
   before_filter :search_results, :except => [:destroy]
   
   def index
@@ -25,10 +25,6 @@ class Admin::UsersController < ApplicationController
   end
   
   private
-  
-  def allow_to
-    super :admin, :all => true
-  end
   
   def search_results
     if params[:search]

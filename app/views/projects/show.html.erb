@@ -235,7 +235,7 @@
       <li><label>Total Premium Copies</label><%=h @project.total_copies.to_i %></li>
       <li><label>Premium Copies Available</label><%=h @project.downloads_available %></li>
       <li><label>Premium Copies Reserved</label><%=h @project.downloads_reserved %></li>
-      <li><label>Percent funded</label><%=h @project.percent_funded %>%</li>
+      <li><label>Percent funded</label><%=h @project.percent_funded %>&#37</li>
     </ol>
   </fieldset>
 
@@ -315,7 +315,7 @@
         <li>
           <label>Set Rating</label>
           <%= select_tag  "rating", options_for_select(@admin_rating_select_opts,
-              @admin_project_rating.rating) %>
+              !@admin_project_rating ? "" : @admin_project_rating.rating) %>
           <%= submit_tag "Submit" %>
         </li>
       <% end %>

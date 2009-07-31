@@ -2,14 +2,16 @@ class ProjectsController < ApplicationController
   
   skip_filter :store_location, :only => [:create, :destroy]
   skip_before_filter :login_required, :only=> [:index, :show, :search]
-  before_filter :setup
+  before_filter :setup, :load_project
   before_filter :check_owner, :only => [:edit, :update, :destroy]  
   before_filter :search_results, :only => [:search]
-
+  skip_before_filter :load_project, :only => [:show_private]
+  before_filter :load_project_private, :only => [:show_private]
+  
   PROJECT_LIST_LIMIT = 5
   
   def index
-    @projects = Project.find(:all, :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
+    @projects = Project.find_public(:all, :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
   end
 
   def new
@@ -49,41 +51,12 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    #load the users subscription to this project
-    @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
+    perform_show
+  end
 
-    @max_subscription = ProjectSubscription.max_subscriptions
-    @max_subscription_reached = @my_subscription && @my_subscription.amount == @max_subscription
-
-    #load ratings for this project
-    @admin_project_rating = AdminProjectRating.find_by_project_id @project.id
-    @admin_rating = @admin_project_rating ? @admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]
-
-    #added by Paul, line 63
-    @admin_comment = ProjectComment.find_by_project_id @project.id
-
-    @user_project_rating = ProjectRating.find_by_project_id @project.id
-    @user_rating = @user_project_rating ? @user_project_rating.rating_symbol : ProjectRating.ratings_map[1]
-
-    #has this user rated this project
-    @my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u)
-
-    #load rating select opts
-    @admin_rating_select_opts = AdminProjectRating.rating_select_opts
-    @rating_select_opts = ProjectRating.rating_select_opts
-    
-    @premium_price_assumption = 5.0
-    @return_premium_sales_based_on = 100000
-    @return_premium_ads_based_on = 100000
-
-    if @project.share_percent_downloads > 0
-      @return_premium_sales = ((@premium_price_assumption * @return_premium_sales_based_on) * (@project.share_percent_downloads / 100.0)) / @project.total_copies
-      @breakeven_premium_sales = (@premium_price_assumption * 100 * @project.total_copies) / (@project.share_percent_downloads * @premium_price_assumption)
-    else
-      @return_premium_sales = 0
-      @breakeven_premium_sales = 0
-    end
-
+  def show_private
+    perform_show
+    render :action => "show"
   end
 
   def edit
@@ -125,9 +98,42 @@ class ProjectsController < ApplicationController
   end
   
   protected
-  
+
+  def perform_show
+    #load the users subscription to this project
+    @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
+
+    @max_subscription = ProjectSubscription.max_subscriptions
+    @max_subscription_reached = @my_subscription && @my_subscription.amount == @max_subscription
+
+    @admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]
+    @admin_comment = ProjectComment.find_by_project_id @project.id
+
+    @user_project_rating = ProjectRating.find_by_project_id @project.id
+    @user_rating = @user_project_rating ? @user_project_rating.rating_symbol : ProjectRating.ratings_map[1]
+
+    #has this user rated this project
+    @my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u)
+
+    #load rating select opts
+    @admin_rating_select_opts = AdminProjectRating.rating_select_opts
+    @rating_select_opts = ProjectRating.rating_select_opts
+
+    @premium_price_assumption = 5.0
+    @return_premium_sales_based_on = 100000
+    @return_premium_ads_based_on = 100000
+
+    if @project.share_percent_downloads > 0
+      @return_premium_sales = ((@premium_price_assumption * @return_premium_sales_based_on) * (@project.share_percent_downloads / 100.0)) / @project.total_copies
+      @breakeven_premium_sales = (@premium_price_assumption * 100 * @project.total_copies) / (@project.share_percent_downloads * @premium_price_assumption)
+    else
+      @return_premium_sales = 0
+      @breakeven_premium_sales = 0
+    end
+  end
+
   def allow_to
-    super :all, :only => [:index, :show, :search]
+    super :all, :only => [:index, :show, :show_private, :search]
     super :admin, :all => true
     super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon]
   end  
@@ -142,7 +148,18 @@ class ProjectsController < ApplicationController
   def setup
     @profile = Profile[params[:profile_id]] if params[:profile_id]
     @user = @profile.user if @profile
-    @project = Project.find(params[:id]) unless params[:id].blank?    
+    
+  end
+
+  def load_project
+    @project = Project.find_public(params[:id]) unless params[:id].blank?
+  end
+
+  def load_project_private
+    @project = Project.find(params[:id]) unless params[:id].blank?
+
+    #test permissions on this project
+    raise 'You do not have permission to view this project!' unless @project.owner == @u or @u.is_admin
   end
     
   def search_results

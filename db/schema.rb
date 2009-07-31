@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090714210030) do
+ActiveRecord::Schema.define(:version => 20090731061527) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20090714210030) do
     t.integer  "profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_homepage_blog", :default => false
   end
 
   add_index "blogs", ["profile_id"], :name => "index_blogs_on_profile_id"
