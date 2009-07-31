@@ -1,0 +1,2 @@
+ - homepage and projects page lists only projects which have been approved
+ - admin interface lists only unrated projects
