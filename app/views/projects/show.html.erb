@@ -292,43 +292,34 @@
         <%= @admin_rating %>
       </li>
 
-      <% if_admin do %>
-        <li>
-          <label>Set Rating</label>
-          <%= select_tag  "rating", options_for_select(@admin_rating_select_opts, @admin_rating) %>
-          <%= submit_tag "Submit" %>
-        </li>
-      <% end %>
-
-    </ol>
-  </fieldset>
-<% end %>
-
-  <!--added by Paul, lines 308 - 335-->
-  <% form_tag :controller => "admin/project_comments", :action => "update_comment", :project_id => @project.id do %>
-  <fieldset>
-    <legend><span>PMF Comment</span></legend>
-    <ol>
-      <% if @admin_comment %>
+      <% if @admin_comment && !@admin_comment.body.empty? %>
         <li>
           <label>Comment added by <%= @admin_comment.user.login %> :</label>
           <%= @admin_comment.body %>
         </li>
       <% end %>
 
+
+      <% if_admin do %>
+          <li id="comment">
+            <% if @admin_comment && !@admin_comment.body.empty? %>
+              <label>Edit Comment</label>
+              <%= text_area_tag :body, @admin_comment.body, :size => "45x5" %>
+            <% else %>
+              <label>Add Comment</label>
+              <%= text_area_tag :body, nil, :size => "45x5" %>
+          </li>
+       <% end %>
+
       <% if_admin do %>
         <li>
-          <% if @admin_comment %>
-            <label>Edit Comment</label>
-            <%= text_area_tag :body, @admin_comment.body %>
-          <% else %>
-            <label>Add Comment</label>
-            <%= text_area_tag :body %>
-          <% end %>
-            
+          <label>Set Rating</label>
+          <%= select_tag  "rating", options_for_select(@admin_rating_select_opts,
+              @admin_project_rating.rating) %>
           <%= submit_tag "Submit" %>
         </li>
       <% end %>
+    <% end %>
 
     </ol>
   </fieldset>

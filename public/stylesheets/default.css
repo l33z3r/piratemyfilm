@@ -771,10 +771,17 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     font-size: 12px;
     font-weight: bold; 
 }
+
 #content textarea {
     width: 95%;
-    margin: auto;   
+    margin: auto;
 }
+
+#comment textarea {
+    width: 50%;
+    margin: auto;
+}
+
 /*CART*/
 #SetupCard .floatButtonFormat, #ConfirmBilling .floatButtonFormat {
     width: 100%;

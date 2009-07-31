@@ -6,13 +6,20 @@ class Admin::ProjectRatingController < ApplicationController
       
       @current_rating = AdminProjectRating.find_by_project_id @project_id
 
+      @current_comment = ProjectComment.find_by_project_id(@project_id)
+
       if !@current_rating
         @project = Project.find(@project_id)
         @current_rating = AdminProjectRating.create(:project => @project)
       end
 
+      unless @current_comment
+        @current_comment = ProjectComment.create
+      end
+
       @rating = params[:rating]
       @current_rating.rating = @rating
+
 
       #added by Paul, lines 18 - 22
       if @current_rating.save!
@@ -20,6 +27,12 @@ class Admin::ProjectRatingController < ApplicationController
         @project.rated_at = Time.now
         @project.save!
       end
+
+      @body = params[:body]
+      @current_comment.body = @body
+      @current_comment.user_id = @u.id
+      @current_comment.project_id = @project_id
+      @current_comment.save!
 
       #@current_rating.save!
 

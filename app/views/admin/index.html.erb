@@ -1,0 +1,5 @@
+<div id="MENU_HEADER" class="pageTitle">Unrated Project Listings</div>
+
+<%= render :partial => "projects/admin_listings", :object => @projects %>
+
+<%= pagination_controls_for @projects if @projects.respond_to? :total_pages %>
