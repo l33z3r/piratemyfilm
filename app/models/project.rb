@@ -92,6 +92,7 @@ class Project < ActiveRecord::Base
 
     if !@find
       @projects = self.find(args, options)
+      logger.info("Got project: #{@projects.size}")
       if @projects.size == 0
         return nil
       elsif @projects.size == 1

@@ -148,7 +148,6 @@ class ProjectsController < ApplicationController
   def setup
     @profile = Profile[params[:profile_id]] if params[:profile_id]
     @user = @profile.user if @profile
-    
   end
 
   def load_project
