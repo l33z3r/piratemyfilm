@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
   PROJECT_LIST_LIMIT = 5
   
   def index
-    @projects = Project.find_public(:all, :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
+    @projects = Project.find_all_public(:order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
   end
 
   def new

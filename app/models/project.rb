@@ -77,7 +77,7 @@ class Project < ActiveRecord::Base
     #dont return deleted projects
     #options[:conditions] << sanitize_sql(' AND deleted = 0')
 
-    @projects = self.find(args, options)
+    @projects = self.find(:all, options)
 
     logger.info("Got project: #{@projects.size}")
     if @projects.size == 0
