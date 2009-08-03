@@ -100,6 +100,7 @@ class ProjectsController < ApplicationController
   protected
 
   def perform_show
+    logger.info("Project #{@project.to_s}")
     #load the users subscription to this project
     @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
 
@@ -151,7 +152,7 @@ class ProjectsController < ApplicationController
   end
 
   def load_project
-    @project = Project.find_public(params[:id]) unless params[:id].blank?
+    @project = Project.find_single_public(params[:id]) unless params[:id].blank?
   end
 
   def load_project_private

@@ -64,22 +64,9 @@ class Project < ActiveRecord::Base
   }
 
   #find projects that have been given initial rating and are not deleted
-  def self.find_public(*args)
+  def self.find_all_public(*args)
 
-    case args.first
-    when :first then @find = :first
-    when :last  then @find = :last
-    when :all   then @find = :all
-    end
-
-    options = {}
-
-    logger.debug "args: #{args[1]}"
-    if args[0].is_a?(Hash)
-      options = args[0]
-    elsif args[1].is_a?(Hash)
-      options = args[1]
-    end
+    options = args[0]
 
     if options[:conditions]
       options[:conditions] << sanitize_sql(' AND rated_at IS NOT NULL')
@@ -90,18 +77,25 @@ class Project < ActiveRecord::Base
     #dont return deleted projects
     #options[:conditions] << sanitize_sql(' AND deleted = 0')
 
-    if !@find
-      @projects = self.find(args, options)
-      logger.info("Got project: #{@projects.size}")
-      if @projects.size == 0
-        return nil
-      elsif @projects.size == 1
-        return @projects [0]
-      else
-        return @projects
-      end
+    @projects = self.find(args, options)
+
+    logger.info("Got project: #{@projects.size}")
+    if @projects.size == 0
+      return nil
     else
-      self.find(@find, options)
+      return @projects
+    end
+    
+  end
+
+  def self.find_single_public(id)
+
+    @project = self.find(id)
+logger.debug("Project rated at #{@project.rated_at}")
+    if @project.rated_at
+      return @project
+    else
+      return nil
     end
   end
   
