@@ -153,6 +153,7 @@ default_run_options[:pty] = true
 # Set the commands and gems that your application requires. e.g.
 # depend :remote, :gem, "will_paginate", ">=2.2.2"
 # depend :remote, :command, "brightbox"
+depend :remote, :gem, "hpricot", "0.8.1"
 
 #after "deploy:restart", "ferret:start"
 
