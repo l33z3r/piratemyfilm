@@ -41,8 +41,8 @@ LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 
 RUBY_EXTCONF_H = 
-CFLAGS   =  -fPIC -g -O2  -fPIC -D_FILE_OFFSET_BITS=64 
-INCFLAGS = -I. -I$(topdir) -I$(hdrdir) -I$(srcdir)
+CFLAGS   =  -fPIC -g -O2  -fPIC 
+INCFLAGS = -I. -I. -I/usr/lib/ruby/1.8/i686-linux -I.
 CPPFLAGS =  
 CXXFLAGS = $(CFLAGS) 
 DLDFLAGS = -L.  -rdynamic -Wl,-export-dynamic  
@@ -79,17 +79,17 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED)  -ldl -lcrypt -lm   -lc
-SRCS = array.c stem_UTF_8_portuguese.c sort.c q_range.c fs_store.c similarity.c stem_ISO_8859_1_spanish.c api.c stem_ISO_8859_1_english.c q_term.c stem_ISO_8859_1_portuguese.c ram_store.c q_match_all.c r_utils.c search.c hash.c stem_ISO_8859_1_danish.c stem_UTF_8_dutch.c stem_UTF_8_swedish.c stem_UTF_8_danish.c except.c libstemmer.c stem_ISO_8859_1_german.c stem_ISO_8859_1_swedish.c stem_UTF_8_finnish.c helper.c r_analysis.c multimapper.c stem_ISO_8859_1_porter.c stem_UTF_8_french.c stem_UTF_8_italian.c r_store.c q_span.c q_wildcard.c stem_ISO_8859_1_dutch.c stopwords.c r_search.c stem_UTF_8_porter.c stem_UTF_8_norwegian.c mempool.c analysis.c stem_ISO_8859_1_italian.c stem_ISO_8859_1_french.c stem_UTF_8_german.c filter.c q_parser.c stem_ISO_8859_1_norwegian.c stem_UTF_8_spanish.c stem_UTF_8_russian.c ferret.c document.c priorityqueue.c q_boolean.c stem_KOI8_R_russian.c q_prefix.c r_index.c posh.c utilities.c bitvector.c compound_io.c q_const_score.c hashset.c global.c q_phrase.c stem_UTF_8_english.c r_qparser.c index.c store.c q_fuzzy.c stem_ISO_8859_1_finnish.c q_filtered_query.c q_multi_term.c term_vectors.c
-OBJS = array.o stem_UTF_8_portuguese.o sort.o q_range.o fs_store.o similarity.o stem_ISO_8859_1_spanish.o api.o stem_ISO_8859_1_english.o q_term.o stem_ISO_8859_1_portuguese.o ram_store.o q_match_all.o r_utils.o search.o hash.o stem_ISO_8859_1_danish.o stem_UTF_8_dutch.o stem_UTF_8_swedish.o stem_UTF_8_danish.o except.o libstemmer.o stem_ISO_8859_1_german.o stem_ISO_8859_1_swedish.o stem_UTF_8_finnish.o helper.o r_analysis.o multimapper.o stem_ISO_8859_1_porter.o stem_UTF_8_french.o stem_UTF_8_italian.o r_store.o q_span.o q_wildcard.o stem_ISO_8859_1_dutch.o stopwords.o r_search.o stem_UTF_8_porter.o stem_UTF_8_norwegian.o mempool.o analysis.o stem_ISO_8859_1_italian.o stem_ISO_8859_1_french.o stem_UTF_8_german.o filter.o q_parser.o stem_ISO_8859_1_norwegian.o stem_UTF_8_spanish.o stem_UTF_8_russian.o ferret.o document.o priorityqueue.o q_boolean.o stem_KOI8_R_russian.o q_prefix.o r_index.o posh.o utilities.o bitvector.o compound_io.o q_const_score.o hashset.o global.o q_phrase.o stem_UTF_8_english.o r_qparser.o index.o store.o q_fuzzy.o stem_ISO_8859_1_finnish.o q_filtered_query.o q_multi_term.o term_vectors.o
-TARGET = ferret_ext
+LIBS = $(LIBRUBYARG_SHARED) -lc  -ldl -lcrypt -lm   -lc
+SRCS = hpricot_scan.c hpricot_css.c
+OBJS = hpricot_scan.o hpricot_css.o
+TARGET = hpricot_scan
 DLLIB = $(TARGET).so
 EXTSTATIC = 
 STATIC_LIB = 
 
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /home/lee/work/piratemyfilm/piratemyfilm/vendor/gems/ferret-0.11.4/bin$(target_prefix)
-RUBYARCHDIR = /home/lee/work/piratemyfilm/piratemyfilm/vendor/gems/ferret-0.11.4/bin$(target_prefix)
+RUBYLIBDIR = /home/lee/work/piratemyfilm/piratemyfilm/vendor/gems/hpricot-0.8.1/bin$(target_prefix)
+RUBYARCHDIR = /home/lee/work/piratemyfilm/piratemyfilm/vendor/gems/hpricot-0.8.1/bin$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
 CLEANLIBS     = $(TARGET).so $(TARGET).il? $(TARGET).tds $(TARGET).map
