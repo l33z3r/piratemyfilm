@@ -24,7 +24,7 @@ class HomeController < ApplicationController
       @entries << blog
     end
 
-    @entries.sort! { |a,b| a.created_at <=> b.created_at }
+    @entries.sort! { |a,b| b.created_at <=> a.created_at }
   end
 
   def newest_members
