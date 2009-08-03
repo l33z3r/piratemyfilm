@@ -79,12 +79,7 @@ class Project < ActiveRecord::Base
 
     @projects = self.find(:all, options)
 
-    logger.info("Got project: #{@projects.size}")
-    if @projects.size == 0
-      return nil
-    else
-      return @projects
-    end
+    @projects
     
   end
 
