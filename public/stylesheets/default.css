@@ -1206,6 +1206,29 @@ border-top: 1px solid #fff;
 background-color: #fff;
 }
 
+.blog-title {
+    float: left;
+    text-transform: capitalize;
+    color:#015353;
+    font-size:13px;
+    font-weight:bold;
+    margin: 5px;
+    width: 580px;
+}
+
+.blog-body {
+    width: 100%;
+    margin: 5px;
+    width: 800px;
+}
+
+.blog-date {
+    margin: 5px;
+    font-weight: bold;
+    width: 200px;
+    float: right;
+}
+
 .view-lite-row-title	{
 background:#fff;
 color:#015353;
@@ -1214,6 +1237,11 @@ font-weight:bold;
 padding:0;
 margin:10px 0 0 0;
 border-bottom:2px solid #015353;
+}
+
+.view-lite-row-title div {
+    font-weight: bold;
+    font-size: 13px;
 }
 
 .view-lite-row-title-icon	{	

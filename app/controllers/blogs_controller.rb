@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
   skip_filter :login_required, :only => [:index, :show]
-  prepend_before_filter :get_profile
+#  prepend_before_filter :get_profile
   before_filter :setup
   
   
@@ -71,18 +71,18 @@ class BlogsController < ApplicationController
 
   protected
   
-  def get_profile
-    @profile = Profile[params[:profile_id]]
-  end
+#  def get_profile
+#    @profile = Profile[params[:profile_id]]
+#  end
   
   def setup
-    @user = @profile.user
-    @blogs = @profile.blogs.paginate(:page => @page, :per_page => @per_page)
+#    @user = @profile.user
+#    @blogs = @profile.blogs.paginate(:page => @page, :per_page => @per_page)
     
     if params[:id]
-      @blog = Blog[params[:id]]
-    else
-      @blog = Blog.new
+      @blog = Blog.find(params[:id])
+#    else
+#      @blog = Blog.new
     end
   end
   

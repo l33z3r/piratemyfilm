@@ -1,0 +1,7 @@
+<h1>Showing Blog</h1>
+
+<div id="sub_nav">
+  <%= link_to "<<< Back to Blogs", :controller => "admin/homepage_blog" %>
+</div>
+
+<%= render :partial => 'blog', :locals => {:blog => @blog} %>

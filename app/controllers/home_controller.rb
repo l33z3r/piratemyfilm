@@ -9,19 +9,22 @@ class HomeController < ApplicationController
     flash[:notice] = "Thank you for your message.  A member of our team will respond to you shortly."
     redirect_to contact_url    
   end
-
  
   def index
-    check_featured
-    #@recent_projects = Project.find(:all, :order => "created_at DESC", :limit => 8)
-    
-    #added by Paul, line 19
     @recent_projects = Project.find_public(:all, :order => "rated_at DESC, created_at DESC", :limit => 8)
+    @recent_blogs = Blog.find_all_by_is_homepage_blog(true)
 
-    respond_to do |wants|
-      wants.html {render}
-      wants.rss {render :partial =>  'profiles/newest_member', :collection => new_members}
+    @entries = []
+    
+    @recent_projects.each do |project|
+      @entries << project
     end
+
+    @recent_blogs.each do |blog|
+      @entries << blog
+    end
+
+    @entries.sort! { |a,b| a.created_at <=> b.created_at }
   end
 
   def newest_members

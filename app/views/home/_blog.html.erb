@@ -1,0 +1,16 @@
+<div class="<%= cycle("view-lite-row", "view-lite-row-alt") %>">
+  <div class="blog-entry">
+    <div class="blog-title"><%= blog.title %></div>
+
+    <div class="blog-date"><%= blog.created_at.to_formatted_s(:long_ordinal) %></div>
+
+    <div style="clear:both;"></div>
+    
+    <div class="blog-body">
+      <%=truncate(h(blog.body), 530)%>
+      (<%= link_to "More", :controller => "blogs", :action => "show", :id => blog.id %>)
+    </div>
+
+    <div style="clear:both;"></div>
+  </div>
+</div>

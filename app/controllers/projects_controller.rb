@@ -40,8 +40,8 @@ class ProjectsController < ApplicationController
       render :action=>'new' and return unless @project.valid?
       @project.save!
       @project.update_funding
-      flash[:positive] = "Your project has been added"
-      redirect_to project_path(@project)
+      flash[:positive] = "Your project has been submitted for review and will appear on the site shortly!"
+      redirect_to :controller => "home"
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Project"      
       @genres = Genre.find(:all)

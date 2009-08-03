@@ -2,4 +2,22 @@
   Recent Project Listings
 </div>
 
-<%= render :partial => "projects/homepage_listings", :object => @recent_projects %>
+<div class="project_listings">
+  <div class="view-lite-row-title">
+    <div class="view-lite-row-title-icon">ICON</div>
+    <div class="view-lite-row-title-project-name">PROJECT TITLE</div>
+    <div class="view-lite-row-title-user-icon">USERNAME</div>
+    <div class="view-lite-row-title-numbers">STATS</div>
+    <div class="view-lite-row-title-description">DESCRIPTION</div>
+    <div style="clear:both;"></div>
+  </div>
+
+  <% for @entry in @entries do %>
+      <% if @entry.is_a?(Blog) %>
+        <%= render :partial => "blog", :locals => {:blog => @entry} %>
+      <% elsif @entry.is_a?(Project) %>
+      <%= render :partial => "project", :locals => {:project => @entry} %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="pmf_clear">&nbsp;</div>

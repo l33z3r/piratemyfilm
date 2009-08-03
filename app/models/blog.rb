@@ -17,10 +17,10 @@ class Blog < ActiveRecord::Base
   validates_presence_of :title, :body
   attr_immutable :id, :profile_id
   
-  def after_create
-    feed_item = FeedItem.create(:item => self)
-    ([profile] + profile.friends + profile.followers).each{ |p| p.feed_items << feed_item }
-  end
+#  def after_create
+#    feed_item = FeedItem.create(:item => self)
+#    ([profile] + profile.friends + profile.followers).each{ |p| p.feed_items << feed_item }
+#  end
   
   
   def to_param

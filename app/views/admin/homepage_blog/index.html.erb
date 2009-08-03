@@ -1,0 +1,15 @@
+<div id="MENU_HEADER" class="pageTitle">
+  Homepage Blogs
+</div>
+<div style="clear:both;"></div><hr/>
+
+  <div id="sub_nav" style="float: right;">
+    <%= link_to 'New Blog Post', :action => "new" %>
+  </div>
+  <div style="clear:both;"></div>
+
+  <% if @blogs.empty? %>
+    No Blogs Found!
+  <% else %>
+    <%= render :partial => 'blog', :collection => @blogs %>
+  <% end %>

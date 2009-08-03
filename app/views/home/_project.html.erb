@@ -1,0 +1,31 @@
+<div class="<%= cycle("view-lite-row", "view-lite-row-alt") %>">
+
+  <div class="view-lite-row-icon">
+    <% if !project.icon.nil? %>
+      <%= image_tag url_for_file_column(project, "icon", "medium") %>
+    <% else %>
+      <img src="/images/generic-project-icon.png" id="project-icon" height="75px" alt="Generic icon" border="0" />
+    <% end %>
+  </div>
+
+  <div class="view-lite-row-project-name"><%= link_to h(project.title), project_path(project) %></div>
+
+  <div class="view-lite-row-user-icon">
+    <%= link_to icon(project.owner.profile, :small), profile_path(project.owner.profile) %>
+    <span><%= link_to project.owner.profile.user.login, profile_path(project.owner.profile) %></span>
+  </div>
+
+  <div class="view-lite-row-numbers">
+    <ul>
+      <li>Admin Rating: <span><b><%= project.admin_project_rating.rating_symbol %></b></span></li>
+      <li>Funding Required: <span>$<%= project.capital_required %></span></li>
+    </ul>
+  </div>
+
+  <div class="view-lite-row-description">
+    <%=truncate(h(project.project_comment.body), 100)%>
+    (<%= link_to "More", project_path(project) %>)
+  </div>
+
+  <div style="clear:both;"></div>
+</div>
