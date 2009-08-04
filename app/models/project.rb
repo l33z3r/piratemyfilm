@@ -30,7 +30,7 @@
 class Project < ActiveRecord::Base    
 
   @@PROJECT_STATUSES = ["Funding", "In Production", "Release"]
-  @DEFAULT_FUNDING_LIMIT = 50000
+  @@DEFAULT_FUNDING_LIMIT = 50000
 
   belongs_to :owner, :class_name=>'User', :foreign_key=>'owner_id'
   
@@ -159,7 +159,7 @@ logger.debug("Project rated at #{@project.rated_at}")
     end
     unless funding_limit == nil
       if self.capital_required > funding_limit
-        errors.add(:capital_required, "Capital Required must be less than $#{funding_limit}, the limit, for your membership type,
+        errors.add(:capital_required, "Capital Required must be less than $#{funding_limit}, the limit for your membership type,
           Perhaps you should upgrade?") 
       end
     end
