@@ -16,10 +16,14 @@ class ProjectSubscription < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
   
-  @@MAX_SUBSCRIPTIONS = 5
+  @@MAX_SUBSCRIPTIONS = { :per_project => 5, :projects => 5 }
   
   def self.max_subscriptions 
-    @@MAX_SUBSCRIPTIONS
+      @@MAX_SUBSCRIPTIONS[:per_project]
+  end
+
+  def self.max_project_subscriptions
+      @@MAX_SUBSCRIPTIONS[:projects]
   end
   
 end

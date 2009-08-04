@@ -2,7 +2,9 @@
   <h3>
     You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> premium copies reserved for this project.<br>
     <% if @max_subscription_reached %>
-      Your limit for this project has been reached.
+      Your limit for this project has been reached. Maybe you should upgrade your subscription?
+    <% elsif @max_project_subscription_reached %>
+      Your cannot reserve Premium Copies for any more projects. Maybe you should upgrade your subscription?
     <% else %>
       <% if @project.downloads_available > 0 %>
         You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> premium copies.
@@ -90,7 +92,7 @@
 <div class="left">
   <% if logged_in %>
 
-    <% if !@max_subscription_reached %>
+    <% if !@max_subscription_reached && !@max_project_subscription_reached %>
       <% if @project.downloads_available > 0 %>
         <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
           <input type="submit" value="Reserve Premium Copy"/>

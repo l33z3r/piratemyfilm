@@ -22,6 +22,7 @@ require 'digest/sha1'
 require 'mime/types'
 
 class User < ActiveRecord::Base
+  has_one :membership_type
   has_one :profile, :dependent => :nullify
   
   # Virtual attribute for the unencrypted password

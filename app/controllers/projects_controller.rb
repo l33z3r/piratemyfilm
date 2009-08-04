@@ -7,6 +7,8 @@ class ProjectsController < ApplicationController
   before_filter :search_results, :only => [:search]
   skip_before_filter :load_project, :only => [:show_private]
   before_filter :load_project_private, :only => [:show_private]
+
+  before_filter :load_membership_settings, :only => [:new, :create]
   
   PROJECT_LIST_LIMIT = 5
   
@@ -15,9 +17,11 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    if @u.owned_projects.size >= PROJECT_LIST_LIMIT
-      flash[:negative] = "Sorry you have reached your limit of #{PROJECT_LIST_LIMIT} project listings"
-      redirect_to :controller => "projects" and return
+    unless @project_limit == nil
+      if @u.owned_projects.size >= @project_limit
+        flash[:negative] = "Sorry you have reached your limit of #{@u.project_limit} project listings"
+        redirect_to :controller => "projects" and return
+      end
     end
       
     @project = Project.new
@@ -26,9 +30,11 @@ class ProjectsController < ApplicationController
 
   def create
     begin
-      if @u.owned_projects.size >= PROJECT_LIST_LIMIT
-        flash[:negative] = "Sorry you have reached your limit of #{PROJECT_LIST_LIMIT} project listings"
-        redirect_to :controller => "projects" and return
+      unless @project_limit == nil
+        if @u.owned_projects.size >= @project_limit
+          flash[:negative] = "Sorry you have reached your limit of #{project_limit} project listings"
+          redirect_to :controller => "projects" and return
+        end
       end
 
       round_budget_from_params
@@ -99,13 +105,29 @@ class ProjectsController < ApplicationController
   
   protected
 
+  def load_membership_settings
+    if @u.membership_type_id
+      @project_limit = @u.membership_type.max_projects_listed
+    else
+      @project_limit = PROJECT_LIST_LIMIT
+    end
+  end
+
   def perform_show
     logger.info("Project #{@project.to_s}")
     #load the users subscription to this project
     @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
+    @user_subscriptions = ProjectSubscription.find_all_by_user_id(@u)
 
-    @max_subscription = ProjectSubscription.max_subscriptions
-    @max_subscription_reached = @my_subscription && @my_subscription.amount == @max_subscription
+    if @u.membership_type_id
+      @max_subscription = @u.membership_type.pc_limit_per_project
+      @max_project_subscription = @u.membership_type.pc_project_limit
+    else
+      @max_subscription = ProjectSubscription.max_subscriptions
+      @max_project_subscription = ProjectSubscription.max_project_subscriptions
+    end
+    @max_subscription_reached = (@my_subscription && @my_subscription.amount == @max_subscription) || @max_subscription == nil
+    @max_project_subscription_reached = (@my_subscription && @user_subscriptions.size == @max_project_subscription) || @max_project_subscription == nil
 
     @admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]
     @admin_comment = ProjectComment.find_by_project_id @project.id

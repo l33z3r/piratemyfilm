@@ -11,8 +11,15 @@ class ProjectSubscriptionsController < ApplicationController
         redirect_to project_path(@project) and return
       end
       
-      @max_subscription = ProjectSubscription.max_subscriptions
+      if @u.membership_type_id
+        @max_subscription = @u.membership_type.pc_limit_per_project
+      else
+        @max_subscription = ProjectSubscription.max_subscriptions
+      end
       @max_subscription_reached = @project_subscription && @project_subscription.amount == @max_subscription
+
+      #@max_subscription = ProjectSubscription.max_subscriptions
+      #@max_subscription_reached = @project_subscription && @project_subscription.amount == @max_subscription
 
       if !@project_subscription.nil?
         

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090731061527) do
+ActiveRecord::Schema.define(:version => 20090804181631) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -102,6 +102,16 @@ ActiveRecord::Schema.define(:version => 20090731061527) do
 
   create_table "genres", :force => true do |t|
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "membership_types", :force => true do |t|
+    t.string   "name"
+    t.integer  "max_projects_listed"
+    t.integer  "pc_limit_per_project"
+    t.integer  "pc_project_limit"
+    t.integer  "funding_limit_per_project"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -231,6 +241,7 @@ ActiveRecord::Schema.define(:version => 20090731061527) do
     t.boolean  "can_send_messages",                       :default => true
     t.string   "email_verification"
     t.boolean  "email_verified"
+    t.boolean  "membership_type_id",                      :default => false
   end
 
   add_index "users", ["login"], :name => "index_users_on_login"

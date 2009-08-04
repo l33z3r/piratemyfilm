@@ -30,6 +30,7 @@
 class Project < ActiveRecord::Base    
 
   @@PROJECT_STATUSES = ["Funding", "In Production", "Release"]
+  @DEFAULT_FUNDING_LIMIT = 50000
 
   belongs_to :owner, :class_name=>'User', :foreign_key=>'owner_id'
   
@@ -47,6 +48,8 @@ class Project < ActiveRecord::Base
   
   validates_numericality_of :capital_required, :ipo_price, :project_length
   validates_numericality_of :share_percent_downloads, :share_percent_ads, :allow_nil => true
+
+  validate :funding_limit_not_exceeded
   
   acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote=>true
 
@@ -146,5 +149,22 @@ logger.debug("Project rated at #{@project.rated_at}")
     errors.add(:share_percent_ads, "Must be a percentage (0 - 100)") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
     errors.add(:capital_required, "Capital Required must be a multiple of your download unit price") if capital_required % ipo_price !=0 || capital_required < ipo_price
   end
+
+  def funding_limit_not_exceeded
+    user = User.find(self.owner_id)
+    if user.membership_type_id
+      funding_limit = user.membership_type.funding_limit_per_project
+    else
+      funding_limit = @@DEFAULT_FUNDING_LIMIT
+    end
+    unless funding_limit == nil
+      if self.capital_required > funding_limit
+        errors.add(:capital_required, "Capital Required must be less than $#{funding_limit}, the limit, for your membership type,
+          Perhaps you should upgrade?") 
+      end
+    end
+
+  end
+
   
 end
