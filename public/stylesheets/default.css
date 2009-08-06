@@ -1180,7 +1180,9 @@ vertical-align:top;
 }
 /*End of Local Navigation*/
 
-
+div.project_listings .blog-row {
+    height: 130px;
+}
 
 .view-lite-row	{
 float: left;  
@@ -1204,6 +1206,19 @@ margin: 0 0 1em 0;
 border-style: none;  
 border-top: 1px solid #fff;  
 background-color: #fff;
+}
+
+div.blog {
+    padding: 15px 0px 20px 0px;
+}
+
+div.blog .header {
+    float: left;
+}
+
+div.blog .header a {
+    font-weight: bold;
+    font-size: 15px;
 }
 
 .blog-title {

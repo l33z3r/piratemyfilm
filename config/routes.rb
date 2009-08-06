@@ -11,9 +11,6 @@ ActionController::Routing::Routes.draw do |map|
     :has_many=>[:friends, :blogs, :photos, :comments, :feed_items, :messages]
 
   map.resources :messages, :collection => {:sent => :get}
-  map.resources :blogs do |blog|
-    blog.resources :comments
-  end
   
   map.resources :forums, :collection => {:update_positions => :post} do |forum|
     forum.resources :topics, :controller => :forum_topics do |topic|

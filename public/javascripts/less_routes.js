@@ -315,54 +315,6 @@ function message_ajaxx(id, verb, params, options){ return less_ajaxx('/messages/
 function formatted_message_path(id, format, verb){ return '/messages/' + id + '.' + format + '';}
 function formatted_message_ajax(id, format, verb, params, options){ return less_ajax('/messages/' + id + '.' + format + '', verb, params, options);}
 function formatted_message_ajaxx(id, format, verb, params, options){ return less_ajaxx('/messages/' + id + '.' + format + '', verb, params, options);}
-function blogs_path(verb){ return '/blogs';}
-function blogs_ajax(verb, params, options){ return less_ajax('/blogs', verb, params, options);}
-function blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs', verb, params, options);}
-function formatted_blogs_path(format, verb){ return '/blogs.' + format + '';}
-function formatted_blogs_ajax(format, verb, params, options){ return less_ajax('/blogs.' + format + '', verb, params, options);}
-function formatted_blogs_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs.' + format + '', verb, params, options);}
-function new_blog_path(verb){ return '/blogs/new';}
-function new_blog_ajax(verb, params, options){ return less_ajax('/blogs/new', verb, params, options);}
-function new_blog_ajaxx(verb, params, options){ return less_ajaxx('/blogs/new', verb, params, options);}
-function formatted_new_blog_path(format, verb){ return '/blogs/new.' + format + '';}
-function formatted_new_blog_ajax(format, verb, params, options){ return less_ajax('/blogs/new.' + format + '', verb, params, options);}
-function formatted_new_blog_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs/new.' + format + '', verb, params, options);}
-function edit_blog_path(id, verb){ return '/blogs/' + id + '/edit';}
-function edit_blog_ajax(id, verb, params, options){ return less_ajax('/blogs/' + id + '/edit', verb, params, options);}
-function edit_blog_ajaxx(id, verb, params, options){ return less_ajaxx('/blogs/' + id + '/edit', verb, params, options);}
-function formatted_edit_blog_path(id, format, verb){ return '/blogs/' + id + '/edit.' + format + '';}
-function formatted_edit_blog_ajax(id, format, verb, params, options){ return less_ajax('/blogs/' + id + '/edit.' + format + '', verb, params, options);}
-function formatted_edit_blog_ajaxx(id, format, verb, params, options){ return less_ajaxx('/blogs/' + id + '/edit.' + format + '', verb, params, options);}
-function blog_path(id, verb){ return '/blogs/' + id + '';}
-function blog_ajax(id, verb, params, options){ return less_ajax('/blogs/' + id + '', verb, params, options);}
-function blog_ajaxx(id, verb, params, options){ return less_ajaxx('/blogs/' + id + '', verb, params, options);}
-function formatted_blog_path(id, format, verb){ return '/blogs/' + id + '.' + format + '';}
-function formatted_blog_ajax(id, format, verb, params, options){ return less_ajax('/blogs/' + id + '.' + format + '', verb, params, options);}
-function formatted_blog_ajaxx(id, format, verb, params, options){ return less_ajaxx('/blogs/' + id + '.' + format + '', verb, params, options);}
-function blog_comments_path(blog_id, verb){ return '/blogs/' + blog_id + '/comments';}
-function blog_comments_ajax(blog_id, verb, params, options){ return less_ajax('/blogs/' + blog_id + '/comments', verb, params, options);}
-function blog_comments_ajaxx(blog_id, verb, params, options){ return less_ajaxx('/blogs/' + blog_id + '/comments', verb, params, options);}
-function formatted_blog_comments_path(blog_id, format, verb){ return '/blogs/' + blog_id + '/comments.' + format + '';}
-function formatted_blog_comments_ajax(blog_id, format, verb, params, options){ return less_ajax('/blogs/' + blog_id + '/comments.' + format + '', verb, params, options);}
-function formatted_blog_comments_ajaxx(blog_id, format, verb, params, options){ return less_ajaxx('/blogs/' + blog_id + '/comments.' + format + '', verb, params, options);}
-function new_blog_comment_path(blog_id, verb){ return '/blogs/' + blog_id + '/comments/new';}
-function new_blog_comment_ajax(blog_id, verb, params, options){ return less_ajax('/blogs/' + blog_id + '/comments/new', verb, params, options);}
-function new_blog_comment_ajaxx(blog_id, verb, params, options){ return less_ajaxx('/blogs/' + blog_id + '/comments/new', verb, params, options);}
-function formatted_new_blog_comment_path(blog_id, format, verb){ return '/blogs/' + blog_id + '/comments/new.' + format + '';}
-function formatted_new_blog_comment_ajax(blog_id, format, verb, params, options){ return less_ajax('/blogs/' + blog_id + '/comments/new.' + format + '', verb, params, options);}
-function formatted_new_blog_comment_ajaxx(blog_id, format, verb, params, options){ return less_ajaxx('/blogs/' + blog_id + '/comments/new.' + format + '', verb, params, options);}
-function edit_blog_comment_path(blog_id, id, verb){ return '/blogs/' + blog_id + '/comments/' + id + '/edit';}
-function edit_blog_comment_ajax(blog_id, id, verb, params, options){ return less_ajax('/blogs/' + blog_id + '/comments/' + id + '/edit', verb, params, options);}
-function edit_blog_comment_ajaxx(blog_id, id, verb, params, options){ return less_ajaxx('/blogs/' + blog_id + '/comments/' + id + '/edit', verb, params, options);}
-function formatted_edit_blog_comment_path(blog_id, id, format, verb){ return '/blogs/' + blog_id + '/comments/' + id + '/edit.' + format + '';}
-function formatted_edit_blog_comment_ajax(blog_id, id, format, verb, params, options){ return less_ajax('/blogs/' + blog_id + '/comments/' + id + '/edit.' + format + '', verb, params, options);}
-function formatted_edit_blog_comment_ajaxx(blog_id, id, format, verb, params, options){ return less_ajaxx('/blogs/' + blog_id + '/comments/' + id + '/edit.' + format + '', verb, params, options);}
-function blog_comment_path(blog_id, id, verb){ return '/blogs/' + blog_id + '/comments/' + id + '';}
-function blog_comment_ajax(blog_id, id, verb, params, options){ return less_ajax('/blogs/' + blog_id + '/comments/' + id + '', verb, params, options);}
-function blog_comment_ajaxx(blog_id, id, verb, params, options){ return less_ajaxx('/blogs/' + blog_id + '/comments/' + id + '', verb, params, options);}
-function formatted_blog_comment_path(blog_id, id, format, verb){ return '/blogs/' + blog_id + '/comments/' + id + '.' + format + '';}
-function formatted_blog_comment_ajax(blog_id, id, format, verb, params, options){ return less_ajax('/blogs/' + blog_id + '/comments/' + id + '.' + format + '', verb, params, options);}
-function formatted_blog_comment_ajaxx(blog_id, id, format, verb, params, options){ return less_ajaxx('/blogs/' + blog_id + '/comments/' + id + '.' + format + '', verb, params, options);}
 function update_positions_forums_path(verb){ return '/forums/update_positions';}
 function update_positions_forums_ajax(verb, params, options){ return less_ajax('/forums/update_positions', verb, params, options);}
 function update_positions_forums_ajaxx(verb, params, options){ return less_ajaxx('/forums/update_positions', verb, params, options);}

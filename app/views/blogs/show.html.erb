@@ -1,1 +1,10 @@
+<div id="MENU_HEADER" class="pageTitle">
+  Homepage Blogs
+</div>
+<div style="clear:both;"></div><hr/>
+
+<%= link_to "View All Blogs", :action => "homepage" %>
+
+<div style="clear:both;"></div>
+
 <%= render :partial => 'blog', :locals => {:blog => @blog} %>

@@ -27,13 +27,6 @@ class ApplicationController < ActionController::Base
     @p.update_attribute :last_activity_at, Time.now if @p
   end
   
-  
-  
-  
-  
-  
-  
-  
   helper_method :flickr, :flickr_images
   # API objects that get built once per request
   def flickr(user_name = nil, tags = nil )
@@ -52,7 +45,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  
   protected
   
   def allow_to level = nil, args = {}
@@ -60,8 +52,6 @@ class ApplicationController < ActionController::Base
     @level ||= []
     @level << [level, args]    
   end
-   
-  
   
   def check_permissions
     logger.debug "IN check_permissions :: @level => #{@level.inspect}"

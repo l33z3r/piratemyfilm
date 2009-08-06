@@ -34,7 +34,11 @@ class AdminProjectRating < ActiveRecord::Base
       @ratings_select_opts << [value, key]
     }
 
-    @ratings_select_opts.sort
+    @ratings_select_opts.sort! { |arr1, arr2|
+      arr2[1] <=> arr1[1]
+    }
+
+    @ratings_select_opts
   end
 
   def rating_symbol

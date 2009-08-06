@@ -1,8 +1,18 @@
+<% if @project.is_deleted %>
+  <h3>
+    This Project was deleted on <%= @project.deleted_at %>
+    <br/><br/>
+    <%= link_to "Restore This Project", :controller => "projects", :action => "restore", :id => @project %>
+  </h3>
+<% end %>
+
 <% if logged_in %>
   <h3>
     You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> premium copies reserved for this project.<br>
     <% if @max_subscription_reached %>
-      Your limit for this project has been reached.
+      Your limit for this project has been reached. Maybe you should upgrade your subscription?
+    <% elsif @max_project_subscription_reached %>
+      You cannot reserve Premium Copies for any more projects. Maybe you should upgrade your subscription?
     <% else %>
       <% if @project.downloads_available > 0 %>
         You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> premium copies.
@@ -83,14 +93,14 @@
       <p><%=h @project.downloads_available %></p>
     </div>
 
-  </div><!--CLOSE PROJECT-OVERVIEW-BUTTONSZONE-->
-</div><!--CLOSE PROJECT-OVERVIEW-->
+  </div>
+</div>
 
 
 <div class="left">
   <% if logged_in %>
 
-    <% if !@max_subscription_reached %>
+    <% if !@max_subscription_reached && !@max_project_subscription_reached %>
       <% if @project.downloads_available > 0 %>
         <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
           <input type="submit" value="Reserve Premium Copy"/>
@@ -115,6 +125,11 @@
   <% if @u and @project.owner == @u %>
     <%= link_to "Edit Project", edit_project_path(@project) %> |
   <% end %>
+  
+  <% if (@u and @project.owner == @u) || @u.is_admin %>
+    <%= link_to "Delete Project", :controller => "projects", :action => "delete", :id => @project %> |
+  <% end %>
+
   <%= link_to "List a Project", new_project_path %> |
   <%= link_to "All Projects", projects_path %> |
   <%= link_to "Invite My Friend to Reserve This Project (NYA)", "#" %>
@@ -206,7 +221,7 @@
           NYA
         </li>
       </ul>
-      
+
       <li>
         <label>
           Price per premium copy
@@ -301,25 +316,25 @@
 
 
       <% if_admin do %>
-          <li id="comment">
-            <% if @admin_comment && !@admin_comment.body.empty? %>
-              <label>Edit Comment</label>
-              <%= text_area_tag :body, @admin_comment.body, :size => "45x5" %>
-            <% else %>
-              <label>Add Comment</label>
-              <%= text_area_tag :body, nil, :size => "45x5" %>
+        <li id="comment">
+          <% if @admin_comment && !@admin_comment.body.empty? %>
+            <label>Edit Comment</label>
+            <%= text_area_tag :body, @admin_comment.body, :size => "45x5" %>
+          <% else %>
+            <label>Add Comment</label>
+            <%= text_area_tag :body, nil, :size => "45x5" %>
           </li>
-       <% end %>
+        <% end %>
 
-      <% if_admin do %>
-        <li>
-          <label>Set Rating</label>
-          <%= select_tag  "rating", options_for_select(@admin_rating_select_opts,
+        <% if_admin do %>
+          <li>
+            <label>Set Rating</label>
+            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts,
               !@admin_project_rating ? "" : @admin_project_rating.rating) %>
-          <%= submit_tag "Submit" %>
-        </li>
+            <%= submit_tag "Submit" %>
+          </li>
+        <% end %>
       <% end %>
-    <% end %>
 
     </ol>
   </fieldset>

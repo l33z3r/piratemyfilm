@@ -1,8 +1,6 @@
 class BlogsController < ApplicationController
   skip_filter :login_required, :only => [:index, :show]
-#  prepend_before_filter :get_profile
-  before_filter :setup
-  
+  before_filter :setup, :only => [:show, :update, :destroy]
   
   def index
     if @p && @p == @profile && @p.blogs.empty?
@@ -15,7 +13,9 @@ class BlogsController < ApplicationController
     end
   end
   
-  
+  def homepage
+    @blogs = Blog.find_all_by_is_homepage_blog(true)
+  end
   
   def create
     @blog = @p.blogs.build params[:blog]
@@ -71,26 +71,15 @@ class BlogsController < ApplicationController
 
   protected
   
-#  def get_profile
-#    @profile = Profile[params[:profile_id]]
-#  end
-  
   def setup
-#    @user = @profile.user
-#    @blogs = @profile.blogs.paginate(:page => @page, :per_page => @per_page)
-    
     if params[:id]
       @blog = Blog.find(params[:id])
-#    else
-#      @blog = Blog.new
     end
   end
-  
-  
-  
+
   def allow_to
     super :owner, :all => true
-    super :all, :only => [:index, :show]
+    super :all, :only => [:index, :show, :homepage]
   end
   
 end

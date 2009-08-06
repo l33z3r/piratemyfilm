@@ -30,7 +30,7 @@
 class Project < ActiveRecord::Base    
 
   @@PROJECT_STATUSES = ["Funding", "In Production", "Release"]
-
+  
   belongs_to :owner, :class_name=>'User', :foreign_key=>'owner_id'
   
   has_many   :project_subscriptions, :dependent => :destroy
@@ -47,6 +47,8 @@ class Project < ActiveRecord::Base
   
   validates_numericality_of :capital_required, :ipo_price, :project_length
   validates_numericality_of :share_percent_downloads, :share_percent_ads, :allow_nil => true
+
+  validate :funding_limit_not_exceeded
   
   acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote=>true
 
@@ -77,8 +79,7 @@ class Project < ActiveRecord::Base
       options[:conditions] = sanitize_sql('rated_at IS NOT NULL')
     end
 
-    #dont return deleted projects
-    #options[:conditions] << sanitize_sql(' AND deleted = 0')
+    options[:conditions] << sanitize_sql(' AND is_deleted = 0')
 
     @projects = self.find(:all, options)
 
@@ -89,8 +90,8 @@ class Project < ActiveRecord::Base
   def self.find_single_public(id)
 
     @project = self.find(id)
-logger.debug("Project rated at #{@project.rated_at}")
-    if @project.rated_at
+    
+    if @project.rated_at && !@project.is_deleted
       return @project
     else
       return nil
@@ -149,5 +150,13 @@ logger.debug("Project rated at #{@project.rated_at}")
     errors.add(:share_percent_ads, "Must be a percentage (0 - 100)") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
     errors.add(:capital_required, "Capital Required must be a multiple of your download unit price") if capital_required % ipo_price !=0 || capital_required < ipo_price
   end
-  
+
+  def funding_limit_not_exceeded
+    funding_limit = owner.membership_type.funding_limit_per_project
+    
+    if self.capital_required > funding_limit
+      errors.add(:capital_required, "Capital Required must be less than $#{funding_limit}, the limit for your membership type,
+          We will be allowing account upgrades shortly!")
+    end
+  end
 end

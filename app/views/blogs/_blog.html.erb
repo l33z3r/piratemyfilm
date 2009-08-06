@@ -1,12 +1,13 @@
-<div id="blog_<%= blog.id %>" class="border_top">
-  <h2><%= link_to sanitize(textilize(blog.title.capitalize)), :action => "show", :id => blog.id %></h2>
-  <div style="clear:both;"></div><hr/>
+<div id="blog_<%= blog.id %>" class="border_top blog">
+  <div class="header"><%= link_to sanitize(blog.title.capitalize), :action => "show", :id => blog.id %></div>
 
   <div style="float: right;">
     <%= blog.created_at.to_formatted_s(:long_ordinal) %>
   </div>
-
+  <div style="clear:both;"></div>
+  
   <div>
     <%= blog_body_content blog %>
   </div>
 </div>
+<div style="clear:both;"></div>  

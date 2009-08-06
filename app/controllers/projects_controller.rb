@@ -1,23 +1,26 @@
 class ProjectsController < ApplicationController
   
-  skip_filter :store_location, :only => [:create, :destroy]
+  skip_filter :store_location, :only => [:create, :delete]
   skip_before_filter :login_required, :only=> [:index, :show, :search]
   before_filter :setup, :load_project
-  before_filter :check_owner, :only => [:edit, :update, :destroy]  
+  before_filter :check_owner, :only => [:edit, :update]
+  before_filter :check_owner_or_admin, :only => [:delete]
   before_filter :search_results, :only => [:search]
-  skip_before_filter :load_project, :only => [:show_private]
-  before_filter :load_project_private, :only => [:show_private]
-  
-  PROJECT_LIST_LIMIT = 5
+  skip_before_filter :load_project, :only => [:show_private, :restore]
+  before_filter :load_project_private, :only => [:show_private, :restore]
+
+  before_filter :load_membership_settings, :only => [:new, :create]
   
   def index
     @projects = Project.find_all_public(:order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
   end
 
   def new
-    if @u.owned_projects.size >= PROJECT_LIST_LIMIT
-      flash[:negative] = "Sorry you have reached your limit of #{PROJECT_LIST_LIMIT} project listings"
-      redirect_to :controller => "projects" and return
+    unless @project_limit == nil
+      if @u.owned_projects.size >= @project_limit
+        flash[:negative] = "Sorry you have reached your limit of #{@u.project_limit} project listings"
+        redirect_to :controller => "projects" and return
+      end
     end
       
     @project = Project.new
@@ -26,9 +29,11 @@ class ProjectsController < ApplicationController
 
   def create
     begin
-      if @u.owned_projects.size >= PROJECT_LIST_LIMIT
-        flash[:negative] = "Sorry you have reached your limit of #{PROJECT_LIST_LIMIT} project listings"
-        redirect_to :controller => "projects" and return
+      unless @project_limit == nil
+        if @u.owned_projects.size >= @project_limit
+          flash[:negative] = "Sorry you have reached your limit of #{project_limit} project listings"
+          redirect_to :controller => "projects" and return
+        end
       end
 
       round_budget_from_params
@@ -51,6 +56,10 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    if !@project
+      flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
+      render :action=>'index' and return
+    end
     perform_show
   end
 
@@ -83,7 +92,32 @@ class ProjectsController < ApplicationController
     end 
   end
 
-  def destroy
+  def delete
+    if !@project
+      flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
+      render :action=>'index' and return
+    end
+
+    @project.is_deleted = true
+    @project.deleted_at = Time.now
+    @project.save!
+      
+    flash[:positive] = "Project has been deleted!"
+    redirect_to :action => "index"
+  end
+
+  def restore
+    if !@project
+      flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
+      render :action=>'index' and return
+    end
+
+    @project.is_deleted = false
+    @project.deleted_at = nil
+    @project.save!
+
+    flash[:positive] = "Project has been restored!"
+    redirect_to :action => "show", :id => @project
   end
   
   def search
@@ -99,13 +133,20 @@ class ProjectsController < ApplicationController
   
   protected
 
+  def load_membership_settings
+    @project_limit = @u.membership_type.max_projects_listed
+  end
+
   def perform_show
     logger.info("Project #{@project.to_s}")
     #load the users subscription to this project
     @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
+    @max_subscription = @u.membership_type.pc_limit_per_project
+    @max_subscription_reached = @my_subscription && @my_subscription.amount >= @max_subscription
 
-    @max_subscription = ProjectSubscription.max_subscriptions
-    @max_subscription_reached = @my_subscription && @my_subscription.amount == @max_subscription
+    @overall_subscriptions = @u.project_subscriptions.collect { |s| s.amount }.sum
+    @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
+    @max_project_subscription_reached = @overall_subscriptions >= @max_overall_project_subscriptions
 
     @admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]
     @admin_comment = ProjectComment.find_by_project_id @project.id
@@ -134,15 +175,22 @@ class ProjectsController < ApplicationController
   end
 
   def allow_to
-    super :all, :only => [:index, :show, :show_private, :search]
+    super :all, :only => [:index, :show, :search]
     super :admin, :all => true
-    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon]
+    super :user, :only => [:new, :create, :show_private, :edit, :update, :delete, :delete_icon]
   end  
   
   def check_owner
     if @project.owner != @u
       flash[:error] = 'You are not the owner of this project.'
       redirect_to project_path(@project)     
+    end
+  end
+
+  def check_owner_or_admin
+    if @project.owner != @u && !@u.is_admin
+      flash[:error] = 'You are not the owner of this project.'
+      redirect_to project_path(@project)
     end
   end
   

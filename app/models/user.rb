@@ -22,6 +22,8 @@ require 'digest/sha1'
 require 'mime/types'
 
 class User < ActiveRecord::Base
+  has_one :membership, :dependent => :destroy
+  has_one :membership_type, :through => :membership
   has_one :profile, :dependent => :nullify
   
   # Virtual attribute for the unencrypted password
@@ -48,7 +50,6 @@ class User < ActiveRecord::Base
   has_many :project_subscriptions, :dependent => :destroy
   has_many :subscribed_projects, :through => :project_subscriptions, :source=> :project
 
-  #added by Paul, line 51
   has_one :project_comment
 
   def before_create
@@ -56,7 +57,6 @@ class User < ActiveRecord::Base
     return true if p.blank?
     errors.add(:email, 'address has already been taken.') and return false unless p.user.blank?
   end
-
   
   def after_create
     p = Profile.find_or_create_by_email @email
@@ -78,10 +78,6 @@ class User < ActiveRecord::Base
   def can_mail? user
     can_send_messages? && profile.is_active?
   end
-
-
-
-
 
   # Authenticates a user by their login name and unencrypted password.
   # Returns the user or nil.
@@ -139,13 +135,13 @@ class User < ActiveRecord::Base
     save
   end
 
-protected
+  protected
 
   # before filter 
   def encrypt_password
     return if password.blank?
     self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if
-      new_record? || @forgot
+    new_record? || @forgot
     self.crypted_password = encrypt(password)
   end
   

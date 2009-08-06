@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090731061527) do
+ActiveRecord::Schema.define(:version => 20090806032307) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -102,6 +102,24 @@ ActiveRecord::Schema.define(:version => 20090731061527) do
 
   create_table "genres", :force => true do |t|
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "membership_types", :force => true do |t|
+    t.string   "name"
+    t.integer  "max_projects_listed"
+    t.integer  "pc_limit_per_project"
+    t.integer  "pc_project_limit"
+    t.integer  "funding_limit_per_project"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "memberships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "membership_type_id", :default => 1
+    t.datetime "expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -208,6 +226,8 @@ ActiveRecord::Schema.define(:version => 20090731061527) do
     t.integer  "downloads_available",     :limit => 10, :precision => 10, :scale => 0, :default => 0
     t.integer  "capital_required",        :limit => 12, :precision => 12, :scale => 0
     t.datetime "rated_at"
+    t.boolean  "is_deleted",                                                           :default => false
+    t.datetime "deleted_at"
   end
 
   create_table "sessions", :force => true do |t|
