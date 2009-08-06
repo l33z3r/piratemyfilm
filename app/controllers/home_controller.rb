@@ -24,7 +24,11 @@ class HomeController < ApplicationController
       @entries << blog
     end
 
-    @entries.sort! { |a,b| b.created_at <=> a.created_at }
+    @entries.sort! { |a,b| 
+      @sort_date_a = a.is_a?(Project) ? a.rated_at : a.created_at
+      @sort_date_b = b.is_a?(Project) ? b.rated_at : b.created_at
+      @sort_date_b <=> @sort_date_a
+    }
   end
 
   def newest_members

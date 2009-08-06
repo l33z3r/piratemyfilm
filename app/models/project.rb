@@ -66,6 +66,9 @@ class Project < ActiveRecord::Base
   #find projects that have been given initial rating and are not deleted
   def self.find_all_public(*args)
 
+    #TODO: use with_scope
+
+    
     options = args[0]
 
     if options[:conditions]
