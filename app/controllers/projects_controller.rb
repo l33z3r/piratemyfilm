@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
   def show
     if !@project
       flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
-      render :action=>'index' and return
+      redirect_to :action=>'index' and return
     end
     perform_show
   end
@@ -138,7 +138,7 @@ class ProjectsController < ApplicationController
   end
 
   def perform_show
-    logger.info("Project #{@project.to_s}")
+
     #load the users subscription to this project
     @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
     @max_subscription = @u.membership_type.pc_limit_per_project

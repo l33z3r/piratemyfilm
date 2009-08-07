@@ -1,5 +1,5 @@
 class BlogsController < ApplicationController
-  skip_filter :login_required, :only => [:index, :show]
+  skip_filter :login_required, :only => [:index, :show, :homepage]
   before_filter :setup, :only => [:show, :update, :destroy]
   
   def index
@@ -14,7 +14,7 @@ class BlogsController < ApplicationController
   end
   
   def homepage
-    @blogs = Blog.find_all_by_is_homepage_blog(true)
+    @blogs = Blog.find_all_by_is_homepage_blog(true, :order=>"created_at DESC")
   end
   
   def create

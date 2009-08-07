@@ -54,11 +54,8 @@ class ApplicationController < ActionController::Base
   end
   
   def check_permissions
-    logger.debug "IN check_permissions :: @level => #{@level.inspect}"
     return failed_check_permissions if @p && !@p.is_active
-    logger.debug "IN check_permissions :: @level => #{@level.inspect}"
     return true if @u && @u.is_admin
-    logger.debug "IN check_permissions :: @level => #{@level.inspect}"
     raise '@level is blank. Did you override the allow_to method in your controller?' if @level.blank?
     @level.each do |l|
       next unless (l[0] == :all) || 
@@ -99,4 +96,9 @@ class ApplicationController < ActionController::Base
   def not_found
     redirect_to "/" and return false
   end
+
+  def logged_in
+    !@u.nil? and !@u.new_record?
+  end
+  
 end

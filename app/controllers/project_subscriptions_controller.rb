@@ -6,6 +6,12 @@ class ProjectSubscriptionsController < ApplicationController
   def create
     begin            
 
+      #check that user does not own this project
+      if @project.owner == @u
+        flash[:error] = "As the owner of this project, you cannot buy any premium copies of it!"
+        redirect_to project_path(@project) and return
+      end
+      
       if @project.downloads_available <= 0
         flash[:error] = "There are no more premium copies available for reservation"
         redirect_to project_path(@project) and return

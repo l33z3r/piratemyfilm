@@ -6,23 +6,6 @@
   </h3>
 <% end %>
 
-<% if logged_in %>
-  <h3>
-    You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> premium copies reserved for this project.<br>
-    <% if @max_subscription_reached %>
-      Your limit for this project has been reached. Maybe you should upgrade your subscription?
-    <% elsif @max_project_subscription_reached %>
-      You cannot reserve Premium Copies for any more projects. Maybe you should upgrade your subscription?
-    <% else %>
-      <% if @project.downloads_available > 0 %>
-        You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> premium copies.
-      <% else %>
-        There are no premium copies of this project available for download
-      <% end %>
-    <% end %>
-  </h3>
-<% end %>
-
 <div id="project-overview">        
 
   <div class="project-overview-buttonszone">
@@ -98,23 +81,11 @@
 
 
 <div class="left">
-  <% if logged_in %>
+  <% if logged_in and @project.owner != @u %>
+    <%= render :partial => "subscription_buttons" %>
+  <% end %>
 
-    <% if !@max_subscription_reached && !@max_project_subscription_reached %>
-      <% if @project.downloads_available > 0 %>
-        <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
-          <input type="submit" value="Reserve Premium Copy"/>
-        </form>
-      <% end %>
-    <% end %>
-
-    <% if @my_subscription %>
-      <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
-        <input type="submit" value="Cancel Premium Copy"/>
-      <% end %>
-    <% end %>
-
-  <% else %>
+  <% if !logged_in %>
     You must <%= link_to "Log In", login_path %> in order to reserve premium copies.
   <% end %>
 </div>
@@ -125,8 +96,8 @@
   <% if @u and @project.owner == @u %>
     <%= link_to "Edit Project", edit_project_path(@project) %> |
   <% end %>
-  
-  <% if (@u and @project.owner == @u) || @u.is_admin %>
+
+  <% if @u and (@project.owner == @u || @u.is_admin) %>
     <%= link_to "Delete Project", :controller => "projects", :action => "delete", :id => @project %> |
   <% end %>
 
@@ -375,7 +346,7 @@
   <%= link_to "All Projects", projects_path %>
 </div>
 
-<div class="pageTitle">Project Subscribers</div>
+<div class="pageTitle">Members Reserving Copies</div>
 <hr>
 
 <div style="width: 100%">

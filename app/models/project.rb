@@ -48,7 +48,7 @@ class Project < ActiveRecord::Base
   validates_numericality_of :capital_required, :ipo_price, :project_length
   validates_numericality_of :share_percent_downloads, :share_percent_ads, :allow_nil => true
 
-  validate :funding_limit_not_exceeded
+  validate_on_create :funding_limit_not_exceeded
   
   acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote=>true
 
