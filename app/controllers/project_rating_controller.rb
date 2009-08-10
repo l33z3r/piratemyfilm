@@ -30,6 +30,9 @@ class ProjectRatingController < ApplicationController
         @current_project_rating.average_rating = @new_avg
         @current_project_rating.save!
 
+        @project.member_rating = @new_avg
+        @project.save!
+
         #add the new sample
         ProjectRatingHistory.create(:project => @project, :user => @u, :rating => @rating)
         

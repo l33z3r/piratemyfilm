@@ -27,6 +27,7 @@ class Admin::ProjectRatingController < Admin::AdminController
       if @current_rating.save!
         @project = Project.find_by_id(@project_id)
         @project.rated_at = Time.now
+        @project.admin_rating = @rating
         @project.save!
       end
 

@@ -17,8 +17,22 @@ class ProjectSubscriptionsController < ApplicationController
         redirect_to project_path(@project) and return
       end
       
-      @max_subscription = @u.membership_type.pc_limit_per_project
-      @max_subscription_reached = @project_subscription && @project_subscription.amount >= @max_subscription
+      # again, here there is confusion as to what limitation we're trying to enact here.
+      # We're checking that the number of subscriptions for this project are not exceeded.
+      # But these restrictions apply sitewide also for each user (as I understand it).
+      # I would suggest using the following line of code instead:
+      # max_subscription_reached = @project_subscription && @u.project_subscriptions.collect { |s| s.amount }.sum >= @max_subscription
+      # 
+      # also, there is no need to use instance variables here, since they are only used locally,
+      # so @max_subscription_reached doesn't need a '@' in front.
+      #
+
+      @max_subscription = @u.membership_type.pc_limit
+      unless @max_subscription == -1
+        @max_subscription_reached = @project_subscription && @project_subscription.amount >= @max_subscription
+      else
+        @max_subscription_reached == false
+      end
 
       if !@project_subscription.nil?
         

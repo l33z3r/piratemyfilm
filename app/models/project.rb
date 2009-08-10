@@ -154,7 +154,7 @@ class Project < ActiveRecord::Base
   def funding_limit_not_exceeded
     funding_limit = owner.membership_type.funding_limit_per_project
     
-    if self.capital_required > funding_limit
+    if self.capital_required > funding_limit && funding_limit != -1
       errors.add(:capital_required, "Capital Required must be less than $#{funding_limit}, the limit for your membership type,
           We will be allowing account upgrades shortly!")
     end

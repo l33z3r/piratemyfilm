@@ -1,5 +1,15 @@
 <div id="MENU_HEADER" class="pageTitle">Project Listings</div>
 
+<p>
+  <% form_tag :action => "filter_by_param" do %>
+    <%= select_tag :filter_param, options_for_select(@filter_params, "filter by:"), :onchange => "this.form.submit();" %>
+  <% end %>
+</p>
+
+<% if @filtered %>
+  <p><b>Projects filtered by <%= @filter_param %>:</b></p>
+<% end %>
+
 <%= render :partial => "projects/listings", :object => @projects %>
 
 <%= pagination_controls_for @projects if @projects.respond_to? :total_pages %>

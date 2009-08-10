@@ -2,38 +2,36 @@
   <% form_tag :action => "update", :id => membership_type.id do %>
     <td><b><%= membership_type.name %></b></td>
     
-    <% unless membership_type.max_projects_listed == nil %>
+    <% unless membership_type.max_projects_listed == -1 %>
       <td><%= select_tag :max_projects_listed,
-      options_for_select(@select_options, membership_type.max_projects_listed) %></td>
+      options_for_select(@select_options, membership_type.max_projects_listed), :onchange => "this.form.submit();" %></td>
     <% else %>
       <td><%= select_tag :max_projects_listed,
-      options_for_select(@select_options, "unlimited") %></td>
+      options_for_select(@select_options, "unlimited"), :onchange => "this.form.submit();" %></td>
     <% end %>
 
-    <% unless membership_type.pc_limit_per_project == nil %>
-      <td><%= select_tag :pc_limit_per_project,
-      options_for_select(@select_options, membership_type.pc_limit_per_project) %></td>
+    <% unless membership_type.pc_limit == -1 %>
+      <td><%= select_tag :pc_limit,
+      options_for_select(@select_options, membership_type.pc_limit), :onchange => "this.form.submit();" %></td>
     <% else %>
-      <td><%= select_tag :pc_limit_per_project,
-      options_for_select(@select_options, "unlimited") %></td>
+      <td><%= select_tag :pc_limit,
+      options_for_select(@select_options, "unlimited"), :onchange => "this.form.submit();" %></td>
     <% end %>
 
-    <% unless membership_type.pc_project_limit == nil %>
+    <% unless membership_type.pc_project_limit == -1 %>
       <td><%= select_tag :pc_project_limit,
-      options_for_select(@select_options, membership_type.pc_project_limit) %></td>
+      options_for_select(@select_options, membership_type.pc_project_limit), :onchange => "this.form.submit();" %></td>
     <% else %>
       <td><%= select_tag :pc_project_limit,
-      options_for_select(@select_options, "unlimited") %></td>
+      options_for_select(@select_options, "unlimited"), :onchange => "this.form.submit();" %></td>
     <% end %>
 
-    <% unless membership_type.funding_limit_per_project == nil %>
+    <% unless membership_type.funding_limit_per_project == -1 %>
       <td><%= select_tag :funding_limit_per_project,
-      options_for_select(@funding_options, membership_type.funding_limit_per_project) %></td>
+      options_for_select(@funding_options, membership_type.funding_limit_per_project), :onchange => "this.form.submit();" %></td>
     <% else %>
       <td><%= select_tag :funding_limit_per_project,
-      options_for_select(@funding_options, "unlimited") %></td>
+      options_for_select(@funding_options, "unlimited"), :onchange => "this.form.submit();" %></td>
     <% end %>
-      
-    <td><%= submit_tag "Update" %> </td>
   <% end %>
 </tr>

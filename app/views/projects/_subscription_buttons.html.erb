@@ -1,12 +1,16 @@
 <h3>
   You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> premium copies reserved for this project.<br>
   <% if @max_subscription_reached %>
-    Your limit for this project has been reached. Maybe you should upgrade your subscription?
+    Your Premium Copy limit has been reached. Maybe you should upgrade your subscription?
   <% elsif @max_project_subscription_reached %>
     You cannot reserve Premium Copies for any more projects. Maybe you should upgrade your subscription?
   <% else %>
     <% if @project.downloads_available > 0 %>
-      You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> premium copies.
+      <% unless @max_subscription == -1 %>
+        You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> premium copies.
+      <% else %>
+        You can reserve unlimited premium copies.
+      <% end %>
     <% else %>
       There are no premium copies of this project available for download
     <% end %>

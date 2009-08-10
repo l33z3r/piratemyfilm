@@ -1239,3 +1239,10 @@ div.blog .header a {
     display:inline;
     margin-right:5px;
 }
+
+.submit-membership
+{
+    text-align:center;
+    padding-right:50px;
+    padding-top:20px;
+}

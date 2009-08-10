@@ -16,15 +16,36 @@
   <div class="membership_type">
     You are currently on <b><%= @u.membership_type.name %></b> Membership
     <br/><br/>
-    You can list <b><%= @u.membership_type.max_projects_listed %></b> of your own projects,
-    <br/>each with a budget of up to <b>$<%= @u.membership_type.funding_limit_per_project %></b>
-    <br/><br/>
-    You can subscribe for <b><%= @u.membership_type.pc_limit_per_project %></b> PC's of any one project
-    <br/><br/>
-    You can subscribe for <b><%= @u.membership_type.pc_project_limit %></b> PC's overall
+    <% unless @u.membership_type.max_projects_listed == -1 %>
+      You can list <b><%= @u.membership_type.max_projects_listed %></b> of your own projects,
+    <% else %>
+      You can list an <b>unlimited</b> number of your own projects,
+    <% end %>
 
+    <% unless @u.membership_type.funding_limit_per_project == -1 %>
+      <br/>each with a budget of up to <b>$<%= @u.membership_type.funding_limit_per_project %></b>
+    <% else %>
+      <br/>each with an <b>unlimited</b> budget
+    <% end %>
     <br/><br/>
-    <b>You will soon be able to upgrade this membership!</b>
+
+    <% unless @u.membership_type.pc_limit == -1 %>
+      You can subscribe for <b><%= @u.membership_type.pc_limit %></b> PC's of any one project
+    <% else %>
+      You can subscribe for <b>unlimited</b> PC's of any one project
+    <% end %>
+    <br/><br/>
+
+    <% unless @u.membership_type.pc_project_limit == -1 %>
+      You can subscribe for <b><%= @u.membership_type.pc_project_limit %></b> PC's overall
+    <% else %>
+      You can subscribe for <b>unlimited</b> PC's overall
+    <% end %>
+
+    <% unless  @u.membership_type.name == 'Black Pearl' %>
+      <br/><br/>
+      <b>You will soon be able to upgrade this membership!</b>
+    <% end %>
   </div>
 
 </div>

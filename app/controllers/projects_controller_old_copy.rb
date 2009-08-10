@@ -12,32 +12,7 @@ class ProjectsController < ApplicationController
   before_filter :load_membership_settings, :only => [:new, :create]
   
   def index
-    @filter_params = ["filter by:", "% funds reserved", "member rating", "admin rating", "newest", "oldest", "most active"]
-    
-    if @filter_param = params[:filter_param]
-      @filtered = true
-
-      # essentially a switch statement:
-      order = case @filter_param
-        when "% funds reserved" then "percent_funded"
-        when  "member rating" then "member_rating"
-        when  "admin rating" then "admin_rating"
-        when  "newest" then "created_at DESC"
-        when  "oldest" then "created_at ASC"
-        else "created_at DESC"
-        # we still have to decide what algorithm we're going to use here for "most active"
-      end
-      
-      @projects = Project.find_all_public(:order=> order).paginate :page => (params[:page] || 1), :per_page=> 8
-      
-    else
-      @filtered = false
-      @projects = Project.find_all_public(:order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
-    end
-  end
-
-  def filter_by_param
-    redirect_to(:action => "index", :filter_param => params[:filter_param])
+    @projects = Project.find_all_public(:order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
   end
 
   def new
@@ -164,31 +139,18 @@ class ProjectsController < ApplicationController
 
   def perform_show
 
-    # there is still confusion here about what is referred to for the following restrictions.
-    #   So I'm going to make a logical assumption and set two
-    #   limitations based on the following premises:
-    # 1. max_subscription reached means that sitewide PC restrictions are not exceeded
-    # 2. max_overall_project_subscriptions_reached means that
-    #   restrictions on the number of projects subscribed to are not exceeded
-    #
-    # I will also duplicate this file for comparison purposes, and save it as
-    #   projects_controller_old_copy.rb until we're settled about what we actually want here.
-    # this is my best guess here.
-
     @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
-
-    @overall_subscriptions = @u.project_subscriptions.collect { |s| s.amount }.sum
     @max_subscription = @u.membership_type.pc_limit
     unless @max_subscription == -1
-      @max_subscription_reached = @overall_subscriptions >= @max_subscription
+      @max_subscription_reached = @my_subscription && @my_subscription.amount >= @max_subscription
     else
       @max_subscription_reached = false
     end
 
-    number_projects_subscribed_to = @u.project_subscriptions.size
+    @overall_subscriptions = @u.project_subscriptions.collect { |s| s.amount }.sum
     @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
     unless @max_overall_project_subscriptions == -1
-      @max_project_subscription_reached = number_projects_subscribed_to >= @max_overall_project_subscriptions
+      @max_project_subscription_reached = @overall_subscriptions >= @max_overall_project_subscriptions
     else
       @max_project_subscription_reached = false
     end

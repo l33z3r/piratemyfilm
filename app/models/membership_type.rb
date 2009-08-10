@@ -16,7 +16,7 @@ class MembershipType < ActiveRecord::Base
   
   validates_presence_of :name
   attr_accessible :max_projects_listed, :funding_limit_per_project, 
-    :pc_limit_per_project, :pc_project_limit
+    :pc_limit, :pc_project_limit
 
   def self.select_options
     @@SELECT_OPTIONS
@@ -27,7 +27,7 @@ class MembershipType < ActiveRecord::Base
   end
 
   def update_unlimited_param(attribute)
-    self[attribute] = nil
+    self[attribute] = -1
     self.save!
   end
   
