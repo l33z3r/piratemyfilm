@@ -52,6 +52,8 @@ class Project < ActiveRecord::Base
   
   acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote=>true
 
+  #note that we duplicate the following data as we need it to sort and order projects on the browse page
+  #this makes the queries run faster
   has_one :project_rating
 
   has_one :admin_project_rating

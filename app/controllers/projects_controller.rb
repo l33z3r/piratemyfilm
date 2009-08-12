@@ -19,12 +19,12 @@ class ProjectsController < ApplicationController
 
       # essentially a switch statement:
       order = case @filter_param
-        when "% funds reserved" then "percent_funded"
-        when  "member rating" then "member_rating"
-        when  "admin rating" then "admin_rating"
-        when  "newest" then "created_at DESC"
-        when  "oldest" then "created_at ASC"
-        else "created_at DESC"
+      when "% funds reserved" then "percent_funded DESC"
+      when  "member rating" then "member_rating DESC"
+      when  "admin rating" then "admin_rating DESC"
+      when  "newest" then "created_at DESC"
+      when  "oldest" then "created_at ASC"
+      else "created_at DESC"
         # we still have to decide what algorithm we're going to use here for "most active"
       end
       
@@ -164,37 +164,26 @@ class ProjectsController < ApplicationController
 
   def perform_show
 
-    # there is still confusion here about what is referred to for the following restrictions.
-    #   So I'm going to make a logical assumption and set two
-    #   limitations based on the following premises:
-    # 1. max_subscription reached means that sitewide PC restrictions are not exceeded
-    # 2. max_overall_project_subscriptions_reached means that
-    #   restrictions on the number of projects subscribed to are not exceeded
-    #
-    # I will also duplicate this file for comparison purposes, and save it as
-    #   projects_controller_old_copy.rb until we're settled about what we actually want here.
-    # this is my best guess here.
-
     @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
 
-    @overall_subscriptions = @u.project_subscriptions.collect { |s| s.amount }.sum
+    #a user can only have pc_limit pcs per project
+    @max_subscription_reached = false
+
     @max_subscription = @u.membership_type.pc_limit
-    unless @max_subscription == -1
-      @max_subscription_reached = @overall_subscriptions >= @max_subscription
-    else
-      @max_subscription_reached = false
+
+    if @my_subscription and (@max_subscription != -1)
+        @max_subscription_reached = @my_subscription.amount >= @max_subscription
     end
 
-    number_projects_subscribed_to = @u.project_subscriptions.size
+    #a user can have a pcs in a maximum of pc_project_limit projects
+    @max_project_subscription_reached = false
+
+    @number_projects_subscribed_to = @u.project_subscriptions.size
     @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
     unless @max_overall_project_subscriptions == -1
-      @max_project_subscription_reached = number_projects_subscribed_to >= @max_overall_project_subscriptions
-    else
-      @max_project_subscription_reached = false
+      @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
     end
-
-
-
+    
     @admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]
     @admin_comment = ProjectComment.find_by_project_id @project.id
 

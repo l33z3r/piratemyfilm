@@ -30,16 +30,16 @@
     <br/><br/>
 
     <% unless @u.membership_type.pc_limit == -1 %>
-      You can subscribe for <b><%= @u.membership_type.pc_limit %></b> PC's of any one project
+      You can reserve up to <b><%= @u.membership_type.pc_limit %></b> PC's of any one project
     <% else %>
-      You can subscribe for <b>unlimited</b> PC's of any one project
+      You can reserve <b>unlimited</b> PC's of any one project
     <% end %>
     <br/><br/>
 
     <% unless @u.membership_type.pc_project_limit == -1 %>
-      You can subscribe for <b><%= @u.membership_type.pc_project_limit %></b> PC's overall
+      You can reserve PC's in up to <b><%= @u.membership_type.pc_project_limit %></b> projects
     <% else %>
-      You can subscribe for <b>unlimited</b> PC's overall
+      You can reserve PC's in an <b>unlimited</b> amount of projects
     <% end %>
 
     <% unless  @u.membership_type.name == 'Black Pearl' %>

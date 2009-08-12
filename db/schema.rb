@@ -253,7 +253,6 @@ ActiveRecord::Schema.define(:version => 20090810203205) do
     t.boolean  "can_send_messages",                       :default => true
     t.string   "email_verification"
     t.boolean  "email_verified"
-    t.boolean  "membership_type_id",                      :default => false
   end
 
   add_index "users", ["login"], :name => "index_users_on_login"
