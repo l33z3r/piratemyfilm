@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   
   skip_filter :store_location, :only => [:create, :delete]
-  skip_before_filter :login_required, :only=> [:index, :show, :search]
+  skip_before_filter :login_required, :only=> [:index, :show, :search, :filter_by_param]
   before_filter :setup, :load_project
   before_filter :check_owner, :only => [:edit, :update]
   before_filter :check_owner_or_admin, :only => [:delete]
@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   before_filter :load_membership_settings, :only => [:new, :create]
   
   def index
-    @filter_params = ["filter by:", "% funds reserved", "member rating", "admin rating", "newest", "oldest", "most active"]
+    @filter_params = ["filter by:", "% funds reserved", "member rating", "admin rating", "newest", "oldest"]
     
     if @filter_param = params[:filter_param]
       @filtered = true
@@ -211,7 +211,7 @@ class ProjectsController < ApplicationController
   end
 
   def allow_to
-    super :all, :only => [:index, :show, :search]
+    super :all, :only => [:index, :show, :search, :filter_by_param]
     super :admin, :all => true
     super :user, :only => [:new, :create, :show_private, :edit, :update, :delete, :delete_icon]
   end  

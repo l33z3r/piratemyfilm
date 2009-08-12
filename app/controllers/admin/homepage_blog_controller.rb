@@ -1,7 +1,7 @@
 class Admin::HomepageBlogController < Admin::AdminController
   
   def index
-    @blogs = Blog.find_all_by_is_homepage_blog(true)
+    @blogs = Blog.find_all_by_is_homepage_blog(true, :order=>"created_at DESC")
   end
 
   def new
