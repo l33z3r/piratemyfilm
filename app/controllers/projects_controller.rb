@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   
   skip_filter :store_location, :only => [:create, :delete]
-  skip_before_filter :login_required, :only=> [:index, :show, :search, :filter_by_param]
+  skip_before_filter :login_required, :only=> [:index, :show, :search, :filter_by_param, :recently_rated]
   before_filter :setup, :load_project
   before_filter :check_owner, :only => [:edit, :update]
   before_filter :check_owner_or_admin, :only => [:delete]
@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
   def new
     unless @project_limit == -1
       if @u.owned_projects.size >= @project_limit
-        flash[:negative] = "Sorry you have reached your limit of #{@u.project_limit} project listings"
+        flash[:negative] = "Sorry you have reached your limit of #{@project_limit} project listings"
         redirect_to :controller => "projects" and return
       end
     end
@@ -78,6 +78,10 @@ class ProjectsController < ApplicationController
       flash[:negative] = "Sorry, there was a problem creating your project"
       render :action=>'new'
     end
+  end
+
+  def recently_rated
+    @projects = Project.find_all_public(:order => "rated_at DESC, created_at DESC", :limit => 8).paginate :page => (params[:page] || 1), :per_page=> 8
   end
 
   def show
@@ -172,7 +176,7 @@ class ProjectsController < ApplicationController
     @max_subscription = @u.membership_type.pc_limit
 
     if @my_subscription and (@max_subscription != -1)
-        @max_subscription_reached = @my_subscription.amount >= @max_subscription
+      @max_subscription_reached = @my_subscription.amount >= @max_subscription
     end
 
     #a user can have a pcs in a maximum of pc_project_limit projects
@@ -211,7 +215,7 @@ class ProjectsController < ApplicationController
   end
 
   def allow_to
-    super :all, :only => [:index, :show, :search, :filter_by_param]
+    super :all, :only => [:index, :show, :search, :filter_by_param, :recently_rated]
     super :admin, :all => true
     super :user, :only => [:new, :create, :show_private, :edit, :update, :delete, :delete_icon]
   end  

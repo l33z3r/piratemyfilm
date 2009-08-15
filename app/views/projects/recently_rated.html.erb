@@ -1,0 +1,18 @@
+<div id="MENU_HEADER" class="pageTitle">
+  Most Recent PMF Admin Comments Update
+</div>
+
+<div style="clear:both;"></div><hr/>
+
+<%= link_to "View Blogs", :controller => "blogs", :action => "homepage" %> |
+<%= link_to "View Blogs and Project Comments", :controller => "home", :action => "index" %>
+
+<div style="clear:both;"></div>
+
+<div class="project_listings">
+  <% for @project in @projects do %>
+    <%= render :partial => "home/project", :locals => {:project => @project} %>
+    <% end %>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>

@@ -1,10 +1,16 @@
 <div id="MENU_HEADER" class="pageTitle">
   Homepage Blogs
 </div>
+
 <div style="clear:both;"></div><hr/>
 
-  <% if @blogs.empty? %>
-    No Blogs Found!
-  <% else %>
-    <%= render :partial => 'blog', :collection => @blogs %>
-  <% end %>
+<%= link_to "View Project Comments", :controller => "projects", :action => "recently_rated" %> |
+<%= link_to "View Blogs and Project Comments", :controller => "home", :action => "index" %>
+
+<div style="clear:both;"></div>
+
+<% if @blogs.empty? %>
+  No Blogs Found!
+<% else %>
+  <%= render :partial => 'blog', :collection => @blogs %>
+<% end %>

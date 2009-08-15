@@ -26,7 +26,7 @@
     </div>
 
     <div class="project-overview-button">
-      <span>User Rating</span>
+      <span>Member Rating</span>
       <p>
         <%= @user_rating %>
         <% if logged_in && !@my_project_rating %>
@@ -78,7 +78,6 @@
 
   </div>
 </div>
-
 
 <div class="left">
   <% if logged_in and @project.owner != @u %>
@@ -140,6 +139,8 @@
       </li>
 
       <li><label>Project title</label><%=h @project.title%></li>
+      <li><label>Price per premium copy</label><%= @project.ipo_price %></li>
+      <li><label>Project web site</label><a href="<%=h @project.web_address %>" target="_blank"><%=h @project.web_address %></a></li>
       <li><label>Funds Needed</label>$<%=h @project.capital_required%></li>
 
       <li><label><b>PirateMyFilm</b></label>&nbsp;
@@ -147,7 +148,7 @@
           <li>
             <label>
               Percentage of pirate copy ad sales
-              <br>per premium copy of project
+              <br>offered to premium copy buyers
             </label>
             <%= @project.share_percent_ads %>%
           </li>
@@ -168,12 +169,12 @@
         </ul>
       </li>
 
-      <li><label><b>Don't PirateMyFilm</b></label>&nbsp;
+      <li><label><b>Other Sources Of Revenue</b></label>&nbsp;
       <ul>
         <li>
           <label>
             Percentage of future download sales
-            <br>per premium copy of project
+            <br>offered to premium copy buyers
           </label>
           <%= @project.share_percent_downloads %>%
         </li>
@@ -193,25 +194,91 @@
         </li>
       </ul>
 
-      <li>
-        <label>
-          Price per premium copy
-        </label>
-        <%= @project.ipo_price %>
-      </li>
-
       <li><label>Producer name</label><%=h @project.producer_name%></li>
       <li><label>Genre</label><%=h @project.genre.title %></li>
       <li><label>Synopsis</label><%=h @project.synopsis %></li>
       <li><label>Cast</label><%=h @project.cast %></li>
       <li><label>Project Length (in minutes)</label><%=h @project.project_length %></li>
       <li><label>Status</label><%=h @project.status %></li>
-      <li><label>Project web site</label><a href="http://<%=h @project.web_address %>" target="_blank"><%=h @project.web_address %></a></li>
       <li><label>Project under Creative Commons Licence?</label>NYA</li>
       <li><label>Producer Fee</label>NYA</li>
 
     </ol>
   </fieldset>
+
+  <% if_admin do %>
+    <a name="admin_rating">&nbsp;</a>
+  <% end %>
+
+
+  <% form_tag :controller => "admin/project_rating", :action => "rate", :project_id => @project.id do %>
+    <fieldset>
+      <legend><span>PMF Rating</span></legend>
+      <ol>
+        <li>
+          <label>Current Rating</label>
+          <%= @admin_rating %>
+        </li>
+
+        <% if @admin_comment && !@admin_comment.body.empty? %>
+          <li>
+            <label>Comment added by <%= @admin_comment.user.login %> :</label>
+            <%= @admin_comment.body %>
+          </li>
+        <% end %>
+
+
+        <% if_admin do %>
+          <li id="comment">
+            <% if @admin_comment && !@admin_comment.body.empty? %>
+              <label>Edit Comment</label>
+              <%= text_area_tag :body, @admin_comment.body, :size => "45x5" %>
+            <% else %>
+              <label>Add Comment</label>
+              <%= text_area_tag :body, nil, :size => "45x5" %>
+            </li>
+          <% end %>
+
+          <% if_admin do %>
+            <li>
+              <label>Set Rating</label>
+              <%= select_tag  "rating", options_for_select(@admin_rating_select_opts,
+                !@admin_project_rating ? "" : @admin_project_rating.rating) %>
+              <%= submit_tag "Submit" %>
+            </li>
+          <% end %>
+        <% end %>
+
+      </ol>
+    </fieldset>
+  <% end %>
+
+  <a name="user_rating">&nbsp;</a>
+
+  <% form_tag :controller => "project_rating", :action => "rate", :project_id => @project.id do %>
+    <fieldset>
+      <legend><span>Member Rating</span></legend>
+      <ol>
+        <li>
+          <label>Current Rating</label>
+          <%= @user_rating %>
+        </li>
+
+        <% if logged_in %>
+          <li>
+            <label>Your Rating</label>
+            <% if @my_project_rating %>
+              <%= @my_project_rating.rating %>
+            <% else %>
+              <%= select_tag  "rating", options_for_select(@rating_select_opts, @user_rating) %>
+              <input type="submit" name="submit" value="Submit"/>
+            <% end %>
+          </li>
+        <% end %>
+
+      </ol>
+    </fieldset>
+  <% end %>
 
   <fieldset>
 
@@ -264,79 +331,7 @@
 
 </form>
 
-<% if_admin do %>
-  <a name="admin_rating">&nbsp;</a>
-<% end %>
 
-
-<% form_tag :controller => "admin/project_rating", :action => "rate", :project_id => @project.id do %>
-  <fieldset>
-    <legend><span>PMF Rating</span></legend>
-    <ol>
-      <li>
-        <label>Current Rating</label>
-        <%= @admin_rating %>
-      </li>
-
-      <% if @admin_comment && !@admin_comment.body.empty? %>
-        <li>
-          <label>Comment added by <%= @admin_comment.user.login %> :</label>
-          <%= @admin_comment.body %>
-        </li>
-      <% end %>
-
-
-      <% if_admin do %>
-        <li id="comment">
-          <% if @admin_comment && !@admin_comment.body.empty? %>
-            <label>Edit Comment</label>
-            <%= text_area_tag :body, @admin_comment.body, :size => "45x5" %>
-          <% else %>
-            <label>Add Comment</label>
-            <%= text_area_tag :body, nil, :size => "45x5" %>
-          </li>
-        <% end %>
-
-        <% if_admin do %>
-          <li>
-            <label>Set Rating</label>
-            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts,
-              !@admin_project_rating ? "" : @admin_project_rating.rating) %>
-            <%= submit_tag "Submit" %>
-          </li>
-        <% end %>
-      <% end %>
-
-    </ol>
-  </fieldset>
-<% end %>
-
-<a name="user_rating">&nbsp;</a>
-
-<% form_tag :controller => "project_rating", :action => "rate", :project_id => @project.id do %>
-  <fieldset>
-    <legend><span>User Rating</span></legend>
-    <ol>
-      <li>
-        <label>Current Rating</label>
-        <%= @user_rating %>
-      </li>
-
-      <% if logged_in %>
-        <li>
-          <label>Your Rating</label>
-          <% if @my_project_rating %>
-            <%= @my_project_rating.rating %>
-          <% else %>
-            <%= select_tag  "rating", options_for_select(@rating_select_opts, @user_rating) %>
-            <input type="submit" name="submit" value="Submit"/>
-          <% end %>
-        </li>
-      <% end %>
-
-    </ol>
-  </fieldset>
-<% end %>
 
 <div class="right">
   <% if @u and @project.owner == @u %>

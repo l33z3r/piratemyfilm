@@ -9,11 +9,20 @@
   <tr>
     <td>
       * Enter project title
-
     </td>
     <td>
       <%= f.text_field :title%>
       <%= display_error_on(project, :title) -%>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      Enter a site address associated with your project
+    </td>
+    <td>
+      <%= f.text_field :web_address, :value => "http://" %>
+      <%= display_error_on(project, :web_address) -%>
     </td>
   </tr>
 
@@ -28,6 +37,21 @@
   </tr>
 
   <tr>
+    <td>
+      Price per premium copy (Variable Prices NYA)<br/>
+      <i>Note:the system will create and display how many
+      premium copies you need to sell to fund your project</i>
+    </td>
+    <td>
+      <input type="hidden" name="project[ipo_price]" value="5"/>$5
+    </td>
+    <!--td>
+<%= f.text_field :ipo_price %>
+<%= display_error_on(project, :ipo_price) -%>
+    </td-->
+  </tr>
+
+  <tr>
     <td colspan="2">
       <b>PirateMyFilm</b>
     </td>
@@ -37,7 +61,7 @@
     <td>
       * What percentage of future
       <br/>pirate copy ad sales are you offering
-      <br/>per premium copy of your project? (0 - 100)%
+      <br/>premium copy buyers? (0 - 100)%
     </td>
     <td>
       <%= f.text_field :share_percent_ads %>
@@ -63,15 +87,15 @@
 
   <tr>
     <td colspan="2">
-      <b>Don't PirateMyFilm</b>
+      <b>Additional Sources of Revenue</b>
     </td>
   </tr>
 
   <tr>
     <td>
       * What percentage of future download
-      <br/>sales are you offering per
-      <br/>premium copy of your project? (0 - 100)%
+      <br/>sales are you offering premium
+      <br/>copy buyers? (0 - 100)%
     </td>
     <td>
       <%= f.text_field :share_percent_downloads %>
@@ -93,18 +117,6 @@
     <td>
       NYA
     </td>
-  </tr>
-  <tr>
-    <td>
-      Price per premium copy (Variable Prices NYA)
-    </td>
-    <td>
-      <input type="hidden" name="project[ipo_price]" value="5"/>$5
-    </td>
-    <!--td>
-    <%= f.text_field :ipo_price %>
-    <%= display_error_on(project, :ipo_price) -%>
-    </td-->
   </tr>
 
   <tr>
@@ -180,15 +192,6 @@
     <td>
       <%= f.select :status, Project.statuses, :id=>"project-status" %>
       <%= display_error_on(project, :status) -%>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Enter a site address associated with your project
-    </td>
-    <td>
-      <%= f.text_field :web_address, :value => "http://" %>
-      <%= display_error_on(project, :web_address) -%>
     </td>
   </tr>
   <tr>

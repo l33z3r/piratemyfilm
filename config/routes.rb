@@ -1,7 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :project_comments
 
-
   map.namespace :admin do |a|
     a.resources :users, :collection => {:search => :post}
   end
@@ -33,7 +32,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :projects, 
-    :member=>{:delete_icon=>:post}, :collection=>{:search=>:get} do | project |
+    :member=>{:delete_icon=>:post}, :collection=>{:search=>:get, :recently_rated=>:get} do | project |
     project.resources :project_subscriptions, :member => {:destroy=>:delete}
   end
 

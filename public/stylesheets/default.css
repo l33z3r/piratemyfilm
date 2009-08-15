@@ -376,11 +376,6 @@ fieldset#select	{
 
 .mk-link {
     float:right;
-    margin-right:5px;
-}
-
-.mk-link a img {
-    margin-top: 7px;
 }
 
 .fb-link {
