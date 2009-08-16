@@ -85,10 +85,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    if !@project
-      flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
-      redirect_to :action=>'index' and return
-    end
     perform_show
   end
 
@@ -98,7 +94,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @genres = Genre.find(:all) 
+    @genres = Genre.find(:all)
   end
 
   def update
@@ -221,6 +217,11 @@ class ProjectsController < ApplicationController
   end  
   
   def check_owner
+    if !@project
+      flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
+      redirect_to :action=>'index' and return
+    end
+    
     if @project.owner != @u
       flash[:error] = 'You are not the owner of this project.'
       redirect_to project_path(@project)     
