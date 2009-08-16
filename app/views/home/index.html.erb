@@ -2,6 +2,12 @@
   Recent Project Listings, Blog, and PMF Admin Comments Update
 </div>
 
+<p>
+  <% form_tag :controller => "projects", :action => "filter_by_param" do %>
+    <%= select_tag :filter_param, options_for_select(@filter_params, "Order Projects By..."), :onchange => "this.form.submit();" %>
+  <% end %>
+</p>
+
 <div style="clear:both;"></div><hr/>
 
 <%= link_to "View Blogs", :controller => "blogs", :action => "homepage" %> |

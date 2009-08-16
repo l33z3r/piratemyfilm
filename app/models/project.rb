@@ -145,6 +145,10 @@ class Project < ActiveRecord::Base
     super
   end
 
+  def self.filter_params
+    ["Order Projects By...", "% funds reserved", "member rating", "admin rating", "newest", "oldest"]
+  end
+
   protected
   
   def validate

@@ -11,6 +11,8 @@ class HomeController < ApplicationController
   end
  
   def index
+    @filter_params = Project.filter_params
+    
     @recent_projects = Project.find_all_public(:order => "rated_at DESC, created_at DESC", :limit => 8)
     @recent_blogs = Blog.find_all_by_is_homepage_blog(true)
 

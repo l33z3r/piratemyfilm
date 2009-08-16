@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   before_filter :load_membership_settings, :only => [:new, :create]
   
   def index
-    @filter_params = ["filter by:", "% funds reserved", "member rating", "admin rating", "newest", "oldest"]
+    @filter_params = Project.filter_params
     
     if @filter_param = params[:filter_param]
       @filtered = true

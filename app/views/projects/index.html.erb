@@ -1,6 +1,6 @@
 <p>
-  <% form_tag :action => "filter_by_param" do %>
-    <%= select_tag :filter_param, options_for_select(@filter_params, "filter by:"), :onchange => "this.form.submit();" %>
+  <% form_tag :controller => "projects", :action => "filter_by_param" do %>
+   <%= select_tag :filter_param, options_for_select(@filter_params, "Order Projects By..."), :onchange => "this.form.submit();" %>
   <% end %>
 </p>
 
