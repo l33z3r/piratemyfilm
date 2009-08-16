@@ -15,7 +15,7 @@ config.action_controller.perform_caching             = true
 config.action_controller.asset_host                  = "http://piratemyfilm.piratemyfilm-001.vm.brightbox.net"
 
 # Disable delivery errors, bad email addresses will be ignored
-config.action_mailer.raise_delivery_errors = false
+#config.action_mailer.raise_delivery_errors = false
 
 ActionMailer::Base.smtp_settings = {
   :address  => "smtp-relay.brightbox.net",

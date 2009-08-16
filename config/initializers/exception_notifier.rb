@@ -2,5 +2,5 @@
 
 
 ExceptionNotifier.sender_address =  %("Name Error <error@piratemyfilm.com>")
-ExceptionNotifier.exception_recipients = %W(l33z3r@gmail.com)
-ExceptionNotifier.email_prefix = "Kinooga Error: "
+ExceptionNotifier.exception_recipients = %W(l33z3r@gmail.com lee.farrell6@mail.dcu.ie)
+ExceptionNotifier.email_prefix = "PMF Error: "
