@@ -9,10 +9,10 @@
 
 <div class="half right">
 
-<!--
-  <%= render :partial => 'friends/list', :locals => {:type => 'friends'} %>
-  <%= render :partial => 'friends/list', :locals => {:type => 'followers'} %>
-  <%= render :partial => 'friends/list', :locals => {:type => 'followings'} %>
+  <!--
+<%= render :partial => 'friends/list', :locals => {:type => 'friends'} %>
+<%= render :partial => 'friends/list', :locals => {:type => 'followers'} %>
+<%= render :partial => 'friends/list', :locals => {:type => 'followings'} %>
 -->
 
   <div class="membership_type">
@@ -54,29 +54,29 @@
 
 <div class="pmf_clear">&nbsp;</div>
 
-<% if !@user_projects.nil? and !@user_projects.empty? %>
+<div class="pageTitle">My Projects (Premium Copies I am Selling)</div>
+<hr>
 
-  <div class="pageTitle">My Projects</div>
-  <hr>
-
-  <%= render :partial => "projects/listings", :object => @user_projects %>
-
-  <%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
-
+<% if !@user_projects or @user_projects.empty? %>
+  No Projects Found!
 <% end %>
+
+<%= render :partial => "projects/listings", :object => @user_projects %>
+
+<%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
 
 <div class="pmf_clear">&nbsp;</div>
 
-<% if !@user_subscriptions.nil? and !@user_subscriptions.empty? %>
+<div class="pageTitle">My Friends Projects (Premium Copies I am Reserving)</div>
+<hr>
 
-  <div class="pageTitle">My Friends Projects</div>
-  <hr>
-
-  <%= render :partial => "projects/listings", :object => @user_subscriptions %>
-
-  <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
-
+<% if !@user_subscriptions or @user_subscriptions.empty? %>
+  No Projects Found!
 <% end %>
+
+<%= render :partial => "projects/listings", :object => @user_subscriptions %>
+
+<%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
 
 <div style="float: right;">
   <%= link_to "List a Project", new_project_path %>|

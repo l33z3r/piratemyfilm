@@ -2,55 +2,55 @@
 <hr>
 
 <div class="half left">
-  
+
   <%= render :partial => 'profiles/bio' %>
-          
+
 </div>
 
 <div class="half right">
 
   <!--
-  <%= render :partial => 'friends/list', :locals => {:type => 'friends'} %>
-  <%= render :partial => 'friends/list', :locals => {:type => 'followers'} %>
-  <%= render :partial => 'friends/list', :locals => {:type => 'followings'} %>
-      
+<%= render :partial => 'friends/list', :locals => {:type => 'friends'} %>
+<%= render :partial => 'friends/list', :locals => {:type => 'followers'} %>
+<%= render :partial => 'friends/list', :locals => {:type => 'followings'} %>
+
   <div class="friend_link"><%= get_friend_link @p, @profile %></div>
   -->
-  
+
 </div>
 
 <div class="pmf_clear">&nbsp;</div>
 
 <div class="project_listing_box">
-  
-  <% if !@user_projects.nil? and !@user_projects.empty? %>
-    
-    <div class="pageTitle"><%=@profile.user.login%>'s Portfolio</div>
-    <hr>
-  
-    <%= render :partial => "projects/listings", :object => @user_projects %>
-  
-    <%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
-  
+
+  <div class="pageTitle"><%=@profile.user.login%>'s Portfolio (Premium Copies <%=@profile.user.login%> is Selling)</div>
+  <hr>
+
+  <% if !@user_projects or @user_projects.empty? %>
+    No Projects Found!
   <% end %>
-    
+
+  <%= render :partial => "projects/listings", :object => @user_projects %>
+
+  <%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
+
 </div>
 
 <div class="pmf_clear">&nbsp;</div>
 
 <div class="project_listing_box">
-  
-  <% if !@user_subscriptions.nil? and !@user_subscriptions.empty? %>
-    
-    <div class="pageTitle"><%=@profile.user.login%>'s PreBuys</div>
-    <hr>
-  
-    <%= render :partial => "projects/listings", :object => @user_subscriptions %>
-  
-    <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
-  
+
+  <div class="pageTitle"><%=@profile.user.login%>'s PreBuys (Premium Copies <%=@profile.user.login%> is Reserving)</div>
+  <hr>
+
+  <% if !@user_subscriptions or @user_subscriptions.empty? %>
+    No Projects Found!
   <% end %>
-    
+
+  <%= render :partial => "projects/listings", :object => @user_subscriptions %>
+
+  <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
+
 </div>
 
 <div style="float: right;">
