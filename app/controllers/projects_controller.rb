@@ -85,6 +85,11 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    if !@project
+      flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
+      redirect_to :action=>'index' and return
+    end
+    
     perform_show
   end
 
@@ -169,19 +174,23 @@ class ProjectsController < ApplicationController
     #a user can only have pc_limit pcs per project
     @max_subscription_reached = false
 
-    @max_subscription = @u.membership_type.pc_limit
+    if @u
+      @max_subscription = @u.membership_type.pc_limit
 
-    if @my_subscription and (@max_subscription != -1)
-      @max_subscription_reached = @my_subscription.amount >= @max_subscription
+      if @my_subscription and (@max_subscription != -1)
+        @max_subscription_reached = @my_subscription.amount >= @max_subscription
+      end
     end
 
     #a user can have a pcs in a maximum of pc_project_limit projects
     @max_project_subscription_reached = false
 
-    @number_projects_subscribed_to = @u.project_subscriptions.size
-    @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
-    unless @max_overall_project_subscriptions == -1
-      @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
+    if @u
+      @number_projects_subscribed_to = @u.project_subscriptions.size
+      @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
+      unless @max_overall_project_subscriptions == -1
+        @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
+      end
     end
     
     @admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]

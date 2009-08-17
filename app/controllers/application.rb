@@ -3,11 +3,9 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
   filter_parameter_logging "password"
   
-  
   before_filter :allow_to, :check_user, :set_profile, :login_from_cookie, :login_required, :check_permissions, :pagination_defaults
   after_filter :store_location
   layout 'application'  
-  
   
   def check_featured
     return if Profile.featured_profile[:date] == Date.today
