@@ -146,7 +146,7 @@
       Please Select Genre
     </td>
     <td>
-      <%= f.select :genre_id, [[]]+@genres.map {|genre| [genre.title.titlecase, genre.id] }, :id=>"project-genre" %>
+      <%= f.select :genre_id, @genres.map {|genre| [genre.title.titlecase, genre.id] }, :id=>"project-genre" %>
       <%= display_error_on(project, :genre_id) -%>
     </td>
   </tr>
@@ -162,7 +162,7 @@
   </tr>
   <tr>
     <td>
-      Enter a description for your project
+      Enter a logline for your project
     </td>
     <td>
       <%= f.text_area :description, :cols => 20, :rows => 5 %>

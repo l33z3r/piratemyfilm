@@ -3,12 +3,12 @@ class ProjectsController < ApplicationController
   skip_filter :store_location, :only => [:create, :delete]
   skip_before_filter :login_required, :only=> [:index, :show, :search, :filter_by_param, :recently_rated]
   before_filter :setup, :load_project
+  before_filter :search_results, :only => [:search]
+  skip_before_filter :load_project, :only => [:show_private, :restore, :delete]
+  before_filter :load_project_private, :only => [:show_private, :restore, :delete]
   before_filter :check_owner, :only => [:edit, :update]
   before_filter :check_owner_or_admin, :only => [:delete]
-  before_filter :search_results, :only => [:search]
-  skip_before_filter :load_project, :only => [:show_private, :restore]
-  before_filter :load_project_private, :only => [:show_private, :restore]
-
+  
   before_filter :load_membership_settings, :only => [:new, :create]
   
   def index

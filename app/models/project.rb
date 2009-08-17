@@ -38,7 +38,7 @@ class Project < ActiveRecord::Base
   
   belongs_to :genre, :foreign_key=>'genre_id'
   
-  validates_presence_of :owner_id, :title, :status
+  validates_presence_of :owner_id, :title, :status, :genre_id
   validates_presence_of :capital_required, :ipo_price
 
   validates_inclusion_of :status, :in => @@PROJECT_STATUSES

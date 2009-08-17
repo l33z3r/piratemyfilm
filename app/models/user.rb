@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   validates_less_reverse_captcha
   
-  has_many :owned_public_projects, :class_name => "Project", :foreign_key => "owner_id", :conditions=>'rated_at IS NOT NULL'
+  has_many :owned_public_projects, :class_name => "Project", :foreign_key => "owner_id", :conditions=>'rated_at IS NOT NULL and is_deleted = 0'
   has_many :owned_projects, :class_name => "Project", :foreign_key => "owner_id"
   has_many :project_subscriptions, :dependent => :destroy
   has_many :subscribed_projects, :through => :project_subscriptions, :source=> :project

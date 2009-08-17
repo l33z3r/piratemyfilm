@@ -1,6 +1,6 @@
 <div class="project_listings">
-  
-<% for @project in listings do %>
+
+  <% for @project in listings do %>
 
       <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %>">
 
@@ -21,12 +21,21 @@
 
         <div class="view-lite-row-numbers">
           <ul>
+            <li>Admin Rating: <span><b><%= @project.admin_project_rating.rating_symbol %></b></span></li>
+            <li>Member Rating: <span><%= @project.member_rating %></span></li>
             <li>Funding Required: <span>$<%= @project.capital_required %></span></li>
             <li>Percent Funded: <span><%= @project.percent_funded %>&#37</span></li>
           </ul>
         </div>
 
+        <div class="view-lite-row-comment">
+          <div class="header">Latest Admin Comment:</div>
+          <%=truncate(h(@project.project_comment.body), 100)%>
+          (<%= link_to "More", project_path(@project) %>)
+        </div>
+
         <div class="view-lite-row-description">
+          <div class="header">Logline:</div>
           <%=truncate(h(@project.description), 100)%>
           (<%= link_to "More", project_path(@project) %>)
         </div>

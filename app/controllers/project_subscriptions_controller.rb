@@ -41,8 +41,6 @@ class ProjectSubscriptionsController < ApplicationController
         else
           @project_subscription.amount += 1
           @project_subscription.save!
-        
-          flash[:positive] = "You now have #{@project_subscription.amount} premium copies of this project"
         end
                 
         redirect_to project_path(@project) and return
@@ -50,7 +48,6 @@ class ProjectSubscriptionsController < ApplicationController
       
       @project_subscription = ProjectSubscription.create( :user => @u, :project => @project, :amount => 1 )      
       
-      flash[:positive] = "You have reserved a premium copy of this project!"
     rescue ActiveRecord::RecordInvalid
       flash[:error] = "Error reserving premium copy".x
     end    
@@ -74,8 +71,6 @@ class ProjectSubscriptionsController < ApplicationController
         else
           @project_subscription.destroy
         end
-
-        flash[:positive] = "You have canceled a premium copy of this project!"
       end
       
     rescue ActiveRecord::RecordInvalid

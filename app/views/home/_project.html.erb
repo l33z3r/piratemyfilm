@@ -22,8 +22,15 @@
     </ul>
   </div>
 
-  <div class="view-lite-row-description">
+  <div class="view-lite-row-comment">
+    <div class="header">Latest Admin Comment</div>
     <%=truncate(h(project.project_comment.body), 100)%>
+    (<%= link_to "More", project_path(project) %>)
+  </div>
+
+  <div class="view-lite-row-description">
+    <div class="header">Logline</div>
+    <%=truncate(h(project.description), 100)%>
     (<%= link_to "More", project_path(project) %>)
   </div>
 

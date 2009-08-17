@@ -1077,7 +1077,7 @@ div.blog .header a {
 .view-lite-row-project-name	{
     padding-top: 4px;
     height:85px;
-    width:160px;
+    width:140px;
     float:left;
     border-right:2px dotted #fff;
 }
@@ -1133,7 +1133,7 @@ div.blog .header a {
 
 .view-lite-row-numbers {
     height:85px;
-    width:200px;
+    width:130px;
     padding:0 0 0 10px;
     float:left;
     border-right:2px dotted #fff;
@@ -1146,21 +1146,60 @@ div.blog .header a {
 }
 
 .view-lite-row-numbers li {
+    font-size:11px;
+    font-weight:bold;
+    color:#015353;
+    text-decoration:none;
+}
+
+.view-lite-row-numbers li span {
+    color: #636363;
+}
+
+.view-lite-row-comment {
+    height:85px;
+    width:150px;
+    padding:4px;
+    float:left;
+    font-size:70%;
+    border-right:2px dotted #fff;
+}
+
+.view-lite-row-comment a {
+    color:#636363;
+    text-decoration:none;
+}
+
+.view-lite-row-comment .header {
+    clear: both;
+    color: #015353;
+    font-weight: bold;
+    font-size: 11px;
+    text-decoration:none;
+}
+
+.view-lite-row-comment ul {
+    margin-top: 5px;
+    padding: 0;
+    list-style-type: none;
+}
+
+.view-lite-row-comment li {
     font-size:100%;
     font-weight:bold;
     color:#b1b1b1;
     text-decoration:none;
 }
 
-.view-lite-row-numbers li span {
+.view-lite-row-comment li span {
     display:block;
     color:#636363;
 }
 
 .view-lite-row-description {
     height:85px;
-    width:180px;
-    padding:5px;
+    width:150px;
+    padding:4px;
     float:left;
     font-size:70%;
     color:#636363;
@@ -1168,6 +1207,14 @@ div.blog .header a {
 
 .view-lite-row-description a {
     color:#636363;
+    text-decoration:none;
+}
+
+.view-lite-row-description .header {
+    clear: both;
+    color: #015353;
+    font-weight: bold;
+    font-size: 11px;
     text-decoration:none;
 }
 

@@ -80,9 +80,7 @@
 </div>
 
 <div class="left">
-  <% if logged_in and @project.owner != @u %>
-    <%= render :partial => "subscription_buttons" %>
-  <% end %>
+  <%= render :partial => "subscription_buttons" %>
 
   <% if !logged_in %>
     You must <%= link_to "Log In", login_path %> in order to reserve premium copies.
@@ -91,19 +89,20 @@
 
 <div class="pmf_clear"></div>
 
-<div class="right">
-  <% if @u and @project.owner == @u %>
-    <%= link_to "Edit Project", edit_project_path(@project) %> |
-  <% end %>
+<% if !@project.is_deleted %>
+  <div class="right">
+    <% if @u and @project.owner == @u %>
+      <%= link_to "Edit Project", edit_project_path(@project) %> |
+    <% end %>
 
-  <% if @u and (@project.owner == @u || @u.is_admin) %>
-    <%= link_to "Delete Project", :controller => "projects", :action => "delete", :id => @project %> |
-  <% end %>
+    <% if @u and (@project.owner == @u || @u.is_admin) %>
+      <%= link_to "Delete Project", :controller => "projects", :action => "delete", :id => @project %> |
+    <% end %>
 
-  <%= link_to "List a Project", new_project_path %> |
-  <%= link_to "All Projects", projects_path %> |
-  <%= link_to "Invite My Friend to Reserve This Project (NYA)", "#" %>
-</div>
+    <%= link_to "All Projects", projects_path %> |
+    <%= link_to "Invite My Friend to Reserve This Project (NYA)", "#" %>
+  </div>
+<% end %>
 
 <div style="clear: both;"></div>
 <hr>
@@ -197,6 +196,7 @@
       <li><label>Producer name</label><%=h @project.producer_name%></li>
       <li><label>Genre</label><%=h @project.genre.title %></li>
       <li><label>Synopsis</label><%=h @project.synopsis %></li>
+      <li><label>Logline</label><%=h @project.description %></li>
       <li><label>Cast</label><%=h @project.cast %></li>
       <li><label>Project Length (in minutes)</label><%=h @project.project_length %></li>
       <li><label>Status</label><%=h @project.status %></li>
@@ -244,8 +244,7 @@
         <% if_admin do %>
           <li>
             <label>Set Rating</label>
-            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts,
-              !@admin_project_rating ? "" : @admin_project_rating.rating) %>
+            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts) %>
             <%= submit_tag "Submit" %>
           </li>
         <% end %>
@@ -272,7 +271,7 @@
           <% if @my_project_rating %>
             <%= @my_project_rating.rating %>
           <% else %>
-            <%= select_tag  "rating", options_for_select(@rating_select_opts, @user_rating) %>
+            <%= select_tag  "rating", options_for_select(@rating_select_opts) %>
             <input type="submit" name="submit" value="Submit"/>
           <% end %>
         </li>
