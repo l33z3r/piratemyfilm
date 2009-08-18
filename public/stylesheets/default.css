@@ -1288,3 +1288,7 @@ div.blog .header a {
     padding-right:50px;
     padding-top:20px;
 }
+
+#content a.subnav_inactive {
+    text-decoration: underline;
+}

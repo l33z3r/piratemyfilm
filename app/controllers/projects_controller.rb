@@ -49,6 +49,7 @@ class ProjectsController < ApplicationController
     end
       
     @project = Project.new
+    @project.genre_id ||= Genre.default.id
     @genres = Genre.find(:all)
   end
 
@@ -81,6 +82,7 @@ class ProjectsController < ApplicationController
   end
 
   def recently_rated
+    @filter_params = Project.filter_params
     @projects = Project.find_all_public(:order => "rated_at DESC, created_at DESC", :limit => 8).paginate :page => (params[:page] || 1), :per_page=> 8
   end
 

@@ -12,5 +12,9 @@
 class Genre < ActiveRecord::Base
   
   has_many :projects
+
+  def self.default
+    find_by_title("Not Sure")
+  end
   
 end

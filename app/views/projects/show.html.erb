@@ -123,6 +123,79 @@
 
   </fieldset-->
 
+<% if_admin do %>
+    <a name="admin_rating">&nbsp;</a>
+  <% end %>
+
+
+  <% form_tag :controller => "admin/project_rating", :action => "rate", :project_id => @project.id do %>
+    <fieldset>
+      <legend><span>PMF Rating</span></legend>
+      <ol>
+        <li>
+          <label>Current Rating</label>
+          <%= @admin_rating %>
+        </li>
+
+        <% if @admin_comment && !@admin_comment.body.empty? %>
+          <li>
+            <label>Comment added by <%= @admin_comment.user.login %> :</label>
+            <%= @admin_comment.body %>
+          </li>
+        <% end %>
+
+
+        <% if_admin do %>
+          <li id="comment">
+            <% if @admin_comment && !@admin_comment.body.empty? %>
+              <label>Edit Comment</label>
+              <%= text_area_tag :body, @admin_comment.body, :size => "45x5" %>
+            <% else %>
+              <label>Add Comment</label>
+              <%= text_area_tag :body, nil, :size => "45x5" %>
+            </li>
+          <% end %>
+
+          <% if_admin do %>
+            <li>
+              <label>Set Rating</label>
+              <%= select_tag  "rating", options_for_select(@admin_rating_select_opts) %>
+              <%= submit_tag "Submit" %>
+            </li>
+          <% end %>
+        <% end %>
+
+      </ol>
+    </fieldset>
+  <% end %>
+
+  <a name="user_rating">&nbsp;</a>
+
+  <% form_tag :controller => "project_rating", :action => "rate", :project_id => @project.id do %>
+    <fieldset>
+      <legend><span>Member Rating</span></legend>
+      <ol>
+        <li>
+          <label>Current Rating</label>
+          <%= @user_rating %>
+        </li>
+
+        <% if logged_in %>
+          <li>
+            <label>Your Rating</label>
+            <% if @my_project_rating %>
+              <%= @my_project_rating.rating %>
+            <% else %>
+              <%= select_tag  "rating", options_for_select(@rating_select_opts) %>
+              <input type="submit" name="submit" value="Submit"/>
+            <% end %>
+          </li>
+        <% end %>
+
+      </ol>
+    </fieldset>
+  <% end %>
+
   <fieldset>
     <legend><span>Project Information</span></legend>
 
@@ -207,79 +280,6 @@
   </fieldset>
 
 </form>
-
-<% if_admin do %>
-  <a name="admin_rating">&nbsp;</a>
-<% end %>
-
-
-<% form_tag :controller => "admin/project_rating", :action => "rate", :project_id => @project.id do %>
-  <fieldset>
-    <legend><span>PMF Rating</span></legend>
-    <ol>
-      <li>
-        <label>Current Rating</label>
-        <%= @admin_rating %>
-      </li>
-
-      <% if @admin_comment && !@admin_comment.body.empty? %>
-        <li>
-          <label>Comment added by <%= @admin_comment.user.login %> :</label>
-          <%= @admin_comment.body %>
-        </li>
-      <% end %>
-
-
-      <% if_admin do %>
-        <li id="comment">
-          <% if @admin_comment && !@admin_comment.body.empty? %>
-            <label>Edit Comment</label>
-            <%= text_area_tag :body, @admin_comment.body, :size => "45x5" %>
-          <% else %>
-            <label>Add Comment</label>
-            <%= text_area_tag :body, nil, :size => "45x5" %>
-          </li>
-        <% end %>
-
-        <% if_admin do %>
-          <li>
-            <label>Set Rating</label>
-            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts) %>
-            <%= submit_tag "Submit" %>
-          </li>
-        <% end %>
-      <% end %>
-
-    </ol>
-  </fieldset>
-<% end %>
-
-<a name="user_rating">&nbsp;</a>
-
-<% form_tag :controller => "project_rating", :action => "rate", :project_id => @project.id do %>
-  <fieldset>
-    <legend><span>Member Rating</span></legend>
-    <ol>
-      <li>
-        <label>Current Rating</label>
-        <%= @user_rating %>
-      </li>
-
-      <% if logged_in %>
-        <li>
-          <label>Your Rating</label>
-          <% if @my_project_rating %>
-            <%= @my_project_rating.rating %>
-          <% else %>
-            <%= select_tag  "rating", options_for_select(@rating_select_opts) %>
-            <input type="submit" name="submit" value="Submit"/>
-          <% end %>
-        </li>
-      <% end %>
-
-    </ol>
-  </fieldset>
-<% end %>
 
 <form action="#">
   <fieldset>

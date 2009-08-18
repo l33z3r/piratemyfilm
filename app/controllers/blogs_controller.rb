@@ -14,6 +14,7 @@ class BlogsController < ApplicationController
   end
   
   def homepage
+    @filter_params = Project.filter_params
     @blogs = Blog.find_all_by_is_homepage_blog(true, :order=>"created_at DESC")
   end
   
