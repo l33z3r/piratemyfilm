@@ -153,15 +153,6 @@
 
   <tr>
     <td>
-      Enter a short synopsis for your project
-    </td>
-    <td>
-      <%= f.text_area :synopsis, :cols => 20, :rows => 5 %>
-      <%= display_error_on(project, :synopsis) -%>
-    </td>
-  </tr>
-  <tr>
-    <td>
       Enter a logline for your project
     </td>
     <td>
@@ -169,6 +160,17 @@
       <%= display_error_on(project, :description) -%>
     </td>
   </tr>
+
+  <tr>
+    <td>
+      Enter a short synopsis for your project
+    </td>
+    <td>
+      <%= f.text_area :synopsis, :cols => 20, :rows => 5 %>
+      <%= display_error_on(project, :synopsis) -%>
+    </td>
+  </tr>
+
   <tr>
     <td>
       Enter a brief list of cast in your project
