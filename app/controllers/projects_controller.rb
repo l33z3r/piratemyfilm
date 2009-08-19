@@ -208,17 +208,23 @@ class ProjectsController < ApplicationController
     @admin_rating_select_opts = AdminProjectRating.rating_select_opts
     @rating_select_opts = ProjectRating.rating_select_opts
 
+    #estimates
     @premium_price_assumption = 5.0
     @return_premium_sales_based_on = 100000
     @return_premium_ads_based_on = 100000
 
     if @project.share_percent_downloads > 0
-      @return_premium_sales = ((@premium_price_assumption * @return_premium_sales_based_on) * (@project.share_percent_downloads / 100.0)) / @project.total_copies
+      @return_premium_sales = 4.666666#((@premium_price_assumption * @return_premium_sales_based_on) * (@project.share_percent_downloads / 100.0)) / @project.total_copies
       @breakeven_premium_sales = (@premium_price_assumption * 100 * @project.total_copies) / (@project.share_percent_downloads * @premium_price_assumption)
     else
       @return_premium_sales = 0
       @breakeven_premium_sales = 0
     end
+
+    #round estimates to nearest cent
+    @return_premium_sales = sprintf("%0.2f", @return_premium_sales)
+    @breakeven_premium_sales = sprintf("%0.2f", @breakeven_premium_sales)
+
   end
 
   def allow_to

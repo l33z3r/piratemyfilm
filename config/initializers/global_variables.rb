@@ -7,8 +7,8 @@ SITE = RAILS_ENV == 'production' ? 'piratemyfilm-001.vm.brightbox.net' : 'localh
 
 
 MAILER_TO_ADDRESS = 'info@piratemyfilm.com'
-MAILER_FROM_ADDRESS = 'The PirateMyFilm Team <info@piratemyfilm.com>'
-REGISTRATION_RECIPIENTS = %W() #send an email to this list everytime someone signs up
+MAILER_FROM_ADDRESS =  %("The PirateMyFilm Team" <info@piratemyfilm.com>)
+REGISTRATION_RECIPIENTS = %W(l33z3r@gmail.com) #send an email to this list everytime someone signs up
 
 
 YOUTUBE_BASE_URL = "http://gdata.youtube.com/feeds/api/videos/"
