@@ -50,6 +50,9 @@ class HomeController < ApplicationController
     render
   end
 
+  def alive
+    render :text => "alive"
+  end
 
   private
 
@@ -58,17 +61,6 @@ class HomeController < ApplicationController
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
 
 class HomeMailer < ActionMailer::Base
   def mail(options)
