@@ -1,10 +1,10 @@
 <div id="header"><!--OPEN HEADER-->
 
 <div id="brand"><!--OPEN BRAND-->
-  <a href="/"><img src="/images/pirate-my-film-finance-your-self.png" border="0" title="Pirate My Film!" style="float:left; margin:10px 60px 0 0;" /></a>
+  <a href="/"><img src="/images/pmf_header.png" border="0" title="Pirate My Film!" style="float:left; margin:10px 60px 0 0;" /></a>
 
   <div class="big-number">
-    <p>Pirate My Film!</p>
+    <p>The Film Futures Market for Pirates</p>
   </div><!--CLOSE BIG-NUMBER-->
 
   <div class="twitter-link">
@@ -35,7 +35,7 @@
 <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
   <div id="search">
     <img src="/images/brand-search.gif" alt="Search" />
-    <%= text_field_tag 'search[q]', (params[:search] && params[:search][:q] ? params[:search][:q] : 'Search'), :id => 'search_q', :size => 16 %>
+    <%= text_field_tag 'search[q]', (params[:search] && params[:search][:q] ? params[:search][:q] : ''), :id => 'search_q', :size => 16 %>
     <input type="image" src="/images/brand-go-off.gif" name="submit" />
   </div>
 <%- end -%>

@@ -1,7 +1,7 @@
 class Admin::ProjectRatingController < Admin::AdminController
 
   def index
-    @projects = Project.find(:all, :conditions => "rated_at is null", :order=>"created_at").paginate :page => (params[:page] || 1), :per_page=> 8
+    @projects = Project.find(:all, :conditions => "rated_at is null", :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
   end
 
   def rate

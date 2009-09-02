@@ -1,4 +1,9 @@
 <div id="MENU_HEADER" class="pageTitle">Welcome to Admin</div>
+
+<div id="admin_stats">
+  There are <%= @user_count %> users on PMF
+</div>
+
 <div style="clear:both;"></div><hr/>
 
 <%= link_to "Rate New Projects >>>", :controller => "admin/project_rating" %>

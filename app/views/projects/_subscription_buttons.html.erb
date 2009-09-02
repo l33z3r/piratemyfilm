@@ -2,6 +2,7 @@
   <% if @project.owner != @u %>
     <h3>
       You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> premium copies reserved for this project.<br>
+      You will not be debited until 100% of Premium Copies have been reserved and you can cancel at any time.<br>
       <% if @max_subscription_reached %>
         Your Premium Copy limit for this project has been reached. You will soon be able to upgrade your subscription!
       <% elsif @max_project_subscription_reached %>

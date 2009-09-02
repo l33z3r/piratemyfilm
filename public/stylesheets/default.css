@@ -10,7 +10,7 @@ a img {
     float: left;
 }
 
-div.pmf_clear {
+.pmf_clear {
     clear: both;
     height: 1px;
 }
@@ -393,7 +393,7 @@ form	{
 
 #brand	{
     width:800px;
-    height:60px;
+    height:82px;
 }
 
 #stage	{
@@ -598,7 +598,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 
 #header {
     width: 800px;
-    height:135px;
+    height:157px;
     color: #000000;
     text-align: left;
 }
@@ -1133,7 +1133,7 @@ div.blog .header a {
 
 .view-lite-row-numbers {
     height:85px;
-    width:130px;
+    width:205px;
     padding:0 0 0 10px;
     float:left;
     border-right:2px dotted #fff;
@@ -1146,10 +1146,24 @@ div.blog .header a {
 }
 
 .view-lite-row-numbers li {
+    float: left;
+}
+
+#content .view-lite-row-numbers li.label {
+    text-align: right;
     font-size:11px;
     font-weight:bold;
     color:#015353;
     text-decoration:none;
+    width: 100px;
+}
+
+#content .view-lite-row-numbers li.stat {
+    margin-left: 5px;
+    text-align: left;
+    color: #636363;
+    width: 80px;
+    font-weight: bold;
 }
 
 .view-lite-row-numbers li span {
@@ -1291,4 +1305,24 @@ div.blog .header a {
 
 #content a.subnav_inactive {
     text-decoration: underline;
+}
+
+div#hp_text_blurb {
+    text-align: justify;
+    padding: 10px;
+    font-size: 13px;
+}
+
+div#hp_text_blurb div#header_text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+div#ning_link {
+    float: right;
+}
+
+div#admin_stats {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

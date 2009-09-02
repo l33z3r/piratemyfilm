@@ -105,7 +105,7 @@ class Project < ActiveRecord::Base
     query ||= ''
     q = '*' + query.gsub(/[^\w\s-]/, '').gsub(' ', '* *') + '*'
     options.each {|key, value| q += " #{key}:#{value}"}
-    arr = find_by_contents q, :limit=>:all
+    arr = find_by_contents q, {:limit=>:all}, {:conditions => 'rated_at IS NOT NULL'}
     logger.debug arr.inspect
     arr
   end   

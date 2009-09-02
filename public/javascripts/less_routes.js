@@ -417,18 +417,18 @@ function tos_ajaxx(verb, params, options){ return less_ajaxx('/tos', verb, param
 function contact_path(verb){ return '/contact';}
 function contact_ajax(verb, params, options){ return less_ajax('/contact', verb, params, options);}
 function contact_ajaxx(verb, params, options){ return less_ajaxx('/contact', verb, params, options);}
-function recently_rated_projects_path(verb){ return '/projects/recently_rated';}
-function recently_rated_projects_ajax(verb, params, options){ return less_ajax('/projects/recently_rated', verb, params, options);}
-function recently_rated_projects_ajaxx(verb, params, options){ return less_ajaxx('/projects/recently_rated', verb, params, options);}
-function formatted_recently_rated_projects_path(format, verb){ return '/projects/recently_rated.' + format + '';}
-function formatted_recently_rated_projects_ajax(format, verb, params, options){ return less_ajax('/projects/recently_rated.' + format + '', verb, params, options);}
-function formatted_recently_rated_projects_ajaxx(format, verb, params, options){ return less_ajaxx('/projects/recently_rated.' + format + '', verb, params, options);}
 function search_projects_path(verb){ return '/projects/search';}
 function search_projects_ajax(verb, params, options){ return less_ajax('/projects/search', verb, params, options);}
 function search_projects_ajaxx(verb, params, options){ return less_ajaxx('/projects/search', verb, params, options);}
 function formatted_search_projects_path(format, verb){ return '/projects/search.' + format + '';}
 function formatted_search_projects_ajax(format, verb, params, options){ return less_ajax('/projects/search.' + format + '', verb, params, options);}
 function formatted_search_projects_ajaxx(format, verb, params, options){ return less_ajaxx('/projects/search.' + format + '', verb, params, options);}
+function recently_rated_projects_path(verb){ return '/projects/recently_rated';}
+function recently_rated_projects_ajax(verb, params, options){ return less_ajax('/projects/recently_rated', verb, params, options);}
+function recently_rated_projects_ajaxx(verb, params, options){ return less_ajaxx('/projects/recently_rated', verb, params, options);}
+function formatted_recently_rated_projects_path(format, verb){ return '/projects/recently_rated.' + format + '';}
+function formatted_recently_rated_projects_ajax(format, verb, params, options){ return less_ajax('/projects/recently_rated.' + format + '', verb, params, options);}
+function formatted_recently_rated_projects_ajaxx(format, verb, params, options){ return less_ajaxx('/projects/recently_rated.' + format + '', verb, params, options);}
 function projects_path(verb){ return '/projects';}
 function projects_ajax(verb, params, options){ return less_ajax('/projects', verb, params, options);}
 function projects_ajaxx(verb, params, options){ return less_ajaxx('/projects', verb, params, options);}

@@ -14,17 +14,21 @@
 
         <div class="view-lite-row-project-name"><%= link_to h(@project.title), project_path(@project) %></div>
 
-        <div class="view-lite-row-user-icon">
-          <%= link_to icon(@project.owner.profile, :small), profile_path(@project.owner.profile) %>
-          <span><%= link_to @project.owner.profile.user.login, profile_path(@project.owner.profile) %></span>
-        </div>
+        <!--div class="view-lite-row-user-icon">
+    <%= link_to icon(@project.owner.profile, :small), profile_path(@project.owner.profile) %>
+              <span><%= link_to @project.owner.profile.user.login, profile_path(@project.owner.profile) %></span>
+            </div-->
 
         <div class="view-lite-row-numbers">
           <ul>
-            <li>Admin Rating: <span><b><%= @project.admin_project_rating.rating_symbol %></b></span></li>
-            <li>Member Rating: <span><%= @project.member_rating %></span></li>
-            <li>Funding Required: <span>$<%= @project.capital_required %></span></li>
-            <li>Percent Funded: <span><%= @project.percent_funded %>&#37</span></li>
+            <li class="label">Admin Rating:</li><li class="stat"><%= @project.admin_project_rating.rating_symbol %></li>
+            <li class="pmf_clear">&nbsp;</li>
+            <li class="label">Member Rating:</li><li class="stat"><%= @project.member_rating %></li>
+            <li class="pmf_clear">&nbsp;</li>
+            <li class="label">Funding Required:</li><li class="stat">$<%= @project.capital_required %></li>
+            <li class="pmf_clear">&nbsp;</li>
+            <li class="label">Percent Funded:</li><li class="stat"><%= @project.percent_funded %>&#37</li>
+            <li class="pmf_clear">&nbsp;</li>
           </ul>
         </div>
 
