@@ -10,11 +10,6 @@
 
   <div class="view-lite-row-project-name"><%= link_to h(project.title), project_path(project) %></div>
 
-  <!--div class="view-lite-row-user-icon">
-<%= link_to icon(project.owner.profile, :small), profile_path(project.owner.profile) %>
-    <span><%= link_to project.owner.profile.user.login, profile_path(project.owner.profile) %></span>
-  </div-->
-
   <div class="view-lite-row-numbers">
     <ul>
       <li class="label">Admin Rating:</li><li class="stat"><%= project.admin_project_rating.rating_symbol %></li>
