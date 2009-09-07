@@ -59,12 +59,14 @@ module FileColumn
         options = attrs.pop if attrs.last.is_a?Hash
         raise ArgumentError, "Please include the :in option." if !options || !options[:in]
         raise ArgumentError, "Invalid value for option :in" unless options[:in].is_a?Range
-      
+
+        @error_message = options[:message]
+
         validates_each(attrs, options) do |record, attr, value|
           unless value.blank?
             size = File.size(value)
-            record.errors.add attr, "is smaller than the allowed size range." if size < options[:in].first
-            record.errors.add attr, "is larger than the allowed size range." if size > options[:in].last
+            record.errors.add attr, @error_message ? @error_message : "Uploaded Content is smaller than the allowed size range." if size < options[:in].first
+            record.errors.add attr, @error_message ? @error_message : "Uploaded Content is larger than the allowed size range." if size > options[:in].last
           end
         end
       

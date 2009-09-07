@@ -39,7 +39,8 @@ class Profile < ActiveRecord::Base
   validates_format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message=>'does not look like an email address.'
   validates_length_of :email, :within => 3..100
   validates_uniqueness_of :email, :case_sensitive => false
-  
+  validates_filesize_of :icon, {:in => 0.kilobytes..1.megabyte, :message => "Your Profile Image must be less than 1 megabyte"}
+
   # Feeds
   has_many :feeds
   has_many :feed_items, :through => :feeds, :order => 'created_at desc'

@@ -31,6 +31,8 @@ class HomeController < ApplicationController
       @sort_date_b = b.is_a?(Project) ? b.rated_at : b.created_at
       @sort_date_b <=> @sort_date_a
     }
+
+    @show_intro_text = true
   end
 
   def newest_members

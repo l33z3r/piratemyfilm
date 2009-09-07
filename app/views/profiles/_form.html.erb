@@ -30,6 +30,8 @@
     <%= p.front :icon, :label => 'Upload your Icon' %>
     <%= file_column_field( "profile", "icon", :size => 15)%>
     <div class="clear"></div>
+    Note: your profile image must be less than 1 megabyte in size
+    <%= error_message_on(:profile, :icon) %>
     <% unless @p.icon.blank? %>
       <div id="avatar_edit">
         <span id="profile_icon_picture">

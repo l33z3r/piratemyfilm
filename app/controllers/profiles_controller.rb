@@ -54,7 +54,7 @@ class ProfilesController < ApplicationController
     when 'name','image'
       if @profile.update_attributes params[:profile]
         flash[:notice] = "Settings have been saved."
-        redirect_to edit_profile_url(@profile)
+        redirect_to profile_url(@profile)
       else
         flash.now[:error] = @profile.errors
         render :action => :edit

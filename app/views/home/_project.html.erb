@@ -12,13 +12,15 @@
 
   <div class="view-lite-row-numbers">
     <ul>
+      <li class="label">Owner:</li><li class="stat"><%= link_to project.owner.profile.user.login, profile_path(project.owner.profile) %></li>
+      <li class="pmf_clear">&nbsp;</li>
       <li class="label">Admin Rating:</li><li class="stat"><%= project.admin_project_rating.rating_symbol %></li>
       <li class="pmf_clear">&nbsp;</li>
       <li class="label">Member Rating:</li><li class="stat"><%= project.member_rating %></li>
       <li class="pmf_clear">&nbsp;</li>
-      <li class="label">Funding Required:</li><li class="stat">$<%= project.capital_required %></li>
+      <li class="label">Needs:</li><li class="stat">$<%= project.capital_required %></li>
       <li class="pmf_clear">&nbsp;</li>
-      <li class="label">Percent Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
+      <li class="label">% Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
       <li class="pmf_clear">&nbsp;</li>
     </ul>
   </div>

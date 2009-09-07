@@ -6,42 +6,59 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <title><%= @title || "Pirate My Film" %></title>
-    
+
     <%= render :partial => 'shared/head_load' %>
-    
+
     <%= yield :head %>
-                                        
+
   </head>
-  
+
   <body>
-    
+
     <center>
+
+      <% if @show_intro_text %>
+        <div id="hp_text_blurb">
+
+          <div id="header_text">Pirate Myfilm - The Film Futures Market for Pirates</div>
+
+          <p>
+            Some film makers want to have copies of their films pirated by millions.
+            Some want to sell copies. In either case, producers can raise money for their
+            projects on Pirate Myfilm by selling future copies today. When enough future
+            copies have been reserved to fund a project a group-debit occurs and the funds
+            are made available to the producer... <%= link_to "more", :controller => "static", :action => "whatispmf" %>
+          </p>
+
+        </div>
+      <% end %>
+
       <div id="stage"><!--OPEN WHITE ZONE-->
 
-        <%= render :partial => 'shared/top_menu' %>                                        
+<%= render :partial => 'shared/top_menu' %>
 
-        <%= render :partial => 'shared/header' %>
-                        
-        <div id="content">               
-          
+<%= render :partial => 'shared/header' %>
+
+        <div id="content">
+
           <div id="flashes">
             <%= show_default_flash -%>
-          </div>                  
-          
+          </div>
+
           <%= yield %>
-                    
+
         </div><!--CLOSE CONTENT-->
-        
-        <div style="clear:both;"></div>  
-        
+
+        <div style="clear:both;"></div>
+
         <%= render :partial => 'shared/footer' %>
-                                                
+
       </div><!--CLOSE WHITE ZONE-->
     </center>
-    
+
     <div id="footer_scripts">
       <%= render :partial => 'shared/footer_scripts' %>
     </div>
-    
+
   </body>
 </html>

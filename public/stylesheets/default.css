@@ -958,7 +958,7 @@ div.project_listings .blog-row {
     float: left;
     clear: both;
     width: 100%;
-    height:95px;
+    height:120px;
     padding:5px;
     margin: 0 0 1em 0;
     border-style: none;
@@ -970,7 +970,7 @@ div.project_listings .blog-row {
     float: left;
     clear: both;
     width: 100%;
-    height:95px;
+    height:120px;
     padding:5px;
     margin: 0 0 1em 0;
     border-style: none;
@@ -1076,7 +1076,7 @@ div.blog .header a {
 
 .view-lite-row-project-name	{
     padding-top: 4px;
-    height:85px;
+    height:110px;
     width:140px;
     float:left;
     border-right:2px dotted #fff;
@@ -1096,7 +1096,7 @@ div.blog .header a {
 }
 
 .view-lite-row-user-icon {
-    height:85px;
+    height:110px;
     width:75px;
     float:left;
     border-right:2px dotted #fff;
@@ -1132,7 +1132,7 @@ div.blog .header a {
 }
 
 .view-lite-row-numbers {
-    height:85px;
+    height:110px;
     width:205px;
     padding:0 0 0 10px;
     float:left;
@@ -1171,7 +1171,7 @@ div.blog .header a {
 }
 
 .view-lite-row-comment {
-    height:85px;
+    height:110px;
     width:150px;
     padding:4px;
     float:left;
@@ -1211,7 +1211,7 @@ div.blog .header a {
 }
 
 .view-lite-row-description {
-    height:85px;
+    height:110px;
     width:150px;
     padding:4px;
     float:left;
@@ -1309,11 +1309,13 @@ div.blog .header a {
 
 div#hp_text_blurb {
     text-align: justify;
-    padding: 10px;
+    padding: 10px 225px;
     font-size: 13px;
+    background: white;
+    border-bottom: 1px solid #999999;
 }
 
-div#hp_text_blurb div#header_text {
+div#header_text {
     font-size: 16px;
     font-weight: bold;
 }
