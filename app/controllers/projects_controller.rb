@@ -220,18 +220,29 @@ class ProjectsController < ApplicationController
     @return_premium_ads_based_on = 100000
 
     if @project.share_percent_downloads > 0
+      #sales estimates
       @return_premium_sales = ((@premium_price_assumption * @return_premium_sales_based_on) * (@project.share_percent_downloads / 100.0)) / @project.total_copies
       @producer_return_premium_sales = ((@premium_price_assumption * @return_premium_sales_based_on) * ((100 - @project.share_percent_downloads) / 100.0))
-      @breakeven_premium_sales = (@premium_price_assumption * 100 * @project.total_copies) / (@project.share_percent_downloads * @premium_price_assumption)
+      @target_return_sales = @premium_price_assumption
+      @breakeven_premium_sales = (@target_return_sales * 100 * @project.total_copies) / (@project.share_percent_downloads * @premium_price_assumption)
+
+      #advertisement estimates
+      @return_premium_ads = (@return_premium_ads_based_on * (@project.share_percent_ads / 100.0)) / @project.total_copies
+      @producer_return_premium_ads = @return_premium_ads_based_on * ((100 - @project.share_percent_ads) / 100.0)
+      @target_return_ads = @premium_price_assumption
+      @breakeven_premium_ads = (@target_return_ads * @project.total_copies) / (@project.share_percent_ads / 100.0)
     else
-      @return_premium_sales = 0
-      @breakeven_premium_sales = 0
+      @return_premium_sales = @producer_return_premium_sales = @breakeven_premium_sales = 0
+      @return_premium_ads = @breakeven_premium_ads = @producer_return_premium_ads = 0
     end
 
     #round estimates to nearest cent
     @return_premium_sales = sprintf("%0.2f", @return_premium_sales)
     @breakeven_premium_sales = sprintf("%0.2f", @breakeven_premium_sales)
     @producer_return_premium_sales = sprintf("%0.2f", @producer_return_premium_sales)
+    @return_premium_ads = sprintf("%0.2f", @return_premium_ads)
+    @breakeven_premium_ads = sprintf("%0.2f", @breakeven_premium_ads)
+    @producer_return_premium_ads = sprintf("%0.2f", @producer_return_premium_ads)
 
   end
 

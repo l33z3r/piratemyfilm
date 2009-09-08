@@ -302,13 +302,16 @@
     <ol>
       <li><label><b>Pirate Yield</b></label>&nbsp;
       <ul>
-        <li><label>Return per premium copy per per 100000 pirated copies:</label>NYA</li>
-        <li><label>Breakeven Point:</label>NYA</li>
+        <li>
+          <label>Return per premium copy per per $100000 ad revenue:</label>
+          $<%= @return_premium_ads %>
+        </li>
+        <li><label>Breakeven Point:</label><%= @breakeven_premium_ads.to_i %> Copies</li>
         <li>
           <label>
-            Producer return per pirated copy per 100000 pirated copies
+            Producer return per pirated copy per $100000 ad revenue
           </label>
-          NYA
+          $<%= @producer_return_premium_ads %>
         </li>
       </ul>
       <li><label><b>Other Sources Of Revenue</b></label>&nbsp;
@@ -320,13 +323,13 @@
           </label>
           $<%= @return_premium_sales %>
         </li>
-        <li><label>Breakeven Point</label><%= @breakeven_premium_sales.to_i %> copies</li>
+        <li><label>Breakeven Point</label><%= @breakeven_premium_sales.to_i %> Copies</li>
         <li>
           <label>
             Producer return per <%= @return_premium_sales_based_on %> retailed copies
             (Assuming $<%= @premium_price_assumption.to_i %> per copy):
           </label>
-          <%= @producer_return_premium_sales %>
+          $<%= @producer_return_premium_sales %>
         </li>
       </ul>
     </ol>
