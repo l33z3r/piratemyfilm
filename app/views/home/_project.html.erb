@@ -12,7 +12,7 @@
 
   <div class="view-lite-row-numbers">
     <ul>
-      <li class="label">Owner:</li><li class="stat"><%= link_to project.owner.profile.user.login, profile_path(project.owner.profile) %></li>
+      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
       <li class="pmf_clear">&nbsp;</li>
       <li class="label">Admin Rating:</li><li class="stat"><%= project.admin_project_rating.rating_symbol %></li>
       <li class="pmf_clear">&nbsp;</li>

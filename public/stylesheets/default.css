@@ -1045,7 +1045,7 @@ div.blog .header a {
 }
 
 .view-lite-row-title-project-name {
-    width:160px;
+    width:150px;
     float:left;
 }
 
@@ -1062,7 +1062,7 @@ div.blog .header a {
 }
 
 .view-lite-row-title-description {
-    width:180px;
+    width:175px;
     float:left;
     padding-left:9px;
 }
@@ -1141,7 +1141,7 @@ div.blog .header a {
 
 .view-lite-row-numbers {
     height:110px;
-    width:205px;
+    width:230px;
     padding:0 0 0 10px;
     float:left;
     border-right:2px dotted #fff;
@@ -1180,7 +1180,7 @@ div.blog .header a {
 
 .view-lite-row-comment {
     height:110px;
-    width:150px;
+    width:145px;
     padding:4px;
     float:left;
     font-size:70%;

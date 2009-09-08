@@ -51,7 +51,7 @@
 
     <div class="project-overview-button" style="width:250px;">
       <span>Project Owner</span>
-      <p><%= h @project.owner.login %></p>
+      <p><%= link_to h(@project.owner.profile.user.login), profile_path(@project.owner.profile) %></p>
     </div>
 
     <div class="project-overview-button">

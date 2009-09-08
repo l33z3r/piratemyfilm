@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password_confirmation, :if => :password_required?
   validates_length_of :password_confirmation, :if => :password_required?,:within => 4..40
   validates_length_of :password, :within => 4..40, :if => :password_required?
-  validates_length_of :login, :within => 3..40
+  validates_length_of :login, :within => 3..17
   validates_uniqueness_of :login, :case_sensitive => false
   validates_format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create, :message=>"Invalid email address."
 

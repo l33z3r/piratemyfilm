@@ -44,7 +44,7 @@ class Project < ActiveRecord::Base
   validates_inclusion_of :status, :in => @@PROJECT_STATUSES
 
   validates_uniqueness_of :title
-  
+
   validates_numericality_of :capital_required, :ipo_price, :project_length
   validates_numericality_of :share_percent_downloads, :share_percent_ads, :allow_nil => true
 
