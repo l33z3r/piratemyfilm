@@ -23,7 +23,7 @@
 
 <div class="project_listing_box">
 
-  <div class="pageTitle"><%=@profile.user.login%>'s Projects (Premium Copies <%=@profile.user.login%> is Selling)</div>
+  <div class="pageTitleSmaller">Premium Copies <%=@profile.user.login%> is Selling in His/Her Own Projects, Once 100% of Available Copies Have Been Reserved</div>
   <hr>
 
   <% if !@user_projects or @user_projects.empty? %>
@@ -40,7 +40,7 @@
 
 <div class="project_listing_box">
 
-  <div class="pageTitle"><%=@profile.user.login%>'s Friends Projects (Premium Copies <%=@profile.user.login%> is Reserving)</div>
+  <div class="pageTitleSmaller">Premium Copies <%=@profile.user.login%> is Buying in Friends Projects, Once 100% of Available Copies Have Been Reserved</div>
   <hr>
 
   <% if !@user_subscriptions or @user_subscriptions.empty? %>

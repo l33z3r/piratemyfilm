@@ -674,6 +674,14 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     margin-top: 15px;
 }
 
+#content .pageTitleSmaller {
+    font-size: 14px;
+    font-weight: bold;
+    color:#015353;
+    clear: both;
+    margin-top: 15px;
+}
+
 #content .pageSubTitle {
     font-size: 14px;
     text-decoration: underline;
