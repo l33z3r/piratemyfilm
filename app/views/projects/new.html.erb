@@ -1,4 +1,4 @@
-<% form_for @project, projects_path do |f| %>  
+<% form_for @project, projects_path, :html=>{:multipart=>true} do |f| %>  
   <div class="banner">
     <h3>List a Project</h3>
   </div>

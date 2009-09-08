@@ -15,7 +15,7 @@
       <%= display_error_on(project, :title) -%>
     </td>
   </tr>
-  
+
   <tr>
     <td>
       Enter a site address associated with your project
@@ -220,6 +220,29 @@
     </td>
     <td>
       NYA
+    </td>
+  </tr>
+
+  <% unless project.icon.blank? %>
+    <tr>
+      <td>
+        Current Icon:
+      </td>
+      <td>
+        <%= image_tag url_for_file_column(project, "icon", "small") %>
+      </td>
+    </tr>
+  <% end %>
+
+  <tr>
+    <td>
+      Upload a Project Icon:
+      <br/><br/>
+      <i>Note: your project image must be less than 1 megabyte in size</i>
+    </td>
+    <td>
+      <%= file_column_field( "project", "icon", :size => 15)%>
+      <%= display_error_on(project, :icon) -%>
     </td>
   </tr>
 

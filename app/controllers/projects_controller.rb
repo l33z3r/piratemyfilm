@@ -304,7 +304,6 @@ class ProjectsController < ApplicationController
       @unrounded_budget = params[:project][:capital_required].to_f
       @premium_copy_price = params[:project][:ipo_price].to_f
 
-      logger.debug "!!!!!!!!!!!!#{@unrounded_budget % @premium_copy_price}"
       if @unrounded_budget % @premium_copy_price != 0
         @trim = @unrounded_budget % @premium_copy_price
         @trimmed_budget = @unrounded_budget - @trim
