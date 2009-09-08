@@ -221,6 +221,7 @@ class ProjectsController < ApplicationController
 
     if @project.share_percent_downloads > 0
       @return_premium_sales = ((@premium_price_assumption * @return_premium_sales_based_on) * (@project.share_percent_downloads / 100.0)) / @project.total_copies
+      @producer_return_premium_sales = ((@premium_price_assumption * @return_premium_sales_based_on) * ((100 - @project.share_percent_downloads) / 100.0))
       @breakeven_premium_sales = (@premium_price_assumption * 100 * @project.total_copies) / (@project.share_percent_downloads * @premium_price_assumption)
     else
       @return_premium_sales = 0
@@ -230,6 +231,7 @@ class ProjectsController < ApplicationController
     #round estimates to nearest cent
     @return_premium_sales = sprintf("%0.2f", @return_premium_sales)
     @breakeven_premium_sales = sprintf("%0.2f", @breakeven_premium_sales)
+    @producer_return_premium_sales = sprintf("%0.2f", @producer_return_premium_sales)
 
   end
 
