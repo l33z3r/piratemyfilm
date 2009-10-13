@@ -79,19 +79,19 @@ class ProfilesController < ApplicationController
     end      
   end
 
-  def destroy
-    respond_to do |wants|
-     @user.destroy
-      cookies[:auth_token] = {:expires => Time.now-1.day, :value => ""}
-      session[:user] = nil
-      wants.js do
-        render :update do |page| 
-          page.alert('Your user account, and all data, have been deleted.')
-          page << 'location.href = "/";'
-        end
-      end
-    end
-  end
+#  def destroy
+#    respond_to do |wants|
+#     @user.destroy
+#      cookies[:auth_token] = {:expires => Time.now-1.day, :value => ""}
+#      session[:user] = nil
+#      wants.js do
+#        render :update do |page|
+#          page.alert('Your user account, and all data, have been deleted.')
+#          page << 'location.href = "/";'
+#        end
+#      end
+#    end
+#  end
 
   private
   
