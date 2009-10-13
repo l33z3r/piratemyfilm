@@ -193,7 +193,7 @@ class ProjectsController < ApplicationController
     #a user can have a pcs in a maximum of pc_project_limit projects
     @max_project_subscription_reached = false
 
-    if @u
+    if @u and !@my_subscription
       @number_projects_subscribed_to = @u.project_subscriptions.size
       @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
       unless @max_overall_project_subscriptions == -1

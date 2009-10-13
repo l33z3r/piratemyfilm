@@ -28,15 +28,17 @@ class ProjectSubscriptionsController < ApplicationController
       #a user can have a pcs in a maximum of pc_project_limit projects
       @max_project_subscription_reached = false
 
-      @number_projects_subscribed_to = @u.project_subscriptions.size
-      @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
-      unless @max_overall_project_subscriptions == -1
-        @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
+      if !@project_subscription
+        @number_projects_subscribed_to = @u.project_subscriptions.size
+        @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
+        unless @max_overall_project_subscriptions == -1
+          @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
+        end
       end
 
       if !@project_subscription.nil?
         
-        if @max_subscription_reached
+        if @max_subscription_reached or @max_project_subscription_reached
           flash[:positive] = "You have reached the maximum premium copies of this project"
         else
           @project_subscription.amount += 1
