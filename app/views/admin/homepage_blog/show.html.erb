@@ -4,4 +4,4 @@
   <%= link_to "<<< Back to Blogs", :controller => "admin/homepage_blog" %>
 </div>
 
-<%= render :partial => 'blog', :locals => {:blog => @blog} %>
+<%= render :partial => '/blog_partials/show_blog', :locals => {:blog => @blog} %>

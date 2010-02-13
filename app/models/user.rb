@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
   has_one :membership, :dependent => :destroy
   has_one :membership_type, :through => :membership
   has_one :profile, :dependent => :nullify
+
+  has_many :blog_comments
   
   # Virtual attribute for the unencrypted password
   attr_accessor :password, :email, :terms_of_service

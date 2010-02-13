@@ -1,10 +1,14 @@
 <div id="MENU_HEADER" class="pageTitle">
-  Homepage Blogs
+  Showing Blog
 </div>
 <div style="clear:both;"></div><hr/>
 
-<%= link_to "View All Blogs", :action => "homepage" %>
+<div id="sub_nav">
+  <% if @blog.is_homepage_blog? %>
+    <%= link_to "View all Homepage Blogs", :controller => 'home' %>
+  <% else %>
+    <%= link_to "View all Producer Blogs", :controller => "producer_blogs" %>
+  <% end %>
+</div>
 
-<div style="clear:both;"></div>
-
-<%= render :partial => 'blog', :locals => {:blog => @blog} %>
+<%= render :partial => '/blog_partials/show_blog', :locals => {:blog => @blog} %>

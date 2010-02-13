@@ -16,6 +16,10 @@ class Blog < ActiveRecord::Base
   belongs_to :profile
   validates_presence_of :title, :body
   attr_immutable :id, :profile_id
+
+  belongs_to :project
+
+  has_many :blog_comments
   
 #  def after_create
 #    feed_item = FeedItem.create(:item => self)

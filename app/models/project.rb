@@ -35,6 +35,8 @@ class Project < ActiveRecord::Base
   
   has_many   :project_subscriptions, :dependent => :destroy
   has_many   :subscribers, :through => :project_subscriptions, :source=> :user
+
+  has_many :blogs
   
   belongs_to :genre, :foreign_key=>'genre_id'
   

@@ -1,0 +1,27 @@
+<div class="<%= cycle("view-lite-row", "view-lite-row-alt") %> blog-row">
+  <div class="blog-entry">
+    <div class="blog-title"><%= link_to blog.title, :controller => "blogs", :action => "show", :id => blog.id %></div>
+
+    <div class="blog-date"><%= blog.created_at.to_formatted_s(:long_ordinal) %></div>
+
+    <div style="clear:both;"></div>
+
+    <div class="blog-body">
+      <%=truncate(h(blog.body), 500)%>
+      (<%= link_to "More", :controller => "blogs", :action => "show", :id => blog.id %>)
+    </div>
+
+    <div>
+      <%= link_to "#{blog.blog_comments.length} comments", :controller => "blogs", :action => "show", :id => blog.id %>
+    </div>
+
+    <% if @p && @p.id == blog.profile_id %>
+      <div style="float: right;">
+        <%= link_to "Edit", :action => "edit", :id => blog.id %> |
+        <%= link_to "Delete", :action => "destroy", :id => blog.id %>
+      </div>
+    <% end %>
+
+    <div style="clear:both;"></div>
+  </div>
+</div>

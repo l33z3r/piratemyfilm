@@ -23,7 +23,7 @@
 <div class="project_listings">
   <% for @entry in @entries do %>
       <% if @entry.is_a?(Blog) %>
-        <%= render :partial => "blog", :locals => {:blog => @entry} %>
+        <%= render :partial => "/blog_partials/blog", :locals => {:blog => @entry} %>
       <% elsif @entry.is_a?(Project) %>
         <%= render :partial => "project", :locals => {:project => @entry} %>
       <% end %>

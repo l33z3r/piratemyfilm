@@ -1,0 +1,10 @@
+<div id="MENU_HEADER" class="pageTitle">
+  Showing Producer Blogs
+</div>
+<div style="clear:both;"></div><hr/>
+
+<% if @blogs.empty? %>
+  No Blogs Found!
+<% else %>
+  <%= render :partial => '/blog_partials/blog', :collection => @blogs %>
+<% end %>

@@ -1,0 +1,9 @@
+<h1>Edit Blog Post</h1>
+
+<div id="sub_nav">
+  <%= link_to "<<< Back to Producer Blogs", :controller => "producer_blogs" %>
+</div>
+
+<% form_for :blog, @blog, :url => {:controller => "producer_blogs", :action => "update", :id => @blog.id}  do |f| %>
+<%= render :partial => '/blog_partials/form', :locals => {:f => f} %>
+<% end %>

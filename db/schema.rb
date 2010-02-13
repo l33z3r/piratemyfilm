@@ -9,11 +9,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090817235703) do
+ActiveRecord::Schema.define(:version => 20100211131335) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
     t.integer  "rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "blog_comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "blog_id"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -25,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20090817235703) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_homepage_blog", :default => false
+    t.integer  "project_id"
   end
 
   add_index "blogs", ["profile_id"], :name => "index_blogs_on_profile_id"
