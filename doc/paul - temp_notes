@@ -1,0 +1,4 @@
+todo:
+
+- add a link in the project show page to blog about the project, if 'project.owner_id == @u.id'
+- show the latest blog in the project page, with a link to all blogs from this project

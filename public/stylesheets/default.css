@@ -161,6 +161,15 @@ fieldset li {
     margin-bottom:3px;
 }
 
+.blog-post {
+    width: 92%;
+    padding:0.4em 1em 0.4em 1em;
+    background:#efeadc;
+    margin-left:2em;
+    margin-bottom:3px;
+    margin-top:60px;
+}
+
 fieldset.submit {  
     float: none;  
     width: auto;  

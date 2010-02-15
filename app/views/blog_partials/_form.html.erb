@@ -1,4 +1,7 @@
 <table class="project_form" style="border-spacing: 10px; width: 100%;">
+  <% if @project %>
+    <%= f.hidden_field :project_id, :value => @project.id %>
+  <% end %>
   <tr>
     <td>
       Enter blog title

@@ -10,12 +10,12 @@
 
 <div style="clear:both;"></div><hr/>
 
-<%= link_to "View Blogs", {:controller => "blogs", :action => "homepage"}, :class => "subnav_inactive" %> |
+<%= link_to "View Producer Blogs", {:controller => "/producer_blogs"}, :class => "subnav_inactive" %> |
 <%= link_to "View PMF Project Comments", {:controller => "projects", :action => "recently_rated"}, :class => "subnav_inactive" %>
 
 <div style="clear:both;"></div>
 
-<%= render :partial => "projects/listings", :object => @projects %>
+<%= render :partial => "listings", :object => @projects %>
 
 <%= pagination_controls_for @projects if @projects.respond_to? :total_pages %>
 

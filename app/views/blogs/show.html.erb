@@ -7,7 +7,11 @@
   <% if @blog.is_homepage_blog? %>
     <%= link_to "View all Homepage Blogs", :controller => 'home' %>
   <% else %>
-    <%= link_to "View all Producer Blogs", :controller => "producer_blogs" %>
+    <% unless @blog.project.blank? %>
+      <%= link_to "See more blog posts for this project >>", :controller => :projects, :action => :blogs, :id => @blog.project_id %>
+    <% else %>
+      <%= link_to "View all Producer Blogs", :controller => "producer_blogs" %>
+    <% end %>
   <% end %>
 </div>
 

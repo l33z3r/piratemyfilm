@@ -23,8 +23,8 @@
   <hr>
 </div>
 
-<% unless @blog.blog_comments.empty? %>
-  <% @blog.blog_comments.each do |blog_comment| %>
+<% unless blog.blog_comments.blank? %>
+  <% blog.blog_comments.each do |blog_comment| %>
     <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %> blog-row">
       <div class="blog-comment">
         <p><b>Posted by</b> <%= "#{blog_comment.user.login} on #{blog_comment.created_at.to_formatted_s(:long_ordinal)}:" %></p>
@@ -38,7 +38,7 @@
 <% if @p %>
   <% form_for(@blog_comment, :url => {:controller => :blog_comments, :action => :create}) do |f| %>
     <%= f.error_messages %>
-    <%= f.hidden_field :blog_id, :value => @blog.id %>
+    <%= f.hidden_field :blog_id, :value => blog.id %>
     <%= f.hidden_field :user_id, :value => @u.id %>
     <p>
       <%= f.label :comment %><br />

@@ -1,8 +1,9 @@
 class ProjectsController < ApplicationController
   
   skip_filter :store_location, :only => [:create, :delete]
-  skip_before_filter :login_required, :only=> [:index, :show, :search, :filter_by_param, :recently_rated]
+  skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param, :recently_rated]
   before_filter :setup, :load_project
+  skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
   skip_before_filter :load_project, :only => [:show_private, :restore, :delete]
   before_filter :load_project_private, :only => [:show_private, :restore, :delete]
@@ -92,7 +93,16 @@ class ProjectsController < ApplicationController
       redirect_to :action=>'index' and return
     end
     
+    unless @project.blogs.blank?
+      @project_blog = @project.blogs.last
+    end
+    
     perform_show
+  end
+
+  def blogs
+    @project_blogs = Project.find(params[:id]).blogs
+    @project_id = params[:id]
   end
 
   def show_private
@@ -247,7 +257,7 @@ class ProjectsController < ApplicationController
   end
 
   def allow_to
-    super :all, :only => [:index, :show, :search, :filter_by_param, :recently_rated]
+    super :all, :only => [:index, :show, :blogs, :search, :filter_by_param, :recently_rated]
     super :admin, :all => true
     super :user, :only => [:new, :create, :show_private, :edit, :update, :delete, :delete_icon]
   end  

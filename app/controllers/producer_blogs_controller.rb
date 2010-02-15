@@ -7,6 +7,13 @@ class ProducerBlogsController < ApplicationController
   end
 
   def new
+    if params[:project_id]
+      @project = Project.find(params[:project_id])
+      unless @u.id == @project.owner_id
+        flash[:notice] = "you don't have access to this project"
+        redirect_to :action => :index
+      end
+    end
     @blog = Blog.new
   end
 
@@ -16,7 +23,11 @@ class ProducerBlogsController < ApplicationController
       @blog.profile_id = @p.id
       @blog.save!
       flash[:notice] = 'New blog post created.'
-      redirect_to :action => "index"
+      if @blog.project_id == nil
+        redirect_to :action => "index"
+      else
+        redirect_to :controller => :projects, :action => :show, :id => @blog.project_id
+      end
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Blog Post"
       flash[:negative] = "Sorry, there was a problem creating your blog post"
