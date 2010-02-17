@@ -1,5 +1,6 @@
 class BlogCommentsController < ApplicationController
   before_filter :login_required
+  skip_before_filter :check_permissions
   
   def create
     @blog_comment = BlogComment.new(params[:blog_comment])

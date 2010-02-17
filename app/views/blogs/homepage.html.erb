@@ -1,0 +1,22 @@
+<p>
+  <% form_tag :controller => "projects", :action => "filter_by_param" do %>
+   <%= select_tag :filter_param, options_for_select(@filter_params, "Order Projects By..."), :onchange => "this.form.submit();" %>
+  <% end %>
+</p>
+
+<div id="MENU_HEADER" class="pageTitle">
+  Blogs
+</div>
+
+<div style="clear:both;"></div><hr/>
+
+<%= link_to "View Blogs", {:controller => "blogs", :action => "homepage"} %> |
+<%= link_to "View PMF Project Comments", {:controller => "projects", :action => "recently_rated"}, :class => "subnav_inactive" %>
+
+<div style="clear:both;"></div>
+
+<% if @blogs.empty? %>
+  No Blogs Found!
+<% else %>
+  <%= render :partial => '/blog_partials/blog', :collection => @blogs %>
+<% end %>

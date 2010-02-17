@@ -158,18 +158,24 @@
 </fieldset>
 <% end %>
 
+<div style="clear:both"></div>
+
 <% if @project_blog %>
-  <fieldset>
-    <legend><span>Latest Blog Entry</span></legend>
+  <div class="project-blog">
+      <div class="project-blog-title">
+        Latest Blog Entry
+      </div>
       <div class="blog-post">
         <%= render :partial => '/blog_partials/show_project_blog', :locals => {:blog => @project_blog} %>
       </div>
-    <ol>
-      <li>
+      <div style="clear:both"></div>
+      <div class="project-blog-link">
+        <%= link_to "#{@project_blog.comments.size} comments", :controller => :blogs, :action => :show, :id => @project_blog.id %> | <%= link_to "Comment on this blog entry", :controller => :blogs, :action => :show, :id => @project_blog.id %>
+      </div>
+      <div class="project-blog-link">
         <%= link_to "See more blog posts for this project >>", :action => :blogs, :id => @project.id %>
-      </li>
-    </ol>
-  </fieldset>
+      </div>
+  </div>
 <% end %>
 
 <a name="user_rating">&nbsp;</a>

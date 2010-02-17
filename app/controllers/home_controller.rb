@@ -13,18 +13,9 @@ class HomeController < ApplicationController
   def index
     @filter_params = Project.filter_params
     
-    @recent_projects = Project.find_all_public(:order => "rated_at DESC, created_at DESC", :limit => 8)
-    @recent_blogs = Blog.find_all_by_is_homepage_blog(true)
+    @latest_blog = Blog.find(:last, :conditions => ["is_homepage_blog = ?", true])
 
-    @entries = []
-    
-    @recent_projects.each do |project|
-      @entries << project
-    end
-
-    @recent_blogs.each do |blog|
-      @entries << blog
-    end
+    @entries = Project.find_all_public(:order => "rated_at DESC, created_at DESC", :limit => 8)
 
     @entries.sort! { |a,b| 
       @sort_date_a = a.is_a?(Project) ? a.rated_at : a.created_at

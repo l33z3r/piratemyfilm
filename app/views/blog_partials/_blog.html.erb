@@ -23,5 +23,11 @@
     <% end %>
 
     <div style="clear:both;"></div>
+
+    <% if blog.project_id? %>
+      <div>
+        <%= link_to "View Blog Project >>", :controller => :projects, :action => "show", :id => blog.project_id %>
+      </div>
+    <% end %>
   </div>
 </div>

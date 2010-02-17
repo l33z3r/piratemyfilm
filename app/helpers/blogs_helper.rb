@@ -22,6 +22,7 @@ EOB
     out << tb_video_link(o.gsub!(/\[youtube\:|\]/, ''))
       end
     end
+    #markdown(out)
     out
   end
 end

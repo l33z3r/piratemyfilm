@@ -9,6 +9,8 @@
     <%= blog_body_content blog %>
   </div>
 
+  <div style="clear:both;"></div>
+
   <% if @p && @p.id == blog.profile_id %>
     <div style="float: right;">
       <%= link_to "Edit", :action => "edit", :id => blog.id %> |
@@ -26,6 +28,9 @@
 <% unless blog.blog_comments.blank? %>
   <% blog.blog_comments.each do |blog_comment| %>
     <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %> blog-row">
+      <div class="profile-pic">
+        <%= icon blog_comment.user.profile %>
+      </div>
       <div class="blog-comment">
         <p><b>Posted by</b> <%= "#{blog_comment.user.login} on #{blog_comment.created_at.to_formatted_s(:long_ordinal)}:" %></p>
         <p><%= blog_comment.body %></p>

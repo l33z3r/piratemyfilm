@@ -1,6 +1,6 @@
 class ProducerBlogsController < ApplicationController
   skip_before_filter :login_required, :only => [:index, :show]
-  skip_before_filter :check_permissions, :only => [:index, :show]
+  skip_before_filter :check_permissions
   
   def index
     @blogs = Blog.find_all_by_is_homepage_blog(false, :order=>"created_at DESC")
@@ -26,7 +26,7 @@ class ProducerBlogsController < ApplicationController
       if @blog.project_id == nil
         redirect_to :action => "index"
       else
-        redirect_to :controller => :projects, :action => :show, :id => @blog.project_id
+        redirect_to :controller => :blogs, :action => :show, :id => @blog.id
       end
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Blog Post"
