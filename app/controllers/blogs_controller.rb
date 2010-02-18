@@ -75,7 +75,12 @@ class BlogsController < ApplicationController
   
   def setup
     if params[:id]
-      @blog = Blog.find(params[:id])
+      begin
+        @blog = Blog.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        flash[:notice] = "This blog entry does not exist"
+        redirect_to :controller => :home
+      end
     end
   end
 
