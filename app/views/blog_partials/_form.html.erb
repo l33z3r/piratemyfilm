@@ -1,4 +1,12 @@
 <table class="project_form" style="border-spacing: 10px; width: 100%;">
+
+  <thead>
+    <tr>
+      <td style="width: 20%;"></td>
+      <td style="width: 80%;"></td>
+    </tr>
+  </thead>
+
   <% if @project %>
     <%= f.hidden_field :project_id, :value => @project.id %>
   <% end %>
@@ -14,6 +22,15 @@
     <td>
       Enter blog text
     </td>
+    <td>
+      <i>Note: Blog text is parsed using textilise,
+      allowing you to format your text entry.</i>
+      <br/>(See: <a target="_blank" href="http://www.textism.com/tools/textile/">
+      http://www.textism.com/tools/textile/</a> for more info)
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
     <td>
       <%= f.text_area :body %>
     </td>
