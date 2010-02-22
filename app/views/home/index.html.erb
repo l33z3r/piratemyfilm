@@ -26,7 +26,6 @@
   <% if @latest_blog %>
     <h3>Latest Blog:</h3>
     <%= render :partial => "/blog_partials/blog", :locals => {:blog => @latest_blog} %>
-    <%= render :partial => "/blog_partials/blog", :locals => {:blog => @latest_blog} %>
     <%= link_to "More Blogs >>", {:controller => "blogs", :action => "homepage"} %>
   <% else %>
     <h3>No Admin Blogs</h3>
