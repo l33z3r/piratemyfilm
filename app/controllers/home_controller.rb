@@ -15,13 +15,7 @@ class HomeController < ApplicationController
     
     @latest_blog = Blog.find(:last, :conditions => ["is_homepage_blog = ?", true])
 
-    @entries = Project.find_all_public(:order => "rated_at DESC, created_at DESC", :limit => 8)
-
-    @entries.sort! { |a,b| 
-      @sort_date_a = a.is_a?(Project) ? a.rated_at : a.created_at
-      @sort_date_b = b.is_a?(Project) ? b.rated_at : b.created_at
-      @sort_date_b <=> @sort_date_a
-    }
+    @projects = Project.find_all_public(:order => "rated_at DESC, created_at DESC", :limit => 8)
 
     @show_intro_text = true
   end

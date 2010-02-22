@@ -5,7 +5,7 @@
 </p>
 
 <div id="MENU_HEADER" class="pageTitle">
-<!--fantomas-->
+  <!--fantomas-->
 
 </div>
 
@@ -22,17 +22,15 @@
 <div style="clear:both;"></div>
 
 <div class="project_listings">
-  <% for @entry in @entries do %>
-  <h3>Latest Blog:</h3>
-      <%= render :partial => "/blog_partials/blog", :locals => {:blog => @latest_blog} %>
-  <%= link_to "More Blogs >>", {:controller => "blogs", :action => "homepage"} %>
-  <h3>Projects:</h3>
-      <% if @entry.is_a?(Blog) %>
-        <%= render :partial => "/blog_partials/blog", :locals => {:blog => @entry} %>
-      <% elsif @entry.is_a?(Project) %>
-        <%= render :partial => "project", :locals => {:project => @entry} %>
-      <% end %>
-    <% end %>
-  </div>
+  <% if @latest_blog %>
+    <h3>Latest Blog:</h3>
+    <%= render :partial => "/blog_partials/blog", :locals => {:blog => @latest_blog} %>
+    <%= link_to "More Blogs >>", {:controller => "blogs", :action => "homepage"} %>
+  <% end %>
+  
+  <% for @project in @projects do %>
+    <%= render :partial => "project", :locals => {:project => @project} %>
+  <% end %>
+</div>
 
   <div class="pmf_clear">&nbsp;</div>
