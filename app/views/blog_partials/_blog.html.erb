@@ -7,8 +7,8 @@
     <div style="clear:both;"></div>
 
     <div class="blog-body">
-      <%=truncate(h(blog.body), 500)%>
-      (<%= link_to "More", :controller => "blogs", :action => "show", :id => blog.id %>)
+      <%=truncate((blog_body_content blog), 500)%>
+      (<%= link_to "Read More", :controller => "blogs", :action => "show", :id => blog.id %>)
     </div>
 
     <div>
@@ -17,8 +17,8 @@
 
     <% if @p && @p.id == blog.profile_id %>
       <div style="float: right;">
-        <%= link_to "Edit", :action => "edit", :id => blog.id %> |
-        <%= link_to "Delete", :action => "destroy", :id => blog.id %>
+        <%= link_to "Edit", :controller => :blogs, :action => "edit", :id => blog.id %> |
+        <%= link_to "Delete", blog_path(blog), :confirm => 'Are you sure?', :method => :delete %>
       </div>
     <% end %>
 
