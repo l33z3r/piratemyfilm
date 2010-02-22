@@ -22,40 +22,20 @@
 <div style="clear:both;"></div>
 
 <div class="project_listings">
-<<<<<<< HEAD:app/views/home/index.html.erb
+
   <% if @latest_blog %>
-=======
-  <% for @entry in @entries do %>
-  <% unless @latest_blog.blank? %>
->>>>>>> 6dbfd8265c332c5c11aaa00618afd53c5bc04213:app/views/home/index.html.erb
     <h3>Latest Blog:</h3>
-<<<<<<< HEAD:app/views/home/index.html.erb
     <%= render :partial => "/blog_partials/blog", :locals => {:blog => @latest_blog} %>
-=======
-        <%= render :partial => "/blog_partials/blog", :locals => {:blog => @latest_blog} %>
->>>>>>> 6dbfd8265c332c5c11aaa00618afd53c5bc04213:app/views/home/index.html.erb
+    <%= render :partial => "/blog_partials/blog", :locals => {:blog => @latest_blog} %>
     <%= link_to "More Blogs >>", {:controller => "blogs", :action => "homepage"} %>
-<<<<<<< HEAD:app/views/home/index.html.erb
-=======
   <% else %>
     <h3>No Admin Blogs</h3>
->>>>>>> 6dbfd8265c332c5c11aaa00618afd53c5bc04213:app/views/home/index.html.erb
   <% end %>
-<<<<<<< HEAD:app/views/home/index.html.erb
-  
-  <% for @project in @projects do %>
-    <%= render :partial => "project", :locals => {:project => @project} %>
-  <% end %>
-</div>
-=======
+
   <h3>Projects:</h3>
-      <% if @entry.is_a?(Blog) %>
-        <%= render :partial => "/blog_partials/blog", :locals => {:blog => @entry} %>
-      <% elsif @entry.is_a?(Project) %>
-        <%= render :partial => "project", :locals => {:project => @entry} %>
-      <% end %>
+  <% for @project in @projects do %>
+      <%= render :partial => "project", :locals => {:project => @project} %>
     <% end %>
   </div>
->>>>>>> 6dbfd8265c332c5c11aaa00618afd53c5bc04213:app/views/home/index.html.erb
 
-  <div class="pmf_clear">&nbsp;</div>
+<div class="pmf_clear">&nbsp;</div>
