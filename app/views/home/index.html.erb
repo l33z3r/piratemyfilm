@@ -23,9 +23,13 @@
 
 <div class="project_listings">
   <% for @entry in @entries do %>
-  <h3>Latest Blog:</h3>
-      <%= render :partial => "/blog_partials/blog", :locals => {:blog => @latest_blog} %>
-  <%= link_to "More Blogs >>", {:controller => "blogs", :action => "homepage"} %>
+  <% unless @latest_blog.blank? %>
+    <h3>Latest Blog:</h3>
+        <%= render :partial => "/blog_partials/blog", :locals => {:blog => @latest_blog} %>
+    <%= link_to "More Blogs >>", {:controller => "blogs", :action => "homepage"} %>
+  <% else %>
+    <h3>No Admin Blogs</h3>
+  <% end %>
   <h3>Projects:</h3>
       <% if @entry.is_a?(Blog) %>
         <%= render :partial => "/blog_partials/blog", :locals => {:blog => @entry} %>

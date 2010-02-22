@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
   skip_filter :login_required, :only => [:index, :show, :homepage]
-  before_filter :setup, :only => [:show, :update, :destroy]
+  before_filter :setup, :only => [:show, :edit, :update, :destroy]
   
   def index
     if @p && @p == @profile && @p.blogs.empty?
@@ -50,7 +50,7 @@ class BlogsController < ApplicationController
       if @blog.update_attributes(params[:blog])
         wants.html do
           flash[:notice]='Blog post updated.'
-          redirect_to profile_blogs_path(@p)
+          redirect_to '/'
         end
       else
         wants.html do
@@ -66,7 +66,7 @@ class BlogsController < ApplicationController
     respond_to do |wants|
       wants.html do
         flash[:notice]='Blog post deleted.'
-        redirect_to profile_blogs_path(@p)
+        redirect_to '/'
       end
     end
   end
