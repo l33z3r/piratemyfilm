@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging "password"
   
   before_filter :allow_to, :check_user, :login_from_cookie, :login_required, :check_permissions, :pagination_defaults
-  #before_filter :set_profile
+  before_filter :set_profile
   
   after_filter :store_location
   layout 'application'  
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   def set_profile
     @p = @u.profile if @u && @u.profile
     Time.zone = @p.time_zone if @p && @p.time_zone
-    @p.update_attribute :last_activity_at, Time.now if @p
+    #@p.update_attribute :last_activity_at, Time.now if @p
   end
   
   helper_method :flickr, :flickr_images

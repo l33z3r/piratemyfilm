@@ -3,7 +3,7 @@
     	<%= link_to('&larr; Back to Dashboard', @p) if @p %>  
       <%= link_to '&larr; Back to Blogs', profile_blogs_path(@p) if @p %>
   </div>
-
+jj
 <% form_for :blog, @blog, :url => {:controller => "blogs", :action => "update", :id => @blog.id} do |f| %>
   <%= render :partial => '/blog_partials/form', :locals => {:f => f} %>
 <% end %>
