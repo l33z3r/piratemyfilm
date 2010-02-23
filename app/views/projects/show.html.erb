@@ -2,7 +2,7 @@
   <h3>
     This Project was deleted on <%= @project.deleted_at %>
     <br/><br/>
-    <%= link_to "Restore This Project", :controller => "projects", :action => "restore", :id => @project %>
+    <%= link_to "Restore Project", :controller => "projects", :action => "restore", :id => @project %>
   </h3>
 <% end %>
 
@@ -92,11 +92,11 @@
 
 <% if !@project.is_deleted %>
   <div class="right">
-    <% if @u && @project.owner_id == @u.id %>
-      <%= link_to "Blog about this Project", :controller => :producer_blogs, :action => :new, :project_id => @project.id %> |
+    <% if @u && (@project.owner == @u || @u.is_admin) %>
+      <%= link_to "Blog about this Project", :controller => :blogs, :action => :new, :project_id => @project.id %> |
     <% end %>
 
-    <% if @u and @project.owner == @u %>
+    <% if @u and (@project.owner == @u || @u.is_admin) %>
       <%= link_to "Edit Project", edit_project_path(@project) %> |
     <% end %>
 
@@ -168,15 +168,30 @@
       Latest Blog Entry
     </div>
     <div class="blog-post">
-      <%= render :partial => '/blog_partials/show_project_blog', :locals => {:blog => @project_blog} %>
+      <div class="blog-row">
+        <div class="blog-entry">
+          <div class="blog-title">
+            <%= link_to @project_blog.title, :controller => "blogs", :action => "show", :id => @project_blog.id %>
+          </div>
+
+          <div class="blog-date">
+            <%= @project_blog.created_at.to_formatted_s(:long_ordinal) %>
+          </div>
+
+          <div style="clear:both;"></div>
+
+          <div class="blog-body">
+            <%= truncate((blog_body_content @project_blog), 500) %>
+            (<%= link_to "More", :controller => "blogs", :action => "show", :id => @project_blog.id %>)
+          </div>
+
+          <div style="clear:both;"></div>
+          <%= link_to "Comment on this blog entry", :controller => :blogs, :action => :show, :id => @project_blog.id %> |
+          <%= link_to "All Blogs For This Project", :action => :blogs, :id => @project.id %>
+        </div>
+      </div>
     </div>
     <div style="clear:both"></div>
-    <div class="project-blog-link">
-      <%= link_to "#{@project_blog.comments.size} comments", :controller => :blogs, :action => :show, :id => @project_blog.id %> | <%= link_to "Comment on this blog entry", :controller => :blogs, :action => :show, :id => @project_blog.id %>
-    </div>
-    <div class="project-blog-link">
-      <%= link_to "See more blog posts for this project >>", :action => :blogs, :id => @project.id %>
-    </div>
   </div>
 <% end %>
 
@@ -208,20 +223,7 @@
 <% end %>
 
 <form action="#">
-  <!--fieldset>
 
-    <legend><span>Video</span></legend>
-    <ol>
-      <li>
-        if !@project.youtube_vid_id.nil? and !@project.youtube_vid_id.empty?
-           render :partial => "shared/youtube_embed", :locals => { :vid_id => @project.youtube_vid_id, :width => "570", :height => "351" }
-        else
-          No Video Id has been assigned to this project.
-         end
-      </li>
-    </ol>
-
-  </fieldset-->
   <fieldset>
     <legend><span>Project Information</span></legend>
 

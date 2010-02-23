@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; utf-8" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-      
+
     <meta name="description" content="The Film Futures Market for Pirates" />
     <meta name="keywords" content="max keiser, pirate film, market" />
 
@@ -19,19 +19,12 @@
 
     <center>
 
-      <% if @show_intro_text %>
+      <% if @show_intro_blog && @latest_blog %>
         <div id="hp_text_blurb">
 
-          <div id="header_text">Pirate Myfilm - The Film Futures Market for Pirates</div>
+          <div id="header_text">Pirate Myfilm - The Film Futures Market for Pirates</div><hr/>
 
-          <p>
-            Some film makers want to have copies of their films pirated by millions.
-            Some want to sell copies. In either case, producers can raise money for their
-            projects on Pirate Myfilm by selling future copies today. When enough future
-            copies have been reserved to fund a project a group-debit occurs and the funds
-            are made available to the producer... <%= link_to "more", :controller => "static", :action => "whatispmf" %>
-          </p>
-
+          <%= render :partial => "/blog_partials/latest_hp_blog", :locals => {:blog => @latest_blog} %>
         </div>
       <% end %>
 

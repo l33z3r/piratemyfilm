@@ -1038,6 +1038,11 @@ div.blog .header a {
     font-size: 15px;
 }
 
+div.blog-row {
+    margin-bottom: 10px;
+    clear: both;
+}
+
 .blog-title {
     float: left;
     text-transform: capitalize;
@@ -1045,7 +1050,16 @@ div.blog .header a {
     font-size:13px;
     font-weight:bold;
     margin: 5px;
-    width: 580px;
+    width: 500px;
+}
+
+.blog_comments_link {
+    float: right;
+}
+
+.blog_admin_links {
+    float: right;
+    margin-left: 30px;
 }
 
 .blog-body {

@@ -17,7 +17,7 @@ class HomeController < ApplicationController
 
     @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC", :limit => 8)
 
-    @show_intro_text = true
+    @show_intro_blog = true
   end
 
   def newest_members

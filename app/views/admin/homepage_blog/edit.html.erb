@@ -5,5 +5,5 @@
 </div>
 
 <% form_for :blog, @blog, :url => {:controller => "homepage_blog", :action => "update", :id => @blog.id}  do |f| %>
-<%= render :partial => '/blog_partials/form', :locals => {:f => f} %>
+  <%= render :partial => '/blog_partials/form', :locals => {:f => f} %>
 <% end %>

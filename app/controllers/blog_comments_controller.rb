@@ -8,7 +8,7 @@ class BlogCommentsController < ApplicationController
 
     
     if @blog_comment.save
-      flash[:notice] = 'BlogComment was successfully created.'
+      flash[:notice] = 'Comment was successfully created.'
       redirect_to blog_url(@blog)
     else
       render blog_url(@blog)

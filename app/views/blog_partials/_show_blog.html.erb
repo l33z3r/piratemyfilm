@@ -1,7 +1,11 @@
 <div id="blog_<%= blog.id %>" class="border_top blog">
-  <div class="header"><%= link_to sanitize(blog.title.capitalize), :controller => :blogs, :action => "show", :id => blog.id %></div>
+  <div class="header">
+    <%= link_to sanitize(blog.title.capitalize), :controller => :blogs, :action => "show", :id => blog.id %>
+  </div>
 
-  <div class="blog-date"><%= blog.created_at.to_formatted_s(:long_ordinal) %></div>
+  <div class="blog-date">
+    <%= blog.created_at.to_formatted_s(:long_ordinal) %>
+  </div>
 
   <div style="clear:both;"></div>
 
@@ -11,18 +15,20 @@
 
   <div style="clear:both;"></div>
 
-  <% if @u && @u.id == blog.profile_id %>
-    <div style="float: right;">
+  <% if @p && (@p.id == blog.profile_id || @u.is_admin) && !blog.is_homepage_blog %>
+    <div class="blog_admin_links">
       <%= link_to "Edit", :action => "edit", :id => blog.id %> |
-        <%= link_to "Delete", blog_path(blog), :confirm => 'Are you sure?', :method => :delete %>
+      <%= link_to "Delete", blog_path(blog), :confirm => 'Are you sure?', :method => :delete %>
     </div>
   <% end %>
+  
 </div>
+
 <div style="clear:both;"></div>
 
 <div class="pageTitle">
   Comments
-  <hr>
+  <hr/>
 </div>
 
 <% unless blog.blog_comments.blank? %>
@@ -39,8 +45,9 @@
   <% end %>
 <% end %>
 
-<h3>Add a comment to this blog:</h3>
-<% if @u %>
+<h3>Add a comment to this blog entry:</h3>
+
+<% if @p %>
   <% form_for(@blog_comment, :url => {:controller => :blog_comments, :action => :create}) do |f| %>
     <%= f.error_messages %>
     <%= f.hidden_field :blog_id, :value => blog.id %>

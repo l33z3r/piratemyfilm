@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :blogs, :only => [:show, :homepage]
 
   map.connect "homepage_blogs", :controller => "blogs", :action => "homepage"
+  map.connect "producer_blogs", :controller => "blogs", :action => "producer"
 
   map.resources :project_comments
 
@@ -29,10 +30,10 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options(:controller => 'home') do |home|
     home.home '/', :action => 'index'
-    home.latest_comments '/latest_comments.rss', :action => 'latest_comments', :format=>'rss'
-    home.newest_members '/newest_members.rss', :action => 'newest_members', :format=>'rss'
-    home.tos '/tos', :action => 'terms'
-    home.contact '/contact', :action => 'contact'
+#    home.latest_comments '/latest_comments.rss', :action => 'latest_comments', :format=>'rss'
+#    home.newest_members '/newest_members.rss', :action => 'newest_members', :format=>'rss'
+#    home.tos '/tos', :action => 'terms'
+#    home.contact '/contact', :action => 'contact'
   end
 
   map.resources :projects, 

@@ -1,18 +1,21 @@
 <div id="MENU_HEADER" class="pageTitle">
-  Showing Blog
+  Viewing Blog Entry
 </div>
 <div style="clear:both;"></div><hr/>
 
 <div id="sub_nav">
   <% if @blog.is_homepage_blog? %>
-    <%= link_to "View All Homepage Blogs", {:controller => "blogs", :action => "homepage"}, :class => "subnav_inactive" %> |
-<% else %>
+    <%= link_to "All Max Blog Posts", {:controller => "blogs", :action => "homepage"}, :class => "subnav_inactive" %>
+  <% else %>
     <% unless @blog.project.blank? %>
-      <%= link_to "See more blog posts for this project >>", :controller => :projects, :action => :blogs, :id => @blog.project_id %>
+      <%= link_to "All Blog Posts for this Project", :controller => "projects", :action => "blogs", :id => @blog.project_id %> |
+      <%= link_to "Back to Project", :controller => "projects", :action => "show", :id => @project.id %>
     <% else %>
-      <%= link_to "View all Producer Blogs", :controller => "producer_blogs" %>
+      <%= link_to "All Producer Blogs", :controller => "producer_blogs" %>
     <% end %>
   <% end %>
 </div>
+
+<div style="clear:both;"></div>
 
 <%= render :partial => '/blog_partials/show_blog', :locals => {:blog => @blog} %>
