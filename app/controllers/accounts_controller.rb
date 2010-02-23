@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
       params[:password] ||= params[:user][:password] if params[:user]
       self.user = User.authenticate(params[:login], params[:password])
       if @u
-        remember_me if params[:user][:remember_me] == "1"
+        remember_me if params[:remember_me] == "1"
         flash[:notice] = "Hello #{@u.f}"
         redirect_back_or_default profile_url(@u.profile)
       else
