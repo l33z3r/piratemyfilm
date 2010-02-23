@@ -15,7 +15,7 @@ class HomeController < ApplicationController
     
     @latest_blog = Blog.find(:last, :conditions => ["is_homepage_blog = ?", true])
 
-    @projects = Project.find_all_public(:order => "rated_at DESC, created_at DESC", :limit => 8)
+    @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC", :limit => 8)
 
     @show_intro_text = true
   end
