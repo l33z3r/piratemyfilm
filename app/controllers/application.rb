@@ -3,7 +3,9 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
   filter_parameter_logging "password"
   
-  before_filter :allow_to, :check_user, :set_profile, :login_from_cookie, :login_required, :check_permissions, :pagination_defaults
+  before_filter :allow_to, :check_user, :login_from_cookie, :login_required, :check_permissions, :pagination_defaults
+  #before_filter :set_profile
+  
   after_filter :store_location
   layout 'application'  
   
