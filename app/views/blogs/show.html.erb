@@ -5,8 +5,8 @@
 
 <div id="sub_nav">
   <% if @blog.is_homepage_blog? %>
-    <%= link_to "View all Homepage Blogs", :controller => 'home' %>
-  <% else %>
+    <%= link_to "View All Homepage Blogs", {:controller => "blogs", :action => "homepage"}, :class => "subnav_inactive" %> |
+<% else %>
     <% unless @blog.project.blank? %>
       <%= link_to "See more blog posts for this project >>", :controller => :projects, :action => :blogs, :id => @blog.project_id %>
     <% else %>
