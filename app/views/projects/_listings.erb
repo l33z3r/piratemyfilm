@@ -1,6 +1,6 @@
 <div class="project_listings">
   <% for @project in listings do %>
-      <%= render :partial => "project", :locals => {:project => @project} %>
+      <%= render :partial => "/projects/project", :locals => {:project => @project} %>
     <% end %>
 </div>
 <div class="pmf_clear">&nbsp;</div>
