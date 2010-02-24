@@ -2,6 +2,15 @@ a img {
     border: none;
 }
 
+a {
+    color: #043a3a;
+}
+
+a:hover {
+    color: #043a3a;
+}
+
+
 input {
     cursor: pointer;
 }
@@ -657,12 +666,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     display: block;
     text-align: left;
     background: url(/images/content-bg.gif) repeat-x left top;
-}
-
-#content a {
-    color: #043a3a;
-    text-decoration: none;
-    vertical-align:middle;
 }
 
 #content .takeAction {
@@ -1365,7 +1368,7 @@ div#hp_text_blurb {
     font-size: 13px;
     background: white;
     border-bottom: 1px solid #999999;
-    max-height: 180px;
+    max-height: 200px;
     overflow: hidden;
 }
 

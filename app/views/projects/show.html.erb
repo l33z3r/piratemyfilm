@@ -1,25 +1,24 @@
 <% if !@project.is_deleted %>
-  <div class="right">
-    <% if @u && (@project.owner == @u || @u.is_admin) %>
-      <%= link_to "Blog about this Project", :controller => :blogs, :action => :new, :project_id => @project.id %> |
-    <% end %>
+  <div style="clear: both;"></div>
+  <hr>
+  <% if @u && (@project.owner == @u || @u.is_admin) %>
+    <%= link_to "Blog about this Project", :controller => :blogs, :action => :new, :project_id => @project.id %> |
+  <% end %>
 
-    <% if @u and (@project.owner == @u || @u.is_admin) %>
-      <%= link_to "Edit Project", edit_project_path(@project) %> |
-    <% end %>
+  <% if @u and (@project.owner == @u || @u.is_admin) %>
+    <%= link_to "Edit Project", edit_project_path(@project) %> |
+  <% end %>
 
-    <% if @u and (@project.owner == @u || @u.is_admin) %>
-      <%= link_to "Delete Project", :controller => "projects", :action => "delete", :id => @project %> |
-    <% end %>
+  <% if @u and (@project.owner == @u || @u.is_admin) %>
+    <%= link_to "Delete Project", :controller => "projects", :action => "delete", :id => @project %> |
+  <% end %>
 
-    <%= link_to "All Projects", projects_path %> |
-    <%= link_to "Invite My Friend to Reserve This Project (NYA)", "#" %>
-  </div>
+  <%= link_to "All Projects", projects_path %> |
+  <%= link_to "Invite My Friend to Reserve This Project (NYA)", "#" %>
+
+  <div style="clear: both;"></div>
+  <hr>
 <% end %>
-
-<div style="clear: both;"></div>
-<hr>
-
 <% if @project.is_deleted %>
   <h3>
     This Project was deleted on <%= @project.deleted_at %>
