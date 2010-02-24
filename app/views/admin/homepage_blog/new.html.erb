@@ -1,8 +1,4 @@
-<h1>New Homepage Blog</h1>
-
-<div id="sub_nav">
-  <%= link_to "<<< Back to Blogs", :controller => "admin/homepage_blog" %>
-</div>
+<h1>Create New Max Blog</h1>
 
 <% form_for :blog, @blog, :url => {:controller => "homepage_blog", :action => "create", :id => @blog.id}  do |f| %>
   <%= render :partial => '/blog_partials/form', :locals => {:f => f} %>

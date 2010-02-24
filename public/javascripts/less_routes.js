@@ -429,6 +429,12 @@ function signup_ajaxx(verb, params, options){ return less_ajaxx('/signup', verb,
 function home_path(verb){ return '';}
 function home_ajax(verb, params, options){ return less_ajax('', verb, params, options);}
 function home_ajaxx(verb, params, options){ return less_ajaxx('', verb, params, options);}
+function tos_path(verb){ return '/tos';}
+function tos_ajax(verb, params, options){ return less_ajax('/tos', verb, params, options);}
+function tos_ajaxx(verb, params, options){ return less_ajaxx('/tos', verb, params, options);}
+function contact_path(verb){ return '/contact';}
+function contact_ajax(verb, params, options){ return less_ajax('/contact', verb, params, options);}
+function contact_ajaxx(verb, params, options){ return less_ajaxx('/contact', verb, params, options);}
 function recently_rated_projects_path(verb){ return '/projects/recently_rated';}
 function recently_rated_projects_ajax(verb, params, options){ return less_ajax('/projects/recently_rated', verb, params, options);}
 function recently_rated_projects_ajaxx(verb, params, options){ return less_ajaxx('/projects/recently_rated', verb, params, options);}

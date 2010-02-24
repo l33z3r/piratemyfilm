@@ -32,8 +32,8 @@ ActionController::Routing::Routes.draw do |map|
     home.home '/', :action => 'index'
 #    home.latest_comments '/latest_comments.rss', :action => 'latest_comments', :format=>'rss'
 #    home.newest_members '/newest_members.rss', :action => 'newest_members', :format=>'rss'
-#    home.tos '/tos', :action => 'terms'
-#    home.contact '/contact', :action => 'contact'
+    home.tos '/tos', :action => 'terms'
+    home.contact '/contact', :action => 'contact'
   end
 
   map.resources :projects, 

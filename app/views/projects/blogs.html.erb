@@ -5,7 +5,10 @@
 <div style="clear:both;"></div><hr/>
 
 <div id="sub_nav">
-  <%= link_to "Back to Project", project_path(@project_id) %>
+  <%= link_to "Back to Project", project_path(@project_id), :class => "subnav_inactive" %>
+  <% if @u && (@project.owner == @u || @u.is_admin) %>
+    | <%= link_to "Blog about this Project", {:controller => :blogs, :action => :new, :project_id => @project.id}, :class => "subnav_inactive" %>
+  <% end %>
 </div>
 
 <%= render :partial => '/blog_partials/blog', :collection => @project_blogs %>

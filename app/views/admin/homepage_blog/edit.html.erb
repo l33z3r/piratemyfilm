@@ -1,8 +1,4 @@
-<h1>Edit Blog Post</h1>
-
-<div id="sub_nav">
-  <%= link_to "<<< Back to Blogs", :controller => "admin/homepage_blog" %>
-</div>
+<h1>Edit Max Blog Post</h1>
 
 <% form_for :blog, @blog, :url => {:controller => "homepage_blog", :action => "update", :id => @blog.id}  do |f| %>
   <%= render :partial => '/blog_partials/form', :locals => {:f => f} %>

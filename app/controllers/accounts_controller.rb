@@ -7,7 +7,6 @@ class AccountsController < ApplicationController
     @user = User.new
     return unless request.post?
     
-    
     #plays double duty login/forgot (due to the ajax nature of the login/forgot form)
     if params[:user][:email] && params[:user][:email].size > 0
       u = Profile.find_by_email(params[:user][:email]).user rescue nil
@@ -42,7 +41,6 @@ class AccountsController < ApplicationController
     redirect_back_or_default(home_path) and return if @u
     @user = User.new
     return unless request.post?
-    
       
     u = User.new
     u.terms_of_service = params[:user][:terms_of_service]

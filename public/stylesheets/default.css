@@ -2,6 +2,10 @@ a img {
     border: none;
 }
 
+input {
+    cursor: pointer;
+}
+
 .right {
     float: right;
 }
@@ -18,6 +22,14 @@ a img {
 .bio_stuff {
     margin-left: 20px;
 }
+
+/* Navigation */
+
+div#sub_nav {
+    margin: 10px 0px;
+}
+
+/* Navigation */
 
 .project_listing_box {
     margin-top: 20px;
@@ -43,7 +55,7 @@ small	{
 
 .faq-index	{
     margin-top:5px;
-    margin-bottom:15px;	
+    margin-bottom:15px;
     width:100%;
     background-color: #fff;
     border-top: 1px solid #C7BFCF;
@@ -58,7 +70,7 @@ small	{
 
 .faq-reply	{
     margin-top:5px;
-    margin-bottom:15px;	
+    margin-bottom:15px;
     width:100%;
     background-color: #fff;
     border-top: 1px solid #C7BFCF;
@@ -77,7 +89,7 @@ small	{
 
 .backtotop	a {
     margin-top:5px;
-    margin-bottom:15px;	
+    margin-bottom:15px;
     width:100%;
     background-color: #C7BFCF;
     display:block;
@@ -126,33 +138,33 @@ small	{
 }
 
 fieldset {  
-    float: left;  
-    clear: both;  
-    width: 100%;  
-    margin: 0 0 1em 0;  
-    padding: 0 0 1em 0;  
-    border-style: none;  
-    border-top: 1px solid #fff;  
+    float: left;
+    clear: both;
+    width: 100%;
+    margin: 0 0 1em 0;
+    padding: 0 0 1em 0;
+    border-style: none;
+    border-top: 1px solid #fff;
     background-color: #f8f6ef;
 }
 
 legend {  
-    margin-left: 2em;  
-    padding: 0;   
+    margin-left: 2em;
+    padding: 0;
     font-weight: bold;
 }
 
 fieldset ol {  
-    padding: 3.5em 1em 0 1em;  
+    padding: 3.5em 1em 0 1em;
     list-style: none;
 }
 
 fieldset ul{  
-    padding-left: 0px; 
+    padding-left: 0px;
     margin:5px 0 0 0;
     list-style: none;
     border-top:1px dotted #ccc;
-    
+
 }
 
 fieldset ul li	{
@@ -186,14 +198,14 @@ fieldset li a:hover	{
 
 
 fieldset p	{
-    position: absolute;  
-    margin: 2.5em 0 0 2.5em; 
+    position: absolute;
+    margin: 2.5em 0 0 2.5em;
 }
 
 fieldset li {  
-    float: left;  
-    clear: left;  
-    width: 92%; 
+    float: left;
+    clear: left;
+    width: 92%;
     padding:0.4em 1em 0.4em 1em;
     background:#efeadc;
     margin-left:2em;
@@ -201,30 +213,30 @@ fieldset li {
 }
 
 fieldset.submit {  
-    float: none;  
-    width: auto;  
-    padding-top: 1.5em;  
-    padding-left: 30em;  
+    float: none;
+    width: auto;
+    padding-top: 1.5em;
+    padding-left: 30em;
     background-color: #FFFFFF;
 }
 
 label {  
-    float: left;  
-    width: 25em;  
+    float: left;
+    width: 25em;
     margin-right: 1em;
 }
 
 legend span {  
-    position: absolute;  
-    margin-top: 0.5em;  
+    position: absolute;
+    margin-top: 0.5em;
     font-size: 135%;
 }
 
 label em {  
-    display: block;  
-    color: #000;  
-    font-size: 75%;  
-    font-style: normal;  
+    display: block;
+    color: #000;
+    font-size: 75%;
+    font-style: normal;
     text-transform: uppercase;
 }
 
@@ -237,7 +249,7 @@ label em {
 
 fieldset#select	{
     border:0;
-    
+
 }
 
 /*Project page specific*/
@@ -258,7 +270,7 @@ fieldset#select	{
     background:#fff;
     width:120px;
     height:40px;
-    float:left; 
+    float:left;
     margin-right:5px;
     margin-top:10px;
     line-height:9pt;
@@ -322,7 +334,7 @@ fieldset#select	{
 
 #footer li a:hover	{
     text-decoration: underline;
-    color: #000;	
+    color: #000;
 }
 
 /* Hide from IE5-Mac */
@@ -333,11 +345,11 @@ fieldset#select	{
 
 
 #icatch	{
-    
+
     width:800px;
     height: 90px;
-    position:absolute;	
-    
+    position:absolute;
+
 }
 
 .icatch-pictures	{
@@ -358,7 +370,7 @@ fieldset#select	{
     position:absolute;
     top:88px;
     margin:0;
-    
+
 }
 
 .navbar-search {
@@ -366,7 +378,7 @@ fieldset#select	{
 }
 
 .icatch-button	a {
-    float:left; 
+    float:left;
     margin-right:5px;
 }
 
@@ -442,12 +454,12 @@ form	{
 }
 
 #logintop	{
-    background: url(/images/login-contents-bg.gif) repeat-x left top;	
-    
+    background: url(/images/login-contents-bg.gif) repeat-x left top;
+
     margin:0px auto;
     padding:0 100px 0 100px;
     height: 30px;
-    
+
 }
 
 .login-panel	{
@@ -473,13 +485,13 @@ form	{
 }
 
 #login-contents	{
-    background: url(/images/login-contents-bg.gif) repeat-x left top;	
+    background: url(/images/login-contents-bg.gif) repeat-x left top;
     font-size:85%;
     line-height: 2.4em;
     margin:0px auto;
     width:100%;
     height: 30px;
-    
+
 }
 
 #login-contents a	{
@@ -510,12 +522,12 @@ form	{
     /*display: block;*/
     text-decoration: none;
     text-align: center;
-    color: #666;	
+    color: #666;
 }
 
 #login-contents li a:hover	{
     text-decoration: underline;
-    color: #000;	
+    color: #000;
 }
 
 /* Hide from IE5-Mac */
@@ -524,7 +536,7 @@ form	{
 }
 
 #content .editForm input[type=text] {
-    width: 100%;	
+    width: 100%;
     border:1px;
 }
 
@@ -541,25 +553,6 @@ form	{
     border: 2px solid #DEDEDE;
     background-color: #E3372E;
     background-image: url(<icon:error.png!/>);
-    background-position: 10px center;
-    background-repeat: no-repeat;
-    color: #FFFFFF;
-    font-weight: bolder;
-    font-size: 10px;
-}
-#content .alert {
-    padding-top: 5px;
-    text-align: center;
-    vertical-align: middle;
-    display: block;
-    height: 30px;
-    width: 90%;
-    position: relative;
-    left: 5%;
-    border: 2px solid #DEDEDE;
-    background-color: #F1A629;
-    background-image: url(<icon:alert.png!/>);
-    background-position: 10px center;
     background-repeat: no-repeat;
     color: #FFFFFF;
     font-weight: bolder;
@@ -580,10 +573,10 @@ body	{
     background: #fff url(/images/body-bg-2.png) repeat-x;
     font-size:0.8em;
     line-height:1.4em;
-    font-family:Verdana, Arial, sans-serif; 
-    margin:0; 
-    padding:0; 
-    
+    font-family:Verdana, Arial, sans-serif;
+    margin:0;
+    padding:0;
+
     color:#666666;
 }
 
@@ -611,11 +604,11 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 
 #globalHeader .text {
     font-size: 11px;
-    font-weight: bold;   
+    font-weight: bold;
 }
 
 #globalHeader a {
-    text-decoration: none;    
+    text-decoration: none;
 }
 
 #globalHeader a:hover {
@@ -730,7 +723,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     font-size: 14px;
     text-align: center;
     color: #FFFFFF;
-    background-color: #888888;	
+    background-color: #888888;
     border-bottom: 2px solid #666666;
     height: 20px;
     margin: 10px 0pt;
@@ -753,7 +746,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 .table tr td	{
     font-size:0.9em;
     vertical-align:middle;
-    
+
 }
 
 #content .table input.textField, #content .editor input.textField {
@@ -768,7 +761,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 
 #content .text {
     font-size: 12px;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 #content textarea {
@@ -881,12 +874,12 @@ br {
 }
 
 span p {
-margin:0px;
-padding:0;
-width:450px;
-display:block;
-position:relative;
-left:96px;
+    margin:0px;
+    padding:0;
+    width:450px;
+    display:block;
+    position:relative;
+    left:96px;
 }
 
 .how-to-col01 {
@@ -1369,16 +1362,35 @@ div.blog-row {
 }
 
 div#hp_text_blurb {
-    text-align: justify;
-    padding: 10px 225px;
     font-size: 13px;
     background: white;
     border-bottom: 1px solid #999999;
+    max-height: 180px;
+    overflow: hidden;
 }
 
+div#hp_text_blurb div#container {
+    padding: 5px;
+    width: 1000px;
+}
+
+div#hp_text_blurb div#container div.blog-entry {
+    text-align: left;
+}
 div#header_text {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: bold;
+    float: left;
+    padding: 5px;
+}
+
+div#how_it_works {
+    float: right;
+    margin-right: 5px;
+}
+
+div#signup {
+    float: right;
 }
 
 div#ning_link {

@@ -38,7 +38,6 @@ class FriendsController < ApplicationController
     super :non_user, :only => :index
   end
   
-  
   def setup
     @profile = Profile[params[:id] || params[:profile_id]]
     @user = @profile.user

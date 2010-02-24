@@ -29,11 +29,11 @@ class ProjectsController < ApplicationController
         # we still have to decide what algorithm we're going to use here for "most active"
       end
       
-      @projects = Project.find_all_public(:order=> order).paginate :page => (params[:page] || 1), :per_page=> 8
+      @projects = Project.find_all_public(:order=> order).paginate :page => (params[:page] || 1), :per_page=> 10
       
     else
       @filtered = false
-      @projects = Project.find_all_public(:order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 8
+      @projects = Project.find_all_public(:order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 10
     end
   end
 

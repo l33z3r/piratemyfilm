@@ -1,7 +1,15 @@
 <div id="MENU_HEADER" class="pageTitle">
-  Showing Producer Blogs
+  Viewing Producer Blogs
 </div>
+
 <div style="clear:both;"></div><hr/>
+
+<div id="sub_nav">
+
+  <%= link_to "All Producer Blogs", {:controller => "producer_blogs"}, :class => "subnav_inactive" %> |
+  <%= link_to "All Max Blog Posts", {:controller => "blogs", :action => "homepage"}, :class => "subnav_inactive" %>
+
+</div>
 
 <% if @blogs.empty? %>
   No Blogs Found!

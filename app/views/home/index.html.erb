@@ -1,18 +1,4 @@
-<div id="MENU_HEADER" class="pageTitle">
-</div>
-
-<div id="ning_link">
-  <a href="http://piratemyfilm.ning.com" target="_blank">Join Our Discussions</a>
-</div>
-
-<%= link_to "All Max Blogs", {:controller => "blogs", :action => "homepage"}, :class => "subnav_inactive" %> |
-<%= link_to "All Producer Blogs", {:controller => "blogs", :action => "producer"}, :class => "subnav_inactive" %>
-
-<div style="clear:both;"></div><hr/>
-
 <div class="project_listings">
-
-  <h3>Popular Projects</h3>
 
   <p>
     <% form_tag :controller => "projects", :action => "filter_by_param" do %>
@@ -20,8 +6,21 @@
     <% end %>
   </p>
 
+  <div id="MENU_HEADER" class="pageTitle">
+    Popular Projects
+  </div>
+
+  <div style="clear:both;"></div><hr/>
+
+  <div id="sub_nav">
+    <%= link_to "All Max Blogs", {:controller => "blogs", :action => "homepage"}, :class => "subnav_inactive" %> |
+    <%= link_to "All Producer Blogs", {:controller => "blogs", :action => "producer"}, :class => "subnav_inactive" %>
+  </div>
+  
+  <div style="clear:both;"></div>
+
   <% for @project in @projects do %>
-      <%= render :partial => "project", :locals => {:project => @project} %>
+      <%= render :partial => "projects/project", :locals => {:project => @project} %>
     <% end %>
   </div>
 

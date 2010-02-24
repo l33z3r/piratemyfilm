@@ -19,37 +19,6 @@
 
     <center>
 
-      <% if !@hide_intro_blog && @latest_blog %>
-        <div id="hp_text_blurb">
-          <div id="container">
-
-            <div id="header_text">
-              Pirate Myfilm - The Film Futures Market for Pirates
-            </div>
-
-            <% if(@u.nil? or @u.new_record?) %>
-              <div id="signup">
-                | <%= link_to 'Sign Up!', signup_path %>
-              </div>
-            <% end %>
-
-            <div id="ning_link">
-              <a href="http://piratemyfilm.ning.com" target="_blank">Join Our Discussions</a>
-            </div>
-
-            <div id="how_it_works">
-              <a href="/how_it_works">How It Works</a> |
-            </div>
-
-            <div style="clear:both;"></div>
-
-            <hr/>
-
-            <%= render :partial => "/blog_partials/latest_hp_blog", :locals => {:blog => @latest_blog} %>
-          </div>
-        </div>
-      <% end %>
-
       <div id="stage"><!--OPEN WHITE ZONE-->
 
 <%= render :partial => 'shared/top_menu' %>
@@ -61,6 +30,8 @@
           <div id="flashes">
             <%= show_default_flash -%>
           </div>
+
+          <%= render :partial => "/admin/shared/admin_nav" %>
 
           <%= yield %>
 

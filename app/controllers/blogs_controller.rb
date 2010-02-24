@@ -55,7 +55,7 @@ class BlogsController < ApplicationController
   def destroy
     @blog.destroy
     flash[:notice] = 'Blog post deleted.'
-    redirect_to :controller => "home" and return
+    redirect_to :controller => "blogs", :action => "show", :id => @blog.id
   end
 
   protected
@@ -94,8 +94,8 @@ class BlogsController < ApplicationController
   end
 
   def allow_to
-    super :owner, :all => true
-    super :all, :only => [:index, :show, :homepage]
+    super :user, :all => true
+    super :non_user, :only => [:show, :homepage, :producer]
   end
   
 end

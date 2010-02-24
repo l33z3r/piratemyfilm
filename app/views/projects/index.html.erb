@@ -1,6 +1,6 @@
 <p>
   <% form_tag :controller => "projects", :action => "filter_by_param" do %>
-   <%= select_tag :filter_param, options_for_select(@filter_params, "Order Projects By..."), :onchange => "this.form.submit();" %>
+    <%= select_tag :filter_param, options_for_select(@filter_params, "Order Projects By..."), :onchange => "this.form.submit();" %>
   <% end %>
 </p>
 
@@ -10,8 +10,10 @@
 
 <div style="clear:both;"></div><hr/>
 
-<%= link_to "View Producer Blogs", {:controller => "/producer_blogs"}, :class => "subnav_inactive" %> |
-<%= link_to "View PMF Project Comments", {:controller => "projects", :action => "recently_rated"}, :class => "subnav_inactive" %>
+<div id="sub_nav">
+  <%= link_to "All Max Blogs", {:controller => "blogs", :action => "homepage"}, :class => "subnav_inactive" %> |
+  <%= link_to "All Producer Blogs", {:controller => "blogs", :action => "producer"}, :class => "subnav_inactive" %>
+</div>
 
 <div style="clear:both;"></div>
 

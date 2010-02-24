@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :allow_to, :check_user, :login_from_cookie, :login_required, :check_permissions, :pagination_defaults
   before_filter :set_profile
+  before_filter :load_latest_blog
   
   after_filter :store_location
   layout 'application'  
@@ -74,23 +75,8 @@ class ApplicationController < ActionController::Base
   end
   
   def failed_check_permissions
-    if RAILS_ENV != 'development'
-      flash[:error] = 'It looks like you don\'t have permission to view that page.'
-      redirect_back_or_default home_path and return true
-    else
-      render :text=><<-EOS
-      <h1>It looks like you don't have permission to view this page.</h1>
-      <div>
-        Permissions: #{@level.inspect}<br />
-        Controller: #{controller_name}<br />
-        Action: #{action_name}<br />
-        Params: #{params.inspect}<br />
-        Session: #{session.instance_variable_get("@data").inspect}<br/>
-      </div>
-      EOS
-    end
-    @level = []
-    false
+    flash[:error] = 'You don\'t have permission to view that page.'
+    redirect_back_or_default home_path and return true
   end
 
   def not_found
@@ -99,6 +85,10 @@ class ApplicationController < ActionController::Base
 
   def logged_in
     !@u.nil? and !@u.new_record?
+  end
+
+  def load_latest_blog
+    @latest_blog = Blog.find(:last, :conditions => ["is_homepage_blog = ?", true])
   end
   
 end

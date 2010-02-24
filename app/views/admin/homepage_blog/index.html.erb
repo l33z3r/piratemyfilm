@@ -1,15 +1,16 @@
 <div id="MENU_HEADER" class="pageTitle">
-  Showing Homepage Blogs
+  Manage Homepage Blogs
 </div>
 <div style="clear:both;"></div><hr/>
 
-  <div id="sub_nav" style="float: right;">
-    <%= link_to 'New Blog Post', :action => "new" %>
+  <div id="sub_nav">
+    <%= link_to 'New Blog Entry', {:action => "new"}, :class => "subnav_inactive" %>
   </div>
+  
   <div style="clear:both;"></div>
 
   <% if @blogs.empty? %>
     No Blogs Found!
   <% else %>
-    <%= render :partial => '/blog_partials/blog', :collection => @blogs %>
+    <%= render :partial => '/admin/blog_partials/blog', :collection => @blogs %>
   <% end %>

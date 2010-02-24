@@ -12,7 +12,7 @@
   <% end %>
   <tr>
     <td>
-      Enter blog title
+      Title
     </td>
     <td>
       <%= f.text_field :title %>
@@ -20,13 +20,17 @@
   </tr>
   <tr>
     <td>
-      Enter blog text
+      Body
     </td>
     <td>
-      <i>Note: Blog text is parsed using textilise,
-      allowing you to format your text entry.</i>
-      <br/>(See: <a target="_blank" href="http://www.textism.com/tools/textile/">
-      http://www.textism.com/tools/textile/</a> for more info)
+      <i>
+        Note: Blog text is parsed using textilise,
+        allowing you to format your text entry.
+      </i>
+      <br/>
+      <a target="_blank" href="http://rpc.textpattern.com/help/?item=intro">
+        (More Info)
+      </a>
     </td>
   </tr>
   <tr>
@@ -37,7 +41,7 @@
   </tr>
   <tr>
     <td colspan="2" align="right">
-      <input type="submit" value="Create"/>
+      <input type="submit" value="Submit"/>
     </td>
   </tr>
 </table>

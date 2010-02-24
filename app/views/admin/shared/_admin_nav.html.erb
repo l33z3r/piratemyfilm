@@ -1,0 +1,10 @@
+<div id="MENU_HEADER" class="pageTitle">
+  PMF Admin
+</div>
+
+<div id="sub_nav">
+  <%= link_to "Rate New Projects <b>(#{@num_pending_projects})</b>", {:controller => "admin/project_rating"}, :class => "subnav_inactive" %> |
+  <%= link_to "Manage Max Blog Posts", {:controller => "admin/homepage_blog"}, :class => "subnav_inactive" %> |
+  <%= link_to "Manage Membership Types", {:controller => "admin/membership_types"}, :class => "subnav_inactive" %> |
+  <%= link_to "Manage Deleted Projects", {:controller => "admin/deleted_projects"}, :class => "subnav_inactive" %>
+</div>
