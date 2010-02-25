@@ -24,8 +24,6 @@
 <div id="icatch">
 <div class="icatch-pictures">
 
-<div class="local-navbar-button"><span><%= link_to 'Browse', projects_path %></a></span><p>All Projects</p></div>
-
 <% if logged_in %>
   <div class="local-navbar-button"><span><%= link_to 'New Project', new_project_path %></a></span><p>List A Project</p></div>
   <div class="local-navbar-button"><span><%= link_to 'My PMF', profile_path(@p, :show_portfolio => "true") %></span><p>&nbsp;</p></div>

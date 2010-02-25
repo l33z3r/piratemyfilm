@@ -19,40 +19,47 @@
 
     <center>
 
-      <% if !@hide_intro_blog && @latest_blog %>
+      <div id="top_site">
         <div id="hp_text_blurb">
-          <div id="container">
-
-            <div id="header_text">
-              Pirate Myfilm - The Film Futures Market for Pirates
-            </div>
+          <% if !@hide_intro_blog && @latest_blog %>
+            <%= render :partial => "/blog_partials/latest_hp_blog", :locals => {:blog => @latest_blog} %>
+          <% end %>
+          <div id="header_links">
 
             <% if(@u.nil? or @u.new_record?) %>
-              <div id="signup">
-                | <%= link_to 'Sign Up!', signup_path %>
-              </div>
+              <div><%= link_to 'Sign Up', signup_path %></div>
+              <div><%= link_to 'Log In', login_path %> |</div>
+            <% else %>
+              <div>(<%= link_to 'Log Out', logout_path %>)</div>
+            <% end %>
+
+            <div id="welcome_message">
+              
+              <% unless(@u.nil? or @u.new_record?) %>
+                Welcome <%= @u.f.capitalize %>
+              <% end %>
+            </div>
+
+            <%- if_admin do %>
+              <div><%= link_to 'Admin', :controller => "admin/home" %> |</div>
             <% end %>
 
             <div id="ning_link">
-              <a href="http://piratemyfilm.ning.com" target="_blank">Join Our Discussions</a>
+              <a href="http://piratemyfilm.ning.com" target="_blank">Join Our Discussions</a> |
             </div>
 
             <div id="how_it_works">
               <a href="/how_it_works">How It Works</a> |
             </div>
 
+            <div><a href="/">Home</a> |</div>
+
             <div style="clear:both;"></div>
-
-            <hr/>
-
-            <%= render :partial => "/blog_partials/latest_hp_blog", :locals => {:blog => @latest_blog} %>
           </div>
         </div>
-      <% end %>
+      </div>
 
       <div id="stage"><!--OPEN WHITE ZONE-->
-
-<%= render :partial => 'shared/top_menu' %>
 
 <%= render :partial => 'shared/header' %>
 

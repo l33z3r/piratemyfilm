@@ -458,6 +458,7 @@ form	{
 
 #stage	{
     width:1000px;
+    padding-top: 30px;
     height:500px;
     background: #fff url(/images/login-bg.gif) repeat-x top left;
 }
@@ -1364,40 +1365,60 @@ div.blog-row {
     text-decoration: underline;
 }
 
+div#top_site {
+    width: 1000px;
+}
+
 div#hp_text_blurb {
+    width: auto;
     font-size: 13px;
     background: white;
     border-bottom: 1px solid #999999;
     max-height: 200px;
     overflow: hidden;
+    padding: 12px 100px;
 }
 
-div#hp_text_blurb div#container {
-    padding: 5px;
-    width: 1000px;
+div#hp_text_blurb .blog_comments_link {
+    float: left;
+}
+
+div#hp_text_blurb .blog-title {
+    margin: 12px 0px;
 }
 
 div#hp_text_blurb div#container div.blog-entry {
     text-align: left;
+    padding: 0px 15px;
 }
-div#header_text {
-    font-size: 17px;
-    font-weight: bold;
+
+div#hp_latest_blog {
     float: left;
-    padding: 5px;
 }
 
-div#how_it_works {
-    float: right;
-    margin-right: 5px;
+div#hp_latest_blog div#hp_latest_blog_header {
+    font-weight: bold;
+    color: #015353;
+    font-size: 19px;
+    text-align: left;
 }
 
-div#signup {
-    float: right;
+div#hp_latest_blog div.blog-entry {
+    text-align: left;
 }
 
-div#ning_link {
+div#hp_latest_blog div.blog-title {
+    width: auto;
+}
+
+div#header_links div {
     float: right;
+    margin-left: 4px;
+}
+
+div#header_links div#welcome_message {
+    font-weight: bold;
+    margin-left: 10px;
 }
 
 div#admin_stats {
