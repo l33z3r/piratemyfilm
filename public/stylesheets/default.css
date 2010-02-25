@@ -1394,6 +1394,7 @@ div#hp_text_blurb div#container div.blog-entry {
 
 div#hp_latest_blog {
     float: left;
+    margin-top: -15px;
 }
 
 div#hp_latest_blog div#hp_latest_blog_header {

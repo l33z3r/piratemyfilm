@@ -18,12 +18,8 @@
   <body>
 
     <center>
-
       <div id="top_site">
         <div id="hp_text_blurb">
-          <% if !@hide_intro_blog && @latest_blog %>
-            <%= render :partial => "/blog_partials/latest_hp_blog", :locals => {:blog => @latest_blog} %>
-          <% end %>
           <div id="header_links">
 
             <% if(@u.nil? or @u.new_record?) %>
@@ -34,7 +30,7 @@
             <% end %>
 
             <div id="welcome_message">
-              
+
               <% unless(@u.nil? or @u.new_record?) %>
                 Welcome <%= @u.f.capitalize %>
               <% end %>
@@ -56,6 +52,11 @@
 
             <div style="clear:both;"></div>
           </div>
+
+          <% if !@hide_intro_blog && @latest_blog %>
+            <%= render :partial => "/blog_partials/latest_hp_blog", :locals => {:blog => @latest_blog} %>
+          <% end %>
+
         </div>
       </div>
 
