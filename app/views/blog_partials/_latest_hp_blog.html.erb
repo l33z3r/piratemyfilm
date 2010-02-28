@@ -1,8 +1,8 @@
 <div id="hp_latest_blog">
-  <div id="hp_latest_blog_header">Max Blog</div>
+  <div id="hp_latest_blog_header">Max Blog:</div>
 
   <div class="blog-entry">
-    <div class="blog-title"><%= link_to blog.title, :controller => "blogs", :action => "show", :id => blog.id %></div>
+    <div class="blog-title"><%= link_to h(truncate(blog.title, 55)), :controller => "blogs", :action => "show", :id => blog.id %>...</div>
 
     <div class="blog_comments_link">
       (<%= link_to "#{pluralize(blog.blog_comments.length, "comment")}", :controller => "blogs", :action => "show", :id => blog.id %>)

@@ -1384,7 +1384,8 @@ div#hp_text_blurb .blog_comments_link {
 }
 
 div#hp_text_blurb .blog-title {
-    margin: 12px 0px;
+    margin: 20px 0px;
+    margin-bottom: 12px;
 }
 
 div#hp_text_blurb div#container div.blog-entry {
@@ -1393,15 +1394,17 @@ div#hp_text_blurb div#container div.blog-entry {
 }
 
 div#hp_latest_blog {
-    float: left;
-    margin-top: -15px;
+    
 }
 
 div#hp_latest_blog div#hp_latest_blog_header {
+    margin: 20px;
+    margin-bottom: 12px;
+    margin-left: 0px;
     font-weight: bold;
+    font-size: 18px;
     color: #015353;
-    font-size: 19px;
-    text-align: left;
+    float: left;
 }
 
 div#hp_latest_blog div.blog-entry {
@@ -1414,13 +1417,18 @@ div#hp_latest_blog div.blog-title {
 }
 
 div#hp_latest_blog div.blog_comments_link {
-    float: right;
-    margin: 12px;
+    float: left;
+    margin: 20px;
+    margin-bottom: 12px;
     font-weight: bold;
 }
 
-div#header_links div {
+div#header_links {
     float: right;
+}
+
+div#header_links div {
+    float: left;
     margin-left: 4px;
 }
 

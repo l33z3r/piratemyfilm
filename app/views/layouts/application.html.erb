@@ -22,9 +22,23 @@
         <div id="hp_text_blurb">
           <div id="header_links">
 
+            <div><a href="/">Home</a> |</div>
+
+            <div id="how_it_works">
+              <a href="/pages/how_it_works">How It Works</a> |
+            </div>
+
+            <div id="ning_link">
+              <a href="http://piratemyfilm.ning.com" target="_blank">Join Our Discussions</a> |
+            </div>
+
+            <%- if_admin do %>
+              <div><%= link_to 'Admin', :controller => "admin/home" %> |</div>
+            <% end %>
+
             <% if(@u.nil? or @u.new_record?) %>
-              <div><%= link_to 'Sign Up', signup_path %></div>
-              <div><%= link_to 'Log In', login_path %> |</div>
+              <div><%= link_to 'Sign Up', signup_path %> |</div>
+              <div><%= link_to 'Log In', login_path %></div>
             <% else %>
               <div>(<%= link_to 'Log Out', logout_path %>)</div>
             <% end %>
@@ -32,26 +46,14 @@
             <div id="welcome_message">
 
               <% unless(@u.nil? or @u.new_record?) %>
-                Welcome <%= @u.f.capitalize %>
+                | Welcome <%= @u.f.capitalize %>
               <% end %>
             </div>
 
-            <%- if_admin do %>
-              <div><%= link_to 'Admin', :controller => "admin/home" %> |</div>
-            <% end %>
-
-            <div id="ning_link">
-              <a href="http://piratemyfilm.ning.com" target="_blank">Join Our Discussions</a> |
-            </div>
-
-            <div id="how_it_works">
-              <a href="/pages/how_it_works">How It Works</a> |
-            </div>
-
-            <div><a href="/">Home</a> |</div>
-
             <div style="clear:both;"></div>
           </div>
+
+          <div style="clear:both;"></div>
 
           <% if !@hide_intro_blog && @latest_blog %>
             <%= render :partial => "/blog_partials/latest_hp_blog", :locals => {:blog => @latest_blog} %>
