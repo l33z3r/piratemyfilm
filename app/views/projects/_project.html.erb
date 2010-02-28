@@ -14,7 +14,7 @@
           <ul>
             <li class="label">Owner:</li><li class="stat"><%= link_to @project.owner.profile.user.login, profile_path(@project.owner.profile) %></li>
             <li class="pmf_clear">&nbsp;</li>
-            <li class="label">Admin Rating:</li><li class="stat"><%= @project.admin_project_rating.rating_symbol %></li>
+            <li class="label">Admin Rating:</li><li class="stat"><%= @project.admin_project_rating ? @project.admin_project_rating.rating_symbol : "Not Yet Rated" %></li>
             <li class="pmf_clear">&nbsp;</li>
             <li class="label">Member Rating:</li><li class="stat"><%= @project.member_rating %></li>
             <li class="pmf_clear">&nbsp;</li>
@@ -27,7 +27,7 @@
 
         <div class="view-lite-row-comment">
           <div class="header">Latest Admin Comment:</div>
-          <%=truncate(h(@project.project_comment.body), 100)%>
+          <%= @project.project_comment ? truncate(h(@project.project_comment.body), 100) : "No Comment" %>
           (<%= link_to "More", project_path(@project) %>)
         </div>
 

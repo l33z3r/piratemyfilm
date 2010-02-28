@@ -30,14 +30,12 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options(:controller => 'home') do |home|
     home.home '/', :action => 'index'
-#    home.latest_comments '/latest_comments.rss', :action => 'latest_comments', :format=>'rss'
-#    home.newest_members '/newest_members.rss', :action => 'newest_members', :format=>'rss'
     home.tos '/tos', :action => 'terms'
     home.contact '/contact', :action => 'contact'
   end
 
   map.resources :projects, 
-    :member=>{:delete_icon=>:post}, :collection=>{:search=>:get, :recently_rated=>:get} do | project |
+    :member=>{:delete_icon=>:post}, :collection=>{:search=>:get} do | project |
     project.resources :project_subscriptions, :member => {:destroy=>:delete}
   end
 
@@ -45,6 +43,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.root :controller => "home", :action => "index"
   
-  map.static '/:action', :controller=>'static'
-  
+  map.static '/pages/:action', :controller=>'static'
+
+  map.connect '*path', :controller => 'home', :action => 'fourohfour'
+
 end

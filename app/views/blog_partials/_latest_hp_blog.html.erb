@@ -4,10 +4,8 @@
   <div class="blog-entry">
     <div class="blog-title"><%= link_to blog.title, :controller => "blogs", :action => "show", :id => blog.id %></div>
 
-    <div style="clear:both;"></div>
-
     <div class="blog_comments_link">
-      <%= link_to "#{pluralize(blog.blog_comments.length, "comment")}", :controller => "blogs", :action => "show", :id => blog.id %>
+      (<%= link_to "#{pluralize(blog.blog_comments.length, "comment")}", :controller => "blogs", :action => "show", :id => blog.id %>)
     </div>
 
     <div style="clear:both;"></div>

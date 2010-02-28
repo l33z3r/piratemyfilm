@@ -435,12 +435,6 @@ function tos_ajaxx(verb, params, options){ return less_ajaxx('/tos', verb, param
 function contact_path(verb){ return '/contact';}
 function contact_ajax(verb, params, options){ return less_ajax('/contact', verb, params, options);}
 function contact_ajaxx(verb, params, options){ return less_ajaxx('/contact', verb, params, options);}
-function recently_rated_projects_path(verb){ return '/projects/recently_rated';}
-function recently_rated_projects_ajax(verb, params, options){ return less_ajax('/projects/recently_rated', verb, params, options);}
-function recently_rated_projects_ajaxx(verb, params, options){ return less_ajaxx('/projects/recently_rated', verb, params, options);}
-function formatted_recently_rated_projects_path(format, verb){ return '/projects/recently_rated.' + format + '';}
-function formatted_recently_rated_projects_ajax(format, verb, params, options){ return less_ajax('/projects/recently_rated.' + format + '', verb, params, options);}
-function formatted_recently_rated_projects_ajaxx(format, verb, params, options){ return less_ajaxx('/projects/recently_rated.' + format + '', verb, params, options);}
 function search_projects_path(verb){ return '/projects/search';}
 function search_projects_ajax(verb, params, options){ return less_ajax('/projects/search', verb, params, options);}
 function search_projects_ajaxx(verb, params, options){ return less_ajaxx('/projects/search', verb, params, options);}
@@ -510,6 +504,6 @@ function formatted_project_project_subscription_ajaxx(project_id, id, format, ve
 function root_path(verb){ return '';}
 function root_ajax(verb, params, options){ return less_ajax('', verb, params, options);}
 function root_ajaxx(verb, params, options){ return less_ajaxx('', verb, params, options);}
-function static_path(action, verb){ return '/' + action + '';}
-function static_ajax(action, verb, params, options){ return less_ajax('/' + action + '', verb, params, options);}
-function static_ajaxx(action, verb, params, options){ return less_ajaxx('/' + action + '', verb, params, options);}
+function static_path(action, verb){ return '/pages/' + action + '';}
+function static_ajax(action, verb, params, options){ return less_ajax('/pages/' + action + '', verb, params, options);}
+function static_ajaxx(action, verb, params, options){ return less_ajaxx('/pages/' + action + '', verb, params, options);}

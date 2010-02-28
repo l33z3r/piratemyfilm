@@ -1409,7 +1409,14 @@ div#hp_latest_blog div.blog-entry {
 }
 
 div#hp_latest_blog div.blog-title {
+    float: left;
     width: auto;
+}
+
+div#hp_latest_blog div.blog_comments_link {
+    float: right;
+    margin: 12px;
+    font-weight: bold;
 }
 
 div#header_links div {

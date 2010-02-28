@@ -45,7 +45,7 @@
             </div>
 
             <div id="how_it_works">
-              <a href="/how_it_works">How It Works</a> |
+              <a href="/pages/how_it_works">How It Works</a> |
             </div>
 
             <div><a href="/">Home</a> |</div>
@@ -69,6 +69,12 @@
           <div id="flashes">
             <%= show_default_flash -%>
           </div>
+
+          <p>
+            <% form_tag :controller => "projects", :action => "filter_by_param" do %>
+              <%= select_tag :filter_param, options_for_select(@filter_params, "Order Projects By..."), :onchange => "this.form.submit();" %>
+            <% end %>
+          </p>
 
           <%= yield %>
 

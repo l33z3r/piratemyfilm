@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging "password"
   
   before_filter :allow_to, :check_user, :login_from_cookie, :login_required, :check_permissions, :pagination_defaults
-  before_filter :set_profile
-  before_filter :load_latest_blog
+  before_filter :set_profile, :load_latest_blog, :load_filter_params
   
   after_filter :store_location
   layout 'application'  
@@ -89,6 +88,10 @@ class ApplicationController < ActionController::Base
 
   def load_latest_blog
     @latest_blog = Blog.find(:last, :conditions => ["is_homepage_blog = ?", true])
+  end
+
+  def load_filter_params
+    @filter_params = Project.filter_params
   end
   
 end

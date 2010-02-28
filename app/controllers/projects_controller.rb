@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   
   skip_filter :store_location, :only => [:create, :delete]
-  skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param, :recently_rated]
+  skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param]
   before_filter :setup, :load_project
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
@@ -13,8 +13,6 @@ class ProjectsController < ApplicationController
   before_filter :load_membership_settings, :only => [:new, :create]
   
   def index
-    @filter_params = Project.filter_params
-    
     if @filter_param = params[:filter_param]
       @filtered = true
 
@@ -80,11 +78,6 @@ class ProjectsController < ApplicationController
       flash[:negative] = "Sorry, there was a problem creating your project"
       render :action=>'new'
     end
-  end
-
-  def recently_rated
-    @filter_params = Project.filter_params
-    @projects = Project.find_all_public(:order => "rated_at DESC, created_at DESC", :limit => 8).paginate :page => (params[:page] || 1), :per_page=> 8
   end
 
   def show
@@ -257,7 +250,7 @@ class ProjectsController < ApplicationController
   end
 
   def allow_to
-    super :all, :only => [:index, :show, :blogs, :search, :filter_by_param, :recently_rated]
+    super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
     super :admin, :all => true
     super :user, :only => [:new, :create, :show_private, :edit, :update, :delete, :delete_icon]
   end  
@@ -287,7 +280,12 @@ class ProjectsController < ApplicationController
   end
 
   def load_project
-    @project = Project.find_single_public(params[:id]) unless params[:id].blank?
+    begin
+      @project = Project.find_single_public(params[:id]) unless params[:id].blank?
+      rescue ActiveRecord::RecordNotFound
+        flash[:notice] = "Project Not Found"
+        redirect_to :controller => "home"
+    end
   end
 
   def load_project_private
