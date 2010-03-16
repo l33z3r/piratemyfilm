@@ -8,7 +8,13 @@ class BlogsController < ApplicationController
   end
   
   def homepage
+
     @blogs = Blog.find_all_by_is_homepage_blog(true, :order=>"created_at DESC")
+
+    if params[:format] == "rss"
+      render :action => "homepage_rss", :layout => false
+      response.headers["Content-Type"] = "application/xml; charset=utf-8"
+    end
   end
 
   def new

@@ -1,0 +1,19 @@
+xml.instruct! :xml, :version=>"1.0"
+xml.rss(:version=>"2.0") do
+  xml.channel do
+    xml.title "Max's Blog"
+    xml.link SITE
+    xml.description "Max's Blog at #{SITE_NAME}"
+    xml.language 'en-us'
+    @blogs.each do |blog|
+      xml.item do
+        xml.title "Blog"
+        xml.description blog_body_content blog
+        xml.author "Max Keiser"
+        xml.pubDate blog.created_at
+        xml.link link_to blog.title, :controller => "blogs", :action => "show", :id => blog.id
+        xml.guid link_to blog.title, :controller => "blogs", :action => "show", :id => blog.id
+      end
+    end
+  end
+end
