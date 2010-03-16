@@ -3,7 +3,7 @@
 DELETE_CONFIRM = "Are you sure you want to delete?\nThis can not be undone."
 SEARCH_LIMIT = 25
 SITE_NAME = 'PirateMyFilm'
-SITE = RAILS_ENV == 'production' ? 'www.piratemyfilm.com' : 'localhost:3000'
+SITE = RAILS_ENV == 'production' ? 'http://www.piratemyfilm.com' : 'localhost:3000'
 
 
 MAILER_TO_ADDRESS = 'info@piratemyfilm.com'
