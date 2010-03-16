@@ -7,7 +7,7 @@ xml.rss(:version=>"2.0") do
     xml.language 'en-us'
     @blogs.each do |blog|
       xml.item do
-        xml.title "Blog"
+        xml.title blog.title
         xml.description blog_body_content blog
         xml.pubDate blog.created_at.to_s(:rfc822)
         xml.link url_for(:controller => "blogs", :action => "show", :id => blog.id, :only_path => false)
