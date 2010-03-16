@@ -8,7 +8,7 @@ xml.rss(:version=>"2.0") do
     @blogs.each do |blog|
       xml.item do
         xml.title blog.title
-        xml.description "#{truncate((blog_body_content blog), 250)}... #{link_to("more", :controller => "blogs", :action => "show", :id => blog.id, :only_path => false)}"
+        xml.description "#{truncate((blog_body_content blog), 250)} #{blog.body.length > 250 ? link_to("...more", :controller => "blogs", :action => "show", :id => blog.id, :only_path => false) : ""}"
         xml.pubDate blog.created_at.to_s(:rfc822)
         xml.link url_for(:controller => "blogs", :action => "show", :id => blog.id, :only_path => false)
         xml.guid url_for(:controller => "blogs", :action => "show", :id => blog.id, :only_path => false)
