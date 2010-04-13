@@ -13,8 +13,9 @@
 #   rake "some:great:rake:task"
 # end
 #
-# every 4.days do
-#   runner "AnotherModel.prune_old_records"
-# end
+
+every 1.minute do
+  runner "Blog.update_max_blog"
+end
 
 # Learn more: http://github.com/javan/whenever

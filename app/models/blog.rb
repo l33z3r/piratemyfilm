@@ -21,14 +21,18 @@ class Blog < ActiveRecord::Base
 
   has_many :blog_comments
   
-#  def after_create
-#    feed_item = FeedItem.create(:item => self)
-#    ([profile] + profile.friends + profile.followers).each{ |p| p.feed_items << feed_item }
-#  end
+  #  def after_create
+  #    feed_item = FeedItem.create(:item => self)
+  #    ([profile] + profile.friends + profile.followers).each{ |p| p.feed_items << feed_item }
+  #  end
   
   
   def to_param
     "#{self.id}-#{title.to_safe_uri}"
+  end
+
+  def self.update_max_blog
+    logger.info "Updating Max Blog"
   end
 
 end
