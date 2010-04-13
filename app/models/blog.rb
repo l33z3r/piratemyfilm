@@ -32,7 +32,7 @@ class Blog < ActiveRecord::Base
   end
 
   def self.update_max_blog
-    logger.error "Updating Max Blog"
+    RAILS_DEFAULT_LOGGER.error "Updating Max Blog"
   end
 
 end
