@@ -32,9 +32,6 @@ class Blog < ActiveRecord::Base
   end
 
   def self.update_max_blog
-    @p = Project.find(13)
-    @p.title += "1"
-    @p.save!
     puts "Updating Max Blog"
   end
 
