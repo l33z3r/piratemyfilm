@@ -14,8 +14,8 @@
 # end
 #
 
-every 1.minute do
-  runner "Blog.update_max_blog"
+every 2.minutes do
+  rake "update_max_blog"
 end
 
 # Learn more: http://github.com/javan/whenever
