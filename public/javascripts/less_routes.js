@@ -483,18 +483,18 @@ function new_project_project_subscription_ajaxx(project_id, verb, params, option
 function formatted_new_project_project_subscription_path(project_id, format, verb){ return '/projects/' + project_id + '/project_subscriptions/new.' + format + '';}
 function formatted_new_project_project_subscription_ajax(project_id, format, verb, params, options){ return less_ajax('/projects/' + project_id + '/project_subscriptions/new.' + format + '', verb, params, options);}
 function formatted_new_project_project_subscription_ajaxx(project_id, format, verb, params, options){ return less_ajaxx('/projects/' + project_id + '/project_subscriptions/new.' + format + '', verb, params, options);}
-function destroy_project_project_subscription_path(project_id, id, verb){ return '/projects/' + project_id + '/project_subscriptions/' + id + '/destroy';}
-function destroy_project_project_subscription_ajax(project_id, id, verb, params, options){ return less_ajax('/projects/' + project_id + '/project_subscriptions/' + id + '/destroy', verb, params, options);}
-function destroy_project_project_subscription_ajaxx(project_id, id, verb, params, options){ return less_ajaxx('/projects/' + project_id + '/project_subscriptions/' + id + '/destroy', verb, params, options);}
-function formatted_destroy_project_project_subscription_path(project_id, id, format, verb){ return '/projects/' + project_id + '/project_subscriptions/' + id + '/destroy.' + format + '';}
-function formatted_destroy_project_project_subscription_ajax(project_id, id, format, verb, params, options){ return less_ajax('/projects/' + project_id + '/project_subscriptions/' + id + '/destroy.' + format + '', verb, params, options);}
-function formatted_destroy_project_project_subscription_ajaxx(project_id, id, format, verb, params, options){ return less_ajaxx('/projects/' + project_id + '/project_subscriptions/' + id + '/destroy.' + format + '', verb, params, options);}
 function edit_project_project_subscription_path(project_id, id, verb){ return '/projects/' + project_id + '/project_subscriptions/' + id + '/edit';}
 function edit_project_project_subscription_ajax(project_id, id, verb, params, options){ return less_ajax('/projects/' + project_id + '/project_subscriptions/' + id + '/edit', verb, params, options);}
 function edit_project_project_subscription_ajaxx(project_id, id, verb, params, options){ return less_ajaxx('/projects/' + project_id + '/project_subscriptions/' + id + '/edit', verb, params, options);}
 function formatted_edit_project_project_subscription_path(project_id, id, format, verb){ return '/projects/' + project_id + '/project_subscriptions/' + id + '/edit.' + format + '';}
 function formatted_edit_project_project_subscription_ajax(project_id, id, format, verb, params, options){ return less_ajax('/projects/' + project_id + '/project_subscriptions/' + id + '/edit.' + format + '', verb, params, options);}
 function formatted_edit_project_project_subscription_ajaxx(project_id, id, format, verb, params, options){ return less_ajaxx('/projects/' + project_id + '/project_subscriptions/' + id + '/edit.' + format + '', verb, params, options);}
+function destroy_project_project_subscription_path(project_id, id, verb){ return '/projects/' + project_id + '/project_subscriptions/' + id + '/destroy';}
+function destroy_project_project_subscription_ajax(project_id, id, verb, params, options){ return less_ajax('/projects/' + project_id + '/project_subscriptions/' + id + '/destroy', verb, params, options);}
+function destroy_project_project_subscription_ajaxx(project_id, id, verb, params, options){ return less_ajaxx('/projects/' + project_id + '/project_subscriptions/' + id + '/destroy', verb, params, options);}
+function formatted_destroy_project_project_subscription_path(project_id, id, format, verb){ return '/projects/' + project_id + '/project_subscriptions/' + id + '/destroy.' + format + '';}
+function formatted_destroy_project_project_subscription_ajax(project_id, id, format, verb, params, options){ return less_ajax('/projects/' + project_id + '/project_subscriptions/' + id + '/destroy.' + format + '', verb, params, options);}
+function formatted_destroy_project_project_subscription_ajaxx(project_id, id, format, verb, params, options){ return less_ajaxx('/projects/' + project_id + '/project_subscriptions/' + id + '/destroy.' + format + '', verb, params, options);}
 function project_project_subscription_path(project_id, id, verb){ return '/projects/' + project_id + '/project_subscriptions/' + id + '';}
 function project_project_subscription_ajax(project_id, id, verb, params, options){ return less_ajax('/projects/' + project_id + '/project_subscriptions/' + id + '', verb, params, options);}
 function project_project_subscription_ajaxx(project_id, id, verb, params, options){ return less_ajaxx('/projects/' + project_id + '/project_subscriptions/' + id + '', verb, params, options);}
