@@ -34,7 +34,8 @@ Rails::Initializer.run do |config|
   config.gem 'hpricot', :version=> '0.8.1'
   config.gem 'mocha', :version=>"0.5.6"
   config.gem 'redgreen', :version=>"1.2.2" unless ENV['TM_MODE']
-  config.gem 'gcnovus-avatar', :version=>"0.0.7", :lib => 'avatar'
+  config.gem 'gcnovus-avatar', :lib => 'avatar'
+  config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
 end
 
 Less::JsRoutes.generate!

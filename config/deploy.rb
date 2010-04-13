@@ -163,3 +163,12 @@ depend :remote, :gem, "hpricot", "0.8.1"
 #    run "cd #{current_path} && #{current_path}/script/ferret_server -e production start"
 #  end
 #end
+
+after "deploy:symlink", "deploy:update_crontab"
+
+namespace :deploy do
+  desc "Update the crontab file"
+  task :update_crontab, :roles => :db do
+    run "cd #{release_path} && whenever --update-crontab #{application}"
+  end
+end
