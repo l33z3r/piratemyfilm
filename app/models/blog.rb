@@ -42,7 +42,7 @@ class Blog < ActiveRecord::Base
     doc = Hpricot(open(@wordpress_feed_url))
 
     @all_hp_blogs = Blog.find_all_by_is_homepage_blog(true)
-    puts "Backing up " + @all_blogs.length.to_s + " blogs to memory"
+    puts "Backing up " + @all_blogs.length.to_s + " blogs to memory" unless !@all_blogs
     
     (doc/:item).each do |item|
       @blog = Blog.new()
@@ -55,12 +55,14 @@ class Blog < ActiveRecord::Base
       @blog.save!
     end
 
-    #can clear the old blogs now
+    unless !@all_blogs
+      #can clear the old blogs now
 
-    puts "Clearing old blogs"
+      puts "Clearing old blogs"
 
-    @all_hp_blogs.each do |blog|
-      blog.destroy
+      @all_hp_blogs.each do |blog|
+        blog.destroy
+      end
     end
 
     puts "Updated Max Blog with " + Blog.count.to_s + " blogs!"
