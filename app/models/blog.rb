@@ -43,7 +43,7 @@ class Blog < ActiveRecord::Base
 
     
     @all_hp_blogs = Blog.find_all_by_is_homepage_blog(true)
-    puts "Backing up " + @all_blogs.length.to_s + " blogs to memory" unless !@all_blogs
+    puts "Backing up " + @all_hp_blogs.length.to_s + " blogs to memory"
     
     (doc/:item).each do |item|
       @blog = Blog.new()
@@ -66,7 +66,8 @@ class Blog < ActiveRecord::Base
       end
     end
 
-    puts "Updated Max Blog with " + Blog.count.to_s + " blogs!"
+    @new_hp_blogs = Blog.find_all_by_is_homepage_blog(true)
+    puts "Updated Max Blog with " + @new_hp_blogs.length.to_s + " blogs!"
   end
 
 end
