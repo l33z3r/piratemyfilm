@@ -41,6 +41,7 @@ class Blog < ActiveRecord::Base
     puts "Updating Max Blog"
     doc = Hpricot(open(@wordpress_feed_url))
 
+    
     @all_hp_blogs = Blog.find_all_by_is_homepage_blog(true)
     puts "Backing up " + @all_blogs.length.to_s + " blogs to memory" unless !@all_blogs
     
