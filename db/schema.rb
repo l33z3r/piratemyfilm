@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100211131335) do
+ActiveRecord::Schema.define(:version => 20100413183111) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20100211131335) do
     t.datetime "updated_at"
     t.boolean  "is_homepage_blog", :default => false
     t.integer  "project_id"
+    t.integer  "num_wp_comments",  :default => 0
+    t.string   "wp_comments_link"
   end
 
   add_index "blogs", ["profile_id"], :name => "index_blogs_on_profile_id"

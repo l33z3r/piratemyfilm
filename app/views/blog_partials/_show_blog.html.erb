@@ -21,45 +21,50 @@
       <%= link_to "Delete", blog_path(blog), :confirm => 'Are you sure?', :method => :delete %>
     </div>
   <% end %>
-  
+
 </div>
 
 <div style="clear:both;"></div>
 
-<div class="pageTitle">
-  Comments
-  <hr/>
-</div>
+<% if !blog.is_homepage_blog %>
+  <div class="pageTitle">
+    Comments
+    <hr/>
+  </div>
 
-<% unless blog.blog_comments.blank? %>
-  <% blog.blog_comments.each do |blog_comment| %>
-    <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %> blog-row">
-      <div class="profile-pic">
-        <%= icon blog_comment.user.profile %>
+  <% if blog.num_comments > 0 %>
+    <% blog.blog_comments.each do |blog_comment| %>
+      <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %> blog-row">
+        <div class="profile-pic">
+          <%= icon blog_comment.user.profile %>
+        </div>
+        <div class="blog-comment">
+          <p><b>Posted by</b> <%= "#{blog_comment.user.login} on #{blog_comment.created_at.to_formatted_s(:long_ordinal)}:" %></p>
+          <p><%= blog_comment.body %></p>
+        </div>
       </div>
-      <div class="blog-comment">
-        <p><b>Posted by</b> <%= "#{blog_comment.user.login} on #{blog_comment.created_at.to_formatted_s(:long_ordinal)}:" %></p>
-        <p><%= blog_comment.body %></p>
-      </div>
-    </div>
+    <% end %>
   <% end %>
-<% end %>
 
-<h3>Add a comment to this blog entry:</h3>
+  <h3>Add a comment to this blog entry:</h3>
 
-<% if @p %>
-  <% form_for(@blog_comment, :url => {:controller => :blog_comments, :action => :create}) do |f| %>
-    <%= f.error_messages %>
-    <%= f.hidden_field :blog_id, :value => blog.id %>
-    <%= f.hidden_field :user_id, :value => @u.id %>
-    <p>
-      <%= f.label :comment %><br />
-      <%= f.text_area :body, :style => "width:400px;height:250px;" %>
-    </p>
-    <p>
-      <%= f.submit 'Submit' %>
-    </p>
+  <% if @p %>
+    <% form_for(@blog_comment, :url => {:controller => :blog_comments, :action => :create}) do |f| %>
+      <%= f.error_messages %>
+      <%= f.hidden_field :blog_id, :value => blog.id %>
+      <%= f.hidden_field :user_id, :value => @u.id %>
+      <p>
+        <%= f.label :comment %><br />
+        <%= f.text_area :body, :style => "width:400px;height:250px;" %>
+      </p>
+      <p>
+        <%= f.submit 'Submit' %>
+      </p>
+    <% end %>
+  <% else %>
+    <%= link_to 'Log In', login_path %>
   <% end %>
 <% else %>
-  <%= link_to 'Log In', login_path %>
+  <%= link_to "#{pluralize(blog.num_comments, "comment")}", blog.wp_comments_link %> (Note: this link will take you away from piratemyfilm.com where you can comment on Max's blog)
 <% end %>
+

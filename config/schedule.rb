@@ -14,7 +14,7 @@
 # end
 #
 
-every 2.hours do
+every 1.hour do
   rake "update_max_blog"
 end
 

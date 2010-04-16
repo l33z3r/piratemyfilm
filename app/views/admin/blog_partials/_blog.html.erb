@@ -24,7 +24,7 @@
     <% end %>
 
     <div class="blog_comments_link">
-      <%= link_to "#{pluralize(blog.blog_comments.length, "comment")}", :controller => "admin/homepage_blog", :action => "show", :id => blog.id %>
+      <%= link_to "#{pluralize(blog.num_comments,  "comment")}", :controller => "admin/homepage_blog", :action => "show", :id => blog.id %>
     </div>
 
     <div style="clear:both;"></div>

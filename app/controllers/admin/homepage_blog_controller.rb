@@ -1,5 +1,12 @@
 class Admin::HomepageBlogController < Admin::AdminController
 
+  #we redirect out of this controller as
+  #hp blogs are fed in from maxkeiser.com
+  before_filter :redirect_to_admin_home
+
+
+
+
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
 
   def index
@@ -68,4 +75,7 @@ class Admin::HomepageBlogController < Admin::AdminController
     end
   end
 
+  def redirect_to_admin_home
+    redirect_to :controller => "admin/home"
+  end
 end

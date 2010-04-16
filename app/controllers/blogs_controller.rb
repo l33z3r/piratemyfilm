@@ -9,7 +9,7 @@ class BlogsController < ApplicationController
   
   def homepage
 
-    @blogs = Blog.find_all_by_is_homepage_blog(true, :order=>"created_at DESC")
+    @blogs = Blog.find_all_by_is_homepage_blog(true)
 
     if params[:format] == "rss"
       render :action => "homepage_rss", :layout => false
