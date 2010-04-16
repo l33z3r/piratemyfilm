@@ -56,7 +56,7 @@ class Blog < ActiveRecord::Base
       @blog.save!
     end
 
-    unless !@all_blogs
+    unless !@all_hp_blogs
       #can clear the old blogs now
 
       puts "Clearing old blogs"
