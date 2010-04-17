@@ -10,9 +10,8 @@ module BlogsHelper
   
   
   def blog_body_content blog
-    
     youtube_videos = blog.body.scan(/\[youtube:+.+\]/)
-    b = blog.body.dup.gsub(/\[youtube:+.+\]/, '')
+    b = h blog.body.dup.gsub(/\[youtube:+.+\]/, '')
     out = sanitize textilize(b)
     unless youtube_videos.empty?
     out << <<-EOB

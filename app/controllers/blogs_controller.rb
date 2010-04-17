@@ -9,6 +9,8 @@ class BlogsController < ApplicationController
   
   def homepage
 
+    @hide_intro_blog = true
+    
     @blogs = Blog.find_all_by_is_homepage_blog(true)
 
     if params[:format] == "rss"
@@ -55,6 +57,8 @@ class BlogsController < ApplicationController
   end
   
   def show
+    @hide_intro_blog = true
+
     @blog_comment = BlogComment.new
   end
 

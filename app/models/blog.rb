@@ -41,29 +41,18 @@ class Blog < ActiveRecord::Base
     puts "Updating Max Blog"
     doc = Hpricot(open(@wordpress_feed_url))
 
-    
-    @all_hp_blogs = Blog.find_all_by_is_homepage_blog(true)
-    puts "Backing up " + @all_hp_blogs.length.to_s + " blogs to memory"
-    
     (doc/:item).each do |item|
-      @blog = Blog.new()
+      @next_guid = item.search("guid").first.children.first.inner_text
+      @blog = Blog.find_by_guid(@next_guid) || Blog.new()
+      @blog.guid = @next_guid
       @blog.title = item.search("title").first.children.first.inner_text
-      @blog.body = item.search("description").first.children.first.inner_text
+      @blog.body = item.search("content:encoded").first.children.first.inner_text
+      @blog.body = @blog.body.gsub(/<\/?[^>]*>/, "").gsub(/&#8217;/, "'").gsub(/&#8211;/, "-")
       @blog.num_wp_comments = item.search("slash:comments").first.children.first.inner_text
       @blog.wp_comments_link = item.search("comments").first.children.first.inner_text
       @blog.is_homepage_blog = true
-      @blog.profile_id = @max_profile_id
+      @blog.profile_id = @max_profile_id unless @blog.profile_id
       @blog.save!
-    end
-
-    unless !@all_hp_blogs
-      #can clear the old blogs now
-
-      puts "Clearing old blogs"
-
-      @all_hp_blogs.each do |blog|
-        blog.destroy
-      end
     end
 
     @new_hp_blogs = Blog.find_all_by_is_homepage_blog(true)

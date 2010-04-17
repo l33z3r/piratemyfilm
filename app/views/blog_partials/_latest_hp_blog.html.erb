@@ -5,7 +5,7 @@
     <div class="blog-title"><%= link_to h(truncate(blog.title, 55)), :controller => "blogs", :action => "homepage" %>...</div>
 
     <div class="blog_comments_link">
-      (<%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "homepage" %>)
+      (<%= pluralize(blog.num_comments, "comment") %>)
     </div>
 
     <div style="clear:both;"></div>
