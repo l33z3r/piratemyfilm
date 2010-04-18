@@ -1,4 +1,5 @@
 <div id="blog_<%= blog.id %>" class="border_top blog">
+  
   <div class="header">
     <%= link_to sanitize(blog.title.capitalize), :controller => :blogs, :action => "show", :id => blog.id %>
   </div>

@@ -1040,6 +1040,19 @@ div.blog-row {
     clear: both;
 }
 
+div.blog-row div.share_buttons {
+    margin-top: 10px;
+}
+
+div.blog-row div.share_buttons div.tweet_button {
+    float: right;
+    margin-left: 5px;
+}
+
+div.blog-row div.share_buttons div.facebook_button {
+    float: right;
+}
+
 .blog-title {
     float: left;
     text-transform: capitalize;
@@ -1062,7 +1075,6 @@ div.blog-row {
 .blog-body {
     width: 100%;
     margin: 5px 0px;
-    width: 800px;
 }
 
 .blog-body span.links {
@@ -1072,7 +1084,6 @@ div.blog-row {
 .blog-date {
     margin: 5px;
     font-weight: bold;
-    width: 200px;
     float: right;
 }
 
