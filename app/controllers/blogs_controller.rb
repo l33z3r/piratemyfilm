@@ -59,7 +59,7 @@ class BlogsController < ApplicationController
   def show
     @hide_intro_blog = true
 
-    @title = h @blog.title
+    @title = @blog.title
 
     @blog_comment = BlogComment.new
   end

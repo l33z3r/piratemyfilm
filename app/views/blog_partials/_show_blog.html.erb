@@ -1,5 +1,5 @@
 <div id="blog_<%= blog.id %>" class="border_top blog">
-  
+
   <div class="header">
     <%= link_to sanitize(blog.title.capitalize), :controller => :blogs, :action => "show", :id => blog.id %>
   </div>
@@ -23,49 +23,64 @@
     </div>
   <% end %>
 
-</div>
+  <div style="clear:both;"></div>
 
-<div style="clear:both;"></div>
+  <% if !blog.is_homepage_blog %>
+    <div class="pageTitle">
+      Comments
+      <hr/>
+    </div>
 
-<% if !blog.is_homepage_blog %>
-  <div class="pageTitle">
-    Comments
-    <hr/>
-  </div>
-
-  <% if blog.num_comments > 0 %>
-    <% blog.blog_comments.each do |blog_comment| %>
-      <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %> blog-row">
-        <div class="profile-pic">
-          <%= icon blog_comment.user.profile %>
+    <% if blog.num_comments > 0 %>
+      <% blog.blog_comments.each do |blog_comment| %>
+        <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %> blog-row">
+          <div class="profile-pic">
+            <%= icon blog_comment.user.profile %>
+          </div>
+          <div class="blog-comment">
+            <p><b>Posted by</b> <%= "#{blog_comment.user.login} on #{blog_comment.created_at.to_formatted_s(:long_ordinal)}:" %></p>
+            <p><%= h blog_comment.body %></p>
+          </div>
         </div>
-        <div class="blog-comment">
-          <p><b>Posted by</b> <%= "#{blog_comment.user.login} on #{blog_comment.created_at.to_formatted_s(:long_ordinal)}:" %></p>
-          <p><%= h blog_comment.body %></p>
-        </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <h3>Add a comment to this blog entry:</h3>
+    <h3>Add a comment to this blog entry:</h3>
 
-  <% if @p %>
-    <% form_for(@blog_comment, :url => {:controller => :blog_comments, :action => :create}) do |f| %>
-      <%= f.error_messages %>
-      <%= f.hidden_field :blog_id, :value => blog.id %>
-      <%= f.hidden_field :user_id, :value => @u.id %>
-      <p>
-        <%= f.label :comment %><br />
-        <%= f.text_area :body, :style => "width:400px;height:250px;" %>
-      </p>
-      <p>
-        <%= f.submit 'Submit' %>
-      </p>
+    <% if @p %>
+      <% form_for(@blog_comment, :url => {:controller => :blog_comments, :action => :create}) do |f| %>
+        <%= f.error_messages %>
+        <%= f.hidden_field :blog_id, :value => blog.id %>
+        <%= f.hidden_field :user_id, :value => @u.id %>
+        <p>
+          <%= f.label :comment %><br />
+          <%= f.text_area :body, :style => "width:400px;height:250px;" %>
+        </p>
+        <p>
+          <%= f.submit 'Submit' %>
+        </p>
+      <% end %>
+    <% else %>
+      <%= link_to 'Log In', login_path %>
     <% end %>
   <% else %>
-    <%= link_to 'Log In', login_path %>
+    <%= link_to "#{pluralize(blog.num_comments, "comment")}", blog.wp_comments_link %> (on www.maxkeiser.com)
   <% end %>
-<% else %>
-  <%= link_to "#{pluralize(blog.num_comments, "comment")}", blog.wp_comments_link %> (Note: this link will take you away from piratemyfilm.com where you can comment on Max's blog)
-<% end %>
 
+  <div style="clear:both;"></div>
+
+  <div class="share_buttons">
+    <div class="facebook_button">
+      <a name="fb_share" type="box_count" share_url="<%= url_for :only_path => false, :controller => "blogs", :action => "show", :id => blog.id %>"
+         href="http://www.facebook.com/sharer.php">Share</a>
+      <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+    </div>
+
+    <div class="tweet_button">
+      <script type="text/javascript">
+        tweetmeme_url = '<%= url_for :only_path => false, :controller => "blogs", :action => "show", :id => blog.id %>';
+      </script>
+      <script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
+    </div>
+  </div>
+</div>

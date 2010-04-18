@@ -7,8 +7,7 @@ class ProjectsController < ApplicationController
   before_filter :search_results, :only => [:search]
   skip_before_filter :load_project, :only => [:show_private, :restore, :delete]
   before_filter :load_project_private, :only => [:show_private, :restore, :delete]
-  before_filter :check_owner, :only => [:edit, :update]
-  before_filter :check_owner_or_admin, :only => [:delete]
+  before_filter :check_owner_or_admin, :only => [:edit, :update, :delete]
   
   before_filter :load_membership_settings, :only => [:new, :create]
   

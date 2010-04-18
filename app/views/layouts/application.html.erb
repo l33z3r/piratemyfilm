@@ -9,7 +9,7 @@
     <meta name="description" content="The Film Futures Market for Pirates" />
     <meta name="keywords" content="max keiser, pirate film, market" />
 
-    <title><%= @title ? @title + " - Pirate My Film" : "Pirate My Film" %></title>
+    <title><%= @title ? h(@title) + " - Pirate My Film" : "Pirate My Film" %></title>
 
     <%= render :partial => 'shared/head_load' %>
 

@@ -1035,18 +1035,31 @@ div.blog .header a {
     font-size: 15px;
 }
 
+div.blog div.share_buttons {
+    
+}
+
+div.blog div.share_buttons div.tweet_button {
+    float: right;
+    margin-right: 10px;
+}
+
+div.blog div.share_buttons div.facebook_button {
+    float: right;
+}
+
 div.blog-row {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     clear: both;
 }
 
 div.blog-row div.share_buttons {
-    margin-top: 10px;
+    
 }
 
 div.blog-row div.share_buttons div.tweet_button {
     float: right;
-    margin-left: 5px;
+    margin-right: 10px;
 }
 
 div.blog-row div.share_buttons div.facebook_button {
@@ -1079,6 +1092,7 @@ div.blog-row div.share_buttons div.facebook_button {
 
 .blog-body span.links {
     float: right;
+    margin-bottom: 10px;
 }
 
 .blog-date {
