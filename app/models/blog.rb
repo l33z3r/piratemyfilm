@@ -34,9 +34,8 @@ class Blog < ActiveRecord::Base
 
   def self.update_max_blog
 
-    #TODO: load vars from config file
-    @max_profile_id = 2
-    @wordpress_feed_url = "http://maxkeiser.com/category/pirate-myfilm/feed/"
+    @max_profile_id = CUSTOM_CONFIG['max_profile_id']
+    @wordpress_feed_url = CUSTOM_CONFIG['mkc_wordpress_feed_url']
     
     puts "Updating Max Blog"
     doc = Hpricot(open(@wordpress_feed_url))
@@ -47,12 +46,16 @@ class Blog < ActiveRecord::Base
       @blog.guid = @next_guid
       @blog.title = item.search("title").first.children.first.inner_text
       @blog.body = item.search("content:encoded").first.children.first.inner_text
-      @blog.body = @blog.body.gsub(/<\/?[^>]*>/, "").gsub(/&#8217;/, "'").gsub(/&#8211;/, "-")
+      @blog.body = @blog.body.gsub(/<\/?[^>]*>/, "").gsub(/&#8216;/, "'").gsub(/&#8217;/, "'").gsub(/&#8211;/, "-")
       @blog.num_wp_comments = item.search("slash:comments").first.children.first.inner_text
       @blog.wp_comments_link = item.search("comments").first.children.first.inner_text
       @blog.is_homepage_blog = true
       @blog.profile_id = @max_profile_id unless @blog.profile_id
+      @blog.created_at = @blog.updated_at = item.search("pubdate").first.children.first.inner_text
       @blog.save!
+
+
+
     end
 
     @new_hp_blogs = Blog.find_all_by_is_homepage_blog(true)

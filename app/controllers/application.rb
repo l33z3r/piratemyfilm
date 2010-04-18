@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_latest_blog
-    @latest_blog = Blog.find(:first, :conditions => ["is_homepage_blog = ?", true])
+    @latest_blog = Blog.find(:first, :conditions => ["is_homepage_blog = ?", true], :order => "created_at DESC")
   end
 
   def load_filter_params
