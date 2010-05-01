@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100417093629) do
+ActiveRecord::Schema.define(:version => 20100501085327) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -54,6 +54,12 @@ ActiveRecord::Schema.define(:version => 20100417093629) do
 
   add_index "comments", ["profile_id"], :name => "index_comments_on_profile_id"
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
+
+  create_table "countries", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "feed_items", :force => true do |t|
     t.boolean  "include_comments", :default => false, :null => false
@@ -180,6 +186,7 @@ ActiveRecord::Schema.define(:version => 20100417093629) do
     t.string   "flickr_username"
     t.datetime "last_activity_at"
     t.string   "time_zone",        :default => "UTC"
+    t.integer  "country_id",       :default => 1
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
@@ -242,6 +249,9 @@ ActiveRecord::Schema.define(:version => 20100417093629) do
     t.datetime "deleted_at"
     t.integer  "member_rating",                                                        :default => 0
     t.integer  "admin_rating",                                                         :default => 0
+    t.string   "director"
+    t.string   "writer"
+    t.string   "exec_producer"
   end
 
   create_table "sessions", :force => true do |t|

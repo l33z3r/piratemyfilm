@@ -32,8 +32,7 @@ class User < ActiveRecord::Base
   attr_accessor :password, :email, :terms_of_service
   attr_protected :is_admin, :can_send_messages
   attr_immutable :id
-  
-  validates_acceptance_of :terms_of_service, :on => :create
+
   validates_confirmation_of :password, :if => :password_required?
   validates_presence_of :login
   validates_presence_of :password, :if => :password_required?
@@ -43,7 +42,7 @@ class User < ActiveRecord::Base
   validates_length_of :login, :within => 3..17
   validates_uniqueness_of :login, :case_sensitive => false
   validates_format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :on => :create, :message=>"Invalid email address."
-
+  
   before_save :encrypt_password
   validates_less_reverse_captcha
   

@@ -127,6 +127,27 @@ class Project < ActiveRecord::Base
     self.save!
   end
 
+  def user_rating
+    @user_project_rating = ProjectRating.find_by_project_id id
+    @user_project_rating ? @user_project_rating.rating_symbol : ProjectRating.ratings_map[1]
+  end
+
+  def admin_rating
+    admin_project_rating ? admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]
+  end
+
+  def admin_comment
+    ProjectComment.find_by_project_id id
+  end
+
+  def current_funds
+    self.downloads_reserved * self.ipo_price
+  end
+
+  def funds_needed
+    self.capital_required - self.current_funds
+  end
+  
   def total_copies
     capital_required / ipo_price
   end
@@ -150,7 +171,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.filter_params
-    ["Order Projects By...", "% funds reserved", "member rating", "admin rating", "newest", "oldest"]
+    ["Please Choose...", "% funds reserved", "member rating", "admin rating", "newest", "oldest"]
   end
 
   protected

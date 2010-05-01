@@ -31,7 +31,7 @@
       * Funds Needed ($)
     </td>
     <td>
-      <%= f.text_field :capital_required %>
+      <%= f.text_field :capital_required, :value => 1000 %>
       <%= display_error_on(project, :capital_required) -%>
     </td>
   </tr>
@@ -48,7 +48,7 @@
       <input type="hidden" name="project[ipo_price]" value="5"/>$5
     </td>
     <!--td>
-<%= f.text_field :ipo_price %>
+<%= f.text_field :ipo_price, :value => 0 %>
 <%= display_error_on(project, :ipo_price) -%>
     </td-->
   </tr>
@@ -66,7 +66,7 @@
       <br/>premium copy buyers? (0 - 100)%
     </td>
     <td>
-      <%= f.text_field :share_percent_ads %>
+      <%= f.text_field :share_percent_ads, :value => 0 %>
       <%= display_error_on(project, :share_percent_ads) -%>
     </td>
   </tr>
@@ -100,7 +100,7 @@
       <br/>copy buyers? (0 - 100)%
     </td>
     <td>
-      <%= f.text_field :share_percent_downloads %>
+      <%= f.text_field :share_percent_downloads, :value => 0 %>
       <%= display_error_on(project, :share_percent_downloads) -%>
     </td>
   </tr>
@@ -126,8 +126,38 @@
       Enter the name of the producer
     </td>
     <td>
-      <%= f.text_field :producer_name%>
+      <%= f.text_field :producer_name %>
       <%= display_error_on(project, :producer_name) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the executive producer
+    </td>
+    <td>
+      <%= f.text_field :exec_producer %>
+      <%= display_error_on(project, :exec_producer) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the writer
+    </td>
+    <td>
+      <%= f.text_field :writer %>
+      <%= display_error_on(project, :writer) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the director
+    </td>
+    <td>
+      <%= f.text_field :director %>
+      <%= display_error_on(project, :director) -%>
     </td>
   </tr>
 
@@ -185,7 +215,7 @@
       How long is your film in minutes?
     </td>
     <td>
-      <%= f.text_field :project_length %>
+      <%= f.text_field :project_length, :value => 0 %>
       <%= display_error_on(project, :project_length) -%>
     </td>
   </tr>

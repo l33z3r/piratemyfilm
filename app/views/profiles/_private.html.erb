@@ -1,86 +1,98 @@
 <div class="pageTitle">My Profile</div>
-<hr>
 
-<div class="half left">
+<div id="profile_section">
+  <div class="half left">
+    <%= render :partial => 'profiles/bio' %>
+  </div>
 
-  <%= render :partial => 'profiles/bio' %>
+  <div class="half right">
+    <div class="membership_type">
+      <div class="title">Your Membership</div>
+      <ul>
+        <li>You are currently on <b><%= @u.membership_type.name %></b> Membership</li>
 
-</div>
+        <li><% unless @u.membership_type.max_projects_listed == -1 %>
+            You can list <b><%= @u.membership_type.max_projects_listed %></b> of your own projects
+          <% else %>
+            You can list an <b>unlimited</b> number of your own projects,
+          <% end %>
+        </li>
 
-<div class="half right">
+        <li>
+          <% unless @u.membership_type.funding_limit_per_project == -1 %>
+            each with a budget of up to <b>$<%= @u.membership_type.funding_limit_per_project %></b>
+          <% else %>
+            each with an <b>unlimited</b> budget
+          <% end %>
+        </li>
 
-  <!--
-<%= render :partial => 'friends/list', :locals => {:type => 'friends'} %>
-<%= render :partial => 'friends/list', :locals => {:type => 'followers'} %>
-<%= render :partial => 'friends/list', :locals => {:type => 'followings'} %>
--->
+        <li>
+          <% unless @u.membership_type.pc_limit == -1 %>
+            You can reserve up to <b><%= @u.membership_type.pc_limit %></b> Premium Copies of any one project
+          <% else %>
+            You can reserve <b>unlimited</b> Premium Copies of any one project
+          <% end %>
+        </li>
 
-  <div class="membership_type">
-    You are currently on <b><%= @u.membership_type.name %></b> Membership
-    <br/><br/>
-    <% unless @u.membership_type.max_projects_listed == -1 %>
-      You can list <b><%= @u.membership_type.max_projects_listed %></b> of your own projects,
-    <% else %>
-      You can list an <b>unlimited</b> number of your own projects,
-    <% end %>
+        <li>
+          <% unless @u.membership_type.pc_project_limit == -1 %>
+            You can reserve Premium Copies in up to <b><%= @u.membership_type.pc_project_limit %></b> projects
+          <% else %>
+            You can reserve Premium Copies in an <b>unlimited</b> amount of projects
+          <% end %>
+        </li>
 
-    <% unless @u.membership_type.funding_limit_per_project == -1 %>
-      <br/>each with a budget of up to <b>$<%= @u.membership_type.funding_limit_per_project %></b>
-    <% else %>
-      <br/>each with an <b>unlimited</b> budget
-    <% end %>
-    <br/><br/>
+        <li>
+          <% unless  @u.membership_type.name == 'Black Pearl' %>
+            <b>You will soon be able to upgrade this membership!</b>
+          <% end %>
+        </li>
+      </ul>
 
-    <% unless @u.membership_type.pc_limit == -1 %>
-      You can reserve up to <b><%= @u.membership_type.pc_limit %></b> Premium Copies of any one project
-    <% else %>
-      You can reserve <b>unlimited</b> Premium Copies of any one project
-    <% end %>
-    <br/><br/>
-
-    <% unless @u.membership_type.pc_project_limit == -1 %>
-      You can reserve Premium Copies in up to <b><%= @u.membership_type.pc_project_limit %></b> projects
-    <% else %>
-      You can reserve Premium Copies in an <b>unlimited</b> amount of projects
-    <% end %>
-
-    <% unless  @u.membership_type.name == 'Black Pearl' %>
-      <br/><br/>
-      <b>You will soon be able to upgrade this membership!</b>
-    <% end %>
+    </div>
   </div>
 
 </div>
 
 <div class="pmf_clear">&nbsp;</div>
 
-<div class="pageTitle">Premium Copies <%=@profile.user.login%> is <b>Selling</b> in His/Her Own Projects</div>
-<div class="pageTitleSmaller">No debits occur until 100% of Available Premium Copies Have Been Reserved</div>
-<hr>
-
-<% if !@user_projects or @user_projects.empty? %>
-  No Projects Found!
-<% end %>
-
-<%= render :partial => "projects/listings", :object => @user_projects %>
-
-<%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
+<div class="profile_links">
+  <%= link_to "List a Project", new_project_path %> -
+  <%= link_to "All Projects", projects_path %> -
+  <%= link_to "Edit Profile", edit_profile_path %>
+</div>
 
 <div class="pmf_clear">&nbsp;</div>
 
-<div class="pageTitle">Premium Copies <%=@profile.user.login%> is <b>Buying</b> in Friends Projects</div>
-<div class="pageTitleSmaller">No debits occur until 100% of Available Premium Copies Have Been Reserved</div>
-<hr>
+<div class="project_listing_box">
+  <div class="pageTitle">Premium Copies <%=@profile.user.login%> is <b>Selling</b> in His/Her Own Projects</div>
+  <div class="pageTitleSmaller">No debits occur until 100% of Available Premium Copies Have Been Reserved</div>
+  <hr>
 
-<% if !@user_subscriptions or @user_subscriptions.empty? %>
-  No Projects Found!
-<% end %>
+  <% if !@user_projects or @user_projects.empty? %>
+    No Projects Found!
+  <% end %>
 
-<%= render :partial => "projects/listings", :object => @user_subscriptions %>
+  <%= render :partial => "projects/listings", :object => @user_projects %>
 
-<%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
+  <%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
 
-<div style="float: right;">
-  <%= link_to "List a Project", new_project_path %>|
-  <%= link_to "All Projects", projects_path %>
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>
+
+<div class="project_listing_box">
+  
+  <div class="pageTitle">Premium Copies <%=@profile.user.login%> is <b>Buying</b> in Friends Projects</div>
+  <div class="pageTitleSmaller">No debits occur until 100% of Available Premium Copies Have Been Reserved</div>
+  <hr>
+
+  <% if !@user_subscriptions or @user_subscriptions.empty? %>
+    No Projects Found!
+  <% end %>
+
+  <%= render :partial => "projects/listings", :object => @user_subscriptions %>
+
+  <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
+
 </div>

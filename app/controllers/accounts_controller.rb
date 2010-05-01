@@ -43,7 +43,6 @@ class AccountsController < ApplicationController
     return unless request.post?
       
     u = User.new
-    u.terms_of_service = params[:user][:terms_of_service]
     u.login = params[:user][:login]
     u.password = params[:user][:password]
     u.password_confirmation = params[:user][:password_confirmation]
@@ -56,8 +55,6 @@ class AccountsController < ApplicationController
     @u = u
     if u.save
       self.user = u
-    
-      
       remember_me if params[:remember_me] == "1"
       flash[:notice] = "Thanks for signing up!"
       AuthMailer.deliver_registration(:subject=>"new #{SITE_NAME} registration", :body => "username = '#{@u.login}', email = '#{@u.profile.email}'", :recipients=>REGISTRATION_RECIPIENTS)

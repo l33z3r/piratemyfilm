@@ -1,11 +1,11 @@
-<div id="header"><!--OPEN HEADER-->
+<div id="header">
 
-<div id="brand"><!--OPEN BRAND-->
+<div id="brand">
   <a href="/"><img src="/images/pmf_header.png" border="0" title="Pirate My Film!" style="float:left; margin:10px 60px 0 0;" /></a>
 
   <div class="big-number">
     <p>The Film Futures Market for Pirates</p>
-  </div><!--CLOSE BIG-NUMBER-->
+  </div>
 
   <div class="twitter-link">
     <%= link_to image_tag("twitter.gif"), "http://www.twitter.com/piratemyfilm", :target => "_blank" %>
@@ -17,7 +17,7 @@
 
   <div style="clear:both;"></div>
 
-</div><!--CLOSE BRAND-->
+</div>
 
 <div style="clear:both;"></div>
 
@@ -25,9 +25,9 @@
 <div class="icatch-pictures">
 
 <% if logged_in %>
-  <div class="local-navbar-button"><span><%= link_to 'New Project', new_project_path %></a></span><p>List A Project</p></div>
-  <div class="local-navbar-button"><span><%= link_to 'My PMF', profile_path(@p, :show_portfolio => "true") %></span><p>&nbsp;</p></div>
-  <div class="local-navbar-button"><span><%= link_to 'Account', edit_profile_path(@p) %></span><p>Edit your personal settings</p></div>
+  <div class="local-navbar-button"><span><%= link_to 'New Project', new_project_path %></a></span><p>List a Project</p></div>
+  <div class="local-navbar-button"><span><%= link_to 'My PMF', profile_path(@p, :show_portfolio => "true") %></span><p>View your subscriptions</p></div>
+  <div class="local-navbar-button"><span><%= link_to 'Account', edit_profile_path(@p) %></span><p>Edit your profile</p></div>
 <% end %>
 
 <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
@@ -38,10 +38,10 @@
   </div>
 <%- end -%>
 
-</div><!--CLOSE ICATCH-PICTURES-->
+</div>
 
-</div><!--CLOSE ICATCH-->
+</div>
 <div style="clear:both;"></div>
 
-</div><!--CLOSE HEADER-->
+</div>
 <div style="clear:both;"></div>

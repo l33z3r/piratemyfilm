@@ -2,8 +2,6 @@ module ApplicationHelper
   require 'digest/sha1'
   require 'net/http'
   require 'uri'
-  
-  
 
   def less_form_for name, *args, &block
     options = args.last.is_a?(Hash) ? args.pop : {}
@@ -18,8 +16,6 @@ module ApplicationHelper
     args = (args << options)
     remote_form_for name, *args, &block
   end
-  
-  
 
   def display_standard_flashes(message = 'There were some problems with your submission:')
     if flash[:notice]

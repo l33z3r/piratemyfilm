@@ -1,0 +1,300 @@
+country_0:
+  name: Africa
+country_1:
+  name: Albania
+country_2:
+  name: Algeria
+country_3:
+  name: Angola
+country_4:
+  name: Argentina
+country_5:
+  name: Armenia
+country_6:
+  name: Asia (excluding China)
+country_7:
+  name: Australia
+country_8:
+  name: Austria
+country_9:
+  name: Azerbaijan
+country_10:
+  name: Bahrain
+country_11:
+  name: Bangladesh
+country_12:
+  name: Belarus
+country_13:
+  name: Belgium
+country_14:
+  name: Benin
+country_15:
+  name: Bolivia
+country_16:
+  name: Bosnia-Herzegovina
+country_17:
+  name: Brazil
+country_18:
+  name: Brunei
+country_19:
+  name: Bulgaria
+country_20:
+  name: Cameroon
+country_21:
+  name: Canada
+country_22:
+  name: Chile
+country_23:
+  name: China (including Hong Kong)
+country_24:
+  name: Chinese Taipei
+country_25:
+  name: Colombia
+country_26:
+  name: Congo
+country_27:
+  name: Costa Rica
+country_28:
+  name: Croatia
+country_29:
+  name: Cuba
+country_30:
+  name: Cyprus
+country_31:
+  name: Czech Republic
+country_32:
+  name: Côte d'Ivoire
+country_33:
+  name: Dem. People's Republic of Korea
+country_34:
+  name: Democratic Republic of Congo
+country_35:
+  name: Denmark
+country_36:
+  name: Dominican Republic
+country_37:
+  name: Ecuador
+country_38:
+  name: Egypt
+country_39:
+  name: El Salvador
+country_40:
+  name: Eritrea
+country_41:
+  name: Estonia
+country_42:
+  name: Ethiopia
+country_43:
+  name: European Union - 15
+country_44:
+  name: European Union - 25
+country_45:
+  name: Finland
+country_46:
+  name: Former USSR
+country_47:
+  name: Former Yugoslavia
+country_48:
+  name: France
+country_49:
+  name: FYR of Macedonia
+country_50:
+  name: Gabon
+country_51:
+  name: Georgia
+country_52:
+  name: Germany
+country_53:
+  name: Ghana
+country_54:
+  name: Gibraltar
+country_55:
+  name: Greece
+country_56:
+  name: Guatemala
+country_57:
+  name: Haiti
+country_58:
+  name: Honduras
+country_59:
+  name: Hong Kong, China
+country_60:
+  name: Hungary
+country_61:
+  name: Iceland
+country_62:
+  name: IEA Total
+country_63:
+  name: India
+country_64:
+  name: Indonesia
+country_65:
+  name: Iraq
+country_66:
+  name: Ireland
+country_67:
+  name: Islamic Republic of Iran
+country_68:
+  name: Israel
+country_69:
+  name: Italy
+country_70:
+  name: Jamaica
+country_71:
+  name: Japan
+country_72:
+  name: Jordan
+country_73:
+  name: Kazakhstan
+country_74:
+  name: Kenya
+country_75:
+  name: Korea
+country_76:
+  name: Kuwait
+country_77:
+  name: Kyrgyzstan
+country_78:
+  name: Latin America
+country_79:
+  name: Latvia
+country_80:
+  name: Lebanon
+country_81:
+  name: Libya
+country_82:
+  name: Lithuania
+country_83:
+  name: Luxembourg
+country_84:
+  name: Malaysia
+country_85:
+  name: Malta
+country_86:
+  name: Mexico
+country_87:
+  name: Middle East
+country_88:
+  name: Morocco
+country_89:
+  name: Mozambique
+country_90:
+  name: Myanmar
+country_91:
+  name: Namibia
+country_92:
+  name: Nepal
+country_93:
+  name: Netherlands
+country_94:
+  name: Netherlands Antilles
+country_95:
+  name: New Zealand
+country_96:
+  name: Nicaragua
+country_97:
+  name: Nigeria
+country_98:
+  name: Non-OECD Total
+country_99:
+  name: Norway
+country_100:
+  name: OECD Total
+country_101:
+  name: Oman
+country_102:
+  name: Other Africa
+country_103:
+  name: Other Asia
+country_104:
+  name: Other Latin America
+country_105:
+  name: Pakistan
+country_106:
+  name: Panama
+country_107:
+  name: Paraguay
+country_108:
+  name: People's Republic of China
+country_109:
+  name: Peru
+country_110:
+  name: Philippines
+country_111:
+  name: Poland
+country_112:
+  name: Portugal
+country_113:
+  name: Qatar
+country_114:
+  name: Republic of Moldova
+country_115:
+  name: Romania
+country_116:
+  name: Russia
+country_117:
+  name: Saudi Arabia
+country_118:
+  name: Senegal
+country_119:
+  name: Serbia/Montenegro
+country_120:
+  name: Singapore
+country_121:
+  name: Slovak Republic
+country_122:
+  name: Slovenia
+country_123:
+  name: South Africa
+country_124:
+  name: Spain
+country_125:
+  name: Sri Lanka
+country_126:
+  name: Sudan
+country_127:
+  name: Sweden
+country_128:
+  name: Switzerland
+country_129:
+  name: Syria
+country_130:
+  name: Tajikistan
+country_131:
+  name: Thailand
+country_132:
+  name: Togo
+country_133:
+  name: Trinidad and Tobago
+country_134:
+  name: Tunisia
+country_135:
+  name: Turkey
+country_136:
+  name: Turkmenistan
+country_137:
+  name: Ukraine
+country_138:
+  name: United Arab Emirates
+country_139:
+  name: United Kingdom
+country_140:
+  name: United Republic of Tanzania
+country_141:
+  name: United States
+country_142:
+  name: Uruguay
+country_143:
+  name: Uzbekistan
+country_144:
+  name: Venezuela
+country_145:
+  name: Vietnam
+country_146:
+  name: World
+country_147:
+  name: Yemen
+country_148:
+  name: Zambia
+country_149:
+  name: Zimbabwe

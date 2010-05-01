@@ -3,20 +3,25 @@
 <div id="general_info">
   <% less_form_for @p, :html=>{:method=>:put, :class=>"box no_top"} do |p| %>
     <h2><%= "General info" %></h2>
-  
+
     <%= p.front :email %>
     <input type="text" name="profile[email]" id="profile_email" value="<%= params[:profile].blank? || params[:profile][:email].blank? ? @p.email : params[:profile][:email] %>">
     <%= error_messages_on(:profile, :email) %>
     <%= p.back %>
-  
-    <%= p.text_field :first_name %>   
+
+    <%= p.text_field :first_name %>
     <%= p.text_field :last_name %>
-    <%= p.text_field :location %>
-               
+
+    <div class="row clear">
+      <label for="country-name">Home Country:</label>
+      <%= select_tag "profile[country_id]", options_for_select(Country.for_select, [@p.home_country.name, @p.home_country.id]) %>
+      <div class="clear"></div>
+    </div>
+
     <div class="row button">
       <%= p.submit 'Save', :class => 'button' %>
     </div>
-  
+
     <input type="hidden" name="switch" value="name" />
   <% end %>
 </div>
@@ -26,7 +31,7 @@
 <div id="upload_icon">
   <% less_form_for @p, :html=>{:method=>:put, :multipart=>true, :class=>"box no_top"} do |p| %>
     <h2><%= "Upload Icon:" %></h2>
-  
+
     <%= p.front :icon, :label => 'Upload your Icon' %>
     <%= file_column_field( "profile", "icon", :size => 15)%>
     <div class="clear"></div>
@@ -41,11 +46,11 @@
       </div>
     <% end %>
     <%= p.back :icon %>
-      
+
     <div class="row button">
       <%= p.submit 'Save', :class => 'button' %>
     </div>
-  
+
     <input type="hidden" name="switch" value="image" />
   <% end %>
 </div>
@@ -54,25 +59,25 @@
 <div id="change_passwords">
   <% less_form_for @p, :html=>{:method=>:put, :class=>"box no_top"} do |p| %>
     <h2><%= "Change Password" %></h2>
-  
+
     <%= p.front :current_password, :for => :verify_password %>
     <input type="password" name="verify_password" id="verify_password" />
     <%= error_messages_on(:user, :password) %>
     <%= p.back %>
-  
+
     <%= p.front :new_password, :for => :new_password %>
     <input type="password" name="new_password" id="new_password" />
     <%= error_messages_on(:user, :new_password) %>
     <%= p.back %>
-  
+
     <%= p.front :confirm_password, :for => :confirm_password %>
     <input type="password" name="confirm_password" id="confirm_password" />
     <%= p.back %>
-      
+
     <div class="row button">
       <%= p.submit 'Save', :class => 'button' %>
     </div>
-  
+
     <input type="hidden" name="switch" value="password" />
   <% end %>
 </div>

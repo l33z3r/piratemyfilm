@@ -28,8 +28,62 @@ input {
     height: 1px;
 }
 
+div#profile_section {
+    margin: 20px 0px;
+}
+
+div#profile_section div.profile_links {
+    float: left;
+}
+
 .bio_stuff {
     margin-left: 20px;
+}
+
+.bio_stuff div#user_info {
+    margin-top: 10px;
+}
+
+.bio_stuff div#user_info div.label {
+    font-weight: bold;
+    width: 130px;
+    float: left;
+}
+
+.bio_stuff div#user_info div.value {
+    float: left;
+}
+
+#content .bio_stuff div.pageTitle {
+    margin-top: 0px;
+}
+
+div.membership_type {
+    width: 360px;
+}
+
+div.membership_type div.title {
+    font-weight: bold;
+}
+
+/* Flash messages */
+
+div#flashes p.negative {
+    padding: 2px;
+    border: 1px solid #D8000C;
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+
+div#flashes p.notice {
+    padding: 2px;
+    border: 1px solid #4F8A10;
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+
+div#flashes p.positive {
+    border: 1px solid
 }
 
 /* Navigation */
@@ -39,6 +93,10 @@ div#sub_nav {
 }
 
 /* Navigation */
+
+div#filter_param_box {
+    margin: 10px 0px;
+}
 
 .project_listing_box {
     margin-top: 20px;
@@ -586,7 +644,7 @@ body	{
     font-family:Verdana, Arial, sans-serif;
     margin:0;
     padding:0;
-
+    font-size: 12px;
     color:#666666;
 }
 
@@ -662,8 +720,8 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 
 #content {
     width: 800px;
-    padding: 20px 5px 0px 0px;
-    margin:-20px 0px 20px 0px;
+    padding-top: 9px;
+    margin-top: -20px;
     display: block;
     text-align: left;
     background: url(/images/content-bg.gif) repeat-x left top;
@@ -711,9 +769,9 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #content .pageTitleSmaller {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
-    color:#015353;
+    color:#636363;
     clear: both;
     margin-top: 15px;
 }
@@ -1002,9 +1060,8 @@ div.project_listings .blog-row {
     float: left;
     clear: both;
     width: 100%;
-    height:120px;
+    height: auto;
     padding:5px;
-    margin: 0 0 1em 0;
     border-style: none;
     border-top: 1px solid #fff;
     background-color: #f8f6ef;
@@ -1014,9 +1071,8 @@ div.project_listings .blog-row {
     float: left;
     clear: both;
     width: 100%;
-    height:120px;
+    height: auto;
     padding:5px;
-    margin: 0 0 1em 0;
     border-style: none;
     border-top: 1px solid #fff;
     background-color: #fff;
@@ -1150,8 +1206,7 @@ div.blog-entry div.blog_comments_link {
     padding-left:9px;
 }
 
-.view-lite-row-icon	{	
-    border-right:2px dotted #fff;
+.view-lite-row-icon	{;
     display:inline;
     margin-top:5px;
     float:left;
@@ -1166,11 +1221,11 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-project-name	{
-    padding-top: 4px;
-    height:110px;
-    width:140px;
+    margin-bottom: 3px;
+    border-bottom: 2px dotted #FFFFFF;
+    width: 100%;
+    padding-bottom: 2px;
     float:left;
-    border-right:2px dotted #fff;
 }
 
 .view-lite-row-project-name a {
@@ -1190,7 +1245,6 @@ div.blog-entry div.blog_comments_link {
     height:110px;
     width:75px;
     float:left;
-    border-right:2px dotted #fff;
     text-align:center;
     margin-top:5px;
 }
@@ -1223,11 +1277,9 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-numbers {
-    height:110px;
-    width:230px;
-    padding:0 0 0 10px;
+    width: 320px;
+    padding-left: 20px;
     float:left;
-    border-right:2px dotted #fff;
 }
 
 .view-lite-row-numbers ul {
@@ -1241,19 +1293,18 @@ div.blog-entry div.blog_comments_link {
 }
 
 #content .view-lite-row-numbers li.label {
-    text-align: right;
     font-size:11px;
     font-weight:bold;
     color:#015353;
     text-decoration:none;
-    width: 100px;
+    width: 120px;
 }
 
 #content .view-lite-row-numbers li.stat {
     margin-left: 5px;
     text-align: left;
     color: #636363;
-    width: 80px;
+    width: 190px;
     font-weight: bold;
 }
 
@@ -1262,12 +1313,9 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-comment {
-    height:110px;
-    width:145px;
-    padding:4px;
-    float:left;
-    font-size:70%;
-    border-right:2px dotted #fff;
+    width: 100%;
+    padding: 3px 0px;
+    float: left;
 }
 
 .view-lite-row-comment a {
@@ -1276,11 +1324,16 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-comment .header {
-    clear: both;
-    color: #015353;
+    width: 110px;
+    float: left;
+    color: #636363;
     font-weight: bold;
     font-size: 11px;
     text-decoration:none;
+}
+
+.view-lite-row-comment .body {
+    float: left;
 }
 
 .view-lite-row-comment ul {
@@ -1302,12 +1355,12 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-description {
-    height:110px;
-    width:150px;
-    padding:4px;
-    float:left;
-    font-size:70%;
-    color:#636363;
+    width: 100%;
+    float: left;
+    margin-top: 5px;
+    padding: 3px 0px;
+    border-top: 2px dotted #FFFFFF;
+    color: #636363;
 }
 
 .view-lite-row-description a {
@@ -1316,11 +1369,16 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-description .header {
-    clear: both;
-    color: #015353;
+    width: 110px;
+    float: left;
+    color: #636363;
     font-weight: bold;
     font-size: 11px;
     text-decoration:none;
+}
+
+.view-lite-row-description .body {
+    float: left;
 }
 
 .view-lite-row-description a:hover {
@@ -1334,30 +1392,35 @@ div.blog-entry div.blog_comments_link {
 }
 
 .row {
-    text-align:right;
-    width:450px;
+    width:560px;
     margin:0 0 10px 0;
     padding:0;
 }
 
 .row label {
+    text-align:right;
+}
+
+.row label {
     float: left;
-    width: 18em;
+    width: 300px;
     margin-right: 1em;
 }
 
 .row input[type=text] {
-    width: 200px;
-    text-align:left;
+    width: 225px;
 }
 
 .row input[type=password] {
-    width: 200px;
-    text-align:left;
+    width: 225px;
 }
 
-.checkbox input[type=checkbox] {
-    text-align:left;
+.row input[type=checkbox] {
+    margin-left: 0px;
+}
+
+.row input[type=submit] {
+    float: right;
 }
 
 .row input.text {
@@ -1373,7 +1436,7 @@ div.blog-entry div.blog_comments_link {
 }
 
 .instruction {
-    margin: 0 18em 4em 0;
+    margin: 0 10px 10px 0;
 }
 
 .instruction ul	{

@@ -69,8 +69,7 @@ class ProjectsController < ApplicationController
       render :action=>'new' and return unless @project.valid?
       @project.save!
       @project.update_funding
-      flash[:positive] = "Your project has been submitted for review and will appear on the site shortly!"
-      redirect_to :controller => "home"
+      @hide_filter_params = true
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Project"      
       @genres = Genre.find(:all)
@@ -203,11 +202,9 @@ class ProjectsController < ApplicationController
       end
     end
     
-    @admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]
-    @admin_comment = ProjectComment.find_by_project_id @project.id
-
-    @user_project_rating = ProjectRating.find_by_project_id @project.id
-    @user_rating = @user_project_rating ? @user_project_rating.rating_symbol : ProjectRating.ratings_map[1]
+    @admin_rating = @project.admin_rating
+    @admin_comment = @project.admin_comment
+    @user_rating = @project.user_rating
 
     #has this user rated this project
     @my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u)
@@ -239,13 +236,12 @@ class ProjectsController < ApplicationController
     end
 
     #round estimates to nearest cent
-    @return_premium_sales = sprintf("%0.2f", @return_premium_sales)
-    @breakeven_premium_sales = sprintf("%0.2f", @breakeven_premium_sales)
-    @producer_return_premium_sales = sprintf("%0.2f", @producer_return_premium_sales)
-    @return_premium_ads = sprintf("%0.2f", @return_premium_ads)
-    @breakeven_premium_ads = sprintf("%0.2f", @breakeven_premium_ads)
-    @producer_return_premium_ads = sprintf("%0.2f", @producer_return_premium_ads)
-
+    @return_premium_sales = print_money @return_premium_sales
+    @breakeven_premium_sales = print_money @breakeven_premium_sales
+    @producer_return_premium_sales = print_money @producer_return_premium_sales
+    @return_premium_ads = print_money @return_premium_ads
+    @breakeven_premium_ads = print_money @breakeven_premium_ads
+    @producer_return_premium_ads = print_money @producer_return_premium_ads
   end
 
   def allow_to
