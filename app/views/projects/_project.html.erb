@@ -1,64 +1,59 @@
-<div class="<%= cycle("view-lite-row", "view-lite-row-alt") %>">
+<div class="<%= cycle("view-lite-row", "view-lite-row-alt") %> project_row">
 
-  <div class="view-lite-row-project-name"><%= link_to h(@project.title), project_path(@project) %></div>
+  <div class="view-lite-row-project-name"><%= link_to h(project.title), project_path(project) %></div>
 
-  <div style="clear:both;"></div>
+  <div class="pmf_clear">&nbsp;</div>
 
   <div class="view-lite-row-icon">
-    <% if !@project.icon.nil? %>
-      <%= image_tag url_for_file_column(@project, "icon", "medium") %>
-    <% else %>
-      <img src="/images/generic-project-icon.png" id="project-icon" height="75px" alt="Generic icon" border="0" />
-    <% end %>
+    <a href="<%= project_path(project) %>">
+      <% if !project.icon.nil? %>
+        <%= image_tag url_for_file_column(project, "icon", "big") %>
+      <% else %>
+        <img src="/images/generic-project-icon.png" id="project-icon" width="150px" alt="Generic icon" border="0" />
+      <% end %>
+    </a>
   </div>
 
-  <div class="view-lite-row-numbers">
+  <div class="view-lite-row-words">
     <ul>
+      <li class="label">Director:</li><li class="stat"><%= h project.director %></li>
+      <li class="pmf_clear"></li>
       <li class="label">Producer:</li><li class="stat"><%= h project.producer_name %></li>
-      <li><div style="clear:both;"></div></li>
-      <li class="label">Budget:</li><li class="stat">$<%= print_money @project.capital_required %></li>
-      <li><div style="clear:both;"></div></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Budget:</li><li class="stat">$<%= print_money project.capital_required %></li>
+      <li class="pmf_clear"></li>
       <li class="label">Funds Needed:</li><li class="stat">$<%= print_money project.funds_needed %></li>
-      <li><div style="clear:both;"></div></li>
-      <li class="label">% Funded:</li><li class="stat"><%= @project.percent_funded %>&#37</li>
-      <li><div style="clear:both;"></div></li>
-      <li class="label">Owner:</li><li class="stat"><%= link_to h(@project.owner.profile.user.login), profile_path(@project.owner.profile) %></li>
-      <li><div style="clear:both;"></div></li>
+      <li class="pmf_clear"></li>
+      <li class="label">% Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
+      <li class="pmf_clear"></li>
     </ul>
   </div>
 
   <div class="view-lite-row-numbers">
     <ul>
-      <li class="label">Copies Total:</li><li class="stat"><%= @project.downloads_available %></li>
-      <li><div style="clear:both;"></div></li>
-      <li class="label">Copies Reserved:</li><li class="stat"><%=h @project.downloads_reserved %></li>
-      <li><div style="clear:both;"></div></li>
-      <li class="label">Member Rating:</li><li class="stat"><%= @project.user_rating %></li>
-      <li><div style="clear:both;"></div></li>
-      <li class="label">PMF Rating:</li><li class="stat"><%= @project.admin_rating %></li>
-      <li><div style="clear:both;"></div></li>
-      <li class="label">Project Status:</li><li class="stat"><%= @project.status %></li>
-      <li><div style="clear:both;"></div></li>
+      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(@project.owner.profile) %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Copies Total:</li><li class="stat"><%= project.downloads_available %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Copies Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">PMF Rating:</li><li class="stat"><%= project.admin_rating %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Avg Rating:</li>
+      <li class="stat"><%= project.user_rating %></li>
+      <li class="pmf_clear"></li>
     </ul>
   </div>
-  <div style="clear:both;"></div>
 
-  <div class="view-lite-row-description">
-    <span class="header">Project Logline:</span>
-    <span class="body">
-      <%=truncate(h(@project.description), 200)%>
-      <%= link_to "...(more)", project_path(@project) unless @project.description.length < 201%>
-    </span>
+  <div class="view-lite-row-numbers">
+    <ul>
+      <li class="label">% Ad Sales:</li><li class="stat"><%= project.share_percent_ads %>%</li>
+      <li class="pmf_clear"></li>
+      <li class="label">Break Even (<a class="tooltip_arrow" title="Based on a $10 CPM">?</a>):</li>
+      <li class="stat"><%= number_with_delimiter(number_with_precision(project.breakeven_views, 0)) %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">% Downloads:</li><li class="stat"><%= project.share_percent_downloads %>%</li>
+      <li class="pmf_clear"></li>
+    </ul>
   </div>
-
-  <div style="clear:both;"></div>
-
-  <div class="view-lite-row-comment">
-    <span class="header">PMF Comment:</span>
-    <span class="body">
-      <%= @project.project_comment ? truncate(h(@project.project_comment.body), 200) : "No Comment" %>
-      <%= link_to "...(more)", project_path(@project) unless @project.project_comment.body.length < 201 %>
-    </span>
-  </div>
-
 </div>

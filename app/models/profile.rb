@@ -63,11 +63,9 @@ class Profile < ActiveRecord::Base
   has_many :followers, :through => :follower_friends, :source => :inviter
   has_many :followings, :through => :following_friends, :source => :invited
   
-  
   # Comments and Blogs
   has_many :comments, :as => :commentable, :order => 'created_at desc'
   has_many :blogs, :order => 'created_at desc'
-  
   
   # Photos
   has_many :photos, :order => 'created_at DESC'

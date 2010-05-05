@@ -49,6 +49,8 @@ class ProjectSubscriptionsController < ApplicationController
       end
       
       @project_subscription = ProjectSubscription.create( :user => @u, :project => @project, :amount => 1 )      
+
+      flash[:notice] = "PC Reserved!"
       
     rescue ActiveRecord::RecordInvalid
       flash[:error] = "Error reserving premium copy".x
@@ -62,7 +64,6 @@ class ProjectSubscriptionsController < ApplicationController
       if @project_subscription.nil?       
         flash[:negative] = "You do not have any premium copies of this project to cancel!"
         redirect_to project_path(@project) and return
-        
       else
         if @project_subscription.amount > 1
           
@@ -73,6 +74,8 @@ class ProjectSubscriptionsController < ApplicationController
         else
           @project_subscription.destroy
         end
+
+        flash[:notice] = "PC Reservation Canceled!"
       end
       
     rescue ActiveRecord::RecordInvalid

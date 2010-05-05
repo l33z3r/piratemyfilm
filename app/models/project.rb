@@ -53,7 +53,7 @@ class Project < ActiveRecord::Base
   validates_filesize_of :icon, {:in => 0.kilobytes..1.megabyte, :message => "Your Project Image must be less than 1 megabyte"}
 
   validate_on_create :funding_limit_not_exceeded
-  
+
   acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote=>true
 
   #note that we duplicate the following data as we need it to sort and order projects on the browse page
@@ -118,13 +118,28 @@ class Project < ActiveRecord::Base
     @@PROJECT_STATUSES
   end
 
+  def update_funding_and_estimates
+    update_funding
+    update_estimates
+    self.save!
+  end
+
   def update_funding
     logger.debug "Updating percent funded"
     @total_copies = total_copies
-    self.downloads_reserved = project_subscriptions.collect { |s| s.amount }.sum 
+    self.downloads_reserved = project_subscriptions.collect { |s| s.amount }.sum
     self.downloads_available = @total_copies - self.downloads_reserved
     self.percent_funded = (self.downloads_reserved * 100) / @total_copies
-    self.save!
+  end
+
+  def update_estimates
+    logger.debug "Updating Estimates!"
+
+    if self.share_percent_ads > 0
+      @ad_sales_required = (100 * self.capital_required)/self.share_percent_ads
+      @cpm_presumption = 10
+      self.breakeven_views = (@ad_sales_required/@cpm_presumption) * 1000
+    end
   end
 
   def user_rating
@@ -171,7 +186,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.filter_params
-    ["Please Choose...", "% funds reserved", "member rating", "admin rating", "newest", "oldest"]
+    ["Please Choose...", "% funds reserved", "breakeven", "member rating", "admin rating", "newest", "oldest"]
   end
 
   protected

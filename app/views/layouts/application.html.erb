@@ -17,75 +17,69 @@
 
   </head>
 
-  <body>
+  <body onload="doInit();">
 
-    <center>
-      <div id="top_site">
-        <div id="hp_text_blurb">
-          <div id="header_links">
+    <div id="site_wrapper">
+      <div id="header_links">
 
-            <div><a href="/">Home</a> |</div>
+        <div><a href="/">Home</a> -</div>
 
-            <div id="how_it_works">
-              <a href="/pages/how_it_works">How It Works</a> |
+        <div id="how_it_works">
+          <a href="/pages/how_it_works">How It Works</a> -
+        </div>
+
+        <%- if_admin do %>
+          <div><%= link_to 'Admin', :controller => "admin/home" %> -</div>
+        <% end %>
+
+        <% if(@u.nil? or @u.new_record?) %>
+          <div><%= link_to 'Sign Up', signup_path %> -</div>
+          <div><%= link_to 'Log In', login_path %></div>
+        <% else %>
+          <div id="welcome_message">
+            Welcome <%= @u.f.capitalize %> (<%= link_to 'Log Out', logout_path %>)
+          </div>
+        <% end %>
+
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <% if !@hide_intro_blog && @latest_blog %>
+        <%= render :partial => "/blog_partials/latest_hp_blog", :locals => {:blog => @latest_blog} %>
+        <div class="pmf_clear">&nbsp;</div>
+      <% end %>
+
+      <div id="content_container">
+        <div id="stage">
+          <%= render :partial => 'shared/header' %>
+
+          <div id="content">
+
+            <div id="flashes">
+              <%= show_default_flash -%>
             </div>
 
-            <%- if_admin do %>
-              <div><%= link_to 'Admin', :controller => "admin/home" %> |</div>
+            <% if !@hide_filter_params %>
+              <%= render :partial => 'shared/filter_param_box' %>
+              <div class="pmf_clear_bottom_border">&nbsp;</div>
             <% end %>
 
-            <% if(@u.nil? or @u.new_record?) %>
-              <div><%= link_to 'Sign Up', signup_path %> |</div>
-              <div><%= link_to 'Log In', login_path %></div>
-            <% else %>
-              <div>(<%= link_to 'Log Out', logout_path %>)</div>
+            <%= yield %>
+
+            <% if !@hide_filter_params %>
+              <%= render :partial => 'shared/filter_param_box' %>
             <% end %>
 
-            <div id="welcome_message">
-
-              <% unless(@u.nil? or @u.new_record?) %>
-                | Welcome <%= @u.f.capitalize %>
-              <% end %>
-            </div>
-
-            <div style="clear:both;"></div>
           </div>
 
-          <div style="clear:both;"></div>
+          <div class="pmf_clear">&nbsp;</div>
 
-          <% if !@hide_intro_blog && @latest_blog %>
-            <%= render :partial => "/blog_partials/latest_hp_blog", :locals => {:blog => @latest_blog} %>
-          <% end %>
+          <%= render :partial => 'shared/footer' %>
 
         </div>
       </div>
-
-      <div id="stage"><!--OPEN WHITE ZONE-->
-
-<%= render :partial => 'shared/header' %>
-
-        <div id="content">
-
-          <div id="flashes">
-            <%= show_default_flash -%>
-          </div>
-
-          <%= render :partial => 'shared/filter_param_box' %>
-          <hr/>
-          
-          <%= yield %>
-
-          <hr/>
-          <%= render :partial => 'shared/filter_param_box' %>
-
-        </div><!--CLOSE CONTENT-->
-
-        <div style="clear:both;"></div>
-
-        <%= render :partial => 'shared/footer' %>
-
-      </div><!--CLOSE WHITE ZONE-->
-    </center>
+    </div>
 
     <div id="footer_scripts">
       <%= render :partial => 'shared/footer_scripts' %>

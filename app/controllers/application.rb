@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
   layout 'application'  
 
-  helper_method :print_money
+  helper_method :print_money, :print_number
   
   def check_featured
     return if Profile.featured_profile[:date] == Date.today

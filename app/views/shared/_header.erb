@@ -1,47 +1,49 @@
 <div id="header">
 
-<div id="brand">
-  <a href="/"><img src="/images/pmf_header.png" border="0" title="Pirate My Film!" style="float:left; margin:10px 60px 0 0;" /></a>
+  <div id="brand">
+    <a href="/"><img id="header_image" src="/images/pmf_header.png" border="0" title="Pirate My Film!"/></a>
 
-  <div class="big-number">
-    <p>The Film Futures Market for Pirates</p>
+    <div class="big-number">
+      <p>The Film Futures Market for Pirates</p>
+    </div>
+
+    <div class="twitter-link">
+      <%= link_to image_tag("twitter.gif"), "http://www.twitter.com/piratemyfilm", :target => "_blank" %>
+    </div>
+
+    <div class="fb-link">
+      <%= link_to image_tag("facebook-logo.png"), "http://www.facebook.com/pages/PirateMyFilm/75309097341", :target => "_blank" %>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
   </div>
 
-  <div class="twitter-link">
-    <%= link_to image_tag("twitter.gif"), "http://www.twitter.com/piratemyfilm", :target => "_blank" %>
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div id="icatch">
+    <div class="icatch-pictures">
+
+      <% if logged_in %>
+        <div class="local-navbar-button"><span><%= link_to 'New Project', new_project_path %></span><p>List a Project</p></div>
+        <div class="local-navbar-button"><span><%= link_to 'My PMF', profile_path(@p, :show_portfolio => "true") %></span><p>View your subscriptions</p></div>
+        <div class="local-navbar-button"><span><%= link_to 'Account', edit_profile_path(@p) %></span><p>Edit your profile</p></div>
+      <% end %>
+
+      <div class="local-navbar-button"><span><%= link_to 'Producer Blogs', {:controller => "producer_blogs"} %></span><p>&nbsp;</p></div>
+
+      <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
+        <div id="search">
+          <img src="/images/brand-search.gif" alt="Search" />
+          <%= text_field_tag 'search[q]', (params[:search] && params[:search][:q] ? params[:search][:q] : ''), :id => 'search_q', :size => 16 %>
+          <input type="image" src="/images/brand-go-off.gif" name="submit" />
+        </div>
+      <%- end -%>
+
+    </div>
+
   </div>
-
-  <div class="fb-link">
-    <%= link_to image_tag("facebook-logo.png"), "http://www.facebook.com/pages/PirateMyFilm/75309097341", :target => "_blank" %>
-  </div>
-
-  <div style="clear:both;"></div>
+  <div class="pmf_clear">&nbsp;</div>
 
 </div>
-
-<div style="clear:both;"></div>
-
-<div id="icatch">
-<div class="icatch-pictures">
-
-<% if logged_in %>
-  <div class="local-navbar-button"><span><%= link_to 'New Project', new_project_path %></a></span><p>List a Project</p></div>
-  <div class="local-navbar-button"><span><%= link_to 'My PMF', profile_path(@p, :show_portfolio => "true") %></span><p>View your subscriptions</p></div>
-  <div class="local-navbar-button"><span><%= link_to 'Account', edit_profile_path(@p) %></span><p>Edit your profile</p></div>
-<% end %>
-
-<% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
-  <div id="search">
-    <img src="/images/brand-search.gif" alt="Search" />
-    <%= text_field_tag 'search[q]', (params[:search] && params[:search][:q] ? params[:search][:q] : ''), :id => 'search_q', :size => 16 %>
-    <input type="image" src="/images/brand-go-off.gif" name="submit" />
-  </div>
-<%- end -%>
-
-</div>
-
-</div>
-<div style="clear:both;"></div>
-
-</div>
-<div style="clear:both;"></div>
+<div class="pmf_clear">&nbsp;</div>

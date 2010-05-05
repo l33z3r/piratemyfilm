@@ -23,9 +23,20 @@ input {
     float: left;
 }
 
+.center {
+    text-align: center;
+}
+
 .pmf_clear {
     clear: both;
     height: 1px;
+}
+
+.pmf_clear_bottom_border {
+    clear: both;
+    height: 1px;
+    border-bottom: 1px solid #333333;
+    width: 100%;
 }
 
 div#profile_section {
@@ -83,7 +94,10 @@ div#flashes p.notice {
 }
 
 div#flashes p.positive {
-    border: 1px solid
+    padding: 2px;
+    border: 1px solid #4F8A10;
+    color: #4F8A10;
+    background-color: #DFF2BF;
 }
 
 /* Navigation */
@@ -215,14 +229,14 @@ fieldset {
     background-color: #f8f6ef;
 }
 
-legend {  
-    margin-left: 2em;
-    padding: 0;
+fieldset div.header {
+    margin: 20px 0px 0px 20px;
     font-weight: bold;
+    font-size: 14px;
 }
 
 fieldset ol {  
-    padding: 3.5em 1em 0 1em;
+    padding: 3px;
     list-style: none;
 }
 
@@ -293,12 +307,6 @@ label {
     margin-right: 1em;
 }
 
-legend span {  
-    position: absolute;
-    margin-top: 0.5em;
-    font-size: 135%;
-}
-
 label em {  
     display: block;
     color: #000;
@@ -313,18 +321,63 @@ label em {
     width:20em;
 }
 
-
 fieldset#select	{
-    border:0;
-
+    border: 0;
 }
 
-/*Project page specific*/
+/* Project Page */
+
+.project_listings .project_row .view-lite-row-icon {
+    border: 0px;
+    padding: 0px;
+}
+
+div#project_blogs div.links {
+    float: right;
+    margin-right: 25px;
+}
+
+/* End Project Page */
+
+/* Home page */
+
+
+
+/* End Home page */
+
+/*Project page */
+
+div#project_show .view-lite-row-description {
+    padding: 1px 5px;
+    width: 870px;
+}
+
+div#project_show div.latest_blog {
+    
+}
+
+div#project_show div.latest_blog span.comments_link {
+    float: right;
+}
+
+div#project_show div.latest_blog span.date {
+    float: right;
+    font-weight: bold;
+}
 
 .project-overview	{
     width:100%;
     background:#fff;
     text-transform: uppercase;
+}
+
+div.project_action_links {
+    float: right;
+    margin: 5px 0px;
+}
+
+div#project_blogs {
+    margin-top: 20px;
 }
 
 #video	{
@@ -368,10 +421,16 @@ fieldset#select	{
 
 /*End of project specific*/
 
+/* static pages */
+
+div.static_content {
+    margin-top: 30px;
+}
+
+/* end static pages */
+
 #footer	{
     background: #fff url(/images/footer-contents-bg.gif) repeat-x left top;
-    margin:30px auto 0 auto;
-    width:800px;
     height: 64px;
     font-size:85%;
     line-height: 3.1em;
@@ -410,25 +469,14 @@ fieldset#select	{
 }
 /* End hide */
 
-
 #icatch	{
-
-    width:800px;
     height: 90px;
-    position:absolute;
-
 }
 
-.icatch-pictures	{
-    /*margin-left:90px;*/
-    float:left;
-    margin-right:6px;
-    width:800px;
-    height:90px;
-    padding:0;
+.icatch-pictures {
+    width: 100%;
+    float: left;
 }
-
-
 
 .nav-bar	{
     background:#fff;
@@ -484,6 +532,16 @@ fieldset#select	{
     margin:0px;
 }
 
+.signup_button {
+    float: right;
+    margin-top: -10px;
+    margin-right: 30px;
+}
+
+.signup_button a img {
+    margin-top: 7px;
+}
+
 .twitter-link {
     float:right;
 }
@@ -509,25 +567,38 @@ form	{
     padding:0;
 }
 
-#brand	{
-    width:800px;
+#brand {
     height:82px;
 }
 
-#stage	{
-    width:1000px;
-    padding-top: 30px;
-    height:500px;
+#brand img#header_image {
+    float:left;
+    margin: 10px 60px 0 0;
+}
+
+div#site_wrapper {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
     background: #fff url(/images/login-bg.gif) repeat-x top left;
+}
+
+div#site_wrapper div#content_container {
+    margin-left: 40px;
+    margin-right: 40px;
+    text-align: center;
+}
+
+#stage	{
+    padding-top: 15px;
 }
 
 #logintop	{
     background: url(/images/login-contents-bg.gif) repeat-x left top;
-
     margin:0px auto;
     padding:0 100px 0 100px;
     height: 30px;
-
 }
 
 .login-panel	{
@@ -662,7 +733,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #globalHeader {
-    width: 850px;
     height: 30px;
 }
 
@@ -697,7 +767,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #header {
-    width: 800px;
     height:157px;
     color: #000000;
     text-align: left;
@@ -719,7 +788,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #content {
-    width: 800px;
     padding-top: 9px;
     margin-top: -20px;
     display: block;
@@ -764,7 +832,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 #content .pageTitle {
     font-size: 1.4em;
     color:#015353;
-    clear: both;
     margin-top: 15px;
 }
 
@@ -1059,23 +1126,23 @@ div.project_listings .blog-row {
 .view-lite-row	{
     float: left;
     clear: both;
-    width: 100%;
+    width: 870px;
     height: auto;
-    padding:5px;
+    padding: 5px 5px 7px 5px;
     border-style: none;
-    border-top: 1px solid #fff;
     background-color: #f8f6ef;
+    border-bottom:1px dotted #666666;
 }
 
 .view-lite-row-alt	{
     float: left;
     clear: both;
-    width: 100%;
+    width: 870px;
     height: auto;
-    padding:5px;
+    padding: 5px 5px 7px 5px;
     border-style: none;
-    border-top: 1px solid #fff;
-    background-color: #fff;
+    background-color: #EFEADC;
+    border-bottom:1px dotted #666666;
 }
 
 div.blog {
@@ -1105,8 +1172,9 @@ div.blog div.share_buttons div.facebook_button {
 }
 
 div.blog-row {
-    margin-bottom: 30px;
-    clear: both;
+    border-bottom:1px dotted #666666;
+    clear:both;
+    padding:10px 0;
 }
 
 div.blog-row div.share_buttons {
@@ -1146,9 +1214,14 @@ div.blog-row div.share_buttons div.facebook_button {
     margin: 5px 0px;
 }
 
-.blog-body span.links {
+.blog-body p {
+    position: relative;
+    margin: 0;
+}
+
+.blog-entry span.links {
     float: right;
-    margin-bottom: 10px;
+    margin-top: 5px;
 }
 
 .blog-date {
@@ -1207,22 +1280,23 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-icon	{;
-    display:inline;
-    margin-top:5px;
-    float:left;
-    padding-right:5px;
-    width:95px;
+    display: inline;
+    margin-top: 10px;
+    padding: 12px 0px;
+    float: left;
     text-align: center;
+    width: 116px;
+    border: 1px dotted #ffffff;
+    margin: auto;
 }
 
 .view-lite-row-icon img {
-    height: 85px;
-    width: 95px;
+    height: 100px;
+    width: 100px;
 }
 
 .view-lite-row-project-name	{
     margin-bottom: 3px;
-    border-bottom: 2px dotted #FFFFFF;
     width: 100%;
     padding-bottom: 2px;
     float:left;
@@ -1230,8 +1304,9 @@ div.blog-entry div.blog_comments_link {
 
 .view-lite-row-project-name a {
     font-size: 12px;
+    margin-left: 5px;
     font-weight:bold;
-    color:#636363;
+    color: #015353;
     text-transform:capitalize;
     text-decoration:none;
 }
@@ -1277,9 +1352,10 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-numbers {
-    width: 320px;
+    width: 194px;
     padding-left: 20px;
-    float:left;
+    float: left;
+    border-left: 1px dotted #ffffff;
 }
 
 .view-lite-row-numbers ul {
@@ -1297,18 +1373,60 @@ div.blog-entry div.blog_comments_link {
     font-weight:bold;
     color:#015353;
     text-decoration:none;
-    width: 120px;
+    width: 125px;
+    margin-bottom: 1px;
+    overflow: hidden;
 }
 
 #content .view-lite-row-numbers li.stat {
-    margin-left: 5px;
     text-align: left;
     color: #636363;
-    width: 190px;
+    width: 69px;
     font-weight: bold;
+    margin-bottom: 1px;
+    overflow: hidden;
 }
 
 .view-lite-row-numbers li span {
+    color: #636363;
+}
+
+.view-lite-row-words {
+    width: 310px;
+    padding-left: 10px;
+    float:left;
+}
+
+.view-lite-row-words ul {
+    margin-top: 5px;
+    padding: 0;
+    list-style-type: none;
+}
+
+.view-lite-row-words li {
+    float: left;
+}
+
+#content .view-lite-row-words li.label {
+    font-size:11px;
+    font-weight:bold;
+    color:#015353;
+    text-decoration:none;
+    width: 125px;
+    margin-bottom: 1px;
+    overflow: hidden;
+}
+
+#content .view-lite-row-words li.stat {
+    text-align: left;
+    color: #636363;
+    width: 165px;
+    font-weight: bold;
+    margin-bottom: 1px;
+    overflow: hidden;
+}
+
+.view-lite-row-words li span {
     color: #636363;
 }
 
@@ -1324,7 +1442,7 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-comment .header {
-    width: 110px;
+    width: 130px;
     float: left;
     color: #636363;
     font-weight: bold;
@@ -1359,8 +1477,9 @@ div.blog-entry div.blog_comments_link {
     float: left;
     margin-top: 5px;
     padding: 3px 0px;
-    border-top: 2px dotted #FFFFFF;
     color: #636363;
+    background-color:#F8F6EF;
+    border-bottom:1px dotted #666666;
 }
 
 .view-lite-row-description a {
@@ -1369,16 +1488,18 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-description .header {
-    width: 110px;
+    width: 130px;
     float: left;
     color: #636363;
     font-weight: bold;
     font-size: 11px;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .view-lite-row-description .body {
     float: left;
+    width: 100%;
+    padding: 5px 10px;
 }
 
 .view-lite-row-description a:hover {
@@ -1461,30 +1582,27 @@ div.blog-entry div.blog_comments_link {
     text-decoration: underline;
 }
 
-div#top_site {
-    width: 1000px;
-}
-
-div#hp_text_blurb {
-    width: auto;
+div#hp_latest_blog {
+    width: 880px;
     font-size: 13px;
-    background: white;
-    border-bottom: 1px solid #999999;
+    border-bottom: 2px dotted #999999;
     max-height: 200px;
     overflow: hidden;
-    padding: 12px 100px;
+    padding:    20px 0px 10px 0px;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
-div#hp_text_blurb .blog_comments_link {
+div#hp_latest_blog .blog_comments_link {
     float: left;
 }
 
-div#hp_text_blurb .blog-title {
+div#hp_latest_blog .blog-title {
     margin: 20px 0px;
     margin-bottom: 12px;
 }
 
-div#hp_text_blurb div#container div.blog-entry {
+div#hp_latest_blog div#container div.blog-entry {
     text-align: left;
     padding: 0px 15px;
 }
@@ -1521,6 +1639,8 @@ div#hp_latest_blog div.blog_comments_link {
 
 div#header_links {
     float: right;
+    margin-top: 5px;
+    margin-right: 40px;
 }
 
 div#header_links div {
@@ -1530,7 +1650,6 @@ div#header_links div {
 
 div#header_links div#welcome_message {
     font-weight: bold;
-    margin-left: 10px;
 }
 
 div#admin_stats {

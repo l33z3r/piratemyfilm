@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100501085327) do
+ActiveRecord::Schema.define(:version => 20100505140134) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -252,6 +252,7 @@ ActiveRecord::Schema.define(:version => 20100501085327) do
     t.string   "director"
     t.string   "writer"
     t.string   "exec_producer"
+    t.float    "breakeven_views"
   end
 
   create_table "sessions", :force => true do |t|

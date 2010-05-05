@@ -1,21 +1,17 @@
 <div class="project_listings">
 
-  <div id="MENU_HEADER" class="pageTitle">
-    Projects Filtered by "% Funds Reserved"
-  </div>
-
-  <div style="clear:both;"></div>
+  <div class="pmf_clear">&nbsp;</div>
 
   <div id="sub_nav"></div>
 
-  <div style="clear:both;"></div>
+  <div class="pmf_clear">&nbsp;</div>
 
   <% for @project in @projects do %>
       <%= render :partial => "projects/project", :locals => {:project => @project} %>
     <% end %>
 
     <%= pagination_controls_for @projects if @projects.respond_to? :total_pages %>
-  
+
   </div>
 
   <div class="pmf_clear">&nbsp;</div>

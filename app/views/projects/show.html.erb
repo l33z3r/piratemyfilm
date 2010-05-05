@@ -1,316 +1,168 @@
-<% if !@project.is_deleted %>
-  <div style="clear: both;"></div>
-  <hr>
-  <% if @u && (@project.owner == @u || @u.is_admin) %>
-    <%= link_to "Add a new blog entry", :controller => :blogs, :action => :new, :project_id => @project.id %> -
-  <% end %>
-
-  <% if @u and (@project.owner == @u || @u.is_admin) %>
-    <%= link_to "Edit Project", edit_project_path(@project) %> -
-  <% end %>
-
-  <% if @u and (@project.owner == @u || @u.is_admin) %>
-    <%= link_to "Delete Project", :controller => "projects", :action => "delete", :id => @project %> -
-  <% end %>
-
-  <%= link_to "Invite My Friend to Reserve This Project (NYA)", "#" %>
-
-  <div style="clear: both;"></div>
-  <hr>
-<% end %>
-<% if @project.is_deleted %>
-  <h3>
-    This Project was deleted on <%= @project.deleted_at %>
-    <br/><br/>
-    <%= link_to "Restore Project", :controller => "projects", :action => "restore", :id => @project %>
-  </h3>
-<% end %>
-
-<%= render :partial => "project_show_small", :locals => {:project => @project} %>
-
-<div style="clear: both;"></div>
-<hr>
-
-<div class="left">
-  <%= render :partial => "subscription_buttons" %><br/>
-
-  <% if !logged_in %>
-    You must <%= link_to "Log In", login_path %> in order to reserve premium copies.
-  <% end %>
-
-</div>
-
-<div style="clear: both;"></div>
-<hr>
-
-<% if_admin do %>
-  <a name="admin_rating"></a>
-<% end %>
-
-<% form_tag :controller => "admin/project_rating", :action => "rate", :project_id => @project.id do %>
-  <fieldset>
-    <legend><span>PMF Rating</span></legend>
-    <ol>
-      <li>
-        <label>Current Rating</label>
-        <%= @admin_rating %>
-      </li>
-
-      <% if @admin_comment && !@admin_comment.body.empty? %>
-        <li>
-          <label>Comment added by <%= @admin_comment.user.login %> :</label>
-          <%= @admin_comment.body %>
-        </li>
+<div id="project_show">
+  <% if !@project.is_deleted %>
+    <div class="project_action_links">
+      <% if @u && (@project.owner == @u || @u.is_admin) %>
+        <%= link_to "Add a new blog entry", :controller => :blogs, :action => :new, :project_id => @project.id %> -
+        <%= link_to "Edit project", edit_project_path(@project) %> -
+        <%= link_to "Delete project", :controller => "projects", :action => "delete", :id => @project %> -
       <% end %>
+      <%= link_to "List a new project", new_project_path %> -
+      <%= link_to "View all projects", projects_path %> -
+      <%= link_to "Invite My Friend to Reserve This Project (NYA)", "#" %>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+  <% else %>
+    <h3>
+      This project was deleted on <%= @project.deleted_at %>
+      <%= link_to "Restore Project", :controller => "projects", :action => "restore", :id => @project %>
+    </h3>
+  <% end %>
+
+  <%= render :partial => "project_small_view", :locals => {:project => @project} %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="view-lite-row-description">
+    <span class="header">Project Logline:</span>
+    <span class="body">
+      <%= truncate(h(@project.description), 200)%>
+      <%= link_to "...(more)", project_path(@project) unless @project.description.length < 201%>
+    </span>
+  </div>
+
+  <% if @project.project_comment %>
+    <div class="pmf_clear">&nbsp;</div>
+
+    <div class="view-lite-row-description">
+      <span class="header">PMF Comment:</span>
+      <span class="body">
+        <%= h @project.project_comment.body %>
+      </span>
+    </div>
+  <% end %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="view-lite-row-description latest_blog">
+    <span class="header">Latest Blog Entry:</span>
+    <% if @latest_project_blog %>
+      <span class="date"><%= @latest_project_blog.created_at.to_formatted_s(:long_ordinal) %></span>
+      <span class="body">
+        <%= truncate(h(@latest_project_blog.title), 50) %>
+        <%= link_to "...(more)", {:controller => "blogs", :action => "show", :id => @latest_project_blog.id} unless @latest_project_blog.title.length < 51 %>
+      </span>
+      <span class="comments_link"><%= link_to "#{pluralize(@latest_project_blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => @latest_project_blog.id %></span>
+    <% else %>
+      <span class="body">No Blogs Found!</span>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="view-lite-row-description">
+    <span class="header">Synopsis:</span>
+    <span class="body">
+      <%=h @project.synopsis %>
+    </span>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="view-lite-row-description">
+    <span class="header">Cast:</span>
+    <span class="body">
+      <%=h @project.cast %>
+    </span>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="left">
+    <%= render :partial => "subscription_buttons" %>
+  </div>
 
 
-      <% if_admin do %>
-        <li id="comment">
-          <% if @admin_comment && !@admin_comment.body.empty? %>
-            <label>Edit Comment</label>
-            <%= text_area_tag :body, @admin_comment.body, :size => "45x5" %>
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div id="project_blogs">
+    <fieldset>
+      <div class="header">Latest Project Blogs</div>
+      <ol>
+        <li>
+          <% if @project_blogs %>
+            <%= render :partial => '/blog_partials/blog', :collection => @project_blogs, :locals => {:hide_edit_links => true} %>
           <% else %>
-            <label>Add Comment</label>
-            <%= text_area_tag :body, nil, :size => "45x5" %>
-          </li>
+            No Blogs Found!
+          <% end %>
+        </li>
+      </ol>
+      <div class="links">
+        <% if @u && (@project.owner == @u || @u.is_admin) %>
+          <%= link_to "View all blogs for this project", {:controller => "projects", :action => "blogs", :id => @project.id} %>
+          - <%= link_to "Add a new blog entry", :controller => :blogs, :action => :new, :project_id => @project.id %>
         <% end %>
+      </div>
+      
+    </fieldset>
+  </div>
 
-        <% if_admin do %>
+  <% if_admin do %>
+    <% form_tag :controller => "admin/project_rating", :action => "rate", :project_id => @project.id do %>
+      <fieldset>
+        <div class="header">PMF Rating</div>
+        <ol>
+          <li id="comment">
+            <% if @admin_comment && !@admin_comment.body.empty? %>
+              <label>Edit Comment</label>
+              <%= text_area_tag :body, @admin_comment.body, :size => "45x5" %>
+            <% else %>
+              <label>Add Comment</label>
+              <%= text_area_tag :body, nil, :size => "45x5" %>
+            <% end %>
+          </li>
           <li>
             <label>Set Rating</label>
-            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts) %>
+            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts, [@admin_rating, @project.admin_project_rating.rating.to_s]) %>
             <%= submit_tag "Submit" %>
           </li>
-        <% end %>
-      <% end %>
-
-    </ol>
-  </fieldset>
-<% end %>
-
-<div style="clear:both"></div>
-
-<% if @project_blog %>
-  <div class="project-blog">
-    <div class="project-blog-title">
-      Latest Blog Entry
-    </div>
-    <div class="blog-post">
-      <div class="blog-row">
-        <div class="blog-entry">
-          <div class="blog-title">
-            <%= link_to @project_blog.title, :controller => "blogs", :action => "show", :id => @project_blog.id %>
-          </div>
-
-          <div class="blog-date">
-            <%= @project_blog.created_at.to_formatted_s(:long_ordinal) %>
-          </div>
-
-          <div style="clear:both;"></div>
-
-          <div class="blog-body">
-            <%= truncate((blog_body_content @project_blog), 500) %>
-            (<%= link_to "More", :controller => "blogs", :action => "show", :id => @project_blog.id %>)
-          </div>
-
-          <div style="clear:both;"></div>
-          <%= link_to "Comment on this blog entry", :controller => :blogs, :action => :show, :id => @project_blog.id %> |
-          <%= link_to "All Blogs For This Project", :action => :blogs, :id => @project.id %>
-        </div>
-      </div>
-    </div>
-    <div style="clear:both"></div>
-  </div>
-<% end %>
-
-<a name="user_rating">&nbsp;</a>
-
-<% form_tag :controller => "project_rating", :action => "rate", :project_id => @project.id do %>
-  <fieldset>
-    <legend><span>Member Rating</span></legend>
-    <ol>
-      <li>
-        <label>Current Rating</label>
-        <%= @user_rating %>
-      </li>
-
-      <% if logged_in %>
-        <li>
-          <label>Your Rating</label>
-          <% if @my_project_rating %>
-            <%= @my_project_rating.rating %>
-          <% else %>
-            <%= select_tag  "rating", options_for_select(@rating_select_opts) %>
-            <input type="submit" name="submit" value="Submit"/>
-          <% end %>
-        </li>
-      <% end %>
-
-    </ol>
-  </fieldset>
-<% end %>
-
-<form action="#">
-
-  <fieldset>
-    <legend><span>Project Information</span></legend>
-
-    <ol>
-      <li>
-        <label>
-          <% if !@project.icon.nil? %>
-            <%= image_tag url_for_file_column(@project, "icon", "medium") %>
-          <% else %>
-            <img src="/images/generic-project-icon.png" id="project-icon" height="75px" alt="Generic icon" border="0" />
-          <% end %>
-        </label>
-      </li>
-
-      <li><label>Project title</label><%=h @project.title%></li>
-      <li><label>Price per premium copy</label><%= @project.ipo_price %></li>
-      <li><label>Project web site</label><a href="<%=h @project.web_address %>" target="_blank"><%=h @project.web_address %></a></li>
-      <li><label>Funds Needed</label>$<%= @funds_needed %></li>
-
-      <li><label><b>Pirate Yield</b></label>&nbsp;
-        <ul>
-          <li>
-            <label>
-              Percentage of pirate copy ad sales
-              <br>offered to premium copy buyers
-            </label>
-            <%= @project.share_percent_ads %>%
-          </li>
-
-          <li>
-            <label>
-              Length of time producer is offering ad sales returns (in months)
-            </label>
-            NYA
-          </li>
-
-          <li>
-            <label>
-              Can you recoup first on ad sales?
-            </label>
-            NYA
-          </li>
-        </ul>
-      </li>
-
-      <li><label><b>Other Sources Of Revenue</b></label>&nbsp;
-      <ul>
-        <li>
-          <label>
-            Percentage of future download sales
-            <br>offered to premium copy buyers
-          </label>
-          <%= @project.share_percent_downloads %>%
-        </li>
-
-        <li>
-          <label>
-            Length of time producer is offering download sales returns (in months)
-          </label>
-          NYA
-        </li>
-
-        <li>
-          <label>
-            Can you recoup first on download sales?
-          </label>
-          NYA
-        </li>
-      </ul>
-
-      <li><label>Producer name</label><%=h @project.producer_name%></li>
-      <li><label>Executive Producer name</label><%=h @project.exec_producer%></li>
-      <li><label>Writer name</label><%=h @project.writer%></li>
-      <li><label>Director name</label><%=h @project.director%></li>
-      <li><label>Genre</label><%=h @project.genre.title %></li>
-      <li><label>Logline</label><%=h @project.description %></li>
-      <li><label>Synopsis</label><%=h @project.synopsis %></li>
-      <li><label>Cast</label><%=h @project.cast %></li>
-      <li><label>Project Length (in minutes)</label><%=h @project.project_length %></li>
-      <li><label>Status</label><%=h @project.status %></li>
-      <li><label>Project under Creative Commons Licence?</label>NYA</li>
-      <li><label>Producer Fee</label>NYA</li>
-
-    </ol>
-  </fieldset>
-
-</form>
-
-<form action="#">
-  <fieldset>
-
-    <legend><span>Premium Copies</span></legend>
-
-    <ol>
-      <li><label>Total Premium Copies</label><%=h @project.total_copies.to_i %></li>
-      <li><label>Premium Copies Available</label><%=h @project.downloads_available %></li>
-      <li><label>Premium Copies Reserved</label><%=h @project.downloads_reserved %></li>
-      <li><label>Percent funded</label><%=h @project.percent_funded %>&#37</li>
-    </ol>
-  </fieldset>
-
-  <fieldset>
-
-    <legend><span>Estimated Returns Per Premium Copy</span></legend>
-
-    <ol>
-      <li><label><b>Pirate Yield</b></label>&nbsp;
-      <ul>
-        <li>
-          <label>Return per premium copy per $100000 ad revenue:</label>
-          $<%= @return_premium_ads %>
-        </li>
-        <li><label>Breakeven Point:</label>$<%= @breakeven_premium_ads.to_i %> Ad Revenue</li>
-        <li>
-          <label>
-            Producer return per pirated copy per $100000 ad revenue
-          </label>
-          $<%= @producer_return_premium_ads %>
-        </li>
-      </ul>
-      <li><label><b>Other Sources Of Revenue</b></label>&nbsp;
-      <ul>
-        <li>
-          <label>
-            Return per permium copy per per 100000 retailed copies
-            (Assuming $<%= @premium_price_assumption.to_i %> per copy):
-          </label>
-          $<%= @return_premium_sales %>
-        </li>
-        <li><label>Breakeven Point</label><%= @breakeven_premium_sales.to_i %> Copies</li>
-        <li>
-          <label>
-            Producer return per <%= @return_premium_sales_based_on %> retailed copies
-            (Assuming $<%= @premium_price_assumption.to_i %> per copy):
-          </label>
-          $<%= @producer_return_premium_sales %>
-        </li>
-      </ul>
-    </ol>
-  </fieldset>
-
-</form>
-
-<div class="right">
-  <% if @u and @project.owner == @u %>
-    <%= link_to "Edit Project", edit_project_path(@project) %> |
+        </ol>
+      </fieldset>
+    <% end %>
   <% end %>
-  <%= link_to "List a Project", new_project_path %> |
-  <%= link_to "All Projects", projects_path %>
-</div>
 
-<div class="pageTitle">Members Reserving Copies</div>
-<hr>
+  <div class="pmf_clear">&nbsp;</div>
 
-<div style="width: 100%">
-  <% for s in @project.subscribers do %>
-      <div class="user-icon">
-        <%= link_to icon(s.profile, :small), profile_path(s.profile) %>
-        <span><%= link_to s.profile.user.login, profile_path(s.profile) %></span>
+  <% if !@my_project_rating && logged_in %>
+    <a name="user_rating">&nbsp;</a>
+
+    <% form_tag :controller => "project_rating", :action => "rate", :project_id => @project.id do %>
+      <fieldset>
+        <div class="header">Member Rating</div>
+        <ol>
+          <li>
+            <label>Set Your Rating</label>
+            <%= select_tag "rating", options_for_select(@rating_select_opts) %>
+            <input type="submit" name="submit" value="Submit"/>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+  <% end %>
+
+  <% if @project.subscribers.length > 0 %>
+    <div class="pageTitle">Members Reserving Copies</div>
+    <div class="pmf_clear_bottom_border">&nbsp;</div>
+
+    <div class="users">
+      <% for s in @project.subscribers do %>
+          <div class="user-icon">
+            <%= link_to icon(s.profile, :small), profile_path(s.profile) %>
+            <span><%= link_to s.profile.user.login, profile_path(s.profile) %></span>
+          </div>
+        <% end %>
       </div>
+
+      <div class="pmf_clear_bottom_border">&nbsp;</div>
     <% end %>
   </div>

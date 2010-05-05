@@ -1,6 +1,6 @@
 <% if logged_in %>
+  <h3>Your Subscriptions:</h3>
   <% if @project.owner != @u %>
-    <h3>Your subscriptions to this project:</h3>
     <ul>
       <li>You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> premium copies reserved for this project.</li>
       <li>You will not be debited until 100% of Premium Copies have been reserved (you can cancel at any time).
@@ -20,7 +20,6 @@
         <% end %>
       <% end %>
     </ul>
-
     <% if !@max_subscription_reached && !@max_project_subscription_reached %>
       <% if @project.downloads_available > 0 %>
         <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
@@ -35,6 +34,6 @@
       <% end %>
     <% end %>
   <% else %>
-    As the owner of this project, you cannot reserve Premium Copies!
+    <ul><li>As the owner of this project, you cannot reserve Premium Copies!</li></ul>
   <% end %>
 <% end %>

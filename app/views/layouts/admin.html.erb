@@ -17,30 +17,50 @@
 
   <body>
 
-    <center>
+    <div id="site_wrapper">
 
-      <div id="stage"><!--OPEN WHITE ZONE-->
+      <div id="header_links">
 
-<%= render :partial => 'shared/header' %>
+        <div><a href="/">Home</a> -</div>
 
-        <div id="content">
+        <div id="how_it_works">
+          <a href="/pages/how_it_works">How It Works</a> -
+        </div>
 
-          <div id="flashes">
-            <%= show_default_flash -%>
+        <div><%= link_to 'Admin', :controller => "admin/home" %> -</div>
+
+        <div id="welcome_message">
+          Welcome <%= @u.f.capitalize %> (<%= link_to 'Log Out', logout_path %>)
+        </div>
+
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <div id="content_container">
+        <div id="stage">
+
+          <%= render :partial => 'shared/header' %>
+
+          <div id="content">
+
+            <div id="flashes">
+              <%= show_default_flash -%>
+            </div>
+
+            <%= render :partial => "/admin/shared/admin_nav" %>
+
+            <%= yield %>
+
           </div>
 
-          <%= render :partial => "/admin/shared/admin_nav" %>
+          <div class="pmf_clear">&nbsp;</div>
 
-          <%= yield %>
+          <%= render :partial => 'shared/footer' %>
 
-        </div><!--CLOSE CONTENT-->
-
-        <div style="clear:both;"></div>
-
-        <%= render :partial => 'shared/footer' %>
-
-      </div><!--CLOSE WHITE ZONE-->
-    </center>
+        </div>
+      </div>
+    </div>
 
     <div id="footer_scripts">
       <%= render :partial => 'shared/footer_scripts' %>
