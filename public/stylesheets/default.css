@@ -339,6 +339,14 @@ div#project_blogs div.links {
 
 /* End Project Page */
 
+/* create project page */
+
+form#new_project div#captcha_section {
+
+}
+
+/* create project page */
+
 /* Home page */
 
 
@@ -353,7 +361,7 @@ div#project_show .view-lite-row-description {
 }
 
 div#project_show div.latest_blog {
-    
+
 }
 
 div#project_show div.latest_blog span.comments_link {
@@ -532,6 +540,14 @@ div.static_content {
     margin:0px;
 }
 
+/* Signup Page */
+
+div#signup_form div#captcha_section {
+    margin-left: 228px;
+}
+
+/* Signup Page */
+
 .signup_button {
     float: right;
     margin-top: -10px;
@@ -680,23 +696,9 @@ div#site_wrapper div#content_container {
 }
 
 #content .error {
-    padding-top: 5px;
-    margin-bottom:10px;
-    text-align: center;
-    vertical-align: middle;
-    display: block;
-    height: 30px;
-    width: 90%;
-    position: relative;
-    left: 5%;
-    border: 2px solid #DEDEDE;
-    background-color: #E3372E;
-    background-image: url(<icon:error.png!/>);
-    background-repeat: no-repeat;
-    color: #FFFFFF;
-    font-weight: bolder;
-    font-size: 10px;
+    color: red;
 }
+
 #content .error a, #content .alert a {
     color: #FFFFFF;
     font-weight: bolder;
@@ -1159,7 +1161,7 @@ div.blog .header a {
 }
 
 div.blog div.share_buttons {
-    
+
 }
 
 div.blog div.share_buttons div.tweet_button {
@@ -1178,7 +1180,7 @@ div.blog-row {
 }
 
 div.blog-row div.share_buttons {
-    
+
 }
 
 div.blog-row div.share_buttons div.tweet_button {
@@ -1608,7 +1610,7 @@ div#hp_latest_blog div#container div.blog-entry {
 }
 
 div#hp_latest_blog {
-    
+
 }
 
 div#hp_latest_blog div#hp_latest_blog_header {
@@ -1666,4 +1668,41 @@ div#admin_stats {
 .profile-pic
 {
     float:left;
+}
+
+/* Form Errors */
+
+.fieldWithErrors input {
+    border: 2px solid red;
+    background-color: #FFBABA;
+}
+
+#errorExplanation {
+    width: 400px;
+    border: 2px solid #FF0000;
+    padding: 7px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    background-color: #c00;
+    color: #fff;
+}
+
+#errorExplanation p {
+    color: #333;
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+#errorExplanation ul li {
+    font-size: 12px;
+    list-style: square;
 }

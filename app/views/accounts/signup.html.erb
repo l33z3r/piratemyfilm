@@ -1,6 +1,8 @@
 <div id="main">
   <% less_form_for :user, :url => signup_path, :method => :post do |f| 	%>
 
+    <%= f.error_messages %>
+
     <div id="MENU_HEADER" class="pageTitle">Sign up to PMF</div>
 
     <div id="signup_form">
@@ -12,11 +14,15 @@
         <%= less_reverse_captcha_field(:user)%>
       <% end %>
 
+      <div class="row clear">
+        <div id="captcha_section"><%= recaptcha_tags %></div>
+      </div>
+
       <%= f.wrap(:remember_me, :for => :remember_me){ check_box_tag :remember_me, 1, params[:remember_me], :class=>"checkbox"} %>
 
       <div class='row clear'>
         <div class="button">
-          <%= f.submit 'Sign-up Now', :class => 'button' %>
+          <%= f.submit 'Sign Up', :class => 'button' %>
           <div class="pmf_clear">&nbsp;</div>
         </div>
       </div>

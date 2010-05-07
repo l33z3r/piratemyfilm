@@ -1,5 +1,7 @@
 <table class="project_form" style="border-spacing: 10px; width: 100%;">
 
+  <tr><td colspan="2"><%= f.error_messages %></td></tr>
+  
   <tr>
     <td colspan="2">
       <b>All fields marked with * are mandatory</b>
@@ -243,6 +245,15 @@
       <%= display_error_on(project, :icon) -%>
     </td>
   </tr>
+
+  <% if include_captcha %>
+    <tr>
+      <td>Enter the words in the box to prove you are human:</td>
+      <td colspan="2">
+        <div id="captcha_section"><%= recaptcha_tags %></div>
+      </td>
+    </tr>
+  <% end %>
 
   <tr>
     <td colspan="2" align="right">

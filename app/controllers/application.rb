@@ -99,4 +99,13 @@ class ApplicationController < ActionController::Base
   def print_money value
     sprintf("%0.2f", value)
   end
+
+  def check_captcha
+    if !verify_recaptcha
+      flash.now[:error] = "Please enter the captcha correctly!"
+      false
+    else
+      true
+    end
+  end
 end

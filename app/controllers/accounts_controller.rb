@@ -41,8 +41,12 @@ class AccountsController < ApplicationController
     redirect_back_or_default(home_path) and return if @u
     @user = User.new
     return unless request.post?
-      
+
+    #verify captcha
+    return unless check_captcha
+    
     u = User.new
+
     u.login = params[:user][:login]
     u.password = params[:user][:password]
     u.password_confirmation = params[:user][:password_confirmation]
@@ -62,8 +66,7 @@ class AccountsController < ApplicationController
     else  
       @user = @u
       params[:user][:password] = params[:user][:password_confirmation] = ''
-      flash.now[:error] = @u.errors
-      self.user = u# if RAILS_ENV == 'test'
+      self.user = u
     end
   end  
 

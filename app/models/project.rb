@@ -54,7 +54,7 @@ class Project < ActiveRecord::Base
 
   validate_on_create :funding_limit_not_exceeded
 
-  acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote=>true
+  acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote => false
 
   #note that we duplicate the following data as we need it to sort and order projects on the browse page
   #this makes the queries run faster

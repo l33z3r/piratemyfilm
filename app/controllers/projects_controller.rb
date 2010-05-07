@@ -66,11 +66,17 @@ class ProjectsController < ApplicationController
       @project = Project.new(params[:project])
       @project.percent_funded = 0
       @project.owner = @u
-      @genres = Genre.find(:all)      
+      @genres = Genre.find(:all)
+      
       render :action=>'new' and return unless @project.valid?
+      #verify captcha
+      render :action=>'new' unless check_captcha
+
       @project.save!
       @project.update_funding
       @hide_filter_params = true
+
+      flash[:positive] = "Project Created!"
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Project"      
       @genres = Genre.find(:all)
@@ -252,9 +258,9 @@ class ProjectsController < ApplicationController
   def load_project
     begin
       @project = Project.find_single_public(params[:id]) unless params[:id].blank?
-      rescue ActiveRecord::RecordNotFound
-        flash[:notice] = "Project Not Found"
-        redirect_to :controller => "home"
+    rescue ActiveRecord::RecordNotFound
+      flash[:notice] = "Project Not Found"
+      redirect_to :controller => "home"
     end
   end
 

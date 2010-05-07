@@ -3,6 +3,6 @@
     <h3>List a Project</h3>
   </div>
 
-  <%= render :partial => "projects/form", :locals => {:project => @project, :f => f } %>
+  <%= render :partial => "projects/form", :locals => {:project => @project, :f => f, :include_captcha => true} %>
 
 <% end %>

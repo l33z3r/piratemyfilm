@@ -35,6 +35,8 @@ Rails::Initializer.run do |config|
   config.gem 'mocha', :version=>"0.5.6"
   config.gem 'redgreen', :version=>"1.2.2" unless ENV['TM_MODE']
   config.gem 'gcnovus-avatar', :version=>"0.0.7", :lib => 'avatar'
+  config.gem "recaptcha", :lib => "recaptcha/rails"
+
 end
 
 Less::JsRoutes.generate!

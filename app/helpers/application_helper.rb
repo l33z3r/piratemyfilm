@@ -92,7 +92,7 @@ module ApplicationHelper
     errors.is_a?(Array) ? errors.first : errors# errors.to_sentence : errors
   end
   
-   # type can be negative or positive or blank
+  # type can be negative or positive or blank
   def show_flash(messages=nil,type='')
     return '' if messages.nil?
     output = ''
@@ -121,5 +121,4 @@ module ApplicationHelper
   def logged_in
     !@u.nil? and !@u.new_record?
   end
-  
 end
