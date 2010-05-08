@@ -23,14 +23,14 @@
     <% if !@max_subscription_reached && !@max_project_subscription_reached %>
       <% if @project.downloads_available > 0 %>
         <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
-          <input type="submit" value="Reserve Premium Copy"/>
+          <input type="submit" value="Reserve PC"/>
         </form>
       <% end %>
     <% end %>
 
     <% if @my_subscription %>
       <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
-        <input type="submit" value="Cancel Reservation"/>
+        <input type="submit" value="Cancel PC"/>
       <% end %>
     <% end %>
   <% else %>

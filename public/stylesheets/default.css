@@ -1,3 +1,5 @@
+/* Global CSS */
+
 a img {
     border: none;
 }
@@ -39,43 +41,152 @@ input {
     width: 100%;
 }
 
-div#profile_section {
-    margin: 20px 0px;
-}
-
-div#profile_section div.profile_links {
-    float: left;
-}
-
-.bio_stuff {
-    margin-left: 20px;
-}
-
-.bio_stuff div#user_info {
+.pmf_top_margin_10 {
     margin-top: 10px;
 }
 
-.bio_stuff div#user_info div.label {
+/* Global CSS */
+
+/* Latest Max Blog */
+
+div#top_container {
+   font-size: 13px;
+    border-bottom: 2px dotted #999999;
+    max-height: 200px;
+    overflow: hidden;
+    padding: 20px 0px 10px 0px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+div#hp_latest_blog {
+    float: left;
+    width: 600px;
+}
+
+div#hp_latest_blog .blog-title {
+    font-weight: normal;
+    color: #666666;
+    margin: 10px 0px;
+}
+
+div#hp_latest_blog div#container div.blog-entry {
+    text-align: left;
+    padding: 0px 15px;
+}
+
+div#hp_latest_blog {
+
+}
+
+div#hp_latest_blog div#hp_latest_blog_header {
     font-weight: bold;
-    width: 130px;
+    font-size: 18px;
+    color: #666666;
     float: left;
 }
 
-.bio_stuff div#user_info div.value {
+div#hp_latest_blog div.blog-entry {
+    text-align: left;
+}
+
+div#hp_latest_blog div.blog-title {
+    float: left;
+    width: auto;
+}
+
+div#hp_latest_blog div.blog_comments_link {
     float: left;
 }
 
-#content .bio_stuff div.pageTitle {
-    margin-top: 0px;
+div#signup_section {
+    width: 280px;
+    float: right;
 }
 
-div.membership_type {
-    width: 360px;
+div#signup_section div#signup_buttons {
+    margin-top: 5px;
 }
 
-div.membership_type div.title {
+div#signup_section div#welcome_message a img {
+    float: right;
+    height: 70px;
+    border: 1px solid #999999;
+}
+
+div#signup_section div#welcome_message span#message {
+    float: right;
+    text-align: right;
+    margin-right: 10px;
     font-weight: bold;
 }
+
+div#signup_section div#welcome_message span#message a {
+    font-weight: normal;
+    clear: both;
+}
+
+/* Latest Max Blog */
+
+/* Top Menu */
+
+div#header_links .bubplastic.horizontal {
+	width: 100%;
+	height: 27px;
+	margin: 0;
+	padding: 0;
+	background: #000000 url(/images/bg-bubplastic.gif) top left repeat-x;
+}
+
+div#header_links .bubplastic.horizontal ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+div#header_links .bubplastic.horizontal ul li {
+	float: right;
+	margin: 0;
+	padding: 0;
+	background: transparent url(/images/bg-bubplastic-button.gif) top left no-repeat;
+}
+
+div#header_links .bubplastic.horizontal ul li a {
+	display: block;
+	height: 27px;
+	padding-left: 35px;
+	float: left;
+	text-transform: capitalize;
+	font-size: 11px;
+	color: #FFFFFF;
+    text-decoration: none;
+}
+
+div#header_links .bubplastic.horizontal ul li a span.menu_ar {
+	display: block;
+	float: left;
+	height: 22px;
+	padding-top: 5px;
+	padding-right: 35px;
+	background: transparent url(/images/bg-bubplastic-button.gif) top right no-repeat;
+	cursor: pointer;
+}
+
+div#header_links .bubplastic.gray ul li a:hover,
+div#header_links .bubplastic.gray ul li.highlight a {
+	background: transparent url(/images/bg-bubplastic-h-gray.gif) top left no-repeat;
+}
+
+div#header_links .bubplastic.gray ul li a:hover span.menu_ar,
+div#header_links .bubplastic.gray ul li.highlight a span.menu_ar {
+	background: transparent url(/images/bg-bubplastic-h-gray.gif) top right no-repeat;
+}
+
+div#header_links span.welcome_message {
+    font-weight: bold;
+}
+
+/* Top Menu */
 
 /* Flash messages */
 
@@ -353,6 +464,69 @@ form#new_project div#captcha_section {
 
 /* End Home page */
 
+
+/* profile page */
+
+div#profile {
+    margin-top: 10px;
+}
+
+div#profile div#top_section div.pageTitle {
+    float: left;
+    margin-top: 0px;
+}
+
+div#profile div#profile_section {
+    margin: 20px 0px;
+}
+
+div#profile div#profile_section div.avatar a img {
+    border: 1px solid #666666;
+}
+
+div#profile div.profile_links {
+    float: right;
+}
+
+div#profile .bio_stuff {
+    margin-left: 20px;
+}
+
+div#profile .bio_stuff div#user_info {
+    margin-top: 10px;
+}
+
+div#profile .bio_stuff div.user_name {
+    font-weight: bold;
+    color: #015353;
+    font-size: 14px;
+}
+
+div#profile .bio_stuff div#user_info div.label {
+    font-weight: bold;
+    width: 130px;
+    float: left;
+}
+
+div#profile .bio_stuff div#user_info div.value {
+    float: left;
+}
+
+div#profile #content .bio_stuff div.pageTitle {
+    margin-top: 0px;
+}
+
+div#profile div.membership_type {
+    width: 360px;
+}
+
+div#profile div.membership_type div.title {
+    font-weight: bold;
+}
+
+/* End profile page */
+
+
 /*Project page */
 
 div#project_show .view-lite-row-description {
@@ -432,7 +606,7 @@ div#project_blogs {
 /* static pages */
 
 div.static_content {
-    margin-top: 30px;
+    margin: 20px 10px;
 }
 
 /* end static pages */
@@ -507,8 +681,7 @@ div.static_content {
 
 #search	{
     background: #fff url(/images/brand-search-bg.gif) repeat-x left top;
-    width:245px;
-    padding:0;
+    padding:0px 10px;
     margin-top:5px;
     height:40px;
     text-align:center;
@@ -534,7 +707,7 @@ div.static_content {
 }
 
 .big-number p	{
-    font-size:130%;
+    font-size: 20px;
     color:#015353;
     font-weight:bold;
     margin:0px;
@@ -548,14 +721,12 @@ div#signup_form div#captcha_section {
 
 /* Signup Page */
 
-.signup_button {
+div#signup_buttons {
     float: right;
-    margin-top: -10px;
-    margin-right: 30px;
 }
 
-.signup_button a img {
-    margin-top: 7px;
+div#signup_buttons div {
+    float: right;
 }
 
 .twitter-link {
@@ -714,7 +885,7 @@ body	{
     background: #fff url(/images/body-bg-2.png) repeat-x;
     font-size:0.8em;
     line-height:1.4em;
-    font-family:Verdana, Arial, sans-serif;
+    font-family: "lucida grande", "tahoma", "arial", "sans-serif";
     margin:0;
     padding:0;
     font-size: 12px;
@@ -816,7 +987,14 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #content input[type=submit] {
+    color: #666666;
     font-weight: bold;
+    font-size: 11px;
+    border: 0px;
+    background: transparent url(/images/button_bg.png) left top;
+    padding: 9px 10px;
+    width: 120px;
+    text-align: center;
 }
 
 #content .label {
@@ -893,11 +1071,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 #content .text {
     font-size: 12px;
     font-weight: bold;
-}
-
-#content textarea {
-    width: 95%;
-    margin: auto;
 }
 
 #comment textarea {
@@ -1070,11 +1243,12 @@ div.TabView div.Pages div.Page div.Pad {
 
 .local-navbar-button	{
     background:#ccc url(/images/local-nav-bg.png) top left repeat-x;
-    width:120px;
+    width:115px;
     height:40px;
     float:left;
     margin-top:5px;
     margin-right:5px;
+    border-right: 1px solid #999999;
 }
 
 .local-navbar-button span a	{
@@ -1133,7 +1307,8 @@ div.project_listings .blog-row {
     padding: 5px 5px 7px 5px;
     border-style: none;
     background-color: #f8f6ef;
-    border-bottom:1px dotted #666666;
+    border-bottom: 1px solid #999999;
+    border-right: 1px solid #999999;
 }
 
 .view-lite-row-alt	{
@@ -1143,9 +1318,12 @@ div.project_listings .blog-row {
     height: auto;
     padding: 5px 5px 7px 5px;
     border-style: none;
-    background-color: #EFEADC;
-    border-bottom:1px dotted #666666;
+    background-color: #ffffff;
+    border-bottom: 1px solid #999999;
+    border-right: 1px solid #999999;
 }
+
+/* blogs */
 
 div.blog {
     padding: 15px 0px 20px 0px;
@@ -1174,13 +1352,14 @@ div.blog div.share_buttons div.facebook_button {
 }
 
 div.blog-row {
-    border-bottom:1px dotted #666666;
-    clear:both;
-    padding:10px 0;
+    clear: both;
+    padding: 10px 0px;
 }
 
 div.blog-row div.share_buttons {
-
+    margin-top: 5px;
+    float: right;
+    margin-right: 20px;
 }
 
 div.blog-row div.share_buttons div.tweet_button {
@@ -1199,21 +1378,46 @@ div.blog-row div.share_buttons div.facebook_button {
     font-size:13px;
     font-weight:bold;
     margin: 5px 0px;
-    width: 500px;
+    width: 460px;
+}
+
+div.blog-row div.project_author_links {
+    float: right;
+    text-align: right;
+}
+
+div.blog_row div.project_author_links span.project {
+
+}
+
+div.blog_row div.project_author_links span.author {
+
 }
 
 .blog_comments_link {
     float: right;
 }
 
-.blog_admin_links {
+div.blog div.share_buttons {
+    margin-top: 5px;
+    float: right;
+    margin-right: 20px;
+}
+
+div.blog div.project_author_links {
+    float: right;
+    text-align: right;
+}
+
+div.blog_admin_links {
     float: right;
     margin-left: 30px;
+    margin-bottom: 10px;
 }
 
 .blog-body {
     width: 100%;
-    margin: 5px 0px;
+    margin: 15px 0px;
 }
 
 .blog-body p {
@@ -1235,6 +1439,12 @@ div.blog-row div.share_buttons div.facebook_button {
 div.blog-entry div.blog_comments_link {
     float: left;
 }
+
+.blog-row .profile-pic {
+    margin-left: 20px;
+}
+
+/* end blogs */
 
 .view-lite-row-title {
     background:#fff;
@@ -1299,18 +1509,23 @@ div.blog-entry div.blog_comments_link {
 
 .view-lite-row-project-name	{
     margin-bottom: 3px;
-    width: 100%;
+    margin-left: 8px;
+    width: 700px;
+    float: left;
     padding-bottom: 2px;
     float:left;
 }
 
 .view-lite-row-project-name a {
-    font-size: 12px;
-    margin-left: 5px;
+    font-size: 13px;
     font-weight:bold;
-    color: #015353;
-    text-transform:capitalize;
-    text-decoration:none;
+    color: #333333;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+.view-lite-row-project-link {
+    float: right;
 }
 
 .view-lite-row-project-name a:hover	{
@@ -1357,7 +1572,6 @@ div.blog-entry div.blog_comments_link {
     width: 194px;
     padding-left: 20px;
     float: left;
-    border-left: 1px dotted #ffffff;
 }
 
 .view-lite-row-numbers ul {
@@ -1384,7 +1598,6 @@ div.blog-entry div.blog_comments_link {
     text-align: left;
     color: #636363;
     width: 69px;
-    font-weight: bold;
     margin-bottom: 1px;
     overflow: hidden;
 }
@@ -1423,7 +1636,6 @@ div.blog-entry div.blog_comments_link {
     text-align: left;
     color: #636363;
     width: 165px;
-    font-weight: bold;
     margin-bottom: 1px;
     overflow: hidden;
 }
@@ -1542,10 +1754,6 @@ div.blog-entry div.blog_comments_link {
     margin-left: 0px;
 }
 
-.row input[type=submit] {
-    float: right;
-}
-
 .row input.text {
     width: 100px;
 } 
@@ -1582,76 +1790,6 @@ div.blog-entry div.blog_comments_link {
 
 #content a.subnav_inactive {
     text-decoration: underline;
-}
-
-div#hp_latest_blog {
-    width: 880px;
-    font-size: 13px;
-    border-bottom: 2px dotted #999999;
-    max-height: 200px;
-    overflow: hidden;
-    padding:    20px 0px 10px 0px;
-    margin-left: 40px;
-    margin-right: 40px;
-}
-
-div#hp_latest_blog .blog_comments_link {
-    float: left;
-}
-
-div#hp_latest_blog .blog-title {
-    margin: 20px 0px;
-    margin-bottom: 12px;
-}
-
-div#hp_latest_blog div#container div.blog-entry {
-    text-align: left;
-    padding: 0px 15px;
-}
-
-div#hp_latest_blog {
-
-}
-
-div#hp_latest_blog div#hp_latest_blog_header {
-    margin: 20px;
-    margin-bottom: 12px;
-    margin-left: 0px;
-    font-weight: bold;
-    font-size: 18px;
-    color: #015353;
-    float: left;
-}
-
-div#hp_latest_blog div.blog-entry {
-    text-align: left;
-}
-
-div#hp_latest_blog div.blog-title {
-    float: left;
-    width: auto;
-}
-
-div#hp_latest_blog div.blog_comments_link {
-    float: left;
-    margin: 20px;
-    margin-bottom: 12px;
-    font-weight: bold;
-}
-
-div#header_links {
-    float: right;
-    margin-top: 5px;
-    margin-right: 40px;
-}
-
-div#header_links div {
-    float: left;
-    margin-left: 4px;
-}
-
-div#header_links div#welcome_message {
-    font-weight: bold;
 }
 
 div#admin_stats {
@@ -1705,4 +1843,55 @@ div#admin_stats {
 #errorExplanation ul li {
     font-size: 12px;
     list-style: square;
+}
+
+/* End form errors */
+
+/* link button */
+
+div.button {
+    background: url(/images/button_bg.png) transparent left top;
+    padding: 9px 10px;
+    width: 100px;
+    text-align: center;
+}
+
+div.button a {
+    text-decoration: none;
+    color: #666666;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+div.button a:hover {
+    text-decoration: none;
+}
+
+/* end link button */
+
+/* pagination */
+
+div.pagination {
+    margin: 10px 0px;
+    float: right;
+}
+
+div.pagination span.prev_page,
+div.pagination span.next_page,
+div.pagination a {
+    cursor: pointer;
+    font-weight: bold;
+    border: 1px solid #666666;
+    background-color: #eeeeee;
+    padding: 5px;
+    text-decoration: none;
+    color: #666666;
+}
+
+div.pagination a:hover {
+    text-decoration: none;
+}
+
+div.pagination .disabled {
+    visibility: hidden;
 }

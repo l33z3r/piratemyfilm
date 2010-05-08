@@ -30,7 +30,11 @@
         <div class="local-navbar-button"><span><%= link_to 'Account', edit_profile_path(@p) %></span><p>Edit your profile</p></div>
       <% end %>
 
-      <div class="local-navbar-button"><span><%= link_to 'Producer Blogs', {:controller => "producer_blogs"} %></span><p>&nbsp;</p></div>
+      <div class="local-navbar-button"><span><%= link_to 'Producer Blogs', {:controller => "producer_blogs"} %></span><p>View Blogs</p></div>
+
+      <%- if_admin do %>
+        <div class="local-navbar-button"><span><%= link_to 'Admin', :controller => "admin/home" %></span><p>Admin Area</p></div>
+      <% end %>
 
       <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
         <div id="search">

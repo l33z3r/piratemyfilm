@@ -6,12 +6,15 @@ class BlogCommentsController < ApplicationController
     @blog_comment = BlogComment.new(params[:blog_comment])
     @blog = @blog_comment.blog
 
-    
+    #verify captcha
+    redirect_to blog_url(@blog) and return unless check_captcha true
+      
     if @blog_comment.save
       flash[:notice] = 'Comment was successfully created.'
       redirect_to blog_url(@blog)
     else
-      render blog_url(@blog)
+      flash[:error] = "Error creating comment! Make sure field is not empty."
+      redirect_to blog_url(@blog)
     end
   end
   

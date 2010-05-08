@@ -2,13 +2,12 @@
   <% if !@project.is_deleted %>
     <div class="project_action_links">
       <% if @u && (@project.owner == @u || @u.is_admin) %>
-        <%= link_to "Add a new blog entry", :controller => :blogs, :action => :new, :project_id => @project.id %> -
-        <%= link_to "Edit project", edit_project_path(@project) %> -
-        <%= link_to "Delete project", :controller => "projects", :action => "delete", :id => @project %> -
+        <div class="button left"><%= link_to "New Blog", :controller => :blogs, :action => :new, :project_id => @project.id %></div>
+        <div class="button left"><%= link_to "Edit project", edit_project_path(@project) %></div>
+        <div class="button left"><%= link_to "Delete Project", :controller => "projects", :action => "delete", :id => @project %></div>
       <% end %>
-      <%= link_to "List a new project", new_project_path %> -
-      <%= link_to "View all projects", projects_path %> -
-      <%= link_to "Invite My Friend to Reserve This Project (NYA)", "#" %>
+      <div class="button left"><%= link_to "New Project", new_project_path %></div>
+      <div class="button left"><%= link_to "All Projects", projects_path %></div>
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
@@ -91,7 +90,7 @@
       <ol>
         <li>
           <% if @project_blogs %>
-            <%= render :partial => '/blog_partials/blog', :collection => @project_blogs, :locals => {:hide_edit_links => true} %>
+            <%= render :partial => '/blog_partials/blog', :collection => @project_blogs %>
           <% else %>
             No Blogs Found!
           <% end %>
@@ -99,8 +98,8 @@
       </ol>
       <div class="links">
         <% if @u && (@project.owner == @u || @u.is_admin) %>
-          <%= link_to "View all blogs for this project", {:controller => "projects", :action => "blogs", :id => @project.id} %>
-          - <%= link_to "Add a new blog entry", :controller => :blogs, :action => :new, :project_id => @project.id %>
+          <div class="button left"><%= link_to "More Blogs", {:controller => "projects", :action => "blogs", :id => @project.id} %></div>
+          <div class="button left"><%= link_to "New Blog", :controller => :blogs, :action => :new, :project_id => @project.id %></div>
         <% end %>
       </div>
       

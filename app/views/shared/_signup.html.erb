@@ -1,0 +1,14 @@
+<% if(@u.nil? or @u.new_record?) %>
+  <div id="signup_buttons">
+    <%= link_to image_tag("signup_button.png"), signup_path %>
+    <%= link_to image_tag("login_button.png"), login_path %>
+  </div>
+<% else %>
+  <div id="welcome_message">
+    <%= link_to icon(@p, :medium), edit_profile_path(@p) %>
+    <span id="message">
+      Welcome <%= @u.f.capitalize %>
+      (<%= link_to 'Log Out', logout_path %>)
+    </span>
+  </div>
+<% end %>

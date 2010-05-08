@@ -2,7 +2,9 @@ class HomeController < ApplicationController
   skip_before_filter :login_required	
 
   def index
-    @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 10
+    @projects = cache('hp_projects') do
+      Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => 1, :per_page=> 10
+    end
   end
 
   def newest_members

@@ -21,11 +21,12 @@
       <%= f.wrap(:remember_me, :for => :remember_me){ check_box_tag :remember_me, 1, params[:remember_me], :class=>"checkbox"} %>
 
       <div class='row clear'>
-        <div class="button">
-          <%= f.submit 'Sign Up', :class => 'button' %>
-          <div class="pmf_clear">&nbsp;</div>
-        </div>
+        <label>&nbsp;</label>
+        <%= f.submit 'Sign Up', :class => 'button' %>
       </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+    
     </div>
   <% end %>
 </div>

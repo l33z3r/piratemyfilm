@@ -8,6 +8,10 @@
 }
 #tooltip h3, #tooltip div { margin: 0; }
 
+a.tooltip_arrow {
+    text-decoration: underline;
+}
+
 a.tooltip_arrow:hover {
     cursor: help;
 }

@@ -1,6 +1,12 @@
 <div class="<%= cycle("view-lite-row", "view-lite-row-alt") %> project_row">
 
-  <div class="view-lite-row-project-name"><%= link_to h(project.title), project_path(project) %></div>
+  <div class="view-lite-row-project-name">
+    <%= link_to h(project.title), project_path(project) %>
+  </div>
+
+  <div class="view-lite-row-project-link">
+    (<%= link_to "View Project", project_path(project) %>)
+  </div>
 
   <div class="pmf_clear">&nbsp;</div>
 
@@ -31,7 +37,7 @@
 
   <div class="view-lite-row-numbers">
     <ul>
-      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(@project.owner.profile) %></li>
+      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
       <li class="pmf_clear"></li>
       <li class="label">Copies Total:</li><li class="stat"><%= project.downloads_available %></li>
       <li class="pmf_clear"></li>

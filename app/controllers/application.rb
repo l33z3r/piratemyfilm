@@ -100,9 +100,14 @@ class ApplicationController < ActionController::Base
     sprintf("%0.2f", value)
   end
 
-  def check_captcha
+  def check_captcha(redirect=nil)
     if !verify_recaptcha
-      flash.now[:error] = "Please enter the captcha correctly!"
+      @message = "Please enter the captcha correctly!"
+      if redirect
+        flash[:error] = @message
+      else
+        flash.now[:error] = @message
+      end
       false
     else
       true

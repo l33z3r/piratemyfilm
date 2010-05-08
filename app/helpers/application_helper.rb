@@ -117,6 +117,10 @@ module ApplicationHelper
       output << '</div>'
     end
   end
+
+  def total_pages(collection)
+    WillPaginate::ViewHelpers.total_pages_for_collection(collection)
+  end
   
   def logged_in
     !@u.nil? and !@u.new_record?

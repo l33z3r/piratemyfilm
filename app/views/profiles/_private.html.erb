@@ -1,6 +1,26 @@
-<div class="pageTitle">My Profile</div>
+<div id="top_section">
+  <div class="pageTitle">My Profile</div>
+
+  <div class="profile_links">
+    <div class="button">
+      <%= link_to "Edit Profile", edit_profile_path %>
+    </div>
+
+    <div class="button">
+      <%= link_to "List a Project", new_project_path %>
+    </div>
+
+    <div class="button">
+      <%= link_to "All Projects", projects_path %>
+    </div>
+
+  </div>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
 
 <div id="profile_section">
+
   <div class="half left">
     <%= render :partial => 'profiles/bio' %>
   </div>
@@ -56,14 +76,6 @@
 
 <div class="pmf_clear">&nbsp;</div>
 
-<div class="profile_links">
-  <%= link_to "List a Project", new_project_path %> -
-  <%= link_to "All Projects", projects_path %> -
-  <%= link_to "Edit Profile", edit_profile_path %>
-</div>
-
-<div class="pmf_clear">&nbsp;</div>
-
 <div class="project_listing_box">
   <div class="pageTitle">Premium Copies <%=@profile.user.login%> is <b>Selling</b> in His/Her Own Projects</div>
   <div class="pageTitleSmaller">No debits occur until 100% of Available Premium Copies Have Been Reserved</div>
@@ -82,7 +94,7 @@
 </div>
 
 <div class="project_listing_box">
-  
+
   <div class="pageTitle">Premium Copies <%=@profile.user.login%> is <b>Buying</b> in Friends Projects</div>
   <div class="pageTitleSmaller">No debits occur until 100% of Available Premium Copies Have Been Reserved</div>
   <hr>

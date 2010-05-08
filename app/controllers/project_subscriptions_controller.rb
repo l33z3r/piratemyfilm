@@ -2,7 +2,9 @@ class ProjectSubscriptionsController < ApplicationController
   
   before_filter :load_project, :get_project_subscription
   after_filter :upate_percent_funded, :only => [:create, :destroy]
-  
+
+  cache_sweeper :project_sweeper, :only => [:create, :destroy]
+
   def create
     begin            
 
@@ -92,7 +94,7 @@ class ProjectSubscriptionsController < ApplicationController
   end 
   
   def upate_percent_funded
-    @project.update_funding
+    @project.update_funding_and_estimates
   end
   
   def get_project_subscription

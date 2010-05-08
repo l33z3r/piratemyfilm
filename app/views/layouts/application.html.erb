@@ -20,27 +20,17 @@
   <body onload="doInit();">
 
     <div id="site_wrapper">
+
       <div id="header_links">
-
-        <div><a href="/">Home</a> -</div>
-
-        <div id="how_it_works">
-          <a href="/pages/how_it_works">How It Works</a> -
+        <div class="menu bubplastic horizontal gray">
+          <ul>
+            <li><span class="menu_r"><a href="/pages/how_it_works"><span class="menu_ar">How It Works</span></a></span></li>
+            <li><span class="menu_r"><a href="/pages/about_us"><span class="menu_ar">About Us</span></a></span></li>
+            <li><span class="menu_r"><a href="/pages/contact_us"><span class="menu_ar">Contact us</span></a></span></li>
+            <li><span class="menu_r"><a href="/"><span class="menu_ar">Home</span></a></span></li>
+          </ul>
+          <div class="pmf_clear">&nbsp;</div>
         </div>
-
-        <%- if_admin do %>
-          <div><%= link_to 'Admin', :controller => "admin/home" %> -</div>
-        <% end %>
-
-        <% if(@u.nil? or @u.new_record?) %>
-          <div><%= link_to 'Sign Up', signup_path %> -</div>
-          <div><%= link_to 'Log In', login_path %></div>
-        <% else %>
-          <div id="welcome_message">
-            Welcome <%= @u.f.capitalize %> (<%= link_to 'Log Out', logout_path %>)
-          </div>
-        <% end %>
-
       </div>
 
       <div class="pmf_clear">&nbsp;</div>

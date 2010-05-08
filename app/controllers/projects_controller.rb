@@ -10,7 +10,9 @@ class ProjectsController < ApplicationController
   before_filter :check_owner_or_admin, :only => [:edit, :update, :delete]
   
   before_filter :load_membership_settings, :only => [:new, :create]
-  
+
+  cache_sweeper :project_sweeper, :only => [:update, :create, :delete, :restore]
+
   def index
     if @filter_param = params[:filter_param]
       @filtered = true
@@ -70,7 +72,7 @@ class ProjectsController < ApplicationController
       
       render :action=>'new' and return unless @project.valid?
       #verify captcha
-      render :action=>'new' unless check_captcha
+      render :action=>'new' and return unless check_captcha
 
       @project.save!
       @project.update_funding

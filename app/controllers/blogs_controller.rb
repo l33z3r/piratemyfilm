@@ -4,14 +4,14 @@ class BlogsController < ApplicationController
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
   
   def producer
-    @blogs = Blog.find_all_by_is_homepage_blog(false, :order=>"created_at DESC")
+    @blogs = Blog.find_all_by_is_homepage_blog(false, :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 5
   end
   
   def homepage
 
     @hide_intro_blog = true
     
-    @blogs = Blog.find_all_by_is_homepage_blog(true, :order => "created_at DESC")
+    @blogs = Blog.find_all_by_is_homepage_blog(true, :order => "created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 5
 
     if params[:format] == "rss"
       render :action => "homepage_rss", :layout => false
@@ -31,7 +31,6 @@ class BlogsController < ApplicationController
 
       flash[:notice] = 'New blog post created.'
       redirect_to :controller => "blogs", :action => "show", :id => @blog.id
-      
     rescue ActiveRecord::RecordInvalid
       flash[:negative] = "Sorry, there was a problem creating your blog post"
       render :action => 'new'
@@ -49,7 +48,6 @@ class BlogsController < ApplicationController
 
       flash[:notice] = 'Blog post updated.'
       redirect_to :controller => "blogs", :action => "show", :id => @blog.id
-
     rescue ActiveRecord::RecordInvalid
       flash[:negative] = "Sorry, there was a problem updating your blog post"
       render :action => 'edit'
@@ -101,8 +99,8 @@ class BlogsController < ApplicationController
   end
 
   def permission_denied
-    flash[:notice] = "You do not have permissions on this project!"
-    redirect_to :controller => "home" and return
+    flash[:error] = "You do not have permissions on this project!"
+    redirect_to :controller => "home"
   end
 
   def allow_to

@@ -1,12 +1,7 @@
-<% if params[:public_view].blank? && @p && @p == @profile %>
-
-<%= render :partial => "profiles/private" %>
-
-
-<% else %>
-
-
-<%= render :partial => "profiles/public" %>
-
-
-<% end %>
+<div id="profile">
+  <% if params[:public_view].blank? && @p && @p == @profile %>
+    <%= render :partial => "profiles/private" %>
+  <% else %>
+    <%= render :partial => "profiles/public" %>
+  <% end %>
+</div>

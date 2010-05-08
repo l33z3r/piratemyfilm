@@ -1,18 +1,7 @@
 <div id="MENU_HEADER" class="pageTitle">
-  Viewing Blog Entry
+  Blog Entry
 </div>
 
-<div style="clear:both;"></div>
-
-<div id="sub_nav">
-
-  <% if !@blog.project.blank? %>
-    <%= link_to "All Blog Posts for this Project", {:controller => "projects", :action => "blogs", :id => @blog.project_id}, :class => "subnav_inactive" %> -
-    <%= link_to "Back to Project", {:controller => "projects", :action => "show", :id => @project.id}, :class => "subnav_inactive" %>
-  <% end %>
-
-</div>
-
-<div style="clear:both;"></div>
+<div class="pmf_clear">&nbsp;</div>
 
 <%= render :partial => '/blog_partials/show_blog', :locals => {:blog => @blog} %>

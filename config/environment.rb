@@ -18,6 +18,10 @@ Rails::Initializer.run do |config|
   # like if you have constraints or database-specific column types
   # config.active_record.schema_format = :sql
 
+  # Add additional load paths for your own custom dirs
+  # config.load_paths += %W( #{RAILS_ROOT}/extras )
+  config.load_paths += %W( #{RAILS_ROOT}/app/sweepers #{RAILS_ROOT}/app/observers )
+
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 

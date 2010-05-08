@@ -24,3 +24,6 @@ ActionMailer::Base.smtp_settings = {
 }
 config.action_mailer.delivery_method = :smtp
 config.action_mailer.perform_deliveries = true
+
+config.cache_store = :mem_cache_store
+

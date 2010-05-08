@@ -1,17 +1,15 @@
 <div class="project_listings">
 
   <div class="pmf_clear">&nbsp;</div>
-
-  <div id="sub_nav"></div>
-
-  <div class="pmf_clear">&nbsp;</div>
-
   <% for @project in @projects do %>
       <%= render :partial => "projects/project", :locals => {:project => @project} %>
     <% end %>
 
-    <%= pagination_controls_for @projects if @projects.respond_to? :total_pages %>
-
+    <% if total_pages(@projects) > 1 %>
+      <div class="button right pmf_top_margin_10">
+        <%= link_to "More", :controller => "projects", :filter_param => "% funds reserved", :page => 2 %>
+      </div>
+    <% end %>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
