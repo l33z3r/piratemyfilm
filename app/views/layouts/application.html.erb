@@ -52,12 +52,13 @@
 
             <% if !@hide_filter_params %>
               <%= render :partial => 'shared/filter_param_box' %>
-              <div class="pmf_clear_bottom_border">&nbsp;</div>
+              <div class="dashed_light_border">&nbsp;</div>
             <% end %>
 
             <%= yield %>
 
             <% if !@hide_filter_params %>
+              <div class="dashed_light_border">&nbsp;</div>
               <%= render :partial => 'shared/filter_param_box' %>
             <% end %>
 

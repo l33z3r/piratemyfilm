@@ -27,15 +27,15 @@
 
     <% if !blog.is_homepage_blog %>
       <div class="project_author_links">
-        <span class="project">
-          From Project: <%= link_to h(blog.project.title), :controller => "projects", :action => "show", :id => blog.project.id %>
-        </span>
-      
+        <div class="project">
+          From Project: <%= link_to h(awesome_truncate(blog.project.title, 20)), :controller => "projects", :action => "show", :id => blog.project.id %>
+        </div>
+
         <div class="pmf_clear">&nbsp;</div>
 
-        <span class="author_link">
+        <div class="author_link">
           By: <%= link_to h(blog.project.owner.profile.user.login), profile_path(blog.project.owner.profile) %>
-        </span>
+        </div>
       </div>
     <% end %>
 
@@ -61,4 +61,7 @@
     <div class="pmf_clear">&nbsp;</div>
 
   </div>
+
 </div>
+
+<div class="dashed_light_border">&nbsp;</div>

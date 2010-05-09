@@ -9,20 +9,25 @@
 
   <div class="pmf_clear">&nbsp;</div>
 
+  <div class="profile_links">
+    <div class="button">
+      <%= link_to "List a Project", new_project_path %>
+    </div>
+
+    <div class="button">
+      <%= link_to "All Projects", projects_path %>
+    </div>
+  </div>
 </div>
 
-<div class="profile_links">
-  <%= link_to "List a Project", new_project_path %> -
-  <%= link_to "All Projects", projects_path %>
-</div>
-
-<div class="pmf_clear">&nbsp;</div>
+<div class="dashed_light_border">&nbsp;</div>
 
 <div class="project_listing_box">
 
-  <div class="pageTitle">Premium Copies <%=@profile.user.login%> is <b>Selling</b> in His/Her Own Projects</div>
-  <div class="pageTitleSmaller">No debits occur until 100% of Available Premium Copies Have Been Reserved</div>
-  <hr>
+  <div class="pageTitle">Premium copies <%=@profile.user.login%> is <i>selling</i> in his/her own projects</div>
+  <div class="pageTitleSmaller">No debits occur until 100% of available premium copies have been reserved</div>
+
+  <div class="dashed_light_border">&nbsp;</div>
 
   <% if !@user_projects or @user_projects.empty? %>
     No Projects Found!
@@ -38,9 +43,10 @@
 
 <div class="project_listing_box">
 
-  <div class="pageTitle">Premium Copies <%=@profile.user.login%> is <b>Buying</b> in Friends Projects</div>
-  <div class="pageTitleSmaller">No debits occur until 100% of Available Premium Copies Have Been Reserved</div>
-  <hr>
+  <div class="pageTitle">Premium copies <%=@profile.user.login%> is <i>buying</i> in friends projects</div>
+  <div class="pageTitleSmaller">No debits occur until 100% of available premium copies have been reserved</div>
+
+  <div class="dashed_light_border">&nbsp;</div>
 
   <% if !@user_subscriptions or @user_subscriptions.empty? %>
     No Projects Found!
@@ -51,4 +57,3 @@
   <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
 
 </div>
-

@@ -5,13 +5,12 @@ a img {
 }
 
 a {
-    color: #043a3a;
+    color: #666666;
 }
 
 a:hover {
-    color: #043a3a;
+    color: #666666;
 }
-
 
 input {
     cursor: pointer;
@@ -43,6 +42,12 @@ input {
 
 .pmf_top_margin_10 {
     margin-top: 10px;
+}
+
+div.dashed_light_border {
+    border-bottom: 1px dashed #666666;
+    height: 1px;
+    clear: both;
 }
 
 /* Global CSS */
@@ -90,6 +95,11 @@ div#hp_latest_blog div.blog-entry {
     text-align: left;
 }
 
+div#hp_latest_blog div.blog-entry span.short-date {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
 div#hp_latest_blog div.blog-title {
     float: left;
     width: auto;
@@ -105,7 +115,30 @@ div#signup_section {
 }
 
 div#signup_section div#signup_buttons {
-    margin-top: 5px;
+    margin-top: 15px;
+}
+
+div#signup_section div#signup_buttons div {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #999999;
+    width: 100px;
+    padding: 10px 5px;
+    margin-left: 10px
+}
+
+div#signup_section div#signup_buttons div.signup {
+    background-color: #009900;
+}
+
+div#signup_section div#signup_buttons a div {
+    font-weight: bold;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+div#signup_section div#signup_buttons div.login {
+    background-color: #999999;
 }
 
 div#signup_section div#welcome_message a img {
@@ -229,7 +262,6 @@ div#filter_param_box {
 
 div.project_listings {
     clear: both;
-    margin: 4px 0px;
 }
 
 .friend_link {
@@ -427,7 +459,7 @@ label em {
 }
 
 #textinput	{
-    border:1px solid #015353;
+    border:1px solid #666666;
     height:1.7em;
     width:20em;
 }
@@ -471,9 +503,9 @@ div#profile {
     margin-top: 10px;
 }
 
-div#profile div#top_section div.pageTitle {
-    float: left;
+div#profile div.pageTitle {
     margin-top: 0px;
+    margin-bottom: 20px;
 }
 
 div#profile div#profile_section {
@@ -486,6 +518,11 @@ div#profile div#profile_section div.avatar a img {
 
 div#profile div.profile_links {
     float: right;
+    margin: 5px 0px;
+}
+
+div#profile div.profile_links div {
+    float: left;
 }
 
 div#profile .bio_stuff {
@@ -498,7 +535,7 @@ div#profile .bio_stuff div#user_info {
 
 div#profile .bio_stuff div.user_name {
     font-weight: bold;
-    color: #015353;
+    color: #666666;
     font-size: 14px;
 }
 
@@ -517,11 +554,13 @@ div#profile #content .bio_stuff div.pageTitle {
 }
 
 div#profile div.membership_type {
-    width: 360px;
+    width: 450px;
 }
 
 div#profile div.membership_type div.title {
     font-weight: bold;
+    color: black;
+    font-size: 14px;
 }
 
 /* End profile page */
@@ -708,7 +747,7 @@ div.static_content {
 
 .big-number p	{
     font-size: 20px;
-    color:#015353;
+    color: #000000;
     font-weight:bold;
     margin:0px;
 }
@@ -992,7 +1031,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     font-size: 11px;
     border: 0px;
     background: transparent url(/images/button_bg.png) left top;
-    padding: 9px 10px;
+    padding: 9px 10px 10px 10px;
     width: 120px;
     text-align: center;
 }
@@ -1010,8 +1049,8 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #content .pageTitle {
-    font-size: 1.4em;
-    color:#015353;
+    font-size: 20px;
+    color: #000000;
     margin-top: 15px;
 }
 
@@ -1020,7 +1059,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     font-weight: bold;
     color:#636363;
     clear: both;
-    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 #content .pageSubTitle {
@@ -1041,7 +1080,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 #content .table , #content .menu {
     margin:auto;
     padding: 10px 5pt;
-    color:#043a3a;
+    color:#666666;
 }	
 
 .table th	{
@@ -1374,7 +1413,7 @@ div.blog-row div.share_buttons div.facebook_button {
 .blog-title {
     float: left;
     text-transform: capitalize;
-    color:#015353;
+    color:#666666;
     font-size:13px;
     font-weight:bold;
     margin: 5px 0px;
@@ -1384,14 +1423,6 @@ div.blog-row div.share_buttons div.facebook_button {
 div.blog-row div.project_author_links {
     float: right;
     text-align: right;
-}
-
-div.blog_row div.project_author_links span.project {
-
-}
-
-div.blog_row div.project_author_links span.author {
-
 }
 
 .blog_comments_link {
@@ -1448,12 +1479,12 @@ div.blog-entry div.blog_comments_link {
 
 .view-lite-row-title {
     background:#fff;
-    color:#015353;
+    color:#666666;
     font-size:60%;
     font-weight:bold;
     padding:0;
     margin:10px 0 0 0;
-    border-bottom:2px solid #015353;
+    border-bottom:2px solid #666666;
 }
 
 .view-lite-row-title div {
@@ -1519,13 +1550,14 @@ div.blog-entry div.blog_comments_link {
 .view-lite-row-project-name a {
     font-size: 13px;
     font-weight:bold;
-    color: #333333;
+    color: #000000;
     text-transform: capitalize;
     text-decoration: none;
 }
 
 .view-lite-row-project-link {
     float: right;
+    font-weight: bold;
 }
 
 .view-lite-row-project-name a:hover	{
@@ -1587,7 +1619,7 @@ div.blog-entry div.blog_comments_link {
 #content .view-lite-row-numbers li.label {
     font-size:11px;
     font-weight:bold;
-    color:#015353;
+    color:#666666;
     text-decoration:none;
     width: 125px;
     margin-bottom: 1px;
@@ -1625,7 +1657,7 @@ div.blog-entry div.blog_comments_link {
 #content .view-lite-row-words li.label {
     font-size:11px;
     font-weight:bold;
-    color:#015353;
+    color: #444444;
     text-decoration:none;
     width: 125px;
     margin-bottom: 1px;

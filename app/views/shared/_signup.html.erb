@@ -1,7 +1,7 @@
 <% if(@u.nil? or @u.new_record?) %>
   <div id="signup_buttons">
-    <%= link_to image_tag("signup_button.png"), signup_path %>
-    <%= link_to image_tag("login_button.png"), login_path %>
+    <a href="<%= signup_path %>"><div class="signup">Sign Up</div></a>
+    <a href="<%= login_path %>"><div class="login">Log In</div></a>
   </div>
 <% else %>
   <div id="welcome_message">
