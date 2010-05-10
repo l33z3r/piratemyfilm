@@ -39,9 +39,9 @@
     <ul>
       <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Copies Total:</li><li class="stat"><%= project.downloads_available %></li>
+      <li class="label">Shares Total:</li><li class="stat"><%= project.downloads_available %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Copies Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
+      <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
       <li class="pmf_clear"></li>
       <li class="label">PMF Rating:</li><li class="stat"><%= project.admin_rating %></li>
       <li class="pmf_clear"></li>
@@ -57,8 +57,6 @@
       <li class="pmf_clear"></li>
       <li class="label">Break Even (<a class="tooltip_arrow" title="Based on a $10 CPM">?</a>):</li>
       <li class="stat"><%= number_with_delimiter(number_with_precision(project.breakeven_views, 0)) %></li>
-      <li class="pmf_clear"></li>
-      <li class="label">% Downloads:</li><li class="stat"><%= project.share_percent_downloads %>%</li>
       <li class="pmf_clear"></li>
     </ul>
   </div>

@@ -1,7 +1,134 @@
 <div id="profile">
-  <% if params[:public_view].blank? && @p && @p == @profile %>
-    <%= render :partial => "profiles/private" %>
-  <% else %>
-    <%= render :partial => "profiles/public" %>
-  <% end %>
+  <div id="profile_section">
+
+    <div class="half left">
+      <div class="pageTitle">
+        <% if @p == @profile %>
+          My
+        <% else %>
+          <%=@profile.user.login%>'s
+        <% end %>
+        Profile
+      </div>
+
+      <div class="activity_box learn">
+        <div class="left avatar"><%= icon @profile, :medium %></div>
+        <div class="right bio_stuff">
+          <div class="user_name"><%= h @profile.f.capitalize %></div>
+
+          <div id="user_info">
+            <% unless @profile.last_activity_at.blank? %>
+              <div class="label">Last Active:</div>
+              <div class="value"><%= time_ago_in_words @profile.last_activity_at %> ago</div>
+            <% end %>
+
+            <div class="pmf_clear">&nbsp;</div>
+
+            <% unless @profile.home_country.blank? %>
+              <div class="label">Home Country:</div>
+              <div class="value"><%= @profile.home_country %></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="half right">
+      <% if @p == @profile %>
+        <div class="membership_type">
+          <div class="title">Your Membership</div>
+          <ul>
+            <li>You are currently on <b><%= @u.membership_type.name %></b> Membership</li>
+
+            <li>
+              <% unless @u.membership_type.max_projects_listed == -1 %>
+                You can list up to <b><%= @u.membership_type.max_projects_listed %></b> projects
+              <% else %>
+                You can list an <b>unlimited</b> number of your own projects,
+              <% end %>
+            </li>
+
+            <li>
+              <% unless @u.membership_type.funding_limit_per_project == -1 %>
+                Budget max is <b>$<%= @u.membership_type.funding_limit_per_project %></b>
+              <% else %>
+                each with an <b>unlimited</b> budget
+              <% end %>
+            </li>
+
+            <li>
+              <% unless @u.membership_type.pc_limit == -1 %>
+                You can reserve up to <b><%= @u.membership_type.pc_limit %></b> copies of any one project
+              <% else %>
+                You can reserve <b>unlimited</b> copies of any one project
+              <% end %>
+            </li>
+
+            <li>
+              <% unless @u.membership_type.pc_project_limit == -1 %>
+                You can reserve copies in up to <b><%= @u.membership_type.pc_project_limit %></b> projects
+              <% else %>
+                You can reserve copies in an <b>unlimited</b> amount of projects
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <div class="profile_links">
+      <% if @p == @profile %>
+        <div class="button">
+          <%= link_to "Edit Profile", edit_profile_path %>
+        </div>
+      <% end %>
+
+      <div class="button">
+        <%= link_to "List a Project", new_project_path %>
+      </div>
+
+      <div class="button">
+        <%= link_to "All Projects", projects_path %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="dashed_light_border">&nbsp;</div>
+
+  <div class="project_listing_box">
+    <div class="pageTitleSmaller">
+      Shares <%=@profile.user.login%> is <i>offering</i> his/her own projects
+    </div>
+
+    <div class="dashed_light_border">&nbsp;</div>
+
+    <% if !@user_projects or @user_projects.empty? %>
+      No Projects Found!
+    <% else %>
+      <%= render :partial => "projects/listings", :object => @user_projects %>
+      <%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_listing_box">
+
+    <div class="pageTitleSmaller">
+      Shares <%=@profile.user.login%> is <i>reserving</i> in friends projects
+    </div>
+
+    <div class="dashed_light_border">&nbsp;</div>
+
+    <% if !@user_subscriptions or @user_subscriptions.empty? %>
+      No Projects Found!
+    <% else %>
+      <%= render :partial => "projects/listings", :object => @user_subscriptions %>
+      <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
+    <% end %>
+  </div>
 </div>

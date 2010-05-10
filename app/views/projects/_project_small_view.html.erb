@@ -41,11 +41,11 @@
       <li class="pmf_clear"></li>
       <li class="label">% Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
       <li class="pmf_clear"></li>
-      <li class="label">Copies Total:</li><li class="stat"><%= project.downloads_available %></li>
+      <li class="label">Shares Total:</li><li class="stat"><%= project.downloads_available %></li>
       <li class="pmf_clear"></li>
       <li class="label">Price Per PC:</li><li class="stat">$<%= print_money project.ipo_price %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Copies Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
+      <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
       <li class="pmf_clear"></li>
     </ul>
   </div>
@@ -70,8 +70,6 @@
       <li class="label">% Ad Sales:</li><li class="stat"><%= project.share_percent_ads %>%</li>
       <li class="pmf_clear"></li>
       <li class="label">Break Even (<a class="tooltip_arrow" title="Based on a $10 CPM">?</a>):</li><li class="stat"><%= number_with_delimiter(number_with_precision(project.breakeven_views, 0)) %></li>
-      <li class="pmf_clear"></li>
-      <li class="label">% Downloads:</li><li class="stat"><%= project.share_percent_downloads %>%</li>
       <li class="pmf_clear"></li>
     </ul>
   </div>

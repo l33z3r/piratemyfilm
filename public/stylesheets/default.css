@@ -118,23 +118,24 @@ div#signup_section div#signup_buttons {
     margin-top: 15px;
 }
 
-div#signup_section div#signup_buttons div {
+div#signup_section div#signup_buttons a {
+    text-decoration: none;
+}
+
+div#signup_section div#signup_buttons a div {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border: 1px solid #999999;
     width: 100px;
     padding: 10px 5px;
-    margin-left: 10px
+    margin-left: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #FFFFFF;
 }
 
 div#signup_section div#signup_buttons div.signup {
     background-color: #009900;
-}
-
-div#signup_section div#signup_buttons a div {
-    font-weight: bold;
-    text-decoration: none;
-    color: #FFFFFF;
 }
 
 div#signup_section div#signup_buttons div.login {
@@ -1293,6 +1294,7 @@ div.TabView div.Pages div.Page div.Pad {
 .local-navbar-button span a	{
     text-decoration:none;
     color: #666;
+    font-size: 12px;
 }
 
 .local-navbar-button span a:hover {
@@ -1558,6 +1560,7 @@ div.blog-entry div.blog_comments_link {
 .view-lite-row-project-link {
     float: right;
     font-weight: bold;
+    margin-right: 26px;
 }
 
 .view-lite-row-project-name a:hover	{
