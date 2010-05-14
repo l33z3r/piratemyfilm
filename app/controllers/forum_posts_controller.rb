@@ -2,6 +2,9 @@ class ForumPostsController < ApplicationController
 
   before_filter :setup
   skip_filter :login_required, :only => [:show, :index]  
+
+  #controller not used so redirect to hom
+  before_filter :redirect_to_home
   
   def index
     redirect_to forum_path(@forum)

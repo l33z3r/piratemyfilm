@@ -113,4 +113,9 @@ class ApplicationController < ActionController::Base
       true
     end
   end
+
+  def redirect_to_home
+    redirect_to :controller => "home"
+  end
+
 end

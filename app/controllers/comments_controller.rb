@@ -1,8 +1,10 @@
 class CommentsController < ApplicationController
   skip_filter :store_location, :only => [:create, :destroy]
   before_filter :setup
-  
-  
+
+  #controller not used so redirect to hom
+  before_filter :redirect_to_home
+
   def index
     @comments = Comment.between_profiles(@p, @profile).paginate(:page => @page, :per_page => @per_page)
     redirect_to @p and return if @p == @profile

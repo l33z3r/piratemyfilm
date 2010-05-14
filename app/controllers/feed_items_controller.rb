@@ -1,6 +1,9 @@
 class FeedItemsController < ApplicationController
   skip_filter :store_location
   before_filter :setup
+
+  #controller not used so redirect to hom
+  before_filter :redirect_to_home
   
   def destroy
     @profile.feeds.find(:first, :conditions => {:feed_item_id=>params[:id]}).destroy

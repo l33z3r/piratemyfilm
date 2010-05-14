@@ -1,6 +1,8 @@
 class MessagesController < ApplicationController
   before_filter :can_send, :only => :create
-  
+
+  #controller not used so redirect to hom
+  before_filter :redirect_to_home
   
   def index
     @message = Message.new

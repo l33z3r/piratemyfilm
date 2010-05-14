@@ -9,7 +9,7 @@
     <meta name="description" content="The Film Futures Market for Pirates" />
     <meta name="keywords" content="max keiser, pirate film, market" />
 
-    <title><%= @title ? h(@title) + " - Pirate My Film" : "Pirate My Film" %></title>
+    <title><%= @title ? "Pirate My Film - " + h(@title) : "Pirate My Film" %></title>
 
     <%= render :partial => 'shared/head_load' %>
 
@@ -24,10 +24,42 @@
       <div id="header_links">
         <div class="menu bubplastic horizontal gray">
           <ul>
-            <li><span class="menu_r"><a href="/pages/how_it_works"><span class="menu_ar">How It Works</span></a></span></li>
-            <li><span class="menu_r"><a href="/pages/about_us"><span class="menu_ar">About Us</span></a></span></li>
-            <li><span class="menu_r"><a href="/pages/contact_us"><span class="menu_ar">Contact us</span></a></span></li>
-            <li><span class="menu_r"><a href="/"><span class="menu_ar">Home</span></a></span></li>
+            <li>
+              <span class="menu_r">
+                <a href="/pages/how_it_works">
+                  <span class="menu_ar">
+                    How It Works
+                  </span>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span class="menu_r">
+                <a href="/pages/about_us">
+                  <span class="menu_ar">
+                    About Us
+                  </span>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span class="menu_r">
+                <a href="/pages/contact_us">
+                  <span class="menu_ar">
+                    Contact Us
+                  </span>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span class="menu_r">
+                <a href="/">
+                  <span class="menu_ar">
+                    Home
+                  </span>
+                </a>
+              </span>
+            </li>
           </ul>
           <div class="pmf_clear">&nbsp;</div>
         </div>
@@ -50,24 +82,19 @@
               <%= show_default_flash -%>
             </div>
 
-            <% if !@hide_filter_params %>
-              <%= render :partial => 'shared/filter_param_box' %>
-              <div class="dashed_light_border">&nbsp;</div>
-            <% end %>
+            <div class="dashed_light_border">&nbsp;</div>
 
             <%= yield %>
 
-            <% if !@hide_filter_params %>
-              <div class="dashed_light_border">&nbsp;</div>
-              <%= render :partial => 'shared/filter_param_box' %>
-            <% end %>
-
           </div>
 
+          <% if !@hide_filter_params %>
+            <div class="dashed_light_border">&nbsp;</div>
+            <%= render :partial => 'shared/filter_param_box' %>
+          <% end %>
+
           <div class="pmf_clear">&nbsp;</div>
-
           <%= render :partial => 'shared/footer' %>
-
         </div>
       </div>
     </div>

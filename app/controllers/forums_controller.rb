@@ -2,6 +2,9 @@ class ForumsController < ApplicationController
   skip_filter :login_required, :only => [:show, :index]
   before_filter :setup
 
+  #controller not used so redirect to hom
+  before_filter :redirect_to_home
+  
   def index
     @forums = Forum.find(:all, :order => "position ASC")
     get_response :xml_object => @forums
