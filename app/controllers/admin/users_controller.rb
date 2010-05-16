@@ -2,11 +2,35 @@ class Admin::UsersController < Admin::AdminController
   before_filter :search_results, :except => [:destroy]
   
   def index
-    render
+    @membership_select_opts = []
+
+    @membership_types = MembershipType.find(:all)
+
+    @membership_types.each {  |@mt|
+      @membership_select_opts << [@mt.name, @mt.id.to_s]
+    }
+
+    @membership_select_opts
   end
-  
-  
-  
+
+  def update_membership
+    begin
+      @new_membership_type = MembershipType.find(params[:user_membership])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Membership type not found"
+      redirect_to :controller => "admin/users" and return
+    end
+
+    #delete old membership link
+    @p.user.membership.destroy
+
+    #create new link
+    Membership.create(:user => @p.user, :membership_type => @new_membership_type)
+
+    flash[:positive] = "Membership type changed."
+    redirect_to :controller => "admin/users"
+  end
+
   def update
     @profile = Profile.find(params[:id])
     respond_to do |wants|
@@ -32,6 +56,7 @@ class Admin::UsersController < Admin::AdminController
     else
       p = []
     end
-    @results = Profile.search((p.delete(:q) || ''), p).paginate(:page => @page, :per_page => @per_page)
+    @search_query = p.delete(:q)
+    @profiles = Profile.search((@search_query || ''), p).paginate:page => (params[:page] || 1), :per_page => 50
   end
 end

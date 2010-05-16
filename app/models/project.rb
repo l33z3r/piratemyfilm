@@ -47,6 +47,10 @@ class Project < ActiveRecord::Base
 
   validates_uniqueness_of :title
 
+  #description will be the logline of the project
+  #we are limiting it to 140 characters so that it is like twitter
+  validates_length_of :description, :within => 0..140
+
   validates_numericality_of :capital_required, :ipo_price, :project_length
   validates_numericality_of :share_percent_downloads, :share_percent_ads, :allow_nil => true
 
@@ -192,9 +196,9 @@ class Project < ActiveRecord::Base
   protected
   
   def validate
-    errors.add(:share_percent_downloads, "Must be a percentage (0 - 100)") if share_percent_downloads && (share_percent_downloads < 0 || share_percent_downloads > 100)
+    #errors.add(:share_percent_downloads, "Must be a percentage (0 - 100)") if share_percent_downloads && (share_percent_downloads < 0 || share_percent_downloads > 100)
     errors.add(:share_percent_ads, "Must be a percentage (0 - 100)") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
-    errors.add(:capital_required, "Capital Required must be a multiple of your download unit price") if capital_required % ipo_price !=0 || capital_required < ipo_price
+    errors.add(:capital_required, "Capital Required must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
   end
 
   def funding_limit_not_exceeded

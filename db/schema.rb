@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100505140134) do
+ActiveRecord::Schema.define(:version => 20100516091224) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"

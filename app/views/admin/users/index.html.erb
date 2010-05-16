@@ -1,15 +1,34 @@
+<div class="users">
+  <h2>
+    <% if @search_query %>
+      Search Results For <%= @search_query %>
+    <% else %>
+      Users
+    <% end %>
+  </h2>
 
-<div class="activity_box">
-  <h2>Search Results</h2>
-
-  <% @results.each do |p| %>
-  <div class="<%= cycle('odd','even') %> search_row left">
-    <div><%= icon p, :small %></div>
-    <div><%= link_to h(p.f), p %></div>
-    <div><%= mail_to h(p.email), p.email %></div>
-    <div><%= link_to_remote "#{ p.is_active ? 'deactivate' : 'activate' }", {:url => formatted_admin_user_path(p, 'js'), :method => :put}, {:id => p.dom_id('link')} %></div>						
+  <div class="headers">
+    <div class="icon_header">User Avatar</div>
+    <div class="name_header">User Name</div>
+    <div class="membershipt_type_header">Membership Type</div>
   </div>
+
+  <div class="dashed_light_border">&nbsp;</div>
+
+  <% @profiles.each do |p| %>
+    <div class="<%= cycle('odd','even') %> search_row left user">
+      <div class="icon"><%= icon p, :small %></div>
+      <div class="name"><%= h p.f %></div>
+      <div class="membership_type">
+        <% form_tag :action => "update_membership" do %>
+          <%= select_tag "user_membership", options_for_select(@membership_select_opts,
+            [p.user.membership.membership_type.name, p.user.membership.membership_type.id.to_s]), :onchange => "this.form.submit();" %></td>
+        <% end %>
+      </div>
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
   <% end %>
-  <div class="clear"></div>
-  <%= will_paginate @results %>
+
+  <%= pagination_controls_for @profiles if @profiles.respond_to? :total_pages %>
+
 </div>

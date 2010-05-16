@@ -224,6 +224,7 @@ class ProjectsController < ApplicationController
 
     #load rating select opts
     @admin_rating_select_opts = AdminProjectRating.rating_select_opts
+    @current_admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating.to_s : 1;
     @rating_select_opts = ProjectRating.rating_select_opts
   end
 
@@ -261,7 +262,7 @@ class ProjectsController < ApplicationController
     begin
       @project = Project.find_single_public(params[:id]) unless params[:id].blank?
     rescue ActiveRecord::RecordNotFound
-      flash[:notice] = "Project Not Found"
+      flash[:error] = "Project Not Found"
       redirect_to :controller => "home"
     end
   end

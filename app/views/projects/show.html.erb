@@ -18,6 +18,8 @@
     </h3>
   <% end %>
 
+  <div class="dashed_light_border">&nbsp;</div>
+  
   <%= render :partial => "project_small_view", :locals => {:project => @project} %>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -25,8 +27,7 @@
   <div class="view-lite-row-description">
     <span class="header">Project Logline:</span>
     <span class="body">
-      <%= truncate(h(@project.description), 200)%>
-      <%= link_to "...(more)", project_path(@project) unless @project.description.length < 201%>
+      <%= h @project.description %>
     </span>
   </div>
 
@@ -102,7 +103,7 @@
           <div class="button left"><%= link_to "New Blog", :controller => :blogs, :action => :new, :project_id => @project.id %></div>
         <% end %>
       </div>
-      
+
     </fieldset>
   </div>
 
@@ -122,7 +123,7 @@
           </li>
           <li>
             <label>Set Rating</label>
-            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts, [@admin_rating, @project.admin_project_rating.rating.to_s]) %>
+            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts, [@admin_rating, @current_admin_rating]) %>
             <%= submit_tag "Submit" %>
           </li>
         </ol>
@@ -140,7 +141,7 @@
         <div class="header">Member Rating</div>
         <ol>
           <li>
-            <label>Set Your Rating</label>
+            <label>Set Your Rating (You can change your rating once per day)</label>
             <%= select_tag "rating", options_for_select(@rating_select_opts) %>
             <input type="submit" name="submit" value="Submit"/>
           </li>

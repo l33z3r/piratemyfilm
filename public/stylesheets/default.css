@@ -1503,6 +1503,37 @@ div.blog-entry div.blog_comments_link {
 
 /* end blogs */
 
+/* admin section */
+
+div.admin_section div.pageTitle {
+    margin-bottom: 20px;
+}
+
+/* end admin section */
+
+/* user admin section */
+
+div.admin_section div.users div.user {
+    margin: 10px 0px;
+    text-align: center;
+}
+
+div.admin_section div.users div.headers div {
+    float: left;
+    font-weight: bold;
+    font-size: 13px;
+    width: 150px;
+}
+
+div.admin_section div.users div.user div {
+    float: left;
+    width: 200px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* end user admin section */
+
 .view-lite-row-title {
     background:#fff;
     color:#666666;
