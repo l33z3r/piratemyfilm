@@ -12,10 +12,6 @@ a:hover {
     color: #666666;
 }
 
-input {
-    cursor: pointer;
-}
-
 .right {
     float: right;
 }
@@ -55,7 +51,7 @@ div.dashed_light_border {
 /* Latest Max Blog */
 
 div#top_container {
-   font-size: 13px;
+    font-size: 13px;
     border-bottom: 2px dotted #999999;
     max-height: 200px;
     overflow: hidden;
@@ -165,55 +161,55 @@ div#signup_section div#welcome_message span#message a {
 /* Top Menu */
 
 div#header_links .bubplastic.horizontal {
-	width: 100%;
-	height: 27px;
-	margin: 0;
-	padding: 0;
-	background: #000000 url(/images/bg-bubplastic.gif) top left repeat-x;
+    width: 100%;
+    height: 27px;
+    margin: 0;
+    padding: 0;
+    background: #000000 url(/images/bg-bubplastic.gif) top left repeat-x;
 }
 
 div#header_links .bubplastic.horizontal ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 div#header_links .bubplastic.horizontal ul li {
-	float: right;
-	margin: 0;
-	padding: 0;
-	background: transparent url(/images/bg-bubplastic-button.gif) top left no-repeat;
+    float: right;
+    margin: 0;
+    padding: 0;
+    background: transparent url(/images/bg-bubplastic-button.gif) top left no-repeat;
 }
 
 div#header_links .bubplastic.horizontal ul li a {
-	display: block;
-	height: 27px;
-	padding-left: 35px;
-	float: left;
-	text-transform: capitalize;
-	font-size: 11px;
-	color: #FFFFFF;
+    display: block;
+    height: 27px;
+    padding-left: 35px;
+    float: left;
+    text-transform: capitalize;
+    font-size: 11px;
+    color: #FFFFFF;
     text-decoration: none;
 }
 
 div#header_links .bubplastic.horizontal ul li a span.menu_ar {
-	display: block;
-	float: left;
-	height: 22px;
-	padding-top: 5px;
-	padding-right: 35px;
-	background: transparent url(/images/bg-bubplastic-button.gif) top right no-repeat;
-	cursor: pointer;
+    display: block;
+    float: left;
+    height: 22px;
+    padding-top: 5px;
+    padding-right: 35px;
+    background: transparent url(/images/bg-bubplastic-button.gif) top right no-repeat;
+    cursor: pointer;
 }
 
 div#header_links .bubplastic.gray ul li a:hover,
 div#header_links .bubplastic.gray ul li.highlight a {
-	background: transparent url(/images/bg-bubplastic-h-gray.gif) top left no-repeat;
+    background: transparent url(/images/bg-bubplastic-h-gray.gif) top left no-repeat;
 }
 
 div#header_links .bubplastic.gray ul li a:hover span.menu_ar,
 div#header_links .bubplastic.gray ul li.highlight a span.menu_ar {
-	background: transparent url(/images/bg-bubplastic-h-gray.gif) top right no-repeat;
+    background: transparent url(/images/bg-bubplastic-h-gray.gif) top right no-repeat;
 }
 
 div#header_links span.welcome_message {
@@ -1058,6 +1054,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     background: transparent url(/images/button_bg.png) left top;
     padding: 9px 10px 10px 10px;
     width: 120px;
+    cursor: pointer;
     text-align: center;
 }
 
@@ -1509,9 +1506,53 @@ div.admin_section div.pageTitle {
     margin-bottom: 20px;
 }
 
+div.admin_section ul#tabs {
+    float: left;
+    width: 100%;
+    list-style: none;
+    padding-left: 0px;
+    border-bottom: 1px solid #666666;
+}
+
+div.admin_section ul#tabs LI {
+    float:left;
+    margin:0;
+    padding:0;
+}
+
+div.admin_section ul#tabs A {
+    display:block;
+    color:#444;
+    text-decoration:none;
+    font-weight:bold;
+    background:#ddd;
+    margin-right: 3px;
+    padding:0.25em 1em;
+    border: 1px solid #000000;
+    border-bottom-width: 0px;
+}
+
+div.admin_section ul#tabs A:hover,
+div.admin_section ul#tabs A:active,
+div.admin_section ul#tabs A.selected:link,
+div.admin_section ul#tabs A.selected:visited {
+    background: #FFFFFF;
+    margin-bottom: -1px;
+    border-bottom: 1px solid #FFFFFF;
+}
+
 /* end admin section */
 
 /* user admin section */
+
+div.admin_section div.users div#search_text {
+    float: left;
+    margin-top: 3px;
+}
+
+div.admin_section div.users div#user_search {
+    float: right;
+}
 
 div.admin_section div.users div.user {
     margin: 10px 0px;
@@ -1527,9 +1568,32 @@ div.admin_section div.users div.headers div {
 
 div.admin_section div.users div.user div {
     float: left;
-    width: 200px;
+    margin-top: 15px;
+    width: 150px;
     text-align: left;
     font-weight: bold;
+}
+
+div.admin_section div.users div.user div.icon {
+    margin-top: 0px;
+}
+
+div.admin_section div.users div.headers div.membership_type_header {
+    width: 450px;
+}
+
+div.admin_section div.users div.user div.membership_type {
+    width: 450px;
+}
+
+div.admin_section div.users div.user div.membership_type form select {
+    float: left;
+}
+
+div.admin_section div.users div.user div.membership_type form div.submit {
+    float: left;
+    margin-top: -6px;
+    margin-left: 25px;
 }
 
 /* end user admin section */
@@ -1679,7 +1743,7 @@ div.admin_section div.users div.user div {
     font-weight:bold;
     color:#666666;
     text-decoration:none;
-    width: 125px;
+    width: 120px;
     margin-bottom: 1px;
     overflow: hidden;
 }
@@ -1687,7 +1751,7 @@ div.admin_section div.users div.user div {
 #content .view-lite-row-numbers li.stat {
     text-align: left;
     color: #636363;
-    width: 69px;
+    width: 74px;
     margin-bottom: 1px;
     overflow: hidden;
 }
@@ -1985,3 +2049,34 @@ div.pagination a:hover {
 div.pagination .disabled {
     visibility: hidden;
 }
+
+/* modal div */
+
+div.overdiv {
+    filter: alpha(opacity=75);
+    -moz-opacity: .75;
+    opacity: .75;
+    background-color: #c0c0c0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%; height: 100%;
+}
+
+div.square {
+    position: absolute;
+    top: 200px;
+    left: 200px;
+    background-color: Menu;
+    border: #f9f9f9;
+    height: 200px;
+    width: 300px;
+}
+
+div.square div.msg {
+    color: #3e6bc2;
+    font-size: 15px;
+    padding: 15px;
+}
+
+/* end modal div */

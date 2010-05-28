@@ -1,0 +1,6 @@
+page.rjs_update_flashes flash
+
+#hide the button
+page["submit_container_#{@user.id}"].hide
+
+flash.discard

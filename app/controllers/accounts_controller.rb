@@ -54,7 +54,7 @@ class AccountsController < ApplicationController
     u.less_value_for_text_input = params[:user][:less_value_for_text_input]
 
     #give user a membership
-    Membership.create(:user => u, :membership_type => MembershipType.find_by_name("Gold"))
+    Membership.create(:user => u, :membership_type => MembershipType.find_by_name("Basic"))
 
     @u = u
     if u.save

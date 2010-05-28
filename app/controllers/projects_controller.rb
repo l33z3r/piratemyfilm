@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
 
   def index
     if @filter_param = params[:filter_param]
-      @filtered = true
+      @filtered = true      
 
       # essentially a switch statement:
       order = case @filter_param

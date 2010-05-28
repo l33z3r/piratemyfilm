@@ -1,0 +1,7 @@
+project1:
+  title: "a great project"
+  owner_id: 1
+  genre_id: 77675322
+  status: "funding"
+  capital_required: 1000
+  ipo_price: 5

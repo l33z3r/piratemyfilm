@@ -3,6 +3,7 @@ class Admin::MembershipTypesController < Admin::AdminController
   def index
     @membership_types = MembershipType.all
     @select_options = MembershipType.select_options
+    @min_funding_options = MembershipType.min_funding_options
     @funding_options = MembershipType.funding_options
   end
 
@@ -26,6 +27,10 @@ class Admin::MembershipTypesController < Admin::AdminController
         membership_type.update_unlimited_param(param[0])
       end
     end
+  end
+  
+  def set_selected_tab
+    @selected_tab_name = "membership_types"
   end
 
 end

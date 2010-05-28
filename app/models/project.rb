@@ -20,7 +20,6 @@
 #  youtube_vid_id          :string(255)   
 #  status                  :string(255)   default("Funding")
 #  project_length          :integer(4)    default(0)
-#  share_percent_downloads :integer(3)    
 #  share_percent_ads       :integer(3)    
 #  downloads_reserved      :integer(10)   default(0)
 #  downloads_available     :integer(10)   default(0)
@@ -40,9 +39,9 @@ class Project < ActiveRecord::Base
   
   belongs_to :genre, :foreign_key=>'genre_id'
   
-  validates_presence_of :owner_id, :title, :status, :genre_id
-  validates_presence_of :capital_required, :ipo_price
-
+  validates_presence_of :owner_id, :title, :status, :genre_id, :capital_required
+  validates_presence_of :ipo_price, :capital_recycled_percent, :producer_fee_percent
+  
   validates_inclusion_of :status, :in => @@PROJECT_STATUSES
 
   validates_uniqueness_of :title
@@ -52,11 +51,12 @@ class Project < ActiveRecord::Base
   validates_length_of :description, :within => 0..140
 
   validates_numericality_of :capital_required, :ipo_price, :project_length
-  validates_numericality_of :share_percent_downloads, :share_percent_ads, :allow_nil => true
+  validates_numericality_of :capital_recycled_percent, :producer_fee_percent, :allow_nil => true
+  validates_numericality_of :share_percent_ads, :allow_nil => true
 
   validates_filesize_of :icon, {:in => 0.kilobytes..1.megabyte, :message => "Your Project Image must be less than 1 megabyte"}
 
-  validate_on_create :funding_limit_not_exceeded
+  validate_on_create :funding_limit_not_exceeded, :min_funding_limit_passed
 
   acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote => false
 
@@ -171,15 +171,6 @@ class Project < ActiveRecord::Base
     capital_required / ipo_price
   end
 
-  def share_percent_downloads
-    if !super
-      self.share_percent_downloads = 0
-      self.save!
-    end
-
-    super
-  end
-
   def share_percent_ads
     if !super
       self.share_percent_ads = 0
@@ -196,17 +187,37 @@ class Project < ActiveRecord::Base
   protected
   
   def validate
-    #errors.add(:share_percent_downloads, "Must be a percentage (0 - 100)") if share_percent_downloads && (share_percent_downloads < 0 || share_percent_downloads > 100)
-    errors.add(:share_percent_ads, "Must be a percentage (0 - 100)") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
-    errors.add(:capital_required, "Capital Required must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
+    errors.add(:share_percent_ads, "must be between 0% - 100%") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
+    errors.add(:producer_fee_percent, "must be between 0% - 20%") if producer_fee_percent && (producer_fee_percent < 0 || producer_fee_percent > 20)
+    errors.add(:capital_recycled_percent, "must be between 0% - 100%") if capital_recycled_percent && (capital_recycled_percent < 0 || capital_recycled_percent > 100)
+
+    errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
+
+    #must check that total percentage adds up correctly
+    if share_percent_ads + capital_recycled_percent > 100
+      @exceeded_error_message = "% Ad Sales and % Capital Recycled to PMF must sum to less than 100%"
+      errors.add(:share_percent_ads, @exceeded_error_message)
+      errors.add(:capital_recycled_percent, @exceeded_error_message)
+    end
+
   end
 
   def funding_limit_not_exceeded
     funding_limit = owner.membership_type.funding_limit_per_project
     
     if self.capital_required > funding_limit && funding_limit != -1
-      errors.add(:capital_required, "Capital Required must be less than $#{funding_limit}, the limit for your membership type,
+      errors.add(:capital_required, " must be less than $#{funding_limit}, the limit for your membership type,
           We will be allowing account upgrades shortly!")
     end
   end
+
+  def min_funding_limit_passed
+    min_funding_limit = owner.membership_type.min_funding_limit_per_project
+
+    if self.capital_required < min_funding_limit
+      errors.add(:capital_required, " must be greater than $#{min_funding_limit}, the limit for your membership type,
+          We will be allowing account upgrades shortly!")
+    end
+  end
+
 end

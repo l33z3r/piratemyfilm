@@ -1,9 +1,3 @@
-<div id="MENU_HEADER" class="pageTitle">
-  Unrated Projects
-</div>
-
-<div class="dashed_light_border">&nbsp;</div>
-
 <%= render :partial => "admin/projects/listings", :object => @projects %>
 
 <%= pagination_controls_for @projects if @projects.respond_to? :total_pages %>

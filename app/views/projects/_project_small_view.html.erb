@@ -67,9 +67,34 @@
         <% end %>
       </li>
       <li class="pmf_clear"></li>
-      <li class="label">% Ad Sales:</li><li class="stat"><%= project.share_percent_ads %>%</li>
+      <li class="label">% Ad Sales:</li>
+      <li class="stat"><%= project.share_percent_ads %>%</li>
       <li class="pmf_clear"></li>
-      <li class="label">Break Even (<a class="tooltip_arrow" title="Based on a $10 CPM">?</a>):</li><li class="stat"><%= number_with_delimiter(number_with_precision(project.breakeven_views, 0)) %></li>
+      <li class="label">
+        % PMF Fund:
+      </li>
+      <li class="stat">
+        <%= project.capital_recycled_percent %>
+        (<a class="tooltip_arrow" title="This fund is used to invest (top up)
+            existing projects at the discretion of PMF">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="label">
+        % Producer Fee:
+      </li>
+      <li class="stat">
+        <%= project.producer_fee_percent %>
+        (<a class="tooltip_arrow" title="This is a % of the budget
+            that the producer will take as a fee">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="label">
+        Break Even:
+      </li>
+      <li class="stat">
+        <%= number_with_delimiter(number_with_precision(project.breakeven_views, 0)) %>
+        (<a class="tooltip_arrow" title="Based on a $10 CPM">?</a>)
+      </li>
       <li class="pmf_clear"></li>
     </ul>
   </div>

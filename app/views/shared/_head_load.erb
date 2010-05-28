@@ -1,13 +1,11 @@
-<%= javascript_include_tag 'jquery', 'thickbox', 'truncator', :cache=>false %>
+<%= javascript_include_tag 'custom', 'jquery', 'thickbox', 'truncator', :cache=>false %>
 
 <!-- jquery tooltip -->
-<%= javascript_include_tag 'jquery-tooltip/lib/jquery.bgiframe', 
-  'jquery-tooltip/lib/jquery.dimensions', 'jquery-tooltip/jquery.tooltip', :cache=>false %>
+<%= javascript_include_tag 'jquery-tooltip/lib/jquery.bgiframe',
+  'jquery-tooltip/lib/jquery.dimensions', 'jquery-tooltip/jquery.tooltip' %>
+
+<!-- Modal Popups (http://www.modalpopups.com) -->
+<%= javascript_include_tag 'modal-popups/shCore', 'modal-popups/ModalPopups',
+  'modal-popups/shBrushJScript', 'custom-modal-popups' %>
 
 <%= stylesheet_link_tag 'default', 'jquery.tooltip' %>
-
-<script type="text/javascript">
-  function doInit() {
-    $("#content_container *").tooltip();
-  }
-</script>
