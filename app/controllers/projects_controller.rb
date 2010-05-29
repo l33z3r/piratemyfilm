@@ -220,12 +220,17 @@ class ProjectsController < ApplicationController
     @user_rating = @project.user_rating
 
     #has this user rated this project
-    @my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u)
+    @my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u, :order => "created_at DESC", :limit => "1")
+    @selected_my_project_rating = @my_project_rating ? [@my_project_rating.rating, @my_project_rating.rating.to_s] : nil
+
+    #check if user can rate this project
+    @allowed_to_rate = !@my_project_rating || @my_project_rating.created_at < Time.now.beginning_of_day
 
     #load rating select opts
     @admin_rating_select_opts = AdminProjectRating.rating_select_opts
     @current_admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating.to_s : 1;
     @rating_select_opts = ProjectRating.rating_select_opts
+    @selected_admin_rating = [@admin_rating, @current_admin_rating]
   end
 
   def allow_to

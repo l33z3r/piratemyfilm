@@ -15,13 +15,21 @@ class Admin::UsersController < Admin::AdminController
     begin
       @user = User.find(params[:user_id])
     rescue ActiveRecord::RecordNotFound
-      flash[:error] = "User not found"
+      @error = true
+      flash[:error] = "User not found" and return
     end
 
     begin
       @new_membership_type = MembershipType.find(params[:user_membership])
     rescue ActiveRecord::RecordNotFound
-      flash[:error] = "Membership type not found"
+      @error = true
+      flash[:error] = "Membership type not found" and return
+    end
+
+    @skip_confirm = (params[:skip_confirm] and !params[:skip_confirm].blank?)
+
+    if !@skip_confirm
+      render :action => "confirm_update" and return
     end
 
     #delete old membership link
@@ -30,23 +38,6 @@ class Admin::UsersController < Admin::AdminController
 
     flash[:positive] = "Membership type changed."
   end
-
-#  def update
-#    @profile = Profile.find(params[:id])
-#    respond_to do |wants|
-#      wants.js do
-#        render :update do |page|
-#          if @p == @profile
-#            page << "message('You cannot deactivate yourself!');"
-#          else
-#            @profile.toggle! :is_active
-#            page << "message('User has been marked as #{@profile.is_active ? 'active' : 'inactive'}');"
-#            page.replace_html @profile.dom_id('link'), (@profile.is_active ? 'deactivate' : 'activate')
-#          end
-#        end
-#      end
-#    end
-#  end
   
   private
   

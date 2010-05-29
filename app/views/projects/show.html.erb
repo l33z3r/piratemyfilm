@@ -19,7 +19,7 @@
   <% end %>
 
   <div class="dashed_light_border">&nbsp;</div>
-  
+
   <%= render :partial => "project_small_view", :locals => {:project => @project} %>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -123,7 +123,7 @@
           </li>
           <li>
             <label>Set Rating</label>
-            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts, [@admin_rating, @current_admin_rating]) %>
+            <%= select_tag  "rating", options_for_select(@admin_rating_select_opts, @selected_admin_rating) %>
             <%= submit_tag "Submit" %>
           </li>
         </ol>
@@ -133,21 +133,25 @@
 
   <div class="pmf_clear">&nbsp;</div>
 
-  <% if !@my_project_rating && logged_in %>
-    <a name="user_rating">&nbsp;</a>
+  <a name="user_rating">&nbsp;</a>
 
-    <% form_tag :controller => "project_rating", :action => "rate", :project_id => @project.id do %>
-      <fieldset>
-        <div class="header">Member Rating</div>
-        <ol>
-          <li>
-            <label>Set Your Rating (You can change your rating once per day)</label>
-            <%= select_tag "rating", options_for_select(@rating_select_opts) %>
+  <% form_tag :controller => "project_rating", :action => "rate", :project_id => @project.id do %>
+    <fieldset>
+      <div class="header">Member Rating</div>
+      <ol>
+        <li>
+          <% if logged_in and @allowed_to_rate %>
+            <label>Set Your Rating <br/>(You can change your rating once per day)</label>
+            <%= select_tag "rating", options_for_select(@rating_select_opts, @selected_my_project_rating) %>
             <input type="submit" name="submit" value="Submit"/>
-          </li>
-        </ol>
-      </fieldset>
-    <% end %>
+          <% else %>
+            <label>&nbsp;</label>
+            Your current rating: <%= @my_project_rating.rating %>
+            <b>(You can change your rating once per day)</b>
+          <% end %>
+        </li>
+      </ol>
+    </fieldset>
   <% end %>
 
   <% if @project.subscribers.length > 0 %>

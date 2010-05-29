@@ -63,8 +63,10 @@
         <% if @my_project_rating %>
           <%= @my_project_rating.rating %>
         <% else %>
-          <a href="<%= project_path(project) + "#user_rating" %>">(rate)</a>
+          None
         <% end %>
+
+        <a href="<%= project_path(project) + "#user_rating" %>">(rate)</a>
       </li>
       <li class="pmf_clear"></li>
       <li class="label">% Ad Sales:</li>
