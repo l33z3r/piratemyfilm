@@ -40,7 +40,7 @@ class Project < ActiveRecord::Base
   belongs_to :genre, :foreign_key=>'genre_id'
   
   validates_presence_of :owner_id, :title, :status, :genre_id, :capital_required
-  validates_presence_of :ipo_price, :capital_recycled_percent, :producer_fee_percent
+  validates_presence_of :ipo_price#, :capital_recycled_percent, :producer_fee_percent
   
   validates_inclusion_of :status, :in => @@PROJECT_STATUSES
 
