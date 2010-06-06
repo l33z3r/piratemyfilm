@@ -39,7 +39,7 @@
     <ul>
       <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Shares Total:</li><li class="stat"><%= project.downloads_available %></li>
+      <li class="label">Shares Available:</li><li class="stat"><%= project.downloads_available %></li>
       <li class="pmf_clear"></li>
       <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
       <li class="pmf_clear"></li>
