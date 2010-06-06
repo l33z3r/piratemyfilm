@@ -51,7 +51,7 @@ class Project < ActiveRecord::Base
   validates_length_of :description, :within => 0..140
 
   validates_numericality_of :capital_required, :ipo_price, :project_length
-  validates_numericality_of :capital_recycled_percent, :producer_fee_percent, :allow_nil => true
+  #validates_numericality_of :capital_recycled_percent, :producer_fee_percent, :allow_nil => true
   validates_numericality_of :share_percent_ads, :allow_nil => true
 
   validates_filesize_of :icon, {:in => 0.kilobytes..1.megabyte, :message => "Your Project Image must be less than 1 megabyte"}
