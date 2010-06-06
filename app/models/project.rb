@@ -188,17 +188,17 @@ class Project < ActiveRecord::Base
   
   def validate
     errors.add(:share_percent_ads, "must be between 0% - 100%") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
-    errors.add(:producer_fee_percent, "must be between 0% - 20%") if producer_fee_percent && (producer_fee_percent < 0 || producer_fee_percent > 20)
-    errors.add(:capital_recycled_percent, "must be between 0% - 100%") if capital_recycled_percent && (capital_recycled_percent < 0 || capital_recycled_percent > 100)
+    #errors.add(:producer_fee_percent, "must be between 0% - 20%") if producer_fee_percent && (producer_fee_percent < 0 || producer_fee_percent > 20)
+    #errors.add(:capital_recycled_percent, "must be between 0% - 100%") if capital_recycled_percent && (capital_recycled_percent < 0 || capital_recycled_percent > 100)
 
     errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
 
     #must check that total percentage adds up correctly
-    if share_percent_ads + capital_recycled_percent > 100
-      @exceeded_error_message = "% Ad Sales and % Capital Recycled to PMF must sum to less than 100%"
-      errors.add(:share_percent_ads, @exceeded_error_message)
-      errors.add(:capital_recycled_percent, @exceeded_error_message)
-    end
+#    if share_percent_ads + capital_recycled_percent > 100
+#      @exceeded_error_message = "% Ad Sales and % Capital Recycled to PMF must sum to less than 100%"
+#      errors.add(:share_percent_ads, @exceeded_error_message)
+#      errors.add(:capital_recycled_percent, @exceeded_error_message)
+#    end
 
   end
 
