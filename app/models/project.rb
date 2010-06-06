@@ -39,8 +39,8 @@ class Project < ActiveRecord::Base
   
   belongs_to :genre, :foreign_key=>'genre_id'
   
-  validates_presence_of :owner_id, :title, :status, :genre_id, :capital_required
-  validates_presence_of :ipo_price, :capital_recycled_percent, :producer_fee_percent
+  validates_presence_of :owner_id, :title, :status
+  validates_presence_of :ipo_price, :genre_id, :capital_required
   
   validates_inclusion_of :status, :in => @@PROJECT_STATUSES
 
@@ -50,7 +50,7 @@ class Project < ActiveRecord::Base
   #we are limiting it to 140 characters so that it is like twitter
   validates_length_of :description, :within => 0..140
 
-  validates_numericality_of :capital_required, :ipo_price, :project_length
+  validates_numericality_of :capital_required, :ipo_price, :project_length, :allow_nil => true
   validates_numericality_of :capital_recycled_percent, :producer_fee_percent, :allow_nil => true
   validates_numericality_of :share_percent_ads, :allow_nil => true
 
@@ -171,12 +171,35 @@ class Project < ActiveRecord::Base
     capital_required / ipo_price
   end
 
-  def share_percent_ads
+  def capital_required
     if !super
-      self.share_percent_ads = 0
-      self.save!
+      return 0
     end
 
+    super
+  end
+
+  def capital_recycled_percent
+    if !super
+      return 0
+    end
+
+    super
+  end
+
+  def ipo_price
+    if !super
+      return 0
+    end
+
+    super
+  end
+
+  def share_percent_ads
+    if !super
+      return 0
+    end
+    
     super
   end
 

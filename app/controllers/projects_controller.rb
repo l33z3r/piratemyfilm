@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
   def new
     unless @project_limit == -1
       if @u.owned_public_projects.size >= @project_limit
-        flash[:negative] = "Sorry you have reached your limit of #{@project_limit} project listings"
+        flash[:error] = "Sorry you have reached your limit of #{@project_limit} project listings"
         redirect_to :controller => "projects" and return
       end
     end
@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
     begin
       unless @project_limit == -1
         if @u.owned_public_projects.size >= @project_limit
-          flash[:negative] = "Sorry you have reached your limit of #{project_limit} project listings"
+          flash[:error] = "Sorry you have reached your limit of #{project_limit} project listings"
           redirect_to :controller => "projects" and return
         end
       end
@@ -72,7 +72,7 @@ class ProjectsController < ApplicationController
       
       render :action=>'new' and return unless @project.valid?
       #verify captcha
-      render :action=>'new' and return unless check_captcha
+      render :action=>'new' and return unless check_captcha(false)
 
       @project.save!
       @project.update_funding
@@ -82,14 +82,14 @@ class ProjectsController < ApplicationController
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Project"      
       @genres = Genre.find(:all)
-      flash[:negative] = "Sorry, there was a problem creating your project"
+      flash[:error] = "Sorry, there was a problem creating your project"
       render :action=>'new'
     end
   end
 
   def show
     if !@project
-      flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
+      flash[:error] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
       redirect_to :action=>'index' and return
     end
 
@@ -132,7 +132,7 @@ class ProjectsController < ApplicationController
       rescue ActiveRecord::RecordInvalid
         logger.debug "Error creating Project"      
         @genres = Genre.find(:all)
-        flash[:negative] = "Sorry, there was a problem updating your project"
+        flash[:error] = "Sorry, there was a problem updating your project"
         render :action=>'edit'
       end            
     end 
@@ -140,7 +140,7 @@ class ProjectsController < ApplicationController
 
   def delete
     if !@project
-      flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
+      flash[:error] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
       render :action=>'index' and return
     end
 
@@ -160,7 +160,7 @@ class ProjectsController < ApplicationController
 
   def restore
     if !@project
-      flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
+      flash[:error] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
       render :action=>'index' and return
     end
 
@@ -241,7 +241,7 @@ class ProjectsController < ApplicationController
   
   def check_owner
     if !@project
-      flash[:negative] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
+      flash[:error] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
       redirect_to :action=>'index' and return
     end
     

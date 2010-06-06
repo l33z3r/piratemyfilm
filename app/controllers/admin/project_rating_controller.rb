@@ -41,7 +41,7 @@ class Admin::ProjectRatingController < Admin::AdminController
       redirect_to :controller => "/projects", :action => "show", :id => @project_id
 
     rescue ActiveRecord::RecordInvalid
-      flash[:negative] = "Error rating project!"
+      flash[:error] = "Error rating project!"
       redirect_to :controller => "/projects", :action => "show", :id => @project_id
     end
   end

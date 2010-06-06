@@ -225,7 +225,7 @@ div#top_search_box {
 
 /* Flash messages */
 
-div#flashes p.negative {
+div#flashes p.error {
     padding: 2px;
     border: 1px solid #D8000C;
     color: #D8000C;

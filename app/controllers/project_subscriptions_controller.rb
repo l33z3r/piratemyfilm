@@ -64,7 +64,7 @@ class ProjectSubscriptionsController < ApplicationController
     begin            
       
       if @project_subscription.nil?       
-        flash[:negative] = "You do not have any premium copies of this project to cancel!"
+        flash[:error] = "You do not have any premium copies of this project to cancel!"
         redirect_to project_path(@project) and return
       else
         if @project_subscription.amount > 1

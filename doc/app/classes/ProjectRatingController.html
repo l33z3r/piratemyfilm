@@ -131,48 +131,51 @@
  5:       <span class="ruby-ivar">@project_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project_id</span>]
  6:       <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@project_id</span>)
  7:           
- 8:       <span class="ruby-ivar">@my_project_rating</span> = <span class="ruby-constant">ProjectRatingHistory</span>.<span class="ruby-identifier">find_by_project_id_and_user_id</span>(<span class="ruby-ivar">@project_id</span>, <span class="ruby-ivar">@u</span>.<span class="ruby-identifier">id</span>)
+ 8:       <span class="ruby-ivar">@my_project_rating</span> = <span class="ruby-constant">ProjectRatingHistory</span>.<span class="ruby-identifier">find_by_project_id_and_user_id</span>(<span class="ruby-ivar">@project_id</span>, <span class="ruby-ivar">@u</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;created_at DESC&quot;</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1&quot;</span>)
  9: 
-10:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@my_project_rating</span>
-11:         <span class="ruby-ivar">@current_project_rating</span> = <span class="ruby-constant">ProjectRating</span>.<span class="ruby-identifier">find_by_project_id</span> <span class="ruby-ivar">@project_id</span>
-12: 
-13:         <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@current_project_rating</span>
-14:           <span class="ruby-ivar">@current_project_rating</span> = <span class="ruby-constant">ProjectRating</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:project</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span>, <span class="ruby-identifier">:average_rating</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)
-15:         <span class="ruby-keyword kw">end</span>
+10:       <span class="ruby-ivar">@beginning_of_day</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">beginning_of_day</span>
+11: 
+12:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@my_project_rating</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@my_project_rating</span>.<span class="ruby-identifier">created_at</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@beginning_of_day</span>
+13:         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;You have already rated this project today!&quot;</span>
+14:         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;projects&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_id</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+15:       <span class="ruby-keyword kw">end</span>
 16: 
-17:         <span class="ruby-comment cmt">#Get all project rating historys</span>
-18:         <span class="ruby-ivar">@project_rating_histories</span> = <span class="ruby-constant">ProjectRatingHistory</span>.<span class="ruby-identifier">find_all_by_project_id</span> <span class="ruby-ivar">@project_id</span>
-19:         
-20:         <span class="ruby-ivar">@rating</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:rating</span>].<span class="ruby-identifier">to_f</span>
-21: 
-22:         <span class="ruby-comment cmt">#update the running average</span>
-23:         <span class="ruby-ivar">@alpha</span> = <span class="ruby-value">1.0</span><span class="ruby-operator">/</span>(<span class="ruby-ivar">@project_rating_histories</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
-24:         <span class="ruby-ivar">@current_sample</span> = <span class="ruby-ivar">@rating</span>
-25:         <span class="ruby-ivar">@current_avg</span> = <span class="ruby-ivar">@current_project_rating</span>.<span class="ruby-identifier">average_rating</span>
-26: 
-27:         <span class="ruby-comment cmt">#formula for updating running avg</span>
-28:         <span class="ruby-ivar">@new_avg</span> = ((<span class="ruby-value">1</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@alpha</span>) <span class="ruby-operator">*</span> <span class="ruby-ivar">@current_avg</span>) <span class="ruby-operator">+</span> (<span class="ruby-ivar">@alpha</span> <span class="ruby-operator">*</span> <span class="ruby-ivar">@current_sample</span>)
-29:         
-30:         <span class="ruby-ivar">@current_project_rating</span>.<span class="ruby-identifier">average_rating</span> = <span class="ruby-ivar">@new_avg</span>
-31:         <span class="ruby-ivar">@current_project_rating</span>.<span class="ruby-identifier">save!</span>
+17:       <span class="ruby-ivar">@current_project_rating</span> = <span class="ruby-constant">ProjectRating</span>.<span class="ruby-identifier">find_by_project_id</span> <span class="ruby-ivar">@project_id</span>
+18: 
+19:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@current_project_rating</span>
+20:         <span class="ruby-ivar">@current_project_rating</span> = <span class="ruby-constant">ProjectRating</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:project</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span>, <span class="ruby-identifier">:average_rating</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)
+21:       <span class="ruby-keyword kw">end</span>
+22: 
+23:       <span class="ruby-comment cmt">#Get all project rating historys</span>
+24:       <span class="ruby-ivar">@project_rating_histories</span> = <span class="ruby-constant">ProjectRatingHistory</span>.<span class="ruby-identifier">find_all_by_project_id</span> <span class="ruby-ivar">@project_id</span>
+25:         
+26:       <span class="ruby-ivar">@rating</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:rating</span>].<span class="ruby-identifier">to_f</span>
+27: 
+28:       <span class="ruby-comment cmt">#update the running average</span>
+29:       <span class="ruby-ivar">@alpha</span> = <span class="ruby-value">1.0</span><span class="ruby-operator">/</span>(<span class="ruby-ivar">@project_rating_histories</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+30:       <span class="ruby-ivar">@current_sample</span> = <span class="ruby-ivar">@rating</span>
+31:       <span class="ruby-ivar">@current_avg</span> = <span class="ruby-ivar">@current_project_rating</span>.<span class="ruby-identifier">average_rating</span>
 32: 
-33:         <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">member_rating</span> = <span class="ruby-ivar">@new_avg</span>
-34:         <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">save!</span>
-35: 
-36:         <span class="ruby-comment cmt">#add the new sample</span>
-37:         <span class="ruby-constant">ProjectRatingHistory</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:project</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span>, <span class="ruby-identifier">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@u</span>, <span class="ruby-identifier">:rating</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@rating</span>)
-38:         
-39:         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:positive</span>] = <span class="ruby-value str">&quot;Project Rated!&quot;</span>
-40:       <span class="ruby-keyword kw">else</span>
-41:         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;You have already rated this project!&quot;</span>
-42:       <span class="ruby-keyword kw">end</span>
-43: 
-44:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;projects&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_id</span>
-45:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span>
-46:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;Error rating project!&quot;</span>
+33:       <span class="ruby-comment cmt">#formula for updating running avg</span>
+34:       <span class="ruby-ivar">@new_avg</span> = ((<span class="ruby-value">1</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@alpha</span>) <span class="ruby-operator">*</span> <span class="ruby-ivar">@current_avg</span>) <span class="ruby-operator">+</span> (<span class="ruby-ivar">@alpha</span> <span class="ruby-operator">*</span> <span class="ruby-ivar">@current_sample</span>)
+35:         
+36:       <span class="ruby-ivar">@current_project_rating</span>.<span class="ruby-identifier">average_rating</span> = <span class="ruby-ivar">@new_avg</span>
+37:       <span class="ruby-ivar">@current_project_rating</span>.<span class="ruby-identifier">save!</span>
+38: 
+39:       <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">member_rating</span> = <span class="ruby-ivar">@new_avg</span>
+40:       <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">save!</span>
+41: 
+42:       <span class="ruby-comment cmt">#add the new sample</span>
+43:       <span class="ruby-constant">ProjectRatingHistory</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:project</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span>, <span class="ruby-identifier">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@u</span>, <span class="ruby-identifier">:rating</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@rating</span>)
+44:         
+45:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:positive</span>] = <span class="ruby-value str">&quot;Project Rated!&quot;</span>
+46: 
 47:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;projects&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_id</span>
-48:     <span class="ruby-keyword kw">end</span>
-49:   <span class="ruby-keyword kw">end</span>
+48:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span>
+49:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Error rating project!&quot;</span>
+50:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;projects&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_id</span>
+51:     <span class="ruby-keyword kw">end</span>
+52:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -194,10 +197,10 @@
             onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000007-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/project_rating_controller.rb, line 53</span>
-53:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_to</span>
-54:     <span class="ruby-keyword kw">super</span> <span class="ruby-operator">:</span><span class="ruby-identifier">user</span>, <span class="ruby-identifier">:all</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
-55:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/project_rating_controller.rb, line 56</span>
+56:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_to</span>
+57:     <span class="ruby-keyword kw">super</span> <span class="ruby-operator">:</span><span class="ruby-identifier">user</span>, <span class="ruby-identifier">:all</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+58:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

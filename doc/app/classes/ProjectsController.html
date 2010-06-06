@@ -175,7 +175,7 @@
 58:     <span class="ruby-keyword kw">begin</span>
 59:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@project_limit</span> <span class="ruby-operator">==</span> <span class="ruby-value">-1</span>
 60:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@u</span>.<span class="ruby-identifier">owned_public_projects</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@project_limit</span>
-61:           <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-node">&quot;Sorry you have reached your limit of #{project_limit} project listings&quot;</span>
+61:           <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-node">&quot;Sorry you have reached your limit of #{project_limit} project listings&quot;</span>
 62:           <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;projects&quot;</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
 63:         <span class="ruby-keyword kw">end</span>
 64:       <span class="ruby-keyword kw">end</span>
@@ -189,7 +189,7 @@
 72:       
 73:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'new'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">valid?</span>
 74:       <span class="ruby-comment cmt">#verify captcha</span>
-75:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'new'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">check_captcha</span>
+75:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'new'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">check_captcha</span>(<span class="ruby-keyword kw">false</span>)
 76: 
 77:       <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">save!</span>
 78:       <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">update_funding</span>
@@ -199,7 +199,7 @@
 82:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span>
 83:       <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;Error creating Project&quot;</span>      
 84:       <span class="ruby-ivar">@genres</span> = <span class="ruby-constant">Genre</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>)
-85:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;Sorry, there was a problem creating your project&quot;</span>
+85:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Sorry, there was a problem creating your project&quot;</span>
 86:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'new'</span>
 87:     <span class="ruby-keyword kw">end</span>
 88:   <span class="ruby-keyword kw">end</span>
@@ -225,7 +225,7 @@
      <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 141</span>
 141:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>
 142:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@project</span>
-143:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;Sorry, that project was not found. It may have been deleted or is awaiting admin verification!&quot;</span>
+143:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Sorry, that project was not found. It may have been deleted or is awaiting admin verification!&quot;</span>
 144:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'index'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
 145:     <span class="ruby-keyword kw">end</span>
 146: 
@@ -380,7 +380,7 @@
 44:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new</span>
 45:     <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@project_limit</span> <span class="ruby-operator">==</span> <span class="ruby-value">-1</span>
 46:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@u</span>.<span class="ruby-identifier">owned_public_projects</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@project_limit</span>
-47:         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-node">&quot;Sorry you have reached your limit of #{@project_limit} project listings&quot;</span>
+47:         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-node">&quot;Sorry you have reached your limit of #{@project_limit} project listings&quot;</span>
 48:         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;projects&quot;</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
 49:       <span class="ruby-keyword kw">end</span>
 50:     <span class="ruby-keyword kw">end</span>
@@ -411,7 +411,7 @@
      <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 161</span>
 161:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">restore</span>
 162:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@project</span>
-163:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;Sorry, that project was not found. It may have been deleted or is awaiting admin verification!&quot;</span>
+163:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Sorry, that project was not found. It may have been deleted or is awaiting admin verification!&quot;</span>
 164:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'index'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
 165:     <span class="ruby-keyword kw">end</span>
 166: 
@@ -467,7 +467,7 @@
      <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 90</span>
  90:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show</span>
  91:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@project</span>
- 92:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;Sorry, that project was not found. It may have been deleted or is awaiting admin verification!&quot;</span>
+ 92:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Sorry, that project was not found. It may have been deleted or is awaiting admin verification!&quot;</span>
  93:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'index'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
  94:     <span class="ruby-keyword kw">end</span>
  95: 
@@ -539,7 +539,7 @@
 132:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span>
 133:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;Error creating Project&quot;</span>      
 134:         <span class="ruby-ivar">@genres</span> = <span class="ruby-constant">Genre</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>)
-135:         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;Sorry, there was a problem updating your project&quot;</span>
+135:         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Sorry, there was a problem updating your project&quot;</span>
 136:         <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'edit'</span>
 137:       <span class="ruby-keyword kw">end</span>            
 138:     <span class="ruby-keyword kw">end</span> 
@@ -565,12 +565,12 @@
             onclick="toggleCode('M000105-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000105-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 231</span>
-231:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_to</span>
-232:     <span class="ruby-keyword kw">super</span> <span class="ruby-operator">:</span><span class="ruby-identifier">all</span>, <span class="ruby-identifier">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:index</span>, <span class="ruby-identifier">:show</span>, <span class="ruby-identifier">:blogs</span>, <span class="ruby-identifier">:search</span>, <span class="ruby-identifier">:filter_by_param</span>]
-233:     <span class="ruby-keyword kw">super</span> <span class="ruby-operator">:</span><span class="ruby-identifier">admin</span>, <span class="ruby-identifier">:all</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
-234:     <span class="ruby-keyword kw">super</span> <span class="ruby-operator">:</span><span class="ruby-identifier">user</span>, <span class="ruby-identifier">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:new</span>, <span class="ruby-identifier">:create</span>, <span class="ruby-identifier">:show_private</span>, <span class="ruby-identifier">:edit</span>, <span class="ruby-identifier">:update</span>, <span class="ruby-identifier">:delete</span>, <span class="ruby-identifier">:delete_icon</span>]
-235:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 236</span>
+236:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_to</span>
+237:     <span class="ruby-keyword kw">super</span> <span class="ruby-operator">:</span><span class="ruby-identifier">all</span>, <span class="ruby-identifier">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:index</span>, <span class="ruby-identifier">:show</span>, <span class="ruby-identifier">:blogs</span>, <span class="ruby-identifier">:search</span>, <span class="ruby-identifier">:filter_by_param</span>]
+238:     <span class="ruby-keyword kw">super</span> <span class="ruby-operator">:</span><span class="ruby-identifier">admin</span>, <span class="ruby-identifier">:all</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+239:     <span class="ruby-keyword kw">super</span> <span class="ruby-operator">:</span><span class="ruby-identifier">user</span>, <span class="ruby-identifier">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:new</span>, <span class="ruby-identifier">:create</span>, <span class="ruby-identifier">:show_private</span>, <span class="ruby-identifier">:edit</span>, <span class="ruby-identifier">:update</span>, <span class="ruby-identifier">:delete</span>, <span class="ruby-identifier">:delete_icon</span>]
+240:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -590,18 +590,18 @@
             onclick="toggleCode('M000106-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000106-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 237</span>
-237:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_owner</span>
-238:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@project</span>
-239:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;Sorry, that project was not found. It may have been deleted or is awaiting admin verification!&quot;</span>
-240:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'index'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
-241:     <span class="ruby-keyword kw">end</span>
-242:     
-243:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">owner</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@u</span>
-244:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">'You are not the owner of this project.'</span>
-245:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">project_path</span>(<span class="ruby-ivar">@project</span>)     
+     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 242</span>
+242:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_owner</span>
+243:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@project</span>
+244:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Sorry, that project was not found. It may have been deleted or is awaiting admin verification!&quot;</span>
+245:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'index'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
 246:     <span class="ruby-keyword kw">end</span>
-247:   <span class="ruby-keyword kw">end</span>
+247:     
+248:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">owner</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@u</span>
+249:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">'You are not the owner of this project.'</span>
+250:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">project_path</span>(<span class="ruby-ivar">@project</span>)     
+251:     <span class="ruby-keyword kw">end</span>
+252:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -621,13 +621,13 @@
             onclick="toggleCode('M000107-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000107-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 249</span>
-249:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_owner_or_admin</span>
-250:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">owner</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@u</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@u</span>.<span class="ruby-identifier">is_admin</span>
-251:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">'You are not the owner of this project.'</span>
-252:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">project_path</span>(<span class="ruby-ivar">@project</span>)
-253:     <span class="ruby-keyword kw">end</span>
-254:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 254</span>
+254:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_owner_or_admin</span>
+255:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">owner</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@u</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@u</span>.<span class="ruby-identifier">is_admin</span>
+256:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">'You are not the owner of this project.'</span>
+257:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">project_path</span>(<span class="ruby-ivar">@project</span>)
+258:     <span class="ruby-keyword kw">end</span>
+259:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -670,15 +670,15 @@
             onclick="toggleCode('M000109-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000109-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 261</span>
-261:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_project</span>
-262:     <span class="ruby-keyword kw">begin</span>
-263:       <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_single_public</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>].<span class="ruby-identifier">blank?</span>
-264:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordNotFound</span>
-265:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Project Not Found&quot;</span>
-266:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;home&quot;</span>
-267:     <span class="ruby-keyword kw">end</span>
-268:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 266</span>
+266:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_project</span>
+267:     <span class="ruby-keyword kw">begin</span>
+268:       <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_single_public</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>].<span class="ruby-identifier">blank?</span>
+269:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordNotFound</span>
+270:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Project Not Found&quot;</span>
+271:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;home&quot;</span>
+272:     <span class="ruby-keyword kw">end</span>
+273:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -698,13 +698,13 @@
             onclick="toggleCode('M000110-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000110-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 270</span>
-270:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_project_private</span>
-271:     <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>].<span class="ruby-identifier">blank?</span>
-272: 
-273:     <span class="ruby-comment cmt">#test permissions on this project</span>
-274:     <span class="ruby-identifier">raise</span> <span class="ruby-value str">'You do not have permission to view this project!'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">owner</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@u</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@u</span>.<span class="ruby-identifier">is_admin</span>
-275:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 275</span>
+275:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_project_private</span>
+276:     <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>].<span class="ruby-identifier">blank?</span>
+277: 
+278:     <span class="ruby-comment cmt">#test permissions on this project</span>
+279:     <span class="ruby-identifier">raise</span> <span class="ruby-value str">'You do not have permission to view this project!'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">owner</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@u</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@u</span>.<span class="ruby-identifier">is_admin</span>
+280:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -756,13 +756,18 @@
 220:     <span class="ruby-ivar">@user_rating</span> = <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">user_rating</span>
 221: 
 222:     <span class="ruby-comment cmt">#has this user rated this project</span>
-223:     <span class="ruby-ivar">@my_project_rating</span> = <span class="ruby-constant">ProjectRatingHistory</span>.<span class="ruby-identifier">find_by_project_id_and_user_id</span>(<span class="ruby-ivar">@project</span>, <span class="ruby-ivar">@u</span>)
-224: 
-225:     <span class="ruby-comment cmt">#load rating select opts</span>
-226:     <span class="ruby-ivar">@admin_rating_select_opts</span> = <span class="ruby-constant">AdminProjectRating</span>.<span class="ruby-identifier">rating_select_opts</span>
-227:     <span class="ruby-ivar">@current_admin_rating</span> = <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">admin_project_rating</span> <span class="ruby-value">? </span><span class="ruby-ivar">@project</span>.<span class="ruby-identifier">admin_project_rating</span>.<span class="ruby-identifier">rating</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>;
-228:     <span class="ruby-ivar">@rating_select_opts</span> = <span class="ruby-constant">ProjectRating</span>.<span class="ruby-identifier">rating_select_opts</span>
-229:   <span class="ruby-keyword kw">end</span>
+223:     <span class="ruby-ivar">@my_project_rating</span> = <span class="ruby-constant">ProjectRatingHistory</span>.<span class="ruby-identifier">find_by_project_id_and_user_id</span>(<span class="ruby-ivar">@project</span>, <span class="ruby-ivar">@u</span>, <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;created_at DESC&quot;</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1&quot;</span>)
+224:     <span class="ruby-ivar">@selected_my_project_rating</span> = <span class="ruby-ivar">@my_project_rating</span> <span class="ruby-operator">?</span> [<span class="ruby-ivar">@my_project_rating</span>.<span class="ruby-identifier">rating</span>, <span class="ruby-ivar">@my_project_rating</span>.<span class="ruby-identifier">rating</span>.<span class="ruby-identifier">to_s</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+225: 
+226:     <span class="ruby-comment cmt">#check if user can rate this project</span>
+227:     <span class="ruby-ivar">@allowed_to_rate</span> = <span class="ruby-operator">!</span><span class="ruby-ivar">@my_project_rating</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@my_project_rating</span>.<span class="ruby-identifier">created_at</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">beginning_of_day</span>
+228: 
+229:     <span class="ruby-comment cmt">#load rating select opts</span>
+230:     <span class="ruby-ivar">@admin_rating_select_opts</span> = <span class="ruby-constant">AdminProjectRating</span>.<span class="ruby-identifier">rating_select_opts</span>
+231:     <span class="ruby-ivar">@current_admin_rating</span> = <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">admin_project_rating</span> <span class="ruby-value">? </span><span class="ruby-ivar">@project</span>.<span class="ruby-identifier">admin_project_rating</span>.<span class="ruby-identifier">rating</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>;
+232:     <span class="ruby-ivar">@rating_select_opts</span> = <span class="ruby-constant">ProjectRating</span>.<span class="ruby-identifier">rating_select_opts</span>
+233:     <span class="ruby-ivar">@selected_admin_rating</span> = [<span class="ruby-ivar">@admin_rating</span>, <span class="ruby-ivar">@current_admin_rating</span>]
+234:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -782,24 +787,24 @@
             onclick="toggleCode('M000112-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000112-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 287</span>
-287:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">round_budget_from_params</span>
-288: 
-289:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project</span>][<span class="ruby-identifier">:capital_required</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project</span>][<span class="ruby-identifier">:ipo_price</span>]
-290:       <span class="ruby-comment cmt">#round the funding to multiple of premium copy price</span>
-291:       <span class="ruby-ivar">@unrounded_budget</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project</span>][<span class="ruby-identifier">:capital_required</span>].<span class="ruby-identifier">to_f</span>
-292:       <span class="ruby-ivar">@premium_copy_price</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project</span>][<span class="ruby-identifier">:ipo_price</span>].<span class="ruby-identifier">to_f</span>
+     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 292</span>
+292:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">round_budget_from_params</span>
 293: 
-294:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@unrounded_budget</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@premium_copy_price</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
-295:         <span class="ruby-ivar">@trim</span> = <span class="ruby-ivar">@unrounded_budget</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@premium_copy_price</span>
-296:         <span class="ruby-ivar">@trimmed_budget</span> = <span class="ruby-ivar">@unrounded_budget</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@trim</span>
-297:         <span class="ruby-ivar">@rounded_budget</span> = <span class="ruby-ivar">@trimmed_budget</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@premium_copy_price</span>
+294:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project</span>][<span class="ruby-identifier">:capital_required</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project</span>][<span class="ruby-identifier">:ipo_price</span>]
+295:       <span class="ruby-comment cmt">#round the funding to multiple of premium copy price</span>
+296:       <span class="ruby-ivar">@unrounded_budget</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project</span>][<span class="ruby-identifier">:capital_required</span>].<span class="ruby-identifier">to_f</span>
+297:       <span class="ruby-ivar">@premium_copy_price</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project</span>][<span class="ruby-identifier">:ipo_price</span>].<span class="ruby-identifier">to_f</span>
 298: 
-299:         <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project</span>][<span class="ruby-identifier">:capital_required</span>] = <span class="ruby-ivar">@rounded_budget</span>.<span class="ruby-identifier">to_i</span>
-300:       <span class="ruby-keyword kw">end</span>
-301:     <span class="ruby-keyword kw">end</span>
-302:     
-303:   <span class="ruby-keyword kw">end</span>
+299:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@unrounded_budget</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@premium_copy_price</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+300:         <span class="ruby-ivar">@trim</span> = <span class="ruby-ivar">@unrounded_budget</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@premium_copy_price</span>
+301:         <span class="ruby-ivar">@trimmed_budget</span> = <span class="ruby-ivar">@unrounded_budget</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@trim</span>
+302:         <span class="ruby-ivar">@rounded_budget</span> = <span class="ruby-ivar">@trimmed_budget</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@premium_copy_price</span>
+303: 
+304:         <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project</span>][<span class="ruby-identifier">:capital_required</span>] = <span class="ruby-ivar">@rounded_budget</span>.<span class="ruby-identifier">to_i</span>
+305:       <span class="ruby-keyword kw">end</span>
+306:     <span class="ruby-keyword kw">end</span>
+307:     
+308:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -819,16 +824,16 @@
             onclick="toggleCode('M000111-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000111-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 277</span>
-277:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">search_results</span>
-278:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:search</span>]
-279:       <span class="ruby-identifier">p</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:search</span>].<span class="ruby-identifier">dup</span>
-280:     <span class="ruby-keyword kw">else</span>
-281:       <span class="ruby-identifier">p</span> = []
-282:     <span class="ruby-keyword kw">end</span>
-283:     <span class="ruby-ivar">@search_string</span> = <span class="ruby-identifier">p</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:q</span>) <span class="ruby-operator">||</span> <span class="ruby-value str">''</span>
-284:     <span class="ruby-ivar">@results</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">search</span>(<span class="ruby-ivar">@search_string</span>, <span class="ruby-identifier">p</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@page</span>, <span class="ruby-identifier">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@per_page</span>)
-285:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 282</span>
+282:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">search_results</span>
+283:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:search</span>]
+284:       <span class="ruby-identifier">p</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:search</span>].<span class="ruby-identifier">dup</span>
+285:     <span class="ruby-keyword kw">else</span>
+286:       <span class="ruby-identifier">p</span> = []
+287:     <span class="ruby-keyword kw">end</span>
+288:     <span class="ruby-ivar">@search_string</span> = <span class="ruby-identifier">p</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:q</span>) <span class="ruby-operator">||</span> <span class="ruby-value str">''</span>
+289:     <span class="ruby-ivar">@results</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">search</span>(<span class="ruby-ivar">@search_string</span>, <span class="ruby-identifier">p</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@page</span>, <span class="ruby-identifier">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@per_page</span>)
+290:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -848,11 +853,11 @@
             onclick="toggleCode('M000108-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000108-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 256</span>
-256:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup</span>
-257:     <span class="ruby-ivar">@profile</span> = <span class="ruby-constant">Profile</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:profile_id</span>]] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:profile_id</span>]
-258:     <span class="ruby-ivar">@user</span> = <span class="ruby-ivar">@profile</span>.<span class="ruby-identifier">user</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@profile</span>
-259:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/controllers/projects_controller.rb, line 261</span>
+261:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup</span>
+262:     <span class="ruby-ivar">@profile</span> = <span class="ruby-constant">Profile</span>[<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:profile_id</span>]] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:profile_id</span>]
+263:     <span class="ruby-ivar">@user</span> = <span class="ruby-ivar">@profile</span>.<span class="ruby-identifier">user</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@profile</span>
+264:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

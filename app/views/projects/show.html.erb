@@ -140,14 +140,21 @@
       <div class="header">Member Rating</div>
       <ol>
         <li>
-          <% if logged_in and @allowed_to_rate %>
-            <label>Set Your Rating <br/>(You can change your rating once per day)</label>
-            <%= select_tag "rating", options_for_select(@rating_select_opts, @selected_my_project_rating) %>
-            <input type="submit" name="submit" value="Submit"/>
+          <% if logged_in %>
+
+            <% if @allowed_to_rate %>
+              <label>Set Your Rating <br/>(You can change your rating once per day)</label>
+              <%= select_tag "rating", options_for_select(@rating_select_opts, @selected_my_project_rating) %>
+              <input type="submit" name="submit" value="Submit"/>
+            <% end %>
+
+            <% if @my_project_rating %>
+              <label>&nbsp;</label>
+              Your current rating: <%= @my_project_rating.rating %>
+              <b>(You can change your rating once per day)</b>
+            <% end %>
           <% else %>
-            <label>&nbsp;</label>
-            Your current rating: <%= @my_project_rating.rating %>
-            <b>(You can change your rating once per day)</b>
+            You must <%= link_to "log in", login_path %> to rate this project!
           <% end %>
         </li>
       </ol>

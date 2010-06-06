@@ -92,7 +92,7 @@ module ApplicationHelper
     errors.is_a?(Array) ? errors.first : errors# errors.to_sentence : errors
   end
   
-  # type can be negative or positive or blank
+  # type can be error or positive or blank
   def show_flash(messages=nil,type='')
     output = "<p id=\"flash_#{type}\">"
 
@@ -109,8 +109,7 @@ module ApplicationHelper
   end
   
   def show_default_flash
-    flash[:negative] = flash[:error] if flash[:error] # alias a flash error is used all over
-    [:notice,:positive,:negative].inject('') { |output,type| output << show_flash(flash[type],type) }
+    [:notice,:positive,:error].inject('') { |output,type| output << show_flash(flash[type],type) }
   end
 
   def pagination_controls_for(collection, prev_class="prev", next_class="next")
@@ -145,8 +144,6 @@ module ApplicationHelper
   #RJS helper methods
 
   def rjs_update_flashes flash
-    flash[:negative] = flash[:error] if flash[:error] # alias a flash error is used all over
-    
     if flash[:positive]
       page.replace_html :flash_positive, "<p class=\"feedback positive\">#{flash[:positive]}</p>"
     else
@@ -159,10 +156,10 @@ module ApplicationHelper
       page.replace_html :flash_notice, ""
     end
 
-    if flash[:negative]
-      page.replace_html :flash_negative, "<p class=\"feedback negative\">#{flash[:negative]}</p>"
+    if flash[:error]
+      page.replace_html :flash_error, "<p class=\"feedback error\">#{flash[:error]}</p>"
     else
-      page.replace_html :flash_negative, ""
+      page.replace_html :flash_error, ""
     end
   end
 

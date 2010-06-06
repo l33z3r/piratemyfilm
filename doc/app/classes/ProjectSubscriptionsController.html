@@ -88,12 +88,12 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000196">allow_to</a>&nbsp;&nbsp;
-      <a href="#M000194">create</a>&nbsp;&nbsp;
-      <a href="#M000195">destroy</a>&nbsp;&nbsp;
-      <a href="#M000198">get_project_subscription</a>&nbsp;&nbsp;
-      <a href="#M000199">load_project</a>&nbsp;&nbsp;
-      <a href="#M000197">upate_percent_funded</a>&nbsp;&nbsp;
+      <a href="#M000199">allow_to</a>&nbsp;&nbsp;
+      <a href="#M000197">create</a>&nbsp;&nbsp;
+      <a href="#M000198">destroy</a>&nbsp;&nbsp;
+      <a href="#M000201">get_project_subscription</a>&nbsp;&nbsp;
+      <a href="#M000202">load_project</a>&nbsp;&nbsp;
+      <a href="#M000200">upate_percent_funded</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -115,19 +115,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000194" class="method-detail">
-        <a name="M000194"></a>
+      <div id="method-M000197" class="method-detail">
+        <a name="M000197"></a>
 
         <div class="method-heading">
-          <a href="#M000194" class="method-signature">
+          <a href="#M000197" class="method-signature">
           <span class="method-name">create</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000194-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000194-source">
+            onclick="toggleCode('M000197-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000197-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/project_subscriptions_controller.rb, line 8</span>
  8:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>
@@ -189,26 +189,26 @@
         </div>
       </div>
 
-      <div id="method-M000195" class="method-detail">
-        <a name="M000195"></a>
+      <div id="method-M000198" class="method-detail">
+        <a name="M000198"></a>
 
         <div class="method-heading">
-          <a href="#M000195" class="method-signature">
+          <a href="#M000198" class="method-signature">
           <span class="method-name">destroy</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000195-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000195-source">
+            onclick="toggleCode('M000198-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000198-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/project_subscriptions_controller.rb, line 63</span>
 63:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy</span>
 64:     <span class="ruby-keyword kw">begin</span>            
 65:       
 66:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@project_subscription</span>.<span class="ruby-identifier">nil?</span>       
-67:         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;You do not have any premium copies of this project to cancel!&quot;</span>
+67:         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;You do not have any premium copies of this project to cancel!&quot;</span>
 68:         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">project_path</span>(<span class="ruby-ivar">@project</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
 69:       <span class="ruby-keyword kw">else</span>
 70:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@project_subscription</span>.<span class="ruby-identifier">amount</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
@@ -236,19 +236,19 @@
 
       <h3 class="section-bar">Protected Instance methods</h3>
 
-      <div id="method-M000196" class="method-detail">
-        <a name="M000196"></a>
+      <div id="method-M000199" class="method-detail">
+        <a name="M000199"></a>
 
         <div class="method-heading">
-          <a href="#M000196" class="method-signature">
+          <a href="#M000199" class="method-signature">
           <span class="method-name">allow_to</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000196-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000196-source">
+            onclick="toggleCode('M000199-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000199-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/project_subscriptions_controller.rb, line 91</span>
 91:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_to</span>
@@ -260,19 +260,19 @@
         </div>
       </div>
 
-      <div id="method-M000198" class="method-detail">
-        <a name="M000198"></a>
+      <div id="method-M000201" class="method-detail">
+        <a name="M000201"></a>
 
         <div class="method-heading">
-          <a href="#M000198" class="method-signature">
+          <a href="#M000201" class="method-signature">
           <span class="method-name">get_project_subscription</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000198-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000198-source">
+            onclick="toggleCode('M000201-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000201-source">
 <pre>
      <span class="ruby-comment cmt"># File app/controllers/project_subscriptions_controller.rb, line 100</span>
 100:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_project_subscription</span>
@@ -283,19 +283,19 @@
         </div>
       </div>
 
-      <div id="method-M000199" class="method-detail">
-        <a name="M000199"></a>
+      <div id="method-M000202" class="method-detail">
+        <a name="M000202"></a>
 
         <div class="method-heading">
-          <a href="#M000199" class="method-signature">
+          <a href="#M000202" class="method-signature">
           <span class="method-name">load_project</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000199-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000199-source">
+            onclick="toggleCode('M000202-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000202-source">
 <pre>
      <span class="ruby-comment cmt"># File app/controllers/project_subscriptions_controller.rb, line 104</span>
 104:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_project</span>
@@ -311,19 +311,19 @@
         </div>
       </div>
 
-      <div id="method-M000197" class="method-detail">
-        <a name="M000197"></a>
+      <div id="method-M000200" class="method-detail">
+        <a name="M000200"></a>
 
         <div class="method-heading">
-          <a href="#M000197" class="method-signature">
+          <a href="#M000200" class="method-signature">
           <span class="method-name">upate_percent_funded</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000197-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000197-source">
+            onclick="toggleCode('M000200-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000200-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/project_subscriptions_controller.rb, line 96</span>
 96:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upate_percent_funded</span>

@@ -145,7 +145,7 @@
 32:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">'New blog post created.'</span>
 33:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;blogs&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@blog</span>.<span class="ruby-identifier">id</span>
 34:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span>
-35:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;Sorry, there was a problem creating your blog post&quot;</span>
+35:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Sorry, there was a problem creating your blog post&quot;</span>
 36:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'new'</span>
 37:     <span class="ruby-keyword kw">end</span>
 38:   <span class="ruby-keyword kw">end</span>
@@ -329,7 +329,7 @@
 49:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">'Blog post updated.'</span>
 50:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;blogs&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@blog</span>.<span class="ruby-identifier">id</span>
 51:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span>
-52:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:negative</span>] = <span class="ruby-value str">&quot;Sorry, there was a problem updating your blog post&quot;</span>
+52:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Sorry, there was a problem updating your blog post&quot;</span>
 53:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'edit'</span>
 54:     <span class="ruby-keyword kw">end</span>
 55:   <span class="ruby-keyword kw">end</span>

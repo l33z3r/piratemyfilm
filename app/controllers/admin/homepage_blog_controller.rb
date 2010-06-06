@@ -27,7 +27,7 @@ class Admin::HomepageBlogController < Admin::AdminController
       redirect_to :controller => "/home", :action => "index"
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Blog Post"
-      flash[:negative] = "Sorry, there was a problem creating your blog post"
+      flash[:error] = "Sorry, there was a problem creating your blog post"
       render :action=>'new'
     end
   end
@@ -50,7 +50,7 @@ class Admin::HomepageBlogController < Admin::AdminController
       redirect_to :action => "show", :id => @blog.id
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error updating Blog Post"
-      flash[:negative] = "Sorry, there was a problem updating your blog post"
+      flash[:error] = "Sorry, there was a problem updating your blog post"
       render :action=>'edit'
     end
   end

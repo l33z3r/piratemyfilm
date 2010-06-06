@@ -121,22 +121,25 @@ Table name: projects
       <div class="name-list">
       <a href="#M000165">admin_comment</a>&nbsp;&nbsp;
       <a href="#M000164">admin_rating</a>&nbsp;&nbsp;
+      <a href="#M000170">capital_recycled_percent</a>&nbsp;&nbsp;
+      <a href="#M000169">capital_required</a>&nbsp;&nbsp;
       <a href="#M000166">current_funds</a>&nbsp;&nbsp;
-      <a href="#M000170">filter_params</a>&nbsp;&nbsp;
+      <a href="#M000173">filter_params</a>&nbsp;&nbsp;
       <a href="#M000156">find_all_public</a>&nbsp;&nbsp;
       <a href="#M000157">find_single_public</a>&nbsp;&nbsp;
-      <a href="#M000172">funding_limit_not_exceeded</a>&nbsp;&nbsp;
+      <a href="#M000175">funding_limit_not_exceeded</a>&nbsp;&nbsp;
       <a href="#M000167">funds_needed</a>&nbsp;&nbsp;
-      <a href="#M000173">min_funding_limit_passed</a>&nbsp;&nbsp;
+      <a href="#M000171">ipo_price</a>&nbsp;&nbsp;
+      <a href="#M000176">min_funding_limit_passed</a>&nbsp;&nbsp;
       <a href="#M000158">search</a>&nbsp;&nbsp;
-      <a href="#M000169">share_percent_ads</a>&nbsp;&nbsp;
+      <a href="#M000172">share_percent_ads</a>&nbsp;&nbsp;
       <a href="#M000159">statuses</a>&nbsp;&nbsp;
       <a href="#M000168">total_copies</a>&nbsp;&nbsp;
       <a href="#M000162">update_estimates</a>&nbsp;&nbsp;
       <a href="#M000161">update_funding</a>&nbsp;&nbsp;
       <a href="#M000160">update_funding_and_estimates</a>&nbsp;&nbsp;
       <a href="#M000163">user_rating</a>&nbsp;&nbsp;
-      <a href="#M000171">validate</a>&nbsp;&nbsp;
+      <a href="#M000174">validate</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -158,24 +161,24 @@ Table name: projects
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000170" class="method-detail">
-        <a name="M000170"></a>
+      <div id="method-M000173" class="method-detail">
+        <a name="M000173"></a>
 
         <div class="method-heading">
-          <a href="#M000170" class="method-signature">
+          <a href="#M000173" class="method-signature">
           <span class="method-name">filter_params</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000170-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000170-source">
+            onclick="toggleCode('M000173-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000173-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/project.rb, line 183</span>
-183:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">filter_params</span>
-184:     [<span class="ruby-value str">&quot;Please Choose...&quot;</span>, <span class="ruby-value str">&quot;% funds reserved&quot;</span>, <span class="ruby-value str">&quot;breakeven&quot;</span>, <span class="ruby-value str">&quot;member rating&quot;</span>, <span class="ruby-value str">&quot;admin rating&quot;</span>, <span class="ruby-value str">&quot;newest&quot;</span>, <span class="ruby-value str">&quot;oldest&quot;</span>]
-185:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 206</span>
+206:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">filter_params</span>
+207:     [<span class="ruby-value str">&quot;Please Choose...&quot;</span>, <span class="ruby-value str">&quot;% funds reserved&quot;</span>, <span class="ruby-value str">&quot;breakeven&quot;</span>, <span class="ruby-value str">&quot;member rating&quot;</span>, <span class="ruby-value str">&quot;admin rating&quot;</span>, <span class="ruby-value str">&quot;newest&quot;</span>, <span class="ruby-value str">&quot;oldest&quot;</span>]
+208:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -354,6 +357,60 @@ find projects that have been given initial rating and are not deleted
         </div>
       </div>
 
+      <div id="method-M000170" class="method-detail">
+        <a name="M000170"></a>
+
+        <div class="method-heading">
+          <a href="#M000170" class="method-signature">
+          <span class="method-name">capital_recycled_percent</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000170-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000170-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 182</span>
+182:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capital_recycled_percent</span>
+183:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">super</span>
+184:       <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>
+185:     <span class="ruby-keyword kw">end</span>
+186: 
+187:     <span class="ruby-keyword kw">super</span>
+188:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000169" class="method-detail">
+        <a name="M000169"></a>
+
+        <div class="method-heading">
+          <a href="#M000169" class="method-signature">
+          <span class="method-name">capital_required</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000169-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000169-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 174</span>
+174:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capital_required</span>
+175:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">super</span>
+176:       <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>
+177:     <span class="ruby-keyword kw">end</span>
+178: 
+179:     <span class="ruby-keyword kw">super</span>
+180:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
       <div id="method-M000166" class="method-detail">
         <a name="M000166"></a>
 
@@ -400,29 +457,55 @@ find projects that have been given initial rating and are not deleted
         </div>
       </div>
 
-      <div id="method-M000169" class="method-detail">
-        <a name="M000169"></a>
+      <div id="method-M000171" class="method-detail">
+        <a name="M000171"></a>
 
         <div class="method-heading">
-          <a href="#M000169" class="method-signature">
+          <a href="#M000171" class="method-signature">
+          <span class="method-name">ipo_price</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000171-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000171-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 190</span>
+190:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ipo_price</span>
+191:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">super</span>
+192:       <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>
+193:     <span class="ruby-keyword kw">end</span>
+194: 
+195:     <span class="ruby-keyword kw">super</span>
+196:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000172" class="method-detail">
+        <a name="M000172"></a>
+
+        <div class="method-heading">
+          <a href="#M000172" class="method-signature">
           <span class="method-name">share_percent_ads</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000169-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000169-source">
+            onclick="toggleCode('M000172-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000172-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/project.rb, line 174</span>
-174:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">share_percent_ads</span>
-175:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">super</span>
-176:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">share_percent_ads</span> = <span class="ruby-value">0</span>
-177:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">save!</span>
-178:     <span class="ruby-keyword kw">end</span>
-179: 
-180:     <span class="ruby-keyword kw">super</span>
-181:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 198</span>
+198:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">share_percent_ads</span>
+199:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">super</span>
+200:       <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>
+201:     <span class="ruby-keyword kw">end</span>
+202:     
+203:     <span class="ruby-keyword kw">super</span>
+204:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -558,92 +641,92 @@ find projects that have been given initial rating and are not deleted
 
       <h3 class="section-bar">Protected Instance methods</h3>
 
-      <div id="method-M000172" class="method-detail">
-        <a name="M000172"></a>
+      <div id="method-M000175" class="method-detail">
+        <a name="M000175"></a>
 
         <div class="method-heading">
-          <a href="#M000172" class="method-signature">
+          <a href="#M000175" class="method-signature">
           <span class="method-name">funding_limit_not_exceeded</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000172-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000172-source">
+            onclick="toggleCode('M000175-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000175-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/project.rb, line 205</span>
-205:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">funding_limit_not_exceeded</span>
-206:     <span class="ruby-identifier">funding_limit</span> = <span class="ruby-identifier">owner</span>.<span class="ruby-identifier">membership_type</span>.<span class="ruby-identifier">funding_limit_per_project</span>
-207:     
-208:     <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">funding_limit</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">funding_limit</span> <span class="ruby-operator">!=</span> <span class="ruby-value">-1</span>
-209:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_required</span>, <span class="ruby-node">&quot; must be less than $#{funding_limit}, the limit for your membership type,
-210:           We will be allowing account upgrades shortly!&quot;</span>)
-211:     <span class="ruby-keyword kw">end</span>
-212:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 228</span>
+228:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">funding_limit_not_exceeded</span>
+229:     <span class="ruby-identifier">funding_limit</span> = <span class="ruby-identifier">owner</span>.<span class="ruby-identifier">membership_type</span>.<span class="ruby-identifier">funding_limit_per_project</span>
+230:     
+231:     <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">funding_limit</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">funding_limit</span> <span class="ruby-operator">!=</span> <span class="ruby-value">-1</span>
+232:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_required</span>, <span class="ruby-node">&quot; must be less than $#{funding_limit}, the limit for your membership type,
+233:           We will be allowing account upgrades shortly!&quot;</span>)
+234:     <span class="ruby-keyword kw">end</span>
+235:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000173" class="method-detail">
-        <a name="M000173"></a>
+      <div id="method-M000176" class="method-detail">
+        <a name="M000176"></a>
 
         <div class="method-heading">
-          <a href="#M000173" class="method-signature">
+          <a href="#M000176" class="method-signature">
           <span class="method-name">min_funding_limit_passed</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000173-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000173-source">
+            onclick="toggleCode('M000176-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000176-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/project.rb, line 214</span>
-214:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">min_funding_limit_passed</span>
-215:     <span class="ruby-identifier">min_funding_limit</span> = <span class="ruby-identifier">owner</span>.<span class="ruby-identifier">membership_type</span>.<span class="ruby-identifier">min_funding_limit_per_project</span>
-216: 
-217:     <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">min_funding_limit</span>
-218:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_required</span>, <span class="ruby-node">&quot; must be greater than $#{min_funding_limit}, the limit for your membership type,
-219:           We will be allowing account upgrades shortly!&quot;</span>)
-220:     <span class="ruby-keyword kw">end</span>
-221:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 237</span>
+237:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">min_funding_limit_passed</span>
+238:     <span class="ruby-identifier">min_funding_limit</span> = <span class="ruby-identifier">owner</span>.<span class="ruby-identifier">membership_type</span>.<span class="ruby-identifier">min_funding_limit_per_project</span>
+239: 
+240:     <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">min_funding_limit</span>
+241:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_required</span>, <span class="ruby-node">&quot; must be greater than $#{min_funding_limit}, the limit for your membership type,
+242:           We will be allowing account upgrades shortly!&quot;</span>)
+243:     <span class="ruby-keyword kw">end</span>
+244:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000171" class="method-detail">
-        <a name="M000171"></a>
+      <div id="method-M000174" class="method-detail">
+        <a name="M000174"></a>
 
         <div class="method-heading">
-          <a href="#M000171" class="method-signature">
+          <a href="#M000174" class="method-signature">
           <span class="method-name">validate</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000171-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000171-source">
+            onclick="toggleCode('M000174-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000174-source">
 <pre>
-     <span class="ruby-comment cmt"># File app/models/project.rb, line 189</span>
-189:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>
-190:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:share_percent_ads</span>, <span class="ruby-value str">&quot;must be between 0% - 100%&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">100</span>)
-191:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:producer_fee_percent</span>, <span class="ruby-value str">&quot;must be between 0% - 20%&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">producer_fee_percent</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">producer_fee_percent</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">producer_fee_percent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">20</span>)
-192:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_recycled_percent</span>, <span class="ruby-value str">&quot;must be between 0% - 100%&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">100</span>)
-193: 
-194:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_required</span>, <span class="ruby-value str">&quot;must be a multiple of your share price&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">capital_required</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">ipo_price</span> <span class="ruby-operator">!=</span><span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">ipo_price</span>
-195: 
-196:     <span class="ruby-comment cmt">#must check that total percentage adds up correctly</span>
-197:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">100</span>
-198:       <span class="ruby-ivar">@exceeded_error_message</span> = <span class="ruby-value str">&quot;% Ad Sales and % Capital Recycled to PMF must sum to less than 100%&quot;</span>
-199:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:share_percent_ads</span>, <span class="ruby-ivar">@exceeded_error_message</span>)
-200:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_recycled_percent</span>, <span class="ruby-ivar">@exceeded_error_message</span>)
-201:     <span class="ruby-keyword kw">end</span>
-202: 
-203:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 212</span>
+212:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>
+213:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:share_percent_ads</span>, <span class="ruby-value str">&quot;must be between 0% - 100%&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">100</span>)
+214:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:producer_fee_percent</span>, <span class="ruby-value str">&quot;must be between 0% - 20%&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">producer_fee_percent</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">producer_fee_percent</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">producer_fee_percent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">20</span>)
+215:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_recycled_percent</span>, <span class="ruby-value str">&quot;must be between 0% - 100%&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">100</span>)
+216: 
+217:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_required</span>, <span class="ruby-value str">&quot;must be a multiple of your share price&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">capital_required</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">ipo_price</span> <span class="ruby-operator">!=</span><span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">ipo_price</span>
+218: 
+219:     <span class="ruby-comment cmt">#must check that total percentage adds up correctly</span>
+220:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">100</span>
+221:       <span class="ruby-ivar">@exceeded_error_message</span> = <span class="ruby-value str">&quot;% Ad Sales and % Capital Recycled to PMF must sum to less than 100%&quot;</span>
+222:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:share_percent_ads</span>, <span class="ruby-ivar">@exceeded_error_message</span>)
+223:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_recycled_percent</span>, <span class="ruby-ivar">@exceeded_error_message</span>)
+224:     <span class="ruby-keyword kw">end</span>
+225: 
+226:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

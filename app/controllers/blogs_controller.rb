@@ -32,7 +32,7 @@ class BlogsController < ApplicationController
       flash[:notice] = 'New blog post created.'
       redirect_to :controller => "blogs", :action => "show", :id => @blog.id
     rescue ActiveRecord::RecordInvalid
-      flash[:negative] = "Sorry, there was a problem creating your blog post"
+      flash[:error] = "Sorry, there was a problem creating your blog post"
       render :action => 'new'
     end
   end
@@ -49,7 +49,7 @@ class BlogsController < ApplicationController
       flash[:notice] = 'Blog post updated.'
       redirect_to :controller => "blogs", :action => "show", :id => @blog.id
     rescue ActiveRecord::RecordInvalid
-      flash[:negative] = "Sorry, there was a problem updating your blog post"
+      flash[:error] = "Sorry, there was a problem updating your blog post"
       render :action => 'edit'
     end
   end
