@@ -170,7 +170,7 @@ namespace :ferret do
   end
 
   desc "Ferret Index"
-  task :start do
+  task :index do
     run "rake ferret_index"
   end
 
