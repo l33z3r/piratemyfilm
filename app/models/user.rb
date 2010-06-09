@@ -151,6 +151,19 @@ class User < ActiveRecord::Base
     @count
   end
 
+  def projects_exceeding_budget_limit(cap)
+    @count = 0
+
+    for project in owned_projects do
+      if project.capital_required > cap
+        @count = @count + 1
+      end
+
+    end
+
+    @count
+  end
+
   protected
 
   # before filter 

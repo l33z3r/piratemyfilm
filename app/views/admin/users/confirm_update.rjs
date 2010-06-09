@@ -15,6 +15,7 @@ page << "ModalPopups.Confirm('confirmContainer',
     ModalPopups.Close('confirmContainer');
     $('#skip_confirm_#{@user.id}').val('true');
     $('#submit_container_#{@user.id} input').click();
+    $('#skip_confirm_#{@user.id}').val('');
   }
 
   function confirmNo() {

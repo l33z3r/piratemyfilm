@@ -30,18 +30,34 @@ class Admin::UsersController < Admin::AdminController
 
     if !@skip_confirm
       #load vars for confirmation popup
-      @user_projects = @user.owned_public_projects
-      @num_projects_delete = @user_projects.length - @new_membership_type.max_projects_listed
+      #only if we are not upgrading to highest membership which is unlimited everything
 
-      #how many projects has the user got shares in that will need to be revoked
-      @num_projects_shares_over = @user.projects_with_shares_over @new_membership_type.pc_limit
+      @num_projects_delete = @num_projects_shares_over = @num_projects_exceeding_share_limit = @num_projects_exceeding_budget_limit = 0
+      
+      if @new_membership_type.name != "Black Pearl"
+        @user_projects = @user.owned_public_projects
+        @num_projects_delete = @user_projects.length - @new_membership_type.max_projects_listed
 
+        #how many projects has the user got shares in that will need to be revoked
+        @num_projects_shares_over = @user.projects_with_shares_over(@new_membership_type.pc_limit)
+
+        #how many projects has the user got shares in, and does it exceed the
+        #total amount of projects they are allowed to hold shares in
+        @num_projects_exceeding_share_limit = @user.project_subscriptions.length - @new_membership_type.pc_project_limit
+
+        #how many projects exceed the budget limit
+        @num_projects_exceeding_budget_limit = @user.projects_exceeding_budget_limit(@new_membership_type.funding_limit_per_project)
+      end
+      
       render :action => "confirm_update" and return
     end
 
     #delete old membership link
     @user.membership.membership_type = @new_membership_type
     @user.membership.save!
+
+    #now adjust the users shares per the new membership
+    
 
     flash[:positive] = "Membership type changed."
   end
