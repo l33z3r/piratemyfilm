@@ -155,14 +155,26 @@ default_run_options[:pty] = true
 # depend :remote, :command, "brightbox"
 depend :remote, :gem, "hpricot", "0.8.1"
 
-#after "deploy:restart", "ferret:start"
+after "deploy:restart", "ferret:stop"
+after "ferret:stop", "ferret:index"
+after "ferret:index", "ferret:start"
 
-#namespace :ferret do 
-#  desc "Ferret Start"
-#  task :start do
-#    run "cd #{current_path} && #{current_path}/script/ferret_server -e production start"
-#  end
-#end
+namespace :ferret do 
+  desc "Ferret Stop"
+  task :stop do
+    run "cd #{current_path} && #{current_path}/script/ferret_server -e production stop"
+  end
+
+  desc "Ferret Index"
+  task :start do
+    run "rake ferret_index"
+  end
+
+  desc "Ferret Start"
+  task :start do
+    run "cd #{current_path} && #{current_path}/script/ferret_server -e production start"
+  end
+end
 
 after "deploy:symlink", "deploy:update_crontab"
 
