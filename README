@@ -1,1 +1,4 @@
 Welcome to the PMF codebase
+
+Issues:
+ added default_run_options[:shell] = false to deploy.rb to sort out some load path issues with ferret server

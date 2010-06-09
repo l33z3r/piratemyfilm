@@ -94,6 +94,10 @@ set :local_shared_files, %w(config/database.yml)
 # ptys stop shell startup scripts from running.
 default_run_options[:pty] = true
 
+#add this line to sort out some path problems with starting/stopping
+#ferret server on deploy see (http://www.zorched.net/2008/06/19/capistrano-and-ferret-drb/)
+default_run_options[:shell] = false
+
 ## Logrotation
 # Where the logs are stored. Defaults to <shared_path>/log
 # set :log_dir, "central/log/path"
