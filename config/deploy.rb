@@ -171,7 +171,7 @@ namespace :ferret do
 
   desc "Ferret Index"
   task :index do
-    run "cd #{current_path} && rake ferret_index"
+    run "cd #{current_path} && RAILS_ENV=production rake ferret_index"
   end
 
   desc "Ferret Start"
