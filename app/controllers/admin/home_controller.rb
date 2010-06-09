@@ -9,7 +9,7 @@ class Admin::HomeController < Admin::AdminController
   private
 
   def set_selected_tab
-    @selected_tab_name = ""
+    @selected_tab_name = "admin_stats"
   end
   
 end

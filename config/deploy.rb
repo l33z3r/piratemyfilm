@@ -159,24 +159,12 @@ default_run_options[:shell] = false
 # depend :remote, :command, "brightbox"
 depend :remote, :gem, "hpricot", "0.8.1"
 
-after "deploy:restart", "ferret:stop"
-after "ferret:stop", "ferret:index"
-after "ferret:index", "ferret:start"
+after "deploy:restart", "ferret:index"
 
 namespace :ferret do 
-  desc "Ferret Stop"
-  task :stop do
-    run "cd #{current_path} && #{current_path}/script/ferret_server -e production stop"
-  end
-
   desc "Ferret Index"
   task :index do
     run "cd #{current_path} && RAILS_ENV=production rake ferret_index"
-  end
-
-  desc "Ferret Start"
-  task :start do
-    run "cd #{current_path} && #{current_path}/script/ferret_server -e production start"
   end
 end
 

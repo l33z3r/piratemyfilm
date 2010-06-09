@@ -1,19 +1,29 @@
 <div style='padding: 25px;' id="confirm_update_membership">
   <div class="title">
-    You are about to update this users membership.
+    You are about to update <b><%= @user.login %>' s</b> membership.
   </div>
 
   <ul>
-    <li>
-      This user currently has X projects listed.
-      Updating his/her membership will result in X projects being deleted.
+    <% if @num_projects_delete > 0 %>
+      <li>
+        This user currently has <b><%= @user_projects.length %></b> projects listed.
+        Updating his/her membership will result in <b><%= @num_projects_delete %></b> projects being deleted.
 
-      Note that the projects that will be deleted will be the most recent projects this user has created.
-    </li>
-    <li>
-      This user has over X shares in X projects,
-      these shares will be revoked from these projects.
-    </li>
+        <i>
+          Note that the projects that will be deleted will be the most
+          recent projects this user has created.
+        </i>
+      </li>
+    <% end %>
+
+    <% if @num_projects_shares_over > 0 %>
+      <li>
+        This user has shares in <%= @num_projects_shares_over %> projects that exceed the
+        new share limit of <%= @new_membership_type.pc_limit %> per project,
+        these shares will be revoked from these projects.
+      </li>
+    <% end %>
+        
     <li>
       This user has shares in over X projects,
       These shares will be revoked from these projects.

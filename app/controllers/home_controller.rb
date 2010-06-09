@@ -20,10 +20,6 @@ class HomeController < ApplicationController
     end
   end
 
-  def terms
-    render
-  end
-
   def alive
     render :text => "alive"
   end

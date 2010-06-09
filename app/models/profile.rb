@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090526045351
+# Schema version: 20100528091908
 #
 # Table name: profiles
 #
@@ -24,6 +24,7 @@
 #  flickr_username  :string(255)   
 #  last_activity_at :datetime      
 #  time_zone        :string(255)   default("UTC")
+#  country_id       :integer(4)    default(1)
 #
 
 class Profile < ActiveRecord::Base

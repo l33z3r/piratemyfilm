@@ -4,6 +4,11 @@
 
 <ul id="tabs">
   <li>
+    <%= link_to "Stats",
+      {:controller => "admin/home"},
+      :class => (@selected_tab_name == "admin_stats" ? "selected" : "") %>
+  </li>
+  <li>
     <%= link_to "Rate New Projects <b>(#{@num_pending_projects})</b>",
       {:controller => "admin/project_rating"}, 
       :class => (@selected_tab_name == "new_projects" ? "selected" : "") %>

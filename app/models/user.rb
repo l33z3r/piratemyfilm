@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090526045351
+# Schema version: 20100528091908
 #
 # Table name: users
 #
@@ -134,6 +134,20 @@ class User < ActiveRecord::Base
     self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") 
     self.crypted_password = encrypt(new_password)
     save
+  end
+
+  #this function returns the projects the user has shares in
+  #in which the amount of shares they have in each exceeds cap
+  def projects_with_shares_over(cap)
+    @count = 0
+
+    project_subscriptions.each do |sub|
+      if sub.amount > cap
+        @count++
+      end
+    end
+
+    @count
   end
 
   protected

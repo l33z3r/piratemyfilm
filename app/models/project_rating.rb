@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090526045351
+# Schema version: 20100528091908
 #
 # Table name: project_ratings
 #

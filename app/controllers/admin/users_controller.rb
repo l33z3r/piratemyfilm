@@ -29,6 +29,13 @@ class Admin::UsersController < Admin::AdminController
     @skip_confirm = (params[:skip_confirm] and !params[:skip_confirm].blank?)
 
     if !@skip_confirm
+      #load vars for confirmation popup
+      @user_projects = @user.owned_public_projects
+      @num_projects_delete = @user_projects.length - @new_membership_type.max_projects_listed
+
+      #how many projects has the user got shares in that will need to be revoked
+      @num_projects_shares_over = @user.projects_with_shares_over @new_membership_type.pc_limit
+
       render :action => "confirm_update" and return
     end
 
