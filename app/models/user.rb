@@ -141,10 +141,11 @@ class User < ActiveRecord::Base
   def projects_with_shares_over(cap)
     @count = 0
 
-    project_subscriptions.each do |sub|
+    for sub in project_subscriptions do
       if sub.amount > cap
-        @count++
+        @count = @count + 1
       end
+      
     end
 
     @count
