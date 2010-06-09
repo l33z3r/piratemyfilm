@@ -10,12 +10,12 @@ class ProjectSubscriptionsController < ApplicationController
 
       #check that user does not own this project
       if @project.owner == @u
-        flash[:error] = "As the owner of this project, you cannot buy any premium copies of it!"
+        flash[:error] = "As the owner of this project, you cannot buy any shares!"
         redirect_to project_path(@project) and return
       end
       
       if @project.downloads_available <= 0
-        flash[:error] = "There are no more premium copies available for reservation"
+        flash[:error] = "There are no more shares available for reservation"
         redirect_to project_path(@project) and return
       end
       
@@ -41,7 +41,7 @@ class ProjectSubscriptionsController < ApplicationController
       if !@project_subscription.nil?
         
         if @max_subscription_reached or @max_project_subscription_reached
-          flash[:positive] = "You have reached the maximum premium copies of this project"
+          flash[:positive] = "You have reached the maximum shares for this project"
         else
           @project_subscription.amount += 1
           @project_subscription.save!
@@ -52,10 +52,10 @@ class ProjectSubscriptionsController < ApplicationController
       
       @project_subscription = ProjectSubscription.create( :user => @u, :project => @project, :amount => 1 )      
 
-      flash[:notice] = "PC Reserved!"
+      flash[:notice] = "Share reserved!"
       
     rescue ActiveRecord::RecordInvalid
-      flash[:error] = "Error reserving premium copy".x
+      flash[:error] = "Error reserving share".x
     end    
     redirect_to project_path(@project)    
   end
@@ -64,7 +64,7 @@ class ProjectSubscriptionsController < ApplicationController
     begin            
       
       if @project_subscription.nil?       
-        flash[:error] = "You do not have any premium copies of this project to cancel!"
+        flash[:error] = "You do not have any shares in this project to cancel!"
         redirect_to project_path(@project) and return
       else
         if @project_subscription.amount > 1
@@ -77,11 +77,11 @@ class ProjectSubscriptionsController < ApplicationController
           @project_subscription.destroy
         end
 
-        flash[:notice] = "PC Reservation Canceled!"
+        flash[:notice] = "Share canceled!"
       end
       
     rescue ActiveRecord::RecordInvalid
-      flash[:error] = "Error canceling premium copy of this project"
+      flash[:error] = "Error canceling share in this project"
     end    
     redirect_to project_path(@project)
   end
