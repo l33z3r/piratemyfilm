@@ -1,6 +1,7 @@
 <div style='padding: 25px;' id="confirm_update_membership">
   <div class="title">
-    You are about to update <b><%= @user.login %>'s</b> membership.
+    You are about to update <b><%= @user.login %>'s</b> membership from
+    <%= @user.membership.membership_type.name %> to <%= @new_membership_type.name %>.
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -42,18 +43,11 @@
       <li>
         <%= @user.login %> has <b><%= @num_projects_exceeding_budget_limit %></b> projects
         in which the budget exceeds <b>$<%= @new_membership_type.funding_limit_per_project %></b>.
-        The outstanding shares for these projects will be revoked.
+        This may result in outstanding shares for these projects.
       </li>
     <% end %>
 
   </ul>
-
-  <div class="pmf_clear">&nbsp;</div>
-
-  <div class="end_note pmf_top_margin_10">
-    Note that shares will be held on a first come first served basis.
-    The most recent share holders shares will be revoked from the appropriate projects.
-  </div>
 
   <div class="pmf_clear pmf_top_margin_10">&nbsp;</div>
 

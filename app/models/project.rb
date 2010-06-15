@@ -215,6 +215,12 @@ class Project < ActiveRecord::Base
     super
   end
 
+  def delete
+    self.is_deleted = true
+    self.deleted_at = Time.now
+    self.save!
+  end
+
   def self.filter_params
     ["Please Choose...", "% funds reserved", "breakeven", "member rating", "admin rating", "newest", "oldest"]
   end

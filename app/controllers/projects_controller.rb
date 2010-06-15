@@ -144,9 +144,7 @@ class ProjectsController < ApplicationController
       render :action=>'index' and return
     end
 
-    @project.is_deleted = true
-    @project.deleted_at = Time.now
-    @project.save!
+    @project.delete
 
     #must delete all subscribtions to this project
     @subscriptions = ProjectSubscription.find_all_by_project_id(@project)

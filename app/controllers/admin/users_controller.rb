@@ -56,8 +56,8 @@ class Admin::UsersController < Admin::AdminController
     @user.membership.membership_type = @new_membership_type
     @user.membership.save!
 
-    #now adjust the users shares per the new membership
-    
+    #apply the new membership restrictions
+    @user.apply_membership_limits
 
     flash[:positive] = "Membership type changed."
   end
