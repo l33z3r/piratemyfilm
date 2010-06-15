@@ -41,9 +41,12 @@ class AccountsController < ApplicationController
     redirect_back_or_default(home_path) and return if @u
     @user = User.new
     return unless request.post?
-      
+
+    #verify captcha
+    return unless check_captcha
+    
     u = User.new
-    u.terms_of_service = params[:user][:terms_of_service]
+
     u.login = params[:user][:login]
     u.password = params[:user][:password]
     u.password_confirmation = params[:user][:password_confirmation]
@@ -51,13 +54,11 @@ class AccountsController < ApplicationController
     u.less_value_for_text_input = params[:user][:less_value_for_text_input]
 
     #give user a membership
-    Membership.create(:user => u, :membership_type => MembershipType.find_by_name("Gold"))
+    Membership.create(:user => u, :membership_type => MembershipType.find_by_name("Basic"))
 
     @u = u
     if u.save
       self.user = u
-    
-      
       remember_me if params[:remember_me] == "1"
       flash[:notice] = "Thanks for signing up!"
       AuthMailer.deliver_registration(:subject=>"new #{SITE_NAME} registration", :body => "username = '#{@u.login}', email = '#{@u.profile.email}'", :recipients=>REGISTRATION_RECIPIENTS)
@@ -65,8 +66,7 @@ class AccountsController < ApplicationController
     else  
       @user = @u
       params[:user][:password] = params[:user][:password_confirmation] = ''
-      flash.now[:error] = @u.errors
-      self.user = u# if RAILS_ENV == 'test'
+      self.user = u
     end
   end  
 

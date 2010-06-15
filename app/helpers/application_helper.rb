@@ -2,8 +2,6 @@ module ApplicationHelper
   require 'digest/sha1'
   require 'net/http'
   require 'uri'
-  
-  
 
   def less_form_for name, *args, &block
     options = args.last.is_a?(Hash) ? args.pop : {}
@@ -18,27 +16,25 @@ module ApplicationHelper
     args = (args << options)
     remote_form_for name, *args, &block
   end
-  
-  
 
-  def display_standard_flashes(message = 'There were some problems with your submission:')
-    if flash[:notice]
-      flash_to_display, level = flash[:notice], 'notice'
-    elsif flash[:warning]
-      flash_to_display, level = flash[:warning], 'warning'
-    elsif flash[:error]
-      level = 'error'
-      if flash[:error].instance_of?( ActiveRecord::Errors) || flash[:error].is_a?( Hash)
-        flash_to_display = message
-        flash_to_display << activerecord_error_list(flash[:error])
-      else
-        flash_to_display = flash[:error]
-      end
-    else
-      return
-    end
-    content_tag 'div', flash_to_display, :class => "flash#{level}"
-  end
+  #  def display_standard_flashes(message = 'There were some problems with your submission:')
+  #    if flash[:notice]
+  #      flash_to_display, level = flash[:notice], 'notice'
+  #    elsif flash[:warning]
+  #      flash_to_display, level = flash[:warning], 'warning'
+  #    elsif flash[:error]
+  #      level = 'error'
+  #      if flash[:error].instance_of?( ActiveRecord::Errors) || flash[:error].is_a?( Hash)
+  #        flash_to_display = message
+  #        flash_to_display << activerecord_error_list(flash[:error])
+  #      else
+  #        flash_to_display = flash[:error]
+  #      end
+  #    else
+  #      return
+  #    end
+  #    content_tag 'div', flash_to_display, :class => "flash#{level}"
+  #  end
 
   def activerecord_error_list(errors)
     error_list = '<ul class="error_list">'
@@ -47,7 +43,7 @@ module ApplicationHelper
     end.to_s << '</ul>'
     error_list
   end
-    
+
   def inline_tb_link link_text, inlineId, html = {}, tb = {}
     html_opts = {
       :title => '',
@@ -96,34 +92,75 @@ module ApplicationHelper
     errors.is_a?(Array) ? errors.first : errors# errors.to_sentence : errors
   end
   
-   # type can be negative or positive or blank
+  # type can be error or positive or blank
   def show_flash(messages=nil,type='')
-    return '' if messages.nil?
-    output = ''
-    if messages.is_a? String
-      output << %(<p class="feedback #{type}">#{messages}</p>)
-    else
-      messages.each { |message| output << %(<p class="feedback #{type}">#{message.to_s}</p>) }
+    output = "<p id=\"flash_#{type}\">"
+
+    unless messages.nil?
+      if messages.is_a? String
+        output << %(<p id="flash_#{type}" class="feedback #{type}">#{messages}</p>)
+      else
+        messages.each { |message| output << %(<p id="flash_#{type}" class="feedback #{type}">#{message.to_s}</p>) }
+      end
     end
+    
+    output << "</p>"
     output
   end
   
   def show_default_flash
-    flash[:negative] = flash[:error] if flash[:error] # alias a flash error is used all over
-    [:notice,:positive,:negative].inject('') { |output,type| output << show_flash(flash[type],type) }
+    [:notice,:positive,:error].inject('') { |output,type| output << show_flash(flash[type],type) }
   end
 
   def pagination_controls_for(collection, prev_class="prev", next_class="next")
-    pagination = will_paginate(collection, :prev_label=>"&larr; Previous", :next_label=>"Next &rarr;", :prev_class=>prev_class, :next_class=>next_class)
+    pagination = will_paginate(collection, :prev_label=>"<< Previous", :next_label=>"Next >>", :prev_class=>prev_class, :next_class=>next_class)
     if pagination
       output = '<div class="pagination">'
       output << pagination
       output << '</div>'
     end
   end
+
+  def total_pages(collection)
+    WillPaginate::ViewHelpers.total_pages_for_collection(collection)
+  end
   
   def logged_in
     !@u.nil? and !@u.new_record?
   end
-  
+
+  # Awesome truncate
+  # First regex truncates to the length, plus the rest of that word, if any.
+  # Second regex removes any trailing whitespace or punctuation (except ;).
+  # Unlike the regular truncate method, this avoids the problem with cutting
+  # in the middle of an entity ex.: truncate("this &amp; that",9)  => "this &am..."
+  # though it will not be the exact length.
+  def awesome_truncate(text, length = 30, truncate_string = "...")
+    return if text.nil?
+    l = length - truncate_string.chars.length
+    text.chars.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
+  end
+
+  #RJS helper methods
+
+  def rjs_update_flashes flash
+    if flash[:positive]
+      page.replace_html :flash_positive, "<p class=\"feedback positive\">#{flash[:positive]}</p>"
+    else
+      page.replace_html :flash_positive, ""
+    end
+
+    if flash[:notice]
+      page.replace_html :flash_notice, "<p class=\"feedback notice\">#{flash[:notice]}</p>"
+    else
+      page.replace_html :flash_notice, ""
+    end
+
+    if flash[:error]
+      page.replace_html :flash_error, "<p class=\"feedback error\">#{flash[:error]}</p>"
+    else
+      page.replace_html :flash_error, ""
+    end
+  end
+
 end

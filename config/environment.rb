@@ -18,6 +18,10 @@ Rails::Initializer.run do |config|
   # like if you have constraints or database-specific column types
   # config.active_record.schema_format = :sql
 
+  # Add additional load paths for your own custom dirs
+  # config.load_paths += %W( #{RAILS_ROOT}/extras )
+  config.load_paths += %W( #{RAILS_ROOT}/app/sweepers #{RAILS_ROOT}/app/observers )
+
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 
@@ -35,6 +39,8 @@ Rails::Initializer.run do |config|
   config.gem 'mocha', :version=>"0.5.6"
   config.gem 'redgreen', :version=>"1.2.2" unless ENV['TM_MODE']
   config.gem 'gcnovus-avatar', :version=>"0.0.7", :lib => 'avatar'
+  config.gem "recaptcha", :lib => "recaptcha/rails"
+
 end
 
 Less::JsRoutes.generate!

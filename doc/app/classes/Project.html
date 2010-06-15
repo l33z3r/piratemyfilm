@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Project</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Project</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/models/project_rb.html">
+                app/models/project.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                ActiveRecord::Base
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h2>Schema Information</h2>
+<p>
+Schema version: 20090526045351
+</p>
+<p>
+Table name: projects
+</p>
+<pre>
+ id                      :integer(4)    not null, primary key
+ owner_id                :integer(4)
+ title                   :string(255)
+ producer_name           :string(255)
+ synopsis                :text
+ genre_id                :integer(4)
+ description             :text
+ cast                    :text
+ web_address             :string(255)
+ ipo_price               :decimal(10, 2
+ percent_funded          :integer(3)
+ icon                    :string(255)
+ created_at              :datetime
+ updated_at              :datetime
+ youtube_vid_id          :string(255)
+ status                  :string(255)   default(&quot;Funding&quot;)
+ project_length          :integer(4)    default(0)
+ share_percent_ads       :integer(3)
+ downloads_reserved      :integer(10)   default(0)
+ downloads_available     :integer(10)   default(0)
+ capital_required        :integer(12)
+</pre>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000165">admin_comment</a>&nbsp;&nbsp;
+      <a href="#M000164">admin_rating</a>&nbsp;&nbsp;
+      <a href="#M000170">capital_recycled_percent</a>&nbsp;&nbsp;
+      <a href="#M000169">capital_required</a>&nbsp;&nbsp;
+      <a href="#M000166">current_funds</a>&nbsp;&nbsp;
+      <a href="#M000173">filter_params</a>&nbsp;&nbsp;
+      <a href="#M000156">find_all_public</a>&nbsp;&nbsp;
+      <a href="#M000157">find_single_public</a>&nbsp;&nbsp;
+      <a href="#M000175">funding_limit_not_exceeded</a>&nbsp;&nbsp;
+      <a href="#M000167">funds_needed</a>&nbsp;&nbsp;
+      <a href="#M000171">ipo_price</a>&nbsp;&nbsp;
+      <a href="#M000176">min_funding_limit_passed</a>&nbsp;&nbsp;
+      <a href="#M000158">search</a>&nbsp;&nbsp;
+      <a href="#M000172">share_percent_ads</a>&nbsp;&nbsp;
+      <a href="#M000159">statuses</a>&nbsp;&nbsp;
+      <a href="#M000168">total_copies</a>&nbsp;&nbsp;
+      <a href="#M000162">update_estimates</a>&nbsp;&nbsp;
+      <a href="#M000161">update_funding</a>&nbsp;&nbsp;
+      <a href="#M000160">update_funding_and_estimates</a>&nbsp;&nbsp;
+      <a href="#M000163">user_rating</a>&nbsp;&nbsp;
+      <a href="#M000174">validate</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000173" class="method-detail">
+        <a name="M000173"></a>
+
+        <div class="method-heading">
+          <a href="#M000173" class="method-signature">
+          <span class="method-name">filter_params</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000173-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000173-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 206</span>
+206:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">filter_params</span>
+207:     [<span class="ruby-value str">&quot;Please Choose...&quot;</span>, <span class="ruby-value str">&quot;% funds reserved&quot;</span>, <span class="ruby-value str">&quot;breakeven&quot;</span>, <span class="ruby-value str">&quot;member rating&quot;</span>, <span class="ruby-value str">&quot;admin rating&quot;</span>, <span class="ruby-value str">&quot;newest&quot;</span>, <span class="ruby-value str">&quot;oldest&quot;</span>]
+208:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000156" class="method-detail">
+        <a name="M000156"></a>
+
+        <div class="method-heading">
+          <a href="#M000156" class="method-signature">
+          <span class="method-name">find_all_public</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+find projects that have been given initial rating and are not deleted
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000156-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000156-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/project.rb, line 79</span>
+79:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find_all_public</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+80: 
+81:     <span class="ruby-comment cmt">#TODO: use with_scope</span>
+82: 
+83:     
+84:     <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]
+85: 
+86:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:conditions</span>]
+87:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:conditions</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">sanitize_sql</span>(<span class="ruby-value str">' AND rated_at IS NOT NULL'</span>)
+88:     <span class="ruby-keyword kw">else</span>
+89:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:conditions</span>] = <span class="ruby-identifier">sanitize_sql</span>(<span class="ruby-value str">'rated_at IS NOT NULL'</span>)
+90:     <span class="ruby-keyword kw">end</span>
+91: 
+92:     <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:conditions</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">sanitize_sql</span>(<span class="ruby-value str">' AND is_deleted = 0'</span>)
+93: 
+94:     <span class="ruby-ivar">@projects</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">options</span>)
+95: 
+96:     <span class="ruby-ivar">@projects</span>
+97:     
+98:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000157" class="method-detail">
+        <a name="M000157"></a>
+
+        <div class="method-heading">
+          <a href="#M000157" class="method-signature">
+          <span class="method-name">find_single_public</span><span class="method-args">(id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000157-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000157-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 100</span>
+100:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find_single_public</span>(<span class="ruby-identifier">id</span>)
+101: 
+102:     <span class="ruby-ivar">@project</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>)
+103:     
+104:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">rated_at</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@project</span>.<span class="ruby-identifier">is_deleted</span>
+105:       <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@project</span>
+106:     <span class="ruby-keyword kw">else</span>
+107:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+108:     <span class="ruby-keyword kw">end</span>
+109:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000158" class="method-detail">
+        <a name="M000158"></a>
+
+        <div class="method-heading">
+          <a href="#M000158" class="method-signature">
+          <span class="method-name">search</span><span class="method-args">(query = '', options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000158-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000158-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 111</span>
+111:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span> <span class="ruby-identifier">query</span> = <span class="ruby-value str">''</span>, <span class="ruby-identifier">options</span> = {}
+112:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Searching for projects with query #{query}&quot;</span>
+113:     <span class="ruby-identifier">query</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">''</span>
+114:     <span class="ruby-identifier">q</span> = <span class="ruby-value str">'*'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/[^\w\s-]/</span>, <span class="ruby-value str">''</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">' '</span>, <span class="ruby-value str">'* *'</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">'*'</span>
+115:     <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-identifier">q</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; #{key}:#{value}&quot;</span>}
+116:     <span class="ruby-identifier">arr</span> = <span class="ruby-identifier">find_by_contents</span> <span class="ruby-identifier">q</span>, {<span class="ruby-identifier">:limit=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">:all</span>}, {<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'rated_at IS NOT NULL and is_deleted = 0'</span>}
+117:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">inspect</span>
+118:     <span class="ruby-identifier">arr</span>
+119:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000159" class="method-detail">
+        <a name="M000159"></a>
+
+        <div class="method-heading">
+          <a href="#M000159" class="method-signature">
+          <span class="method-name">statuses</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000159-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000159-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 121</span>
+121:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">statuses</span>
+122:     <span class="ruby-ivar">@@PROJECT_STATUSES</span>
+123:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000165" class="method-detail">
+        <a name="M000165"></a>
+
+        <div class="method-heading">
+          <a href="#M000165" class="method-signature">
+          <span class="method-name">admin_comment</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000165-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000165-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 158</span>
+158:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">admin_comment</span>
+159:     <span class="ruby-constant">ProjectComment</span>.<span class="ruby-identifier">find_by_project_id</span> <span class="ruby-identifier">id</span>
+160:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000164" class="method-detail">
+        <a name="M000164"></a>
+
+        <div class="method-heading">
+          <a href="#M000164" class="method-signature">
+          <span class="method-name">admin_rating</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000164-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000164-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 154</span>
+154:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">admin_rating</span>
+155:     <span class="ruby-identifier">admin_project_rating</span> <span class="ruby-value">? </span><span class="ruby-identifier">admin_project_rating</span>.<span class="ruby-identifier">rating_symbol</span> <span class="ruby-operator">:</span> <span class="ruby-constant">AdminProjectRating</span>.<span class="ruby-identifier">ratings_map</span>[<span class="ruby-value">1</span>]
+156:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000170" class="method-detail">
+        <a name="M000170"></a>
+
+        <div class="method-heading">
+          <a href="#M000170" class="method-signature">
+          <span class="method-name">capital_recycled_percent</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000170-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000170-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 182</span>
+182:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capital_recycled_percent</span>
+183:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">super</span>
+184:       <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>
+185:     <span class="ruby-keyword kw">end</span>
+186: 
+187:     <span class="ruby-keyword kw">super</span>
+188:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000169" class="method-detail">
+        <a name="M000169"></a>
+
+        <div class="method-heading">
+          <a href="#M000169" class="method-signature">
+          <span class="method-name">capital_required</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000169-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000169-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 174</span>
+174:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capital_required</span>
+175:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">super</span>
+176:       <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>
+177:     <span class="ruby-keyword kw">end</span>
+178: 
+179:     <span class="ruby-keyword kw">super</span>
+180:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000166" class="method-detail">
+        <a name="M000166"></a>
+
+        <div class="method-heading">
+          <a href="#M000166" class="method-signature">
+          <span class="method-name">current_funds</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000166-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000166-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 162</span>
+162:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_funds</span>
+163:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">downloads_reserved</span> <span class="ruby-operator">*</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ipo_price</span>
+164:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000167" class="method-detail">
+        <a name="M000167"></a>
+
+        <div class="method-heading">
+          <a href="#M000167" class="method-signature">
+          <span class="method-name">funds_needed</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000167-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000167-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 166</span>
+166:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">funds_needed</span>
+167:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">capital_required</span> <span class="ruby-operator">-</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_funds</span>
+168:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000171" class="method-detail">
+        <a name="M000171"></a>
+
+        <div class="method-heading">
+          <a href="#M000171" class="method-signature">
+          <span class="method-name">ipo_price</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000171-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000171-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 190</span>
+190:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ipo_price</span>
+191:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">super</span>
+192:       <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>
+193:     <span class="ruby-keyword kw">end</span>
+194: 
+195:     <span class="ruby-keyword kw">super</span>
+196:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000172" class="method-detail">
+        <a name="M000172"></a>
+
+        <div class="method-heading">
+          <a href="#M000172" class="method-signature">
+          <span class="method-name">share_percent_ads</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000172-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000172-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 198</span>
+198:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">share_percent_ads</span>
+199:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">super</span>
+200:       <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>
+201:     <span class="ruby-keyword kw">end</span>
+202:     
+203:     <span class="ruby-keyword kw">super</span>
+204:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000168" class="method-detail">
+        <a name="M000168"></a>
+
+        <div class="method-heading">
+          <a href="#M000168" class="method-signature">
+          <span class="method-name">total_copies</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000168-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000168-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 170</span>
+170:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">total_copies</span>
+171:     <span class="ruby-identifier">capital_required</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">ipo_price</span>
+172:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000162" class="method-detail">
+        <a name="M000162"></a>
+
+        <div class="method-heading">
+          <a href="#M000162" class="method-signature">
+          <span class="method-name">update_estimates</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000162-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000162-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 139</span>
+139:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_estimates</span>
+140:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;Updating Estimates!&quot;</span>
+141: 
+142:     <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+143:       <span class="ruby-ivar">@ad_sales_required</span> = (<span class="ruby-value">100</span> <span class="ruby-operator">*</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">capital_required</span>)<span class="ruby-operator">/</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">share_percent_ads</span>
+144:       <span class="ruby-ivar">@cpm_presumption</span> = <span class="ruby-value">10</span>
+145:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">breakeven_views</span> = (<span class="ruby-ivar">@ad_sales_required</span><span class="ruby-operator">/</span><span class="ruby-ivar">@cpm_presumption</span>) <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>
+146:     <span class="ruby-keyword kw">end</span>
+147:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000161" class="method-detail">
+        <a name="M000161"></a>
+
+        <div class="method-heading">
+          <a href="#M000161" class="method-signature">
+          <span class="method-name">update_funding</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000161-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000161-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 131</span>
+131:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_funding</span>
+132:     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;Updating percent funded&quot;</span>
+133:     <span class="ruby-ivar">@total_copies</span> = <span class="ruby-identifier">total_copies</span>
+134:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">downloads_reserved</span> = <span class="ruby-identifier">project_subscriptions</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">amount</span> }.<span class="ruby-identifier">sum</span>
+135:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">downloads_available</span> = <span class="ruby-ivar">@total_copies</span> <span class="ruby-operator">-</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">downloads_reserved</span>
+136:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">percent_funded</span> = (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">downloads_reserved</span> <span class="ruby-operator">*</span> <span class="ruby-value">100</span>) <span class="ruby-operator">/</span> <span class="ruby-ivar">@total_copies</span>
+137:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000160" class="method-detail">
+        <a name="M000160"></a>
+
+        <div class="method-heading">
+          <a href="#M000160" class="method-signature">
+          <span class="method-name">update_funding_and_estimates</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000160-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000160-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 125</span>
+125:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_funding_and_estimates</span>
+126:     <span class="ruby-identifier">update_funding</span>
+127:     <span class="ruby-identifier">update_estimates</span>
+128:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">save!</span>
+129:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000163" class="method-detail">
+        <a name="M000163"></a>
+
+        <div class="method-heading">
+          <a href="#M000163" class="method-signature">
+          <span class="method-name">user_rating</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000163-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000163-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 149</span>
+149:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">user_rating</span>
+150:     <span class="ruby-ivar">@user_project_rating</span> = <span class="ruby-constant">ProjectRating</span>.<span class="ruby-identifier">find_by_project_id</span> <span class="ruby-identifier">id</span>
+151:     <span class="ruby-ivar">@user_project_rating</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@user_project_rating</span>.<span class="ruby-identifier">rating_symbol</span> <span class="ruby-operator">:</span> <span class="ruby-constant">ProjectRating</span>.<span class="ruby-identifier">ratings_map</span>[<span class="ruby-value">1</span>]
+152:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000175" class="method-detail">
+        <a name="M000175"></a>
+
+        <div class="method-heading">
+          <a href="#M000175" class="method-signature">
+          <span class="method-name">funding_limit_not_exceeded</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000175-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000175-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 228</span>
+228:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">funding_limit_not_exceeded</span>
+229:     <span class="ruby-identifier">funding_limit</span> = <span class="ruby-identifier">owner</span>.<span class="ruby-identifier">membership_type</span>.<span class="ruby-identifier">funding_limit_per_project</span>
+230:     
+231:     <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">funding_limit</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">funding_limit</span> <span class="ruby-operator">!=</span> <span class="ruby-value">-1</span>
+232:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_required</span>, <span class="ruby-node">&quot; must be less than $#{funding_limit}, the limit for your membership type,
+233:           We will be allowing account upgrades shortly!&quot;</span>)
+234:     <span class="ruby-keyword kw">end</span>
+235:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000176" class="method-detail">
+        <a name="M000176"></a>
+
+        <div class="method-heading">
+          <a href="#M000176" class="method-signature">
+          <span class="method-name">min_funding_limit_passed</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000176-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000176-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 237</span>
+237:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">min_funding_limit_passed</span>
+238:     <span class="ruby-identifier">min_funding_limit</span> = <span class="ruby-identifier">owner</span>.<span class="ruby-identifier">membership_type</span>.<span class="ruby-identifier">min_funding_limit_per_project</span>
+239: 
+240:     <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">min_funding_limit</span>
+241:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_required</span>, <span class="ruby-node">&quot; must be greater than $#{min_funding_limit}, the limit for your membership type,
+242:           We will be allowing account upgrades shortly!&quot;</span>)
+243:     <span class="ruby-keyword kw">end</span>
+244:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000174" class="method-detail">
+        <a name="M000174"></a>
+
+        <div class="method-heading">
+          <a href="#M000174" class="method-signature">
+          <span class="method-name">validate</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000174-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000174-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/project.rb, line 212</span>
+212:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>
+213:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:share_percent_ads</span>, <span class="ruby-value str">&quot;must be between 0% - 100%&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">100</span>)
+214:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:producer_fee_percent</span>, <span class="ruby-value str">&quot;must be between 0% - 20%&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">producer_fee_percent</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">producer_fee_percent</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">producer_fee_percent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">20</span>)
+215:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_recycled_percent</span>, <span class="ruby-value str">&quot;must be between 0% - 100%&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">100</span>)
+216: 
+217:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_required</span>, <span class="ruby-value str">&quot;must be a multiple of your share price&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">capital_required</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">ipo_price</span> <span class="ruby-operator">!=</span><span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">ipo_price</span>
+218: 
+219:     <span class="ruby-comment cmt">#must check that total percentage adds up correctly</span>
+220:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">share_percent_ads</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">capital_recycled_percent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">100</span>
+221:       <span class="ruby-ivar">@exceeded_error_message</span> = <span class="ruby-value str">&quot;% Ad Sales and % Capital Recycled to PMF must sum to less than 100%&quot;</span>
+222:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:share_percent_ads</span>, <span class="ruby-ivar">@exceeded_error_message</span>)
+223:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">:capital_recycled_percent</span>, <span class="ruby-ivar">@exceeded_error_message</span>)
+224:     <span class="ruby-keyword kw">end</span>
+225: 
+226:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

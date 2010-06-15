@@ -1,18 +1,15 @@
+/* Global CSS */
+
 a img {
     border: none;
 }
 
 a {
-    color: #043a3a;
+    color: #666666;
 }
 
 a:hover {
-    color: #043a3a;
-}
-
-
-input {
-    cursor: pointer;
+    color: #666666;
 }
 
 .right {
@@ -23,13 +20,230 @@ input {
     float: left;
 }
 
+.center {
+    text-align: center;
+}
+
 .pmf_clear {
     clear: both;
     height: 1px;
 }
 
-.bio_stuff {
-    margin-left: 20px;
+.pmf_clear_bottom_border {
+    clear: both;
+    height: 1px;
+    border-bottom: 1px solid #333333;
+    width: 100%;
+}
+
+.pmf_top_margin_10 {
+    margin-top: 10px;
+}
+
+div.dashed_light_border {
+    border-bottom: 1px dashed #666666;
+    height: 1px;
+    clear: both;
+}
+
+/* Global CSS */
+
+/* Latest Max Blog */
+
+div#top_container {
+    font-size: 13px;
+    border-bottom: 2px dotted #999999;
+    max-height: 200px;
+    overflow: hidden;
+    padding: 20px 0px 10px 0px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+div#hp_latest_blog {
+    float: left;
+    width: 600px;
+}
+
+div#hp_latest_blog .blog-title {
+    font-weight: normal;
+    color: #666666;
+    margin: 10px 0px;
+}
+
+div#hp_latest_blog div#container div.blog-entry {
+    text-align: left;
+    padding: 0px 15px;
+}
+
+div#hp_latest_blog {
+
+}
+
+div#hp_latest_blog div#hp_latest_blog_header {
+    font-weight: bold;
+    font-size: 18px;
+    color: #666666;
+    float: left;
+}
+
+div#hp_latest_blog div.blog-entry {
+    text-align: left;
+}
+
+div#hp_latest_blog div.blog-entry span.short-date {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+div#hp_latest_blog div.blog-title {
+    float: left;
+    width: auto;
+}
+
+div#hp_latest_blog div.blog_comments_link {
+    float: left;
+}
+
+div#signup_section {
+    width: 280px;
+    float: right;
+}
+
+div#signup_section div#signup_buttons {
+    margin-top: 15px;
+}
+
+div#signup_section div#signup_buttons a {
+    text-decoration: none;
+}
+
+div#signup_section div#signup_buttons a div {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #999999;
+    width: 100px;
+    padding: 10px 5px;
+    margin-left: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+div#signup_section div#signup_buttons div.signup {
+    background-color: #009900;
+}
+
+div#signup_section div#signup_buttons div.login {
+    background-color: #999999;
+}
+
+div#signup_section div#welcome_message a img {
+    float: right;
+    height: 70px;
+    border: 1px solid #999999;
+}
+
+div#signup_section div#welcome_message span#message {
+    float: right;
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+div#signup_section div#welcome_message span#message a {
+    font-weight: normal;
+    clear: both;
+}
+
+/* Latest Max Blog */
+
+/* Top Menu */
+
+div#header_links .bubplastic.horizontal {
+    width: 100%;
+    height: 27px;
+    margin: 0;
+    padding: 0;
+    background: #000000 url(/images/bg-bubplastic.gif) top left repeat-x;
+}
+
+div#header_links .bubplastic.horizontal ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+div#header_links .bubplastic.horizontal ul li {
+    float: right;
+    margin: 0;
+    padding: 0;
+    background: transparent url(/images/bg-bubplastic-button.gif) top left no-repeat;
+}
+
+div#header_links .bubplastic.horizontal ul li a {
+    display: block;
+    height: 27px;
+    padding-left: 35px;
+    float: left;
+    text-transform: capitalize;
+    font-size: 11px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+div#header_links .bubplastic.horizontal ul li a span.menu_ar {
+    display: block;
+    float: left;
+    height: 22px;
+    padding-top: 5px;
+    padding-right: 35px;
+    background: transparent url(/images/bg-bubplastic-button.gif) top right no-repeat;
+    cursor: pointer;
+}
+
+div#header_links .bubplastic.gray ul li a:hover,
+div#header_links .bubplastic.gray ul li.highlight a {
+    background: transparent url(/images/bg-bubplastic-h-gray.gif) top left no-repeat;
+}
+
+div#header_links .bubplastic.gray ul li a:hover span.menu_ar,
+div#header_links .bubplastic.gray ul li.highlight a span.menu_ar {
+    background: transparent url(/images/bg-bubplastic-h-gray.gif) top right no-repeat;
+}
+
+div#header_links span.welcome_message {
+    font-weight: bold;
+}
+
+div#top_search_box {
+    float: right;
+    margin-top: -28px;
+}
+
+/* Top Menu */
+
+/* Flash messages */
+
+div#flashes p.error {
+    padding: 2px;
+    border: 1px solid #D8000C;
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+
+div#flashes p.notice {
+    padding: 2px;
+    border: 1px solid #4F8A10;
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+
+div#flashes p.positive {
+    padding: 2px;
+    border: 1px solid #4F8A10;
+    color: #4F8A10;
+    background-color: #DFF2BF;
 }
 
 /* Navigation */
@@ -40,13 +254,35 @@ div#sub_nav {
 
 /* Navigation */
 
+div#filter_param_box {
+    margin: 10px 0px;
+    float: right;
+    font-weight: bold;
+    color: #333333;
+}
+
+div#filter_param_box div.label {
+    float: right;
+    margin-top: 3px;
+}
+
+div#filter_param_box form select {
+    float: right;
+    border: 1px solid #666666;
+    margin-left: 10px;
+    height: 22px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #636363;
+    vertical-align: middle;
+}
+
 .project_listing_box {
     margin-top: 20px;
 }
 
 div.project_listings {
     clear: both;
-    margin: 4px 0px;
 }
 
 .friend_link {
@@ -157,14 +393,14 @@ fieldset {
     background-color: #f8f6ef;
 }
 
-legend {  
-    margin-left: 2em;
-    padding: 0;
+fieldset div.header {
+    margin: 20px 0px 0px 20px;
     font-weight: bold;
+    font-size: 14px;
 }
 
 fieldset ol {  
-    padding: 3.5em 1em 0 1em;
+    padding: 3px;
     list-style: none;
 }
 
@@ -235,12 +471,6 @@ label {
     margin-right: 1em;
 }
 
-legend span {  
-    position: absolute;
-    margin-top: 0.5em;
-    font-size: 135%;
-}
-
 label em {  
     display: block;
     color: #000;
@@ -250,23 +480,146 @@ label em {
 }
 
 #textinput	{
-    border:1px solid #015353;
+    border:1px solid #666666;
     height:1.7em;
     width:20em;
 }
 
-
 fieldset#select	{
-    border:0;
+    border: 0;
+}
+
+/* Project Page */
+
+.project_listings .project_row .view-lite-row-icon {
+    border: 0px;
+    padding: 0px;
+}
+
+div#project_blogs div.links {
+    float: right;
+    margin-right: 25px;
+}
+
+/* End Project Page */
+
+/* create project page */
+
+form#new_project div#captcha_section {
 
 }
 
-/*Project page specific*/
+/* create project page */
+
+/* Home page */
+
+
+
+/* End Home page */
+
+
+/* profile page */
+
+div#profile {
+    margin-top: 10px;
+}
+
+div#profile div.pageTitle {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+div#profile div#profile_section {
+    margin: 20px 0px;
+}
+
+div#profile div#profile_section div.avatar a img {
+    border: 1px solid #666666;
+}
+
+div#profile div.profile_links {
+    float: right;
+    margin: 5px 0px;
+}
+
+div#profile div.profile_links div {
+    float: left;
+}
+
+div#profile .bio_stuff {
+    margin-left: 20px;
+}
+
+div#profile .bio_stuff div#user_info {
+    margin-top: 10px;
+}
+
+div#profile .bio_stuff div.user_name {
+    font-weight: bold;
+    color: #666666;
+    font-size: 14px;
+}
+
+div#profile .bio_stuff div#user_info div.label {
+    font-weight: bold;
+    width: 130px;
+    float: left;
+}
+
+div#profile .bio_stuff div#user_info div.value {
+    float: left;
+}
+
+div#profile #content .bio_stuff div.pageTitle {
+    margin-top: 0px;
+}
+
+div#profile div.membership_type {
+    width: 450px;
+}
+
+div#profile div.membership_type div.title {
+    font-weight: bold;
+    color: black;
+    font-size: 14px;
+}
+
+/* End profile page */
+
+
+/*Project page */
+
+div#project_show .view-lite-row-description {
+    padding: 1px 5px;
+    width: 870px;
+}
+
+div#project_show div.latest_blog {
+
+}
+
+div#project_show div.latest_blog span.comments_link {
+    float: right;
+}
+
+div#project_show div.latest_blog span.date {
+    float: right;
+    font-weight: bold;
+}
 
 .project-overview	{
     width:100%;
     background:#fff;
     text-transform: uppercase;
+}
+
+div.project_action_links {
+    float: right;
+    margin: 5px 0px;
+}
+
+div#project_blogs {
+    margin-top: 20px;
 }
 
 #video	{
@@ -310,10 +663,16 @@ fieldset#select	{
 
 /*End of project specific*/
 
+/* static pages */
+
+div.static_content {
+    margin: 20px 10px;
+}
+
+/* end static pages */
+
 #footer	{
     background: #fff url(/images/footer-contents-bg.gif) repeat-x left top;
-    margin:30px auto 0 auto;
-    width:800px;
     height: 64px;
     font-size:85%;
     line-height: 3.1em;
@@ -352,25 +711,14 @@ fieldset#select	{
 }
 /* End hide */
 
-
 #icatch	{
-
-    width:800px;
     height: 90px;
-    position:absolute;
-
 }
 
-.icatch-pictures	{
-    /*margin-left:90px;*/
-    float:left;
-    margin-right:6px;
-    width:800px;
-    height:90px;
-    padding:0;
+.icatch-pictures {
+    width: 100%;
+    float: left;
 }
-
-
 
 .nav-bar	{
     background:#fff;
@@ -393,8 +741,7 @@ fieldset#select	{
 
 #search	{
     background: #fff url(/images/brand-search-bg.gif) repeat-x left top;
-    width:245px;
-    padding:0;
+    padding:0px 10px;
     margin-top:5px;
     height:40px;
     text-align:center;
@@ -420,10 +767,26 @@ fieldset#select	{
 }
 
 .big-number p	{
-    font-size:130%;
-    color:#015353;
+    font-size: 20px;
+    color: #000000;
     font-weight:bold;
     margin:0px;
+}
+
+/* Signup Page */
+
+div#signup_form div#captcha_section {
+    margin-left: 228px;
+}
+
+/* Signup Page */
+
+div#signup_buttons {
+    float: right;
+}
+
+div#signup_buttons div {
+    float: right;
 }
 
 .twitter-link {
@@ -451,25 +814,38 @@ form	{
     padding:0;
 }
 
-#brand	{
-    width:800px;
+#brand {
     height:82px;
 }
 
-#stage	{
-    width:1000px;
-    padding-top: 30px;
-    height:500px;
+#brand img#header_image {
+    float:left;
+    margin: 10px 60px 0 0;
+}
+
+div#site_wrapper {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
     background: #fff url(/images/login-bg.gif) repeat-x top left;
+}
+
+div#site_wrapper div#content_container {
+    margin-left: 40px;
+    margin-right: 40px;
+    text-align: center;
+}
+
+#stage	{
+    padding-top: 15px;
 }
 
 #logintop	{
     background: url(/images/login-contents-bg.gif) repeat-x left top;
-
     margin:0px auto;
     padding:0 100px 0 100px;
     height: 30px;
-
 }
 
 .login-panel	{
@@ -551,23 +927,9 @@ form	{
 }
 
 #content .error {
-    padding-top: 5px;
-    margin-bottom:10px;
-    text-align: center;
-    vertical-align: middle;
-    display: block;
-    height: 30px;
-    width: 90%;
-    position: relative;
-    left: 5%;
-    border: 2px solid #DEDEDE;
-    background-color: #E3372E;
-    background-image: url(<icon:error.png!/>);
-    background-repeat: no-repeat;
-    color: #FFFFFF;
-    font-weight: bolder;
-    font-size: 10px;
+    color: red;
 }
+
 #content .error a, #content .alert a {
     color: #FFFFFF;
     font-weight: bolder;
@@ -583,10 +945,10 @@ body	{
     background: #fff url(/images/body-bg-2.png) repeat-x;
     font-size:0.8em;
     line-height:1.4em;
-    font-family:Verdana, Arial, sans-serif;
+    font-family: "lucida grande", "tahoma", "arial", "sans-serif";
     margin:0;
     padding:0;
-
+    font-size: 12px;
     color:#666666;
 }
 
@@ -604,7 +966,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #globalHeader {
-    width: 850px;
     height: 30px;
 }
 
@@ -639,8 +1000,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #header {
-    width: 800px;
-    height:157px;
+    height: 166px;
     color: #000000;
     text-align: left;
 }
@@ -661,9 +1021,8 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #content {
-    width: 800px;
-    padding: 20px 5px 0px 0px;
-    margin:-20px 0px 20px 0px;
+    padding-top: 9px;
+    margin-top: -20px;
     display: block;
     text-align: left;
     background: url(/images/content-bg.gif) repeat-x left top;
@@ -688,7 +1047,15 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #content input[type=submit] {
+    color: #666666;
     font-weight: bold;
+    font-size: 11px;
+    border: 0px;
+    background: transparent url(/images/button_bg.png) left top;
+    padding: 9px 10px 10px 10px;
+    width: 120px;
+    cursor: pointer;
+    text-align: center;
 }
 
 #content .label {
@@ -704,18 +1071,17 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #content .pageTitle {
-    font-size: 1.4em;
-    color:#015353;
-    clear: both;
+    font-size: 20px;
+    color: #000000;
     margin-top: 15px;
 }
 
 #content .pageTitleSmaller {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
-    color:#015353;
+    color:#636363;
     clear: both;
-    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 #content .pageSubTitle {
@@ -736,7 +1102,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 #content .table , #content .menu {
     margin:auto;
     padding: 10px 5pt;
-    color:#043a3a;
+    color:#666666;
 }	
 
 .table th	{
@@ -766,11 +1132,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 #content .text {
     font-size: 12px;
     font-weight: bold;
-}
-
-#content textarea {
-    width: 95%;
-    margin: auto;
 }
 
 #comment textarea {
@@ -943,16 +1304,18 @@ div.TabView div.Pages div.Page div.Pad {
 
 .local-navbar-button	{
     background:#ccc url(/images/local-nav-bg.png) top left repeat-x;
-    width:120px;
+    width:115px;
     height:40px;
     float:left;
     margin-top:5px;
     margin-right:5px;
+    border-right: 1px solid #999999;
 }
 
 .local-navbar-button span a	{
     text-decoration:none;
     color: #666;
+    font-size: 12px;
 }
 
 .local-navbar-button span a:hover {
@@ -1001,26 +1364,28 @@ div.project_listings .blog-row {
 .view-lite-row	{
     float: left;
     clear: both;
-    width: 100%;
-    height:120px;
-    padding:5px;
-    margin: 0 0 1em 0;
+    width: 870px;
+    height: auto;
+    padding: 5px 5px 7px 5px;
     border-style: none;
-    border-top: 1px solid #fff;
     background-color: #f8f6ef;
+    border-bottom: 1px solid #999999;
+    border-right: 1px solid #999999;
 }
 
 .view-lite-row-alt	{
     float: left;
     clear: both;
-    width: 100%;
-    height:120px;
-    padding:5px;
-    margin: 0 0 1em 0;
+    width: 870px;
+    height: auto;
+    padding: 5px 5px 7px 5px;
     border-style: none;
-    border-top: 1px solid #fff;
-    background-color: #fff;
+    background-color: #ffffff;
+    border-bottom: 1px solid #999999;
+    border-right: 1px solid #999999;
 }
+
+/* blogs */
 
 div.blog {
     padding: 15px 0px 20px 0px;
@@ -1030,23 +1395,38 @@ div.blog .header {
     float: left;
 }
 
-div.blog .header a {
+div.blog .header {
     font-weight: bold;
     font-size: 15px;
 }
 
+div.blog div.share_buttons {
+
+}
+
+div.blog div.share_buttons div.tweet_button {
+    float: right;
+    margin-right: 10px;
+}
+
+div.blog div.share_buttons div.facebook_button {
+    float: right;
+}
+
 div.blog-row {
-    margin-bottom: 20px;
     clear: both;
+    padding: 10px 0px;
 }
 
 div.blog-row div.share_buttons {
-    margin-top: 10px;
+    margin-top: 5px;
+    float: right;
+    margin-right: 20px;
 }
 
 div.blog-row div.share_buttons div.tweet_button {
     float: right;
-    margin-left: 5px;
+    margin-right: 10px;
 }
 
 div.blog-row div.share_buttons div.facebook_button {
@@ -1056,29 +1436,52 @@ div.blog-row div.share_buttons div.facebook_button {
 .blog-title {
     float: left;
     text-transform: capitalize;
-    color:#015353;
+    color:#666666;
     font-size:13px;
     font-weight:bold;
     margin: 5px 0px;
-    width: 500px;
+    width: 460px;
+}
+
+div.blog-row div.project_author_links {
+    float: right;
+    text-align: right;
 }
 
 .blog_comments_link {
     float: right;
 }
 
-.blog_admin_links {
+div.blog div.share_buttons {
+    margin-top: 5px;
+    float: right;
+    margin-right: 20px;
+}
+
+div.blog div.project_author_links {
+    float: right;
+    text-align: right;
+}
+
+div.blog_admin_links {
     float: right;
     margin-left: 30px;
+    margin-bottom: 10px;
 }
 
 .blog-body {
     width: 100%;
-    margin: 5px 0px;
+    margin: 15px 0px;
 }
 
-.blog-body span.links {
+.blog-body p {
+    position: relative;
+    margin: 0;
+}
+
+.blog-entry span.links {
     float: right;
+    margin-top: 5px;
 }
 
 .blog-date {
@@ -1091,14 +1494,118 @@ div.blog-entry div.blog_comments_link {
     float: left;
 }
 
+.blog-row .profile-pic {
+    margin-left: 20px;
+}
+
+/* end blogs */
+
+/* admin section */
+
+div.admin_section div.pageTitle {
+    margin-bottom: 20px;
+}
+
+div.admin_section ul#tabs {
+    float: left;
+    width: 100%;
+    list-style: none;
+    padding-left: 0px;
+    border-bottom: 1px solid #666666;
+}
+
+div.admin_section ul#tabs LI {
+    float:left;
+    margin:0;
+    padding:0;
+}
+
+div.admin_section ul#tabs A {
+    display:block;
+    color:#444;
+    text-decoration:none;
+    font-weight:bold;
+    background:#ddd;
+    margin-right: 3px;
+    padding:0.25em 1em;
+    border: 1px solid #000000;
+    border-bottom-width: 0px;
+}
+
+div.admin_section ul#tabs A:hover,
+div.admin_section ul#tabs A:active,
+div.admin_section ul#tabs A.selected:link,
+div.admin_section ul#tabs A.selected:visited {
+    background: #FFFFFF;
+    margin-bottom: -1px;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+/* end admin section */
+
+/* user admin section */
+
+div.admin_section div.users div#search_text {
+    float: left;
+    margin-top: 3px;
+}
+
+div.admin_section div.users div#user_search {
+    float: right;
+}
+
+div.admin_section div.users div.user {
+    margin: 10px 0px;
+    text-align: center;
+}
+
+div.admin_section div.users div.headers div {
+    float: left;
+    font-weight: bold;
+    font-size: 13px;
+    width: 150px;
+}
+
+div.admin_section div.users div.user div {
+    float: left;
+    margin-top: 15px;
+    width: 150px;
+    text-align: left;
+    font-weight: bold;
+}
+
+div.admin_section div.users div.user div.icon {
+    margin-top: 0px;
+}
+
+div.admin_section div.users div.headers div.membership_type_header {
+    width: 450px;
+}
+
+div.admin_section div.users div.user div.membership_type {
+    width: 450px;
+}
+
+div.admin_section div.users div.user div.membership_type form select {
+    float: left;
+}
+
+div.admin_section div.users div.user div.membership_type form div.submit {
+    float: left;
+    margin-top: -6px;
+    margin-left: 25px;
+}
+
+/* end user admin section */
+
 .view-lite-row-title {
     background:#fff;
-    color:#015353;
+    color:#666666;
     font-size:60%;
     font-weight:bold;
     padding:0;
     margin:10px 0 0 0;
-    border-bottom:2px solid #015353;
+    border-bottom:2px solid #666666;
 }
 
 .view-lite-row-title div {
@@ -1136,35 +1643,43 @@ div.blog-entry div.blog_comments_link {
     padding-left:9px;
 }
 
-.view-lite-row-icon	{	
-    border-right:2px dotted #fff;
-    display:inline;
-    margin-top:5px;
-    float:left;
-    padding-right:5px;
-    width:95px;
+.view-lite-row-icon	{;
+    display: inline;
+    margin-top: 10px;
+    padding: 12px 0px;
+    float: left;
     text-align: center;
+    width: 116px;
+    border: 1px dotted #ffffff;
+    margin: auto;
 }
 
 .view-lite-row-icon img {
-    height: 85px;
-    width: 95px;
+    height: 100px;
+    width: 100px;
 }
 
 .view-lite-row-project-name	{
-    padding-top: 4px;
-    height:110px;
-    width:140px;
+    margin-bottom: 3px;
+    margin-left: 8px;
+    width: 700px;
+    float: left;
+    padding-bottom: 2px;
     float:left;
-    border-right:2px dotted #fff;
 }
 
 .view-lite-row-project-name a {
-    font-size: 12px;
+    font-size: 13px;
     font-weight:bold;
-    color:#636363;
-    text-transform:capitalize;
-    text-decoration:none;
+    color: #000000;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+.view-lite-row-project-link {
+    float: right;
+    font-weight: bold;
+    margin-right: 26px;
 }
 
 .view-lite-row-project-name a:hover	{
@@ -1176,7 +1691,6 @@ div.blog-entry div.blog_comments_link {
     height:110px;
     width:75px;
     float:left;
-    border-right:2px dotted #fff;
     text-align:center;
     margin-top:5px;
 }
@@ -1192,6 +1706,7 @@ div.blog-entry div.blog_comments_link {
     text-align: center;
     float: left;
     padding: 10px;
+    width: 115px;
 }
 
 .user-icon span {
@@ -1209,11 +1724,9 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-numbers {
-    height:110px;
-    width:230px;
-    padding:0 0 0 10px;
-    float:left;
-    border-right:2px dotted #fff;
+    width: 194px;
+    padding-left: 20px;
+    float: left;
 }
 
 .view-lite-row-numbers ul {
@@ -1227,33 +1740,69 @@ div.blog-entry div.blog_comments_link {
 }
 
 #content .view-lite-row-numbers li.label {
-    text-align: right;
     font-size:11px;
     font-weight:bold;
-    color:#015353;
+    color:#666666;
     text-decoration:none;
-    width: 100px;
+    width: 120px;
+    margin-bottom: 1px;
+    overflow: hidden;
 }
 
 #content .view-lite-row-numbers li.stat {
-    margin-left: 5px;
     text-align: left;
     color: #636363;
-    width: 80px;
-    font-weight: bold;
+    width: 74px;
+    margin-bottom: 1px;
+    overflow: hidden;
 }
 
 .view-lite-row-numbers li span {
     color: #636363;
 }
 
-.view-lite-row-comment {
-    height:110px;
-    width:145px;
-    padding:4px;
+.view-lite-row-words {
+    width: 310px;
+    padding-left: 10px;
     float:left;
-    font-size:70%;
-    border-right:2px dotted #fff;
+}
+
+.view-lite-row-words ul {
+    margin-top: 5px;
+    padding: 0;
+    list-style-type: none;
+}
+
+.view-lite-row-words li {
+    float: left;
+}
+
+#content .view-lite-row-words li.label {
+    font-size:11px;
+    font-weight:bold;
+    color: #444444;
+    text-decoration:none;
+    width: 125px;
+    margin-bottom: 1px;
+    overflow: hidden;
+}
+
+#content .view-lite-row-words li.stat {
+    text-align: left;
+    color: #636363;
+    width: 165px;
+    margin-bottom: 1px;
+    overflow: hidden;
+}
+
+.view-lite-row-words li span {
+    color: #636363;
+}
+
+.view-lite-row-comment {
+    width: 100%;
+    padding: 3px 0px;
+    float: left;
 }
 
 .view-lite-row-comment a {
@@ -1262,11 +1811,16 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-comment .header {
-    clear: both;
-    color: #015353;
+    width: 130px;
+    float: left;
+    color: #636363;
     font-weight: bold;
     font-size: 11px;
     text-decoration:none;
+}
+
+.view-lite-row-comment .body {
+    float: left;
 }
 
 .view-lite-row-comment ul {
@@ -1288,12 +1842,13 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-description {
-    height:110px;
-    width:150px;
-    padding:4px;
-    float:left;
-    font-size:70%;
-    color:#636363;
+    width: 100%;
+    float: left;
+    margin-top: 5px;
+    padding: 3px 0px;
+    color: #636363;
+    background-color:#F8F6EF;
+    border-bottom:1px dotted #666666;
 }
 
 .view-lite-row-description a {
@@ -1302,11 +1857,18 @@ div.blog-entry div.blog_comments_link {
 }
 
 .view-lite-row-description .header {
-    clear: both;
-    color: #015353;
+    width: 130px;
+    float: left;
+    color: #636363;
     font-weight: bold;
     font-size: 11px;
-    text-decoration:none;
+    text-decoration: none;
+}
+
+.view-lite-row-description .body {
+    float: left;
+    width: 100%;
+    padding: 5px 10px;
 }
 
 .view-lite-row-description a:hover {
@@ -1320,30 +1882,31 @@ div.blog-entry div.blog_comments_link {
 }
 
 .row {
-    text-align:right;
-    width:450px;
+    width:560px;
     margin:0 0 10px 0;
     padding:0;
 }
 
 .row label {
+    text-align:right;
+}
+
+.row label {
     float: left;
-    width: 18em;
+    width: 300px;
     margin-right: 1em;
 }
 
 .row input[type=text] {
-    width: 200px;
-    text-align:left;
+    width: 225px;
 }
 
 .row input[type=password] {
-    width: 200px;
-    text-align:left;
+    width: 225px;
 }
 
-.checkbox input[type=checkbox] {
-    text-align:left;
+.row input[type=checkbox] {
+    margin-left: 0px;
 }
 
 .row input.text {
@@ -1359,7 +1922,7 @@ div.blog-entry div.blog_comments_link {
 }
 
 .instruction {
-    margin: 0 18em 4em 0;
+    margin: 0 10px 10px 0;
 }
 
 .instruction ul	{
@@ -1384,78 +1947,6 @@ div.blog-entry div.blog_comments_link {
     text-decoration: underline;
 }
 
-div#top_site {
-    width: 1000px;
-}
-
-div#hp_text_blurb {
-    width: auto;
-    font-size: 13px;
-    background: white;
-    border-bottom: 1px solid #999999;
-    max-height: 200px;
-    overflow: hidden;
-    padding: 12px 100px;
-}
-
-div#hp_text_blurb .blog_comments_link {
-    float: left;
-}
-
-div#hp_text_blurb .blog-title {
-    margin: 20px 0px;
-    margin-bottom: 12px;
-}
-
-div#hp_text_blurb div#container div.blog-entry {
-    text-align: left;
-    padding: 0px 15px;
-}
-
-div#hp_latest_blog {
-    
-}
-
-div#hp_latest_blog div#hp_latest_blog_header {
-    margin: 20px;
-    margin-bottom: 12px;
-    margin-left: 0px;
-    font-weight: bold;
-    font-size: 18px;
-    color: #015353;
-    float: left;
-}
-
-div#hp_latest_blog div.blog-entry {
-    text-align: left;
-}
-
-div#hp_latest_blog div.blog-title {
-    float: left;
-    width: auto;
-}
-
-div#hp_latest_blog div.blog_comments_link {
-    float: left;
-    margin: 20px;
-    margin-bottom: 12px;
-    font-weight: bold;
-}
-
-div#header_links {
-    float: right;
-}
-
-div#header_links div {
-    float: left;
-    margin-left: 4px;
-}
-
-div#header_links div#welcome_message {
-    font-weight: bold;
-    margin-left: 10px;
-}
-
 div#admin_stats {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -1471,3 +1962,122 @@ div#admin_stats {
 {
     float:left;
 }
+
+/* Form Errors */
+
+.fieldWithErrors input {
+    border: 2px solid red;
+    background-color: #FFBABA;
+}
+
+#errorExplanation {
+    width: 400px;
+    border: 2px solid #FF0000;
+    padding: 7px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    background-color: #c00;
+    color: #fff;
+}
+
+#errorExplanation p {
+    color: #333;
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+#errorExplanation ul li {
+    font-size: 12px;
+    list-style: square;
+}
+
+/* End form errors */
+
+/* link button */
+
+div.button {
+    background: url(/images/button_bg.png) transparent left top;
+    padding: 9px 10px;
+    width: 100px;
+    text-align: center;
+}
+
+div.button a {
+    text-decoration: none;
+    color: #666666;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+div.button a:hover {
+    text-decoration: none;
+}
+
+/* end link button */
+
+/* pagination */
+
+div.pagination {
+    margin: 10px 0px;
+    float: right;
+}
+
+div.pagination span.prev_page,
+div.pagination span.next_page,
+div.pagination a {
+    cursor: pointer;
+    font-weight: bold;
+    border: 1px solid #666666;
+    background-color: #eeeeee;
+    padding: 5px;
+    text-decoration: none;
+    color: #666666;
+}
+
+div.pagination a:hover {
+    text-decoration: none;
+}
+
+div.pagination .disabled {
+    visibility: hidden;
+}
+
+/* modal div */
+
+div.overdiv {
+    filter: alpha(opacity=75);
+    -moz-opacity: .75;
+    opacity: .75;
+    background-color: #c0c0c0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%; height: 100%;
+}
+
+div.square {
+    position: absolute;
+    top: 200px;
+    left: 200px;
+    background-color: Menu;
+    border: #f9f9f9;
+    height: 200px;
+    width: 300px;
+}
+
+div.square div.msg {
+    color: #3e6bc2;
+    font-size: 15px;
+    padding: 15px;
+}
+
+/* end modal div */

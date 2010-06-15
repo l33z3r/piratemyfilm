@@ -1,0 +1,14 @@
+<% if(@u.nil? or @u.new_record?) %>
+  <div id="signup_buttons">
+    <a href="<%= signup_path %>"><div class="signup">Sign Up</div></a>
+    <a href="<%= login_path %>"><div class="login">Log In</div></a>
+  </div>
+<% else %>
+  <div id="welcome_message">
+    <%= link_to icon(@p, :medium), edit_profile_path(@p) %>
+    <span id="message">
+      Welcome <%= @u.f.capitalize %>
+      (<%= link_to 'Log Out', logout_path %>)
+    </span>
+  </div>
+<% end %>

@@ -1,13 +1,24 @@
-<div id="hp_latest_blog">
-  <div id="hp_latest_blog_header">Max Blog:</div>
+<div id="top_container">
+  <div id="hp_latest_blog">
+    <div id="hp_latest_blog_header">PMF Latest From Max</div>
+    <div class="pmf_clear">&nbsp;</div>
 
-  <div class="blog-entry">
-    <div class="blog-title"><%= link_to h(truncate(blog.title, 55)), :controller => "blogs", :action => "homepage" %>...</div>
+    <div class="blog-entry">
+      <div class="blog-title">
+        <span class="short-date">(<%= blog.created_at.to_s(:short) %>)</span>
+        <%= h(awesome_truncate(blog.title, 60)) %>
+        (<%= link_to 'more', :controller => "blogs", :action => "homepage" %>)
+      </div>
 
-    <div class="blog_comments_link">
-      (<%= pluralize(blog.num_comments, "comment") %>)
+      <div class="pmf_clear">&nbsp;</div>
+      
+      <div class="blog_comments_link">
+        <%= pluralize(blog.num_comments, "comment") %>
+      </div>
     </div>
-
-    <div style="clear:both;"></div>
   </div>
+  <div id="signup_section">
+    <%= render :partial => "shared/signup" %>
+  </div>
+  <div class="pmf_clear">&nbsp;</div>
 </div>

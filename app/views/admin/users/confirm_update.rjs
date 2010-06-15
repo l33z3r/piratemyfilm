@@ -1,0 +1,23 @@
+page << "ModalPopups.Confirm('confirmContainer',
+  'Please Confirm Update', '#{escape_javascript(render :partial => "confirm", :locals => {:user => @user})}',
+  {
+    yesButtonText: 'Yes',
+    noButtonText: 'No',
+    onYes: 'confirmYes()',
+    onNo: 'confirmNo()',
+    width: 600,
+    height: 400
+  }
+);
+
+  function confirmYes() {
+    //resend request
+    ModalPopups.Close('confirmContainer');
+    $('#skip_confirm_#{@user.id}').val('true');
+    $('#submit_container_#{@user.id} input').click();
+    $('#skip_confirm_#{@user.id}').val('');
+  }
+
+  function confirmNo() {
+    ModalPopups.Close('confirmContainer');
+  }"

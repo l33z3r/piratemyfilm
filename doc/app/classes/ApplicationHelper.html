@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ApplicationHelper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ApplicationHelper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/helpers/application_helper_rb.html">
+                app/helpers/application_helper.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000267">activerecord_error_list</a>&nbsp;&nbsp;
+      <a href="#M000280">awesome_truncate</a>&nbsp;&nbsp;
+      <a href="#M000273">display_error_on</a>&nbsp;&nbsp;
+      <a href="#M000272">if_admin</a>&nbsp;&nbsp;
+      <a href="#M000268">inline_tb_link</a>&nbsp;&nbsp;
+      <a href="#M000271">is_admin?</a>&nbsp;&nbsp;
+      <a href="#M000265">less_form_for</a>&nbsp;&nbsp;
+      <a href="#M000266">less_remote_form_for</a>&nbsp;&nbsp;
+      <a href="#M000279">logged_in</a>&nbsp;&nbsp;
+      <a href="#M000270">me</a>&nbsp;&nbsp;
+      <a href="#M000277">pagination_controls_for</a>&nbsp;&nbsp;
+      <a href="#M000281">rjs_update_flashes</a>&nbsp;&nbsp;
+      <a href="#M000276">show_default_flash</a>&nbsp;&nbsp;
+      <a href="#M000274">show_field_errors</a>&nbsp;&nbsp;
+      <a href="#M000275">show_flash</a>&nbsp;&nbsp;
+      <a href="#M000269">tb_video_link</a>&nbsp;&nbsp;
+      <a href="#M000278">total_pages</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000267" class="method-detail">
+        <a name="M000267"></a>
+
+        <div class="method-heading">
+          <a href="#M000267" class="method-signature">
+          <span class="method-name">activerecord_error_list</span><span class="method-args">(errors)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+def display_standard_flashes(message = &#8216;There were some problems with
+your submission:&#8217;)
+</p>
+<pre>
+  if flash[:notice]
+    flash_to_display, level = flash[:notice], 'notice'
+  elsif flash[:warning]
+    flash_to_display, level = flash[:warning], 'warning'
+  elsif flash[:error]
+    level = 'error'
+    if flash[:error].instance_of?( ActiveRecord::Errors) || flash[:error].is_a?( Hash)
+      flash_to_display = message
+      flash_to_display &lt;&lt; activerecord_error_list(flash[:error])
+    else
+      flash_to_display = flash[:error]
+    end
+  else
+    return
+  end
+  content_tag 'div', flash_to_display, :class =&gt; &quot;flash#{level}&quot;
+</pre>
+<p>
+end
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000267-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000267-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 39</span>
+39:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">activerecord_error_list</span>(<span class="ruby-identifier">errors</span>)
+40:     <span class="ruby-identifier">error_list</span> = <span class="ruby-value str">'&lt;ul class=&quot;error_list&quot;&gt;'</span>
+41:     <span class="ruby-identifier">error_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span>, <span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+42:       <span class="ruby-node">&quot;&lt;li&gt;#{e.humanize unless e == &quot;base&quot;} #{m}&lt;/li&gt;&quot;</span>
+43:     <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'&lt;/ul&gt;'</span>
+44:     <span class="ruby-identifier">error_list</span>
+45:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000280" class="method-detail">
+        <a name="M000280"></a>
+
+        <div class="method-heading">
+          <a href="#M000280" class="method-signature">
+          <span class="method-name">awesome_truncate</span><span class="method-args">(text, length = 30, truncate_string = &quot;...&quot;)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Awesome truncate First regex truncates to the length, plus the rest of that
+word, if any. Second regex removes any trailing whitespace or punctuation
+(except ;). Unlike the regular truncate method, this avoids the problem
+with cutting in the middle of an entity ex.: truncate(&quot;this &amp;amp;
+that&quot;,9) =&gt; &quot;this &amp;am&#8230;&quot; though it will not be
+the exact length.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000280-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000280-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 138</span>
+138:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">awesome_truncate</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">length</span> = <span class="ruby-value">30</span>, <span class="ruby-identifier">truncate_string</span> = <span class="ruby-value str">&quot;...&quot;</span>)
+139:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">nil?</span>
+140:     <span class="ruby-identifier">l</span> = <span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">truncate_string</span>.<span class="ruby-identifier">chars</span>.<span class="ruby-identifier">length</span>
+141:     <span class="ruby-identifier">text</span>.<span class="ruby-identifier">chars</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">length</span> <span class="ruby-value">? </span><span class="ruby-identifier">text</span>[<span class="ruby-node">/\A.{#{l}}\w*\;?/</span><span class="ruby-identifier">m</span>][<span class="ruby-regexp re">/.*[\w\;]/</span><span class="ruby-identifier">m</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">truncate_string</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">text</span>
+142:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000273" class="method-detail">
+        <a name="M000273"></a>
+
+        <div class="method-heading">
+          <a href="#M000273" class="method-signature">
+          <span class="method-name">display_error_on</span><span class="method-args">(object, field_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000273-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000273-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 84</span>
+84:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_error_on</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">field_name</span>)
+85:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">on</span>(<span class="ruby-identifier">field_name</span>)
+86:       <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:span</span>, <span class="ruby-identifier">show_field_errors</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">field_name</span>), <span class="ruby-identifier">:class</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;error&quot;</span>)
+87:     <span class="ruby-keyword kw">end</span>
+88:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000272" class="method-detail">
+        <a name="M000272"></a>
+
+        <div class="method-heading">
+          <a href="#M000272" class="method-signature">
+          <span class="method-name">if_admin</span><span class="method-args">() {|if is_admin? @u| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000272-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000272-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 80</span>
+80:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">if_admin</span>
+81:     <span class="ruby-keyword kw">yield</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_admin?</span> <span class="ruby-ivar">@u</span>
+82:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000268" class="method-detail">
+        <a name="M000268"></a>
+
+        <div class="method-heading">
+          <a href="#M000268" class="method-signature">
+          <span class="method-name">inline_tb_link</span><span class="method-args">(link_text, inlineId, html = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000268-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000268-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 47</span>
+47:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inline_tb_link</span> <span class="ruby-identifier">link_text</span>, <span class="ruby-identifier">inlineId</span>, <span class="ruby-identifier">html</span> = {}, <span class="ruby-identifier">tb</span> = {}
+48:     <span class="ruby-identifier">html_opts</span> = {
+49:       <span class="ruby-identifier">:title</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">''</span>,
+50:       <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'thickbox'</span>
+51:     }.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">html</span>)
+52:     <span class="ruby-identifier">tb_opts</span> = {
+53:       <span class="ruby-identifier">:height</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">300</span>,
+54:       <span class="ruby-identifier">:width</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">400</span>,
+55:       <span class="ruby-identifier">:inlineId</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">inlineId</span>
+56:     }.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">tb</span>)
+57:     
+58:     <span class="ruby-identifier">path</span> = <span class="ruby-value str">'#TB_inline'</span>.<span class="ruby-identifier">add_param</span>(<span class="ruby-identifier">tb_opts</span>)
+59:     <span class="ruby-identifier">link_to</span>(<span class="ruby-identifier">link_text</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">html_opts</span>)
+60:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000271" class="method-detail">
+        <a name="M000271"></a>
+
+        <div class="method-heading">
+          <a href="#M000271" class="method-signature">
+          <span class="method-name">is_admin?</span><span class="method-args">(user = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000271-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000271-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 76</span>
+76:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_admin?</span> <span class="ruby-identifier">user</span> = <span class="ruby-keyword kw">nil</span>
+77:     <span class="ruby-identifier">user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">is_admin?</span>
+78:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000265" class="method-detail">
+        <a name="M000265"></a>
+
+        <div class="method-heading">
+          <a href="#M000265" class="method-signature">
+          <span class="method-name">less_form_for</span><span class="method-args">(name, *args, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000265-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000265-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 6</span>
+ 6:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">less_form_for</span> <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+ 7:     <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">pop</span> <span class="ruby-operator">:</span> {}
+ 8:     <span class="ruby-identifier">options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:builder=</span><span class="ruby-operator">&gt;</span><span class="ruby-constant">LessFormBuilder</span>)
+ 9:     <span class="ruby-identifier">args</span> = (<span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">options</span>)
+10:     <span class="ruby-identifier">form_for</span> <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+11:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000266" class="method-detail">
+        <a name="M000266"></a>
+
+        <div class="method-heading">
+          <a href="#M000266" class="method-signature">
+          <span class="method-name">less_remote_form_for</span><span class="method-args">(name, *args, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000266-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000266-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 13</span>
+13:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">less_remote_form_for</span> <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+14:     <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">pop</span> <span class="ruby-operator">:</span> {}
+15:     <span class="ruby-identifier">options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:builder=</span><span class="ruby-operator">&gt;</span><span class="ruby-constant">LessFormBuilder</span>)
+16:     <span class="ruby-identifier">args</span> = (<span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">options</span>)
+17:     <span class="ruby-identifier">remote_form_for</span> <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+18:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000279" class="method-detail">
+        <a name="M000279"></a>
+
+        <div class="method-heading">
+          <a href="#M000279" class="method-signature">
+          <span class="method-name">logged_in</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000279-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000279-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 128</span>
+128:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">logged_in</span>
+129:     <span class="ruby-operator">!</span><span class="ruby-ivar">@u</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@u</span>.<span class="ruby-identifier">new_record?</span>
+130:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000270" class="method-detail">
+        <a name="M000270"></a>
+
+        <div class="method-heading">
+          <a href="#M000270" class="method-signature">
+          <span class="method-name">me</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000270-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000270-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 72</span>
+72:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">me</span>
+73:     <span class="ruby-ivar">@p</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@profile</span>
+74:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000277" class="method-detail">
+        <a name="M000277"></a>
+
+        <div class="method-heading">
+          <a href="#M000277" class="method-signature">
+          <span class="method-name">pagination_controls_for</span><span class="method-args">(collection, prev_class=&quot;prev&quot;, next_class=&quot;next&quot;)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000277-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000277-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 115</span>
+115:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pagination_controls_for</span>(<span class="ruby-identifier">collection</span>, <span class="ruby-identifier">prev_class</span>=<span class="ruby-value str">&quot;prev&quot;</span>, <span class="ruby-identifier">next_class</span>=<span class="ruby-value str">&quot;next&quot;</span>)
+116:     <span class="ruby-identifier">pagination</span> = <span class="ruby-identifier">will_paginate</span>(<span class="ruby-identifier">collection</span>, <span class="ruby-identifier">:prev_label=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;&lt;&lt; Previous&quot;</span>, <span class="ruby-identifier">:next_label=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;Next &gt;&gt;&quot;</span>, <span class="ruby-identifier">:prev_class=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">prev_class</span>, <span class="ruby-identifier">:next_class=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">next_class</span>)
+117:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pagination</span>
+118:       <span class="ruby-identifier">output</span> = <span class="ruby-value str">'&lt;div class=&quot;pagination&quot;&gt;'</span>
+119:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">pagination</span>
+120:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'&lt;/div&gt;'</span>
+121:     <span class="ruby-keyword kw">end</span>
+122:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000281" class="method-detail">
+        <a name="M000281"></a>
+
+        <div class="method-heading">
+          <a href="#M000281" class="method-signature">
+          <span class="method-name">rjs_update_flashes</span><span class="method-args">(flash)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+RJS helper methods
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000281-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000281-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 146</span>
+146:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rjs_update_flashes</span> <span class="ruby-identifier">flash</span>
+147:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:positive</span>]
+148:       <span class="ruby-identifier">page</span>.<span class="ruby-identifier">replace_html</span> <span class="ruby-identifier">:flash_positive</span>, <span class="ruby-node">&quot;&lt;p class=\&quot;feedback positive\&quot;&gt;#{flash[:positive]}&lt;/p&gt;&quot;</span>
+149:     <span class="ruby-keyword kw">else</span>
+150:       <span class="ruby-identifier">page</span>.<span class="ruby-identifier">replace_html</span> <span class="ruby-identifier">:flash_positive</span>, <span class="ruby-value str">&quot;&quot;</span>
+151:     <span class="ruby-keyword kw">end</span>
+152: 
+153:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>]
+154:       <span class="ruby-identifier">page</span>.<span class="ruby-identifier">replace_html</span> <span class="ruby-identifier">:flash_notice</span>, <span class="ruby-node">&quot;&lt;p class=\&quot;feedback notice\&quot;&gt;#{flash[:notice]}&lt;/p&gt;&quot;</span>
+155:     <span class="ruby-keyword kw">else</span>
+156:       <span class="ruby-identifier">page</span>.<span class="ruby-identifier">replace_html</span> <span class="ruby-identifier">:flash_notice</span>, <span class="ruby-value str">&quot;&quot;</span>
+157:     <span class="ruby-keyword kw">end</span>
+158: 
+159:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>]
+160:       <span class="ruby-identifier">page</span>.<span class="ruby-identifier">replace_html</span> <span class="ruby-identifier">:flash_error</span>, <span class="ruby-node">&quot;&lt;p class=\&quot;feedback error\&quot;&gt;#{flash[:error]}&lt;/p&gt;&quot;</span>
+161:     <span class="ruby-keyword kw">else</span>
+162:       <span class="ruby-identifier">page</span>.<span class="ruby-identifier">replace_html</span> <span class="ruby-identifier">:flash_error</span>, <span class="ruby-value str">&quot;&quot;</span>
+163:     <span class="ruby-keyword kw">end</span>
+164:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000276" class="method-detail">
+        <a name="M000276"></a>
+
+        <div class="method-heading">
+          <a href="#M000276" class="method-signature">
+          <span class="method-name">show_default_flash</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000276-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000276-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 111</span>
+111:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_default_flash</span>
+112:     [<span class="ruby-identifier">:notice</span>,<span class="ruby-identifier">:positive</span>,<span class="ruby-identifier">:error</span>].<span class="ruby-identifier">inject</span>(<span class="ruby-value str">''</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">output</span>,<span class="ruby-identifier">type</span><span class="ruby-operator">|</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">show_flash</span>(<span class="ruby-identifier">flash</span>[<span class="ruby-identifier">type</span>],<span class="ruby-identifier">type</span>) }
+113:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000274" class="method-detail">
+        <a name="M000274"></a>
+
+        <div class="method-heading">
+          <a href="#M000274" class="method-signature">
+          <span class="method-name">show_field_errors</span><span class="method-args">(object, field_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000274-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000274-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 90</span>
+90:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_field_errors</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">field_name</span>)
+91:     <span class="ruby-identifier">errors</span> = <span class="ruby-identifier">object</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">on</span>(<span class="ruby-identifier">field_name</span>)
+92:     <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">errors</span><span class="ruby-comment cmt"># errors.to_sentence : errors</span>
+93:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000275" class="method-detail">
+        <a name="M000275"></a>
+
+        <div class="method-heading">
+          <a href="#M000275" class="method-signature">
+          <span class="method-name">show_flash</span><span class="method-args">(messages=nil,type='')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+type can be error or positive or blank
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000275-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000275-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 96</span>
+ 96:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_flash</span>(<span class="ruby-identifier">messages</span>=<span class="ruby-keyword kw">nil</span>,<span class="ruby-identifier">type</span>=<span class="ruby-value str">''</span>)
+ 97:     <span class="ruby-identifier">output</span> = <span class="ruby-node">&quot;&lt;p id=\&quot;flash_#{type}\&quot;&gt;&quot;</span>
+ 98: 
+ 99:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">messages</span>.<span class="ruby-identifier">nil?</span>
+100:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">messages</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">String</span>
+101:         <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">%(&lt;p id=&quot;flash_#{type}&quot; class=&quot;feedback #{type}&quot;&gt;#{messages}&lt;/p&gt;)</span>
+102:       <span class="ruby-keyword kw">else</span>
+103:         <span class="ruby-identifier">messages</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">message</span><span class="ruby-operator">|</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">%(&lt;p id=&quot;flash_#{type}&quot; class=&quot;feedback #{type}&quot;&gt;#{message.to_s}&lt;/p&gt;)</span> }
+104:       <span class="ruby-keyword kw">end</span>
+105:     <span class="ruby-keyword kw">end</span>
+106:     
+107:     <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;&lt;/p&gt;&quot;</span>
+108:     <span class="ruby-identifier">output</span>
+109:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000269" class="method-detail">
+        <a name="M000269"></a>
+
+        <div class="method-heading">
+          <a href="#M000269" class="method-signature">
+          <span class="method-name">tb_video_link</span><span class="method-args">(youtube_unique_path)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000269-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000269-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 62</span>
+62:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tb_video_link</span> <span class="ruby-identifier">youtube_unique_path</span>
+63:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">youtube_unique_path</span>.<span class="ruby-identifier">blank?</span>
+64:     <span class="ruby-identifier">youtube_unique_id</span> = <span class="ruby-identifier">youtube_unique_path</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/\/|\?v\=/</span>).<span class="ruby-identifier">last</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/\&amp;/</span>).<span class="ruby-identifier">first</span>
+65:     <span class="ruby-identifier">p</span> <span class="ruby-identifier">youtube_unique_id</span>
+66:     <span class="ruby-identifier">client</span> = <span class="ruby-constant">YouTubeG</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>
+67:     <span class="ruby-identifier">video</span> = <span class="ruby-identifier">client</span>.<span class="ruby-identifier">video_by</span> <span class="ruby-constant">YOUTUBE_BASE_URL</span><span class="ruby-operator">+</span><span class="ruby-identifier">youtube_unique_id</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;(video not found)&quot;</span>
+68:     <span class="ruby-identifier">id</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;--#{Time.now}--#{video.title}--&quot;</span>)
+69:     <span class="ruby-identifier">inline_tb_link</span>(<span class="ruby-identifier">video</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">h</span>(<span class="ruby-identifier">id</span>), {}, {<span class="ruby-identifier">:height</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">355</span>, <span class="ruby-identifier">:width</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">430</span>}) <span class="ruby-operator">+</span> <span class="ruby-node">%(&lt;div id=&quot;#{h id}&quot; style=&quot;display:none;&quot;&gt;#{video.embed_html}&lt;/div&gt;)</span>
+70:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000278" class="method-detail">
+        <a name="M000278"></a>
+
+        <div class="method-heading">
+          <a href="#M000278" class="method-signature">
+          <span class="method-name">total_pages</span><span class="method-args">(collection)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000278-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000278-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 124</span>
+124:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">total_pages</span>(<span class="ruby-identifier">collection</span>)
+125:     <span class="ruby-constant">WillPaginate</span><span class="ruby-operator">::</span><span class="ruby-constant">ViewHelpers</span>.<span class="ruby-identifier">total_pages_for_collection</span>(<span class="ruby-identifier">collection</span>)
+126:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

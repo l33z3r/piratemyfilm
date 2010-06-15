@@ -30,7 +30,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options(:controller => 'home') do |home|
     home.home '/', :action => 'index'
-    home.tos '/tos', :action => 'terms'
     home.contact '/contact', :action => 'contact'
   end
 

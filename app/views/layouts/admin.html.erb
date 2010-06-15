@@ -15,32 +15,53 @@
 
   </head>
 
-  <body>
+  <body onload="doInit();">
 
-    <center>
+    <div id="site_wrapper">
 
-      <div id="stage"><!--OPEN WHITE ZONE-->
+      <div id="header_links">
+        <div class="menu bubplastic horizontal gray">
+          <ul>
+            <li><span class="menu_r"><a href="/pages/how_it_works"><span class="menu_ar">How It Works</span></a></span></li>
+            <li><span class="menu_r"><a href="/pages/about_us"><span class="menu_ar">About Us</span></a></span></li>
+            <li><span class="menu_r"><a href="/pages/contact_us"><span class="menu_ar">Contact us</span></a></span></li>
+            <li><span class="menu_r"><a href="/"><span class="menu_ar">Home</span></a></span></li>
+          </ul>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+      </div>
 
-<%= render :partial => 'shared/header' %>
+      <div class="pmf_clear">&nbsp;</div>
 
-        <div id="content">
+      <% if !@hide_intro_blog && @latest_blog %>
+        <%= render :partial => "/blog_partials/latest_hp_blog", :locals => {:blog => @latest_blog} %>
+        <div class="pmf_clear">&nbsp;</div>
+      <% end %>
 
-          <div id="flashes">
-            <%= show_default_flash -%>
+      <div id="content_container">
+        <div id="stage" class="admin_section">
+
+          <%= render :partial => 'shared/header' %>
+
+          <div id="content">
+
+            <div id="flashes">
+              <%= show_default_flash -%>
+            </div>
+
+            <%= render :partial => "/admin/shared/admin_nav" %>
+
+            <%= yield %>
+
           </div>
 
-          <%= render :partial => "/admin/shared/admin_nav" %>
+          <div class="pmf_clear">&nbsp;</div>
 
-          <%= yield %>
+          <%= render :partial => 'shared/footer' %>
 
-        </div><!--CLOSE CONTENT-->
-
-        <div style="clear:both;"></div>
-
-        <%= render :partial => 'shared/footer' %>
-
-      </div><!--CLOSE WHITE ZONE-->
-    </center>
+        </div>
+      </div>
+    </div>
 
     <div id="footer_scripts">
       <%= render :partial => 'shared/footer_scripts' %>

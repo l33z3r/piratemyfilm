@@ -94,6 +94,10 @@ set :local_shared_files, %w(config/database.yml)
 # ptys stop shell startup scripts from running.
 default_run_options[:pty] = true
 
+#add this line to sort out some path problems with starting/stopping
+#ferret server on deploy see (http://www.zorched.net/2008/06/19/capistrano-and-ferret-drb/)
+default_run_options[:shell] = false
+
 ## Logrotation
 # Where the logs are stored. Defaults to <shared_path>/log
 # set :log_dir, "central/log/path"
@@ -155,14 +159,14 @@ default_run_options[:pty] = true
 # depend :remote, :command, "brightbox"
 depend :remote, :gem, "hpricot", "0.8.1"
 
-#after "deploy:restart", "ferret:start"
+after "deploy:restart", "ferret:index"
 
-#namespace :ferret do 
-#  desc "Ferret Start"
-#  task :start do
-#    run "cd #{current_path} && #{current_path}/script/ferret_server -e production start"
-#  end
-#end
+namespace :ferret do 
+  desc "Ferret Index"
+  task :index do
+    run "cd #{current_path} && RAILS_ENV=production rake ferret_index"
+  end
+end
 
 after "deploy:symlink", "deploy:update_crontab"
 

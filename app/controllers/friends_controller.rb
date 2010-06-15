@@ -2,7 +2,9 @@ class FriendsController < ApplicationController
   before_filter :setup
   skip_before_filter :login_required, :only=>:index
   skip_before_filter :store_location, :only => [:create, :destroy]
-  
+
+  #controller not used so redirect to hom
+  before_filter :redirect_to_home
   
   def create
     respond_to do |wants|

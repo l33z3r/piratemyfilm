@@ -1,92 +1,89 @@
-<h1>Account Settings <%= 'or '+link_to('Skip This Step', profile_path(@p)) if flash[:notice]=="Thanks for signing up!" %></h1>
+<h1>Account Settings</h1>
 
 <div id="general_info">
   <% less_form_for @p, :html=>{:method=>:put, :class=>"box no_top"} do |p| %>
     <h2><%= "General info" %></h2>
-  
+
     <%= p.front :email %>
     <input type="text" name="profile[email]" id="profile_email" value="<%= params[:profile].blank? || params[:profile][:email].blank? ? @p.email : params[:profile][:email] %>">
     <%= error_messages_on(:profile, :email) %>
     <%= p.back %>
-  
-    <%= p.text_field :first_name %>   
+
+    <%= p.text_field :first_name %>
     <%= p.text_field :last_name %>
-    <%= p.text_field :location %>
-               
-    <div class="row button">
+
+    <div class="row clear">
+      <label for="country-name">Home Country:</label>
+      <%= select_tag "profile[country_id]", options_for_select(Country.for_select, [@p.home_country.name, @p.home_country.id]) %>
+      <div class="clear"></div>
+    </div>
+
+    <div class='row clear'>
+      <label>&nbsp;</label>
       <%= p.submit 'Save', :class => 'button' %>
     </div>
-  
+
     <input type="hidden" name="switch" value="name" />
   <% end %>
 </div>
 
-<div class="clear"></div>
+<div class="pmf_clear">&nbsp;</div>
 
 <div id="upload_icon">
   <% less_form_for @p, :html=>{:method=>:put, :multipart=>true, :class=>"box no_top"} do |p| %>
-    <h2><%= "Upload Icon:" %></h2>
-  
-    <%= p.front :icon, :label => 'Upload your Icon' %>
-    <%= file_column_field( "profile", "icon", :size => 15)%>
-    <div class="clear"></div>
+    <h2>Upload Avatar</h2>
+
     Note: your profile image must be less than 1 megabyte in size
+
+    <div class="pmf_top_margin_10">&nbsp;</div>
+
+    <%= p.front :icon, :label => 'Upload your Icon:' %>
+    <%= file_column_field( "profile", "icon", :size => 15)%>
+
+    <div class="pmf_top_margin_10">&nbsp;</div>
+
     <%= error_message_on(:profile, :icon) %>
     <% unless @p.icon.blank? %>
-      <div id="avatar_edit">
-        <span id="profile_icon_picture">
-          <%= icon @p %>
-          <%= link_to_remote 'delete icon', :url=>delete_icon_profile_path(@p), :confirm=>DELETE_CONFIRM  %>
-        </span>
+      <div class='row clear'>
+        <label>Current Avatar:</label>
+        <%= icon @p, :medium %>
       </div>
     <% end %>
-    <%= p.back :icon %>
-      
-    <div class="row button">
+
+    <div class="pmf_top_margin_10">&nbsp;</div>
+
+    <div class='row clear'>
+      <label>&nbsp;</label>
       <%= p.submit 'Save', :class => 'button' %>
     </div>
-  
+
     <input type="hidden" name="switch" value="image" />
   <% end %>
 </div>
 
-
 <div id="change_passwords">
   <% less_form_for @p, :html=>{:method=>:put, :class=>"box no_top"} do |p| %>
     <h2><%= "Change Password" %></h2>
-  
+
     <%= p.front :current_password, :for => :verify_password %>
     <input type="password" name="verify_password" id="verify_password" />
     <%= error_messages_on(:user, :password) %>
     <%= p.back %>
-  
+
     <%= p.front :new_password, :for => :new_password %>
     <input type="password" name="new_password" id="new_password" />
     <%= error_messages_on(:user, :new_password) %>
     <%= p.back %>
-  
+
     <%= p.front :confirm_password, :for => :confirm_password %>
     <input type="password" name="confirm_password" id="confirm_password" />
     <%= p.back %>
-      
-    <div class="row button">
+
+    <div class='row clear'>
+      <label>&nbsp;</label>
       <%= p.submit 'Save', :class => 'button' %>
     </div>
-  
+
     <input type="hidden" name="switch" value="password" />
   <% end %>
 </div>
-
-<div class="clear"></div>
-
-
-
-
-
-
-
-
-
-
-
-

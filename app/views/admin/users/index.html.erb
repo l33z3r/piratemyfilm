@@ -1,15 +1,47 @@
+<div class="users">
 
-<div class="activity_box">
-  <h2>Search Results</h2>
+  <div class="pmf_clear">&nbsp;</div>
 
-  <% @results.each do |p| %>
-  <div class="<%= cycle('odd','even') %> search_row left">
-    <div><%= icon p, :small %></div>
-    <div><%= link_to h(p.f), p %></div>
-    <div><%= mail_to h(p.email), p.email %></div>
-    <div><%= link_to_remote "#{ p.is_active ? 'deactivate' : 'activate' }", {:url => formatted_admin_user_path(p, 'js'), :method => :put}, {:id => p.dom_id('link')} %></div>						
-  </div>
+  <% if @search_query %>
+    <div id="search_text">Search Results For: <b><%= h @search_query %></b></div>
   <% end %>
-  <div class="clear"></div>
-  <%= will_paginate @results %>
+
+  <% form_tag url_for(:action => "index"), :method => :get do -%>
+    <div id="user_search">
+      <%= text_field_tag 'search[uq]', (params[:search] && params[:search][:uq] ? params[:search][:uq] : 'Search Users'), :id => 'search[uq]', :size => 16, :onfocus => "this.select();" %>
+      <input type="submit" value="Search"/>
+    </div>
+  <%- end -%>
+
+  <div class="pmf_clear">&nbsp;</div>
+  
+  <div class="headers">
+    <div class="icon_header">User Avatar</div>
+    <div class="name_header">User Name</div>
+    <div class="membership_type_header">Membership Type</div>
+  </div>
+
+  <div class="dashed_light_border">&nbsp;</div>
+
+  <% @profiles.each do |p| %>
+    <div class="<%= cycle('odd','even') %> search_row left user">
+      <div class="icon"><%= icon p, :small %></div>
+      <div class="name"><%= h p.f %></div>
+      <div class="membership_type">
+        <% form_remote_tag :url => {:action => "update_membership"}, :html => {:id => "membership_#{p.user.id}"} do %>
+          <%= select_tag "user_membership", options_for_select(@membership_select_opts,
+            [p.user.membership.membership_type.name, p.user.membership.membership_type.id.to_s]), :onchange => "$('#submit_container_#{p.user.id}').show();" %>
+          <%= hidden_field_tag :user_id, p.user.id %>
+          <input type="hidden" id="skip_confirm_<%= p.user.id %>" name="skip_confirm" value=""/>
+          <div class="submit" id="submit_container_<%= p.user.id %>" style="display: none;">
+            <%= submit_tag "Update" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
+  <% end %>
+
+  <%= pagination_controls_for @profiles if @profiles.respond_to? :total_pages %>
+
 </div>

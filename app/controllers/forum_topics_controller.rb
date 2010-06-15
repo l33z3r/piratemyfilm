@@ -4,6 +4,9 @@ class ForumTopicsController < ApplicationController
   
   skip_filter :login_required, :only => [:show, :index]
   before_filter :setup
+
+  #controller not used so redirect to hom
+  before_filter :redirect_to_home
   
   def index
     redirect_to forum_path(@forum)

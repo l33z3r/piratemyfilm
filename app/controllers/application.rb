@@ -3,11 +3,13 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
   filter_parameter_logging "password"
   
-  before_filter :allow_to, :check_user, :login_from_cookie, :login_required, :check_permissions, :pagination_defaults
-  before_filter :set_profile, :load_latest_blog, :load_filter_params
+  before_filter :allow_to, :check_user, :login_from_cookie, :login_required, :set_profile
+  before_filter :check_permissions, :pagination_defaults, :load_latest_blog, :load_filter_params
   
   after_filter :store_location
   layout 'application'  
+
+  helper_method :print_money, :print_number
   
   def check_featured
     return if Profile.featured_profile[:date] == Date.today
@@ -93,5 +95,27 @@ class ApplicationController < ActionController::Base
   def load_filter_params
     @filter_params = Project.filter_params
   end
-  
+
+  def print_money value
+    sprintf("%0.2f", value)
+  end
+
+  def check_captcha(redirect=nil)
+    if !verify_recaptcha
+      @message = "Please enter the captcha correctly!"
+      if redirect
+        flash[:error] = @message
+      else
+        flash.now[:error] = @message
+      end
+      false
+    else
+      true
+    end
+  end
+
+  def redirect_to_home
+    redirect_to :controller => "home"
+  end
+
 end

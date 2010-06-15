@@ -1,15 +1,11 @@
-<div id="MENU_HEADER" class="pageTitle">
-  Membership Types
-</div>
-<div style="clear:both;"></div><hr/>
-
 <table>
   <tr>
     <th>Name</th>
-    <th>Max number of projects listed</th>
-    <th>Max PCs Per Project</th>
-    <th>Max number of projects available for PCs</th>
-    <th>Funding Limit per project</th>
+    <th>Max. number of projects</th>
+    <th>Max. shares per project</th>
+    <th>Max. number of projects shares can be held in</th>
+    <th>Min. budget</th>
+    <th>Max. budget</th>
   </tr>
     <%= render :partial => 'membership_type', :collection => @membership_types %>
 </table>

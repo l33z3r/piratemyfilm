@@ -1,0 +1,63 @@
+<div style='padding: 25px;' id="confirm_update_membership">
+  <div class="title">
+    You are about to update <b><%= @user.login %>'s</b> membership.
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="subtitle pmf_top_margin_10">
+    Please review the following constraints (if any):
+  </div>
+
+  <ul>
+    <% if @num_projects_delete > 0 %>
+      <li>
+        <%= @user.login %> currently has <b><%= @user_projects.length %></b> projects listed.
+        Updating his/her membership will result in <b><%= @num_projects_delete %></b> projects being deleted.
+        <br/>
+        <i>
+          Note that the projects that will be deleted will be the most
+          recent projects this user has created.
+        </i>
+      </li>
+    <% end %>
+
+    <% if @num_projects_shares_over > 0 %>
+      <li>
+        <%= @user.login %> has shares in <b><%= @num_projects_shares_over %></b> projects which exceeds the
+        new share limit of <b><%= @new_membership_type.pc_limit %></b> per project,
+        these shares will be revoked from these projects.
+      </li>
+    <% end %>
+
+    <% if @num_projects_exceeding_share_limit > 0 %>
+      <li>
+        <%= @user.login %> has shares in <b><%= @user.project_subscriptions.length %></b> projects,
+        which exceeds the new overall share limit of <b><%= @new_membership_type.pc_project_limit %></b> projects.
+        These outstanding shares will be revoked from these projects.
+      </li>
+    <% end %>
+
+    <% if @num_projects_exceeding_budget_limit > 0 %>
+      <li>
+        <%= @user.login %> has <b><%= @num_projects_exceeding_budget_limit %></b> projects
+        in which the budget exceeds <b>$<%= @new_membership_type.funding_limit_per_project %></b>.
+        The outstanding shares for these projects will be revoked.
+      </li>
+    <% end %>
+
+  </ul>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="end_note pmf_top_margin_10">
+    Note that shares will be held on a first come first served basis.
+    The most recent share holders shares will be revoked from the appropriate projects.
+  </div>
+
+  <div class="pmf_clear pmf_top_margin_10">&nbsp;</div>
+
+  <b>
+    After reviewing, are you sure you want to update <%= @user.login %>'s membership?
+  </b>
+</div>

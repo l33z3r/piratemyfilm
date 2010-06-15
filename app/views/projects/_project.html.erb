@@ -1,41 +1,84 @@
-<div class="<%= cycle("view-lite-row", "view-lite-row-alt") %>">
+<div class="<%= cycle("view-lite-row", "view-lite-row-alt") %> project_row">
 
-        <div class="view-lite-row-icon">
-          <% if !@project.icon.nil? %>
-            <%= image_tag url_for_file_column(@project, "icon", "medium") %>
-          <% else %>
-            <img src="/images/generic-project-icon.png" id="project-icon" height="75px" alt="Generic icon" border="0" />
-          <% end %>
-        </div>
+  <div class="view-lite-row-project-name">
+    <%= link_to h(project.title), project_path(project) %>
+  </div>
 
-        <div class="view-lite-row-project-name"><%= link_to h(@project.title), project_path(@project) %></div>
+  <div class="view-lite-row-project-link">
+    <%= link_to "View Project", project_path(project) %>
+  </div>
 
-        <div class="view-lite-row-numbers">
-          <ul>
-            <li class="label">Owner:</li><li class="stat"><%= link_to @project.owner.profile.user.login, profile_path(@project.owner.profile) %></li>
-            <li class="pmf_clear">&nbsp;</li>
-            <li class="label">Admin Rating:</li><li class="stat"><%= @project.admin_project_rating ? @project.admin_project_rating.rating_symbol : "Not Yet Rated" %></li>
-            <li class="pmf_clear">&nbsp;</li>
-            <li class="label">Member Rating:</li><li class="stat"><%= @project.member_rating %></li>
-            <li class="pmf_clear">&nbsp;</li>
-            <li class="label">Needs:</li><li class="stat">$<%= @project.capital_required %></li>
-            <li class="pmf_clear">&nbsp;</li>
-            <li class="label">% Funded:</li><li class="stat"><%= @project.percent_funded %>&#37</li>
-            <li class="pmf_clear">&nbsp;</li>
-          </ul>
-        </div>
+  <div class="pmf_clear">&nbsp;</div>
 
-        <div class="view-lite-row-comment">
-          <div class="header">Latest Admin Comment:</div>
-          <%= @project.project_comment ? truncate(h(@project.project_comment.body), 100) : "No Comment" %>
-          (<%= link_to "More", project_path(@project) %>)
-        </div>
+  <div class="view-lite-row-icon">
+    <a href="<%= project_path(project) %>">
+      <% if !project.icon.nil? %>
+        <%= image_tag url_for_file_column(project, "icon", "big") %>
+      <% else %>
+        <img src="/images/generic-project-icon.png" id="project-icon" width="150px" alt="Generic icon" border="0" />
+      <% end %>
+    </a>
+  </div>
 
-        <div class="view-lite-row-description">
-          <div class="header">Logline:</div>
-          <%=truncate(h(@project.description), 100)%>
-          (<%= link_to "More", project_path(@project) %>)
-        </div>
+  <div class="view-lite-row-words">
+    <ul>
+      <li class="label">Director:</li><li class="stat"><%= h project.director %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Producer:</li><li class="stat"><%= h project.producer_name %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Budget:</li><li class="stat">$<%= print_money project.capital_required %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Funds Needed:</li><li class="stat">$<%= print_money project.funds_needed %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">% Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
+      <li class="pmf_clear"></li>
+    </ul>
+  </div>
 
-        <div style="clear:both;"></div>
-      </div>
+  <div class="view-lite-row-numbers">
+    <ul>
+      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Shares Available:</li><li class="stat"><%= project.downloads_available %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">PMF Rating:</li><li class="stat"><%= project.admin_rating %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Avg Rating:</li>
+      <li class="stat"><%= project.user_rating %></li>
+      <li class="pmf_clear"></li>
+    </ul>
+  </div>
+
+  <div class="view-lite-row-numbers">
+    <ul>
+      <li class="label">% Ad Sales:</li><li class="stat"><%= project.share_percent_ads %>%</li>
+      <li class="pmf_clear"></li>
+      <li class="label">
+        % PMF Fund:
+      </li>
+      <li class="stat">
+        <%= project.capital_recycled_percent %>
+        (<a class="tooltip_arrow" title="This fund is used to invest (top up)
+            existing projects at the discretion of PMF">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="label">
+        % Producer Fee:
+      </li>
+      <li class="stat">
+        <%= project.producer_fee_percent %>
+        (<a class="tooltip_arrow" title="This is a % of the budget
+            that the producer will take as a fee">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="label">Break Even:</li>
+      <li class="stat">
+        <%= number_with_delimiter(number_with_precision(project.breakeven_views, 0)) %>
+        (<a class="tooltip_arrow" title="Based on a $10 CPM">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+    </ul>
+  </div>
+</div>

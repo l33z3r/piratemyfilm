@@ -1,17 +1,13 @@
 <div id="MENU_HEADER" class="pageTitle">
-  Viewing Producer Blogs
+  Producer Blogs
 </div>
 
-<div style="clear:both;"></div><hr/>
-
-<div id="sub_nav">
-
-  <%= link_to "All Producer Blogs", {:controller => "producer_blogs"}, :class => "subnav_inactive" %>
-
-</div>
+<div class="pmf_clear">&nbsp;</div>
 
 <% if @blogs.empty? %>
   No Blogs Found!
 <% else %>
   <%= render :partial => '/blog_partials/blog', :collection => @blogs %>
 <% end %>
+
+<%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>

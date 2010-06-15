@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090526045351
+# Schema version: 20100528091908
 #
 # Table name: profiles
 #
@@ -24,11 +24,13 @@
 #  flickr_username  :string(255)   
 #  last_activity_at :datetime      
 #  time_zone        :string(255)   default("UTC")
+#  country_id       :integer(4)    default(1)
 #
 
 class Profile < ActiveRecord::Base
   belongs_to :user
-  
+  belongs_to :country
+
 =begin
   TODO move is_Active to user
   rename it to active
@@ -39,6 +41,7 @@ class Profile < ActiveRecord::Base
   validates_format_of :email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message=>'does not look like an email address.'
   validates_length_of :email, :within => 3..100
   validates_uniqueness_of :email, :case_sensitive => false
+  
   validates_filesize_of :icon, {:in => 0.kilobytes..1.megabyte, :message => "Your Profile Image must be less than 1 megabyte"}
 
   # Feeds
@@ -61,11 +64,9 @@ class Profile < ActiveRecord::Base
   has_many :followers, :through => :follower_friends, :source => :inviter
   has_many :followings, :through => :following_friends, :source => :invited
   
-  
   # Comments and Blogs
   has_many :comments, :as => :commentable, :order => 'created_at desc'
   has_many :blogs, :order => 'created_at desc'
-  
   
   # Photos
   has_many :photos, :order => 'created_at DESC'
@@ -73,7 +74,7 @@ class Profile < ActiveRecord::Base
   #Forums
   has_many :forum_posts, :foreign_key => 'owner_id', :dependent => :destroy
   
-  acts_as_ferret :fields => [ :location, :f, :about_me ], :remote=>true
+  acts_as_ferret :fields => [ :location, :f, :about_me ], :remote => false
   
   file_column :icon, :magick => {
     :versions => { 
@@ -91,7 +92,6 @@ class Profile < ActiveRecord::Base
     "#{self.id}-#{f.to_safe_uri}"
   end
   
-  
   def has_network?
     !Friend.find(:first, :conditions => ["invited_id = ? or inviter_id = ?", id, id]).blank?
   end
@@ -100,91 +100,53 @@ class Profile < ActiveRecord::Base
     if self.first_name.blank? && self.last_name.blank?
       user.login rescue 'Deleted user'
     else
-       ((self.first_name || '') + ' ' + (self.last_name || '')).strip
-     end
+      ((self.first_name || '') + ' ' + (self.last_name || '')).strip
+    end
   end
   
   def location
     return Profile::NOWHERE if attributes['location'].blank?
     attributes['location']
   end
+
+  def home_country
+    country ? country : Country.find(:first)
+  end
   
   def full_name
     f
   end
-  
   
   def self.featured
     find_options = {
       :include => :user,
       :conditions => ["is_active = ? and about_me IS NOT NULL and user_id is not null", true],
     }
-#    find(:first, find_options.merge(:offset => rand( count(find_options) - 1)))
+    #    find(:first, find_options.merge(:offset => rand( count(find_options) - 1)))
     find(:first, find_options.merge(:offset => rand(count(find_options)).floor)) 
   end  
   
   def no_data?
     (created_at <=> updated_at) == 0
   end
-  
-  
-  
-  
+
   def has_wall_with profile
     return false if profile.blank?
     !Comment.between_profiles(self, profile).empty?
   end
   
-  
-  
-  
-  
   def website= val
     write_attribute(:website, fix_http(val))
   end
+
   def blog= val
     write_attribute(:blog, fix_http(val))
   end
+
   def flickr= val
     write_attribute(:flickr, fix_http(val))
   end
-  
-  
-  
-  
-  
-  
-  # Friend Methods
-  def friend_of? user
-    user.in? friends
-  end
-  
-  def followed_by? user
-    user.in? followers
-  end
-  
-  def following? user
-    user.in? followings
-  end
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  def can_send_messages
-    user.can_send_messages
-  end
-  
-  
-  
-  
-  
-  
-  
+
   def self.search query = '', options = {}
     query ||= ''
     q = '*' + query.gsub(/[^\w\s-]/, '').gsub(' ', '* *') + '*'
@@ -194,9 +156,8 @@ class Profile < ActiveRecord::Base
     arr
   end
   
-  
-  
   protected
+
   def fix_http str
     return '' if str.blank?
     str.starts_with?('http') ? str : "http://#{str}"

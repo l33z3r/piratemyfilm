@@ -2,8 +2,27 @@
   PMF Admin
 </div>
 
-<div id="sub_nav">
-  <%= link_to "Rate New Projects <b>(#{@num_pending_projects})</b>", {:controller => "admin/project_rating"}, :class => "subnav_inactive" %> |
-  <%= link_to "Manage Membership Types", {:controller => "admin/membership_types"}, :class => "subnav_inactive" %> |
-  <%= link_to "Manage Deleted Projects", {:controller => "admin/deleted_projects"}, :class => "subnav_inactive" %>
-</div>
+<ul id="tabs">
+  <li>
+    <%= link_to "Stats",
+      {:controller => "admin/home"},
+      :class => (@selected_tab_name == "admin_stats" ? "selected" : "") %>
+  </li>
+  <li>
+    <%= link_to "Rate New Projects <b>(#{@num_pending_projects})</b>",
+      {:controller => "admin/project_rating"}, 
+      :class => (@selected_tab_name == "new_projects" ? "selected" : "") %>
+  </li>
+  <li>
+    <%= link_to "Deleted Projects", {:controller => "admin/deleted_projects"},
+      :class => (@selected_tab_name == "deleted_projects" ? "selected" : "") %>
+    </li>
+  <li>
+    <%= link_to "Membership Types", {:controller => "admin/membership_types"},
+      :class => (@selected_tab_name == "membership_types" ? "selected" : "") %>
+  </li>
+  <li>
+    <%= link_to "Users", {:controller => "admin/users"},
+      :class => (@selected_tab_name == "users" ? "selected" : "") %>
+  </li>
+</ul>

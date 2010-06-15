@@ -1,2 +1,11 @@
-<%= javascript_include_tag :defaults, 'jquery', 'thickbox', 'truncator', :cache=>true %>
-<%= stylesheet_link_tag 'default' %>
+<%= javascript_include_tag 'custom', 'jquery', 'thickbox', 'truncator', :cache=>false %>
+
+<!-- jquery tooltip -->
+<%= javascript_include_tag 'jquery-tooltip/lib/jquery.bgiframe',
+  'jquery-tooltip/lib/jquery.dimensions', 'jquery-tooltip/jquery.tooltip' %>
+
+<!-- Modal Popups (http://www.modalpopups.com) -->
+<%= javascript_include_tag 'modal-popups/shCore', 'modal-popups/ModalPopups',
+  'modal-popups/shBrushJScript', 'custom-modal-popups' %>
+
+<%= stylesheet_link_tag 'default', 'jquery.tooltip' %>

@@ -1,62 +1,59 @@
-<div id="MENU_HEADER" class="pageTitle">Sign in to PMF</div>
-
 <div id="main">
   <% less_form_for @user, :url => login_path, :method => :post do |f| %>
-    
+
+    <div id="MENU_HEADER" class="pageTitle">Log in to PMF</div><br/><br/>
+
     <div id="login_form">
-    
+
       <div class='row clear'>
         <%= f.text_field :login, :class => "focus_first", :size => 30 %>
         <div class='clear'></div>
       </div>
-    
+
       <div class='row clear'>
         <%= f.password_field :password, :size => 30 %>
         <div class='clear'></div>
       </div>
-    
+
       <div class='row clear'>
         <%= f.wrap(:remember_me, :for => :remember_me){ check_box_tag 'remember_me',1,false, :class=>"checkbox" } %>
         <div class='clear'></div>
       </div>
-    
+
       <div class='row clear'>
-        <div class="button">
-          <%= f.submit 'Enter Now', :class=>'button' %>
-        </div>
-        <div class='clear'></div>
+        <label>&nbsp;</label>
+        <%= f.submit 'Log In', :class=>'button' %>
       </div>
-    
+
+      <div class="pmf_clear">&nbsp;</div>
     </div>
-  
-    <div class="instruction">
-      <ul>
-        <li><%= link_to "Sign Up!", signup_url  %></li>
-      </ul>
-    </div>
-  
+
     <div id="forgot_form" class="hidden">
-    
-      <div id="MENU_HEADER" class="pageTitle">Please retrieve my password!</div>
-      
-      <br/><br/>
-      
-      <div class="instruction">Enter your email address in the box below and your password will be sent to the account you have registered with PirateMyFilm.</div>
+
+      <div id="MENU_HEADER" class="pageTitle">Forgot Your Password?</div><br/><br/>
+
+      <div class="instruction">
+        Enter your email address in the box below and your password will
+        <br/>be sent to the account you have registered with PirateMyFilm.
+      </div><br/>
+
       <div id="forgot_password">
         <div class='row clear'>
-          <%= f.text_field :email, :label => "Enter Email Address", :size => 30 %>	
-          <div class='clear'></div>
-        </div>    
-      </div>
-    
-      <div class='row clear'>
-        <div class="button">
-          <%= f.submit 'Retrieve Password', :class => 'button' %>        
+          <%= f.text_field :email, :label => "Enter Email Address", :size => 30 %>
         </div>
-        <div class='clear'></div>
+        <div class="pmf_clear">&nbsp;</div>
       </div>
-    
+
+      <div class='row clear'>
+        <label>&nbsp;</label>
+        <%= f.submit 'Get Password', :class => 'button' %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
     </div>
   <% end %>
-  
+
 </div>
+
+<div class="pmf_clear">&nbsp;</div>

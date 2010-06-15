@@ -1,27 +1,65 @@
 class Admin::UsersController < Admin::AdminController
   before_filter :search_results, :except => [:destroy]
-  
+
   def index
-    render
-  end
-  
-  
-  
-  def update
-    @profile = Profile.find(params[:id])
-    respond_to do |wants|
-      wants.js do
-        render :update do |page|
-          if @p == @profile
-            page << "message('You cannot deactivate yourself!');"
-          else
-            @profile.toggle! :is_active
-            page << "message('User has been marked as #{@profile.is_active ? 'active' : 'inactive'}');"
-            page.replace_html @profile.dom_id('link'), (@profile.is_active ? 'deactivate' : 'activate')
-          end
-        end
-      end
+    @membership_select_opts = []
+
+    @membership_types = MembershipType.find(:all)
+
+    @membership_types.each do |@mt| 
+      @membership_select_opts << [@mt.name, @mt.id.to_s]
     end
+  end
+
+  def update_membership
+    begin
+      @user = User.find(params[:user_id])
+    rescue ActiveRecord::RecordNotFound
+      @error = true
+      flash[:error] = "User not found" and return
+    end
+
+    begin
+      @new_membership_type = MembershipType.find(params[:user_membership])
+    rescue ActiveRecord::RecordNotFound
+      @error = true
+      flash[:error] = "Membership type not found" and return
+    end
+
+    @skip_confirm = (params[:skip_confirm] and !params[:skip_confirm].blank?)
+
+    if !@skip_confirm
+      #load vars for confirmation popup
+      #only if we are not upgrading to highest membership which is unlimited everything
+
+      @num_projects_delete = @num_projects_shares_over = @num_projects_exceeding_share_limit = @num_projects_exceeding_budget_limit = 0
+      
+      if @new_membership_type.name != "Black Pearl"
+        @user_projects = @user.owned_public_projects
+        @num_projects_delete = @user_projects.length - @new_membership_type.max_projects_listed
+
+        #how many projects has the user got shares in that will need to be revoked
+        @num_projects_shares_over = @user.projects_with_shares_over(@new_membership_type.pc_limit)
+
+        #how many projects has the user got shares in, and does it exceed the
+        #total amount of projects they are allowed to hold shares in
+        @num_projects_exceeding_share_limit = @user.project_subscriptions.length - @new_membership_type.pc_project_limit
+
+        #how many projects exceed the budget limit
+        @num_projects_exceeding_budget_limit = @user.projects_exceeding_budget_limit(@new_membership_type.funding_limit_per_project)
+      end
+      
+      render :action => "confirm_update" and return
+    end
+
+    #delete old membership link
+    @user.membership.membership_type = @new_membership_type
+    @user.membership.save!
+
+    #now adjust the users shares per the new membership
+    
+
+    flash[:positive] = "Membership type changed."
   end
   
   private
@@ -32,6 +70,12 @@ class Admin::UsersController < Admin::AdminController
     else
       p = []
     end
-    @results = Profile.search((p.delete(:q) || ''), p).paginate(:page => @page, :per_page => @per_page)
+    @search_query = p.delete(:uq)
+    @profiles = Profile.search((@search_query || ''), p).paginate:page => (params[:page] || 1), :per_page => 50
   end
+
+  def set_selected_tab
+    @selected_tab_name = "users"
+  end
+
 end

@@ -2,18 +2,20 @@ class ProjectSubscriptionsController < ApplicationController
   
   before_filter :load_project, :get_project_subscription
   after_filter :upate_percent_funded, :only => [:create, :destroy]
-  
+
+  cache_sweeper :project_sweeper, :only => [:create, :destroy]
+
   def create
     begin            
 
       #check that user does not own this project
       if @project.owner == @u
-        flash[:error] = "As the owner of this project, you cannot buy any premium copies of it!"
+        flash[:error] = "As the owner of this project, you cannot buy any shares!"
         redirect_to project_path(@project) and return
       end
       
       if @project.downloads_available <= 0
-        flash[:error] = "There are no more premium copies available for reservation"
+        flash[:error] = "There are no more shares available for reservation"
         redirect_to project_path(@project) and return
       end
       
@@ -39,7 +41,7 @@ class ProjectSubscriptionsController < ApplicationController
       if !@project_subscription.nil?
         
         if @max_subscription_reached or @max_project_subscription_reached
-          flash[:positive] = "You have reached the maximum premium copies of this project"
+          flash[:positive] = "You have reached the maximum shares for this project"
         else
           @project_subscription.amount += 1
           @project_subscription.save!
@@ -49,9 +51,11 @@ class ProjectSubscriptionsController < ApplicationController
       end
       
       @project_subscription = ProjectSubscription.create( :user => @u, :project => @project, :amount => 1 )      
+
+      flash[:notice] = "Share reserved!"
       
     rescue ActiveRecord::RecordInvalid
-      flash[:error] = "Error reserving premium copy".x
+      flash[:error] = "Error reserving share".x
     end    
     redirect_to project_path(@project)    
   end
@@ -60,9 +64,8 @@ class ProjectSubscriptionsController < ApplicationController
     begin            
       
       if @project_subscription.nil?       
-        flash[:negative] = "You do not have any premium copies of this project to cancel!"
+        flash[:error] = "You do not have any shares in this project to cancel!"
         redirect_to project_path(@project) and return
-        
       else
         if @project_subscription.amount > 1
           
@@ -73,10 +76,12 @@ class ProjectSubscriptionsController < ApplicationController
         else
           @project_subscription.destroy
         end
+
+        flash[:notice] = "Share canceled!"
       end
       
     rescue ActiveRecord::RecordInvalid
-      flash[:error] = "Error canceling premium copy of this project"
+      flash[:error] = "Error canceling share in this project"
     end    
     redirect_to project_path(@project)
   end
@@ -89,7 +94,7 @@ class ProjectSubscriptionsController < ApplicationController
   end 
   
   def upate_percent_funded
-    @project.update_funding
+    @project.update_funding_and_estimates
   end
   
   def get_project_subscription

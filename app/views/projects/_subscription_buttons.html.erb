@@ -1,39 +1,39 @@
 <% if logged_in %>
+  <h3>Your Shares:</h3>
   <% if @project.owner != @u %>
-    <h3>
-      You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> premium copies reserved for this project.<br>
-      You will not be debited until 100% of Premium Copies have been reserved and you can cancel at any time.<br>
+    <ul>
+      <li>You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> shares reserved for this project.</li>
+      <li>You will not be debited until 100% of shares on offer have been reserved (you can cancel at any time).
       <% if @max_subscription_reached %>
-        Your Premium Copy limit for this project has been reached. You will soon be able to upgrade your subscription!
+        <li>Your share limit for this project has been reached. You will soon be able to upgrade your subscription.</li>
       <% elsif @max_project_subscription_reached %>
-        You cannot reserve Premium Copies for any more projects. You will soon be able to upgrade your subscription!
+        <li>You cannot reserve shares for any more projects. You will soon be able to upgrade your subscription.</li>
       <% else %>
         <% if @project.downloads_available > 0 %>
           <% unless @max_subscription == -1 %>
-            You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> premium copies.
+            <li>You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> shares.</li>
           <% else %>
-            You can reserve unlimited premium copies.
+            <li>You can reserve unlimited premium copies.</li>
           <% end %>
         <% else %>
-          There are no premium copies of this project available for download
+          <li>There are no shares of this project available for download</li>
         <% end %>
       <% end %>
-    </h3>
-
+    </ul>
     <% if !@max_subscription_reached && !@max_project_subscription_reached %>
       <% if @project.downloads_available > 0 %>
         <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
-          <input type="submit" value="Reserve Premium Copy"/>
+          <input type="submit" value="Reserve Share"/>
         </form>
       <% end %>
     <% end %>
 
     <% if @my_subscription %>
       <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
-        <input type="submit" value="Cancel Reservation"/>
+        <input type="submit" value="Cancel Share"/>
       <% end %>
     <% end %>
   <% else %>
-    As the owner of this project, you cannot reserve Premium Copies!
+    <ul><li>As the owner of this project, you cannot reserve shares!</li></ul>
   <% end %>
 <% end %>

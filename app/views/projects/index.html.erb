@@ -1,20 +1,3 @@
-<div id="MENU_HEADER" class="pageTitle">
-  <%= @filtered ? "Projects filtered by \"#{@filter_param}\"" : "Newest Project Listings" %>
-</div>
-
-<div style="clear:both;"></div><hr/>
-
-<div id="sub_nav">
-  <%= link_to "All Producer Blogs", {:controller => "blogs", :action => "producer"}, :class => "subnav_inactive" %>
-</div>
-
-<div style="clear:both;"></div>
-
 <%= render :partial => "listings", :object => @projects %>
 
 <%= pagination_controls_for @projects if @projects.respond_to? :total_pages %>
-
-<div style="float: right;">
-  <%= link_to "List a Project", new_project_path %>|
-  <%= link_to "All Projects", projects_path %>
-</div>

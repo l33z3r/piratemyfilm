@@ -3,7 +3,8 @@ class PhotosController < ApplicationController
   prepend_before_filter :get_profile
   before_filter :setup
   
-  
+  #controller not used so redirect to hom
+  before_filter :redirect_to_home
   
   def index
     respond_to do |wants|

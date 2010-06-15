@@ -1,19 +1,14 @@
 <div class="project_listings">
 
-  <div id="MENU_HEADER" class="pageTitle">
-    Projects Filtered by "% Funds Reserved"
-  </div>
-
-  <div style="clear:both;"></div><hr/>
-
-  <div id="sub_nav">
-    <%= link_to "All Producer Blogs", {:controller => "blogs", :action => "producer"}, :class => "subnav_inactive" %>
-  </div>
-  
-  <div style="clear:both;"></div>
-
+  <div class="pmf_clear">&nbsp;</div>
   <% for @project in @projects do %>
       <%= render :partial => "projects/project", :locals => {:project => @project} %>
+    <% end %>
+
+    <% if total_pages(@projects) > 1 %>
+      <div class="button right pmf_top_margin_10">
+        <%= link_to "More", :controller => "projects", :filter_param => "% funds reserved", :page => 2 %>
+      </div>
     <% end %>
   </div>
 

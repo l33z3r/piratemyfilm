@@ -1,5 +1,7 @@
 <table class="project_form" style="border-spacing: 10px; width: 100%;">
 
+  <tr><td colspan="2"><%= f.error_messages %></td></tr>
+
   <tr>
     <td colspan="2">
       <b>All fields marked with * are mandatory</b>
@@ -28,7 +30,7 @@
 
   <tr>
     <td>
-      * Funds Needed ($)
+      * Budget ($)
     </td>
     <td>
       <%= f.text_field :capital_required %>
@@ -38,86 +40,52 @@
 
   <tr>
     <td>
-      Price per premium copy<br/>
-      <i>
-        Note: The system will create and display
-        <br/>how many premium copies you need to sell to fund your project
-      </i>
+      Price per share
     </td>
     <td>
       <input type="hidden" name="project[ipo_price]" value="5"/>$5
     </td>
     <!--td>
-<%= f.text_field :ipo_price %>
-<%= display_error_on(project, :ipo_price) -%>
+      <%= f.text_field :ipo_price, :value => 0 %>
+      <%= display_error_on(project, :ipo_price) -%>
     </td-->
-  </tr>
-
-  <tr>
-    <td colspan="2">
-      <b>Pirate Yield</b>
-    </td>
   </tr>
 
   <tr>
     <td>
       * What percentage of future
       <br/>pirate copy ad sales are you offering
-      <br/>premium copy buyers? (0 - 100)%
+      <br/>to share holders? (0 - 100)%
     </td>
     <td>
       <%= f.text_field :share_percent_ads %>
       <%= display_error_on(project, :share_percent_ads) -%>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      For how long are you offering ad sales returns (in months)?
-    </td>
-    <td>
-      NYA
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Are you allowing producer copy holders to recoup first for ad sales?
-    </td>
-    <td>
-      NYA
+
+      <%= f.hidden_field :share_percent_downloads, :value => 0 %>
     </td>
   </tr>
 
-  <tr>
-    <td colspan="2">
-      <b>Additional Sources of Revenue</b>
+ <tr>
+    <td>
+      What percentage of ad revenues will
+      <br/>be ploughed back to the PMF Fund
+      (<a class="tooltip_arrow" title="This fund is used to invest (top up)
+      existing projects at the discretion of PMF">?</a>) (0 - 100)%
+    </td>
+    <td>
+      <%= f.text_field :capital_recycled_percent %>
+      <%= display_error_on(project, :capital_recycled_percent) -%>
     </td>
   </tr>
 
-  <tr>
+   <tr>
     <td>
-      * What percentage of future download
-      <br/>sales are you offering premium
-      <br/>copy buyers? (0 - 100)%
+      What percentage of the budget will
+      <br/>the producer reap? (0 - 20)%
     </td>
     <td>
-      <%= f.text_field :share_percent_downloads %>
-      <%= display_error_on(project, :share_percent_downloads) -%>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      For how long are you offering download sales returns (in months)?
-    </td>
-    <td>
-      NYA
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Are you allowing premium copy holders to recoup first for download sales?
-    </td>
-    <td>
-      NYA
+      <%= f.text_field :producer_fee_percent %>
+      <%= display_error_on(project, :producer_fee_percent) -%>
     </td>
   </tr>
 
@@ -126,8 +94,38 @@
       Enter the name of the producer
     </td>
     <td>
-      <%= f.text_field :producer_name%>
+      <%= f.text_field :producer_name %>
       <%= display_error_on(project, :producer_name) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the executive producer
+    </td>
+    <td>
+      <%= f.text_field :exec_producer %>
+      <%= display_error_on(project, :exec_producer) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the writer
+    </td>
+    <td>
+      <%= f.text_field :writer %>
+      <%= display_error_on(project, :writer) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the director
+    </td>
+    <td>
+      <%= f.text_field :director %>
+      <%= display_error_on(project, :director) -%>
     </td>
   </tr>
 
@@ -153,10 +151,10 @@
 
   <tr>
     <td>
-      Enter a logline for your project
+      Enter a logline for your project (limited to 140 chars)
     </td>
     <td>
-      <%= f.text_area :description, :cols => 20, :rows => 5 %>
+      <%= f.text_field :description %>
       <%= display_error_on(project, :description) -%>
     </td>
   </tr>
@@ -185,7 +183,7 @@
       How long is your film in minutes?
     </td>
     <td>
-      <%= f.text_field :project_length %>
+      <%= f.text_field :project_length, :value => 0 %>
       <%= display_error_on(project, :project_length) -%>
     </td>
   </tr>
@@ -196,30 +194,6 @@
     <td>
       <%= f.select :status, Project.statuses, :id=>"project-status" %>
       <%= display_error_on(project, :status) -%>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Notify project subscribers of any project detail changes?
-    </td>
-    <td>
-      NYA
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Are you using a Creative Commons license?
-    </td>
-    <td>
-      NYA
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Are you charging any producers fees?
-    </td>
-    <td>
-      NYA
     </td>
   </tr>
 
@@ -245,6 +219,15 @@
       <%= display_error_on(project, :icon) -%>
     </td>
   </tr>
+
+  <% if(defined?(include_captcha) && include_captcha) %>
+    <tr>
+      <td>Enter the words in the box to prove you are human:</td>
+      <td colspan="2">
+        <div id="captcha_section"><%= recaptcha_tags %></div>
+      </td>
+    </tr>
+  <% end %>
 
   <tr>
     <td colspan="2" align="right">

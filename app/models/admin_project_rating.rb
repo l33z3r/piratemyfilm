@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090526045351
+# Schema version: 20100528091908
 #
 # Table name: admin_project_ratings
 #
@@ -31,11 +31,11 @@ class AdminProjectRating < ActiveRecord::Base
     @ratings_select_opts = []
 
     @@ratings_map.each {  |key, value|
-      @ratings_select_opts << [value, key]
+      @ratings_select_opts << [value, key.to_s]
     }
 
     @ratings_select_opts.sort! { |arr1, arr2|
-      arr2[1] <=> arr1[1]
+      arr2[1].to_i <=> arr1[1].to_i
     }
 
     @ratings_select_opts

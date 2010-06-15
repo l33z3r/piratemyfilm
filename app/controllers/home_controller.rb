@@ -2,7 +2,9 @@ class HomeController < ApplicationController
   skip_before_filter :login_required	
 
   def index
-    @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC", :limit => 10)
+    @projects = cache('hp_projects') do
+      Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => 1, :per_page=> 10
+    end
   end
 
   def newest_members
@@ -16,10 +18,6 @@ class HomeController < ApplicationController
       wants.html {render :action=>'index'}
       wants.rss {render :layout=>false}
     end
-  end
-
-  def terms
-    render
   end
 
   def alive
