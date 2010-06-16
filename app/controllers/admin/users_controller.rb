@@ -52,7 +52,8 @@ class Admin::UsersController < Admin::AdminController
     #init vars
     @num_projects_delete = @num_projects_shares_over = 0
     @num_projects_exceeding_share_limit = @num_projects_exceeding_budget_limit = 0
-
+    @num_projects_under_budget_limit = 0
+    
     if @new_membership_type.name != "Black Pearl"
       @user_projects = @user.owned_public_projects
       @num_projects_delete = @user_projects.length - @new_membership_type.max_projects_listed

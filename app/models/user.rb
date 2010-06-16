@@ -188,6 +188,16 @@ class User < ActiveRecord::Base
       end
     end
 
+    #now update all the projects to the new minimum cap budget
+    @min_funding_limit = membership.membership_type.min_funding_limit_per_project
+
+    for @project in owned_public_projects do
+      if @project.capital_required < @min_funding_limit
+        @project.capital_required = @min_funding_limit
+        @project.save!
+      end
+    end
+
   end
 
   #applies memebership limits to all users accounts
