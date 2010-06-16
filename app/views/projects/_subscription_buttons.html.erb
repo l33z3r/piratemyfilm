@@ -5,27 +5,21 @@
       <li>You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> shares reserved for this project.</li>
       <li>You will not be debited until 100% of shares on offer have been reserved (you can cancel at any time).
       <% if @max_subscription_reached %>
-        <li>Your share limit for this project has been reached. You will soon be able to upgrade your subscription.</li>
+        <li><b>Your share limit for this project has been reached. You will soon be able to upgrade your subscription.</b></li>
       <% elsif @max_project_subscription_reached %>
-        <li>You cannot reserve shares for any more projects. You will soon be able to upgrade your subscription.</li>
+        <li><b>You cannot reserve shares for any more projects. You will soon be able to upgrade your subscription.</b></li>
       <% else %>
-        <% if @project.downloads_available > 0 %>
-          <% unless @max_subscription == -1 %>
-            <li>You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> shares.</li>
-          <% else %>
-            <li>You can reserve unlimited premium copies.</li>
-          <% end %>
+        <% unless @max_subscription == -1 %>
+          <li>You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> shares.</li>
         <% else %>
-          <li>There are no shares of this project available for download</li>
+          <li>You can reserve unlimited premium copies.</li>
         <% end %>
       <% end %>
     </ul>
     <% if !@max_subscription_reached && !@max_project_subscription_reached %>
-      <% if @project.downloads_available > 0 %>
-        <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
-          <input type="submit" value="Reserve Share"/>
-        </form>
-      <% end %>
+      <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
+        <input type="submit" value="Reserve Share"/>
+      </form>
     <% end %>
 
     <% if @my_subscription %>
@@ -34,6 +28,6 @@
       <% end %>
     <% end %>
   <% else %>
-    <ul><li>As the owner of this project, you cannot reserve shares!</li></ul>
+    <ul><li><b>As the owner of this project, you cannot reserve shares!</b></li></ul>
   <% end %>
 <% end %>

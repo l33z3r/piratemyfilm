@@ -1,7 +1,6 @@
 class ProjectSubscriptionsController < ApplicationController
   
   before_filter :load_project, :get_project_subscription
-  after_filter :upate_percent_funded, :only => [:create, :destroy]
 
   cache_sweeper :project_sweeper, :only => [:create, :destroy]
 
@@ -10,12 +9,7 @@ class ProjectSubscriptionsController < ApplicationController
 
       #check that user does not own this project
       if @project.owner == @u
-        flash[:error] = "As the owner of this project, you cannot buy any shares!"
-        redirect_to project_path(@project) and return
-      end
-      
-      if @project.downloads_available <= 0
-        flash[:error] = "There are no more shares available for reservation"
+        flash[:error] = "As the owner of this project, you cannot reserve shares!"
         redirect_to project_path(@project) and return
       end
       
@@ -92,10 +86,6 @@ class ProjectSubscriptionsController < ApplicationController
     super :admin, :all => true
     super :user, :only => [:create, :destroy]
   end 
-  
-  def upate_percent_funded
-    @project.update_funding_and_estimates
-  end
   
   def get_project_subscription
     @project_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)

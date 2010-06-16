@@ -15,5 +15,14 @@ class ProjectSubscription < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :project
-  
+
+  after_create :update_project_funding
+  after_update :update_project_funding
+
+  private
+
+  def update_project_funding
+    project.update_funding_and_estimates
+  end
+
 end

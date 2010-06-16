@@ -190,6 +190,16 @@ class User < ActiveRecord::Base
 
   end
 
+  #applies memebership limits to all users accounts
+  #called from admin when a membership type is updated
+  def self.apply_all_membership_limits
+    @all_users = User.find(:all)
+
+    for @user in @all_users do
+      @user.apply_membership_limits
+    end
+  end
+
   #this function deletes and reduces shares over cap per project
   def delete_subscriptions_in_projects_with_shares_over(cap)
     for sub in project_subscriptions do
@@ -224,6 +234,19 @@ class User < ActiveRecord::Base
 
     for project in owned_public_projects do
       if project.capital_required > cap
+        @count = @count + 1
+      end
+
+    end
+
+    @count
+  end
+
+  def projects_under_budget_limit(cap)
+    @count = 0
+
+    for project in owned_public_projects do
+      if project.capital_required < cap
         @count = @count + 1
       end
 

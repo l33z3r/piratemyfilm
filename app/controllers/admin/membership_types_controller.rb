@@ -12,6 +12,8 @@ class Admin::MembershipTypesController < Admin::AdminController
     
     if @membership_type.update_attributes(params)
       check_for_unlimited(params, @membership_type)
+      
+      User.apply_all_membership_limits
       flash[:notice] = 'Membership type was successfully updated.'
     else
       flash[:notice] = 'There was a problem with updating these parameters'

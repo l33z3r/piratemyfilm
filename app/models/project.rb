@@ -69,8 +69,9 @@ class Project < ActiveRecord::Base
   validates_filesize_of :icon, {:in => 0.kilobytes..1.megabyte, :message => "Your Project Image must be less than 1 megabyte"}
 
   validate_on_create :funding_limit_not_exceeded, :min_funding_limit_passed
+  validate_on_update :funding_limit_not_exceeded, :min_funding_limit_passed
 
-  acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote => false
+  acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote => true
 
   #note that we duplicate the following data as we need it to sort and order projects on the browse page
   #this makes the queries run faster
@@ -134,9 +135,16 @@ class Project < ActiveRecord::Base
     @@PROJECT_STATUSES
   end
 
-  def update_funding_and_estimates
+  #overide save to perform updating of estimates
+  def save!
+    logger.debug "overriden save called!"
     update_funding
     update_estimates
+    super
+  end
+
+  #this is simply here for completeness...
+  def update_funding_and_estimates
     self.save!
   end
 
@@ -218,6 +226,12 @@ class Project < ActiveRecord::Base
   def delete
     self.is_deleted = true
     self.deleted_at = Time.now
+    self.save!
+  end
+
+  def restore
+    self.is_deleted = false
+    self.deleted_at = nil
     self.save!
   end
 

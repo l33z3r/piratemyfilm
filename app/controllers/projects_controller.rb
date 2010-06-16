@@ -120,13 +120,8 @@ class ProjectsController < ApplicationController
   def update
     if request.put?
       begin
-
         round_budget_from_params
-      
-        @project.update_attributes(params[:project])
-        @project.save!
-        @project.update_funding_and_estimates
-        
+        @project.update_attributes!(params[:project])
         flash[:positive] = "Your project has been updated."
         redirect_to project_path(@project)
       rescue ActiveRecord::RecordInvalid
@@ -162,9 +157,25 @@ class ProjectsController < ApplicationController
       render :action=>'index' and return
     end
 
-    @project.is_deleted = false
-    @project.deleted_at = nil
-    @project.save!
+    #check the owners limits on projects listed
+    @user_projects = @project.owner.owned_public_projects
+    @membership = @project.owner.membership.membership_type
+    @max_projects = @membership.max_projects_listed
+
+    if @user_projects.length >= @max_projects
+      flash[:error]  = "Cannot restore project, user limited to #{@max_projects} projects."
+      redirect_to :action => "show_private", :id => @project and return
+    end
+
+    #modify the budget according to the users limits
+    if @project.capital_required > @membership.funding_limit_per_project
+      @project.update_attributes!({:capital_required => @membership.funding_limit_per_project})
+    elsif @project.capital_required < @membership.min_funding_limit_per_project
+      @project.update_attributes!({:capital_required => @membership.min_funding_limit_per_project})
+    end
+
+    #now restore the project
+    @project.restore
 
     flash[:positive] = "Project has been restored!"
     redirect_to :action => "show", :id => @project
@@ -178,7 +189,7 @@ class ProjectsController < ApplicationController
     respond_to do |wants|
       @project.update_attribute :icon, nil
       wants.js {render :update do |page| page.visual_effect 'Puff', 'project_icon_picture' end  }
-    end      
+    end
   end
   
   protected
@@ -235,7 +246,7 @@ class ProjectsController < ApplicationController
     super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
     super :admin, :all => true
     super :user, :only => [:new, :create, :show_private, :edit, :update, :delete, :delete_icon]
-  end  
+  end
   
   def check_owner
     if !@project
@@ -245,7 +256,7 @@ class ProjectsController < ApplicationController
     
     if @project.owner != @u
       flash[:error] = 'You are not the owner of this project.'
-      redirect_to project_path(@project)     
+      redirect_to project_path(@project)
     end
   end
 
