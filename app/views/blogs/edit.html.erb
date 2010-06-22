@@ -1,15 +1,12 @@
-<div id="MENU_HEADER" class="pageTitle">
-  Edit Blog Entry
-</div>
+<div class="pageTitle">Edit Blog Entry</div>
 
-<div style="clear:both;"></div><hr/>
+<div class="pmf_clear_bottom_border pmf_top_margin_10">&nbsp;</div>
 
 <div id="sub_nav">
-  <%= link_to "Back to Blog Entry", :controller => "blogs", :action => "show", :id => @blog.id %> |
-  <%= link_to "Back to Project", :controller => "projects", :action => "show", :id => @project.id %> |
-  <%= link_to "All Blogs for this Project", :controller => "projects", :action => "blogs", :id => @project.id %>
+  <%= link_to "Back to Blog Entry", :controller => "blogs", :action => "show", :id => @blog.id %> -
+  <%= link_to "Back to Project", :controller => "projects", :action => "show", :id => @project.id %>
 </div>
 
 <% form_for @blog, :url => {:controller => "blogs", :action => "update", :id => @blog.id} do |f| %>
-  <%= render :partial => '/blog_partials/form', :locals => {:f => f} %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
 <% end %>

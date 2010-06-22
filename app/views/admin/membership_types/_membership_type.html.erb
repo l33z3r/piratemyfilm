@@ -12,22 +12,22 @@
         :onchange => "this.form.submit();" %></td>
     <% end %>
 
-    <% unless membership_type.pc_limit == -1 %>
-      <td><%= select_tag :pc_limit,
-        options_for_select(@select_options, membership_type.pc_limit),
-        :onchange => "this.form.submit();" %></td>
-    <% else %>
-      <td><%= select_tag :pc_limit,
-        options_for_select(@select_options, "unlimited"),
-        :onchange => "this.form.submit();" %></td>
-    <% end %>
-
     <% unless membership_type.pc_project_limit == -1 %>
       <td><%= select_tag :pc_project_limit,
         options_for_select(@select_options, membership_type.pc_project_limit),
         :onchange => "this.form.submit();" %></td>
     <% else %>
       <td><%= select_tag :pc_project_limit,
+        options_for_select(@select_options, "unlimited"),
+        :onchange => "this.form.submit();" %></td>
+    <% end %>
+
+    <% unless membership_type.pc_limit == -1 %>
+      <td><%= select_tag :pc_limit,
+        options_for_select(@select_options, membership_type.pc_limit),
+        :onchange => "this.form.submit();" %></td>
+    <% else %>
+      <td><%= select_tag :pc_limit,
         options_for_select(@select_options, "unlimited"),
         :onchange => "this.form.submit();" %></td>
     <% end %>

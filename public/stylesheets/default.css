@@ -1395,18 +1395,26 @@ div.blog .header {
     float: left;
 }
 
-div.blog .header {
+div.blog div.header {
     font-weight: bold;
     font-size: 15px;
 }
 
-div.blog div.share_buttons {
+div.blog div.header div.project_author_links {
+    margin-top: 5px;
+    font-weight: normal;
+    font-size: 12px;
+}
 
+div.blog div.share_buttons {
+    margin-top: 5px;
+    float: right;
+    margin-left: 5px;
 }
 
 div.blog div.share_buttons div.tweet_button {
     float: right;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 
 div.blog div.share_buttons div.facebook_button {
@@ -1433,34 +1441,8 @@ div.blog-row div.share_buttons div.facebook_button {
     float: right;
 }
 
-.blog-title {
-    float: left;
-    text-transform: capitalize;
-    color:#666666;
-    font-size:13px;
-    font-weight:bold;
-    margin: 5px 0px;
-    width: 460px;
-}
-
-div.blog-row div.project_author_links {
-    float: right;
-    text-align: right;
-}
-
 .blog_comments_link {
     float: right;
-}
-
-div.blog div.share_buttons {
-    margin-top: 5px;
-    float: right;
-    margin-right: 20px;
-}
-
-div.blog div.project_author_links {
-    float: right;
-    text-align: right;
 }
 
 div.blog_admin_links {

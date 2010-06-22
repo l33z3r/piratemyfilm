@@ -1,0 +1,55 @@
+<div class="header">
+  <%= sanitize(blog.title.capitalize) %>
+
+  <% if !blog.is_homepage_blog %>
+    <div class="project_author_links">
+      <span class="project">
+        From Project: <%= link_to h(blog.project.title), :controller => "projects", :action => "show", :id => blog.project.id %>
+      </span>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <span class="author_link">
+        By: <%= link_to h(blog.project.owner.profile.user.login), profile_path(blog.project.owner.profile) %>
+      </span>
+    </div>
+  <% end %>
+</div>
+
+<div class="share_buttons">
+  <div class="tweet_button">
+    <script type="text/javascript">
+      tweetmeme_url = '<%= url_for :only_path => false, :controller => "blogs", :action => "show", :id => blog.id %>';
+    </script>
+    <script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
+  </div>
+
+  <div class="facebook_button">
+    <a name="fb_share" type="box_count" share_url="<%= url_for :only_path => false, :controller => "blogs", :action => "show", :id => blog.id %>"
+       href="http://www.facebook.com/sharer.php">Share</a>
+    <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+  </div>
+</div>
+
+<div class="blog-date">
+  <%= blog.created_at.to_formatted_s(:long_ordinal) %>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div class="blog-body">
+  <% if defined?(truncate_blog_body) && truncate_blog_body %>
+    <%
+      @blog_body_content = blog_body_content blog
+      @truncate_length = 500
+    %>
+    
+    <%= awesome_truncate(@blog_body_content, @truncate_length) %>
+
+    <% if @blog_body_content.length > @truncate_length %>
+      <%= link_to "(More)", {:controller => "blogs", :action => "show", :id => blog.id}, :class => "more_link" %>
+    <% end %>
+  <% else %>
+    <%= blog_body_content blog %>
+  <% end %>
+</div>

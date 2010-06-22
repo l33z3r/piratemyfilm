@@ -24,8 +24,8 @@ class MembershipType < ActiveRecord::Base
 
   #options for select as they will appear in the view:
   @@SELECT_OPTIONS = [1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, "unlimited"]
-  @@MIN_FUNDING_OPTIONS = [0, 1000, 2000, 3000, 5000]
-  @@FUNDING_OPTIONS = [50000, 10000, 20000, 25000, 30000, 35000, 40000, 1000000, 2500000, 500000, 10000000, "unlimited"]
+  @@MIN_FUNDING_OPTIONS = [0, 500, 1000, 2000, 3000, 5000]
+  @@FUNDING_OPTIONS = [5000, 10000, 15000, 20000, 25000, 30000, 40000, 50000, 75000, 100000, 250000, 500000]
 
   #here we are validating presence of membership_type name, we are also ensuring
   #that this attribute is inaccessible. This improves security by ensuring that

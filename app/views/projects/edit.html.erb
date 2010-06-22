@@ -1,5 +1,11 @@
 <div class="pageTitle">Edit Project</div>
 
+<div class="pmf_clear_bottom_border pmf_top_margin_10">&nbsp;</div>
+
+<div id="sub_nav">
+  <%= link_to "Back to Project", {:controller => "projects", :action => "show", :id => @project.id}, :class => "subnav_inactive" %>
+</div>
+
 <% form_for @project, edit_project_path, :html=>{:multipart=>true} do |f| %>
   <%= render :partial => "projects/form", :locals => {:project => @project, :f => f } %>
 <% end %>

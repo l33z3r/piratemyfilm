@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     @projects = cache('hp_projects') do
-      Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => 1, :per_page=> 10
+      Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => 1, :per_page=> 15
     end
   end
 

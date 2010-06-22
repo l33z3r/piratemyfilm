@@ -59,19 +59,26 @@
 
             <li>
               <% unless @u.membership_type.pc_limit == -1 %>
-                You can reserve up to <b><%= @u.membership_type.pc_limit %></b> copies of any one project
+                You can reserve up to <b><%= @u.membership_type.pc_limit %></b> shares of any one project
               <% else %>
-                You can reserve <b>unlimited</b> copies of any one project
+                You can reserve <b>unlimited</b> shares of any one project
               <% end %>
             </li>
 
             <li>
               <% unless @u.membership_type.pc_project_limit == -1 %>
-                You can reserve copies in up to <b><%= @u.membership_type.pc_project_limit %></b> projects
+                You can reserve shares in up to <b><%= @u.membership_type.pc_project_limit %></b> projects
               <% else %>
-                You can reserve copies in an <b>unlimited</b> amount of projects
+                You can reserve shares in an <b>unlimited</b> amount of projects
               <% end %>
             </li>
+          </ul>
+        </div>
+      <% else %>
+        <div class="membership_type">
+          <div class="title"><%=@profile.user.login%>'s Membership</div>
+          <ul>
+            <li><%=@profile.user.login%> is currently on <b><%= @u.membership_type.name %></b> Membership</li>
           </ul>
         </div>
       <% end %>
@@ -101,7 +108,12 @@
 
   <div class="project_listing_box">
     <div class="pageTitleSmaller">
-      Shares <%=@profile.user.login%> is <i>offering</i> his/her own projects
+      <% if @p == @profile %>
+        You are
+      <% else %>
+        <%=@profile.user.login%> is
+      <% end %>
+      <i>offering</i> shares in these projects
     </div>
 
     <div class="dashed_light_border">&nbsp;</div>
@@ -119,7 +131,12 @@
   <div class="project_listing_box">
 
     <div class="pageTitleSmaller">
-      Shares <%=@profile.user.login%> is <i>reserving</i> in friends projects
+      <% if @p == @profile %>
+        You are
+      <% else %>
+        <%=@profile.user.login%> is
+      <% end %>
+      <i>reserving</i> shares in these projects
     </div>
 
     <div class="dashed_light_border">&nbsp;</div>

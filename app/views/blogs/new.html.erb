@@ -1,8 +1,6 @@
-<div id="MENU_HEADER" class="pageTitle">
-  New Blog Entry
-</div>
+<div class="pageTitle">New Blog Entry</div>
 
-<div style="clear:both;"></div><hr/>
+<div class="pmf_clear_bottom_border pmf_top_margin_10">&nbsp;</div>
 
 <div id="sub_nav">
   <%= link_to "Back to Project", {:controller => "projects", :action => "show", :id => @project.id}, :class => "subnav_inactive" %> -
@@ -10,5 +8,5 @@
 </div>
 
 <% form_for @blog, :url => {:controller => "blogs", :action => "create", :id => @blog.id}  do |f| %>
-  <%= render :partial => '/blog_partials/form', :locals => {:f => f} %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
 <% end %>

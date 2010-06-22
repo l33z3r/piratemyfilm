@@ -1,0 +1,19 @@
+<div class="blog-row blog">
+
+  <%= render :partial => "blogs/blog_info", :locals => {:blog => blog, :truncate_blog_body => true} %>
+  
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="blog_comments_link">
+    <% if !blog.is_homepage_blog %>
+      <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id %>
+    <% else %>
+      <%= link_to "#{pluralize(blog.num_comments, "comment")}", blog.wp_comments_link %> (on www.maxkeiser.com)
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>
+
+<div class="dashed_light_border">&nbsp;</div>

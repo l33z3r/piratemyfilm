@@ -82,7 +82,6 @@
     <%= render :partial => "subscription_buttons" %>
   </div>
 
-
   <div class="pmf_clear">&nbsp;</div>
 
   <div id="project_blogs">
@@ -91,16 +90,22 @@
       <ol>
         <li>
           <% if @project_blogs %>
-            <%= render :partial => '/blog_partials/blog', :collection => @project_blogs %>
+            <%= render :partial => 'blogs/blog', :collection => @project_blogs %>
           <% else %>
             No Blogs Found!
           <% end %>
         </li>
       </ol>
       <div class="links">
+        <% if @project_blogs %>
+          <div class="button left">
+            <%= link_to "All Blogs", {:controller => "projects", :action => "blogs", :id => @project.id} %>
+          </div>
+        <% end %>
         <% if @u && (@project.owner == @u || @u.is_admin) %>
-          <div class="button left"><%= link_to "More Blogs", {:controller => "projects", :action => "blogs", :id => @project.id} %></div>
-          <div class="button left"><%= link_to "New Blog", :controller => :blogs, :action => :new, :project_id => @project.id %></div>
+          <div class="button left">
+            <%= link_to "New Blog", :controller => :blogs, :action => :new, :project_id => @project.id %>
+          </div>
         <% end %>
       </div>
 

@@ -7,7 +7,7 @@
 <% if @blogs.empty? %>
   No Blogs Found!
 <% else %>
-  <%= render :partial => '/blog_partials/blog', :collection => @blogs %>
+  <%= render :partial => 'blog', :collection => @blogs %>
 <% end %>
 
 <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>

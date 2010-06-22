@@ -1,7 +1,5 @@
 <% form_for @project, projects_path, :html=>{:multipart=>true} do |f| %>  
-  <div class="banner">
-    <h3>List a Project</h3>
-  </div>
+  <div class="pageTitle">New Project</div>
 
   <%= render :partial => "projects/form",
     :locals => {:project => @project, :f => f, :include_captcha => true} %>
