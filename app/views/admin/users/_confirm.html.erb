@@ -47,6 +47,13 @@
       </li>
     <% end %>
 
+    <% if @num_projects_under_budget_limit > 0 %>
+      <li>
+        <%= @user.login %> has <b><%= @num_projects_under_budget_limit %></b> projects
+        in which the budget is under <b>$<%= @new_membership_type.min_funding_limit_per_project %></b>.
+        The budgets for these projects will be bumped up.
+      </li>
+    <% end %>
   </ul>
 
   <div class="pmf_clear pmf_top_margin_10">&nbsp;</div>
