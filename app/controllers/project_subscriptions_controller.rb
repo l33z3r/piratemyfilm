@@ -33,24 +33,23 @@ class ProjectSubscriptionsController < ApplicationController
       end
 
       if !@project_subscription.nil?
-        
         if @max_subscription_reached or @max_project_subscription_reached
-          flash[:positive] = "You have reached the maximum shares for this project"
+          flash[:error] = "You have reached the maximum shares for this project"
         else
           @project_subscription.amount += 1
           @project_subscription.save!
         end
-                
-        redirect_to project_path(@project) and return
+      else
+        @project_subscription = ProjectSubscription.create( :user => @u, :project => @project, :amount => 1 )
       end
-      
-      @project_subscription = ProjectSubscription.create( :user => @u, :project => @project, :amount => 1 )      
 
       flash[:notice] = "Share reserved!"
       
     rescue ActiveRecord::RecordInvalid
-      flash[:error] = "Error reserving share".x
-    end    
+      logger.error "Error reserving share: #{@project_subscription.errors_to_s}"
+      flash[:error] = "Error reserving share!"
+    end
+    
     redirect_to project_path(@project)    
   end
 
@@ -62,11 +61,8 @@ class ProjectSubscriptionsController < ApplicationController
         redirect_to project_path(@project) and return
       else
         if @project_subscription.amount > 1
-          
           @project_subscription.amount -= 1
           @project_subscription.save!
-        
-          redirect_to project_path(@project) and return
         else
           @project_subscription.destroy
         end
@@ -75,8 +71,10 @@ class ProjectSubscriptionsController < ApplicationController
       end
       
     rescue ActiveRecord::RecordInvalid
+      logger.error "Error canceling share: #{@project_subscription.errors_to_s}"
       flash[:error] = "Error canceling share in this project"
-    end    
+    end
+    
     redirect_to project_path(@project)
   end
 
