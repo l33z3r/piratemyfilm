@@ -78,7 +78,7 @@
         <div class="membership_type">
           <div class="title"><%=@profile.user.login%>'s Membership</div>
           <ul>
-            <li><%=@profile.user.login%> is currently on <b><%= @u.membership_type.name %></b> Membership</li>
+            <li><%=@profile.user.login%> is currently on <b><%= @profile.user.membership_type.name %></b> Membership</li>
           </ul>
         </div>
       <% end %>
