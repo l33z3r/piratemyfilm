@@ -255,6 +255,8 @@ class Project < ActiveRecord::Base
       errors.add(:capital_recycled_percent, @exceeded_error_message)
     end
 
+    log.info "Validation Errors: #{errors_to_s}"
+
   end
 
   def funding_limit_not_exceeded

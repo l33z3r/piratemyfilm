@@ -46,7 +46,7 @@ class ProjectSubscriptionsController < ApplicationController
       flash[:notice] = "Share reserved!"
       
     rescue ActiveRecord::RecordInvalid
-      logger.error "Error reserving share: #{@project_subscription.errors_to_s}"
+      logger.error "Error reserving share!"
       flash[:error] = "Error reserving share!"
     end
     
@@ -71,7 +71,7 @@ class ProjectSubscriptionsController < ApplicationController
       end
       
     rescue ActiveRecord::RecordInvalid
-      logger.error "Error canceling share: #{@project_subscription.errors_to_s}"
+      logger.error "Error canceling share!"
       flash[:error] = "Error canceling share in this project"
     end
     
