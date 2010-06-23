@@ -70,8 +70,8 @@ class ProjectSubscriptionsController < ApplicationController
         flash[:notice] = "Share canceled!"
       end
       
-    rescue ActiveRecord::RecordInvalid
-      logger.error "Error canceling share!"
+    rescue ActiveRecord::RecordInvalid => ex
+      logger.error "Error canceling share! #{ex.message}"
       flash[:error] = "Error canceling share in this project"
     end
     
