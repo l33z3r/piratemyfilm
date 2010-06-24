@@ -75,8 +75,13 @@ class BlogsController < ApplicationController
       begin
         @blog = Blog.find(params[:id])
         @project = @blog.project
+
+        if @project.is_deleted
+          flash[:error] = "This Project has been deleted!"
+          redirect_to :controller => "home"
+        end
       rescue ActiveRecord::RecordNotFound
-        flash[:notice] = "This blog entry does not exist"
+        flash[:error] = "This blog entry does not exist"
         redirect_to :controller => "home"
       end
     end
