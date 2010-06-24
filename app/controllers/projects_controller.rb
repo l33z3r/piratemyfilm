@@ -142,26 +142,25 @@ class ProjectsController < ApplicationController
   end
 
   def restore
-    if !@project
-      flash[:error] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
-      render :action=>'index' and return
-    end
+    #check the owners limits on projects listed if membership not black pearl
 
-    #check the owners limits on projects listed
-    @user_projects = @project.owner.owned_public_projects
     @membership = @project.owner.membership.membership_type
-    @max_projects = @membership.max_projects_listed
 
-    if @user_projects.length >= @max_projects
-      flash[:error]  = "Cannot restore project, user limited to #{@max_projects} projects."
-      redirect_to :action => "show_private", :id => @project and return
-    end
+    if @membership.name != "Black Pearl"
+      @user_projects = @project.owner.owned_public_projects
+      @max_projects = @membership.max_projects_listed
 
-    #modify the budget according to the users limits
-    if @project.capital_required > @membership.funding_limit_per_project
-      @project.update_attributes!({:capital_required => @membership.funding_limit_per_project})
-    elsif @project.capital_required < @membership.min_funding_limit_per_project
-      @project.update_attributes!({:capital_required => @membership.min_funding_limit_per_project})
+      if @user_projects.length >= @max_projects
+        flash[:error]  = "Cannot restore project, user limited to #{@max_projects} projects."
+        redirect_to :action => "show_private", :id => @project and return
+      end
+
+      #modify the budget according to the users limits
+      if @project.capital_required > @membership.funding_limit_per_project
+        @project.update_attributes!({:capital_required => @membership.funding_limit_per_project})
+      elsif @project.capital_required < @membership.min_funding_limit_per_project
+        @project.update_attributes!({:capital_required => @membership.min_funding_limit_per_project})
+      end
     end
 
     #now restore the project
