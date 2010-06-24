@@ -2,10 +2,10 @@ class ProjectsController < ApplicationController
   
   skip_filter :store_location, :only => [:create, :delete]
   skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param]
-  before_filter :setup, :load_project
+  before_filter :setup
+  before_filter :load_project, :only => [:show, :edit, :update, :blogs]
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
-  skip_before_filter :load_project, :only => [:show_private, :restore, :delete]
   before_filter :load_project_private, :only => [:show_private, :restore, :delete]
   before_filter :check_owner_or_admin, :only => [:edit, :update, :delete]
   
@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
         # we still have to decide what algorithm we're going to use here for "most active"
       end
       
-      @projects = Project.find_all_public(:order=> order).paginate :page => (params[:page] || 1), :per_page=> 10
+      @projects = Project.find_all_public(:order=> order).paginate :page => (params[:page] || 1), :per_page=> 15
       
     else
       @filtered = false
@@ -88,11 +88,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    if !@project
-      flash[:error] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
-      redirect_to :action=>'index' and return
-    end
-
     @project_blogs = @latest_project_blog = nil
     
     unless @project.blogs.empty?
@@ -134,11 +129,6 @@ class ProjectsController < ApplicationController
   end
 
   def delete
-    if !@project
-      flash[:error] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
-      render :action=>'index' and return
-    end
-
     @project.delete
 
     #must delete all subscribtions to this project
@@ -248,18 +238,6 @@ class ProjectsController < ApplicationController
     super :user, :only => [:new, :create, :show_private, :edit, :update, :delete, :delete_icon]
   end
   
-  def check_owner
-    if !@project
-      flash[:error] = "Sorry, that project was not found. It may have been deleted or is awaiting admin verification!"
-      redirect_to :action=>'index' and return
-    end
-    
-    if @project.owner != @u
-      flash[:error] = 'You are not the owner of this project.'
-      redirect_to project_path(@project)
-    end
-  end
-
   def check_owner_or_admin
     if @project.owner != @u && !@u.is_admin
       flash[:error] = 'You are not the owner of this project.'
@@ -276,14 +254,27 @@ class ProjectsController < ApplicationController
     begin
       @project = Project.find_single_public(params[:id]) unless params[:id].blank?
     rescue ActiveRecord::RecordNotFound
+      @project = nil
+    end
+
+    if !@project
       flash[:error] = "Project Not Found"
       redirect_to :controller => "home"
     end
   end
 
   def load_project_private
-    @project = Project.find(params[:id]) unless params[:id].blank?
+    begin
+      @project = Project.find(params[:id]) unless params[:id].blank?
+    rescue ActiveRecord::RecordNotFound
+      @project = nil
+    end
 
+    if !@project
+      flash[:error] = "Project Not Found"
+      redirect_to :controller => "home"
+    end
+    
     #test permissions on this project
     raise 'You do not have permission to view this project!' unless @project.owner == @u or @u.is_admin
   end

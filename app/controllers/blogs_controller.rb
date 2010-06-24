@@ -4,7 +4,7 @@ class BlogsController < ApplicationController
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
   
   def producer
-    @blogs = Blog.find_all_by_is_homepage_blog(false, :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 5
+    @blogs = Blog.for_homepage.paginate :page => (params[:page] || 1), :per_page=> 5
   end
   
   def homepage

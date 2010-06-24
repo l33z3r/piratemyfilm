@@ -1,4 +1,4 @@
-<% if defined?(show_icon) && show_icon %>
+<% if defined?(show_icon) && show_icon && blog.project %>
   <div class="project_icon">
     <% if !blog.project.icon.nil? %>
       <%= image_tag url_for_file_column(blog.project, "icon", "big") %>

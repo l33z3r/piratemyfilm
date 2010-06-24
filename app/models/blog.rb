@@ -59,12 +59,14 @@ class Blog < ActiveRecord::Base
       @blog.created_at = @blog.updated_at = item.search("pubdate").first.children.first.inner_text
       @blog.save!
 
-
-
     end
 
     @new_hp_blogs = Blog.find_all_by_is_homepage_blog(true)
     puts "Updated Max Blog with " + @new_hp_blogs.length.to_s + " blogs!"
+  end
+
+  def self.for_homepage
+    find(:all, :include => :project, :conditions => "is_homepage_blog = false and projects.is_deleted = false", :order=>"blogs.created_at DESC")
   end
 
 end
