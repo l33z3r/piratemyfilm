@@ -40,7 +40,8 @@
 
 class Project < ActiveRecord::Base    
 
-  @@PROJECT_STATUSES = ["Funding", "In Production", "Release"]
+  @@PROJECT_STATUSES = ["Funding", "In Production",
+    "Finishing Funds", "Trailer", "Release"]
   
   belongs_to :owner, :class_name=>'User', :foreign_key=>'owner_id'
   

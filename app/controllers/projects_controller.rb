@@ -230,7 +230,7 @@ class ProjectsController < ApplicationController
 
     #has this user rated this project
     @my_project_rating = ProjectRatingHistory.find_by_project_id_and_user_id(@project, @u, :order => "created_at DESC", :limit => "1")
-    @selected_my_project_rating = @my_project_rating ? [@my_project_rating.rating, @my_project_rating.rating.to_s] : nil
+    @selected_my_project_rating = @my_project_rating ? [@my_project_rating.rating, @my_project_rating.rating.to_s] : [1, "1"]
 
     #check if user can rate this project
     @allowed_to_rate = !@my_project_rating || @my_project_rating.created_at < Time.now.beginning_of_day

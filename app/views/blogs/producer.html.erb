@@ -1,11 +1,11 @@
 <div id="MENU_HEADER" class="pageTitle">
-  Producer Blogs
+  Project Notes
 </div>
 
 <div class="pmf_clear">&nbsp;</div>
 
 <% if @blogs.empty? %>
-  No Blogs Found!
+  No Notes Found!
 <% else %>
   <%= render :partial => 'blog', :collection => @blogs %>
 <% end %>
