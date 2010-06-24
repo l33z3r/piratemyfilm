@@ -76,7 +76,7 @@ class BlogsController < ApplicationController
         @blog = Blog.find(params[:id])
         @project = @blog.project
 
-        if @project.is_deleted
+        if @project && @project.is_deleted
           flash[:error] = "This Project has been deleted!"
           redirect_to :controller => "home"
         end
