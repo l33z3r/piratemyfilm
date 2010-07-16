@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
       
     else
       @filtered = false
-      @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 10
+      @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 15
     end
   end
 
