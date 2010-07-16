@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <meta name="title" content="<%= @blog.title %>" />
   <meta name="description" content="<%= @blog.body %>" />
-  <% if !@blog.project.icon.nil? %>
+  <% if @blog.project && !@blog.project.icon.nil? %>
     <link rel="image_src" href="<%= url_for_file_column(@blog.project, "icon", "big") %>" />
   <% end %>
 <% end %>
