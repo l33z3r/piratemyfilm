@@ -1,3 +1,11 @@
+<% content_for :head do %>
+  <meta name="title" content="<%= @project.title %>" />
+  <meta name="description" content="<%= @project.description %>" />
+  <% if !@project.icon.nil? %>
+    <link rel="image_src" href="<%= url_for_file_column(@project, "icon", "big") %>" />
+  <% end %>
+<% end %>
+
 <div id="project_show">
   <% if !@project.is_deleted %>
     <div class="project_action_links">
@@ -42,7 +50,7 @@
 
     <a name="pmf_comment">&nbsp;</a>
 
-  <div class="view-lite-row-description">
+    <div class="view-lite-row-description">
       <span class="header">PMF Comment:</span>
 
       <div class="share_buttons">
@@ -59,7 +67,7 @@
           <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
         </div>
       </div>
-    
+
       <span class="body">
         <%= h @project.project_comment.body %>
       </span>
