@@ -399,6 +399,11 @@ fieldset div.header {
     font-size: 14px;
 }
 
+fieldset div.subheader {
+    margin: 20px 0px 0px 20px;
+    font-size: 12px;
+}
+
 fieldset ol {  
     padding: 3px;
     list-style: none;
@@ -429,10 +434,7 @@ a:hover.edit 	{
     color:#000;
 }
 
-
-
 fieldset li a	{
-    text-decoration:none;
     color:#666;
 }
 

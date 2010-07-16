@@ -33,9 +33,9 @@
 
   <div class="view-lite-row-numbers">
     <ul>
-      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(@project.owner.profile) %></li>
-      <li class="pmf_clear"></li>
       <li class="label">Budget:</li><li class="stat">$<%= print_money project.capital_required %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Funds Reserved:</li><li class="stat">$<%= print_money project.current_funds %></li>
       <li class="pmf_clear"></li>
       <li class="label">Funds Needed:</li><li class="stat">$<%= print_money project.funds_needed %></li>
       <li class="pmf_clear"></li>
@@ -52,20 +52,13 @@
 
   <div class="view-lite-row-numbers">
     <ul>
+      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(@project.owner.profile) %></li>
+      <li class="pmf_clear"></li>
       <li class="label">PMF Rating:</li><li class="stat"><%= project.admin_rating %></li>
       <li class="pmf_clear"></li>
       <li class="label">Member Rating:</li>
       <li class="stat">
         <%= project.user_rating %>
-      </li>
-      <li class="label">Your Rating:</li>
-      <li class="stat">
-        <% if @my_project_rating %>
-          <%= @my_project_rating.rating %>
-        <% else %>
-          None
-        <% end %>
-
         <a href="<%= project_path(project) + "#user_rating" %>">(rate)</a>
       </li>
       <li class="pmf_clear"></li>

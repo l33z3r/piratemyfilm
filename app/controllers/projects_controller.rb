@@ -18,12 +18,15 @@ class ProjectsController < ApplicationController
       @filtered = true      
 
       # essentially a switch statement:
-      order = case @filter_param
-      when "% funds reserved" then "percent_funded DESC"
-      when  "member rating" then "member_rating DESC"
-      when  "admin rating" then "admin_rating DESC"
-      when  "newest" then "created_at DESC"
-      when  "oldest" then "created_at ASC"
+      #TODO: move to an enum
+      order = case @filter_param.downcase!
+      when "% funded" then "percent_funded DESC"
+      when "funds reserved" then "(downloads_reserved * ipo_price) DESC"
+      when "budget" then "capital_required DESC"
+      when "member rating" then "member_rating DESC"
+      when "admin rating" then "admin_rating DESC"
+      when "newest" then "created_at DESC"
+      when "oldest" then "created_at ASC"
       when "breakeven" then "breakeven_views"
       else "created_at DESC"
         # we still have to decide what algorithm we're going to use here for "most active"
@@ -33,7 +36,7 @@ class ProjectsController < ApplicationController
       
     else
       @filtered = false
-      @projects = Project.find_all_public(:order=>"percent_funded DESC").paginate :page => (params[:page] || 1), :per_page=> 10
+      @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 10
     end
   end
 

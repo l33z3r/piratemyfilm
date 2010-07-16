@@ -237,7 +237,8 @@ class Project < ActiveRecord::Base
   end
 
   def self.filter_params
-    ["Please Choose...", "% funds reserved", "breakeven", "member rating", "admin rating", "newest", "oldest"]
+    ["Please Choose...", "% Funded", "Funds Reserved", "Budget", "Breakeven",
+      "Member Rating", "Admin Rating", "Newest", "Oldest"]
   end
 
   protected

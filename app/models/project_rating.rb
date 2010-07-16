@@ -39,6 +39,8 @@ class ProjectRating < ActiveRecord::Base
       arr2[1].to_i <=> arr1[1].to_i
     }
 
+    @ratings_select_opts.reverse!
+    
     @ratings_select_opts
   end
 
