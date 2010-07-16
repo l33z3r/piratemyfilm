@@ -1,6 +1,6 @@
 <% if logged_in %>
   <h3>Your Shares:</h3>
-  <% if @project.owner != @u %>
+  <% if allowed_reserve_shares %>
     <ul>
       <li>You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> shares reserved for this project.</li>
       <li>You will not be debited until 100% of shares on offer have been reserved (you can cancel at any time).

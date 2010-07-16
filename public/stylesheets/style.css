@@ -503,6 +503,25 @@ div#project_blogs div.links {
     margin-right: 25px;
 }
 
+div#project_show div.share_buttons {
+    margin: 5px;
+    margin-right: 0px;
+    float: right;
+}
+
+div#project_show div.share_buttons div.tweet_button {
+    float: right;
+    margin-left: 10px;
+}
+
+div#project_show div.share_buttons div.facebook_button {
+    float: right;
+}
+
+div#project_show .view-lite-row-description .body {
+    width:82%;
+}
+
 /* End Project Page */
 
 /* create project page */
@@ -789,6 +808,10 @@ div#signup_buttons {
 
 div#signup_buttons div {
     float: right;
+}
+
+div#social_links {
+    padding-top: 12px;
 }
 
 .twitter-link {
@@ -1306,7 +1329,7 @@ div.TabView div.Pages div.Page div.Pad {
 
 .local-navbar-button	{
     background:#ccc url(/images/local-nav-bg.png) top left repeat-x;
-    width:115px;
+    width:120px;
     height:40px;
     float:left;
     margin-top:5px;

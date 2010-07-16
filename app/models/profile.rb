@@ -110,7 +110,11 @@ class Profile < ActiveRecord::Base
   end
 
   def home_country
-    country ? country : Country.find(:first)
+    country ? country : nil
+  end
+
+  def home_country_select_opt
+    country ? [country.name, country.id] : nil
   end
   
   def full_name

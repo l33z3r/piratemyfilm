@@ -41,9 +41,9 @@
       <li class="pmf_clear"></li>
       <li class="label">% Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
       <li class="pmf_clear"></li>
-      <li class="label">Shares Available:</li><li class="stat"><%= project.downloads_available %></li>
-      <li class="pmf_clear"></li>
       <li class="label">Price Per Share:</li><li class="stat">$<%= print_money project.ipo_price %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Shares Available:</li><li class="stat"><%= project.downloads_available %></li>
       <li class="pmf_clear"></li>
       <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
       <li class="pmf_clear"></li>
@@ -54,7 +54,7 @@
     <ul>
       <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(@project.owner.profile) %></li>
       <li class="pmf_clear"></li>
-      <li class="label">PMF Rating:</li><li class="stat"><%= project.admin_rating %></li>
+      <li class="label">PMF Fund Rating:</li><li class="stat"><%= project.admin_rating %></li>
       <li class="pmf_clear"></li>
       <li class="label">Member Rating:</li>
       <li class="stat">

@@ -28,7 +28,7 @@ class Country < ActiveRecord::Base
   end
 
   def self.for_select
-    all_in_order.collect {|c| [ c.name, c.id ] }
+    [['Please Select','2']] + all_in_order.collect {|c| [ c.name, c.id ] }
   end
 
   def self.for_select_filtered countries

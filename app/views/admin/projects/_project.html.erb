@@ -22,41 +22,81 @@
 
   <div class="view-lite-row-words">
     <ul>
-      <li class="label">Director:</li><li class="stat"><%= h project.director %></li>
-      <li class="pmf_clear"></li>
       <li class="label">Producer:</li><li class="stat"><%= h project.producer_name %></li>
       <li class="pmf_clear"></li>
+      <li class="label">Director:</li><li class="stat"><%= h project.director %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Exec Producer:</li><li class="stat"><%= h project.exec_producer %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Writer:</li><li class="stat"><%= project.writer %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Genre:</li><li class="stat"><%=h project.genre.title %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Project Length:</li><li class="stat"><%=h project.project_length %> mins</li>
+      <li class="pmf_clear"></li>
+      <li class="label">Project Status:</li><li class="stat"><%= project.status %></li>
+      <li class="pmf_clear"></li>
+    </ul>
+  </div>
+
+  <div class="view-lite-row-numbers">
+    <ul>
       <li class="label">Budget:</li><li class="stat">$<%= print_money project.capital_required %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Funds Reserved:</li><li class="stat">$<%= print_money project.current_funds %></li>
       <li class="pmf_clear"></li>
       <li class="label">Funds Needed:</li><li class="stat">$<%= print_money project.funds_needed %></li>
       <li class="pmf_clear"></li>
       <li class="label">% Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
       <li class="pmf_clear"></li>
-    </ul>
-  </div>
-
-  <div class="view-lite-row-numbers">
-    <ul>
-      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
+      <li class="label">Price Per Share:</li><li class="stat">$<%= print_money project.ipo_price %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Shares Total:</li><li class="stat"><%= project.downloads_available %></li>
+      <li class="label">Shares Available:</li><li class="stat"><%= project.downloads_available %></li>
       <li class="pmf_clear"></li>
       <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
       <li class="pmf_clear"></li>
-      <li class="label">PMF Rating:</li><li class="stat"><%= project.admin_rating %></li>
-      <li class="pmf_clear"></li>
-      <li class="label">Avg Rating:</li>
-      <li class="stat"><%= project.user_rating %></li>
-      <li class="pmf_clear"></li>
     </ul>
   </div>
 
   <div class="view-lite-row-numbers">
     <ul>
-      <li class="label">% Ad Sales:</li><li class="stat"><%= project.share_percent_ads %>%</li>
+      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(@project.owner.profile) %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Break Even (<a class="tooltip_arrow" title="Based on a $10 CPM">?</a>):</li>
-      <li class="stat"><%= number_with_delimiter(number_with_precision(project.breakeven_views, 0)) %></li>
+      <li class="label">PMF Fund Rating:</li><li class="stat"><%= project.admin_rating %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Member Rating:</li>
+      <li class="stat">
+        <%= project.user_rating %>
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="label">% Ad Sales:</li>
+      <li class="stat"><%= project.share_percent_ads %>%</li>
+      <li class="pmf_clear"></li>
+      <li class="label">
+        % PMF Fund:
+      </li>
+      <li class="stat">
+        <%= project.capital_recycled_percent %>
+        (<a class="tooltip_arrow" title="This fund is used to invest (top up)
+            existing projects at the discretion of PMF">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="label">
+        % Producer Fee:
+      </li>
+      <li class="stat">
+        <%= project.producer_fee_percent %>
+        (<a class="tooltip_arrow" title="This is a % of the budget
+            that the producer will take as a fee">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="label">
+        Break Even:
+      </li>
+      <li class="stat">
+        <%= number_with_delimiter(number_with_precision(project.breakeven_views, 0)) %>
+        (<a class="tooltip_arrow" title="Based on a $10 CPM">?</a>)
+      </li>
       <li class="pmf_clear"></li>
     </ul>
   </div>

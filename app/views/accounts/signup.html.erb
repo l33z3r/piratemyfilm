@@ -1,5 +1,40 @@
 <div id="main">
-  <%= render :partial => "accounts/signup_form" %>
+  <% less_form_for :user, :url => signup_path, :method => :post do |f| 	%>
+
+    <%= f.error_messages %>
+
+    <div id="MENU_HEADER" class="pageTitle">Sign up to PMF</div>
+
+    <div class="pmf_top_margin_10">
+      <%= link_to "Already have an account? Log In here", login_url %>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+  
+    <div id="signup_form" class="pmf_top_margin_10">
+      <%= f.text_field :login %>
+      <%= f.text_field :email %>
+      <%= f.password_field :password %>
+      <%= f.password_field :password_confirmation, :label => 'Confirm Password' %>
+      <% f.wrap nil, :label=>"" do  %>
+        <%= less_reverse_captcha_field(:user)%>
+      <% end %>
+
+      <div class="row clear">
+        <div id="captcha_section"><%= recaptcha_tags %></div>
+      </div>
+
+      <%= f.wrap(:remember_me, :for => :remember_me){ check_box_tag :remember_me, 1, params[:remember_me], :class=>"checkbox"} %>
+
+      <div class='row clear'>
+        <label>&nbsp;</label>
+        <%= f.submit 'Sign Up', :class => 'button' %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+    </div>
+  <% end %>
 </div>
 
 <div class="pmf_clear">&nbsp;</div>

@@ -14,7 +14,7 @@
 
     <div class="row clear">
       <label for="country-name">Home Country:</label>
-      <%= select_tag "profile[country_id]", options_for_select(Country.for_select, [@p.home_country.name, @p.home_country.id]) %>
+      <%= select_tag "profile[country_id]", options_for_select(Country.for_select, @p.home_country_select_opt) %>
       <div class="clear"></div>
     </div>
 

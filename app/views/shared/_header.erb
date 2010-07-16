@@ -7,16 +7,18 @@
       <p>The Film Futures Market for Pirates</p>
     </div>
 
-    <div class="twitter-link">
-      <%= link_to image_tag("twitter.gif"),
-        "http://www.twitter.com/piratemyfilm",
-        :target => "_blank" %>
-    </div>
+    <div id="social_links">
+      <div class="twitter-link">
+        <%= link_to image_tag("twitter.gif", :size => "35x30"),
+          "http://www.twitter.com/piratemyfilm",
+          :target => "_blank" %>
+      </div>
 
-    <div class="fb-link">
-      <%= link_to image_tag("facebook-logo.png"),
-        "http://www.facebook.com/pages/PirateMyFilm/75309097341",
-        :target => "_blank" %>
+      <div class="fb-link">
+        <%= link_to image_tag("facebook-logo.png", :size => "30x30"),
+          "http://www.facebook.com/pages/PirateMyFilm/75309097341",
+          :target => "_blank" %>
+      </div>
     </div>
   </div>
 
@@ -30,13 +32,6 @@
 
   <div id="icatch">
     <div class="icatch-pictures">
-      <div class="local-navbar-button">
-        <span>
-          <%= link_to 'Project Notes', {:controller => "producer_blogs"} %>
-        </span>
-        <p>View Notes</p>
-      </div>
-
       <div class="local-navbar-button">
         <span><%= link_to 'Raise Money', new_project_path %></span>
         <p>New Project</p>
@@ -60,15 +55,24 @@
         </div>
       <% end %>
 
-      <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
-        <div id="search">
-          <img src="/images/brand-search.gif" alt="Search" />
-          <%= text_field_tag 'search[q]',
-            (params[:search] && params[:search][:q] ? params[:search][:q] : ''),
-            :id => 'search_q', :size => 16 %>
-          <input type="image" src="/images/brand-go-off.gif" name="submit" />
+      <div class="right">
+        <div class="local-navbar-button">
+          <span>
+            <%= link_to 'Project Updates', {:controller => "producer_blogs"} %>
+          </span>
+          <p>View Updates</p>
         </div>
-      <% end %>
+
+        <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
+          <div id="search">
+            <img src="/images/brand-search.gif" alt="Search" />
+            <%= text_field_tag 'search[q]',
+              (params[:search] && params[:search][:q] ? params[:search][:q] : ''),
+              :id => 'search_q', :size => 14 %>
+            <input type="image" src="/images/brand-go-off.gif" name="submit" />
+          </div>
+        <% end %>
+      </div>
     </div>
 
   </div>

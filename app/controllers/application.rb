@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
   layout 'application'  
 
-  helper_method :print_money, :print_number
+  helper_method :print_money, :print_number, :allowed_reserve_shares
   
   def check_featured
     return if Profile.featured_profile[:date] == Date.today
@@ -116,6 +116,10 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_home
     redirect_to :controller => "home"
+  end
+
+  def allowed_reserve_shares
+    @project.owner != @u || @project.owner.id == PMF_FUND_ACCOUNT_ID
   end
 
 end

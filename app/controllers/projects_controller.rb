@@ -160,9 +160,9 @@ class ProjectsController < ApplicationController
 
       #modify the budget according to the users limits
       if @project.capital_required > @membership.funding_limit_per_project
-        @project.update_attributes!({:capital_required => @membership.funding_limit_per_project})
+        @project.capital_required = @membership.funding_limit_per_project
       elsif @project.capital_required < @membership.min_funding_limit_per_project
-        @project.update_attributes!({:capital_required => @membership.min_funding_limit_per_project})
+        @project.capital_required = @membership.min_funding_limit_per_project
       end
     end
 

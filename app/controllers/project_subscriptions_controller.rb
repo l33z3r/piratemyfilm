@@ -1,5 +1,5 @@
 class ProjectSubscriptionsController < ApplicationController
-  
+
   before_filter :load_project, :get_project_subscription
 
   cache_sweeper :project_sweeper, :only => [:create, :destroy]
@@ -8,7 +8,7 @@ class ProjectSubscriptionsController < ApplicationController
     begin            
 
       #check that user does not own this project
-      if @project.owner == @u
+      if !allowed_reserve_shares
         flash[:error] = "As the owner of this project, you cannot reserve shares!"
         redirect_to project_path(@project) and return
       end
@@ -79,7 +79,7 @@ class ProjectSubscriptionsController < ApplicationController
   end
 
   protected
-  
+
   def allow_to
     super :admin, :all => true
     super :user, :only => [:create, :destroy]

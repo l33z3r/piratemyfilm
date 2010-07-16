@@ -24,9 +24,9 @@
 
             <div class="pmf_clear">&nbsp;</div>
 
-            <% unless @profile.home_country.blank? %>
+            <% if @profile.home_country %>
               <div class="label">Home Country:</div>
-              <div class="value"><%= @profile.home_country %></div>
+              <div class="value"><%= @profile.home_country.name %></div>
             <% end %>
           </div>
         </div>
