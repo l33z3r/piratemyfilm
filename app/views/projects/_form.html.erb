@@ -1,3 +1,5 @@
+<%= f.hidden_field :share_percent_downloads, :value => 0 %>
+
 <table class="project_form" style="border-spacing: 10px; width: 100%;">
 
   <tr><td colspan="2"><%= f.error_messages %></td></tr>
@@ -54,27 +56,24 @@
   <tr>
     <td>
       * What percentage of future
+      <br/>pirate copy ad sales are
+      <br/>you going to reap? (0 - 100)%
+    </td>
+    <td>
+      <%= f.text_field :share_percent_ads_producer %>
+      <%= display_error_on(project, :share_percent_ads_producer) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      * What percentage of your percentage of future
       <br/>pirate copy ad sales are you offering
       <br/>to share holders? (0 - 100)%
     </td>
     <td>
       <%= f.text_field :share_percent_ads %>
       <%= display_error_on(project, :share_percent_ads) -%>
-
-      <%= f.hidden_field :share_percent_downloads, :value => 0 %>
-    </td>
-  </tr>
-
- <tr>
-    <td>
-      What percentage of ad revenues will
-      <br/>be ploughed back to the PMF Fund
-      (<a class="tooltip_arrow" title="This fund is used to invest (top up)
-      existing projects at the discretion of PMF">?</a>) (0 - 100)%
-    </td>
-    <td>
-      <%= f.text_field :capital_recycled_percent %>
-      <%= display_error_on(project, :capital_recycled_percent) -%>
     </td>
   </tr>
 

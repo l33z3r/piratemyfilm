@@ -89,6 +89,8 @@ class Project < ActiveRecord::Base
     }
   }
 
+  before_save :update_recycled_percent
+
   #find projects that have been given initial rating and are not deleted
   def self.find_all_public(*args)
 
@@ -242,20 +244,12 @@ class Project < ActiveRecord::Base
   end
 
   protected
-  
+
   def validate
+    errors.add(:share_percent_ads_producer, "must be between 0% - 100%") if share_percent_ads_producer && (share_percent_ads_producer < 0 || share_percent_ads_producer > 100)
     errors.add(:share_percent_ads, "must be between 0% - 100%") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
     errors.add(:producer_fee_percent, "must be between 0% - 20%") if producer_fee_percent && (producer_fee_percent < 0 || producer_fee_percent > 20)
-    errors.add(:capital_recycled_percent, "must be between 0% - 100%") if capital_recycled_percent && (capital_recycled_percent < 0 || capital_recycled_percent > 100)
-
     errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
-
-    #must check that total percentage adds up correctly
-    if share_percent_ads + capital_recycled_percent > 100
-      @exceeded_error_message = "% Ad Sales and % Capital Recycled to PMF must sum to less than 100%"
-      errors.add(:share_percent_ads, @exceeded_error_message)
-      errors.add(:capital_recycled_percent, @exceeded_error_message)
-    end
 
     logger.info "Validation Errors: #{errors_to_s}"
 
@@ -277,6 +271,10 @@ class Project < ActiveRecord::Base
       errors.add(:capital_required, " must be greater than or equal to $#{min_funding_limit}, the limit for your membership type,
           We will be allowing account upgrades shortly!")
     end
+  end
+
+  def update_recycled_percent
+    self.capital_recycled_percent = 100 - share_percent_ads_producer
   end
 
 end

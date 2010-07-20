@@ -14,7 +14,7 @@
       <div class="activity_box learn">
         <div class="left avatar"><%= icon @profile, :medium %></div>
         <div class="right bio_stuff">
-          <div class="user_name"><%= h @profile.f.capitalize %></div>
+          <div class="user_name"><%= h @profile.f %></div>
 
           <div id="user_info">
             <% unless @profile.last_activity_at.blank? %>

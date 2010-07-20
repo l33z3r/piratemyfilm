@@ -2,9 +2,12 @@ class HomeController < ApplicationController
   skip_before_filter :login_required	
 
   def index
-    @projects = cache('hp_projects') do
-      Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => 1, :per_page=> 15
-    end
+
+    redirect_to :controller => "blogs", :action => "producer"
+
+#    @projects = cache('hp_projects') do
+#      Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => 1, :per_page=> 15
+#    end
   end
 
   def newest_members
