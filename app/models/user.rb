@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100528091908
+# Schema version: 20100720120616
 #
 # Table name: users
 #
@@ -47,11 +47,11 @@ class User < ActiveRecord::Base
   validates_less_reverse_captcha
   
   has_many :owned_public_projects, :class_name => "Project", :foreign_key => "owner_id", 
-    :conditions=>'rated_at IS NOT NULL and is_deleted = 0', :order => "created_at"
+    :conditions=>'symbol IS NOT NULL and is_deleted = 0', :order => "created_at"
   has_many :owned_projects, :class_name => "Project", :foreign_key => "owner_id"
   has_many :project_subscriptions, :dependent => :destroy
   has_many :subscribed_projects, :through => :project_subscriptions, :source=> :project, 
-    :conditions=>'rated_at IS NOT NULL and is_deleted = 0', :order => "created_at"
+    :conditions=>'symbol IS NOT NULL and is_deleted = 0', :order => "created_at"
 
   has_one :project_comment
 

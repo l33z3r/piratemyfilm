@@ -7,25 +7,18 @@
 <% end %>
 
 <div id="project_show">
-  <% if !@project.is_deleted %>
-    <div class="project_action_links">
-      <% if @u && (@project.owner == @u || @u.is_admin) %>
-        <div class="button left"><%= link_to "New Blog", :controller => :blogs, :action => :new, :project_id => @project.id %></div>
-        <div class="button left"><%= link_to "Edit project", edit_project_path(@project) %></div>
-        <div class="button left"><%= link_to "Delete Project", :controller => "projects", :action => "delete", :id => @project %></div>
-      <% end %>
-      <div class="button left"><%= link_to "New Project", new_project_path %></div>
-      <div class="button left"><%= link_to "All Projects", projects_path %></div>
-    </div>
+  <div class="project_action_links">
+    <% if @u && (@project.owner == @u || @u.is_admin) %>
+      <div class="button left"><%= link_to "New Blog", :controller => :blogs, :action => :new, :project_id => @project.id %></div>
+      <div class="button left"><%= link_to "Edit project", edit_project_path(@project) %></div>
+      <div class="button left"><%= link_to "Delete Project", :controller => "admin/deleted_projects", :action => "delete", :id => @project %></div>
+    <% end %>
+    <div class="button left"><%= link_to "New Project", new_project_path %></div>
+    <div class="button left"><%= link_to "All Projects", projects_path %></div>
+  </div>
 
-    <div class="pmf_clear">&nbsp;</div>
-  <% else %>
-    <h3>
-      This project was deleted on <%= @project.deleted_at %>
-      <%= link_to "Restore Project", :controller => "projects", :action => "restore", :id => @project %>
-    </h3>
-  <% end %>
-
+  <div class="pmf_clear">&nbsp;</div>
+  
   <div class="dashed_light_border">&nbsp;</div>
 
   <%= render :partial => "project_small_view", :locals => {:project => @project} %>
@@ -48,10 +41,12 @@
   <% if @project.project_comment %>
     <div class="pmf_clear">&nbsp;</div>
 
-    <a name="pmf_comment">&nbsp;</a>
-
     <div class="view-lite-row-description">
-      <span class="header">PMF Comment:</span>
+      <span class="header">
+        <a name="pmf_comment">
+          PMF Comment:
+        </a>
+      </span>
 
       <div class="share_buttons">
         <div class="tweet_button">
@@ -136,6 +131,27 @@
       </div>
     </fieldset>
   </div>
+
+  <% if_admin do %>
+    <% form_for  @project, :url => {:action => "update_symbol", :id => @project.id} do |f| %>
+      <fieldset>
+        <div class="header">Project Symbol</div>
+        <div class="subheader">
+          <b>Note:</b> Symbol must be 5 characters long and
+          must consist of all letters
+        </div>
+        <ol>
+          <li>
+            <label>Enter a symbol for project</label>
+            <%= f.text_field :symbol, {:size => 30, :maxlength => 5} %>
+            <%= display_error_on(@project, :symbol) -%>
+            <%= submit_tag "Submit" %>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+  <% end %>
+
 
   <% if_admin do %>
     <% form_tag :controller => "admin/project_rating", :action => "rate", :project_id => @project.id do %>

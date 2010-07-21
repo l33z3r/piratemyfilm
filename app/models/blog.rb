@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100528091908
+# Schema version: 20100720120616
 #
 # Table name: blogs
 #
@@ -66,7 +66,9 @@ class Blog < ActiveRecord::Base
   end
 
   def self.for_homepage
-    find(:all, :include => :project, :conditions => "is_homepage_blog = false and projects.is_deleted = false", :order=>"blogs.created_at DESC")
+    find(:all, :include => :project, :conditions => "is_homepage_blog = false and 
+      projects.symbol is not null and projects.is_deleted = false",
+      :order=>"blogs.created_at DESC")
   end
 
 end

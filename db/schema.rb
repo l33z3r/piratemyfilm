@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100720103028) do
+ActiveRecord::Schema.define(:version => 20100720145315) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -253,10 +253,12 @@ ActiveRecord::Schema.define(:version => 20100720103028) do
     t.string   "director"
     t.string   "writer"
     t.string   "exec_producer"
-    t.float    "breakeven_views"
     t.integer  "producer_fee_percent"
     t.integer  "capital_recycled_percent"
     t.integer  "share_percent_ads_producer",                                              :default => 0
+    t.integer  "producer_erpd"
+    t.integer  "shareholder_erpd"
+    t.string   "symbol"
   end
 
   create_table "sessions", :force => true do |t|

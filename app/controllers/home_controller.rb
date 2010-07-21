@@ -3,11 +3,13 @@ class HomeController < ApplicationController
 
   def index
 
+    flash.keep
     redirect_to :controller => "blogs", :action => "producer"
 
-#    @projects = cache('hp_projects') do
-#      Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => 1, :per_page=> 15
-#    end
+    #old homepage with project list
+    #    @projects = cache('hp_projects') do
+    #      Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => 1, :per_page=> 15
+    #    end
   end
 
   def newest_members

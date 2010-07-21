@@ -9,12 +9,12 @@
       :class => (@selected_tab_name == "admin_stats" ? "selected" : "") %>
   </li>
   <li>
-    <%= link_to "Rate New Projects <b>(#{@num_pending_projects})</b>",
-      {:controller => "admin/project_rating"}, 
+    <%= link_to "New Projects <b>(#{@num_pending_projects})</b>",
+      {:controller => "admin/new_projects"},
       :class => (@selected_tab_name == "new_projects" ? "selected" : "") %>
   </li>
   <li>
-    <%= link_to "Deleted Projects", {:controller => "admin/deleted_projects"},
+    <%= link_to "Deleted Projects <b>(#{@num_deleted_projects})</b>", {:controller => "admin/deleted_projects"},
       :class => (@selected_tab_name == "deleted_projects" ? "selected" : "") %>
     </li>
   <li>
@@ -22,7 +22,7 @@
       :class => (@selected_tab_name == "membership_types" ? "selected" : "") %>
   </li>
   <li>
-    <%= link_to "Users", {:controller => "admin/users"},
+    <%= link_to "Users <b>(#{@user_count})</b>", {:controller => "admin/users"},
       :class => (@selected_tab_name == "users" ? "selected" : "") %>
   </li>
 </ul>

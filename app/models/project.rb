@@ -1,41 +1,43 @@
 # == Schema Information
-# Schema version: 20100528091908
+# Schema version: 20100720120616
 #
 # Table name: projects
 #
-#  id                       :integer(4)    not null, primary key
-#  owner_id                 :integer(4)    
-#  title                    :string(255)   
-#  producer_name            :string(255)   
-#  synopsis                 :text          
-#  genre_id                 :integer(4)    
-#  description              :text          
-#  cast                     :text          
-#  web_address              :string(255)   
-#  ipo_price                :decimal(10, 2 
-#  percent_funded           :integer(3)    
-#  icon                     :string(255)   
-#  created_at               :datetime      
-#  updated_at               :datetime      
-#  youtube_vid_id           :string(255)   
-#  status                   :string(255)   default("Funding")
-#  project_length           :integer(4)    default(0)
-#  share_percent_downloads  :integer(3)    
-#  share_percent_ads        :integer(3)    
-#  downloads_reserved       :integer(10)   default(0)
-#  downloads_available      :integer(10)   default(0)
-#  capital_required         :integer(12)   
-#  rated_at                 :datetime      
-#  is_deleted               :boolean(1)    
-#  deleted_at               :datetime      
-#  member_rating            :integer(4)    default(0)
-#  admin_rating             :integer(4)    default(0)
-#  director                 :string(255)   
-#  writer                   :string(255)   
-#  exec_producer            :string(255)   
-#  breakeven_views          :float         
-#  producer_fee_percent     :integer(4)    
-#  capital_recycled_percent :integer(4)    
+#  id                         :integer(4)    not null, primary key
+#  owner_id                   :integer(4)    
+#  title                      :string(255)   
+#  producer_name              :string(255)   
+#  synopsis                   :text          
+#  genre_id                   :integer(4)    
+#  description                :text          
+#  cast                       :text          
+#  web_address                :string(255)   
+#  ipo_price                  :decimal(10, 2 
+#  percent_funded             :integer(3)    
+#  icon                       :string(255)   
+#  created_at                 :datetime      
+#  updated_at                 :datetime      
+#  youtube_vid_id             :string(255)   
+#  status                     :string(255)   default("Funding")
+#  project_length             :integer(4)    default(0)
+#  share_percent_downloads    :integer(3)    
+#  share_percent_ads          :integer(3)    
+#  downloads_reserved         :integer(10)   default(0)
+#  downloads_available        :integer(10)   default(0)
+#  capital_required           :integer(12)   
+#  rated_at                   :datetime      
+#  is_deleted                 :boolean(1)    
+#  deleted_at                 :datetime      
+#  member_rating              :integer(4)    default(0)
+#  admin_rating               :integer(4)    default(0)
+#  director                   :string(255)   
+#  writer                     :string(255)   
+#  exec_producer              :string(255)   
+#  producer_fee_percent       :integer(4)    
+#  capital_recycled_percent   :integer(4)    
+#  share_percent_ads_producer :integer(4)    default(0)
+#  producer_erpd              :integer(4)    
+#  shareholder_erpd           :integer(4)    
 #
 
 class Project < ActiveRecord::Base    
@@ -51,18 +53,21 @@ class Project < ActiveRecord::Base
   has_many :blogs
   
   belongs_to :genre, :foreign_key=>'genre_id'
-  
+
+  attr_protected :symbol
+
   validates_presence_of :owner_id, :title, :status
   validates_presence_of :ipo_price, :genre_id, :capital_required
   
   validates_inclusion_of :status, :in => @@PROJECT_STATUSES
 
   validates_uniqueness_of :title
+  validates_uniqueness_of :symbol, :allow_nil => true, :allow_blank => true
 
   #description will be the logline of the project
   #we are limiting it to 140 characters so that it is like twitter
   validates_length_of :description, :within => 0..140
-
+  
   validates_numericality_of :capital_required, :ipo_price, :project_length, :allow_nil => true
   validates_numericality_of :capital_recycled_percent, :producer_fee_percent, :allow_nil => true
   validates_numericality_of :share_percent_ads, :allow_nil => true
@@ -100,9 +105,9 @@ class Project < ActiveRecord::Base
     options = args[0]
 
     if options[:conditions]
-      options[:conditions] << sanitize_sql(' AND rated_at IS NOT NULL')
+      options[:conditions] << sanitize_sql(' AND symbol IS NOT NULL')
     else
-      options[:conditions] = sanitize_sql('rated_at IS NOT NULL')
+      options[:conditions] = sanitize_sql('symbol IS NOT NULL')
     end
 
     options[:conditions] << sanitize_sql(' AND is_deleted = 0')
@@ -117,7 +122,7 @@ class Project < ActiveRecord::Base
 
     @project = self.find(id)
     
-    if @project.rated_at && !@project.is_deleted
+    if @project.symbol && !@project.is_deleted
       return @project
     else
       return nil
@@ -129,7 +134,7 @@ class Project < ActiveRecord::Base
     query ||= ''
     q = '*' + query.gsub(/[^\w\s-]/, '').gsub(' ', '* *') + '*'
     options.each {|key, value| q += " #{key}:#{value}"}
-    arr = find_by_contents q, {:limit=>:all}, {:conditions => 'rated_at IS NOT NULL and is_deleted = 0'}
+    arr = find_by_contents q, {:limit=>:all}, {:conditions => 'symbol IS NOT NULL and is_deleted = 0'}
     logger.debug arr.inspect
     arr
   end   
@@ -162,11 +167,17 @@ class Project < ActiveRecord::Base
   def update_estimates
     logger.debug "Updating Estimates!"
 
-    if self.share_percent_ads > 0
-      @ad_sales_required = (100 * self.capital_required)/self.share_percent_ads
-      @cpm_presumption = 10
-      self.breakeven_views = (@ad_sales_required/@cpm_presumption) * 1000
-    end
+    @cpm_assumption = 10.0
+    @view_assumption = 100000.0
+
+    @revenue_from_assumptions = (@view_assumption / 1000.0) * @cpm_assumption
+    @producer_and_shareholder_take = (self.share_percent_ads_producer/100.0) * @revenue_from_assumptions
+
+    @shareholder_final_percentage_take = self.share_percent_ads
+    @producer_final_percentage_take = 100 - self.share_percent_ads
+
+    self.shareholder_erpd = (@shareholder_final_percentage_take/100.0) * @producer_and_shareholder_take
+    self.producer_erpd = (@producer_final_percentage_take/100.0) * @producer_and_shareholder_take
   end
 
   def user_rating
@@ -226,6 +237,14 @@ class Project < ActiveRecord::Base
     super
   end
 
+  def share_percent_ads_producer
+    if !super
+      return 0
+    end
+
+    super
+  end
+
   def delete
     self.is_deleted = true
     self.deleted_at = Time.now
@@ -239,8 +258,21 @@ class Project < ActiveRecord::Base
   end
 
   def self.filter_params
-    ["Please Choose...", "% Funded", "Funds Reserved", "Budget", "Breakeven",
-      "Member Rating", "Admin Rating", "Newest", "Oldest"]
+    ["Please Choose...", "% Funded", "Funds Reserved", "Budget",
+      "Member Rating", "Admin Rating", "Newest", "Oldest",
+      "Producer ERPD", "Shareholder ERPD"]
+  end
+
+  def is_public
+    symbol != nil
+  end
+
+  def symbol
+    if !super
+      return nil
+    end
+    
+    super.upcase
   end
 
   protected
@@ -250,7 +282,7 @@ class Project < ActiveRecord::Base
     errors.add(:share_percent_ads, "must be between 0% - 100%") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
     errors.add(:producer_fee_percent, "must be between 0% - 20%") if producer_fee_percent && (producer_fee_percent < 0 || producer_fee_percent > 20)
     errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
-
+    errors.add(:symbol, "must be 5 alphabetic characters long") if symbol && !symbol.blank? && !(symbol=~/[a-zA-Z]{5}/)
     logger.info "Validation Errors: #{errors_to_s}"
 
   end

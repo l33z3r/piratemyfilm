@@ -3,10 +3,9 @@ class ProjectsController < ApplicationController
   skip_filter :store_location, :only => [:create, :delete]
   skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param]
   before_filter :setup
-  before_filter :load_project, :only => [:show, :edit, :update, :blogs]
+  before_filter :load_project, :only => [:show, :edit, :update, :update_symbol, :blogs]
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
-  before_filter :load_project_private, :only => [:show_private, :restore, :delete]
   before_filter :check_owner_or_admin, :only => [:edit, :update, :delete]
   
   before_filter :load_membership_settings, :only => [:new, :create]
@@ -27,9 +26,9 @@ class ProjectsController < ApplicationController
       when "admin rating" then "admin_rating DESC"
       when "newest" then "created_at DESC"
       when "oldest" then "created_at ASC"
-      when "breakeven" then "breakeven_views"
+      when "producer erpd" then "producer_erpd DESC"
+      when "shareholder erpd" then "shareholder_erpd DESC"
       else "created_at DESC"
-        # we still have to decide what algorithm we're going to use here for "most active"
       end
       
       @projects = Project.find_all_public(:order=> order).paginate :page => (params[:page] || 1), :per_page=> 15
@@ -90,6 +89,20 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def update_symbol
+    begin
+      @project.symbol = params[:project][:symbol]
+      @project.save!
+
+      flash[:positive] = "Symbol updated."
+      redirect_to project_path(@project)
+    rescue ActiveRecord::RecordInvalid
+      flash[:error] = "Error updating symbol"
+      perform_show
+      render :action => "show"
+    end
+  end
+
   def show
     @project_blogs = @latest_project_blog = nil
     
@@ -106,11 +119,6 @@ class ProjectsController < ApplicationController
     @project_id = params[:id]
   end
 
-  def show_private
-    perform_show
-    render :action => "show"
-  end
-
   def edit
     @genres = Genre.find(:all)
   end
@@ -119,6 +127,7 @@ class ProjectsController < ApplicationController
     if request.put?
       begin
         round_budget_from_params
+
         @project.update_attributes!(params[:project])
         flash[:positive] = "Your project has been updated."
         redirect_to project_path(@project)
@@ -129,48 +138,6 @@ class ProjectsController < ApplicationController
         render :action=>'edit'
       end            
     end 
-  end
-
-  def delete
-    @project.delete
-
-    #must delete all subscribtions to this project
-    @subscriptions = ProjectSubscription.find_all_by_project_id(@project)
-    @subscriptions.each do |subscription|
-      subscription.destroy
-    end
-      
-    flash[:positive] = "Project has been deleted!"
-    redirect_to :action => "index"
-  end
-
-  def restore
-    #check the owners limits on projects listed if membership not black pearl
-
-    @membership = @project.owner.membership.membership_type
-
-    if @membership.name != "Black Pearl"
-      @user_projects = @project.owner.owned_public_projects
-      @max_projects = @membership.max_projects_listed
-
-      if @user_projects.length >= @max_projects
-        flash[:error]  = "Cannot restore project, user limited to #{@max_projects} projects."
-        redirect_to :action => "show_private", :id => @project and return
-      end
-
-      #modify the budget according to the users limits
-      if @project.capital_required > @membership.funding_limit_per_project
-        @project.capital_required = @membership.funding_limit_per_project
-      elsif @project.capital_required < @membership.min_funding_limit_per_project
-        @project.capital_required = @membership.min_funding_limit_per_project
-      end
-    end
-
-    #now restore the project
-    @project.restore
-
-    flash[:positive] = "Project has been restored!"
-    redirect_to :action => "show", :id => @project
   end
   
   def search
@@ -215,7 +182,7 @@ class ProjectsController < ApplicationController
         @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
       end
     end
-    
+
     @admin_rating = @project.admin_rating
     @admin_comment = @project.admin_comment
     @user_rating = @project.user_rating
@@ -237,7 +204,7 @@ class ProjectsController < ApplicationController
   def allow_to
     super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
     super :admin, :all => true
-    super :user, :only => [:new, :create, :show_private, :edit, :update, :delete, :delete_icon]
+    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon]
   end
   
   def check_owner_or_admin
@@ -265,22 +232,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def load_project_private
-    begin
-      @project = Project.find(params[:id]) unless params[:id].blank?
-    rescue ActiveRecord::RecordNotFound
-      @project = nil
-    end
-
-    if !@project
-      flash[:error] = "Project Not Found"
-      redirect_to :controller => "home"
-    end
-    
-    #test permissions on this project
-    raise 'You do not have permission to view this project!' unless @project.owner == @u or @u.is_admin
-  end
-    
   def search_results
     if params[:search]
       p = params[:search].dup

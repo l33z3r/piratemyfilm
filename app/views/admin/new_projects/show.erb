@@ -1,0 +1,76 @@
+<div id="project_show">
+
+  <div class="highlight_symbol">
+    <h3>To release this project publicly, enter a 5 character symbol for it below</h3>
+    <h4>You can rate the project later on</h4>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <% form_for @project, :url => {:controller => "admin/new_projects",
+    :action => "release_project", :id => @project.id} do |f| %>
+    <fieldset class="green_border">
+      <div class="header">Project Symbol</div>
+      <div class="subheader">
+        <b>Note:</b> Symbol must be 5 characters long and
+        must consist of all letters
+      </div>
+      <ol>
+        <li>
+          <label>Enter a symbol for project</label>
+          <%= f.text_field :symbol, {:size => 30, :maxlength => 5} %>
+          <%= display_error_on(@project, :symbol) -%>
+          <%= submit_tag "Submit" %>
+        </li>
+      </ol>
+    </fieldset>
+  <% end %>
+
+  <%= render :partial => "/projects/project_small_view", :locals => {:project => @project} %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="view-lite-row-description">
+    <span class="header">Project Logline:</span>
+    <span class="body">
+      <%= h @project.description %>
+    </span>
+  </div>
+
+  <% if @project.project_comment %>
+    <div class="pmf_clear">&nbsp;</div>
+
+    <div class="view-lite-row-description">
+      <span class="header">
+        <a name="pmf_comment">
+          PMF Comment:
+        </a>
+      </span>
+
+      <span class="body">
+        <%= h @project.project_comment.body %>
+      </span>
+    </div>
+  <% end %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="view-lite-row-description">
+    <span class="header">Synopsis:</span>
+    <span class="body">
+      <%=h @project.synopsis %>
+    </span>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="view-lite-row-description">
+    <span class="header">Cast:</span>
+    <span class="body">
+      <%=h @project.cast %>
+    </span>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>

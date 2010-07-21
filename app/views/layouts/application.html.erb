@@ -82,6 +82,17 @@
               <%= show_default_flash -%>
             </div>
 
+            <div id="pmf_fund_account_link_container">
+              <div class="text">
+                <%= link_to "PMF FUND", profile_path(PMF_FUND_ACCOUNT_ID) %>
+              </div>
+              <div class="pic">
+                <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "30x30"), profile_path(PMF_FUND_ACCOUNT_ID) %>
+              </div>
+            </div>
+
+            <div class="dashed_light_border">&nbsp;</div>
+
             <%= yield %>
 
           </div>

@@ -46,6 +46,10 @@ div.dashed_light_border {
     clear: both;
 }
 
+.green_border {
+    border: 1px solid #4F8A10;
+}
+
 /* Global CSS */
 
 /* Latest Max Blog */
@@ -62,7 +66,7 @@ div#top_container {
 
 div#hp_latest_blog {
     float: left;
-    width: 600px;
+    width: 570px;
 }
 
 div#hp_latest_blog .blog-title {
@@ -74,10 +78,6 @@ div#hp_latest_blog .blog-title {
 div#hp_latest_blog div#container div.blog-entry {
     text-align: left;
     padding: 0px 15px;
-}
-
-div#hp_latest_blog {
-
 }
 
 div#hp_latest_blog div#hp_latest_blog_header {
@@ -106,7 +106,7 @@ div#hp_latest_blog div.blog_comments_link {
 }
 
 div#signup_section {
-    width: 280px;
+    width: 310px;
     float: right;
 }
 
@@ -219,6 +219,27 @@ div#header_links span.welcome_message {
 div#top_search_box {
     float: right;
     margin-top: -28px;
+}
+
+div#pmf_fund_account_link_container {
+    float: right;
+    margin-bottom: 4px;
+}
+
+div#pmf_fund_account_link_container div.pic {
+    border: 1px solid black;
+    float: left;
+}
+
+div#pmf_fund_account_link_container div.text {
+    margin: 6px 6px 0px 0px;
+    font-weight: bold;
+    font-size: 13px;
+    float: left;
+}
+
+div#pmf_fund_account_link_container div.text a {
+    color: black;
 }
 
 /* Top Menu */
@@ -1597,6 +1618,24 @@ div.admin_section div.users div.user div.membership_type form div.submit {
 }
 
 /* end user admin section */
+
+/* project admin section */
+
+div#project_show h3.deleted_notice {
+    padding: 2px;
+    border: 1px solid #D8000C;
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+
+div#project_show div.highlight_symbol {
+    padding: 2px;
+    border: 1px solid #4F8A10;
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+
+/* project admin section */
 
 .view-lite-row-title {
     background:#fff;

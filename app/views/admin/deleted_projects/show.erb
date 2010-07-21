@@ -1,0 +1,56 @@
+<div id="project_show">
+  <h3 class="deleted_notice">
+    This project was deleted on <%= @project.deleted_at %>
+    <%= link_to "Restore Project", :controller => "admin/deleted_projects", :action => "restore", :id => @project %>
+  </h3>
+
+  <div class="dashed_light_border">&nbsp;</div>
+
+  <%= render :partial => "/projects/project_small_view", :locals => {:project => @project} %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="view-lite-row-description">
+    <span class="header">Project Logline:</span>
+    <span class="body">
+      <%= h @project.description %>
+    </span>
+  </div>
+
+  <% if @project.project_comment %>
+    <div class="pmf_clear">&nbsp;</div>
+
+    <div class="view-lite-row-description">
+      <span class="header">
+        <a name="pmf_comment">
+          PMF Comment:
+        </a>
+      </span>
+
+      <span class="body">
+        <%= h @project.project_comment.body %>
+      </span>
+    </div>
+  <% end %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="view-lite-row-description">
+    <span class="header">Synopsis:</span>
+    <span class="body">
+      <%=h @project.synopsis %>
+    </span>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="view-lite-row-description">
+    <span class="header">Cast:</span>
+    <span class="body">
+      <%=h @project.cast %>
+    </span>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>
