@@ -96,6 +96,10 @@ class ProjectSubscriptionsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       not_found 
     end
-  end    
+  end
+
+  def allow_to
+    super :all, :all=>true
+  end
   
 end
