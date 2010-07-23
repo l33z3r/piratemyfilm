@@ -1,0 +1,31 @@
+<div class="pageTitle">PMF Widgets</div>
+
+<div class="pageTitleSmaller">Here is the code for your widget!</div>
+
+<p>
+  Simply copy the code in the box below and paste it into your sites html documents.
+</p>
+
+<div class="pmf_clear_10">&nbsp;</div>
+
+<a href="#" onclick="$('#generated_code_textarea').focus();
+  $('#generated_code_textarea').select();
+  return false;">Select All</a>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<textarea id="generated_code_textarea" rows="4" cols="60">
+<%= @generated_code %>
+</textarea>
+
+<div class="pmf_clear_10">&nbsp;</div>
+
+<div class="pageTitleSmaller">Your widget should look like this:</div>
+
+<%= @generated_code %>
+
+<div class="pmf_clear_10">&nbsp;</div>
+
+<%= link_to "Back to Widgets", :action => "index" %>
+
+<div class="pmf_clear_10">&nbsp;</div>

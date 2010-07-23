@@ -309,4 +309,20 @@ class Project < ActiveRecord::Base
     self.capital_recycled_percent = 100 - share_percent_ads_producer
   end
 
+  def self.get_order_sql filter_param
+    #TODO: move to an enum
+    case filter_param.downcase!
+    when "% funded" then "percent_funded DESC"
+    when "funds reserved" then "(downloads_reserved * ipo_price) DESC"
+    when "budget" then "capital_required DESC"
+    when "member rating" then "member_rating DESC"
+    when "admin rating" then "admin_rating DESC"
+    when "newest" then "created_at DESC"
+    when "oldest" then "created_at ASC"
+    when "producer erpd" then "producer_erpd DESC"
+    when "shareholder erpd" then "shareholder_erpd DESC"
+    else "created_at DESC"
+    end
+  end
+
 end

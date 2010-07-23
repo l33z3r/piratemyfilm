@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; utf-8" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <meta name="description" content="The Film Futures Market for Pirates" />
+    <meta name="keywords" content="max keiser, pirate film, market" />
+
+    <title><%= @title || "Pirate My Film" %></title>
+
+    <%= render :partial => 'shared/head_load' %>
+
+    <%= yield :head %>
+
+  </head>
+
+  <body onload="doInit();">
+
+    <div class="project_listings_widget">
+
+      <% for project in @projects do %>
+          <div class="<%= cycle("view-lite-row-widget", "view-lite-row-alt-widget") %>">
+
+            <div class="view-lite-row-project-name-widget"><%= link_to project.symbol, project_path(project) %></div>
+
+            <div class="pmf_clear">&nbsp;</div>
+
+            <div class="view-lite-row-icon-widget">
+              <% if !project.icon.nil? %>
+                <%= image_tag url_for_file_column(project, "icon", "big") %>
+              <% else %>
+                <img src="/images/generic-project-icon.png" id="project-icon" width="70px"
+                     alt="Project Icon" border="0" />
+              <% end %>
+            </div>
+
+            <div class="view-lite-row-numbers-widget">
+              <ul>
+                <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
+                <li class="pmf_clear"></li>
+                <li class="label">Budget:</li><li class="stat">$<%= print_money project.capital_required %></li>
+                <li class="pmf_clear"></li>
+                <li class="label">Funds Reserved:</li><li class="stat">$<%= print_money project.current_funds %></li>
+                <li class="pmf_clear"></li>
+                <li class="label">Funds Needed:</li><li class="stat">$<%= print_money project.funds_needed %></li>
+                <li class="pmf_clear"></li>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+        <div class="pmf_clear">&nbsp;</div>
+
+      </div>
+
+    </body>
+
+  </html>

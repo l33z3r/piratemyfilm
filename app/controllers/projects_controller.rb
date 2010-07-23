@@ -16,22 +16,8 @@ class ProjectsController < ApplicationController
     if @filter_param = params[:filter_param]
       @filtered = true      
 
-      # essentially a switch statement:
-      #TODO: move to an enum
-      order = case @filter_param.downcase!
-      when "% funded" then "percent_funded DESC"
-      when "funds reserved" then "(downloads_reserved * ipo_price) DESC"
-      when "budget" then "capital_required DESC"
-      when "member rating" then "member_rating DESC"
-      when "admin rating" then "admin_rating DESC"
-      when "newest" then "created_at DESC"
-      when "oldest" then "created_at ASC"
-      when "producer erpd" then "producer_erpd DESC"
-      when "shareholder erpd" then "shareholder_erpd DESC"
-      else "created_at DESC"
-      end
-      
-      @projects = Project.find_all_public(:order=> order).paginate :page => (params[:page] || 1), :per_page=> 15
+      @order = Project.get_order_sql @filter_param
+      @projects = Project.find_all_public(:order=> @order).paginate :page => (params[:page] || 1), :per_page=> 15
       
     else
       @filtered = false

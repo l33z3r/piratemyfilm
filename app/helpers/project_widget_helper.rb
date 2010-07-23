@@ -1,0 +1,2 @@
+module ProjectWidgetHelper
+end

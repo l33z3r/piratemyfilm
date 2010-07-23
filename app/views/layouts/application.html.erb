@@ -82,12 +82,18 @@
               <%= show_default_flash -%>
             </div>
 
-            <div id="pmf_fund_account_link_container">
-              <div class="text">
-                <%= link_to "PMF FUND", profile_path(PMF_FUND_ACCOUNT_ID) %>
+            <div id="subnav_links">
+              <div id="widget_link">
+                <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %> -
               </div>
-              <div class="pic">
-                <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "30x30"), profile_path(PMF_FUND_ACCOUNT_ID) %>
+
+              <div id="pmf_fund_account_link_container">
+                <div class="text">
+                  <%= link_to "View PMF Fund Account", profile_path(PMF_FUND_ACCOUNT_ID) %>
+                </div>
+                <div class="pic">
+                  <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), profile_path(PMF_FUND_ACCOUNT_ID) %>
+                </div>
               </div>
             </div>
 

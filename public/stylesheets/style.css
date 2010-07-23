@@ -29,6 +29,16 @@ a:hover {
     height: 1px;
 }
 
+.pmf_clear_10 {
+    clear: both;
+    height: 10px;
+}
+
+.pmf_clear_20 {
+    clear: both;
+    height: 20px;
+}
+
 .pmf_clear_bottom_border {
     clear: both;
     height: 1px;
@@ -44,6 +54,10 @@ div.dashed_light_border {
     border-bottom: 1px dashed #666666;
     height: 1px;
     clear: both;
+}
+
+div.banner {
+    font-size: 13px;
 }
 
 .green_border {
@@ -221,24 +235,37 @@ div#top_search_box {
     margin-top: -28px;
 }
 
-div#pmf_fund_account_link_container {
+div#subnav_links {
     float: right;
     margin-bottom: 4px;
 }
 
-div#pmf_fund_account_link_container div.pic {
+div#subnav_links div#widget_link {
+    float: left;
+    margin: 2px 6px 0px 0px;
+    font-weight: bold;
+}
+
+div#subnav_links div#widget_link a {
+    color: black;
+}
+
+div#subnav_links div#pmf_fund_account_link_container {
+    float: left;
+}
+
+div#subnav_links div#pmf_fund_account_link_container div.pic {
     border: 1px solid black;
     float: left;
 }
 
-div#pmf_fund_account_link_container div.text {
-    margin: 6px 6px 0px 0px;
+div#subnav_links div#pmf_fund_account_link_container div.text {
+    margin: 2px 6px 0px 0px;
     font-weight: bold;
-    font-size: 13px;
     float: left;
 }
 
-div#pmf_fund_account_link_container div.text a {
+div#subnav_links div#pmf_fund_account_link_container div.text a {
     color: black;
 }
 
@@ -1116,18 +1143,28 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 #content .pageFooter {
 }
 
-#content .pageTitle {
+.pageTitle {
     font-size: 20px;
     color: #000000;
     margin-top: 15px;
+    margin-bottom: 15px;
 }
 
-#content .pageTitleSmaller {
+.pageTitleSmall {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.pageTitleSmaller {
     font-size: 13px;
     font-weight: bold;
     color:#636363;
     clear: both;
-    margin-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 #content .pageSubTitle {
@@ -2107,7 +2144,6 @@ div.square {
     position: absolute;
     top: 200px;
     left: 200px;
-    background-color: Menu;
     border: #f9f9f9;
     height: 200px;
     width: 300px;
@@ -2120,3 +2156,101 @@ div.square div.msg {
 }
 
 /* end modal div */
+
+/* Project Widget */
+
+div.project_listings_widget {
+    width: 300px;
+    border: 1px solid black;
+}
+
+.view-lite-row-widget	{
+    clear: both;
+    width: 288px;
+    height: 110px;
+    padding: 5px;
+    border-style: none;
+    background-color: #f8f6ef;
+    border-bottom: 1px solid #999999;
+    border-right: 1px solid #999999;
+}
+
+.view-lite-row-alt-widget {
+    clear: both;
+    width: 288px;
+    height: 110px;
+    padding: 5px;
+    border-style: none;
+    background-color: #ffffff;
+    border-bottom: 1px solid #999999;
+    border-right: 1px solid #999999;
+}
+
+.view-lite-row-project-name-widget	{
+    margin-bottom: 3px;
+    margin-left: 8px;
+    padding-bottom: 2px;
+    float:left;
+}
+
+.view-lite-row-project-name-widget a {
+    font-size: 13px;
+    font-weight:bold;
+    color: #000000;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+.view-lite-row-icon-widget {;
+    display: inline;
+    margin-top: 10px;
+    padding: 5px;
+    float: left;
+    text-align: center;
+    width: 75px;
+    margin: auto;
+}
+
+.view-lite-row-icon-widget img {
+    height: 70px;
+    width: 70px;
+}
+
+.view-lite-row-numbers-widget {
+    width: 195px;
+    float: left;
+}
+
+.view-lite-row-numbers-widget ul {
+    margin-top: 5px;
+    padding: 0;
+    list-style-type: none;
+}
+
+.view-lite-row-numbers-widget li {
+    float: left;
+}
+
+.view-lite-row-numbers-widget li.label {
+    font-size:11px;
+    font-weight:bold;
+    color:#666666;
+    text-decoration:none;
+    width: 120px;
+    margin-bottom: 1px;
+    overflow: hidden;
+}
+
+.view-lite-row-numbers-widget li.stat {
+    text-align: left;
+    color: #636363;
+    width: 74px;
+    margin-bottom: 1px;
+    overflow: hidden;
+}
+
+.view-lite-row-numbers-widget li span {
+    color: #636363;
+}
+
+/* End Project Widget */

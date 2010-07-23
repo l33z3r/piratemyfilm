@@ -1,0 +1,40 @@
+<div class="pageTitle">PMF Widgets</div>
+
+<div class="pageTitleSmaller">Get a widget for your site!</div>
+
+<p>
+  Simply choose from our widgets below and fill out the appropriate form to <br/>
+  generate html which you simply paste into your sites html. Simple as that!
+</p>
+
+<div class="pmf_clear_10">&nbsp;</div>
+
+<div class="pageTitleSmall">Choose from the following widgets:</div>
+
+<div class="pageTitleSmaller">Project List Widget</div>
+
+<p>
+  Have an active list of projects on your site, ordered by various data fields.
+  Choose how many projects you would like to display and how you would like to sort them.
+  Fill out the form below to customize your project list:
+</p>
+
+<% form_tag url_for(:action => "generate_markup") do %>
+  <div class="row clear">
+      <label for="num_projects">How many projects:</label>
+      <%= select_tag "num_projects", options_for_select([[3, 3], [5, 5], [10, 10]]) %>
+      <div class="clear"></div>
+    </div>
+
+    <div class="row clear">
+      <label for="filter_param">Ordered by:</label>
+      <%= select_tag :filter_param, options_for_select(@filter_params,
+        [params['filter_param'] || "% funds reserved"]) %>
+      <div class="clear"></div>
+    </div>
+
+    <div class='row clear'>
+      <label>&nbsp;</label>
+      <%= submit_tag "Submit", :class => 'button' %>
+    </div>
+<% end %>
