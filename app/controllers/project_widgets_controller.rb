@@ -40,4 +40,8 @@ class ProjectWidgetsController < ApplicationController
     @filter_param = params[:filter_param]
   end
 
+  def allow_to
+    super :all, :all => true
+  end
+
 end

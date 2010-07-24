@@ -98,8 +98,4 @@ class ProjectSubscriptionsController < ApplicationController
     end
   end
 
-  def allow_to
-    super :all, :all=>true
   end
-  
-end
