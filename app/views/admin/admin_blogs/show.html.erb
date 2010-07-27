@@ -1,0 +1,29 @@
+<% content_for :head do %>
+  <meta name="title" content="<%= @blog.title %>" />
+  <meta name="description" content="<%= @blog.body %>" />
+  <% if @blog.project && !@blog.project.icon.nil? %>
+    <link rel="image_src" href="<%= url_for_file_column(@blog.project, "icon", "big") %>" />
+  <% end %>
+<% end %>
+
+<div id="blog_<%= @blog.id %>" class="border_top blog">
+
+  <%= render :partial => "blog_info", :locals => {:blog => @blog, :show_icon => true} %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="blog_admin_links">
+    <div class="button right">
+      <%= link_to "Edit", :controller => "admin/admin_blogs", :action => "edit", :id => @blog.id %>
+    </div>
+    <div class="button right">
+      <%= link_to "Delete", {:controller => "admin/admin_blogs", :action => "destroy", :id => @blog.id},
+        :confirm => 'Are you sure?', :method => :delete %>
+    </div>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>
+
+<div class="pmf_clear">&nbsp;</div>

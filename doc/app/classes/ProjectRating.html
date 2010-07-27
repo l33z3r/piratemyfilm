@@ -81,7 +81,7 @@
     <div id="description">
       <h2>Schema Information</h2>
 <p>
-Schema version: 20090526045351
+Schema version: 20100720120616
 </p>
 <p>
 Table name: project_ratings
@@ -177,8 +177,10 @@ Table name: project_ratings
 39:       <span class="ruby-identifier">arr2</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">arr1</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>
 40:     }
 41: 
-42:     <span class="ruby-ivar">@ratings_select_opts</span>
-43:   <span class="ruby-keyword kw">end</span>
+42:     <span class="ruby-ivar">@ratings_select_opts</span>.<span class="ruby-identifier">reverse!</span>
+43:     
+44:     <span class="ruby-ivar">@ratings_select_opts</span>
+45:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -198,10 +200,10 @@ Table name: project_ratings
             onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000004-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/project_rating.rb, line 49</span>
-49:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ratings_map</span>
-50:     <span class="ruby-ivar">@@ratings_map</span>
-51:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/project_rating.rb, line 51</span>
+51:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ratings_map</span>
+52:     <span class="ruby-ivar">@@ratings_map</span>
+53:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -223,10 +225,10 @@ Table name: project_ratings
             onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000003-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/models/project_rating.rb, line 45</span>
-45:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rating_symbol</span>
-46:     <span class="ruby-ivar">@@ratings_map</span>[<span class="ruby-identifier">average_rating</span>]
-47:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/models/project_rating.rb, line 47</span>
+47:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rating_symbol</span>
+48:     <span class="ruby-ivar">@@ratings_map</span>[<span class="ruby-identifier">average_rating</span>]
+49:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

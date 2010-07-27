@@ -25,4 +25,8 @@
     <%= link_to "Users <b>(#{@user_count})</b>", {:controller => "admin/users"},
       :class => (@selected_tab_name == "users" ? "selected" : "") %>
   </li>
+  <li>
+    <%= link_to "PMF Fund Blogs", {:controller => "admin/admin_blogs"},
+      :class => (@selected_tab_name == "blogs" ? "selected" : "") %>
+  </li>
 </ul>

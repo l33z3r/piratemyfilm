@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100720145315) do
+ActiveRecord::Schema.define(:version => 20100727090146) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20100720145315) do
     t.integer  "profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_homepage_blog", :default => false
+    t.boolean  "is_admin_blog",    :default => false
     t.integer  "project_id"
     t.integer  "num_wp_comments",  :default => 0
     t.string   "wp_comments_link"

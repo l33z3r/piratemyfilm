@@ -5,7 +5,6 @@
   </div>
 <% else %>
   <div id="welcome_message">
-    <%= link_to icon(@p, :medium), edit_profile_path(@p) %>
     <span id="message">
       Welcome <%= @u.f %>
       (<%= link_to 'Log Out', logout_path %>)

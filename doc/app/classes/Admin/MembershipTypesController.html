@@ -88,8 +88,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000299">index</a>&nbsp;&nbsp;
-      <a href="#M000300">update</a>&nbsp;&nbsp;
+      <a href="#M000325">index</a>&nbsp;&nbsp;
+      <a href="#M000326">update</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -111,19 +111,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000299" class="method-detail">
-        <a name="M000299"></a>
+      <div id="method-M000325" class="method-detail">
+        <a name="M000325"></a>
 
         <div class="method-heading">
-          <a href="#M000299" class="method-signature">
+          <a href="#M000325" class="method-signature">
           <span class="method-name">index</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000299-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000299-source">
+            onclick="toggleCode('M000325-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000325-source">
 <pre>
    <span class="ruby-comment cmt"># File app/controllers/admin/membership_types_controller.rb, line 3</span>
 3:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
@@ -137,19 +137,19 @@
         </div>
       </div>
 
-      <div id="method-M000300" class="method-detail">
-        <a name="M000300"></a>
+      <div id="method-M000326" class="method-detail">
+        <a name="M000326"></a>
 
         <div class="method-heading">
-          <a href="#M000300" class="method-signature">
+          <a href="#M000326" class="method-signature">
           <span class="method-name">update</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000300-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000300-source">
+            onclick="toggleCode('M000326-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000326-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/admin/membership_types_controller.rb, line 10</span>
 10:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update</span>
@@ -157,12 +157,14 @@
 12:     
 13:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@membership_type</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>)
 14:       <span class="ruby-identifier">check_for_unlimited</span>(<span class="ruby-identifier">params</span>, <span class="ruby-ivar">@membership_type</span>)
-15:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">'Membership type was successfully updated.'</span>
-16:     <span class="ruby-keyword kw">else</span>
-17:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">'There was a problem with updating these parameters'</span>
-18:     <span class="ruby-keyword kw">end</span>
-19:     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;admin/membership_types&quot;</span>
-20:   <span class="ruby-keyword kw">end</span>
+15:       
+16:       <span class="ruby-constant">User</span>.<span class="ruby-identifier">apply_all_membership_limits</span>
+17:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">'Membership type was successfully updated.'</span>
+18:     <span class="ruby-keyword kw">else</span>
+19:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">'There was a problem with updating these parameters'</span>
+20:     <span class="ruby-keyword kw">end</span>
+21:     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;admin/membership_types&quot;</span>
+22:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

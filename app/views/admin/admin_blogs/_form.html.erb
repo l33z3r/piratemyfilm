@@ -1,0 +1,44 @@
+<table class="project_form" style="border-spacing: 10px; width: 100%;">
+
+  <thead>
+    <tr>
+      <td style="width: 20%;"></td>
+      <td style="width: 80%;"></td>
+    </tr>
+  </thead>
+
+  <tr>
+    <td>
+      Title
+    </td>
+    <td>
+      <%= f.text_field :title %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Body
+    </td>
+    <td>
+      <i>
+        Note: Blog text is parsed using textilise,
+        allowing you to format your text entry.
+      </i>
+      <br/>
+      <a target="_blank" href="http://rpc.textpattern.com/help/?item=intro">
+        (More Info)
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+      <%= f.text_area :body %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="right">
+      <input type="submit" value="Submit"/>
+    </td>
+  </tr>
+</table>

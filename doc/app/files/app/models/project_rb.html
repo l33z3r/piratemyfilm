@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Sun Jun 06 09:05:24 +0100 2010</td>
+      <td>Fri Jul 23 18:34:22 +0100 2010</td>
     </tr>
     </table>
   </div>
@@ -71,33 +71,47 @@
     <div id="description">
       <h2>Schema Information</h2>
 <p>
-Schema version: 20090526045351
+Schema version: 20100720120616
 </p>
 <p>
 Table name: projects
 </p>
 <pre>
- id                      :integer(4)    not null, primary key
- owner_id                :integer(4)
- title                   :string(255)
- producer_name           :string(255)
- synopsis                :text
- genre_id                :integer(4)
- description             :text
- cast                    :text
- web_address             :string(255)
- ipo_price               :decimal(10, 2
- percent_funded          :integer(3)
- icon                    :string(255)
- created_at              :datetime
- updated_at              :datetime
- youtube_vid_id          :string(255)
- status                  :string(255)   default(&quot;Funding&quot;)
- project_length          :integer(4)    default(0)
- share_percent_ads       :integer(3)
- downloads_reserved      :integer(10)   default(0)
- downloads_available     :integer(10)   default(0)
- capital_required        :integer(12)
+ id                         :integer(4)    not null, primary key
+ owner_id                   :integer(4)
+ title                      :string(255)
+ producer_name              :string(255)
+ synopsis                   :text
+ genre_id                   :integer(4)
+ description                :text
+ cast                       :text
+ web_address                :string(255)
+ ipo_price                  :decimal(10, 2
+ percent_funded             :integer(3)
+ icon                       :string(255)
+ created_at                 :datetime
+ updated_at                 :datetime
+ youtube_vid_id             :string(255)
+ status                     :string(255)   default(&quot;Funding&quot;)
+ project_length             :integer(4)    default(0)
+ share_percent_downloads    :integer(3)
+ share_percent_ads          :integer(3)
+ downloads_reserved         :integer(10)   default(0)
+ downloads_available        :integer(10)   default(0)
+ capital_required           :integer(12)
+ rated_at                   :datetime
+ is_deleted                 :boolean(1)
+ deleted_at                 :datetime
+ member_rating              :integer(4)    default(0)
+ admin_rating               :integer(4)    default(0)
+ director                   :string(255)
+ writer                     :string(255)
+ exec_producer              :string(255)
+ producer_fee_percent       :integer(4)
+ capital_recycled_percent   :integer(4)
+ share_percent_ads_producer :integer(4)    default(0)
+ producer_erpd              :integer(4)
+ shareholder_erpd           :integer(4)
 </pre>
 
     </div>

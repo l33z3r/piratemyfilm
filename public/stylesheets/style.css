@@ -6,10 +6,12 @@ a img {
 
 a {
     color: #666666;
+    text-decoration: none;
 }
 
 a:hover {
     color: #666666;
+    text-decoration: underline;
 }
 
 .right {
@@ -125,7 +127,7 @@ div#signup_section {
 }
 
 div#signup_section div#signup_buttons {
-    margin-top: 15px;
+    margin-top: 0px;
 }
 
 div#signup_section div#signup_buttons a {
@@ -235,38 +237,39 @@ div#top_search_box {
     margin-top: -28px;
 }
 
-div#subnav_links {
-    float: right;
+div#topsite_links {
     margin-bottom: 4px;
 }
 
-div#subnav_links div#widget_link {
+div#topsite_links div#widget_link {
     float: left;
-    margin: 2px 6px 0px 0px;
+    margin: 2px 0px 0px 6px;
     font-weight: bold;
 }
 
-div#subnav_links div#widget_link a {
+div#topsite_links div#widget_link a {
     color: black;
+    text-decoration: underline;
 }
 
-div#subnav_links div#pmf_fund_account_link_container {
+div#topsite_links div#pmf_fund_account_link_container {
     float: left;
 }
 
-div#subnav_links div#pmf_fund_account_link_container div.pic {
+div#topsite_links div#pmf_fund_account_link_container div.pic {
     border: 1px solid black;
     float: left;
 }
 
-div#subnav_links div#pmf_fund_account_link_container div.text {
-    margin: 2px 6px 0px 0px;
+div#topsite_links div#pmf_fund_account_link_container div.text {
+    margin: 2px 0px 0px 6px;
     font-weight: bold;
     float: left;
 }
 
-div#subnav_links div#pmf_fund_account_link_container div.text a {
+div#topsite_links div#pmf_fund_account_link_container div.text a {
     color: black;
+    text-decoration: underline;
 }
 
 /* Top Menu */
@@ -300,8 +303,6 @@ div#sub_nav {
     margin: 10px 0px;
 }
 
-/* Navigation */
-
 div#filter_param_box {
     margin: 10px 0px;
     float: right;
@@ -324,6 +325,27 @@ div#filter_param_box form select {
     color: #636363;
     vertical-align: middle;
 }
+
+/* Navigation */
+
+/* sub navigation */
+
+div#subnav_links {
+    float: left;
+    margin-bottom: 6px;
+}
+
+div#subnav_links div.link {
+    float: left;
+    margin-right: 3px;
+}
+
+div#subnav_links div.link a {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* End sub navigation */
 
 .project_listing_box {
     margin-top: 20px;
@@ -1474,6 +1496,16 @@ div.blog {
     padding: 15px 0px 20px 0px;
 }
 
+div.blog div.blog_left {
+    width: 64%;
+    float: left;
+}
+
+div.blog div.blog_right {
+    width: 35%;
+    float: right;
+}
+
 div.blog div.project_icon {
     float: left;
     margin-right: 10px;
@@ -1485,20 +1517,25 @@ div.blog div.project_icon img {
 }
 
 div.blog div.header {
+    width: 540px;
     font-weight: bold;
     font-size: 15px;
-    margin: 0px;
+    margin-bottom: 10px;
     float: left;
 }
 
-div.blog div.header div.project_author_links {
+div.blog div.header a {
+    color: #000000
+}
+
+div.blog div.project_author_links {
+    float: left;
     margin-top: 5px;
     font-weight: normal;
     font-size: 12px;
 }
 
 div.blog div.share_buttons {
-    margin-top: 5px;
     float: right;
     margin-left: 5px;
 }
@@ -1544,6 +1581,7 @@ div.blog_admin_links {
 
 .blog-date {
     margin: 5px;
+    margin-top: 0px;
     font-weight: bold;
     float: right;
 }
@@ -2160,30 +2198,28 @@ div.square div.msg {
 /* Project Widget */
 
 div.project_listings_widget {
-    width: 300px;
+    width: 298px;
     border: 1px solid black;
 }
 
 .view-lite-row-widget	{
     clear: both;
-    width: 288px;
+    width: 287px;
     height: 110px;
     padding: 5px;
     border-style: none;
     background-color: #f8f6ef;
     border-bottom: 1px solid #999999;
-    border-right: 1px solid #999999;
 }
 
 .view-lite-row-alt-widget {
     clear: both;
-    width: 288px;
+    width: 287px;
     height: 110px;
     padding: 5px;
     border-style: none;
     background-color: #ffffff;
     border-bottom: 1px solid #999999;
-    border-right: 1px solid #999999;
 }
 
 .view-lite-row-project-name-widget	{

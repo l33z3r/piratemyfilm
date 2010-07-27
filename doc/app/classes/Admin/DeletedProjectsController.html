@@ -88,8 +88,12 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000287">index</a>&nbsp;&nbsp;
-      <a href="#M000288">set_selected_tab</a>&nbsp;&nbsp;
+      <a href="#M000308">delete</a>&nbsp;&nbsp;
+      <a href="#M000306">index</a>&nbsp;&nbsp;
+      <a href="#M000310">load_project</a>&nbsp;&nbsp;
+      <a href="#M000309">restore</a>&nbsp;&nbsp;
+      <a href="#M000311">set_selected_tab</a>&nbsp;&nbsp;
+      <a href="#M000307">show</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -111,47 +115,181 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000287" class="method-detail">
-        <a name="M000287"></a>
+      <div id="method-M000308" class="method-detail">
+        <a name="M000308"></a>
 
         <div class="method-heading">
-          <a href="#M000287" class="method-signature">
+          <a href="#M000308" class="method-signature">
+          <span class="method-name">delete</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000308-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000308-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/admin/deleted_projects_controller.rb, line 17</span>
+17:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>
+18:     <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">delete</span>
+19: 
+20:     <span class="ruby-comment cmt">#must delete all subscribtions to this project</span>
+21:     <span class="ruby-ivar">@subscriptions</span> = <span class="ruby-constant">ProjectSubscription</span>.<span class="ruby-identifier">find_all_by_project_id</span>(<span class="ruby-ivar">@project</span>)
+22:     <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">subscription</span><span class="ruby-operator">|</span>
+23:       <span class="ruby-identifier">subscription</span>.<span class="ruby-identifier">destroy</span>
+24:     <span class="ruby-keyword kw">end</span>
+25: 
+26:     <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:positive</span>] = <span class="ruby-value str">&quot;Project has been deleted!&quot;</span>
+27:     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;/home&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;index&quot;</span>
+28:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000306" class="method-detail">
+        <a name="M000306"></a>
+
+        <div class="method-heading">
+          <a href="#M000306" class="method-signature">
           <span class="method-name">index</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000287-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000287-source">
+            onclick="toggleCode('M000306-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000306-source">
 <pre>
-   <span class="ruby-comment cmt"># File app/controllers/admin/deleted_projects_controller.rb, line 3</span>
-3:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
-4:     <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;is_deleted&quot;</span>, <span class="ruby-identifier">:order=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;created_at&quot;</span>).<span class="ruby-identifier">paginate</span> <span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>] <span class="ruby-operator">||</span> <span class="ruby-value">1</span>), <span class="ruby-identifier">:per_page=</span><span class="ruby-operator">&gt;</span> <span class="ruby-value">8</span>
-5:   <span class="ruby-keyword kw">end</span>
+   <span class="ruby-comment cmt"># File app/controllers/admin/deleted_projects_controller.rb, line 5</span>
+5:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
+6:     <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;is_deleted&quot;</span>,
+7:       <span class="ruby-identifier">:order=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;created_at&quot;</span>).<span class="ruby-identifier">paginate</span> <span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>] <span class="ruby-operator">||</span> <span class="ruby-value">1</span>), <span class="ruby-identifier">:per_page=</span><span class="ruby-operator">&gt;</span> <span class="ruby-value">8</span>
+8:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000288" class="method-detail">
-        <a name="M000288"></a>
+      <div id="method-M000310" class="method-detail">
+        <a name="M000310"></a>
 
         <div class="method-heading">
-          <a href="#M000288" class="method-signature">
+          <a href="#M000310" class="method-signature">
+          <span class="method-name">load_project</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000310-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000310-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/admin/deleted_projects_controller.rb, line 58</span>
+58:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_project</span>
+59:     <span class="ruby-keyword kw">begin</span>
+60:       <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>].<span class="ruby-identifier">blank?</span>
+61:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordNotFound</span>
+62:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Project Not Found&quot;</span>
+63:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;admin/home&quot;</span>
+64:     <span class="ruby-keyword kw">end</span>
+65:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000309" class="method-detail">
+        <a name="M000309"></a>
+
+        <div class="method-heading">
+          <a href="#M000309" class="method-signature">
+          <span class="method-name">restore</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000309-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000309-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/admin/deleted_projects_controller.rb, line 30</span>
+30:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">restore</span>
+31:     <span class="ruby-comment cmt">#check the owners limits on projects listed if membership not black pearl</span>
+32:     <span class="ruby-ivar">@membership</span> = <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">owner</span>.<span class="ruby-identifier">membership</span>.<span class="ruby-identifier">membership_type</span>
+33: 
+34:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@membership</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;Black Pearl&quot;</span>
+35:       <span class="ruby-ivar">@user_projects</span> = <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">owner</span>.<span class="ruby-identifier">owned_public_projects</span>
+36:       <span class="ruby-ivar">@max_projects</span> = <span class="ruby-ivar">@membership</span>.<span class="ruby-identifier">max_projects_listed</span>
+37: 
+38:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user_projects</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@max_projects</span>
+39:         <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>]  = <span class="ruby-node">&quot;Cannot restore project, user limited to #{@max_projects} projects.&quot;</span>
+40:         <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show_private&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+41:       <span class="ruby-keyword kw">end</span>
+42: 
+43:       <span class="ruby-comment cmt">#modify the budget according to the users limits</span>
+44:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@membership</span>.<span class="ruby-identifier">funding_limit_per_project</span>
+45:         <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">capital_required</span> = <span class="ruby-ivar">@membership</span>.<span class="ruby-identifier">funding_limit_per_project</span>
+46:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">capital_required</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@membership</span>.<span class="ruby-identifier">min_funding_limit_per_project</span>
+47:         <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">capital_required</span> = <span class="ruby-ivar">@membership</span>.<span class="ruby-identifier">min_funding_limit_per_project</span>
+48:       <span class="ruby-keyword kw">end</span>
+49:     <span class="ruby-keyword kw">end</span>
+50: 
+51:     <span class="ruby-comment cmt">#now restore the project</span>
+52:     <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">restore</span>
+53: 
+54:     <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:positive</span>] = <span class="ruby-value str">&quot;Project has been restored!&quot;</span>
+55:     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;/projects&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span>
+56:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000311" class="method-detail">
+        <a name="M000311"></a>
+
+        <div class="method-heading">
+          <a href="#M000311" class="method-signature">
           <span class="method-name">set_selected_tab</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000288-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000288-source">
+            onclick="toggleCode('M000311-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000311-source">
 <pre>
-   <span class="ruby-comment cmt"># File app/controllers/admin/deleted_projects_controller.rb, line 7</span>
-7:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_selected_tab</span>
-8:     <span class="ruby-ivar">@selected_tab_name</span> = <span class="ruby-value str">&quot;deleted_projects&quot;</span>
-9:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/admin/deleted_projects_controller.rb, line 67</span>
+67:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_selected_tab</span>
+68:     <span class="ruby-ivar">@selected_tab_name</span> = <span class="ruby-value str">&quot;deleted_projects&quot;</span>
+69:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000307" class="method-detail">
+        <a name="M000307"></a>
+
+        <div class="method-heading">
+          <a href="#M000307" class="method-signature">
+          <span class="method-name">show</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000307-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000307-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/admin/deleted_projects_controller.rb, line 10</span>
+10:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show</span>
+11:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@project</span>.<span class="ruby-identifier">is_deleted</span>
+12:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Project is not deleted!&quot;</span>
+13:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;/home&quot;</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+14:     <span class="ruby-keyword kw">end</span>
+15:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

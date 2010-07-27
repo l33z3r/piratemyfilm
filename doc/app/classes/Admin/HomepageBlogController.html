@@ -88,15 +88,15 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000291">create</a>&nbsp;&nbsp;
-      <a href="#M000295">destroy</a>&nbsp;&nbsp;
-      <a href="#M000293">edit</a>&nbsp;&nbsp;
-      <a href="#M000289">index</a>&nbsp;&nbsp;
-      <a href="#M000296">load_blog</a>&nbsp;&nbsp;
-      <a href="#M000290">new</a>&nbsp;&nbsp;
-      <a href="#M000297">redirect_to_admin_home</a>&nbsp;&nbsp;
-      <a href="#M000292">show</a>&nbsp;&nbsp;
-      <a href="#M000294">update</a>&nbsp;&nbsp;
+      <a href="#M000317">create</a>&nbsp;&nbsp;
+      <a href="#M000321">destroy</a>&nbsp;&nbsp;
+      <a href="#M000319">edit</a>&nbsp;&nbsp;
+      <a href="#M000315">index</a>&nbsp;&nbsp;
+      <a href="#M000322">load_blog</a>&nbsp;&nbsp;
+      <a href="#M000316">new</a>&nbsp;&nbsp;
+      <a href="#M000323">redirect_to_admin_home</a>&nbsp;&nbsp;
+      <a href="#M000318">show</a>&nbsp;&nbsp;
+      <a href="#M000320">update</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -118,19 +118,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000291" class="method-detail">
-        <a name="M000291"></a>
+      <div id="method-M000317" class="method-detail">
+        <a name="M000317"></a>
 
         <div class="method-heading">
-          <a href="#M000291" class="method-signature">
+          <a href="#M000317" class="method-signature">
           <span class="method-name">create</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000291-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000291-source">
+            onclick="toggleCode('M000317-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000317-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/admin/homepage_blog_controller.rb, line 20</span>
 20:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>
@@ -152,19 +152,19 @@
         </div>
       </div>
 
-      <div id="method-M000295" class="method-detail">
-        <a name="M000295"></a>
+      <div id="method-M000321" class="method-detail">
+        <a name="M000321"></a>
 
         <div class="method-heading">
-          <a href="#M000295" class="method-signature">
+          <a href="#M000321" class="method-signature">
           <span class="method-name">destroy</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000295-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000295-source">
+            onclick="toggleCode('M000321-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000321-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/admin/homepage_blog_controller.rb, line 58</span>
 58:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy</span>
@@ -178,19 +178,19 @@
         </div>
       </div>
 
-      <div id="method-M000293" class="method-detail">
-        <a name="M000293"></a>
+      <div id="method-M000319" class="method-detail">
+        <a name="M000319"></a>
 
         <div class="method-heading">
-          <a href="#M000293" class="method-signature">
+          <a href="#M000319" class="method-signature">
           <span class="method-name">edit</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000293-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000293-source">
+            onclick="toggleCode('M000319-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000319-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/admin/homepage_blog_controller.rb, line 40</span>
 40:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">edit</span>
@@ -201,42 +201,42 @@
         </div>
       </div>
 
-      <div id="method-M000289" class="method-detail">
-        <a name="M000289"></a>
+      <div id="method-M000315" class="method-detail">
+        <a name="M000315"></a>
 
         <div class="method-heading">
-          <a href="#M000289" class="method-signature">
+          <a href="#M000315" class="method-signature">
           <span class="method-name">index</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000289-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000289-source">
+            onclick="toggleCode('M000315-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000315-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/admin/homepage_blog_controller.rb, line 12</span>
 12:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
-13:     <span class="ruby-ivar">@blogs</span> = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">find_all_by_is_homepage_blog</span>(<span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">:order=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;created_at DESC&quot;</span>)
+13:     <span class="ruby-ivar">@blogs</span> = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">find_all_by_is_admin_blog</span>(<span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">:order=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;created_at DESC&quot;</span>)
 14:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000290" class="method-detail">
-        <a name="M000290"></a>
+      <div id="method-M000316" class="method-detail">
+        <a name="M000316"></a>
 
         <div class="method-heading">
-          <a href="#M000290" class="method-signature">
+          <a href="#M000316" class="method-signature">
           <span class="method-name">new</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000290-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000290-source">
+            onclick="toggleCode('M000316-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000316-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/admin/homepage_blog_controller.rb, line 16</span>
 16:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new</span>
@@ -247,19 +247,19 @@
         </div>
       </div>
 
-      <div id="method-M000292" class="method-detail">
-        <a name="M000292"></a>
+      <div id="method-M000318" class="method-detail">
+        <a name="M000318"></a>
 
         <div class="method-heading">
-          <a href="#M000292" class="method-signature">
+          <a href="#M000318" class="method-signature">
           <span class="method-name">show</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000292-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000292-source">
+            onclick="toggleCode('M000318-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000318-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/admin/homepage_blog_controller.rb, line 35</span>
 35:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show</span>
@@ -271,19 +271,19 @@
         </div>
       </div>
 
-      <div id="method-M000294" class="method-detail">
-        <a name="M000294"></a>
+      <div id="method-M000320" class="method-detail">
+        <a name="M000320"></a>
 
         <div class="method-heading">
-          <a href="#M000294" class="method-signature">
+          <a href="#M000320" class="method-signature">
           <span class="method-name">update</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000294-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000294-source">
+            onclick="toggleCode('M000320-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000320-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/admin/homepage_blog_controller.rb, line 44</span>
 44:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update</span>
@@ -306,19 +306,19 @@
 
       <h3 class="section-bar">Protected Instance methods</h3>
 
-      <div id="method-M000296" class="method-detail">
-        <a name="M000296"></a>
+      <div id="method-M000322" class="method-detail">
+        <a name="M000322"></a>
 
         <div class="method-heading">
-          <a href="#M000296" class="method-signature">
+          <a href="#M000322" class="method-signature">
           <span class="method-name">load_blog</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000296-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000296-source">
+            onclick="toggleCode('M000322-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000322-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/admin/homepage_blog_controller.rb, line 67</span>
 67:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_blog</span>
@@ -336,19 +336,19 @@
         </div>
       </div>
 
-      <div id="method-M000297" class="method-detail">
-        <a name="M000297"></a>
+      <div id="method-M000323" class="method-detail">
+        <a name="M000323"></a>
 
         <div class="method-heading">
-          <a href="#M000297" class="method-signature">
+          <a href="#M000323" class="method-signature">
           <span class="method-name">redirect_to_admin_home</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000297-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000297-source">
+            onclick="toggleCode('M000323-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000323-source">
 <pre>
     <span class="ruby-comment cmt"># File app/controllers/admin/homepage_blog_controller.rb, line 78</span>
 78:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">redirect_to_admin_home</span>

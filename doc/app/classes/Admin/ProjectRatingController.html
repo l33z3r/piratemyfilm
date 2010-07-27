@@ -88,9 +88,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000282">index</a>&nbsp;&nbsp;
-      <a href="#M000283">rate</a>&nbsp;&nbsp;
-      <a href="#M000284">set_selected_tab</a>&nbsp;&nbsp;
+      <a href="#M000302">rate</a>&nbsp;&nbsp;
+      <a href="#M000303">set_selected_tab</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -112,108 +111,84 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000282" class="method-detail">
-        <a name="M000282"></a>
+      <div id="method-M000302" class="method-detail">
+        <a name="M000302"></a>
 
         <div class="method-heading">
-          <a href="#M000282" class="method-signature">
-          <span class="method-name">index</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000282-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000282-source">
-<pre>
-   <span class="ruby-comment cmt"># File app/controllers/admin/project_rating_controller.rb, line 3</span>
-3:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
-4:     <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;rated_at is null and is_deleted = 0&quot;</span>, <span class="ruby-identifier">:order=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;created_at DESC&quot;</span>).<span class="ruby-identifier">paginate</span> <span class="ruby-identifier">:page</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>] <span class="ruby-operator">||</span> <span class="ruby-value">1</span>), <span class="ruby-identifier">:per_page=</span><span class="ruby-operator">&gt;</span> <span class="ruby-value">8</span>
-5:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000283" class="method-detail">
-        <a name="M000283"></a>
-
-        <div class="method-heading">
-          <a href="#M000283" class="method-signature">
+          <a href="#M000302" class="method-signature">
           <span class="method-name">rate</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000283-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000283-source">
+            onclick="toggleCode('M000302-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000302-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/admin/project_rating_controller.rb, line 7</span>
- 7:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rate</span>
- 8:     <span class="ruby-keyword kw">begin</span>
- 9:       <span class="ruby-ivar">@project_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project_id</span>]
-10:       
-11:       <span class="ruby-ivar">@current_rating</span> = <span class="ruby-constant">AdminProjectRating</span>.<span class="ruby-identifier">find_by_project_id</span> <span class="ruby-ivar">@project_id</span>
-12: 
-13:       <span class="ruby-ivar">@current_comment</span> = <span class="ruby-constant">ProjectComment</span>.<span class="ruby-identifier">find_by_project_id</span>(<span class="ruby-ivar">@project_id</span>)
-14: 
-15:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@current_rating</span>
-16:         <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@project_id</span>)
-17:         <span class="ruby-ivar">@current_rating</span> = <span class="ruby-constant">AdminProjectRating</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:project</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span>)
+    <span class="ruby-comment cmt"># File app/controllers/admin/project_rating_controller.rb, line 3</span>
+ 3:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rate</span>
+ 4:     <span class="ruby-keyword kw">begin</span>
+ 5:       <span class="ruby-ivar">@project_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:project_id</span>]
+ 6:       <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-ivar">@project_id</span>)
+ 7: 
+ 8:       <span class="ruby-ivar">@current_rating</span> = <span class="ruby-constant">AdminProjectRating</span>.<span class="ruby-identifier">find_by_project_id</span> <span class="ruby-ivar">@project_id</span>
+ 9: 
+10:       <span class="ruby-ivar">@current_comment</span> = <span class="ruby-constant">ProjectComment</span>.<span class="ruby-identifier">find_by_project_id</span>(<span class="ruby-ivar">@project_id</span>)
+11: 
+12:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@current_rating</span>
+13:         <span class="ruby-ivar">@current_rating</span> = <span class="ruby-constant">AdminProjectRating</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:project</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project</span>)
+14:       <span class="ruby-keyword kw">end</span>
+15: 
+16:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_comment</span>
+17:         <span class="ruby-ivar">@current_comment</span> = <span class="ruby-constant">ProjectComment</span>.<span class="ruby-identifier">create</span>
 18:       <span class="ruby-keyword kw">end</span>
 19: 
-20:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_comment</span>
-21:         <span class="ruby-ivar">@current_comment</span> = <span class="ruby-constant">ProjectComment</span>.<span class="ruby-identifier">create</span>
-22:       <span class="ruby-keyword kw">end</span>
-23: 
-24:       <span class="ruby-ivar">@rating</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:rating</span>]
-25:       <span class="ruby-ivar">@current_rating</span>.<span class="ruby-identifier">rating</span> = <span class="ruby-ivar">@rating</span>
-26: 
-27:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@current_rating</span>.<span class="ruby-identifier">save!</span>
-28:         <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-ivar">@project_id</span>)
-29:         <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">rated_at</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
-30:         <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">admin_rating</span> = <span class="ruby-ivar">@rating</span>
-31:         <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">save!</span>
-32:       <span class="ruby-keyword kw">end</span>
-33: 
-34:       <span class="ruby-ivar">@body</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:body</span>]
-35:       <span class="ruby-ivar">@current_comment</span>.<span class="ruby-identifier">body</span> = <span class="ruby-ivar">@body</span>
-36:       <span class="ruby-ivar">@current_comment</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-ivar">@u</span>.<span class="ruby-identifier">id</span>
-37:       <span class="ruby-ivar">@current_comment</span>.<span class="ruby-identifier">project_id</span> = <span class="ruby-ivar">@project_id</span>
-38:       <span class="ruby-ivar">@current_comment</span>.<span class="ruby-identifier">save!</span>
-39: 
-40:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:positive</span>] = <span class="ruby-value str">&quot;Project Rated!&quot;</span>
-41:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;/projects&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_id</span>
-42: 
-43:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span>
-44:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Error rating project!&quot;</span>
-45:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;/projects&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_id</span>
-46:     <span class="ruby-keyword kw">end</span>
-47:   <span class="ruby-keyword kw">end</span>
+20:       <span class="ruby-ivar">@rating</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:rating</span>]
+21:       <span class="ruby-ivar">@current_rating</span>.<span class="ruby-identifier">rating</span> = <span class="ruby-ivar">@rating</span>
+22: 
+23:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@current_rating</span>.<span class="ruby-identifier">save!</span>
+24:         <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">rated_at</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+25:         <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">admin_rating</span> = <span class="ruby-ivar">@rating</span>
+26:         <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">save!</span>
+27:       <span class="ruby-keyword kw">end</span>
+28: 
+29:       <span class="ruby-ivar">@body</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:body</span>]
+30:       <span class="ruby-ivar">@current_comment</span>.<span class="ruby-identifier">body</span> = <span class="ruby-ivar">@body</span>
+31:       <span class="ruby-ivar">@current_comment</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-ivar">@u</span>.<span class="ruby-identifier">id</span>
+32:       <span class="ruby-ivar">@current_comment</span>.<span class="ruby-identifier">project_id</span> = <span class="ruby-ivar">@project_id</span>
+33:       <span class="ruby-ivar">@current_comment</span>.<span class="ruby-identifier">save!</span>
+34: 
+35:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:positive</span>] = <span class="ruby-value str">&quot;Project Updated!&quot;</span>
+36:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;/projects&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_id</span>
+37: 
+38:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span>
+39:       <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;Error updating project!&quot;</span>
+40:       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;/projects&quot;</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;show&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@project_id</span>
+41:     <span class="ruby-keyword kw">end</span>
+42:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000284" class="method-detail">
-        <a name="M000284"></a>
+      <div id="method-M000303" class="method-detail">
+        <a name="M000303"></a>
 
         <div class="method-heading">
-          <a href="#M000284" class="method-signature">
+          <a href="#M000303" class="method-signature">
           <span class="method-name">set_selected_tab</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000284-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000284-source">
+            onclick="toggleCode('M000303-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000303-source">
 <pre>
-    <span class="ruby-comment cmt"># File app/controllers/admin/project_rating_controller.rb, line 49</span>
-49:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_selected_tab</span>
-50:     <span class="ruby-ivar">@selected_tab_name</span> = <span class="ruby-value str">&quot;new_projects&quot;</span>
-51:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File app/controllers/admin/project_rating_controller.rb, line 44</span>
+44:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_selected_tab</span>
+45:     <span class="ruby-ivar">@selected_tab_name</span> = <span class="ruby-value str">&quot;rate_projects&quot;</span>
+46:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

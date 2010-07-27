@@ -1,12 +1,12 @@
 <div class="blog-row blog">
 
-  <%= render :partial => "blogs/blog_info", :locals => {:blog => blog, :truncate_blog_body => true, 
+  <%= render :partial => "blog_info", :locals => {:blog => blog, :truncate_blog_body => true, 
     :link_blog_header => true, :show_icon => true } %>
   
   <div class="pmf_clear">&nbsp;</div>
 
   <div class="blog_comments_link">
-    <% if !blog.is_homepage_blog %>
+    <% if !blog.is_mkc_blog %>
       <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id %>
     <% else %>
       <%= link_to "#{pluralize(blog.num_comments, "comment")}", blog.wp_comments_link %> (on www.maxkeiser.com)

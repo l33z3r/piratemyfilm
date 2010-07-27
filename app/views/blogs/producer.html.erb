@@ -1,9 +1,3 @@
-<div class="pmf_clear">&nbsp;</div>
+<div class="pageTitle">Producer Blogs</div>
 
-<% if @blogs.empty? %>
-  No Notes Found!
-<% else %>
-  <%= render :partial => 'blog', :collection => @blogs %>
-<% end %>
-
-<%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>
+<%= render :partial => "blogs" %>

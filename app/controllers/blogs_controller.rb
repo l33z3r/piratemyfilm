@@ -1,22 +1,27 @@
 class BlogsController < ApplicationController
-  skip_filter :login_required, :only => [:show, :homepage, :producer]
+  skip_before_filter :login_required, :only=> [:show, :index, :admin, :mkc, :producer]
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
-  
-  def producer
-    @blogs = Blog.for_homepage.paginate :page => (params[:page] || 1), :per_page=> 5
-  end
-  
-  def homepage
 
-    @hide_intro_blog = true
-    
-    @blogs = Blog.find_all_by_is_homepage_blog(true, :order => "created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 5
+  def index
+    @blogs = Blog.all_blogs.paginate :page => (params[:page] || 1), :per_page=> 10
 
     if params[:format] == "rss"
-      render :action => "homepage_rss", :layout => false
+      render :action => "all_blogs_rss", :layout => false
       response.headers["Content-Type"] = "application/xml; charset=utf-8"
     end
+  end
+
+  def producer
+    @blogs = Blog.producer_blogs.paginate :page => (params[:page] || 1), :per_page=> 10
+  end
+  
+  def admin
+    @blogs = Blog.admin_blogs.paginate :page => (params[:page] || 1), :per_page=> 10
+  end
+
+  def mkc
+    @blogs = Blog.mkc_blogs
   end
 
   def new
@@ -109,8 +114,8 @@ class BlogsController < ApplicationController
   end
 
   def allow_to
+    super :all, :only => [:show, :index, :admin, :mkc, :producer]
     super :user, :all => true
-    super :non_user, :only => [:show, :homepage, :producer]
   end
   
 end

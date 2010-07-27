@@ -1,0 +1,8 @@
+<div class="pageTitle">
+  Create New PMF Fund Blog
+</div>
+
+<% form_for :blog, @blog, :url => {:controller => "admin_blogs",
+  :action => "create", :id => @blog.id}  do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>

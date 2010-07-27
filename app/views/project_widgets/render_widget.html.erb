@@ -19,36 +19,56 @@
 
     <div class="project_listings_widget">
 
+      <div class="project_widget_header">
+        <%= image_tag "widgets/projects_widget/widget-header.png" %>
+      </div>
+
       <% for project in @projects do %>
           <div class="<%= cycle("view-lite-row-widget", "view-lite-row-alt-widget") %>">
 
-            <div class="view-lite-row-project-name-widget"><%= link_to project.symbol, project_path(project) %></div>
+            <div class="view-lite-row-project-name-widget"><%= link_to project.symbol, project_path(project), :target => "_blank" %></div>
 
             <div class="pmf_clear">&nbsp;</div>
 
             <div class="view-lite-row-icon-widget">
-              <% if !project.icon.nil? %>
-                <%= image_tag url_for_file_column(project, "icon", "big") %>
-              <% else %>
-                <img src="/images/generic-project-icon.png" id="project-icon" width="70px"
-                     alt="Project Icon" border="0" />
-              <% end %>
+              <a href="<%= url_for project_path(project) %>" target="_blank">
+                <% if !project.icon.nil? %>
+                  <%= image_tag url_for_file_column(project, "icon", "big") %>
+                <% else %>
+                  <img src="/images/generic-project-icon.png" id="project-icon" width="70px"
+                       alt="Project Icon" border="0" />
+                <% end %>
+              </a>
             </div>
 
             <div class="view-lite-row-numbers-widget">
               <ul>
-                <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
+                <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login),
+                  profile_path(project.owner.profile), :target => "_blank" %></li>
                 <li class="pmf_clear"></li>
                 <li class="label">Budget:</li><li class="stat">$<%= print_money project.capital_required %></li>
                 <li class="pmf_clear"></li>
-                <li class="label">Funds Reserved:</li><li class="stat">$<%= print_money project.current_funds %></li>
+                <li class="label">% Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
                 <li class="pmf_clear"></li>
-                <li class="label">Funds Needed:</li><li class="stat">$<%= print_money project.funds_needed %></li>
+                <li class="label">PMF Fund Rating:</li><li class="stat"><%= project.admin_rating %></li>
                 <li class="pmf_clear"></li>
               </ul>
             </div>
           </div>
         <% end %>
+
+        <div class="pmf_clear">&nbsp;</div>
+
+        <div class="project_widget_footer">
+          <%= image_tag "widgets/projects_widget/widget-footer.png" %>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+
+        <div class="project_widget_footer">
+          <%= image_tag "widgets/projects_widget/widget-footer-invite.png" %>
+        </div>
+
         <div class="pmf_clear">&nbsp;</div>
 
       </div>

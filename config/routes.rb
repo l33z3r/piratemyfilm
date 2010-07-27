@@ -1,8 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :blogs, :only => [:show, :homepage]
 
-  map.connect "homepage_blogs", :controller => "blogs", :action => "homepage"
-  map.connect "producer_blogs", :controller => "blogs", :action => "producer"
+  map.connect "admin", :controller => "blogs", :action => "admin"
+  map.connect "producer", :controller => "blogs", :action => "producer"
+  map.connect "mkc", :controller => "blogs", :action => "mkc"
 
   map.resources :project_comments
 

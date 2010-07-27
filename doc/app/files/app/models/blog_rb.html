@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Sun Apr 18 19:43:45 +0100 2010</td>
+      <td>Tue Jul 27 10:19:17 +0100 2010</td>
     </tr>
     </table>
   </div>
@@ -71,18 +71,22 @@
     <div id="description">
       <h2>Schema Information</h2>
 <p>
-Schema version: 20090526045351
+Schema version: 20100720120616
 </p>
 <p>
 Table name: blogs
 </p>
 <pre>
- id         :integer(4)    not null, primary key
- title      :string(255)
- body       :text
- profile_id :integer(4)
- created_at :datetime
- updated_at :datetime
+ id               :integer(4)    not null, primary key
+ title            :string(255)
+ body             :text
+ profile_id       :integer(4)
+ created_at       :datetime
+ updated_at       :datetime
+ project_id       :integer(4)
+ num_wp_comments  :integer(4)    default(0)
+ wp_comments_link :string(255)
+ guid             :string(255)
 </pre>
 
     </div>

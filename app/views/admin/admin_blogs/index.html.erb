@@ -1,0 +1,17 @@
+<div class="pageTitle">
+  PMF Fund Blogs
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id="sub_nav" class="button right">
+  <%= link_to 'New Blog Entry', {:action => "new"} %>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<% if @blogs.empty? %>
+  No Blogs Found!
+<% else %>
+  <%= render :partial => '/admin/admin_blogs/blog', :collection => @blogs %>
+<% end %>

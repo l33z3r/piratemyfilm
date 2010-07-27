@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Wed May 19 11:29:20 +0100 2010</td>
+      <td>Tue Jul 20 15:31:42 +0100 2010</td>
     </tr>
     </table>
   </div>
@@ -68,6 +68,27 @@
 
   <div id="contextContent">
 
+    <div id="description">
+      <h2>Schema Information</h2>
+<p>
+Schema version: 20100720120616
+</p>
+<p>
+Table name: membership_types
+</p>
+<pre>
+ id                            :integer(4)    not null, primary key
+ name                          :string(255)
+ max_projects_listed           :integer(4)
+ pc_limit                      :integer(4)
+ pc_project_limit              :integer(4)
+ funding_limit_per_project     :integer(4)
+ created_at                    :datetime
+ updated_at                    :datetime
+ min_funding_limit_per_project :integer(4)    default(0)
+</pre>
+
+    </div>
 
 
    </div>

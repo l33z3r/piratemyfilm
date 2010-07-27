@@ -88,7 +88,7 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000298">index</a>&nbsp;&nbsp;
+      <a href="#M000324">index</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -110,26 +110,25 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000298" class="method-detail">
-        <a name="M000298"></a>
+      <div id="method-M000324" class="method-detail">
+        <a name="M000324"></a>
 
         <div class="method-heading">
-          <a href="#M000298" class="method-signature">
+          <a href="#M000324" class="method-signature">
           <span class="method-name">index</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000298-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000298-source">
+            onclick="toggleCode('M000324-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000324-source">
 <pre>
    <span class="ruby-comment cmt"># File app/controllers/admin/home_controller.rb, line 3</span>
 3:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
-4:     <span class="ruby-ivar">@user_count</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>).<span class="ruby-identifier">size</span>
-5:     <span class="ruby-ivar">@signups_yesterday</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">'created_at &gt; :date1 and created_at &lt; :date2'</span>, 
-6:         {<span class="ruby-identifier">:date1</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>.<span class="ruby-identifier">days</span>.<span class="ruby-identifier">ago</span>.<span class="ruby-identifier">midnight</span>, <span class="ruby-identifier">:date2</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>.<span class="ruby-identifier">day</span>.<span class="ruby-identifier">ago</span>.<span class="ruby-identifier">midnight</span>}]).<span class="ruby-identifier">size</span>
-7:   <span class="ruby-keyword kw">end</span>
+4:     <span class="ruby-ivar">@signups_yesterday</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">'created_at &gt; :date1 and created_at &lt; :date2'</span>, 
+5:         {<span class="ruby-identifier">:date1</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>.<span class="ruby-identifier">days</span>.<span class="ruby-identifier">ago</span>.<span class="ruby-identifier">midnight</span>, <span class="ruby-identifier">:date2</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>.<span class="ruby-identifier">day</span>.<span class="ruby-identifier">ago</span>.<span class="ruby-identifier">midnight</span>}]).<span class="ruby-identifier">size</span>
+6:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

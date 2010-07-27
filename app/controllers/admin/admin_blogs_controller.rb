@@ -1,16 +1,9 @@
-class Admin::HomepageBlogController < Admin::AdminController
-
-  #we redirect out of this controller as
-  #hp blogs are fed in from maxkeiser.com
-  before_filter :redirect_to_admin_home
-
-
-
+class Admin::AdminBlogsController < Admin::AdminController
 
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
 
   def index
-    @blogs = Blog.find_all_by_is_homepage_blog(true, :order=>"created_at DESC")
+    @blogs = Blog.find_all_by_is_admin_blog(true, :order=>"created_at DESC")
   end
 
   def new
@@ -20,11 +13,11 @@ class Admin::HomepageBlogController < Admin::AdminController
   def create
     begin
       @blog = Blog.new(params[:blog])
-      @blog.is_homepage_blog = true
-      @blog.profile_id = @p.id
+      @blog.is_admin_blog = true
+      @blog.profile_id = PMF_FUND_ACCOUNT_ID
       @blog.save!
       flash[:notice] = 'New blog post created.'
-      redirect_to :controller => "/home", :action => "index"
+      redirect_to :action => "index"
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Blog Post"
       flash[:error] = "Sorry, there was a problem creating your blog post"
@@ -78,4 +71,9 @@ class Admin::HomepageBlogController < Admin::AdminController
   def redirect_to_admin_home
     redirect_to :controller => "admin/home"
   end
+
+  def set_selected_tab
+    @selected_tab_name = "blogs"
+  end
+
 end

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; utf-8" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="alternate" type="application/rss+xml"
-          title="PMF Blogs Feed" href="<%= url_for :only_path => false, :controller => "blogs", :action => "homepage", :format => "rss" %>" />
+          title="PMF Blogs Feed" href="<%= url_for :only_path => false, :controller => "blogs", :format => "rss" %>" />
 
     <meta name="description" content="The Film Futures Market for Pirates" />
     <meta name="keywords" content="max keiser, pirate film, market" />
@@ -67,10 +67,26 @@
 
       <div class="pmf_clear">&nbsp;</div>
 
-      <% if !@hide_intro_blog && @latest_blog %>
-        <%= render :partial => "/blogs/latest_hp_blog", :locals => {:blog => @latest_blog} %>
+      <div id="top_container">
+        <div id="topsite_links">
+          <div id="pmf_fund_account_link_container">
+            <div class="pic">
+              <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), profile_path(PMF_FUND_ACCOUNT_ID) %>
+            </div>
+            <div class="text">
+              <%= link_to "PMF Fund", profile_path(PMF_FUND_ACCOUNT_ID) %>
+            </div>
+          </div>
+          <div id="widget_link">
+            - <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %>
+          </div>
+        </div>
+
+        <div id="signup_section">
+          <%= render :partial => "shared/signup" %>
+        </div>
         <div class="pmf_clear">&nbsp;</div>
-      <% end %>
+      </div>
 
       <div id="content_container">
         <div id="stage">
@@ -81,23 +97,6 @@
             <div id="flashes">
               <%= show_default_flash -%>
             </div>
-
-            <div id="subnav_links">
-              <div id="widget_link">
-                <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %> -
-              </div>
-
-              <div id="pmf_fund_account_link_container">
-                <div class="text">
-                  <%= link_to "View PMF Fund Account", profile_path(PMF_FUND_ACCOUNT_ID) %>
-                </div>
-                <div class="pic">
-                  <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), profile_path(PMF_FUND_ACCOUNT_ID) %>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashed_light_border">&nbsp;</div>
 
             <%= yield %>
 
