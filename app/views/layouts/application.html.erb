@@ -6,7 +6,6 @@
     <link rel="alternate" type="application/rss+xml"
           title="PMF Blogs Feed" href="<%= url_for :only_path => false, :controller => "blogs", :format => "rss" %>" />
 
-    <meta name="description" content="The Film Futures Market for Pirates" />
     <meta name="keywords" content="max keiser, pirate film, market" />
 
     <title><%= @title ? "Pirate My Film - " + h(@title) : "Pirate My Film" %></title>
@@ -71,10 +70,14 @@
         <div id="topsite_links">
           <div id="pmf_fund_account_link_container">
             <div class="pic">
-              <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), profile_path(PMF_FUND_ACCOUNT_ID) %>
+              <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"),
+                profile_path(PMF_FUND_ACCOUNT_ID) %>
             </div>
             <div class="text">
               <%= link_to "PMF Fund", profile_path(PMF_FUND_ACCOUNT_ID) %>
+            </div>
+            <div class="fund_amount">
+              <%= link_to "($75,000)", profile_path(PMF_FUND_ACCOUNT_ID) %>
             </div>
           </div>
           <div id="widget_link">

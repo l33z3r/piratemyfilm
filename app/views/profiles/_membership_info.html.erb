@@ -1,0 +1,58 @@
+<div class="half right">
+  <% if pmf_fund_user? @profile.user %>
+    <div class="membership_type">
+      <div class="title">PMF Fund Details</div>
+      <ul>
+        <li>The PMF Fund currently holds $75,000</li>
+      </ul>
+    </div>
+  <% else %>
+    <% if @p == @profile %>
+      <div class="membership_type">
+        <div class="title">Your Membership</div>
+        <ul>
+          <li>You are currently on <b><%= @u.membership_type.name %></b> Membership</li>
+
+          <li>
+            <% unless @u.membership_type.max_projects_listed == -1 %>
+              You can list up to <b><%= @u.membership_type.max_projects_listed %></b> projects
+            <% else %>
+              You can list an <b>unlimited</b> number of your own projects,
+            <% end %>
+          </li>
+
+          <li>
+            <% unless @u.membership_type.funding_limit_per_project == -1 %>
+              Budget max is <b>$<%= @u.membership_type.funding_limit_per_project %></b>
+            <% else %>
+              each with an <b>unlimited</b> budget
+            <% end %>
+          </li>
+
+          <li>
+            <% unless @u.membership_type.pc_limit == -1 %>
+              You can reserve up to <b><%= @u.membership_type.pc_limit %></b> shares of any one project
+            <% else %>
+              You can reserve <b>unlimited</b> shares of any one project
+            <% end %>
+          </li>
+
+          <li>
+            <% unless @u.membership_type.pc_project_limit == -1 %>
+              You can reserve shares in up to <b><%= @u.membership_type.pc_project_limit %></b> projects
+            <% else %>
+              You can reserve shares in an <b>unlimited</b> amount of projects
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    <% else %>
+      <div class="membership_type">
+        <div class="title"><%=@profile.user.login%>'s Membership</div>
+        <ul>
+          <li><%=@profile.user.login%> is currently on <b><%= @profile.user.membership_type.name %></b> Membership</li>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -3,7 +3,7 @@ class Admin::AdminBlogsController < Admin::AdminController
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
 
   def index
-    @blogs = Blog.find_all_by_is_admin_blog(true, :order=>"created_at DESC")
+    @blogs = Blog.find_all_by_is_admin_blog(true, :order=>"created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 15
   end
 
   def new

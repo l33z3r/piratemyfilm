@@ -257,11 +257,16 @@ div#topsite_links div#pmf_fund_account_link_container {
 }
 
 div#topsite_links div#pmf_fund_account_link_container div.pic {
-    border: 1px solid black;
     float: left;
 }
 
 div#topsite_links div#pmf_fund_account_link_container div.text {
+    margin: 2px 0px 0px 6px;
+    font-weight: bold;
+    float: left;
+}
+
+div#topsite_links div#pmf_fund_account_link_container div.fund_amount {
     margin: 2px 0px 0px 6px;
     font-weight: bold;
     float: left;
@@ -1594,6 +1599,18 @@ div.blog-entry div.blog_comments_link {
     margin-left: 20px;
 }
 
+div#subnav_links span.fund_image_blog_subnav {
+    margin-top: -2px;
+    margin-right: 2px;
+    float: left;
+}
+
+div#subnav_links span.mkc_image_blog_subnav {
+    margin-top: 1px;
+    margin-right: 4px;
+    float: left;
+}
+
 /* end blogs */
 
 /* admin section */
@@ -1766,6 +1783,7 @@ div#project_show div.highlight_symbol {
     width: 116px;
     border: 1px dotted #ffffff;
     margin: auto;
+    margin-top: 15px;
 }
 
 .view-lite-row-icon img {
@@ -1838,7 +1856,7 @@ div#project_show div.highlight_symbol {
 }
 
 .view-lite-row-numbers {
-    width: 194px;
+    width: 204px;
     padding-left: 20px;
     float: left;
 }
@@ -1858,7 +1876,7 @@ div#project_show div.highlight_symbol {
     font-weight:bold;
     color:#666666;
     text-decoration:none;
-    width: 120px;
+    width: 130px;
     margin-bottom: 1px;
     overflow: hidden;
 }
@@ -1876,7 +1894,7 @@ div#project_show div.highlight_symbol {
 }
 
 .view-lite-row-words {
-    width: 310px;
+    width: 290px;
     padding-left: 10px;
     float:left;
 }
@@ -1904,7 +1922,7 @@ div#project_show div.highlight_symbol {
 #content .view-lite-row-words li.stat {
     text-align: left;
     color: #636363;
-    width: 165px;
+    width: 145px;
     margin-bottom: 1px;
     overflow: hidden;
 }

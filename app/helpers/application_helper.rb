@@ -141,6 +141,18 @@ module ApplicationHelper
     text.chars.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
   end
 
+  def safe_textilize( s )
+    if s && s.respond_to?(:to_s)
+      doc = RedCloth.new( s.to_s )
+      doc.filter_html = true
+      doc.to_html
+    end
+  end
+
+  def pmf_fund_user? u
+    return u.id == PMF_FUND_ACCOUNT_ID
+  end
+
   #RJS helper methods
 
   def rjs_update_flashes flash

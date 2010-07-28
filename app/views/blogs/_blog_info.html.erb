@@ -30,18 +30,22 @@
     <div class="pmf_clear">&nbsp;</div>
 
     <span class="author_link">
-      By: <%= link_to h(blog.profile.user.login), profile_path(blog.profile) %> (Producer)
+      <% if blog.is_mkc_blog %>
+        From: <a href="http://www.maxkeiser.com">maxkeiser.com</a>
+      <% else %>
+        By: <%= link_to h(blog.profile.user.login), profile_path(blog.profile) %>
+      <% end %>
     </span>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
-  
+
   <div class="blog-body">
     <% if defined?(truncate_blog_body) && truncate_blog_body %>
       <%
-      @blog_body_content = blog_body_content blog
-      @truncate_length = 500
-    %>
+        @blog_body_content = blog_body_content blog
+        @truncate_length = 500
+      %>
 
       <%= awesome_truncate(@blog_body_content, @truncate_length) %>
 

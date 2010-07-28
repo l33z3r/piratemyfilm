@@ -13,15 +13,14 @@
       <div class="button left"><%= link_to "Edit project", edit_project_path(@project) %></div>
       <div class="button left"><%= link_to "Delete Project", :controller => "admin/deleted_projects", :action => "delete", :id => @project %></div>
     <% end %>
-    <div class="button left"><%= link_to "New Project", new_project_path %></div>
-    <div class="button left"><%= link_to "All Projects", projects_path %></div>
+    <div class="button left"><%= link_to "List a Project", new_project_path %></div>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
   
   <div class="dashed_light_border">&nbsp;</div>
 
-  <%= render :partial => "project_small_view", :locals => {:project => @project} %>
+  <%= render :partial => "project", :locals => {:project => @project} %>
 
   <div class="pmf_clear">&nbsp;</div>
 

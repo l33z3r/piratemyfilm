@@ -1,4 +1,17 @@
-<%= render :partial => "admin/projects/listings", :object => @projects,
-  :locals => {:project_link_controller => "new_projects", :project_link_action => "show"} %>
+<div class="pageTitle">
+  New Projects
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div class="project_listings">
+  <% for @project in @projects do %>
+      <%= render :partial => "/projects/project",
+        :locals => {:project => @project, :project_link_controller => "new_projects",
+        :project_link_action => "show"} %>
+  <% end %>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
 
 <%= pagination_controls_for @projects if @projects.respond_to? :total_pages %>

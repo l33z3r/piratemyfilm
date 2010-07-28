@@ -4,7 +4,7 @@ class BlogsController < ApplicationController
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
 
   def index
-    @blogs = Blog.all_blogs.paginate :page => (params[:page] || 1), :per_page=> 10
+    @blogs = Blog.all_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
 
     if params[:format] == "rss"
       render :action => "all_blogs_rss", :layout => false
@@ -13,11 +13,11 @@ class BlogsController < ApplicationController
   end
 
   def producer
-    @blogs = Blog.producer_blogs.paginate :page => (params[:page] || 1), :per_page=> 10
+    @blogs = Blog.producer_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
   end
   
   def admin
-    @blogs = Blog.admin_blogs.paginate :page => (params[:page] || 1), :per_page=> 10
+    @blogs = Blog.admin_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
   end
 
   def mkc
@@ -93,6 +93,16 @@ class BlogsController < ApplicationController
   end
 
   def check_project_owner
+    #is this an admin blog and are we admin
+    if @blog.is_admin_blog && @u.is_admin
+      return
+    end
+
+    #is this an mkc blog, not allowed to edit
+    if @blog.is_mkc_blog
+      permission_denied
+    end
+
     begin
       #try load project from params
       @project_id = params[:project_id]
@@ -106,10 +116,11 @@ class BlogsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       permission_denied
     end
+
   end
 
   def permission_denied
-    flash[:error] = "You do not have permissions on this project!"
+    flash[:error] = "You do not have permission to do this!"
     redirect_to :controller => "home"
   end
 

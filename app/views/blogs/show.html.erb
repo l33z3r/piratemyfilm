@@ -12,7 +12,7 @@
 
   <div class="pmf_clear">&nbsp;</div>
 
-  <% if @p && (@p.id == @blog.profile_id || @u.is_admin) && !@blog.is_mkc_blog %>
+  <% if show_blog_edit_buttons %>
     <div class="blog_admin_links">
       <div class="button right"><%= link_to "Edit", :action => "edit", :id => @blog.id %></div>
       <div class="button right"><%= link_to "Delete", blog_path(@blog), :confirm => 'Are you sure?', :method => :delete %></div>

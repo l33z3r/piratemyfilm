@@ -59,11 +59,11 @@ class ProjectsController < ApplicationController
       @genres = Genre.find(:all)
       
       render :action=>'new' and return unless @project.valid?
+
       #verify captcha
       render :action=>'new' and return unless check_captcha(false)
 
       @project.save!
-      @project.update_funding
       @hide_filter_params = true
 
       flash[:positive] = "Project Created!"

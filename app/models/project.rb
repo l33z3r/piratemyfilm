@@ -148,6 +148,7 @@ class Project < ActiveRecord::Base
     logger.debug "overriden save called!"
     update_funding
     update_estimates
+    update_pmf_fund_investment
     super
   end
 
@@ -167,17 +168,27 @@ class Project < ActiveRecord::Base
   def update_estimates
     logger.debug "Updating Estimates!"
 
-    @cpm_assumption = 10.0
-    @view_assumption = 100000.0
+    @revenue_from_assumptions = 1000
 
-    @revenue_from_assumptions = (@view_assumption / 1000.0) * @cpm_assumption
     @producer_and_shareholder_take = (self.share_percent_ads_producer/100.0) * @revenue_from_assumptions
-
+    self.fund_dividend = (self.capital_recycled_percent/100.0) * @revenue_from_assumptions
+    
     @shareholder_final_percentage_take = self.share_percent_ads
     @producer_final_percentage_take = 100 - self.share_percent_ads
 
-    self.shareholder_erpd = (@shareholder_final_percentage_take/100.0) * @producer_and_shareholder_take
-    self.producer_erpd = (@producer_final_percentage_take/100.0) * @producer_and_shareholder_take
+    @shareholder_final_take_full = (@shareholder_final_percentage_take/100.0) * @producer_and_shareholder_take
+    self.shareholder_dividend = @shareholder_final_take_full/total_copies
+    self.producer_dividend = (@producer_final_percentage_take/100.0) * @producer_and_shareholder_take
+  end
+
+  def update_pmf_fund_investment
+    logger.debug "Updating PMF Fund Investment!"
+
+    @subscription = ProjectSubscription.find_by_user_id_and_project_id(PMF_FUND_ACCOUNT_ID, id)
+
+    if @subscription and self.downloads_reserved > 0
+      self.pmf_fund_investment_percentage = (@subscription.amount/total_copies) * 100
+    end
   end
 
   def user_rating
@@ -258,9 +269,11 @@ class Project < ActiveRecord::Base
   end
 
   def self.filter_params
-    ["Please Choose...", "% Funded", "Funds Reserved", "Budget",
-      "Member Rating", "Admin Rating", "Newest", "Oldest",
-      "Producer ERPD", "Shareholder ERPD"]
+    ["Please Choose...", "% Funded", "Budget", "Funds Reserved", 
+      "Member Rating", "PMF Fund Rating", "Newest", "Oldest",
+      "Producer Dividend", "Shareholder Dividend", "PMF Fund Dividend",
+      "% PMF Fund Shares"
+      ]
   end
 
   def is_public
@@ -279,8 +292,9 @@ class Project < ActiveRecord::Base
 
   def validate
     errors.add(:share_percent_ads_producer, "must be between 0% - 100%") if share_percent_ads_producer && (share_percent_ads_producer < 0 || share_percent_ads_producer > 100)
+    errors.add(:share_percent_ads, "must be 0% if producer % is 0") if share_percent_ads_producer && share_percent_ads_producer == 0 && share_percent_ads > 0
     errors.add(:share_percent_ads, "must be between 0% - 100%") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
-    errors.add(:producer_fee_percent, "must be between 0% - 20%") if producer_fee_percent && (producer_fee_percent < 0 || producer_fee_percent > 20)
+    errors.add(:producer_fee_percent, "must be between 0% - 100%") if producer_fee_percent && (producer_fee_percent < 0 || producer_fee_percent > 100)
     errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
     errors.add(:symbol, "must be 5 alphabetic characters long") if symbol && !symbol.blank? && !(symbol=~/[a-zA-Z]{5}/)
     logger.info "Validation Errors: #{errors_to_s}"
@@ -310,18 +324,22 @@ class Project < ActiveRecord::Base
   end
 
   def self.get_order_sql filter_param
-    #TODO: move to an enum
-    case filter_param.downcase!
-    when "% funded" then "percent_funded DESC"
-    when "funds reserved" then "(downloads_reserved * ipo_price) DESC"
-    when "budget" then "capital_required DESC"
-    when "member rating" then "member_rating DESC"
-    when "admin rating" then "admin_rating DESC"
-    when "newest" then "created_at DESC"
-    when "oldest" then "created_at ASC"
-    when "producer erpd" then "producer_erpd DESC"
-    when "shareholder erpd" then "shareholder_erpd DESC"
-    else "created_at DESC"
+    @filter = filter_param.to_s.strip.downcase
+
+    ##TODO: move to an enum
+    case @filter
+    when "% funded" then return "percent_funded DESC"
+    when "funds reserved" then return "(downloads_reserved * ipo_price) DESC"
+    when "budget" then return "capital_required DESC"
+    when "member rating" then return "member_rating DESC"
+    when "pmf fund rating" then return "admin_rating DESC"
+    when "newest" then return "created_at DESC"
+    when "oldest" then return "created_at ASC"
+    when "producer dividend" then return "producer_dividend DESC"
+    when "shareholder dividend" then return "shareholder_dividend DESC"
+    when "pmf fund dividend" then return "fund_dividend DESC"
+    when "% pmf fund shares" then return "pmf_fund_investment_percentage DESC"
+    else return "created_at DESC"
     end
   end
 

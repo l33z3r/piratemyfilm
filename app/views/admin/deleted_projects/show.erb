@@ -6,7 +6,9 @@
 
   <div class="dashed_light_border">&nbsp;</div>
 
-  <%= render :partial => "/projects/project_small_view", :locals => {:project => @project} %>
+  <%= render :partial => "/projects/project",
+        :locals => {:project => @project, :project_link_controller => "deleted_projects",
+        :project_link_action => "show"} %>
 
   <div class="pmf_clear">&nbsp;</div>
 

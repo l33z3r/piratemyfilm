@@ -3,7 +3,6 @@
   <% if allowed_reserve_shares %>
     <ul>
       <li>You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> shares reserved for this project.</li>
-      <li>You will not be debited until 100% of shares on offer have been reserved (you can cancel at any time).
       <% if @max_subscription_reached %>
         <li><b>Your share limit for this project has been reached. You will soon be able to upgrade your subscription.</b></li>
       <% elsif @max_project_subscription_reached %>

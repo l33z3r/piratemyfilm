@@ -8,11 +8,10 @@ module BlogsHelper
     html
   end
   
-  
   def blog_body_content blog
     youtube_videos = blog.body.scan(/\[youtube:+.+\]/)
-    b = h blog.body.dup.gsub(/\[youtube:+.+\]/, '')
-    out = sanitize textilize(b)
+    b = blog.body.dup.gsub(/\[youtube:+.+\]/, '')
+    out = safe_textilize(b)
     unless youtube_videos.empty?
     out << <<-EOB
     <strong>#{pluralize youtube_videos.size, 'video'}:</strong><br/>
@@ -21,7 +20,11 @@ EOB
     out << tb_video_link(o.gsub!(/\[youtube\:|\]/, ''))
       end
     end
-    #markdown(out)
+
     out
+  end
+
+  def show_blog_edit_buttons
+    @p && (@p.id == @blog.profile_id || @u.is_admin) && @blog.is_producer_blog
   end
 end
