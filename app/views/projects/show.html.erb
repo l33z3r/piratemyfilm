@@ -1,9 +1,7 @@
 <% content_for :head do %>
   <meta name="title" content="<%= @project.title %>" />
   <meta name="description" content="<%= @project.description %>" />
-  <% if !@project.icon.nil? %>
-    <link rel="image_src" href="<%= url_for_file_column(@project, "icon", "big") %>" />
-  <% end %>
+  <link rel="image_src" href="<%= project_icon_path @project, "big" %>" />
 <% end %>
 
 <div id="project_show">
