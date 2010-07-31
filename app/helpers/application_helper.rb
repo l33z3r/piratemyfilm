@@ -158,22 +158,28 @@ module ApplicationHelper
   end
 
   def project_icon project, size
+    image_tag project_icon_path(project, size)
+  end
+
+  def project_icon_path project, size
     if project.icon.nil?
-      "<img src='/images/generic-project-icon.png' id='project-icon' width='150px' alt='project_icon' border='0' />"
+      "/images/generic-project-icon.png"
     else
-      image_tag url_for_file_column(project, "icon", size)
+      url_for_file_column(project, "icon", size)
     end
   end
 
   def blog_icon blog, size
+    image_tag blog_icon_path(blog, size)
+  end
+
+  def blog_icon_path blog, size
     if blog.is_producer_blog
-      return project_icon(blog.project, size)
+      return project_icon_path(blog.project, size)
     elsif blog.is_mkc_blog
-      return "<img src='/images/mkc_avatar.png' id='mkc' width='150px'
-        alt='mkc' border='0' />"
+      return "/images/mkc_avatar.png"
     elsif blog.is_admin_blog
-      return "<img src='/images/pmf_fund_avatar.png' id='pmf_fund' width='150px'
-        alt='pmf_fund' border='0' />"
+      return "/images/pmf_fund_avatar.png"
     end
   end
 

@@ -7,7 +7,8 @@
 
   <div class="blog_comments_link">
     <% if !blog.is_mkc_blog %>
-      <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id %>
+      <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
+      <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
     <% else %>
       <%= link_to "#{pluralize(blog.num_comments, "comment")}", blog.wp_comments_link %> (on www.maxkeiser.com)
     <% end %>

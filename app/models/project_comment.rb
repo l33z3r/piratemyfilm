@@ -16,4 +16,9 @@ class ProjectComment < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :user
+
+  def self.latest
+    find(:all, :include => :project, :conditions => "projects.is_deleted = false and projects.symbol is not null",
+      :order => "project_comments.created_at desc")
+  end
 end

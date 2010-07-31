@@ -771,14 +771,18 @@ div#project_comments div.project_comment {
 }
 
 div#project_comments div.project_comment div.left {
-    width: 490px;
+    width: 57%;
 }
 
 div#project_comments div.project_comment div.title {
     font-weight: bold;
-    font-size: 12px;
+    font-size: 13px;
     margin: 3px 0px 3px 0px;
     float: left;
+}
+
+div#project_comments div.project_comment div.title a {
+    color: #000000;
 }
 
 div#project_comments div.project_comment div.share_buttons {
@@ -807,8 +811,8 @@ div#project_comments div.project_comment div.icon {
 }
 
 div#project_comments div.project_comment div.icon img {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
 }
 
 div#project_comments div.project_comment div.body {
@@ -1584,8 +1588,8 @@ div.blog div.project_icon img {
 div.blog div.header {
     width: 540px;
     font-weight: bold;
-    font-size: 15px;
-    margin-bottom: 10px;
+    font-size: 13px;
+    margin: 0px 0px 10px 0px;
     float: left;
 }
 
@@ -2056,7 +2060,7 @@ div#project_show div.highlight_symbol {
 }
 
 .view-lite-row-description .header {
-    width: 130px;
+    width: 270px;
     float: left;
     color: #636363;
     font-weight: bold;

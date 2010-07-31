@@ -78,7 +78,8 @@ class Blog < ActiveRecord::Base
   end
 
   def self.all_blogs
-    find(:all, :order => "created_at desc")
+    find(:all, :include => :project, :conditions => "projects.is_deleted = false and projects.symbol is not null",
+      :order => "blogs.created_at desc")
   end
 
   def self.producer_blogs
