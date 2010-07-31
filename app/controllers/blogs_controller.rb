@@ -94,12 +94,12 @@ class BlogsController < ApplicationController
 
   def check_project_owner
     #is this an admin blog and are we admin
-    if @blog.is_admin_blog && @u.is_admin
+    if @blog && @blog.is_admin_blog && @u.is_admin
       return
     end
 
     #is this an mkc blog, not allowed to edit
-    if @blog.is_mkc_blog
+    if @blog && @blog.is_mkc_blog
       permission_denied
     end
 
