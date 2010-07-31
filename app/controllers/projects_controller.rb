@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   skip_filter :store_location, :only => [:create, :delete]
   skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param]
   before_filter :setup
-  before_filter :load_project, :only => [:show, :edit, :update, :update_symbol, :blogs]
+  before_filter :load_project, :only => [:show, :edit, :update, :update_symbol, :update_green_light, :blogs]
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
   before_filter :check_owner_or_admin, :only => [:edit, :update, :delete]
@@ -16,8 +16,10 @@ class ProjectsController < ApplicationController
     if @filter_param = params[:filter_param]
       @filtered = true      
 
+      @filter = Project.get_filter_sql @filter_param
       @order = Project.get_order_sql @filter_param
-      @projects = Project.find_all_public(:order=> @order).paginate :page => (params[:page] || 1), :per_page=> 15
+
+      @projects = Project.find_all_public(:conditions => @filter, :order=> @order).paginate :page => (params[:page] || 1), :per_page=> 15
       
     else
       @filtered = false
@@ -89,14 +91,31 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def show
-    @project_blogs = @latest_project_blog = nil
-    
-    unless @project.blogs.empty?
-      @latest_project_blog = @project.blogs.last
-      @project_blogs = @project.blogs.find(:all, :order => "created_at desc", :limit => 5)
+  def update_green_light
+    begin
+      @green_light = nil
+      
+      if @project.green_light.nil?
+        if !@project.budget_reached?
+          flash[:error] = "Project must have 100% budget to be Green!"
+      redirect_to project_path(@project) and return
+        end
+        @green_light = Time.now
+      end
+      
+      @project.green_light = @green_light
+      @project.save!
+
+      flash[:positive] = "Project Updated."
+      redirect_to project_path(@project)
+    rescue ActiveRecord::RecordInvalid
+      flash[:error] = "Error updating project"
+      perform_show
+      render :action => "show"
     end
-    
+  end
+
+  def show
     perform_show
   end
 
@@ -145,6 +164,21 @@ class ProjectsController < ApplicationController
 
   def perform_show
 
+    #load project blogs
+    @project_blogs = @latest_project_blog = nil
+
+    unless @project.blogs.empty?
+      @latest_project_blog = @project.blogs.last
+      @project_blogs = @project.blogs.find(:all, :order => "created_at desc", :limit => 5)
+    end
+
+    #load project comments
+    @project_comments = nil
+
+    unless @project.project_comments.empty?
+      @project_comments = @project.project_comments.find(:all, :order => "created_at desc", :limit => 5)
+    end
+
     @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
 
     #a user can only have pc_limit pcs per project
@@ -170,7 +204,6 @@ class ProjectsController < ApplicationController
     end
 
     @admin_rating = @project.admin_rating
-    @admin_comment = @project.admin_comment
     @user_rating = @project.user_rating
 
     #has this user rated this project
@@ -182,7 +215,7 @@ class ProjectsController < ApplicationController
 
     #load rating select opts
     @admin_rating_select_opts = AdminProjectRating.rating_select_opts
-    @current_admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating.to_s : 1;
+    @current_admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating.to_s : "1";
     @rating_select_opts = ProjectRating.rating_select_opts
     @selected_admin_rating = [@admin_rating, @current_admin_rating]
   end

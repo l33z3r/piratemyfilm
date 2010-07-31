@@ -13,11 +13,16 @@
       <div class="button left"><%= link_to "Edit project", edit_project_path(@project) %></div>
       <div class="button left"><%= link_to "Delete Project", :controller => "admin/deleted_projects", :action => "delete", :id => @project %></div>
     <% end %>
-    <div class="button left"><%= link_to "List a Project", new_project_path %></div>
+    <% if @u && @u.is_admin && @project.budget_reached? %>
+      <div class="button left">
+      <%= link_to "#{@project.green_light ? "Revoke" : "Award"} Green", :action => "update_green_light", :id => @project.id %></div>
+    <% end %>
+    <div class="button left">
+    <%= link_to "List a Project", new_project_path %></div>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
-  
+
   <div class="dashed_light_border">&nbsp;</div>
 
   <%= render :partial => "project", :locals => {:project => @project} %>
@@ -37,7 +42,7 @@
     </span>
   </div>
 
-  <% if @project.project_comment %>
+  <% if @project.latest_project_comment %>
     <div class="pmf_clear">&nbsp;</div>
 
     <div class="view-lite-row-description">
@@ -50,20 +55,22 @@
       <div class="share_buttons">
         <div class="tweet_button">
           <script type="text/javascript">
-            tweetmeme_url = '<%= url_for :only_path => false, :controller => "projects", :action => "show", :id => @project.id, :anchor => "pmf_comment" %>';
+            tweetmeme_url = '<%= url_for :only_path => false, :controller => "project_comments",
+    :action => "show", :id => @project.latest_project_comment.id, :anchor => "pmf_comment" %>';
           </script>
           <script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
         </div>
 
         <div class="facebook_button">
-          <a name="fb_share" type="box_count" share_url="<%= url_for :only_path => false, :controller => "projects", :action => "show", :id => @project.id, :anchor => "pmf_comment" %>"
+          <a name="fb_share" type="box_count" share_url="<%= url_for :only_path => false,
+               :controller => "project_comments", :action => "show", :id => @project.latest_project_comment.id, :anchor => "pmf_comment" %>"
              href="http://www.facebook.com/sharer.php">Share</a>
           <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
         </div>
       </div>
 
       <span class="body">
-        <%= h @project.project_comment.body %>
+        <%= h @project.latest_project_comment.body %>
       </span>
     </div>
   <% end %>
@@ -104,18 +111,18 @@
 
   <div class="pmf_clear">&nbsp;</div>
 
+  <div class="view-lite-row-description">
+    <span class="header">Site Address:</span>
+    <span class="body">
+      <a href="<%=h @project.web_address %>" target="_blank"><%=h @project.web_address %></a>
+    </span>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
   <div id="project_blogs">
     <fieldset>
       <div class="header">Latest Project Blogs</div>
-      <ol>
-        <li>
-          <% if @project_blogs %>
-            <%= render :partial => 'blogs/blog', :collection => @project_blogs %>
-          <% else %>
-            No Blogs Found!
-          <% end %>
-        </li>
-      </ol>
       <div class="links">
         <% if @project_blogs %>
           <div class="button left">
@@ -128,6 +135,37 @@
           </div>
         <% end %>
       </div>
+      <ol>
+        <li>
+          <% if @project_blogs %>
+            <%= render :partial => 'blogs/blog', :collection => @project_blogs %>
+          <% else %>
+            No Blogs Found!
+          <% end %>
+        </li>
+      </ol>
+    </fieldset>
+  </div>
+
+  <div id="project_comments">
+    <fieldset>
+      <div class="header">Latest PMF Fund Project Comments</div>
+      <div class="links">
+        <% if @project_comments %>
+          <div class="button left">
+            <%= link_to "All Comments", project_project_comments_path(@project) %>
+          </div>
+        <% end %>
+      </div>
+      <ol>
+        <li>
+          <% if @project_comments %>
+            <%= render :partial => 'project_comments/comments', :locals => {:project_comments => @project_comments} %>
+          <% else %>
+            No Comments Found!
+          <% end %>
+        </li>
+      </ol>
     </fieldset>
   </div>
 
@@ -151,20 +189,14 @@
     <% end %>
   <% end %>
 
-
   <% if_admin do %>
     <% form_tag :controller => "admin/project_rating", :action => "rate", :project_id => @project.id do %>
       <fieldset>
         <div class="header">PMF Fund Rating</div>
         <ol>
           <li id="comment">
-            <% if @admin_comment && !@admin_comment.body.empty? %>
-              <label>Edit Comment</label>
-              <%= text_area_tag :body, @admin_comment.body, :size => "45x5" %>
-            <% else %>
-              <label>Add Comment</label>
-              <%= text_area_tag :body, nil, :size => "45x5" %>
-            <% end %>
+            <label>Add a Comment</label>
+            <%= text_area_tag :body, nil, :size => "45x5" %>
           </li>
           <li>
             <label>Set Rating</label>

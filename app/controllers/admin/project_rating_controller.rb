@@ -7,14 +7,8 @@ class Admin::ProjectRatingController < Admin::AdminController
 
       @current_rating = AdminProjectRating.find_by_project_id @project_id
 
-      @current_comment = ProjectComment.find_by_project_id(@project_id)
-
       if !@current_rating
         @current_rating = AdminProjectRating.create(:project => @project)
-      end
-
-      unless @current_comment
-        @current_comment = ProjectComment.create
       end
 
       @rating = params[:rating]
@@ -27,11 +21,15 @@ class Admin::ProjectRatingController < Admin::AdminController
       end
 
       @body = params[:body]
-      @current_comment.body = @body
-      @current_comment.user_id = @u.id
-      @current_comment.project_id = @project_id
-      @current_comment.save!
 
+      if !@body.blank?
+        @current_comment = ProjectComment.create
+        @current_comment.body = @body
+        @current_comment.user_id = @u.id
+        @current_comment.project_id = @project_id
+        @current_comment.save!
+      end
+      
       flash[:positive] = "Project Updated!"
       redirect_to :controller => "/projects", :action => "show", :id => @project_id
 

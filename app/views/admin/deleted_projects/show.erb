@@ -19,7 +19,7 @@
     </span>
   </div>
 
-  <% if @project.project_comment %>
+  <% if @project.latest_project_comment %>
     <div class="pmf_clear">&nbsp;</div>
 
     <div class="view-lite-row-description">
@@ -30,7 +30,7 @@
       </span>
 
       <span class="body">
-        <%= h @project.project_comment.body %>
+        <%= h @project.latest_project_comment.body %>
       </span>
     </div>
   <% end %>

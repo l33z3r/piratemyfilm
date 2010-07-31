@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100728153253) do
+ActiveRecord::Schema.define(:version => 20100730152026) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -261,6 +261,7 @@ ActiveRecord::Schema.define(:version => 20100728153253) do
     t.string   "symbol"
     t.integer  "fund_dividend"
     t.integer  "pmf_fund_investment_percentage"
+    t.datetime "green_light"
   end
 
   create_table "sessions", :force => true do |t|

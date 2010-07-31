@@ -757,7 +757,67 @@ div#project_blogs {
     font-size:8pt;
 }
 
-/*End of project specific*/
+div#project_comments {
+
+}
+
+div#project_comments div.links {
+    float: right;
+    margin-right: 25px;
+}
+
+div#project_comments div.project_comment {
+    border-top: 1px dashed #666666;
+}
+
+div#project_comments div.project_comment div.left {
+    width: 490px;
+}
+
+div#project_comments div.project_comment div.title {
+    font-weight: bold;
+    font-size: 12px;
+    margin: 3px 0px 3px 0px;
+    float: left;
+}
+
+div#project_comments div.project_comment div.share_buttons {
+    float: right;
+    margin-top: 4px;
+}
+
+div#project_comments div.project_comment div.share_buttons div.tweet_button {
+    float: right;
+}
+
+div#project_comments div.project_comment div.share_buttons div.facebook_button {
+    float: right;
+    margin-right: 8px;
+}
+
+div#project_comments div.project_comment div.date {
+    float: right;
+    margin: 4px 8px 0px 0px;
+    font-weight: bold;
+}
+
+div#project_comments div.project_comment div.icon {
+    float: left;
+    margin: 10px 5px 15px 0px;
+}
+
+div#project_comments div.project_comment div.icon img {
+    width: 100px;
+    height: 100px;
+}
+
+div#project_comments div.project_comment div.body {
+    margin-top: 13px;
+    float: left;
+    width: 380px;
+}
+
+/* End project page */
 
 /* static pages */
 
@@ -1819,6 +1879,13 @@ div#project_show div.highlight_symbol {
     color:#000;
 }
 
+.view-lite-row-project-green-light {
+    float: right;
+    margin-top: 2px;
+    margin-right: 18px;
+    font-weight: bold;
+}
+
 .view-lite-row-user-icon {
     height:110px;
     width:75px;
@@ -1856,7 +1923,7 @@ div#project_show div.highlight_symbol {
 }
 
 .view-lite-row-numbers {
-    width: 204px;
+    width: 214px;
     padding-left: 20px;
     float: left;
 }
@@ -1876,7 +1943,7 @@ div#project_show div.highlight_symbol {
     font-weight:bold;
     color:#666666;
     text-decoration:none;
-    width: 130px;
+    width: 140px;
     margin-bottom: 1px;
     overflow: hidden;
 }
@@ -1894,7 +1961,7 @@ div#project_show div.highlight_symbol {
 }
 
 .view-lite-row-words {
-    width: 290px;
+    width: 270px;
     padding-left: 10px;
     float:left;
 }
@@ -1922,7 +1989,7 @@ div#project_show div.highlight_symbol {
 #content .view-lite-row-words li.stat {
     text-align: left;
     color: #636363;
-    width: 145px;
+    width: 125px;
     margin-bottom: 1px;
     overflow: hidden;
 }

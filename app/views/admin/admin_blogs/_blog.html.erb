@@ -1,12 +1,13 @@
 <div class="blog-row blog">
 
-  <%= render :partial => "blog_info", :locals => {:blog => blog, :truncate_blog_body => true,
-    :link_blog_header => true, :show_icon => true } %>
+  <%= render :partial => "blog_info", :locals => {:blog => blog, 
+    :truncate_blog_body => true, :link_blog_header => true } %>
 
   <div class="pmf_clear">&nbsp;</div>
 
   <div class="blog_comments_link">
-    <%= link_to "#{pluralize(blog.num_comments, "comment")}", :action => "show", :id => blog.id %>
+    <%= link_to "#{pluralize(blog.num_comments, "comment")}",
+      :action => "show", :id => blog.id %>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>

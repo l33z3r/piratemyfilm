@@ -1,0 +1,6 @@
+<div id="project_comments">
+  <% project_comments.each do |project_comment| %>
+    <%= render :partial => 'project_comments/comment_info', :locals => {:project_comment => project_comment} %>
+    <div class="pmf_clear">&nbsp;</div>
+  <% end %>
+</div>

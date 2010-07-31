@@ -1,0 +1,8 @@
+<div class="pageTitle">
+  PMF Fund Project Comments for Project:
+</div>
+
+<div class="pageTitleSmall"><%= link_to h(@project.title), project_path(@project) %></div>
+
+<%= render :partial => 'project_comments/comments',
+  :locals => {:project_comments => @project_comments} %>

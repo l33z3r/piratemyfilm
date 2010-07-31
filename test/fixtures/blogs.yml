@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100720120616
+# Schema version: 20100730130102
 #
 # Table name: blogs
 #
@@ -9,7 +9,7 @@
 #  profile_id       :integer(4)    
 #  created_at       :datetime      
 #  updated_at       :datetime      
-#  is_homepage_blog :boolean(1)    
+#  is_admin_blog    :boolean(1)    
 #  project_id       :integer(4)    
 #  num_wp_comments  :integer(4)    default(0)
 #  wp_comments_link :string(255)   

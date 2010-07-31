@@ -1,14 +1,12 @@
 <% content_for :head do %>
-  <meta name="title" content="<%= @blog.title %>" />
-  <meta name="description" content="<%= @blog.body %>" />
-  <% if @blog.project && !@blog.project.icon.nil? %>
-    <link rel="image_src" href="<%= url_for_file_column(@blog.project, "icon", "big") %>" />
-  <% end %>
+  <meta name="title" content="<%= h @blog.title %>" />
+  <meta name="description" content="<%= h @blog.body %>" />
+  <link rel="image_src" href="<%= blog_icon @blog, "big" %>"/>
 <% end %>
 
 <div id="blog_<%= @blog.id %>" class="border_top blog">
 
-  <%= render :partial => "blog_info", :locals => {:blog => @blog, :show_icon => true} %>
+  <%= render :partial => "blog_info", :locals => {:blog => @blog} %>
 
   <div class="pmf_clear">&nbsp;</div>
 

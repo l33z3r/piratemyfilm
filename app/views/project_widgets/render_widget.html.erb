@@ -32,12 +32,7 @@
 
             <div class="view-lite-row-icon-widget">
               <a href="<%= url_for project_path(project) %>" target="_blank">
-                <% if !project.icon.nil? %>
-                  <%= image_tag url_for_file_column(project, "icon", "big") %>
-                <% else %>
-                  <img src="/images/generic-project-icon.png" id="project-icon" width="70px"
-                       alt="Project Icon" border="0" />
-                <% end %>
+                <%= project_icon project, "big" %>
               </a>
             </div>
 

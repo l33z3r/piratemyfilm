@@ -1,26 +1,4 @@
-<div id="subnav_links">
-  <div class="link">
-    <%= link_to "Latest Blogs", :action => "index" %> -
-  </div>
-
-  <div class="link">
-    <span class="mkc_image_blog_subnav">
-      <%= link_to image_tag("mkc_favicon.png", :size => "15x15"), :action => "mkc" %>
-    </span>
-    <%= link_to "MKC Blogs", :action => "mkc" %> -
-  </div>
-
-  <div class="link">
-    <span class="fund_image_blog_subnav">
-      <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), :action => "admin" %>
-    </span>
-    <%= link_to "PMF Fund Blogs", :action => "admin" %> -
-  </div>
-
-  <div class="link">
-    <%= link_to "Producer Blogs", :action => "producer" %>
-  </div>
-</div>
+<%= render :partial => "/blogs/subnav" %>
 
 <div class="dashed_light_border">&nbsp;</div>
 

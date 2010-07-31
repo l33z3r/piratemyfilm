@@ -1,43 +1,46 @@
 # == Schema Information
-# Schema version: 20100720120616
+# Schema version: 20100730130102
 #
 # Table name: projects
 #
-#  id                         :integer(4)    not null, primary key
-#  owner_id                   :integer(4)    
-#  title                      :string(255)   
-#  producer_name              :string(255)   
-#  synopsis                   :text          
-#  genre_id                   :integer(4)    
-#  description                :text          
-#  cast                       :text          
-#  web_address                :string(255)   
-#  ipo_price                  :decimal(10, 2 
-#  percent_funded             :integer(3)    
-#  icon                       :string(255)   
-#  created_at                 :datetime      
-#  updated_at                 :datetime      
-#  youtube_vid_id             :string(255)   
-#  status                     :string(255)   default("Funding")
-#  project_length             :integer(4)    default(0)
-#  share_percent_downloads    :integer(3)    
-#  share_percent_ads          :integer(3)    
-#  downloads_reserved         :integer(10)   default(0)
-#  downloads_available        :integer(10)   default(0)
-#  capital_required           :integer(12)   
-#  rated_at                   :datetime      
-#  is_deleted                 :boolean(1)    
-#  deleted_at                 :datetime      
-#  member_rating              :integer(4)    default(0)
-#  admin_rating               :integer(4)    default(0)
-#  director                   :string(255)   
-#  writer                     :string(255)   
-#  exec_producer              :string(255)   
-#  producer_fee_percent       :integer(4)    
-#  capital_recycled_percent   :integer(4)    
-#  share_percent_ads_producer :integer(4)    default(0)
-#  producer_erpd              :integer(4)    
-#  shareholder_erpd           :integer(4)    
+#  id                             :integer(4)    not null, primary key
+#  owner_id                       :integer(4)    
+#  title                          :string(255)   
+#  producer_name                  :string(255)   
+#  synopsis                       :text          
+#  genre_id                       :integer(4)    
+#  description                    :text          
+#  cast                           :text          
+#  web_address                    :string(255)   
+#  ipo_price                      :decimal(10, 2 
+#  percent_funded                 :integer(3)    
+#  icon                           :string(255)   
+#  created_at                     :datetime      
+#  updated_at                     :datetime      
+#  youtube_vid_id                 :string(255)   
+#  status                         :string(255)   default("Funding")
+#  project_length                 :integer(4)    default(0)
+#  share_percent_downloads        :integer(3)    
+#  share_percent_ads              :integer(3)    
+#  downloads_reserved             :integer(10)   default(0)
+#  downloads_available            :integer(10)   default(0)
+#  capital_required               :integer(12)   
+#  rated_at                       :datetime      
+#  is_deleted                     :boolean(1)    
+#  deleted_at                     :datetime      
+#  member_rating                  :integer(4)    default(0)
+#  admin_rating                   :integer(4)    default(0)
+#  director                       :string(255)   
+#  writer                         :string(255)   
+#  exec_producer                  :string(255)   
+#  producer_fee_percent           :integer(4)    
+#  capital_recycled_percent       :integer(4)    
+#  share_percent_ads_producer     :integer(4)    default(0)
+#  producer_dividend              :integer(4)    
+#  shareholder_dividend           :integer(4)    
+#  symbol                         :string(255)   
+#  fund_dividend                  :integer(4)    
+#  pmf_fund_investment_percentage :integer(4)    
 #
 
 class Project < ActiveRecord::Base    
@@ -84,7 +87,8 @@ class Project < ActiveRecord::Base
   has_one :project_rating
 
   has_one :admin_project_rating
-  has_one :project_comment
+  has_many :project_comments
+  has_one :latest_project_comment, :class_name => "ProjectComment", :order => "created_at DESC"
 
   file_column :icon, :magick => {
     :versions => { 
@@ -200,10 +204,6 @@ class Project < ActiveRecord::Base
     admin_project_rating ? admin_project_rating.rating_symbol : AdminProjectRating.ratings_map[1]
   end
 
-  def admin_comment
-    ProjectComment.find_by_project_id id
-  end
-
   def current_funds
     self.downloads_reserved * self.ipo_price
   end
@@ -256,6 +256,10 @@ class Project < ActiveRecord::Base
     super
   end
 
+  def budget_reached?
+    self.percent_funded >= 100
+  end
+
   def delete
     self.is_deleted = true
     self.deleted_at = Time.now
@@ -270,10 +274,10 @@ class Project < ActiveRecord::Base
 
   def self.filter_params
     ["Please Choose...", "% Funded", "Budget", "Funds Reserved", 
-      "Member Rating", "PMF Fund Rating", "Newest", "Oldest",
+      "PMF Fund Rating", "Member Rating", "Newest", "Oldest",
       "Producer Dividend", "Shareholder Dividend", "PMF Fund Dividend",
-      "% PMF Fund Shares"
-      ]
+      "% PMF Fund Shares", "Green Lit"
+    ]
   end
 
   def is_public
@@ -305,8 +309,7 @@ class Project < ActiveRecord::Base
     funding_limit = owner.membership_type.funding_limit_per_project
     
     if self.capital_required > funding_limit && funding_limit != -1
-      errors.add(:capital_required, " must be less than $#{funding_limit}, the limit for your membership type,
-          We will be allowing account upgrades shortly!")
+      errors.add(:capital_required, " must be less than $#{funding_limit}, the limit for your membership type.")
     end
   end
 
@@ -321,6 +324,16 @@ class Project < ActiveRecord::Base
 
   def update_recycled_percent
     self.capital_recycled_percent = 100 - share_percent_ads_producer
+  end
+
+  def self.get_filter_sql filter_param
+    @filter = filter_param.to_s.strip.downcase
+
+    ##TODO: move to an enum
+    case @filter
+    when "green lit" then return "green_light is NOT NULL"
+    else return nil
+    end
   end
 
   def self.get_order_sql filter_param
@@ -339,6 +352,7 @@ class Project < ActiveRecord::Base
     when "shareholder dividend" then return "shareholder_dividend DESC"
     when "pmf fund dividend" then return "fund_dividend DESC"
     when "% pmf fund shares" then return "pmf_fund_investment_percentage DESC"
+    when "green lit" then return "green_light DESC"
     else return "created_at DESC"
     end
   end

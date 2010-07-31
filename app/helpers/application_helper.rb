@@ -153,6 +153,30 @@ module ApplicationHelper
     return u.id == PMF_FUND_ACCOUNT_ID
   end
 
+  def project_green_light project
+    project.green_light ? "Green Lit Project!" : ""
+  end
+
+  def project_icon project, size
+    if project.icon.nil?
+      "<img src='/images/generic-project-icon.png' id='project-icon' width='150px' alt='project_icon' border='0' />"
+    else
+      image_tag url_for_file_column(project, "icon", size)
+    end
+  end
+
+  def blog_icon blog, size
+    if blog.is_producer_blog
+      return project_icon(blog.project, size)
+    elsif blog.is_mkc_blog
+      return "<img src='/images/mkc_avatar.png' id='mkc' width='150px'
+        alt='mkc' border='0' />"
+    elsif blog.is_admin_blog
+      return "<img src='/images/pmf_fund_avatar.png' id='pmf_fund' width='150px'
+        alt='pmf_fund' border='0' />"
+    end
+  end
+
   #RJS helper methods
 
   def rjs_update_flashes flash

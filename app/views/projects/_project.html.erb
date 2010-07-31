@@ -10,29 +10,29 @@ project_link_action ||= "show"
       :action => project_link_action, :id => project %>
   </div>
 
+  <div class="view-lite-row-project-green-light">
+    <%= project_green_light project %>
+  </div>
+
   <div class="pmf_clear">&nbsp;</div>
 
   <div class="view-lite-row-icon">
-    <% if !project.icon.nil? %>
-      <%= image_tag url_for_file_column(project, "icon", "big") %>
-    <% else %>
-      <img src="/images/generic-project-icon.png" id="project-icon" width="150px" alt="Generic icon" border="0" />
-    <% end %>
+    <%= project_icon project, "big" %>
   </div>
 
   <div class="view-lite-row-words">
     <ul>
       <li class="label">Symbol:</li><li class="stat"><%= h project.symbol %></li>
       <li class="pmf_clear"></li>
+      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Exec Producer:</li><li class="stat"><%= h project.exec_producer %></li>
+      <li class="pmf_clear"></li>
       <li class="label">Producer:</li><li class="stat"><%= h project.producer_name %></li>
       <li class="pmf_clear"></li>
       <li class="label">Director:</li><li class="stat"><%= h project.director %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Exec Producer:</li><li class="stat"><%= h project.exec_producer %></li>
-      <li class="pmf_clear"></li>
       <li class="label">Writer:</li><li class="stat"><%= project.writer %></li>
-      <li class="pmf_clear"></li>
-      <li class="label">Genre:</li><li class="stat"><%=h project.genre.title %></li>
       <li class="pmf_clear"></li>
       <li class="label">Project Length:</li><li class="stat"><%=h project.project_length %> mins</li>
       <li class="pmf_clear"></li>
@@ -50,10 +50,10 @@ project_link_action ||= "show"
     <ul>
       <li class="label">PMF Fund Rating:</li><li class="stat"><%= project.admin_rating %></li>
       <li class="pmf_clear"></li>
-      <li class="label">% PMF Fund Shares:</li>
-      <li class="stat"><%= project.pmf_fund_investment_percentage %>%</li>
+      <li class="label">Genre:</li><li class="stat"><%=h project.genre.title %></li>
       <li class="pmf_clear"></li>
-      <li class="label">% Ads Producer:</li>
+      <li class="pmf_clear"></li>
+      <li class="label">% Producer:</li>
       <li class="stat">
         <%= project.share_percent_ads_producer %>%
         (<a class="tooltip_arrow" title="The remaining percent will go to the PMF Fund (see below)">?</a>)
@@ -68,7 +68,7 @@ project_link_action ||= "show"
             existing projects at the discretion of PMF">?</a>)
       </li>
       <li class="pmf_clear"></li>
-      <li class="label">% Ads Holders:</li>
+      <li class="label">% Shares:</li>
       <li class="stat">
         <%= project.share_percent_ads %>%
         (<a class="tooltip_arrow" title="This is a percentage of the producers take">?</a>)
@@ -116,8 +116,6 @@ project_link_action ||= "show"
 
   <div class="view-lite-row-numbers">
     <ul>
-      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
-      <li class="pmf_clear"></li>
       <li class="label">Budget:</li><li class="stat">$<%= print_money project.capital_required %></li>
       <li class="pmf_clear"></li>
       <li class="label">Funds Reserved:</li><li class="stat">$<%= print_money project.current_funds %></li>
@@ -128,10 +126,14 @@ project_link_action ||= "show"
       <li class="pmf_clear"></li>
       <li class="label">Price Per Share:</li><li class="stat">$<%= print_money project.ipo_price %></li>
       <li class="pmf_clear"></li>
+      <li class="label">Total Shares:</li><li class="stat"><%= project.total_copies.to_i %></li>
+      <li class="pmf_clear"></li>
       <li class="label">Shares Available:</li><li class="stat"><%= project.downloads_available %></li>
       <li class="pmf_clear"></li>
       <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
       <li class="pmf_clear"></li>
+      <li class="label">% PMF Fund Shares:</li>
+      <li class="stat"><%= project.pmf_fund_investment_percentage %>%</li>
     </ul>
   </div>
 </div>

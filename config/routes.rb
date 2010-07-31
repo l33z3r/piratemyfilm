@@ -11,6 +11,14 @@ ActionController::Routing::Routes.draw do |map|
     a.resources :users, :collection => {:search => :post}
   end
 
+  map.resources :projects,
+    :member=>{:delete_icon=>:post}, :collection=>{:search=>:get} do | project |
+    project.resources :project_subscriptions, :member => {:destroy=>:delete}
+    project.resources :project_comments
+  end
+
+  map.latest_comments "latest_comments", :controller => "project_comments", :action => "latest"
+
   map.resources :profiles, 
     :member=>{:delete_icon=>:post}, :collection=>{:search=>:get}, 
     :has_many=>[:friends, :blogs, :photos, :comments, :feed_items, :messages]
@@ -29,19 +37,11 @@ ActionController::Routing::Routes.draw do |map|
     accounts.signup  "/signup",  :action => 'signup'
   end
   
-  map.with_options(:controller => 'home') do |home|
-    home.home '/', :action => 'index'
-    home.contact '/contact', :action => 'contact'
-  end
-
-  map.resources :projects, 
-    :member=>{:delete_icon=>:post}, :collection=>{:search=>:get} do | project |
-    project.resources :project_subscriptions, :member => {:destroy=>:delete}
-  end
-
   map.connect ':controller/:action/:id'
 
-  map.root :controller => "home", :action => "index"
+  map.home "home", :controller => "home", :action => "index"
+  
+  map.root :controller => "blogs", :action => "index"
   
   map.static '/pages/:action', :controller=>'static'
 
