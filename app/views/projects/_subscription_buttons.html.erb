@@ -11,7 +11,7 @@
         <% unless @max_subscription == -1 %>
           <li>You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> shares.</li>
         <% else %>
-          <li>You can reserve unlimited premium copies.</li>
+          <li>You can reserve unlimited shares.</li>
         <% end %>
       <% end %>
     </ul>

@@ -1,3 +1,17 @@
-<div class="pageTitle">All Blogs</div>
+<div class="pageTitle">PMF Live Feed</div>
 
-<%= render :partial => "blogs" %>
+<%= render :partial => "/blogs/subnav" %>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<% @items.each do |item| %>
+  <% if item.kind_of? Blog %>
+    <%= render :partial => 'blog', :object => item %>
+    <% elsif item.kind_of? ProjectComment %>
+    <%= render :partial => 'project_comments/comment_info', :locals => {:project_comment => item} %>
+  <% end %>
+<% end %>
+
+<%= pagination_controls_for @items if @items.respond_to? :total_pages %>

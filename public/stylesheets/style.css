@@ -757,65 +757,61 @@ div#project_blogs {
     font-size:8pt;
 }
 
-div#project_comments {
-
-}
-
-div#project_comments div.links {
+div.links {
     float: right;
     margin-right: 25px;
 }
 
-div#project_comments div.project_comment {
-    border-top: 1px dashed #666666;
+div.project_comment {
+    
 }
 
-div#project_comments div.project_comment div.left {
+div.project_comment div.left {
     width: 57%;
 }
 
-div#project_comments div.project_comment div.title {
+div.project_comment div.title {
     font-weight: bold;
     font-size: 13px;
     margin: 3px 0px 3px 0px;
     float: left;
 }
 
-div#project_comments div.project_comment div.title a {
+div.project_comment div.title a {
     color: #000000;
 }
 
-div#project_comments div.project_comment div.share_buttons {
+div.project_comment div.share_buttons {
     float: right;
     margin-top: 4px;
 }
 
-div#project_comments div.project_comment div.share_buttons div.tweet_button {
+div.project_comment div.share_buttons div.tweet_button {
     float: right;
 }
 
-div#project_comments div.project_comment div.share_buttons div.facebook_button {
+div.project_comment div.share_buttons div.facebook_button {
     float: right;
     margin-right: 8px;
 }
 
-div#project_comments div.project_comment div.date {
+div.project_comment div.date {
     float: right;
     margin: 4px 8px 0px 0px;
     font-weight: bold;
 }
 
-div#project_comments div.project_comment div.icon {
+div.project_comment div.icon {
     float: left;
-    margin: 10px 5px 15px 0px;
+    margin: 5px 5px 15px 0px;
 }
 
-div#project_comments div.project_comment div.icon img {
+div.project_comment div.icon img {
     width: 70px;
     height: 70px;
 }
 
-div#project_comments div.project_comment div.body {
+div.project_comment div.body {
     margin-top: 13px;
     float: left;
     width: 380px;
@@ -1928,7 +1924,7 @@ div#project_show div.highlight_symbol {
 
 .view-lite-row-numbers {
     width: 214px;
-    padding-left: 20px;
+    padding-left: 10px;
     float: left;
 }
 
@@ -1993,7 +1989,7 @@ div#project_show div.highlight_symbol {
 #content .view-lite-row-words li.stat {
     text-align: left;
     color: #636363;
-    width: 125px;
+    width: 140px;
     margin-bottom: 1px;
     overflow: hidden;
 }

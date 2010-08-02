@@ -4,7 +4,18 @@ class BlogsController < ApplicationController
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
 
   def index
-    @blogs = Blog.all_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+    #we want to mix in the pmf fund comments and blogs into one list
+
+    @blogs = Blog.all_blogs
+    @pmf_fund_comments = ProjectComment.latest
+
+    @items = @blogs + @pmf_fund_comments
+
+    @items.sort! do |a,b|
+      b.created_at <=> a.created_at
+    end
+
+    @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
 
     if params[:format] == "rss"
       render :action => "all_blogs_rss", :layout => false

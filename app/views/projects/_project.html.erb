@@ -34,7 +34,7 @@ project_link_action ||= "show"
       <li class="pmf_clear"></li>
       <li class="label">Writer:</li><li class="stat"><%= project.writer %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Project Length:</li><li class="stat"><%=h project.project_length %> mins</li>
+      <li class="label">Genre:</li><li class="stat"><%=h project.genre.title %></li>
       <li class="pmf_clear"></li>
       <li class="label">Project Status:</li><li class="stat"><%= project.status %></li>
       <li class="pmf_clear"></li>
@@ -50,8 +50,7 @@ project_link_action ||= "show"
     <ul>
       <li class="label">PMF Fund Rating:</li><li class="stat"><%= project.admin_rating %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Genre:</li><li class="stat"><%=h project.genre.title %></li>
-      <li class="pmf_clear"></li>
+      <li class="label">Project Length:</li><li class="stat"><%=h project.project_length %> mins</li>
       <li class="pmf_clear"></li>
       <li class="label">% Producer:</li>
       <li class="stat">
