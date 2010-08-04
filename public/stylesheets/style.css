@@ -1557,8 +1557,10 @@ div.project_listings .blog-row {
 
 /* blogs */
 
-div.blog {
-    padding: 15px 0px 20px 0px;
+
+
+div.blog-row {
+    margin-top: 10px;
 }
 
 div.blog div.blog_left {
@@ -1566,38 +1568,81 @@ div.blog div.blog_left {
     float: left;
 }
 
-div.blog div.blog_right {
-    width: 35%;
-    float: right;
+div.blog div.blog_left div.icon {
+    float: left;
+    width: 80px;
 }
 
-div.blog div.project_icon {
-    float: left;
+div.blog div.blog_left div.icon a img {
+    width: 70px;
     margin-right: 10px;
 }
 
-div.blog div.project_icon img {
-    height: 70px;
-    width: 70px;
+div.blog div.blog_left div.info {
+    float: left;
 }
 
-div.blog div.header {
-    width: 540px;
+div.blog div.blog_left div.info div.blog_type {
+    float: left;
+    margin-right: 5px;
+}
+
+div.blog div.blog_left div.info div.blog_type a {
     font-weight: bold;
-    font-size: 13px;
-    margin: 0px 0px 10px 0px;
+    color: #000000;
+}
+
+div.blog div.blog_left div.info div.user_info {
+    float: left;
+    margin-right: 4px;
+}
+
+div.blog div.blog_left div.info div.user_info div.user_icon {
+    float: left;
+    margin-right: 4px;
+}
+
+div.blog div.blog_left div.info div.user_info div.user_name {
     float: left;
 }
 
-div.blog div.header a {
-    color: #000000
+div.blog div.blog_left div.info div.user_info div.user_name a {
+    
 }
 
-div.blog div.project_author_links {
+div.blog div.blog_left div.info div.user_info div.user_icon a img {
+    height: 15px;
+    width: 15px;
+}
+
+div.blog div.blog_left div.info div.project_title {
     float: left;
+    margin-right: 4px;
+    margin-top: 4px;
+}
+
+div.blog div.blog_left div.info div.project_title a {
+    font-weight: bold;
+    color: #000000;
+}
+
+div.blog div.blog_left div.info div.blog_title {
+    float: left;
+    margin-top: 4px;
+}
+
+div.blog div.blog_left div.info div.blog_title a {
+    font-weight: bold;
+    color: #000000;
+}
+
+div.blog div.blog_left div.info div.blog_body {
+    margin-top: 4px;
+}
+
+div.blog div.blog_right div.blog_comments_link {
+    float: right;
     margin-top: 5px;
-    font-weight: normal;
-    font-size: 12px;
 }
 
 div.blog div.share_buttons {
@@ -1614,49 +1659,11 @@ div.blog div.share_buttons div.facebook_button {
     float: right;
 }
 
-div.blog-row {
-    clear: both;
-    padding: 10px 0px;
-}
-
-.blog_comments_link {
-    float: right;
-}
-
-div.blog_admin_links {
-    float: right;
-    margin-left: 30px;
-    margin-bottom: 10px;
-}
-
-.blog-body {
-    width: 100%;
-    margin: 15px 0px;
-}
-
-.blog-body p {
-    position: relative;
-    margin: 0;
-}
-
-.blog-entry span.links {
-    float: right;
-    margin-top: 5px;
-}
-
 .blog-date {
     margin: 5px;
     margin-top: 0px;
     font-weight: bold;
     float: right;
-}
-
-div.blog-entry div.blog_comments_link {
-    float: left;
-}
-
-.blog-row .profile-pic {
-    margin-left: 20px;
 }
 
 div#subnav_links span.fund_image_blog_subnav {

@@ -8,8 +8,11 @@
 
 <% @items.each do |item| %>
   <% if item.kind_of? Blog %>
-    <%= render :partial => 'blog', :object => item %>
-    <% elsif item.kind_of? ProjectComment %>
+    <% @blog_template_name = blog_template_name(item) unless defined?(@blog_template_name) %>
+    <%= render :partial => "/blogs/templates/#{@blog_template_name}",
+      :locals => {:blog => item, :truncate_blog_body => true,
+      :link_blog_header => true } %>
+  <% elsif item.kind_of? ProjectComment %>
     <%= render :partial => 'project_comments/comment_info', :locals => {:project_comment => item} %>
   <% end %>
 <% end %>

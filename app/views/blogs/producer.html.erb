@@ -1,3 +1,11 @@
 <div class="pageTitle">Producer Blogs</div>
 
-<%= render :partial => "blogs" %>
+<%= render :partial => "/blogs/subnav" %>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<%= render :partial => 'blogs', :locals => {:blogs => @blogs} %>
+
+<%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>

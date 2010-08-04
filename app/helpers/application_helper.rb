@@ -169,17 +169,60 @@ module ApplicationHelper
     end
   end
 
-  def blog_icon blog, size
-    image_tag blog_icon_path(blog, size)
+  def blog_header(blog, link_blog_header, truncate_blog_header)
+    if defined?(link_blog_header) && link_blog_header
+      if defined?(truncate_blog_header) && truncate_blog_header
+        @blog_header_content = blog.title
+        @truncate_length = 20
+
+        @blog_header_title = awesome_truncate(@blog_header_content, @truncate_length)
+      else
+        @blog_header_title = blog.title
+      end
+
+      link_to sanitize(@blog_header_title.capitalize), :controller => "blogs", :action => "show", :id => blog.id
+    else
+      sanitize(blog.title.capitalize)
+    end
   end
 
-  def blog_icon_path blog, size
+  def blog_project_header(blog, truncate_blog_project_title)
+    if defined?(truncate_blog_project_title) && truncate_blog_project_title
+      @blog_project_title_content = blog.project.title
+      @truncate_length = 30
+
+      @blog_header_title = awesome_truncate(@blog_project_title_content, @truncate_length)
+    else
+      @blog_header_title = blog.project.title
+    end
+
+    link_to h(@blog_header_title.capitalize), project_path(blog.project)
+  end
+
+  def blog_body(blog, truncate_blog_body)
+    if defined?(truncate_blog_body) && truncate_blog_body
+      @blog_body_content = blog.body
+      @truncate_length = 30
+
+      @body = awesome_truncate(@blog_body_content, @truncate_length)
+
+      if @blog_body_content.length > @truncate_length
+        @body += link_to "(More)", {:controller => "blogs", :action => "show", :id => blog.id}, :class => "more_link"
+      end
+    else
+      @body = blog_body_content blog
+    end
+
+    return @body
+  end
+
+  def blog_template_name blog
     if blog.is_producer_blog
-      return project_icon_path(blog.project, size)
+      return "producer_blog"
     elsif blog.is_mkc_blog
-      return "/images/mkc_avatar.png"
+      return "mkc_blog"
     elsif blog.is_admin_blog
-      return "/images/pmf_fund_avatar.png"
+      return "admin_blog"
     end
   end
 

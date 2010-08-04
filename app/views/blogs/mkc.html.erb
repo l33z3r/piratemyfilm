@@ -1,3 +1,15 @@
 <div class="pageTitle">maxkeiser.com Blog</div>
 
-<%= render :partial => "blogs" %>
+<%= render :partial => "/blogs/subnav" %>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<% if blogs.empty? %>
+  No Blogs Found!
+<% else %>
+  <%= render :partial => 'blog', :collection => blogs %>
+<% end %>
+
+<%= pagination_controls_for blogs if blogs.respond_to? :total_pages %>

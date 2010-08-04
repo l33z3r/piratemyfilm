@@ -1,0 +1,112 @@
+<div class="blog-row blog">
+
+<div class="blog_left">
+  <div class="header">
+    <% if defined?(link_blog_header) && link_blog_header %>
+      <%= link_to sanitize(blog.title.capitalize), :controller => "blogs", :action => "show", :id => blog.id %>
+    <% else %>
+      <%= sanitize(blog.title.capitalize) %>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_icon">
+    <%= blog_icon blog, "big" %>
+  </div>
+
+  def blog_icon blog, size
+    image_tag blog_icon_path(blog, size)
+  end
+
+  def blog_icon_path blog, size
+    if blog.is_producer_blog
+      return project_icon_path(blog.project, size)
+    elsif blog.is_mkc_blog
+      return "/images/mkc_avatar.png"
+    elsif blog.is_admin_blog
+      return "/images/pmf_fund_avatar.png"
+    end
+  end
+
+  
+
+  <div class="project_author_links">
+
+    <% if blog.is_producer_blog %>
+      <span class="project">
+        From Project: <%= link_to h(blog.project.title), :controller => "projects", :action => "show", :id => blog.project.id %>
+      </span>
+    <% end %>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <span class="author_link">
+      <% if blog.is_mkc_blog %>
+        From: <a href="http://www.maxkeiser.com">maxkeiser.com</a>
+      <% else %>
+        By: <%= link_to h(blog.profile.user.login), profile_path(blog.profile) %>
+      <% end %>
+    </span>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="blog-body">
+    <% if defined?(truncate_blog_body) && truncate_blog_body %>
+      <%
+      @blog_body_content = blog_body_content blog
+      @truncate_length = 80
+    %>
+
+      <%= awesome_truncate(@blog_body_content, @truncate_length) %>
+
+      <% if @blog_body_content.length > @truncate_length %>
+        <%= link_to "(More)", {:controller => "blogs", :action => "show", :id => blog.id}, :class => "more_link" %>
+      <% end %>
+    <% else %>
+      <%= blog_body_content blog %>
+    <% end %>
+  </div>
+</div>
+
+<div class="blog_right">
+  <div class="share_buttons">
+    <%= render :partial => "share_buttons",
+      :locals => {:target_url => url_for(:only_path => false,
+        :controller => "blogs", :action => "show", :id => blog.id)} %>
+
+    <div class="blog-date">
+      <%= blog.created_at.to_formatted_s(:long_ordinal) %>
+    </div>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="blog_comments_link">
+    <% if !blog.is_mkc_blog %>
+      <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
+      <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
+    <% else %>
+      <%= link_to "#{pluralize(blog.num_comments, "comment")}", blog.wp_comments_link %> (on www.maxkeiser.com)
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+  <div class="blog_comments_link">
+    <% if !blog.is_mkc_blog %>
+      <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
+      <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
+    <% else %>
+      <%= link_to "#{pluralize(blog.num_comments, "comment")}", blog.wp_comments_link %> (on www.maxkeiser.com)
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>

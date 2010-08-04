@@ -1,13 +1,12 @@
-<%= render :partial => "/blogs/subnav" %>
-
-<div class="dashed_light_border">&nbsp;</div>
-
-<div class="pmf_clear">&nbsp;</div>
-
 <% if blogs.empty? %>
   No Blogs Found!
+  <div class="pmf_clear">&nbsp;</div>
 <% else %>
-  <%= render :partial => 'blog', :collection => blogs %>
-<% end %>
+  <% blogs.each do |blog| %>
+    <% @blog_template_name = blog_template_name(blog) unless defined?(@blog_template_name) %>
 
-<%= pagination_controls_for blogs if blogs.respond_to? :total_pages %>
+    <%= render :partial => "/blogs/templates/#{@blog_template_name}",
+      :locals => {:blog => blog, :truncate_blog => true,
+      :link_blog_header => true } %>
+  <% end %>
+<% end %>
