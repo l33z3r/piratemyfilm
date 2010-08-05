@@ -98,8 +98,6 @@ class Project < ActiveRecord::Base
     }
   }
 
-  before_save :update_recycled_percent
-
   #find projects that have been given initial rating and are not deleted
   def self.find_all_public(*args)
 
@@ -150,6 +148,7 @@ class Project < ActiveRecord::Base
   #overide save to perform updating of estimates
   def save!
     logger.debug "overriden save called!"
+    update_recycled_percent
     update_funding
     update_estimates
     update_pmf_fund_investment

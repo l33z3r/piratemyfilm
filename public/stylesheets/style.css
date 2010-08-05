@@ -578,18 +578,18 @@ div#project_blogs div.links {
     margin-right: 25px;
 }
 
-div#project_show div.share_buttons {
+div#project_show div.top_share_buttons {
     margin: 5px;
     margin-right: 0px;
     float: right;
 }
 
-div#project_show div.share_buttons div.tweet_button {
+div#project_show div.top_share_buttons div.tweet_button {
     float: right;
     margin-left: 10px;
 }
 
-div#project_show div.share_buttons div.facebook_button {
+div#project_show div.top_share_buttons div.facebook_button {
     float: right;
 }
 
@@ -760,61 +760,6 @@ div#project_blogs {
 div.links {
     float: right;
     margin-right: 25px;
-}
-
-div.project_comment {
-    
-}
-
-div.project_comment div.left {
-    width: 57%;
-}
-
-div.project_comment div.title {
-    font-weight: bold;
-    font-size: 13px;
-    margin: 3px 0px 3px 0px;
-    float: left;
-}
-
-div.project_comment div.title a {
-    color: #000000;
-}
-
-div.project_comment div.share_buttons {
-    float: right;
-    margin-top: 4px;
-}
-
-div.project_comment div.share_buttons div.tweet_button {
-    float: right;
-}
-
-div.project_comment div.share_buttons div.facebook_button {
-    float: right;
-    margin-right: 8px;
-}
-
-div.project_comment div.date {
-    float: right;
-    margin: 4px 8px 0px 0px;
-    font-weight: bold;
-}
-
-div.project_comment div.icon {
-    float: left;
-    margin: 5px 5px 15px 0px;
-}
-
-div.project_comment div.icon img {
-    width: 70px;
-    height: 70px;
-}
-
-div.project_comment div.body {
-    margin-top: 13px;
-    float: left;
-    width: 380px;
 }
 
 /* End project page */
@@ -1564,7 +1509,7 @@ div.blog-row {
 }
 
 div.blog div.blog_left {
-    width: 64%;
+    width: 60%;
     float: left;
 }
 
@@ -1604,10 +1549,6 @@ div.blog div.blog_left div.info div.user_info div.user_icon {
 
 div.blog div.blog_left div.info div.user_info div.user_name {
     float: left;
-}
-
-div.blog div.blog_left div.info div.user_info div.user_name a {
-    
 }
 
 div.blog div.blog_left div.info div.user_info div.user_icon a img {

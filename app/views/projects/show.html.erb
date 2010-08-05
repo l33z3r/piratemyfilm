@@ -50,7 +50,7 @@
         </a>
       </span>
 
-      <div class="share_buttons">
+      <div class="top_share_buttons">
         <div class="tweet_button">
           <script type="text/javascript">
             tweetmeme_url = '<%= url_for :only_path => false, :controller => "project_comments",
@@ -135,11 +135,7 @@
       </div>
       <ol>
         <li>
-          <% if @project_blogs %>
-            <%= render :partial => 'blogs/blog', :collection => @project_blogs %>
-          <% else %>
-            No Blogs Found!
-          <% end %>
+          <%= render :partial => 'blogs/blogs', :locals => {:blogs => @project_blogs} %>
         </li>
       </ol>
     </fieldset>

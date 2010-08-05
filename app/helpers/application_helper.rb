@@ -189,7 +189,7 @@ module ApplicationHelper
   def blog_project_header(blog, truncate_blog_project_title)
     if defined?(truncate_blog_project_title) && truncate_blog_project_title
       @blog_project_title_content = blog.project.title
-      @truncate_length = 30
+      @truncate_length = 50
 
       @blog_header_title = awesome_truncate(@blog_project_title_content, @truncate_length)
     else
@@ -202,7 +202,7 @@ module ApplicationHelper
   def blog_body(blog, truncate_blog_body)
     if defined?(truncate_blog_body) && truncate_blog_body
       @blog_body_content = blog.body
-      @truncate_length = 30
+      @truncate_length = 50
 
       @body = awesome_truncate(@blog_body_content, @truncate_length)
 

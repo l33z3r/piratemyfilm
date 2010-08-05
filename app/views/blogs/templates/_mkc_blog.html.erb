@@ -2,23 +2,23 @@
 
   <div class="blog_left">
     <div class="icon">
-      <%= link_to image_tag("/images/pmf_fund_avatar.png"), :action => "admin" %>
+      <%= link_to image_tag("/images/mkc_avatar.png"), :action => "mkc" %>
     </div>
     <div class="info">
       <div class="blog_type">
-        <%= link_to "PMF Fund Blog", :action => "admin" %>
+        <%= link_to "maxkeiser.com Blog", :action => "mkc" %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
 
-      
+
       <div class="blog_title">
         <%= blog_header(blog, link_blog_header, truncate_blog) %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
 
-      
+
       <div class="blog_body">
         <%= blog_body(blog, truncate_blog) %>
       </div>
@@ -39,8 +39,7 @@
     <div class="pmf_clear">&nbsp;</div>
 
     <div class="blog_comments_link">
-      <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
-      <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
+      <%= link_to "#{pluralize(blog.num_comments, "comment")}", blog.wp_comments_link %> (on www.maxkeiser.com)
     </div>
 
     <div class="pmf_clear">&nbsp;</div>

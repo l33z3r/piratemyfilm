@@ -1,29 +1,40 @@
-<div class="project_comment">
+<div class="blog-row blog">
 
-  <div class="left">
-    <div class="title">
-      <%= link_to "Comment on Project: #{project_comment.project.title}", project_comment_path(project_comment) %>
-    </div>
-
-    <div class="pmf_clear">&nbsp;</div>
-
+  <div class="blog_left">
     <div class="icon">
-      <%= link_to project_icon(project_comment.project, "big"), project_path(project_comment.project) %>
+      <%= link_to image_tag("/images/pmf_fund_avatar.png"), profile_path(PMF_FUND_ACCOUNT_ID) %>
     </div>
-    <div class="body">
-      <%= h project_comment.body %>
+    <div class="info">
+      <div class="blog_type">
+        <%= link_to "PMF Fund Project Comment", :controller => "project_comments", :action => "latest" %> on 
+      </div>
+      <div class="user_info">
+        <div class="user_icon">
+          <%= link_to project_icon(project_comment.project, "small"), project_path(project_comment.project) %>
+        </div>
+        <div class="user_name">
+          <%= link_to h(project_comment.project.title), project_path(project_comment.project) %>
+        </div>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <div class="blog_body">
+        <%= link_to h(project_comment.body), :controller => "project_comments", :action => "show", :id => project_comment.id %>
+      </div>
     </div>
   </div>
 
-  <div class="right">
+  <div class="blog_right">
     <div class="share_buttons">
+      <div class="share_buttons">
       <div class="tweet_button">
         <script type="text/javascript">
           tweetmeme_url = '<%= url_for :only_path => false, :controller => "project_comments", :action => "show", :id => project_comment.id %>';
         </script>
         <script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
       </div>
-      
+
       <div class="facebook_button">
         <a name="fb_share" type="box_count" share_url="<%= url_for :only_path => false,
              :controller => "project_comments", :action => "show", :id => project_comment.id %>"
@@ -31,14 +42,18 @@
         <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
       </div>
     </div>
-    
-    <div class="date">
-      <%= project_comment.created_at.to_formatted_s(:long_ordinal) %>
+
+      <div class="blog-date">
+        <%= project_comment.created_at.to_formatted_s(:long_ordinal) %>
+      </div>
     </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
   </div>
 
-  <div class="pmf_clear">&nbsp;</div>
-  
 </div>
 
-<div class="dashed_light_border">&nbsp;</div>
+<div class="pmf_clear">&nbsp;</div>
+
+<div class="dashed_light_border pmf_top_margin_10">&nbsp;</div>
