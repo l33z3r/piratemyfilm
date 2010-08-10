@@ -4,20 +4,21 @@
   <link rel="image_src" href="<%= blog_icon_path @blog, "big" %>"/>
 <% end %>
 
+<% if show_blog_edit_buttons %>
+  <div class="blog_admin_links">
+    <div class="button right"><%= link_to "Edit", :action => "edit", :id => @blog.id %></div>
+    <div class="button right"><%= link_to "Delete", blog_path(@blog), :confirm => 'Are you sure?', :method => :delete %></div>
+  </div>
+<% end %>
+
+<div class="pmf_clear_bottom_border">&nbsp;</div>
+
 <div id="blog_<%= @blog.id %>" class="border_top blog">
 
-  <%= render :partial => "blog_info", :locals => {:blog => @blog} %>
+  <%= render :partial => "/blogs/templates/#{blog_template_name(@blog)}",
+    :locals => {:blog => @blog } %>
 
   <div class="pmf_clear">&nbsp;</div>
-
-  <% if show_blog_edit_buttons %>
-    <div class="blog_admin_links">
-      <div class="button right"><%= link_to "Edit", :action => "edit", :id => @blog.id %></div>
-      <div class="button right"><%= link_to "Delete", blog_path(@blog), :confirm => 'Are you sure?', :method => :delete %></div>
-    </div>
-  <% end %>
-
-  <div class="pmf_clear_bottom_border">&nbsp;</div>
 
   <% if !@blog.is_mkc_blog %>
     <div class="pageTitle">
@@ -66,8 +67,6 @@
       <% else %>
         <%= link_to 'Log In', login_path %>
       <% end %>
-    <% else %>
-      <%= link_to "#{pluralize(@blog.num_comments, "comment")}", @blog.wp_comments_link %> (on www.maxkeiser.com)
     <% end %>
   </div>
 

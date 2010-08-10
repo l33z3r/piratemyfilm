@@ -318,6 +318,7 @@ div#filter_param_box {
 div#filter_param_box div.label {
     float: right;
     margin-top: 3px;
+    width: auto;
 }
 
 div#filter_param_box form select {
@@ -928,6 +929,13 @@ form	{
     margin: 10px 60px 0 0;
 }
 
+div#ad_banner {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin: 10px;
+}
+
 div#site_wrapper {
     width: 960px;
     margin-left: auto;
@@ -1515,16 +1523,17 @@ div.blog div.blog_left {
 
 div.blog div.blog_left div.icon {
     float: left;
-    width: 80px;
+    width: 70px;
 }
 
 div.blog div.blog_left div.icon a img {
-    width: 70px;
+    width: 60px;
     margin-right: 10px;
 }
 
 div.blog div.blog_left div.info {
     float: left;
+    width: 80%;
 }
 
 div.blog div.blog_left div.info div.blog_type {
@@ -1617,6 +1626,11 @@ div#subnav_links span.mkc_image_blog_subnav {
     margin-top: 1px;
     margin-right: 4px;
     float: left;
+}
+
+div.comment_scroll div.profile-pic a img {
+    width: 70px;
+    height: 70px;
 }
 
 /* end blogs */
@@ -2102,7 +2116,7 @@ div#admin_stats {
 .blog-comment
 {
     margin-bottom:30px;
-    margin-left:130px;
+    margin-left:100px;
 }
 
 .profile-pic

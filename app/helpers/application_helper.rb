@@ -169,6 +169,16 @@ module ApplicationHelper
     end
   end
 
+  def blog_icon_path blog, size
+    if blog.is_producer_blog
+      return project_icon_path(blog.project, size)
+    elsif blog.is_mkc_blog
+      return "/images/mkc_avatar.png"
+    elsif blog.is_admin_blog
+      return "/images/pmf_fund_avatar.png"
+    end
+  end
+
   def blog_header(blog, link_blog_header, truncate_blog_header)
     if defined?(link_blog_header) && link_blog_header
       if defined?(truncate_blog_header) && truncate_blog_header
