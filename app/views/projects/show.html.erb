@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <meta name="title" content="<%= @project.title %>" />
   <meta name="description" content="<%= @project.description %>" />
-  <link rel="image_src" href="<%= project_icon_path @project, "big" %>" />
+  <link rel="image_src" href="<%= project_icon_path @project, :big %>" />
 <% end %>
 
 <div id="project_show">

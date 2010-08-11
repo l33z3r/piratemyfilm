@@ -20,26 +20,32 @@
     <div class="project_listings_widget">
 
       <div class="project_widget_header">
-        <%= image_tag "widgets/projects_widget/widget-header.png" %>
+        <%= link_to image_tag("widgets/projects_widget/widget-header.png"),
+          {:controller => "home"}, :only_path => false, :target => "_blank" %>
       </div>
 
       <% for project in @projects do %>
           <div class="<%= cycle("view-lite-row-widget", "view-lite-row-alt-widget") %>">
 
-            <div class="view-lite-row-project-name-widget"><%= link_to project.symbol, project_path(project), :target => "_blank" %></div>
+            <div class="view-lite-row-project-name-widget">
+              <%= link_to project.symbol, project_path(project), :target => "_blank" %>
+            </div>
 
             <div class="pmf_clear">&nbsp;</div>
 
             <div class="view-lite-row-icon-widget">
               <a href="<%= url_for project_path(project) %>" target="_blank">
-                <%= project_icon project, "big" %>
+                <%= project_icon project, :big %>
               </a>
             </div>
 
             <div class="view-lite-row-numbers-widget">
               <ul>
-                <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login),
-                  profile_path(project.owner.profile), :target => "_blank" %></li>
+                <li class="label">Owner:</li>
+                <li class="stat">
+                  <%= link_to h(project.owner.profile.user.login),
+                    profile_path(project.owner.profile), :target => "_blank" %>
+                </li>
                 <li class="pmf_clear"></li>
                 <li class="label">Budget:</li><li class="stat">$<%= print_money project.capital_required %></li>
                 <li class="pmf_clear"></li>
@@ -55,13 +61,15 @@
         <div class="pmf_clear">&nbsp;</div>
 
         <div class="project_widget_footer">
-          <%= image_tag "widgets/projects_widget/widget-footer.png" %>
+          <%= link_to image_tag("widgets/projects_widget/widget-footer.png"),
+            {:controller => "home"}, :only_path => false, :target => "_blank" %>
         </div>
 
         <div class="pmf_clear">&nbsp;</div>
 
         <div class="project_widget_footer">
-          <%= image_tag "widgets/projects_widget/widget-footer-invite.png" %>
+          <%= link_to image_tag("widgets/projects_widget/widget-footer-invite.png"),
+            {:controller => "project_widgets"}, :only_path => false, :target => "_blank" %>
         </div>
 
         <div class="pmf_clear">&nbsp;</div>

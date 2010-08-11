@@ -10,7 +10,7 @@
       </div>
       <div class="user_info">
         <div class="user_icon">
-          <%= link_to project_icon(project_comment.project, "small"), project_path(project_comment.project) %>
+          <%= link_to project_icon(project_comment.project, :small), project_path(project_comment.project) %>
         </div>
         <div class="user_name">
           <%= link_to h(project_comment.project.title), project_path(project_comment.project) %>

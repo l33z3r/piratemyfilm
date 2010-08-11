@@ -165,7 +165,7 @@ module ApplicationHelper
     if project.icon.nil?
       "/images/generic-project-icon.png"
     else
-      url_for_file_column(project, "icon", size)
+      url_for_image_column(project, "icon", size)
     end
   end
 
