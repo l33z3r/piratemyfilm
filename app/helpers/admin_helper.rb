@@ -1,5 +1,5 @@
 module AdminHelper
-  def blog_header(blog, link_blog_header, truncate_blog_header)
+  def admin_blog_header(blog, link_blog_header, truncate_blog_header)
     if defined?(link_blog_header) && link_blog_header
       if defined?(truncate_blog_header) && truncate_blog_header
         @blog_header_content = blog.title
@@ -16,7 +16,7 @@ module AdminHelper
     end
   end
 
-  def blog_body(blog, truncate_blog_body)
+  def admin_blog_body(blog, truncate_blog_body)
     if defined?(truncate_blog_body) && truncate_blog_body
       @blog_body_content = blog.body
       @truncate_length = 50

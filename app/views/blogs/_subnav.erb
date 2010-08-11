@@ -2,6 +2,14 @@
   <div class="link">
     <%= link_to "All Blogs", :controller => :blogs, :action => "index" %> -
   </div>
+  
+  <div class="link">
+    <%= link_to "Producer Blogs", :controller => :blogs, :action => "producer" %> -
+  </div>
+
+  <div class="link">
+    <%= link_to "PMF Fund Project Comments", latest_comments_path %> -
+  </div>
 
   <div class="link">
     <span class="fund_image_blog_subnav">
@@ -14,24 +22,8 @@
     <span class="mkc_image_blog_subnav">
       <%= link_to image_tag("mkc_favicon.png", :size => "15x15"), :controller => :blogs, :action => "mkc" %>
     </span>
-    <%= link_to "maxkeiser.com Blog", :controller => :blogs, :action => "mkc" %> -
+    <%= link_to "maxkeiser.com Blog", :controller => :blogs, :action => "mkc" %>
   </div>
-
-  <div class="link">
-    <%= link_to "Producer Blogs", :controller => :blogs, :action => "producer" %> -
-  </div>
-
-  <div class="link">
-    <%= link_to "PMF Fund Project Comments", latest_comments_path %>
-  </div>
-
-  <!--div class="link">
-    <span class="mkc_image_blog_subnav">
-      <%= link_to image_tag("huffpost_favicon.png", :size => "15x15"), "http://www.huffingtonpost.com/max-keiser" %>
-    </span>
-
-    <%= link_to "Max Keiser on HuffPost", "http://www.huffingtonpost.com/max-keiser" %>
-  </div-->
 
 </div>
 
