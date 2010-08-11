@@ -17,7 +17,7 @@
   <% if @project_blogs.blank? %>
     No Blogs Found!
   <% else %>
-    <%= render :partial => 'blogs/blog', :collection => @project_blogs %>
+  <%= render :partial => '/blogs/blogs', :locals => {:blogs => @project_blogs} %>
   <% end %>
 
   <div class="pmf_clear">&nbsp;</div>

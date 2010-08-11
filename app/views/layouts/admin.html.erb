@@ -37,18 +37,17 @@
         <div id="topsite_links">
           <div id="pmf_fund_account_link_container">
             <div class="pic">
-              <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"),
+              <%= link_to image_tag("pmf-fund-icon.png"),
                 profile_path(PMF_FUND_ACCOUNT_ID) %>
             </div>
             <div class="text">
-              <%= link_to "PMF Fund", profile_path(PMF_FUND_ACCOUNT_ID) %>
+              <div class="fund_amount">
+                <%= link_to "($75,000)", profile_path(PMF_FUND_ACCOUNT_ID) %>
+              </div>
+              <div id="widget_link">
+                - <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %>
+              </div>
             </div>
-            <div class="fund_amount">
-              <%= link_to "($75,000)", profile_path(PMF_FUND_ACCOUNT_ID) %>
-            </div>
-          </div>
-          <div id="widget_link">
-            - <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %>
           </div>
         </div>
 
