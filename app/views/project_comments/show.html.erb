@@ -14,3 +14,12 @@
 <%= render :partial => 'project_comments/comment_info', 
   :locals => {:project_comment => @project_comment} %>
 </div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+  <% if_admin do %>
+    <div class="blog_admin_links">
+      <div class="button right"><%= link_to "Edit", edit_project_comment_path(@project_comment) %></div>
+      <div class="button right"><%= link_to "Delete", project_comment_path(@project_comment), :method => :delete, :confirm => 'Are you sure?', :method => :delete %></div>
+    </div>
+  <% end %>

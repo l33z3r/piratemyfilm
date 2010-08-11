@@ -40,7 +40,8 @@ class ProjectRatingController < ApplicationController
       @project.save!
 
       #add the new sample
-      ProjectRatingHistory.create(:project => @project, :user => @u, :rating => @rating)
+      ProjectRatingHistory.create(:project => @project, :user => @u,
+        :project_rating => @current_project_rating, :rating => @rating)
         
       flash[:positive] = "Project Rated!"
 

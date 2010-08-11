@@ -1,16 +1,16 @@
 class ProjectsController < ApplicationController
   
-  skip_filter :store_location, :only => [:create, :delete]
+  skip_filter :store_location, :only => [:create]
   skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param]
   before_filter :setup
   before_filter :load_project, :only => [:show, :edit, :update, :update_symbol, :update_green_light, :blogs]
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
-  before_filter :check_owner_or_admin, :only => [:edit, :update, :delete]
+  before_filter :check_owner_or_admin, :only => [:edit, :update]
   
   before_filter :load_membership_settings, :only => [:new, :create]
 
-  cache_sweeper :project_sweeper, :only => [:update, :create, :delete, :restore]
+  cache_sweeper :project_sweeper, :only => [:update, :create]
 
   def index
     if @filter_param = params[:filter_param]
@@ -64,7 +64,7 @@ class ProjectsController < ApplicationController
       @project.save!
       @hide_filter_params = true
 
-      flash[:positive] = "Project Created!"
+      flash.now[:positive] = "Project Created!"
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Project"      
       @genres = Genre.find(:all)
@@ -133,7 +133,7 @@ class ProjectsController < ApplicationController
         flash[:positive] = "Your project has been updated."
         redirect_to project_path(@project)
       rescue ActiveRecord::RecordInvalid
-        logger.debug "Error creating Project"      
+        logger.debug "Error Updating Project"
         @genres = Genre.find(:all)
         flash[:error] = "Sorry, there was a problem updating your project"
         render :action=>'edit'
@@ -258,7 +258,6 @@ class ProjectsController < ApplicationController
   end
 
   def round_budget_from_params
-
     if params[:project][:capital_required] && params[:project][:ipo_price]
       #round the funding to multiple of premium copy price
       @unrounded_budget = params[:project][:capital_required].to_f
@@ -272,7 +271,6 @@ class ProjectsController < ApplicationController
         params[:project][:capital_required] = @rounded_budget.to_i
       end
     end
-    
   end
 
 end

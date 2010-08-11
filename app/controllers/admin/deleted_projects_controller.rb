@@ -23,6 +23,9 @@ class Admin::DeletedProjectsController < Admin::AdminController
       subscription.destroy
     end
 
+    #reset the member rating by deleting the member rating history
+    @project.project_rating.destroy
+
     flash[:positive] = "Project has been deleted!"
     redirect_to :controller => "/home", :action => "index"
   end

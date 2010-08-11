@@ -1,8 +1,8 @@
 class ProjectCommentsController < ApplicationController
-
   skip_before_filter :login_required
   before_filter :load_project, :only => :index
-  before_filter :load_comment, :only => :show
+  before_filter :check_admin, :only => [:edit, :update, :destroy]
+  before_filter :load_comment, :only => [:show, :edit, :update, :destroy]
 
   def latest
     @project_comments = ProjectComment.latest.paginate :page => (params[:page] || 1), :per_page=> 15
@@ -16,7 +16,34 @@ class ProjectCommentsController < ApplicationController
     
   end
 
+  def edit
+
+  end
+
+  def update
+    if request.put?
+      begin
+        @project_comment.update_attributes!(params[:project_comment])
+        flash[:positive] = "Comment has been updated."
+        redirect_to project_comment_path(@project_comment)
+      rescue ActiveRecord::RecordInvalid
+        flash[:error] = "Error Updating Comment"
+        render :action=>'edit'
+      end
+    end
+  end
+  
+  def destroy
+    @project_comment.destroy
+    flash[:positive] = "Comment Deleted!"
+    redirect_to home_path
+  end
+
   private
+
+  def check_admin
+    @u && @u.is_admin
+  end
 
   def load_project
     begin

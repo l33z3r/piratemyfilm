@@ -1,0 +1,26 @@
+<div class="pageTitle">Latest PMF Fund Project Comments</div>
+
+<%= render :partial => "/blogs/subnav" %>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div id="sub_nav">
+  <%= link_to "Back to Comment", {:controller => "project_comments", :action => "show",
+    :id => @project_comment.id}, :class => "subnav_inactive" %>
+</div>
+
+<% form_for @project_comment, edit_project_comment_path do |f| %>
+<fieldset>
+  <ol>
+    <li id="comment">
+      <label>Edit Comment Text</label>
+      <%= f.text_area :body %>
+    </li>
+    <li>
+      <label>&nbsp;</label>
+      <input type="submit" value="Submit"/>
+  </tr>
+    </li>
+  </ol>
+</fieldset>
+<% end %>

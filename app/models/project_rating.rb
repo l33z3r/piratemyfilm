@@ -12,7 +12,7 @@
 
 class ProjectRating < ActiveRecord::Base
   belongs_to :project
-  has_many :project_rating_histories
+  has_many :project_rating_histories, :dependent => :destroy
 
   @@MAX_RATING = 10
 

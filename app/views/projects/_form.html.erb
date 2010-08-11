@@ -118,6 +118,26 @@
 
   <tr>
     <td>
+      Enter the name of the editor
+    </td>
+    <td>
+      <%= f.text_field :editor %>
+      <%= display_error_on(project, :editor) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the director of photography
+    </td>
+    <td>
+      <%= f.text_field :director_photography %>
+      <%= display_error_on(project, :director_photography) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
       Enter the name of the director
     </td>
     <td>

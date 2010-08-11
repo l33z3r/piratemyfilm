@@ -344,6 +344,7 @@ div#filter_param_box div.label {
     float: right;
     margin-top: 3px;
     width: auto;
+    font-size: 14px;
 }
 
 div#filter_param_box form select {
@@ -1561,7 +1562,7 @@ div.blog div.blog_left div.info {
 
 div.blog div.blog_left div.info div.blog_type {
     float: left;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 div.blog div.blog_left div.info div.blog_type a {
@@ -1572,6 +1573,7 @@ div.blog div.blog_left div.info div.blog_type a {
 div.blog div.blog_left div.info div.user_info {
     float: left;
     margin-right: 4px;
+    margin-top: -5px;
 }
 
 div.blog div.blog_left div.info div.user_info div.user_icon {
@@ -1579,13 +1581,18 @@ div.blog div.blog_left div.info div.user_info div.user_icon {
     margin-right: 4px;
 }
 
-div.blog div.blog_left div.info div.user_info div.user_name {
-    float: left;
+div.blog div.blog_left div.info div.user_info div.user_icon a img {
+    height: 25px;
+    width: 25px;
 }
 
-div.blog div.blog_left div.info div.user_info div.user_icon a img {
-    height: 15px;
-    width: 15px;
+div.blog div.blog_left div.info div.user_info div.user_name {
+    float: left;
+    margin-top: 3px;
+}
+
+div.blog div.blog_left div.info div.user_info div.user_name a {
+    font-weight: bold;
 }
 
 div.blog div.blog_left div.info div.project_title {

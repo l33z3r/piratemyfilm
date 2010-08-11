@@ -11,8 +11,8 @@
 <div id="blog_<%= @blog.id %>" class="border_top blog">
 
   <%= render :partial => "/blogs/templates/#{blog_template_name(@blog)}",
-    :locals => {:blog => @blog, :truncate_blog => true,
-      :link_blog_header => true } %>
+    :locals => {:blog => @blog, :truncate_blog => false,
+      :link_blog_header => false } %>
 
   <div class="pmf_clear">&nbsp;</div>
 
