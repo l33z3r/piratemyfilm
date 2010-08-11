@@ -1,5 +1,6 @@
 class ProjectWidgetsController < ApplicationController
 
+  skip_before_filter :login_required
   before_filter :set_params
 
   def index

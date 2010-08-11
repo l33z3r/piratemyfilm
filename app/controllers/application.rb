@@ -89,7 +89,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_filter_params
-    @filter_params = Project.filter_params
+    @filter_params = Project.filter_param_select_opts
   end
 
   def print_money value

@@ -14,15 +14,11 @@ class ProjectsController < ApplicationController
 
   def index
     if @filter_param = params[:filter_param]
-      @filtered = true      
-
       @filter = Project.get_filter_sql @filter_param
       @order = Project.get_order_sql @filter_param
 
       @projects = Project.find_all_public(:conditions => @filter, :order=> @order).paginate :page => (params[:page] || 1), :per_page=> 15
-      
     else
-      @filtered = false
       @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 15
     end
   end

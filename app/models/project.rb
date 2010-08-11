@@ -271,12 +271,55 @@ class Project < ActiveRecord::Base
     self.save!
   end
 
-  def self.filter_params
-    ["Please Choose...", "% Funded", "Budget", "Funds Reserved", 
-      "PMF Fund Rating", "Member Rating", "Newest", "Oldest",
-      "Producer Dividend", "Shareholder Dividend", "PMF Fund Dividend",
-      "% PMF Fund Shares", "Green Lit"
-    ]
+  def self.get_filter_sql filter_param
+    @filter = filter_param.to_s.strip.downcase
+
+    ##TODO: move to an enum
+    case @filter
+    when "green lit" then return "green_light is NOT NULL"
+    else return nil
+    end
+  end
+
+  @@filter_params_map = {
+    1 => "Please Choose...", 2 => "% Funded", 3 => "Budget",
+    4 => "Funds Reserved", 5 => "PMF Fund Rating", 6 => "Member Rating",
+    7 => "Newest", 8 => "Oldest", 9 => "Producer Dividend", 10 => "Shareholder Dividend",
+    11 => "PMF Fund Dividend", 12 => "% PMF Fund Shares", 13 => "Green Lit"
+  }
+
+  def self.get_order_sql filter_param
+    case filter_param
+    when "2" then return "percent_funded DESC"
+    when "3" then return "capital_required DESC"
+    when "4" then return "(downloads_reserved * ipo_price) DESC"
+    when "5" then return "admin_rating DESC"
+    when "6" then return "member_rating DESC"
+    when "7" then return "created_at DESC"
+    when "8" then return "created_at ASC"
+    when "9" then return "producer_dividend DESC"
+    when "10" then return "shareholder_dividend DESC"
+    when "11" then return "fund_dividend DESC"
+    when "12" then return "pmf_fund_investment_percentage DESC"
+    when "13" then return "green_light DESC"
+    else return "created_at DESC"
+    end
+  end
+
+  def self.filter_param_select_opts
+    @filter_param_select_opts = []
+
+    @@filter_params_map.each {  |key, value|
+      @filter_param_select_opts << [value, key.to_s]
+    }
+
+    @filter_param_select_opts.sort! { |arr1, arr2|
+      arr2[1].to_i <=> arr1[1].to_i
+    }
+
+    @filter_param_select_opts.reverse!
+
+    @filter_param_select_opts
   end
 
   def is_public
@@ -323,37 +366,6 @@ class Project < ActiveRecord::Base
 
   def update_recycled_percent
     self.capital_recycled_percent = 100 - share_percent_ads_producer
-  end
-
-  def self.get_filter_sql filter_param
-    @filter = filter_param.to_s.strip.downcase
-
-    ##TODO: move to an enum
-    case @filter
-    when "green lit" then return "green_light is NOT NULL"
-    else return nil
-    end
-  end
-
-  def self.get_order_sql filter_param
-    @filter = filter_param.to_s.strip.downcase
-
-    ##TODO: move to an enum
-    case @filter
-    when "% funded" then return "percent_funded DESC"
-    when "funds reserved" then return "(downloads_reserved * ipo_price) DESC"
-    when "budget" then return "capital_required DESC"
-    when "member rating" then return "member_rating DESC"
-    when "pmf fund rating" then return "admin_rating DESC"
-    when "newest" then return "created_at DESC"
-    when "oldest" then return "created_at ASC"
-    when "producer dividend" then return "producer_dividend DESC"
-    when "shareholder dividend" then return "shareholder_dividend DESC"
-    when "pmf fund dividend" then return "fund_dividend DESC"
-    when "% pmf fund shares" then return "pmf_fund_investment_percentage DESC"
-    when "green lit" then return "green_light DESC"
-    else return "created_at DESC"
-    end
   end
 
 end
