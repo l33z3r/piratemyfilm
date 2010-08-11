@@ -1,0 +1,54 @@
+<div id="profile">
+  <div id="profile_section">
+
+    <div class="half left">
+      <div class="pageTitle">
+        <% if @p == @profile %>
+          My
+        <% else %>
+          <%=@profile.user.login%>'s
+        <% end %>
+        Profile
+      </div>
+
+      <div class="activity_box learn">
+        <div class="left avatar"><%= icon @profile, :medium %></div>
+        <div class="right bio_stuff">
+          <div class="user_name"><%= h @profile.f %></div>
+
+          <div id="user_info">
+            <% unless @profile.last_activity_at.blank? %>
+              <div class="label">Last Active:</div>
+              <div class="value"><%= time_ago_in_words @profile.last_activity_at %> ago</div>
+            <% end %>
+
+            <div class="pmf_clear">&nbsp;</div>
+
+            <% if @profile.home_country %>
+              <div class="label">Home Country:</div>
+              <div class="value"><%= @profile.home_country.name %></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+    </div>
+
+    <%= render :partial => "membership_info" %>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <div class="profile_links">
+      <% if @p == @profile %>
+        <div class="button">
+          <%= link_to "Edit Profile", edit_profile_path %>
+        </div>
+      <% end %>
+
+      <div class="button">
+        <%= link_to "View Portfolio", portfolio_profile_path(@p) %>
+      </div>
+
+    </div>
+  </div>
+</div>

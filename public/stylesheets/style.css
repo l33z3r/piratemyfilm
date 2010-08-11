@@ -122,7 +122,6 @@ div#hp_latest_blog div.blog_comments_link {
 }
 
 div#signup_section {
-    width: 310px;
     float: right;
 }
 
@@ -154,22 +153,43 @@ div#signup_section div#signup_buttons div.login {
     background-color: #999999;
 }
 
-div#signup_section div#welcome_message a img {
-    float: right;
-    height: 70px;
+div#signup_section div#welcome_message div#icon {
+    float: left;
+    margin-top: -3px;
+    margin-right: 5px;
+}
+
+div#signup_section div#welcome_message div#icon a img {
+    height: 20px;
     border: 1px solid #999999;
 }
 
-div#signup_section div#welcome_message span#message {
+div#signup_section div#welcome_message div#message {
     float: right;
     text-align: right;
     margin-right: 10px;
     font-weight: bold;
 }
 
-div#signup_section div#welcome_message span#message a {
+div#signup_section div#welcome_message div#message a {
     font-weight: normal;
     clear: both;
+    color: #000000;
+}
+
+div#signup_section div#welcome_message div#links {
+    margin-top: 3px;
+    margin-left: 5px;
+}
+
+div#signup_section div#welcome_message div#links div.link {
+    float: left;
+}
+
+div#signup_section div#welcome_message div#links div.link a {
+    color: #000000;
+    text-decoration: underline;
+    font-size: 12px;
 }
 
 /* Latest Max Blog */
@@ -244,7 +264,7 @@ div#topsite_links {
 div#topsite_links div#widget_link {
     float: left;
     margin: 2px 0px 0px 6px;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 div#topsite_links div#widget_link a {
@@ -261,7 +281,7 @@ div#topsite_links div#pmf_fund_account_link_container div.pic {
 }
 
 div#topsite_links div#pmf_fund_account_link_container div.text {
-    margin: 2px 0px 0px 6px;
+    margin: 12px 0px 0px 6px;
     font-weight: bold;
     float: left;
 }
@@ -275,6 +295,11 @@ div#topsite_links div#pmf_fund_account_link_container div.fund_amount {
 div#topsite_links div#pmf_fund_account_link_container div.text a {
     color: black;
     text-decoration: underline;
+}
+
+div#topsite_links div#pmf_fund_account_link_container div.text div.fund_amount a {
+    color: #666666;
+    text-decoration: none;
 }
 
 /* Top Menu */
@@ -1510,8 +1535,6 @@ div.project_listings .blog-row {
 
 /* blogs */
 
-
-
 div.blog-row {
     margin-top: 10px;
 }
@@ -1631,6 +1654,35 @@ div#subnav_links span.mkc_image_blog_subnav {
 div.comment_scroll div.profile-pic a img {
     width: 70px;
     height: 70px;
+}
+
+div#producer_blog_header {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+div#producer_blog_header div.text {
+    float: left;
+    margin-right: 4px;
+}
+
+div#producer_blog_header div.user_info div.user_icon {
+    float: left;
+}
+
+div#producer_blog_header div.user_info div.user_icon a img {
+    height: 20px;
+    margin-right: 4px;
+}
+
+div#producer_blog_header div.user_info div.user_name {
+    float: left;
+}
+
+div#producer_blog_header div.user_info div.user_name a {
+    font-weight: bold;
+    font-size: 12px;
 }
 
 /* end blogs */
@@ -2247,6 +2299,14 @@ div.square div.msg {
 div.project_listings_widget {
     width: 298px;
     border: 1px solid black;
+}
+
+div.project_listings_widget div.project_widget_header img {
+    width: 297px;
+}
+
+div.project_listings_widget div.project_widget_footer img {
+    width: 297px;
 }
 
 .view-lite-row-widget	{

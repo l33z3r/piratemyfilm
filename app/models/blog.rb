@@ -89,6 +89,14 @@ class Blog < ActiveRecord::Base
       :order=>"blogs.created_at DESC")
   end
 
+  def self.user_blogs user
+    @profile_id = user.profile.id
+
+    find(:all, :include => :project, :conditions => "guid is null and is_admin_blog = false and
+      projects.symbol is not null and projects.is_deleted = false and blogs.profile_id =  #{@profile_id}",
+      :order=>"blogs.created_at DESC")
+  end
+
   def self.admin_blogs
     find_all_by_is_admin_blog(true, :order => "created_at DESC")
   end

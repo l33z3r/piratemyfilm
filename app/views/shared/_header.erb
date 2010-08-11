@@ -42,19 +42,8 @@
 
       <% if logged_in %>
         <div class="local-navbar-button">
-          <span><%= link_to 'My Portfolio', profile_path(@p, :show_portfolio => "true") %></span>
-          <p>Your PMF portfolio</p>
-        </div>
-        <div class="local-navbar-button">
-          <span><%= link_to 'Settings', edit_profile_path(@p) %></span>
-          <p>Edit your profile</p>
-        </div>
-      <% end %>
-
-      <%- if_admin do %>
-        <div class="local-navbar-button">
-          <span><%= link_to 'Admin', :controller => "admin/home" %></span>
-          <p>Admin Area</p>
+          <span><%= link_to 'My Profile', profile_path(@p) %></span>
+          <p>Your PMF profile</p>
         </div>
       <% end %>
 

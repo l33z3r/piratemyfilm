@@ -4,14 +4,9 @@
   <link rel="image_src" href="<%= blog_icon_path @blog, "big" %>"/>
 <% end %>
 
-<% if show_blog_edit_buttons %>
-  <div class="blog_admin_links">
-    <div class="button right"><%= link_to "Edit", :action => "edit", :id => @blog.id %></div>
-    <div class="button right"><%= link_to "Delete", blog_path(@blog), :confirm => 'Are you sure?', :method => :delete %></div>
-  </div>
-<% end %>
+<%= render :partial => "/blogs/subnav" %>
 
-<div class="pmf_clear_bottom_border">&nbsp;</div>
+<div class="dashed_light_border">&nbsp;</div>
 
 <div id="blog_<%= @blog.id %>" class="border_top blog">
 
@@ -19,6 +14,13 @@
     :locals => {:blog => @blog } %>
 
   <div class="pmf_clear">&nbsp;</div>
+
+  <% if show_blog_edit_buttons %>
+    <div class="blog_admin_links">
+      <div class="button right"><%= link_to "Edit", :action => "edit", :id => @blog.id %></div>
+      <div class="button right"><%= link_to "Delete", blog_path(@blog), :confirm => 'Are you sure?', :method => :delete %></div>
+    </div>
+  <% end %>
 
   <% if !@blog.is_mkc_blog %>
     <div class="pageTitle">

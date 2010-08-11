@@ -1,5 +1,20 @@
 <div class="pageTitle">Producer Blogs</div>
 
+<% if @user %>
+  <div id="producer_blog_header">
+    <div class="text">By</div>
+    <div class="user_info">
+      <div class="user_icon">
+        <%= link_to icon(@user.profile, "small"), profile_path(@user.profile) %>
+      </div>
+      <div class="user_name">
+        <%= link_to h(@user.login), profile_path(@user.profile) %>
+      </div>
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
+  </div>
+<% end %>
+
 <%= render :partial => "/blogs/subnav" %>
 
 <div class="dashed_light_border">&nbsp;</div>

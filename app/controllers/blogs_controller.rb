@@ -24,9 +24,25 @@ class BlogsController < ApplicationController
   end
 
   def producer
-    @blogs = Blog.producer_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+    @user_id = params[:user_id]
+
+    if !@user_id
+      @blogs = Blog.producer_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+    else
+      begin
+        @user = User.find(@user_id)
+        @blogs = Blog.user_blogs(@user).paginate :page => (params[:page] || 1), :per_page=> 15
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "User not found!"
+        redirect_to :action => "index"
+      end
+    end
   end
-  
+
+  def member
+    
+  end
+
   def admin
     @blogs = Blog.admin_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
   end

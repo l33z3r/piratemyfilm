@@ -1,9 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :blogs, :only => [:show, :homepage]
-
-  map.connect "admin", :controller => "blogs", :action => "admin"
-  map.connect "producer", :controller => "blogs", :action => "producer"
-  map.connect "mkc", :controller => "blogs", :action => "mkc"
+  map.resources :blogs,
+    :collection => {:admin => :get, :producer => :get, :mkc => :get}
 
   map.resources :project_comments
 
@@ -20,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.latest_comments "latest_comments", :controller => "project_comments", :action => "latest"
 
   map.resources :profiles, 
-    :member=>{:delete_icon=>:post}, :collection=>{:search=>:get}, 
+    :member=>{:delete_icon=>:post, :portfolio=>:get}, :collection=>{:search=>:get},
     :has_many=>[:friends, :blogs, :photos, :comments, :feed_items, :messages]
 
   map.resources :messages, :collection => {:sent => :get}

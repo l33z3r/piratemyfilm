@@ -6,37 +6,14 @@ class ProfilesController < ApplicationController
   skip_filter :login_required, :only=>[:show, :index, :feed, :search]
 
   def show
-    unless @profile.youtube_username.blank?
-      begin
-        client = YouTubeG::Client.new
-        @video = client.videos_by(:user => @profile.youtube_username).videos.first
-      rescue Exception, OpenURI::HTTPError
-      end
-    end
-    
-#    begin
-#      @flickr = @profile.flickr_username.blank? ? [] : flickr_images(flickr.people.findByUsername(@profile.flickr_username))
-#    rescue Exception, OpenURI::HTTPError
-#      @flickr = []
-#    end
-      
-    @user_projects = @profile.user.owned_public_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
-
-    @user_subscriptions = @profile.user.subscribed_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
-    
-    @comments = @profile.comments.paginate(:page => @page, :per_page => @per_page)
-    
-    respond_to do |wants|
-      wants.html do
-        @feed_items = @profile.feed_items
-      end
-      wants.rss do 
-        @feed_items = @profile.feed_items
-        render :layout => false
-      end
-    end
+    render :action => "profile"
   end
   
+  def portfolio
+    @user_projects = @profile.user.owned_public_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
+    @user_subscriptions = @profile.user.subscribed_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
+  end
+
   def search
     render
   end
@@ -79,19 +56,19 @@ class ProfilesController < ApplicationController
     end      
   end
 
-#  def destroy
-#    respond_to do |wants|
-#     @user.destroy
-#      cookies[:auth_token] = {:expires => Time.now-1.day, :value => ""}
-#      session[:user] = nil
-#      wants.js do
-#        render :update do |page|
-#          page.alert('Your user account, and all data, have been deleted.')
-#          page << 'location.href = "/";'
-#        end
-#      end
-#    end
-#  end
+  #  def destroy
+  #    respond_to do |wants|
+  #     @user.destroy
+  #      cookies[:auth_token] = {:expires => Time.now-1.day, :value => ""}
+  #      session[:user] = nil
+  #      wants.js do
+  #        render :update do |page|
+  #          page.alert('Your user account, and all data, have been deleted.')
+  #          page << 'location.href = "/";'
+  #        end
+  #      end
+  #    end
+  #  end
 
   private
   

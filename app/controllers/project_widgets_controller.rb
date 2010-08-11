@@ -13,6 +13,7 @@ class ProjectWidgetsController < ApplicationController
     @widget_params = "?num_projects=#{@num_projects}&filter_param=#{@filter_param}"
     @widget_url = url_for(:action => "render_widget", :only_path => false)
     @widget_url += @widget_params
+#    @widget_url = URI.escape(@widget_url)
     @frame_height = 122 * @num_projects
     @frame_height += 135
     @generated_code = "<iframe width='300' height='#{@frame_height}' frameborder='0' scrolling='no' src='#{@widget_url}'></iframe>"
