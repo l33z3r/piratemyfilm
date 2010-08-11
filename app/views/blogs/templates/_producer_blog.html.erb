@@ -1,5 +1,3 @@
-<%= render :partial => "/blogs/templates/blog_header_vars" %>
-
 <div class="blog-row blog">
 
   <div class="blog_left">
@@ -22,16 +20,16 @@
       <div class="pmf_clear">&nbsp;</div>
 
       <div class="project_title">
-        <%= blog_project_header(blog, @truncate_blog) %> -
+        <%= blog_project_header(blog, truncate_blog) %> -
       </div>
       <div class="blog_title">
-        <%= blog_header(blog, @link_blog_header, @truncate_blog) %>
+        <%= blog_header(blog, link_blog_header, truncate_blog) %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
 
       <div class="blog_body">
-        <%= blog_body(blog, @truncate_blog) %>
+        <%= blog_body(blog, truncate_blog) %>
       </div>
     </div>
   </div>

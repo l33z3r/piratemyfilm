@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <meta name="title" content="<%= h @project_comment.project.title %>" />
   <meta name="description" content="<%= h @project_comment.body %>" />
-  <link rel="image_src" href="<%= project_icon_path @project_comment.project, "big" %>" />
+  <link rel="image_src" href="<%= project_icon_path @project_comment.project, :big %>" />
 <% end %>
 
 <div class="pageTitle">PMF Fund Project Comment</div>

@@ -6,7 +6,8 @@
 
 <div id="blog_<%= @blog.id %>" class="border_top blog">
 
-  <%= render :partial => "blog_info", :locals => {:blog => @blog} %>
+  <%= render :partial => "blog", :locals => {:blog => @blog,
+    :truncate_blog => true, :link_blog_header => true} %>
 
   <div class="pmf_clear">&nbsp;</div>
 

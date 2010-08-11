@@ -24,8 +24,8 @@ class HomeController < ApplicationController
   end
 
   def fourohfour
-    flash[:notice] = 'Seems that the page you were looking for does not exist!'
-    redirect_to :action => 'index'
+    flash[:error] = 'Seems that the page you were looking for does not exist!'
+    redirect_to home_path
   end
 
   private

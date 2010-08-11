@@ -10,8 +10,4 @@
 
 <div class="pmf_clear">&nbsp;</div>
 
-<% if @blogs.empty? %>
-  No Blogs Found!
-<% else %>
-  <%= render :partial => '/admin/admin_blogs/blog', :collection => @blogs %>
-<% end %>
+<%= render :partial => '/admin/admin_blogs/blogs', :locals => {:blogs => @blogs} %>
