@@ -1,4 +1,4 @@
 <%
-  link_blog_header = nil unless defined?(link_blog_header)
-  truncate_blog = nil unless defined?(truncate_blog)
+  @link_blog_header = defined?(link_blog_header) ? link_blog_header : nil
+  @truncate_blog = defined?(truncate_blog) ? truncate_blog : nil
 %>
