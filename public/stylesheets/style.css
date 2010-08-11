@@ -1538,6 +1538,7 @@ div.project_listings .blog-row {
 
 div.blog-row {
     margin-top: 10px;
+    min-height: 100px;
 }
 
 div.blog div.blog_left {
@@ -1563,6 +1564,7 @@ div.blog div.blog_left div.info {
 div.blog div.blog_left div.info div.blog_type {
     float: left;
     margin-right: 10px;
+    font-size: 13px;
 }
 
 div.blog div.blog_left div.info div.blog_type a {
