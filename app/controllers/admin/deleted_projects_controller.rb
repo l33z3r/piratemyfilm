@@ -24,7 +24,7 @@ class Admin::DeletedProjectsController < Admin::AdminController
     end
 
     #reset the member rating by deleting the member rating history
-    @project.project_rating.destroy
+    @project.project_rating.destroy unless !@project.project_rating
 
     flash[:positive] = "Project has been deleted!"
     redirect_to :controller => "/home", :action => "index"
@@ -34,23 +34,21 @@ class Admin::DeletedProjectsController < Admin::AdminController
     #check the owners limits on projects listed if membership not black pearl
     @membership = @project.owner.membership.membership_type
 
-    if @membership.name != "Black Pearl"
-      @user_projects = @project.owner.owned_public_projects
-      @max_projects = @membership.max_projects_listed
+    @user_projects = @project.owner.owned_public_projects
+    @max_projects = @membership.max_projects_listed
 
-      if @user_projects.length >= @max_projects
-        flash[:error]  = "Cannot restore project, user limited to #{@max_projects} projects."
-        redirect_to :action => "show_private", :id => @project and return
-      end
-
-      #modify the budget according to the users limits
-      if @project.capital_required > @membership.funding_limit_per_project
-        @project.capital_required = @membership.funding_limit_per_project
-      elsif @project.capital_required < @membership.min_funding_limit_per_project
-        @project.capital_required = @membership.min_funding_limit_per_project
-      end
+    if @user_projects.length >= @max_projects
+      flash[:error]  = "Cannot restore project, user limited to #{@max_projects} projects."
+      redirect_to :action => "show", :id => @project and return
     end
 
+    #modify the budget according to the users limits
+    if @project.capital_required > @membership.funding_limit_per_project
+      @project.capital_required = @membership.funding_limit_per_project
+    elsif @project.capital_required < @membership.min_funding_limit_per_project
+      @project.capital_required = @membership.min_funding_limit_per_project
+    end
+    
     #now restore the project
     @project.restore
 

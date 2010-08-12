@@ -14,35 +14,19 @@
           <li>You are currently on <b><%= @u.membership_type.name %></b> Membership</li>
 
           <li>
-            <% unless @u.membership_type.max_projects_listed == -1 %>
-              You can list up to <b><%= @u.membership_type.max_projects_listed %></b> projects
-            <% else %>
-              You can list an <b>unlimited</b> number of your own projects,
-            <% end %>
+            You can list up to <b><%= @u.membership_type.max_projects_listed %></b> projects
           </li>
 
           <li>
-            <% unless @u.membership_type.funding_limit_per_project == -1 %>
-              Budget max is <b>$<%= @u.membership_type.funding_limit_per_project %></b>
-            <% else %>
-              each with an <b>unlimited</b> budget
-            <% end %>
+            Budget max is <b>$<%= @u.membership_type.funding_limit_per_project %></b>
           </li>
 
           <li>
-            <% unless @u.membership_type.pc_limit == -1 %>
-              You can reserve up to <b><%= @u.membership_type.pc_limit %></b> shares of any one project
-            <% else %>
-              You can reserve <b>unlimited</b> shares of any one project
-            <% end %>
+            You can reserve up to <b><%= @u.membership_type.pc_limit %></b> shares of any one project
           </li>
 
           <li>
-            <% unless @u.membership_type.pc_project_limit == -1 %>
-              You can reserve shares in up to <b><%= @u.membership_type.pc_project_limit %></b> projects
-            <% else %>
-              You can reserve shares in an <b>unlimited</b> amount of projects
-            <% end %>
+            You can reserve shares in up to <b><%= @u.membership_type.pc_project_limit %></b> projects
           </li>
         </ul>
       </div>

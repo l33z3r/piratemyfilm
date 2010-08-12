@@ -28,11 +28,9 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    unless @project_limit == -1
-      if @u.owned_public_projects.size >= @project_limit
-        flash[:error] = "Sorry you have reached your limit of #{@project_limit} project listings"
-        redirect_to :controller => "projects" and return
-      end
+    if @u.owned_public_projects.size >= @project_limit
+      flash[:error] = "Sorry you have reached your limit of #{@project_limit} project listings"
+      redirect_to :controller => "projects" and return
     end
       
     @project = Project.new
@@ -42,11 +40,9 @@ class ProjectsController < ApplicationController
 
   def create
     begin
-      unless @project_limit == -1
-        if @u.owned_public_projects.size >= @project_limit
+      if @u.owned_public_projects.size >= @project_limit
           flash[:error] = "Sorry you have reached your limit of #{project_limit} project listings"
           redirect_to :controller => "projects" and return
-        end
       end
 
       round_budget_from_params
@@ -94,7 +90,7 @@ class ProjectsController < ApplicationController
       if @project.green_light.nil?
         if !@project.budget_reached?
           flash[:error] = "Project must have 100% budget to be Green!"
-      redirect_to project_path(@project) and return
+          redirect_to project_path(@project) and return
         end
         @green_light = Time.now
       end
@@ -183,7 +179,7 @@ class ProjectsController < ApplicationController
     if @u
       @max_subscription = @u.membership_type.pc_limit
 
-      if @my_subscription and (@max_subscription != -1)
+      if @my_subscription
         @max_subscription_reached = @my_subscription.amount >= @max_subscription
       end
     end
@@ -194,10 +190,8 @@ class ProjectsController < ApplicationController
     if @u and !@my_subscription
       @number_projects_subscribed_to = @u.project_subscriptions.size
       @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
-      unless @max_overall_project_subscriptions == -1
-        @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
+      @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
       end
-    end
 
     @admin_rating = @project.admin_rating
     @user_rating = @project.user_rating

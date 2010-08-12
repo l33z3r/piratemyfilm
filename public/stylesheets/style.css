@@ -167,7 +167,6 @@ div#signup_section div#welcome_message div#icon a img {
 div#signup_section div#welcome_message div#message {
     float: right;
     text-align: right;
-    margin-right: 10px;
     font-weight: bold;
 }
 
@@ -179,7 +178,7 @@ div#signup_section div#welcome_message div#message a {
 
 div#signup_section div#welcome_message div#links {
     margin-top: 3px;
-    margin-left: 5px;
+    float: right;
 }
 
 div#signup_section div#welcome_message div#links div.link {

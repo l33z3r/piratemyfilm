@@ -156,9 +156,6 @@ class User < ActiveRecord::Base
   #takes the users current membership and applies the limits of that
   #membership to their account
   def apply_membership_limits
-    #if we are on black pearl membership we dont apply limits
-    return if membership.membership_type.name == "Black Pearl"
-
     #firstly, delete the latest projects over the listing limit
     @user_projects = owned_public_projects
     @num_projects_delete = @user_projects.length - membership.membership_type.max_projects_listed

@@ -17,20 +17,16 @@ class ProjectSubscriptionsController < ApplicationController
       @max_subscription_reached == false
 
       @max_subscription = @u.membership_type.pc_limit
-      unless @max_subscription == -1
-        @max_subscription_reached = @project_subscription && @project_subscription.amount >= @max_subscription
-      end
-
+      @max_subscription_reached = @project_subscription && @project_subscription.amount >= @max_subscription
+      
       #a user can have a pcs in a maximum of pc_project_limit projects
       @max_project_subscription_reached = false
 
       if !@project_subscription
         @number_projects_subscribed_to = @u.project_subscriptions.size
         @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
-        unless @max_overall_project_subscriptions == -1
-          @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
+        @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
         end
-      end
 
       if !@project_subscription.nil?
         if @max_subscription_reached or @max_project_subscription_reached

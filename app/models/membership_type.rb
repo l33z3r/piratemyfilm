@@ -15,17 +15,16 @@
 #
 
 class MembershipType < ActiveRecord::Base
-  #we're working on the premise that if an integer attribute value is "unlimited"
-  #it will be set to 'nil' in the database. Since we're adding all data to the database
-  #via migration, this will not present a problem
-
+  
   has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
 
   #options for select as they will appear in the view:
-  @@SELECT_OPTIONS = [1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, "unlimited"]
+  @@SELECT_OPTIONS = [1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 100,
+    200, 500, 1000, 10000, 100000]
   @@MIN_FUNDING_OPTIONS = [0, 500, 1000, 2000, 3000, 5000]
-  @@FUNDING_OPTIONS = [5000, 10000, 15000, 20000, 25000, 30000, 40000, 50000, 75000, 100000, 250000, 500000]
+  @@FUNDING_OPTIONS = [5000, 10000, 15000, 20000, 25000, 30000, 40000, 50000,
+    75000, 100000, 250000, 500000, 1000000]
 
   #here we are validating presence of membership_type name, we are also ensuring
   #that this attribute is inaccessible. This improves security by ensuring that
@@ -45,11 +44,6 @@ class MembershipType < ActiveRecord::Base
 
   def self.funding_options
     @@FUNDING_OPTIONS
-  end
-
-  def update_unlimited_param(attribute)
-    self[attribute] = -1
-    self.save!
   end
   
 end

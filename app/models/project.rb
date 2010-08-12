@@ -262,13 +262,13 @@ class Project < ActiveRecord::Base
   def delete
     self.is_deleted = true
     self.deleted_at = Time.now
-    self.save!
+    self.save(false)
   end
 
   def restore
     self.is_deleted = false
     self.deleted_at = nil
-    self.save!
+    self.save(false)
   end
 
   def self.get_filter_sql filter_param
@@ -350,7 +350,7 @@ class Project < ActiveRecord::Base
   def funding_limit_not_exceeded
     funding_limit = owner.membership_type.funding_limit_per_project
     
-    if self.capital_required > funding_limit && funding_limit != -1
+    if self.capital_required > funding_limit
       errors.add(:capital_required, " must be less than $#{funding_limit}, the limit for your membership type.")
     end
   end

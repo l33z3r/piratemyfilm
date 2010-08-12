@@ -8,11 +8,7 @@
       <% elsif @max_project_subscription_reached %>
         <li><b>You cannot reserve shares for any more projects. You will soon be able to upgrade your subscription.</b></li>
       <% else %>
-        <% unless @max_subscription == -1 %>
-          <li>You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> shares.</li>
-        <% else %>
-          <li>You can reserve unlimited shares.</li>
-        <% end %>
+        <li>You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> shares.</li>
       <% end %>
     </ul>
     <% if !@max_subscription_reached && !@max_project_subscription_reached %>

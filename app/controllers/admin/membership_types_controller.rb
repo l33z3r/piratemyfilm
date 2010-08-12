@@ -11,8 +11,6 @@ class Admin::MembershipTypesController < Admin::AdminController
     @membership_type = MembershipType.find(params[:id])
     
     if @membership_type.update_attributes(params)
-      check_for_unlimited(params, @membership_type)
-      
       User.apply_all_membership_limits
       flash[:notice] = 'Membership type was successfully updated.'
     else
@@ -23,14 +21,6 @@ class Admin::MembershipTypesController < Admin::AdminController
 
   private
 
-  def check_for_unlimited(params, membership_type)
-    params.each do |param|
-      if param[1] == "unlimited"
-        membership_type.update_unlimited_param(param[0])
-      end
-    end
-  end
-  
   def set_selected_tab
     @selected_tab_name = "membership_types"
   end
