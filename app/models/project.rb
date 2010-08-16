@@ -206,6 +206,7 @@ class Project < ActiveRecord::Base
     @subscription_amount = ProjectSubscription.calculate_amount @subscriptions
 
     if @subscription_amount >= 0
+      self.pmf_fund_investment_share_amount = @subscription_amount
       self.pmf_fund_investment_percentage = (@subscription_amount/total_copies) * 100
     end
   end
@@ -301,7 +302,8 @@ class Project < ActiveRecord::Base
     1 => "Please Choose...", 2 => "% Funded", 3 => "Budget",
     4 => "Funds Reserved", 5 => "PMF Fund Rating", 6 => "Member Rating",
     7 => "Newest", 8 => "Oldest", 9 => "Producer Dividend", 10 => "Shareholder Dividend",
-    11 => "PMF Fund Dividend", 12 => "% PMF Fund Shares", 13 => "Green Lit"
+    11 => "PMF Fund Dividend", 12 => "% PMF Fund Shares", 13 => "No. PMF Fund Shares",
+    14 => "Green Lit"
   }
 
   def self.get_order_sql filter_param
@@ -317,7 +319,8 @@ class Project < ActiveRecord::Base
     when "10" then return "shareholder_dividend DESC"
     when "11" then return "fund_dividend DESC"
     when "12" then return "pmf_fund_investment_percentage DESC"
-    when "13" then return "green_light DESC"
+    when "13" then return "pmf_fund_investment_share_amount DESC"
+    when "14" then return "green_light DESC"
     else return "created_at DESC"
     end
   end

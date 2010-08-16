@@ -91,7 +91,7 @@ class ProjectSubscriptionsController < ApplicationController
         redirect_to project_path(@project) and return
       end
 
-      ProjectSubscription.cancel_shares(@project_subscriptions, @num_shares)
+      ProjectSubscription.cancel_shares_for_project(@project_subscriptions, @num_shares)
 
       ProjectSubscription.update_share_queue @project
 

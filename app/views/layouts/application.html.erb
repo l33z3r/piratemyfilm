@@ -82,7 +82,8 @@
             </div>
             <div class="text">
               <div class="fund_amount">
-                <%= link_to "($75,000)", profile_path(PMF_FUND_ACCOUNT_ID) %>
+                <%= link_to "($#{print_money(@total_pmf_shares_reserved_amount)})",
+                  profile_path(PMF_FUND_ACCOUNT_ID) %>
               </div>
               <div id="widget_link">
                 - <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %>

@@ -61,6 +61,12 @@ project_link_action ||= "show"
         (<a class="tooltip_arrow" title="The remaining percent will go to the PMF Fund (see below)">?</a>)
       </li>
       <li class="pmf_clear"></li>
+      <li class="label">% Shares:</li>
+      <li class="stat">
+        <%= project.share_percent_ads %>%
+        (<a class="tooltip_arrow" title="This is a percentage of the producers take">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
       <li class="label">
         % PMF Fund:
       </li>
@@ -68,12 +74,6 @@ project_link_action ||= "show"
         <%= project.capital_recycled_percent %>%
         (<a class="tooltip_arrow" title="This fund is used to invest (top up)
             existing projects at the discretion of PMF">?</a>)
-      </li>
-      <li class="pmf_clear"></li>
-      <li class="label">% Shares:</li>
-      <li class="stat">
-        <%= project.share_percent_ads %>%
-        (<a class="tooltip_arrow" title="This is a percentage of the producers take">?</a>)
       </li>
       <li class="pmf_clear"></li>
       <li class="label">
@@ -115,11 +115,11 @@ project_link_action ||= "show"
 
   <div class="view-lite-row-numbers">
     <ul>
-      <li class="label">Budget:</li><li class="stat">$<%= print_money project.capital_required %></li>
+      <li class="label">Funds Needed:</li><li class="stat">$<%= print_money project.capital_required %></li>
       <li class="pmf_clear"></li>
       <li class="label">Funds Reserved:</li><li class="stat">$<%= print_money project.current_funds %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Funds Needed:</li><li class="stat">$<%= print_money project.funds_needed %></li>
+      <li class="label">Funds Still Needed:</li><li class="stat">$<%= print_money project.funds_needed %></li>
       <li class="pmf_clear"></li>
       <li class="label">% Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
       <li class="pmf_clear"></li>
@@ -131,6 +131,8 @@ project_link_action ||= "show"
       <li class="pmf_clear"></li>
       <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
       <li class="pmf_clear"></li>
+      <li class="label">No. PMF Fund Shares:</li>
+      <li class="stat"><%= project.pmf_fund_investment_share_amount %></li>
       <li class="label">% PMF Fund Shares:</li>
       <li class="stat"><%= project.pmf_fund_investment_percentage %>%</li>
     </ul>

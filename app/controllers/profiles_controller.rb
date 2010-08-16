@@ -10,6 +10,13 @@ class ProfilesController < ApplicationController
   end
   
   def portfolio
+    @total_shares_reserved = @profile.user.project_subscriptions.sum("amount")
+    
+    
+    #TODO pick up dynamically ipo
+    @total_shares_reserved_amount = @total_shares_reserved * 5
+
+
     @user_projects = @profile.user.owned_public_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
     @user_subscriptions = @profile.user.subscribed_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
   end
@@ -56,25 +63,11 @@ class ProfilesController < ApplicationController
     end      
   end
 
-  #  def destroy
-  #    respond_to do |wants|
-  #     @user.destroy
-  #      cookies[:auth_token] = {:expires => Time.now-1.day, :value => ""}
-  #      session[:user] = nil
-  #      wants.js do
-  #        render :update do |page|
-  #          page.alert('Your user account, and all data, have been deleted.')
-  #          page << 'location.href = "/";'
-  #        end
-  #      end
-  #    end
-  #  end
-
   private
   
   def allow_to
     super :owner, :all => true
-    super :all, :only => [:show, :index, :search]
+    super :all, :only => [:show, :index, :search, :portfolio]
   end
   
   def get_profile

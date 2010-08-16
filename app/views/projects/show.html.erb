@@ -14,8 +14,6 @@
       <div class="button left">
       <%= link_to "#{@project.green_light ? "Revoke" : "Award"} Green", :action => "update_green_light", :id => @project.id %></div>
     <% end %>
-    <div class="button left">
-    <%= link_to "List a Project", new_project_path %></div>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>

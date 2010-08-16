@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging "password"
   
   before_filter :allow_to, :check_user, :login_from_cookie, :login_required, :set_profile
-  before_filter :check_permissions, :pagination_defaults, :load_filter_params
+  before_filter :check_permissions, :pagination_defaults
+  before_filter :load_filter_params, :load_sitewide_vars
   
   after_filter :store_location
   layout 'application'  
@@ -90,6 +91,21 @@ class ApplicationController < ActionController::Base
 
   def load_filter_params
     @filter_params = Project.filter_param_select_opts
+  end
+
+  def load_sitewide_vars
+    @total_reservations = ProjectSubscription.find(:all, :group => "project_id").size
+
+
+    #TODO change this to pick up dynamic ipo
+    @total_reservations_amount = ProjectSubscription.sum(:amount) * 5
+
+
+    @total_pmf_shares_reserved = User.find(PMF_FUND_ACCOUNT_ID).project_subscriptions.sum("amount")
+
+
+    #TODO pick up dynamically ipo
+    @total_pmf_shares_reserved_amount = @total_pmf_shares_reserved * 5
   end
 
   def print_money value

@@ -32,7 +32,7 @@
 
   <tr>
     <td>
-      * Budget ($)
+      * Funds Needed ($)
     </td>
     <td>
       <%= f.text_field :capital_required %>
@@ -57,6 +57,11 @@
     <td>
       * What percentage of future
       <br/>dividends are you taking? (0 - 100)%
+      <br/><br/>
+      <i>
+        Note: Any percentages not taken by the producer and shareholders will
+        automatically be credited to the PMF Fund
+      </i>
     </td>
     <td>
       <%= f.text_field :share_percent_ads_producer %>

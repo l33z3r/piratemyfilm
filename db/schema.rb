@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100814145209) do
+ActiveRecord::Schema.define(:version => 20100816185813) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -234,30 +234,30 @@ ActiveRecord::Schema.define(:version => 20100814145209) do
     t.text     "description"
     t.text     "cast"
     t.string   "web_address"
-    t.decimal  "ipo_price",                                    :precision => 10, :scale => 2
-    t.integer  "percent_funded",                 :limit => 3,  :precision => 3,  :scale => 0
+    t.decimal  "ipo_price",                                      :precision => 10, :scale => 2
+    t.integer  "percent_funded",                   :limit => 3,  :precision => 3,  :scale => 0
     t.string   "icon"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "youtube_vid_id"
-    t.string   "status",                                                                      :default => "Funding"
-    t.integer  "project_length",                                                              :default => 0
-    t.integer  "share_percent_downloads",        :limit => 3,  :precision => 3,  :scale => 0
-    t.integer  "share_percent_ads",              :limit => 3,  :precision => 3,  :scale => 0
-    t.integer  "downloads_reserved",             :limit => 10, :precision => 10, :scale => 0, :default => 0
-    t.integer  "downloads_available",            :limit => 10, :precision => 10, :scale => 0, :default => 0
-    t.integer  "capital_required",               :limit => 12, :precision => 12, :scale => 0
+    t.string   "status",                                                                        :default => "Funding"
+    t.integer  "project_length",                                                                :default => 0
+    t.integer  "share_percent_downloads",          :limit => 3,  :precision => 3,  :scale => 0
+    t.integer  "share_percent_ads",                :limit => 3,  :precision => 3,  :scale => 0
+    t.integer  "downloads_reserved",               :limit => 10, :precision => 10, :scale => 0, :default => 0
+    t.integer  "downloads_available",              :limit => 10, :precision => 10, :scale => 0, :default => 0
+    t.integer  "capital_required",                 :limit => 12, :precision => 12, :scale => 0
     t.datetime "rated_at"
-    t.boolean  "is_deleted",                                                                  :default => false
+    t.boolean  "is_deleted",                                                                    :default => false
     t.datetime "deleted_at"
-    t.integer  "member_rating",                                                               :default => 0
-    t.integer  "admin_rating",                                                                :default => 0
+    t.integer  "member_rating",                                                                 :default => 0
+    t.integer  "admin_rating",                                                                  :default => 0
     t.string   "director"
     t.string   "writer"
     t.string   "exec_producer"
     t.integer  "producer_fee_percent"
     t.integer  "capital_recycled_percent"
-    t.integer  "share_percent_ads_producer",                                                  :default => 0
+    t.integer  "share_percent_ads_producer",                                                    :default => 0
     t.integer  "producer_dividend"
     t.integer  "shareholder_dividend"
     t.string   "symbol"
@@ -266,6 +266,7 @@ ActiveRecord::Schema.define(:version => 20100814145209) do
     t.datetime "green_light"
     t.string   "director_photography"
     t.string   "editor"
+    t.integer  "pmf_fund_investment_share_amount",                                              :default => 0
   end
 
   create_table "sessions", :force => true do |t|

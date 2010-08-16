@@ -253,7 +253,7 @@ div#header_links span.welcome_message {
 
 div#top_search_box {
     float: right;
-    margin-top: -28px;
+    margin-top: -15px;
 }
 
 div#topsite_links {
@@ -703,6 +703,29 @@ div#profile .bio_stuff div#user_info div.value {
     float: left;
 }
 
+div#profile div.portfolio_info {
+    width: 450px;
+}
+
+div#profile div.portfolio_info div.title {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: black;
+    font-size: 14px;
+}
+
+div#profile div.portfolio_info div.stat_label {
+    float: left;
+    margin-right: 10px;
+    width: 220px;
+}
+
+div#profile div.portfolio_info div.stat {
+    float: left;
+    width: 100px;
+    font-weight: bold;
+}
+
 div#profile #content .bio_stuff div.pageTitle {
     margin-top: 0px;
 }
@@ -917,7 +940,7 @@ div#signup_form div#captcha_section {
     margin-left: 228px;
 }
 
-/* Signup Page */
+/* End Signup Page */
 
 div#signup_buttons {
     float: right;
@@ -927,8 +950,13 @@ div#signup_buttons div {
     float: right;
 }
 
+div#short_stats {
+    float: left;
+    margin: 5px 0px;
+}
+
 div#social_links {
-    padding-top: 12px;
+    padding-top: 30px;
 }
 
 .twitter-link {
@@ -1149,7 +1177,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #header {
-    height: 166px;
+    height: 178px;
     color: #000000;
     text-align: left;
 }

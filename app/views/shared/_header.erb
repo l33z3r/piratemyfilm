@@ -25,6 +25,12 @@
     </div>
   </div>
 
+  <div id="short_stats">
+    <b>$<%= @total_reservations_amount %></b>
+    reserved in
+    <b><%= @total_reservations %></b> projects
+  </div>
+
   <% if !@hide_filter_params %>
     <div id="top_search_box">
       <%= render :partial => 'shared/filter_param_box' %>

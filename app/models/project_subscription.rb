@@ -89,7 +89,7 @@ class ProjectSubscription < ActiveRecord::Base
     @num_shares
   end
 
-  def self.cancel_shares project_subscriptions, num_shares
+  def self.cancel_shares_for_project project_subscriptions, num_shares
     @num_left_to_cancel = num_shares
 
     project_subscriptions.each do |ps|
