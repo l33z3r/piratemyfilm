@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100730130102
+# Schema version: 20100814145209
 #
 # Table name: projects
 #
@@ -41,6 +41,9 @@
 #  symbol                         :string(255)   
 #  fund_dividend                  :integer(4)    
 #  pmf_fund_investment_percentage :integer(4)    
+#  green_light                    :datetime      
+#  director_photography           :string(255)   
+#  editor                         :string(255)   
 #
 
 project1:

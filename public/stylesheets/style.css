@@ -623,6 +623,17 @@ div#project_show .view-lite-row-description .body {
     width:82%;
 }
 
+div#project_show div.reservation_form_container div.text {
+    float: left;
+    width: 300px;
+    margin-top: 10px;
+    font-weight: normal;
+}
+
+div#project_show div.reservation_form_container div.controls {
+    float: left;
+}
+
 /* End Project Page */
 
 /* create project page */

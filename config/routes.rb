@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :projects,
     :member=>{:delete_icon=>:post}, :collection=>{:search=>:get} do | project |
-    project.resources :project_subscriptions, :member => {:destroy=>:delete}
+    project.resources :project_subscriptions, :collection => {:cancel => :delete}
     project.resources :project_comments
   end
 

@@ -1,26 +1,54 @@
 <% if logged_in %>
-  <h3>Your Shares:</h3>
+  <h3>Your Shares</h3>
   <% if allowed_reserve_shares %>
     <ul>
-      <li>You have <%= @my_subscription.nil? ? "no" : @my_subscription.amount %> shares reserved for this project.</li>
+      <li>
+        You have
+        <%= @my_subscriptions_amount == 0 ? "no" : @my_subscriptions_amount %> shares
+        <% if @my_outstanding_subscriptions_amount > 0 %>
+          <i>(<%= @my_outstanding_subscriptions_amount %> outstanding)</i>
+        <% end %>
+        reserved for this project.
+      </li>
+
       <% if @max_subscription_reached %>
         <li><b>Your share limit for this project has been reached. You will soon be able to upgrade your subscription.</b></li>
       <% elsif @max_project_subscription_reached %>
         <li><b>You cannot reserve shares for any more projects. You will soon be able to upgrade your subscription.</b></li>
       <% else %>
-        <li>You can reserve up to <%= @max_subscription < @project.downloads_available ? @max_subscription : @project.downloads_available %> shares.</li>
+        <li>You can reserve up to <%= @max_subscription %> shares.</li>
       <% end %>
     </ul>
+    <h3>Reserve/Cancel Shares</h3>
+
     <% if !@max_subscription_reached && !@max_project_subscription_reached %>
-      <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
-        <input type="submit" value="Reserve Share"/>
-      </form>
+      <div class="reservation_form_container">
+        <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
+          <div class="text">
+            Enter amount of shares to reserve (max <%= @num_shares_allowed %>) :
+          </div>
+          <div class="controls">
+            <input type="text" value="1" name="num_shares" size="3"/>
+            <input type="submit" value="Reserve Shares"/>
+          </div>
+        </form>
+      </div>
     <% end %>
 
-    <% if @my_subscription %>
-      <% form_tag project_project_subscription_path(@project, @my_subscription), :method => :delete, :class => "left" do %>
-        <input type="submit" value="Cancel Share"/>
-      <% end %>
+    <div class="pmf_clear">&nbsp;</div>
+
+    <% if @my_subscriptions_amount > 0 %>
+      <div class="reservation_form_container">
+        <% form_tag cancel_project_project_subscriptions_path(@project), :method => :delete do %>
+          <div class="text">
+            Enter amount of shares to cancel (max <%= @my_subscriptions_amount %>) :
+          </div>
+          <div class="controls">
+            <input type="text" value="1" name="num_shares" size="3"/>
+            <%= submit_tag "Cancel Shares" %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
   <% else %>
     <ul><li><b>As the owner of this project, you cannot reserve shares!</b></li></ul>

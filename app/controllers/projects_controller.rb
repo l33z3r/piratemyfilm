@@ -126,6 +126,9 @@ class ProjectsController < ApplicationController
         round_budget_from_params
 
         @project.update_attributes!(params[:project])
+
+        ProjectSubscription.update_share_queue @project
+        
         flash[:positive] = "Your project has been updated."
         redirect_to project_path(@project)
       rescue ActiveRecord::RecordInvalid
@@ -171,27 +174,21 @@ class ProjectsController < ApplicationController
       @project_comments = @project.project_comments.find(:all, :order => "created_at desc", :limit => 5)
     end
 
-    @my_subscription = ProjectSubscription.find_by_user_id_and_project_id(@u, @project)
+    @my_subscriptions = ProjectSubscription.load_subscriptions(@u, @project)
 
+    @max_subscription = @u.membership_type.pc_limit
+    
+    @my_subscriptions_amount = ProjectSubscription.calculate_amount(@my_subscriptions)
+
+    @num_shares_allowed = ProjectSubscription.num_shares_allowed(@u, @project)
+
+    @my_outstanding_subscriptions_amount = ProjectSubscription.calculate_outstanding_amount(@my_subscriptions)
+    
     #a user can only have pc_limit pcs per project
-    @max_subscription_reached = false
-
-    if @u
-      @max_subscription = @u.membership_type.pc_limit
-
-      if @my_subscription
-        @max_subscription_reached = @my_subscription.amount >= @max_subscription
-      end
-    end
+    @max_subscription_reached = ProjectSubscription.pc_limit_reached(@u, @project)
 
     #a user can have a pcs in a maximum of pc_project_limit projects
-    @max_project_subscription_reached = false
-
-    if @u and !@my_subscription
-      @number_projects_subscribed_to = @u.project_subscriptions.size
-      @max_overall_project_subscriptions = @u.membership_type.pc_project_limit
-      @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
-      end
+    @max_project_subscription_reached = ProjectSubscription.pc_project_limit_reached(@u, @project)
 
     @admin_rating = @project.admin_rating
     @user_rating = @project.user_rating

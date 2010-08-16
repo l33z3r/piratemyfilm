@@ -15,8 +15,6 @@ class Admin::DeletedProjectsController < Admin::AdminController
   end
 
   def delete
-    @project.delete
-
     #must delete all subscribtions to this project
     @subscriptions = ProjectSubscription.find_all_by_project_id(@project)
     @subscriptions.each do |subscription|
@@ -25,6 +23,8 @@ class Admin::DeletedProjectsController < Admin::AdminController
 
     #reset the member rating by deleting the member rating history
     @project.project_rating.destroy unless !@project.project_rating
+
+    @project.delete
 
     flash[:positive] = "Project has been deleted!"
     redirect_to :controller => "/home", :action => "index"

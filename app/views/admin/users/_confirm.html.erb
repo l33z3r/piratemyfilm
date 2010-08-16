@@ -33,7 +33,7 @@
 
     <% if @num_projects_exceeding_share_limit > 0 %>
       <li>
-        <%= @user.login %> has shares in <b><%= @user.project_subscriptions.length %></b> projects,
+        <%= @user.login %> has shares in <b><%= @num_projects_exceeding_share_limit %></b> projects,
         which exceeds the new overall share limit of <b><%= @new_membership_type.pc_project_limit %></b> projects.
         These outstanding shares will be revoked from these projects.
       </li>

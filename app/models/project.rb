@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100730130102
+# Schema version: 20100814145209
 #
 # Table name: projects
 #
@@ -41,6 +41,9 @@
 #  symbol                         :string(255)   
 #  fund_dividend                  :integer(4)    
 #  pmf_fund_investment_percentage :integer(4)    
+#  green_light                    :datetime      
+#  director_photography           :string(255)   
+#  editor                         :string(255)   
 #
 
 class Project < ActiveRecord::Base    
@@ -50,8 +53,9 @@ class Project < ActiveRecord::Base
   
   belongs_to :owner, :class_name=>'User', :foreign_key=>'owner_id'
   
-  has_many   :project_subscriptions, :dependent => :destroy
-  has_many   :subscribers, :through => :project_subscriptions, :source=> :user
+  has_many :project_subscriptions, :dependent => :destroy
+  has_many :subscribers, :through => :project_subscriptions, :source => :user,
+    :order => "project_subscriptions.created_at", :group => "id"
 
   has_many :blogs
   
@@ -155,9 +159,18 @@ class Project < ActiveRecord::Base
     super
   end
 
+  def save_without_validating
+    logger.debug "overriden non validating save called!"
+    update_recycled_percent
+    update_funding
+    update_estimates
+    update_pmf_fund_investment
+    save(false)
+  end
+
   #this is simply here for completeness...
   def update_funding_and_estimates
-    self.save!
+    self.save_without_validating
   end
 
   def update_funding
@@ -187,10 +200,13 @@ class Project < ActiveRecord::Base
   def update_pmf_fund_investment
     logger.debug "Updating PMF Fund Investment!"
 
-    @subscription = ProjectSubscription.find_by_user_id_and_project_id(PMF_FUND_ACCOUNT_ID, id)
+    @pmf_fund_user = User.find(PMF_FUND_ACCOUNT_ID)
 
-    if @subscription and self.downloads_reserved > 0
-      self.pmf_fund_investment_percentage = (@subscription.amount/total_copies) * 100
+    @subscriptions = ProjectSubscription.load_subscriptions @pmf_fund_user, self
+    @subscription_amount = ProjectSubscription.calculate_amount @subscriptions
+
+    if @subscription_amount >= 0
+      self.pmf_fund_investment_percentage = (@subscription_amount/total_copies) * 100
     end
   end
 
@@ -262,13 +278,13 @@ class Project < ActiveRecord::Base
   def delete
     self.is_deleted = true
     self.deleted_at = Time.now
-    self.save(false)
+    self.save_without_validating
   end
 
   def restore
     self.is_deleted = false
     self.deleted_at = nil
-    self.save(false)
+    self.save_without_validating
   end
 
   def self.get_filter_sql filter_param

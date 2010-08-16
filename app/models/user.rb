@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100730130102
+# Schema version: 20100814145209
 #
 # Table name: users
 #
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   has_many :owned_projects, :class_name => "Project", :foreign_key => "owner_id"
   has_many :project_subscriptions, :dependent => :destroy
   has_many :subscribed_projects, :through => :project_subscriptions, :source=> :project, 
-    :conditions=>'symbol IS NOT NULL and is_deleted = 0', :order => "created_at"
+    :conditions=>'symbol IS NOT NULL and is_deleted = 0', :order => "project_subscriptions.created_at", :group => "projects.id"
 
   has_one :project_comment
 
@@ -138,21 +138,6 @@ class User < ActiveRecord::Base
     save
   end
 
-  #this function returns the projects the user has shares in
-  #in which the amount of shares they have in each exceeds cap
-  def projects_with_shares_over(cap)
-    @count = 0
-
-    for sub in project_subscriptions do
-      if sub.amount > cap
-        @count = @count + 1
-      end
-      
-    end
-
-    @count
-  end
-
   #takes the users current membership and applies the limits of that
   #membership to their account
   def apply_membership_limits
@@ -207,16 +192,32 @@ class User < ActiveRecord::Base
     end
   end
 
+  #this function returns the projects the user has shares in
+  #in which the amount of shares they have in each exceeds cap
+  def projects_with_shares_over(cap)
+    @count = 0
+
+    for project in subscribed_projects do
+      @project_subscriptions = ProjectSubscription.load_subscriptions self, project
+      @project_subscription_amount = ProjectSubscription.calculate_amount @project_subscriptions
+
+      if @project_subscription_amount > cap
+        @count += 1
+      end
+    end
+
+    @count
+  end
+
   #this function deletes and reduces shares over cap per project
   def delete_subscriptions_in_projects_with_shares_over(cap)
-    for sub in project_subscriptions do
-      if sub.amount > cap
-        if sub.amount > 1
-          sub.amount = cap
-          sub.save!
-        else
-          sub.destroy
-        end
+    for project in subscribed_projects do
+      @project_subscriptions = ProjectSubscription.load_subscriptions self, project
+      @project_subscription_amount = ProjectSubscription.calculate_amount @project_subscriptions
+
+      if @project_subscription_amount > cap
+        @cancel_amount = @project_subscription_amount - cap
+        ProjectSubscription.cancel_shares(@project_subscriptions, @cancel_amount)
       end
     end
   end
@@ -224,14 +225,17 @@ class User < ActiveRecord::Base
   #this function deletes shares over cap projects for a user
   #the deleted subscriptions are the most recent first subscription
   def delete_subscriptions_in_projects_over_total_allowed(cap)
-    @subscriptions = project_subscriptions(:order => "created_at")
-    @num_subscriptions_delete = @subscriptions.length - cap
+    @subscribed_projects = subscribed_projects.to_a
 
-    if @num_subscriptions_delete > 0
-      @user_subscriptions_delete_array = @subscriptions.to_a.reverse[0..@num_subscriptions_delete - 1]
+    return if @subscribed_projects.length < cap
 
-      for @subscription in @user_subscriptions_delete_array do
-        @subscription.destroy
+    @projects_for_subscription_delete = @subscribed_projects[cap..@subscribed_projects.length - 1]
+
+    @projects_for_subscription_delete.each do |project|
+      @project_subscriptions = ProjectSubscription.load_subscriptions self, project
+
+      @project_subscriptions.each do |ps|
+        ps.destroy
       end
     end
   end
@@ -260,6 +264,11 @@ class User < ActiveRecord::Base
     end
 
     @count
+  end
+
+  def number_projects_subscribed_to
+    @num = self.subscribed_projects.size > 0 ? self.subscribed_projects.uniq.size : 0
+    @num
   end
 
   protected

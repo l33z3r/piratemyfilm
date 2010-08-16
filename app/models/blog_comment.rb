@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100730130102
+# Schema version: 20100814145209
 #
 # Table name: blog_comments
 #

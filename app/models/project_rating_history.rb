@@ -1,14 +1,15 @@
 # == Schema Information
-# Schema version: 20100730130102
+# Schema version: 20100814145209
 #
 # Table name: project_rating_histories
 #
-#  id         :integer(4)    not null, primary key
-#  project_id :integer(4)    
-#  user_id    :integer(4)    
-#  rating     :integer(4)    
-#  created_at :datetime      
-#  updated_at :datetime      
+#  id                :integer(4)    not null, primary key
+#  project_id        :integer(4)    
+#  user_id           :integer(4)    
+#  rating            :integer(4)    
+#  created_at        :datetime      
+#  updated_at        :datetime      
+#  project_rating_id :integer(4)    
 #
 
 class ProjectRatingHistory < ActiveRecord::Base

@@ -114,8 +114,12 @@ class ApplicationController < ActionController::Base
     redirect_to :controller => "home"
   end
 
+  def allowed_cancel_shares
+    allowed_reserve_shares
+  end
+
   def allowed_reserve_shares
-    @project.owner != @u || @project.owner.id == PMF_FUND_ACCOUNT_ID
+    @project.owner != @u || @u.id == PMF_FUND_ACCOUNT_ID
   end
 
 end
