@@ -112,8 +112,8 @@ class ProjectSubscription < ActiveRecord::Base
   def self.update_share_queue project
     project.reload
     
-    @subscriptions_find = find_all_by_project_id(project, :order => "created_at, id", :lock => true)
-    @subscriptions = @subscriptions_find ? @subscriptions_find.to_a : {}
+    @subscriptions = find_all_by_project_id(project, :order => "created_at, id", :lock => true)
+    @subscriptions = @subscriptions ? @subscriptions : {}
 
     @shares_available = project.total_copies
 
