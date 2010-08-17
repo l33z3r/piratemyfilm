@@ -151,7 +151,7 @@ class ProjectSubscription < ActiveRecord::Base
 
       end
     end
-
+    
     if @stop_index > 0
       #mark all other shares as outstanding
       for i in (@stop_index..(@subscriptions.length-1))
@@ -162,7 +162,7 @@ class ProjectSubscription < ActiveRecord::Base
 
     #save all changes
     @subscriptions.each do |s|
-      s.save
+      s.save!
     end
 
   end
