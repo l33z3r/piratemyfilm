@@ -110,65 +110,66 @@ class ProjectSubscription < ActiveRecord::Base
   end
 
   def self.update_share_queue project
-    project.reload
-    
-    @subscriptions = find_all_by_project_id(project, :order => "created_at, id", :lock => true)
-    @subscriptions = @subscriptions ? @subscriptions : {}
+    ProjectSubscription.transaction do
+      project.reload
 
-    @shares_available = project.total_copies
+      @subscriptions = find_all_by_project_id(project, :order => "created_at, id", :lock => true)
+      @subscriptions = @subscriptions ? @subscriptions : {}
 
-    @share_sum = 0
-    @stop_index = 0
+      @shares_available = project.total_copies
 
-    @subscriptions.each_with_index do |ps, index|
-      @share_sum += ps.amount
+      @share_sum = 0
+      @stop_index = 0
 
-      #any share below @shares_available will be marked as non-outstanding
-      if ps.outstanding
-        ps.outstanding = false
-      end
+      @subscriptions.each_with_index do |ps, index|
+        @share_sum += ps.amount
 
-      logger.info("Share sum is #{@share_sum}, Shares Available: #{@shares_available}")
-
-      if @share_sum > @shares_available
-        #we may have to split the current block of shares
-        if (@share_sum - ps.amount) < @shares_available
-          #create non outstanding block
-          ps.amount = ps.amount - (@share_sum - @shares_available)
+        #any share below @shares_available will be marked as non-outstanding
+        if ps.outstanding
           ps.outstanding = false
-
-          #create outstanding shares
-          ProjectSubscription.create( :user => ps.user,
-            :project => ps.project, :amount => @share_sum - @shares_available,
-            :outstanding => true )
-
-        else
-          #the share block is lined up exactly with @shares_available
-          ps.outstanding = true
         end
 
-        @stop_index = index + 1
-        #now break out of this loop to set all outstanding shares as outstanding
-        break
+        logger.info("Share sum is #{@share_sum}, Shares Available: #{@shares_available}")
 
+        if @share_sum > @shares_available
+          #we may have to split the current block of shares
+          if (@share_sum - ps.amount) < @shares_available
+            #create non outstanding block
+            ps.amount = ps.amount - (@share_sum - @shares_available)
+            ps.outstanding = false
+
+            #create outstanding shares
+            ProjectSubscription.create( :user => ps.user,
+              :project => ps.project, :amount => @share_sum - @shares_available,
+              :outstanding => true )
+
+          else
+            #the share block is lined up exactly with @shares_available
+            ps.outstanding = true
+          end
+
+          @stop_index = index + 1
+          #now break out of this loop to set all outstanding shares as outstanding
+          break
+
+        end
+      end
+
+      logger.info "Marking #{(@subscriptions.length-1) - @stop_index} shares as outstanding"
+      logger.info "subscriptions length: #{@subscriptions.length}"
+
+      if @stop_index > 0
+        #mark all other shares as outstanding
+        for i in (@stop_index..(@subscriptions.length-1))
+          @current_ps = @subscriptions[i]
+          @current_ps.outstanding = true
+        end
+      end
+
+      @subscriptions.each do |s|
+        s.save!
       end
     end
-
-    logger.info "Marking #{(@subscriptions.length-1) - @stop_index} shares as outstanding"
-    logger.info "subscriptions length: #{@subscriptions.length}"
-
-    if @stop_index > 0
-      #mark all other shares as outstanding
-      for i in (@stop_index..(@subscriptions.length-1))
-        @current_ps = @subscriptions[i]
-        @current_ps.outstanding = true
-      end
-    end
-
-    @subscriptions.each do |s|
-      s.save!
-    end
-
   end
 
   def self.load_subscriptions user, project
