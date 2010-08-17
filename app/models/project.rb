@@ -1,49 +1,50 @@
 # == Schema Information
-# Schema version: 20100814145209
+# Schema version: 20100817182557
 #
 # Table name: projects
 #
-#  id                             :integer(4)    not null, primary key
-#  owner_id                       :integer(4)    
-#  title                          :string(255)   
-#  producer_name                  :string(255)   
-#  synopsis                       :text          
-#  genre_id                       :integer(4)    
-#  description                    :text          
-#  cast                           :text          
-#  web_address                    :string(255)   
-#  ipo_price                      :decimal(10, 2 
-#  percent_funded                 :integer(3)    
-#  icon                           :string(255)   
-#  created_at                     :datetime      
-#  updated_at                     :datetime      
-#  youtube_vid_id                 :string(255)   
-#  status                         :string(255)   default("Funding")
-#  project_length                 :integer(4)    default(0)
-#  share_percent_downloads        :integer(3)    
-#  share_percent_ads              :integer(3)    
-#  downloads_reserved             :integer(10)   default(0)
-#  downloads_available            :integer(10)   default(0)
-#  capital_required               :integer(12)   
-#  rated_at                       :datetime      
-#  is_deleted                     :boolean(1)    
-#  deleted_at                     :datetime      
-#  member_rating                  :integer(4)    default(0)
-#  admin_rating                   :integer(4)    default(0)
-#  director                       :string(255)   
-#  writer                         :string(255)   
-#  exec_producer                  :string(255)   
-#  producer_fee_percent           :integer(4)    
-#  capital_recycled_percent       :integer(4)    
-#  share_percent_ads_producer     :integer(4)    default(0)
-#  producer_dividend              :integer(4)    
-#  shareholder_dividend           :integer(4)    
-#  symbol                         :string(255)   
-#  fund_dividend                  :integer(4)    
-#  pmf_fund_investment_percentage :integer(4)    
-#  green_light                    :datetime      
-#  director_photography           :string(255)   
-#  editor                         :string(255)   
+#  id                               :integer(4)    not null, primary key
+#  owner_id                         :integer(4)    
+#  title                            :string(255)   
+#  producer_name                    :string(255)   
+#  synopsis                         :text          
+#  genre_id                         :integer(4)    
+#  description                      :text          
+#  cast                             :text          
+#  web_address                      :string(255)   
+#  ipo_price                        :decimal(10, 2 
+#  percent_funded                   :integer(3)    
+#  icon                             :string(255)   
+#  created_at                       :datetime      
+#  updated_at                       :datetime      
+#  youtube_vid_id                   :string(255)   
+#  status                           :string(255)   default("Funding")
+#  project_length                   :integer(4)    default(0)
+#  share_percent_downloads          :integer(3)    
+#  share_percent_ads                :integer(3)    
+#  downloads_reserved               :integer(10)   default(0)
+#  downloads_available              :integer(10)   default(0)
+#  capital_required                 :integer(12)   
+#  rated_at                         :datetime      
+#  is_deleted                       :boolean(1)    
+#  deleted_at                       :datetime      
+#  member_rating                    :integer(4)    default(0)
+#  admin_rating                     :integer(4)    default(0)
+#  director                         :string(255)   
+#  writer                           :string(255)   
+#  exec_producer                    :string(255)   
+#  producer_fee_percent             :integer(4)    
+#  capital_recycled_percent         :integer(4)    
+#  share_percent_ads_producer       :integer(4)    default(0)
+#  producer_dividend                :float         default(0.0)
+#  shareholder_dividend             :float         default(0.0)
+#  symbol                           :string(255)   
+#  fund_dividend                    :float         default(0.0)
+#  pmf_fund_investment_percentage   :integer(4)    
+#  green_light                      :datetime      
+#  director_photography             :string(255)   
+#  editor                           :string(255)   
+#  pmf_fund_investment_share_amount :integer(4)    default(0)
 #
 
 class Project < ActiveRecord::Base    
@@ -152,20 +153,26 @@ class Project < ActiveRecord::Base
   #overide save to perform updating of estimates
   def save!
     logger.debug "overriden save called!"
-    update_recycled_percent
-    update_funding
-    update_estimates
-    update_pmf_fund_investment
+    update_vars
     super
   end
 
   def save_without_validating
     logger.debug "overriden non validating save called!"
+    update_vars
+    save(false)
+  end
+
+  def update_vars
+    set_defaults
     update_recycled_percent
     update_funding
     update_estimates
     update_pmf_fund_investment
-    save(false)
+  end
+
+  def set_defaults
+    self.producer_fee_percent = 0 if !self.producer_fee_percent
   end
 
   #this is simply here for completeness...
@@ -278,6 +285,7 @@ class Project < ActiveRecord::Base
 
   def delete
     self.is_deleted = true
+    self.member_rating = 0
     self.deleted_at = Time.now
     self.save_without_validating
   end
@@ -318,7 +326,7 @@ class Project < ActiveRecord::Base
     when "17" then return nil
     when "18" then return nil
     when "19" then return "green_light is NOT NULL"
-    else return "created_at DESC"
+    else return nil
     end
   end
 
@@ -384,13 +392,12 @@ class Project < ActiveRecord::Base
     errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
     errors.add(:symbol, "must be 5 alphabetic characters long") if symbol && !symbol.blank? && !(symbol=~/[a-zA-Z]{5}/)
     logger.info "Validation Errors: #{errors_to_s}"
-
   end
 
   def funding_limit_not_exceeded
     funding_limit = owner.membership_type.funding_limit_per_project
     
-    if self.capital_required > funding_limit
+    if self.capital_required > funding_limit && !self.is_deleted
       errors.add(:capital_required, " must be less than $#{funding_limit}, the limit for your membership type.")
     end
   end

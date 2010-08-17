@@ -29,7 +29,7 @@
           </div>
           <div class="controls">
             <input type="text" value="1" name="num_shares" size="3"/>
-            <input type="submit" value="Reserve Shares"/>
+            <%= submit_tag "Reserve Shares", :confirm => "Are You Sure?" %>
           </div>
         </form>
       </div>
@@ -45,7 +45,7 @@
           </div>
           <div class="controls">
             <input type="text" value="1" name="num_shares" size="3"/>
-            <%= submit_tag "Cancel Shares" %>
+            <%= submit_tag "Cancel Shares", :confirm => "Are You Sure?" %>
           </div>
         <% end %>
       </div>

@@ -36,7 +36,7 @@ project_link_action ||= "show"
       <li class="pmf_clear"></li>
       <li class="label">Editor:</li><li class="stat"><%= project.editor %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Photo Director:</li><li class="stat"><%= project.director_photography %></li>
+      <li class="label">Cinematographer:</li><li class="stat"><%= project.director_photography %></li>
       <li class="pmf_clear"></li>
       <li class="label">Genre:</li><li class="stat"><%=h project.genre.title %></li>
       <li class="pmf_clear"></li>
@@ -59,14 +59,14 @@ project_link_action ||= "show"
       <li class="stat">
         <%= project.share_percent_ads_producer %>%
         (<a class="tooltip_arrow" title="The producer will take this percentage of the advertisement revenue.
-        The remaining percent will go to the PMF Fund (see below)">?</a>)
+            The remaining percent will go to the PMF Fund (see below)">?</a>)
       </li>
       <li class="pmf_clear"></li>
       <li class="label">% Shares:</li>
       <li class="stat">
         <%= project.share_percent_ads %>%
         (<a class="tooltip_arrow" title="This is a percentage of the producers
-        take (above) that will go to the shareholders.">?</a>)
+            take (above) that will go to the shareholders.">?</a>)
       </li>
       <li class="pmf_clear"></li>
       <li class="label">
@@ -78,27 +78,19 @@ project_link_action ||= "show"
             existing projects at the discretion of PMF.">?</a>)
       </li>
       <li class="pmf_clear"></li>
-      <li class="label">
-        % Producer Fee:
-      </li>
-      <li class="stat">
-        <%= project.producer_fee_percent %>%
-        (<a class="tooltip_arrow" title="This is a % of the budget
-            that the producer will take as an initial fee">?</a>)
-      </li>
       <li class="pmf_clear"></li>
       <li class="label">
         Producer Dividend:
       </li>
       <li class="stat">
-        $<%= project.producer_dividend %>
+        $<%= print_money project.producer_dividend %>
         (<a class="tooltip_arrow" title="This is the estimated producer
             return per $1000 of ad sales.">?</a>)
       </li>
       <li class="pmf_clear"></li>
       <li class="label">Share Dividend:</li>
       <li class="stat">
-        $<%= project.shareholder_dividend %>
+        $<%= print_money project.shareholder_dividend %>
         (<a class="tooltip_arrow" title="This is the estimated shareholder
             return per $1000 of ad sales.">?</a>)
       </li>
@@ -107,11 +99,19 @@ project_link_action ||= "show"
         PMF Fund Dividend:
       </li>
       <li class="stat">
-        $<%= project.fund_dividend %>
+        $<%= print_money project.fund_dividend %>
         (<a class="tooltip_arrow" title="This is the estimated pmf fund
             return per $1000 of ad sales.">?</a>)
       </li>
       <li class="pmf_clear"></li>
+      <li class="label">
+        % Producer Fee:
+      </li>
+      <li class="stat">
+        <%= project.producer_fee_percent %>%
+        (<a class="tooltip_arrow" title="This is a % of the budget
+            that the producer will take as an initial fee">?</a>)
+      </li>
     </ul>
   </div>
 
