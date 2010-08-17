@@ -115,8 +115,6 @@ class ProjectSubscription < ActiveRecord::Base
     @subscriptions = find_all_by_project_id(project, :order => "created_at, id")
     @subscriptions = @subscriptions ? @subscriptions : {}
 
-    breakpoint
-    
     @shares_available = project.total_copies
 
     @share_sum = 0
@@ -128,7 +126,9 @@ class ProjectSubscription < ActiveRecord::Base
       #any share below @shares_available will be marked as non-outstanding
       if ps.outstanding
         ps.outstanding = false
-        end
+      end
+
+      logger.info("Share sum is #{@share_sum}, Shares Available: #{@shares_available}")
 
       if @share_sum > @shares_available
         #we may have to split the current block of shares
@@ -154,11 +154,13 @@ class ProjectSubscription < ActiveRecord::Base
       end
     end
 
-    breakpoint
-    
+    logger.info "Marking #{(@subscriptions.length-1) - @stop_index} shares as outstanding"
+    logger.info "subscriptions length: #{@subscriptions.length}"
+
     if @stop_index > 0
       #mark all other shares as outstanding
       for i in (@stop_index..(@subscriptions.length-1))
+        logger.info "Marking #{@current_ps.id}"
         @current_ps = @subscriptions[i]
         @current_ps.outstanding = true
       end
@@ -166,7 +168,7 @@ class ProjectSubscription < ActiveRecord::Base
 
     #save all changes
     @subscriptions.each do |s|
-      s.save!
+      s.save
     end
 
   end
