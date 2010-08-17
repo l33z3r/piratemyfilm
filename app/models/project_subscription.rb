@@ -115,6 +115,8 @@ class ProjectSubscription < ActiveRecord::Base
     @subscriptions = find_all_by_project_id(project, :order => "created_at, id")
     @subscriptions = @subscriptions ? @subscriptions : {}
 
+    breakpoint
+    
     @shares_available = project.total_copies
 
     @share_sum = 0
@@ -151,6 +153,8 @@ class ProjectSubscription < ActiveRecord::Base
 
       end
     end
+
+    breakpoint
     
     if @stop_index > 0
       #mark all other shares as outstanding
