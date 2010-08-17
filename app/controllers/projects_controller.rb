@@ -41,8 +41,8 @@ class ProjectsController < ApplicationController
   def create
     begin
       if @u.owned_public_projects.size >= @project_limit
-          flash[:error] = "Sorry you have reached your limit of #{project_limit} project listings"
-          redirect_to :controller => "projects" and return
+        flash[:error] = "Sorry you have reached your limit of #{project_limit} project listings"
+        redirect_to :controller => "projects" and return
       end
 
       round_budget_from_params
@@ -174,22 +174,24 @@ class ProjectsController < ApplicationController
       @project_comments = @project.project_comments.find(:all, :order => "created_at desc", :limit => 5)
     end
 
-    @my_subscriptions = ProjectSubscription.load_subscriptions(@u, @project)
+    if @u
+      @my_subscriptions = ProjectSubscription.load_subscriptions(@u, @project)
 
-    @max_subscription = @u.membership_type.pc_limit
+      @max_subscription = @u.membership_type.pc_limit
     
-    @my_subscriptions_amount = ProjectSubscription.calculate_amount(@my_subscriptions)
+      @my_subscriptions_amount = ProjectSubscription.calculate_amount(@my_subscriptions)
 
-    @num_shares_allowed = ProjectSubscription.num_shares_allowed(@u, @project)
+      @num_shares_allowed = ProjectSubscription.num_shares_allowed(@u, @project)
 
-    @my_outstanding_subscriptions_amount = ProjectSubscription.calculate_outstanding_amount(@my_subscriptions)
+      @my_outstanding_subscriptions_amount = ProjectSubscription.calculate_outstanding_amount(@my_subscriptions)
     
-    #a user can only have pc_limit pcs per project
-    @max_subscription_reached = ProjectSubscription.pc_limit_reached(@u, @project)
+      #a user can only have pc_limit pcs per project
+      @max_subscription_reached = ProjectSubscription.pc_limit_reached(@u, @project)
 
-    #a user can have a pcs in a maximum of pc_project_limit projects
-    @max_project_subscription_reached = ProjectSubscription.pc_project_limit_reached(@u, @project)
-
+      #a user can have a pcs in a maximum of pc_project_limit projects
+      @max_project_subscription_reached = ProjectSubscription.pc_project_limit_reached(@u, @project)
+    end
+    
     @admin_rating = @project.admin_rating
     @user_rating = @project.user_rating
 
