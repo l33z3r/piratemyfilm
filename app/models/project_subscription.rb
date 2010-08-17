@@ -113,7 +113,7 @@ class ProjectSubscription < ActiveRecord::Base
     project.reload
     
     @subscriptions = find_all_by_project_id(project, :order => "created_at, id")
-    @subscriptions = @subscriptions ? @subscriptions.to_a : {}
+    @subscriptions = @subscriptions ? @subscriptions : {}
 
     @shares_available = project.total_copies
 
@@ -126,16 +126,14 @@ class ProjectSubscription < ActiveRecord::Base
       #any share below @shares_available will be marked as non-outstanding
       if ps.outstanding
         ps.outstanding = false
-        ps.save
-      end
+        end
 
       if @share_sum > @shares_available
         #we may have to split the current block of shares
-        if @share_sum - ps.amount < @shares_available
+        if (@share_sum - ps.amount) < @shares_available
           #create non outstanding block
           ps.amount = ps.amount - (@share_sum - @shares_available)
           ps.outstanding = false
-          ps.save
 
           #create outstanding shares
           ProjectSubscription.create( :user => ps.user,
@@ -145,7 +143,6 @@ class ProjectSubscription < ActiveRecord::Base
         else
           #the share block is lined up exactly with @shares_available
           ps.outstanding = true
-          ps.save
         end
 
         @stop_index = index + 1
@@ -160,8 +157,12 @@ class ProjectSubscription < ActiveRecord::Base
       for i in (@stop_index..(@subscriptions.length-1))
         @current_ps = @subscriptions[i]
         @current_ps.outstanding = true
-        @current_ps.save
       end
+    end
+
+    #save all changes
+    @subscriptions.each do |s|
+      s.save
     end
 
   end

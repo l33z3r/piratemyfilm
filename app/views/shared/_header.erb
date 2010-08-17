@@ -10,6 +10,12 @@
       <p></p>
     </div>
 
+    <div id="short_stats">
+      <b>$<%= @total_reservations_amount %></b>
+      reserved in
+      <b><%= @total_reservations %></b> projects
+    </div>
+    
     <div id="social_links">
       <div class="twitter-link">
         <%= link_to image_tag("twitter.gif", :size => "35x30"),
@@ -23,12 +29,6 @@
           :target => "_blank" %>
       </div>
     </div>
-  </div>
-
-  <div id="short_stats">
-    <b>$<%= @total_reservations_amount %></b>
-    reserved in
-    <b><%= @total_reservations %></b> projects
   </div>
 
   <% if !@hide_filter_params %>
@@ -47,13 +47,6 @@
       </div>
 
       <div class="right">
-        <div class="local-navbar-button">
-          <span>
-            <%= link_to 'Latest Blogs', {:controller => "/blogs"} %>
-          </span>
-          <p>View Blogs</p>
-        </div>
-
         <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
           <div id="search">
             <img src="/images/brand-search.gif" alt="Search" />

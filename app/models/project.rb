@@ -288,39 +288,60 @@ class Project < ActiveRecord::Base
     self.save_without_validating
   end
 
-  def self.get_filter_sql filter_param
-    @filter = filter_param.to_s.strip.downcase
+  @@filter_params_map = {
+    1 => "Please Choose...", 2 => "% Funded All", 3 => "% Funded - Pre Production",
+    4 => "% Funded - In Production", 5 => "% Funded - Post Production", 6 => "% Funded - Finishing Funds",
+    7 => "% Funded - Trailer", 8 => "Funds Needed", 9 => "Funds Reserved",
+    10 => "PMF Fund Rating", 11 => "Member Rating", 12 => "Newest", 13 => "Oldest",
+    14 => "Producer Dividend", 15 => "Shareholder Dividend", 16 => "PMF Fund Dividend",
+    17 => "% PMF Fund Shares", 18 => "No. PMF Fund Shares",
+    19 => "Green Lit"
+  }
 
-    ##TODO: move to an enum
-    case @filter
-    when "green lit" then return "green_light is NOT NULL"
-    else return nil
+  def self.get_filter_sql filter_param
+    case filter_param
+    when "2" then return nil
+    when "3" then return "status = \"Pre Production\""
+    when "4" then return "status = \"In Production\""
+    when "5" then return "status = \"Post Production\""
+    when "6" then return "status = \"Finishing Funds\""
+    when "7" then return "genre_id = #{Genre.find_by_title("Trailer").id}"
+    when "8" then return nil
+    when "9" then return nil
+    when "10" then return nil
+    when "11" then return nil
+    when "12" then return nil
+    when "13" then return nil
+    when "14" then return nil
+    when "15" then return nil
+    when "16" then return nil
+    when "17" then return nil
+    when "18" then return nil
+    when "19" then return "green_light is NOT NULL"
+    else return "created_at DESC"
     end
   end
-
-  @@filter_params_map = {
-    1 => "Please Choose...", 2 => "% Funded", 3 => "Budget",
-    4 => "Funds Reserved", 5 => "PMF Fund Rating", 6 => "Member Rating",
-    7 => "Newest", 8 => "Oldest", 9 => "Producer Dividend", 10 => "Shareholder Dividend",
-    11 => "PMF Fund Dividend", 12 => "% PMF Fund Shares", 13 => "No. PMF Fund Shares",
-    14 => "Green Lit"
-  }
 
   def self.get_order_sql filter_param
     case filter_param
     when "2" then return "percent_funded DESC"
-    when "3" then return "capital_required DESC"
-    when "4" then return "(downloads_reserved * ipo_price) DESC"
-    when "5" then return "admin_rating DESC"
-    when "6" then return "member_rating DESC"
-    when "7" then return "created_at DESC"
-    when "8" then return "created_at ASC"
-    when "9" then return "producer_dividend DESC"
-    when "10" then return "shareholder_dividend DESC"
-    when "11" then return "fund_dividend DESC"
-    when "12" then return "pmf_fund_investment_percentage DESC"
-    when "13" then return "pmf_fund_investment_share_amount DESC"
-    when "14" then return "green_light DESC"
+    when "3" then return "percent_funded DESC"
+    when "4" then return "percent_funded DESC"
+    when "5" then return "percent_funded DESC"
+    when "6" then return "percent_funded DESC"
+    when "7" then return "percent_funded DESC"
+    when "8" then return "capital_required DESC"
+    when "9" then return "(downloads_reserved * ipo_price) DESC"
+    when "10" then return "admin_rating DESC"
+    when "11" then return "member_rating DESC"
+    when "12" then return "created_at DESC"
+    when "13" then return "created_at ASC"
+    when "14" then return "producer_dividend DESC"
+    when "15" then return "shareholder_dividend DESC"
+    when "16" then return "fund_dividend DESC"
+    when "17" then return "pmf_fund_investment_percentage DESC"
+    when "18" then return "pmf_fund_investment_share_amount DESC"
+    when "19" then return "green_light DESC"
     else return "created_at DESC"
     end
   end

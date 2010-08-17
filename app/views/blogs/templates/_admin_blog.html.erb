@@ -28,7 +28,8 @@
     <div class="share_buttons">
       <%= render :partial => "/blogs/templates/share_buttons",
         :locals => {:target_url => url_for(:only_path => false,
-          :controller => "blogs", :action => "show", :id => blog.id)} %>
+          :controller => "blogs", :action => "show", :id => blog.id),
+        :tweet_text => "New pmf fund blog: #{blog.title}"} %>
 
       <div class="blog-date">
         <%= blog.created_at.to_formatted_s(:long_ordinal) %>

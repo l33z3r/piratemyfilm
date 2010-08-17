@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <meta name="title" content="<%= @project.title %>" />
+  <meta name="title" content="<%= @project.symbol %>" />
   <meta name="description" content="<%= @project.description %>" />
   <link rel="image_src" href="<%= project_icon_path @project, :big %>" />
 <% end %>
@@ -49,11 +49,13 @@
 
       <div class="top_share_buttons">
         <div class="tweet_button">
-          <script type="text/javascript">
-            tweetmeme_url = '<%= url_for :only_path => false, :controller => "project_comments",
-    :action => "show", :id => @project.latest_project_comment.id, :anchor => "pmf_comment" %>';
-          </script>
-          <script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
+          <a href="http://twitter.com/share?url=<%= url_encode(url_for(:only_path => false,
+                 :controller => "project_comments", :action => "show",
+                 :id => @project.latest_project_comment.id, :anchor => "pmf_comment")) %>&via=piratemyfilm&text=New Comment on Project: <%= @project.symbol %>"
+             class="twitter-share-button"data-count="vertical" data-related="piratemyfilm">
+            Tweet
+          </a>
+          <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
         </div>
 
         <div class="facebook_button">

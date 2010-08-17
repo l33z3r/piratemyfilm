@@ -109,7 +109,7 @@ class ProjectSubscriptionsController < ApplicationController
 
   def allow_to
     super :admin, :all => true
-    super :user, :only => [:create, :destroy]
+    super :user, :only => [:create, :cancel]
   end
   
   def get_project_subscriptions
@@ -137,18 +137,28 @@ class ProjectSubscriptionsController < ApplicationController
       redirect_to project_path(@project) and return
     end
 
+    #initialize num_normal_shares
+    @num_normal_shares = @num_shares
+    
     @num_outstanding_shares = 0
+    
     @downloads_available = @project.total_copies
 
-    if @num_shares > @downloads_available
-      @num_outstanding_shares = @num_shares - @downloads_available
-      @num_shares = @downloads_available
+    @current_subscriptions = ProjectSubscription.load_subscriptions(@u, @project)
+    @current_amount_held = ProjectSubscription.calculate_amount(@current_subscriptions)
+    
+    if (@num_shares + @current_amount_held) > @downloads_available
+      @num_normal_shares = @downloads_available - @current_amount_held
+
+      @num_normal_shares = 0 if @num_normal_shares < 0
+
+      @num_outstanding_shares = @num_shares - @num_normal_shares
     end
 
     #create non outstanding shares
-    if @num_shares > 0
+    if @num_normal_shares > 0
       @project_subscription = ProjectSubscription.create( :user => @u,
-        :project => @project, :amount => @num_shares, :outstanding => false)
+        :project => @project, :amount => @num_normal_shares, :outstanding => false)
     end
 
     #create outstanding shares

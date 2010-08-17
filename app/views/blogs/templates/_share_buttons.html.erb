@@ -1,8 +1,7 @@
 <div class="tweet_button">
-  <script type="text/javascript">
-    tweetmeme_url = '<%= target_url %>';
-  </script>
-  <script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
+  <a href="http://twitter.com/share?url=<%= url_encode(target_url) %>&via=piratemyfilm&text=<%= tweet_text %>" class="twitter-share-button"
+  data-count="vertical" data-related="piratemyfilm">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <div class="facebook_button">

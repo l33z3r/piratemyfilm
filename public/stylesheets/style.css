@@ -625,7 +625,7 @@ div#project_show .view-lite-row-description .body {
 
 div#project_show div.reservation_form_container div.text {
     float: left;
-    width: 300px;
+    width: 350px;
     margin-top: 10px;
     font-weight: normal;
 }
@@ -951,7 +951,7 @@ div#signup_buttons div {
 }
 
 div#short_stats {
-    float: left;
+    float: right;
     margin: 5px 0px;
 }
 
@@ -2343,9 +2343,16 @@ div.square div.msg {
 
 /* Project Widget */
 
+body#widget {
+    background: #ffffff;
+}
+
 div.project_listings_widget {
     width: 298px;
-    border: 1px solid black;
+    background: #fcf8e8;
+    border: 1px solid #dcdab8;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
 }
 
 div.project_listings_widget div.project_widget_header img {
