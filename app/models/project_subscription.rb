@@ -110,12 +110,6 @@ class ProjectSubscription < ActiveRecord::Base
   end
 
   def self.update_share_queue project
-    #need to upgrade memory before we do this
-    return
-
-
-
-
     project.reload
     
     @subscriptions_find = find_all_by_project_id(project, :order => "created_at, id", :lock => true)
