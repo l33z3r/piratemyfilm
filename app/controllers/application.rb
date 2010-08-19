@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+
+  include ActionView::Helpers::NumberHelper
+  
   helper :all
   include ExceptionNotifiable
   filter_parameter_logging "password"
@@ -30,7 +33,6 @@ class ApplicationController < ActionController::Base
     #@p.update_attribute :last_activity_at, Time.now if @p
   end
   
-  helper_method :flickr, :flickr_images
   # API objects that get built once per request
   def flickr(user_name = nil, tags = nil )
     @flickr_object ||= Flickr.new(FLICKR_CACHE, FLICKR_KEY, FLICKR_SECRET)
@@ -117,7 +119,7 @@ class ApplicationController < ActionController::Base
   end
 
   def print_money value
-    sprintf("%0.2f", value)
+    number_to_currency value
   end
 
   def check_captcha(redirect=nil)

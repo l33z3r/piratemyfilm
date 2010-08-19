@@ -34,21 +34,69 @@
       </div>
     </div>
 
-    <%= render :partial => "membership_info" %>
+    <div class="half right">
 
-    <div class="pmf_clear">&nbsp;</div>
-
-    <div class="profile_links">
-      <% if @p == @profile %>
-        <div class="button">
-          <%= link_to "Edit Profile", edit_profile_path %>
+      <div id="friend_info">
+        <div class="title">
+          <% if @p == @profile %>
+            My
+          <% else %>
+            <%=@profile.user.login%>'s
+          <% end %>
+          Friends
         </div>
-      <% end %>
 
-      <div class="button">
-        <%= link_to "View Portfolio", portfolio_profile_path(@profile) %>
+        <div class="label">Followed By:</div>
+        <div class="value">
+          <%= link_to pluralize(@profile.followers.length, "User"),
+            friend_list_profile_path(@profile, :friend_type => Profile::FOLLOWERS) %>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+
+        <div class="label">Following:</div>
+        <div class="value">
+          <%= link_to pluralize(@profile.followings.length, "User"),
+            friend_list_profile_path(@profile, :friend_type => Profile::FOLLOWINGS) %>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+
+        <div class="label">Friends With:</div>
+        <div class="value">
+          <%= link_to pluralize(@profile.friends.length, "User"),
+            friend_list_profile_path(@profile, :friend_type => Profile::FRIENDS) %>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+
+        <div id="friend_link_container">
+          <%= get_friend_link @p, @profile %>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
       </div>
+
+      <%= render :partial => "membership_info" %>
+
+      <div class="pmf_clear">&nbsp;</div>
 
     </div>
   </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="profile_links">
+    <% if @p == @profile %>
+      <div class="button">
+        <%= link_to "Edit Profile", edit_profile_path %>
+      </div>
+    <% end %>
+
+    <div class="button">
+      <%= link_to "View Portfolio", portfolio_profile_path(@profile) %>
+    </div>
+
+  </div>
+</div>
 </div>

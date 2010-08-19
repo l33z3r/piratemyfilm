@@ -12,10 +12,8 @@ class ProfilesController < ApplicationController
   def portfolio
     @total_shares_reserved = @profile.user.project_subscriptions.sum("amount")
     
-    
     #TODO pick up dynamically ipo
     @total_shares_reserved_amount = @total_shares_reserved * 5
-
 
     @user_projects = @profile.user.owned_public_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
     @user_subscriptions = @profile.user.subscribed_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
@@ -61,6 +59,19 @@ class ProfilesController < ApplicationController
       @p.update_attribute :icon, nil
       wants.js {render :update do |page| page.visual_effect 'Puff', 'profile_icon_picture' end  }
     end      
+  end
+
+  def friend_list
+    @friend_type = params[:friend_type]
+
+    #validate friend_type
+    if @friend_type && Profile.friend_type_consts.include?(@friend_type.to_i)
+      @user_profile_list = @profile.friends_list(@friend_type)
+      @friend_type_string = Profile.friend_type_string(@friend_type)
+    else
+      flash[:error] = "Invalid Parameter"
+      redirect_to :controller => "/home" and return
+    end
   end
 
   private

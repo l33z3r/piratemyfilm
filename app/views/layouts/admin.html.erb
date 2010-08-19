@@ -75,7 +75,7 @@
             <div id="stats">
               <div class="stat">
                 PMF Fund Reserving
-                <%= link_to "$#{print_money(@total_pmf_shares_reserved_amount)}",
+                <%= link_to "#{print_money(@total_pmf_shares_reserved_amount)}",
                   profile_path(PMF_FUND_ACCOUNT_ID) %>
                 in
                 <%= link_to "#{@total_pmf_projects_invested_in}",

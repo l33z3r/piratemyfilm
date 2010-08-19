@@ -238,15 +238,12 @@
     <div class="pageTitle">Members Reserving Copies</div>
     <div class="pmf_clear_bottom_border">&nbsp;</div>
 
-    <div class="users">
-      <% for s in @project.subscribers do %>
-          <div class="user-icon">
-            <%= link_to icon(s.profile, :small), profile_path(s.profile) %>
-            <span><%= link_to s.profile.user.login, profile_path(s.profile) %></span>
-          </div>
-        <% end %>
-      </div>
+  <div class="users">
+    <% @project.subscribers.each do |user| %>
+        <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
+      <% end %>
+    </div>
 
-      <div class="pmf_clear_bottom_border">&nbsp;</div>
-    <% end %>
+    <div class="pmf_clear_bottom_border">&nbsp;</div>
+  <% end %>
   </div>

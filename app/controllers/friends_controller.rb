@@ -1,37 +1,36 @@
 class FriendsController < ApplicationController
   before_filter :setup
-  skip_before_filter :login_required, :only=>:index
+  skip_before_filter :login_required, :only => :index
   skip_before_filter :store_location, :only => [:create, :destroy]
 
-  #controller not used so redirect to hom
-  before_filter :redirect_to_home
-  
   def create
-    respond_to do |wants|
-      if Friend.make_friends(@p, @profile)
-        friend = @p.reload.friend_of? @profile
-        wants.js {render( :update ){|page| page.replace @p.dom_id(@profile.dom_id + '_friendship_'), get_friend_link( @p, @profile)}}
-      else
-        message = "Oops... That didn't work. Try again!"
-        wants.js {render( :update ){|page| page.alert message}}
+    if Friend.make_friends(@p, @profile)
+      #not sure why this is here
+      friend = @p.reload.friend_of? @profile
+
+      render :update do |page|
+        page.replace @p.dom_id(@profile.dom_id + '_friendship_'), get_friend_link( @p, @profile)
+      end
+    else
+      @message = "Oops... That didn't work. Try again!"
+
+      render :update do |page|
+        page.alert @message
       end
     end
+    
   end
-  
   
   def destroy
     Friend.reset @p, @profile
-    respond_to do |wants|
+
+    render :update do |page|
+      #not sure why this is here
       following = @p.reload.following? @profile
-      wants.js {render( :update ){|page| page.replace @p.dom_id(@profile.dom_id + '_friendship_'), get_friend_link( @p, @profile)}}
+
+      page.replace @p.dom_id(@profile.dom_id + '_friendship_'), get_friend_link( @p, @profile)
     end
   end
-  
-  
-  def index
-    render
-  end
-  
   
   protected
   

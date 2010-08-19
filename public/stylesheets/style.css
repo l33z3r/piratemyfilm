@@ -743,10 +743,34 @@ div#profile div.membership_type div.title {
     font-size: 14px;
 }
 
+div#profile div#friend_info {
+    margin-bottom: 12px;
+}
+
+div#profile div#friend_info div.title {
+    font-weight: bold;
+    color: black;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+div#profile div#friend_info div.label {
+    float: left;
+    width: 150px;
+}
+
+div#profile div#friend_info div.value {
+    float: left;
+    width: 150px;
+}
+
+div#profile div#friend_info div#friend_link_container {
+    margin: 5px 0px;
+}
+
 /* End profile page */
 
-
-/*Project page */
+/* Project page */
 
 div#project_show .view-lite-row-description {
     padding: 1px 5px;

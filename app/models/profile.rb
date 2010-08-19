@@ -95,6 +95,48 @@ class Profile < ActiveRecord::Base
   def has_network?
     !Friend.find(:first, :conditions => ["invited_id = ? or inviter_id = ?", id, id]).blank?
   end
+
+  #Friend types
+  FOLLOWERS = 1
+  FOLLOWINGS = 2
+  FRIENDS = 3
+
+  @@friend_type_consts = [FOLLOWERS, FOLLOWINGS, FRIENDS]
+
+  def self.friend_type_consts
+    @@friend_type_consts
+  end
+
+  def self.friend_type_string friend_type
+    case friend_type.to_s
+    when "1" then return "Followers"
+    when "2" then return "Followings"
+    when "3" then return "Friends"
+    else return nil
+    end
+  end
+
+  def friends_list type
+    case type.to_s
+    when "1" then return followers
+    when "2" then return followings
+    when "3" then return friends
+    else return nil
+    end
+  end
+
+  # Friend Methods
+  def friend_of? user
+    user.in? friends
+  end
+
+  def followed_by? user
+    user.in? followers
+  end
+
+  def following? user
+    user.in? followings
+  end
     
   def f
     if self.first_name.blank? && self.last_name.blank?

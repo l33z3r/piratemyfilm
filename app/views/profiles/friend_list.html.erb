@@ -1,0 +1,15 @@
+<div class="pageTitle">
+  <% if @p == @profile %>
+    My
+  <% else %>
+    <%=  @profile.user.login %>'s
+  <% end %>
+
+  <%= @friend_type_string %>
+</div>
+
+<div class="users">
+  <% @user_profile_list.each do |profile| %>
+    <%= render :partial => "/profiles/tiny", :locals => { :profile => profile } %>
+  <% end %>
+</div>

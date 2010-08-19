@@ -21,7 +21,6 @@ class Friend < ActiveRecord::Base
   attr_immutable :id, :invited_id, :inviter_id
   
   # Statuses Array
-  
   ACCEPTED = 1
   PENDING = 0
   
@@ -45,18 +44,12 @@ class Friend < ActiveRecord::Base
     AccountMailer.deliver_follow inviter, invited, description(inviter)
   end
   
-  
   class << self
-    
-  
-
 
     def add_follower(inviter, invited)
       a = Friend.create(:inviter => inviter, :invited => invited, :status => PENDING)
-#      logger.debug a.errors.inspect.blue
       !a.new_record?
     end
-  
   
     def make_friends(user, target)
       transaction do
@@ -70,12 +63,11 @@ class Friend < ActiveRecord::Base
       end
       true
     end
-    
   
     def stop_being_friends(user, target)
-    transaction do
-      begin
-        Friend.find(:first, :conditions => {:inviter_id => target.id, :invited_id => user.id, :status => ACCEPTED}).update_attribute(:status, PENDING)
+      transaction do
+        begin
+          Friend.find(:first, :conditions => {:inviter_id => target.id, :invited_id => user.id, :status => ACCEPTED}).update_attribute(:status, PENDING)
           f = Friend.find(:first, :conditions => {:inviter_id => user.id, :invited_id => target.id, :status => ACCEPTED}).destroy
         rescue Exception
           return false
@@ -83,7 +75,6 @@ class Friend < ActiveRecord::Base
       end
       true
     end
-    
     
     def reset(user, target)
       #don't need a transaction here. if either fail, that's ok
@@ -95,7 +86,6 @@ class Friend < ActiveRecord::Base
       end
       true
     end
-  
   
   end
   
