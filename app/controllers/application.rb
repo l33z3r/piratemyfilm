@@ -100,12 +100,13 @@ class ApplicationController < ActionController::Base
     #TODO change this to pick up dynamic ipo
     @total_reservations_amount = ProjectSubscription.sum(:amount) * 5
 
+    @pmf_fund_user = User.find(PMF_FUND_ACCOUNT_ID)
 
-    @total_pmf_shares_reserved = User.find(PMF_FUND_ACCOUNT_ID).project_subscriptions.sum("amount")
-
+    @total_pmf_projects_invested_in = @pmf_fund_user.subscribed_projects.length
+    @total_pmf_shares_reserved_all_projects = @pmf_fund_user.project_subscriptions.sum("amount")
 
     #TODO pick up dynamically ipo
-    @total_pmf_shares_reserved_amount = @total_pmf_shares_reserved * 5
+    @total_pmf_shares_reserved_amount = @total_pmf_shares_reserved_all_projects * 5
   end
 
   def print_money value

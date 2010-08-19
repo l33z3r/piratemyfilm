@@ -86,7 +86,7 @@
                 <%= link_to "$#{print_money(@total_pmf_shares_reserved_amount)}",
                   profile_path(PMF_FUND_ACCOUNT_ID) %>
                 in
-                <%= link_to "#{print_money(@total_pmf_shares_reserved)}",
+                <%= link_to "#{@total_pmf_projects_invested_in}",
                   profile_path(PMF_FUND_ACCOUNT_ID) %> Projects
               </div>
               <div class="pmf_clear">&nbsp;</div>
