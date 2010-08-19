@@ -75,18 +75,25 @@
 
       <div id="top_container">
         <div id="topsite_links">
-          <div id="pmf_fund_account_link_container">
+          <div id="stats_container">
             <div class="pic">
-              <%= link_to image_tag("pmf-fund-icon.png"),
+              <%= link_to image_tag("vertical-pmf-fund-icon-small.png"),
                 profile_path(PMF_FUND_ACCOUNT_ID) %>
             </div>
-            <div class="text">
-              <div class="fund_amount">
-                <%= link_to "($#{print_money(@total_pmf_shares_reserved_amount)})",
+            <div id="stats">
+              <div class="stat">
+                PMF Fund Reserving
+                <%= link_to "$#{print_money(@total_pmf_shares_reserved_amount)}",
                   profile_path(PMF_FUND_ACCOUNT_ID) %>
+                in
+                <%= link_to "$#{print_money(@total_pmf_shares_reserved)}",
+                  profile_path(PMF_FUND_ACCOUNT_ID) %> Projects
               </div>
-              <div id="widget_link">
-                - <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %>
+              <div class="pmf_clear">&nbsp;</div>
+              <div class="stat">
+                Total of <b>$<%= @total_reservations_amount %></b>
+                Reserved in
+                <b><%= @total_reservations %></b> Projects
               </div>
             </div>
           </div>

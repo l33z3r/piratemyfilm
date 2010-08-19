@@ -6,15 +6,19 @@
         You have
         <%= @my_subscriptions_amount == 0 ? "no" : @my_subscriptions_amount %> shares
         <% if @my_outstanding_subscriptions_amount > 0 %>
-          <i>(<%= @my_outstanding_subscriptions_amount %> outstanding)</i>
+          <i>
+            (<%= @my_outstanding_subscriptions_amount %> on
+            <a class="tooltip_arrow" title="standby shares become valid when new 
+               or existing shares become available">standby</a>)
+          </i>
         <% end %>
         reserved for this project.
       </li>
 
       <% if @max_subscription_reached %>
-        <li><b>Your share limit for this project has been reached. You will soon be able to upgrade your subscription.</b></li>
+        <li><b>Your share limit for this project has been reached.</b></li>
       <% elsif @max_project_subscription_reached %>
-        <li><b>You cannot reserve shares for any more projects. You will soon be able to upgrade your subscription.</b></li>
+        <li><b>You cannot reserve shares for any more projects.</b></li>
       <% else %>
         <li>You can reserve up to <%= @max_subscription %> shares.</li>
       <% end %>
@@ -29,7 +33,7 @@
           </div>
           <div class="controls">
             <input type="text" value="1" name="num_shares" size="3"/>
-            <%= submit_tag "Reserve Shares", :confirm => "Are You Sure?" %>
+            <%= submit_tag "Reserve Shares", :confirm => "Are You Sure You Want to Reserve Shares?" %>
           </div>
         </form>
       </div>
@@ -45,7 +49,7 @@
           </div>
           <div class="controls">
             <input type="text" value="1" name="num_shares" size="3"/>
-            <%= submit_tag "Cancel Shares", :confirm => "Are You Sure?" %>
+            <%= submit_tag "Cancel Shares", :confirm => "Are You Sure You Want to Cancel Shares?" %>
           </div>
         <% end %>
       </div>

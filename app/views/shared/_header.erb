@@ -10,13 +10,13 @@
       <p></p>
     </div>
 
-    <div id="short_stats">
-      <b>$<%= @total_reservations_amount %></b>
-      reserved in
-      <b><%= @total_reservations %></b> projects
-    </div>
-    
     <div id="social_links">
+      <div id="widget_link">
+        <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
       <div class="twitter-link">
         <%= link_to image_tag("twitter.gif", :size => "35x30"),
           "http://www.twitter.com/piratemyfilm",

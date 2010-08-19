@@ -22,10 +22,42 @@
       <div id="header_links">
         <div class="menu bubplastic horizontal gray">
           <ul>
-            <li><span class="menu_r"><a href="/pages/how_it_works"><span class="menu_ar">How It Works</span></a></span></li>
-            <li><span class="menu_r"><a href="/pages/about_us"><span class="menu_ar">About Us</span></a></span></li>
-            <li><span class="menu_r"><a href="/pages/contact_us"><span class="menu_ar">Contact us</span></a></span></li>
-            <li><span class="menu_r"><a href="/"><span class="menu_ar">Home</span></a></span></li>
+            <li>
+              <span class="menu_r">
+                <a href="/pages/how_it_works">
+                  <span class="menu_ar">
+                    How It Works
+                  </span>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span class="menu_r">
+                <a href="/pages/about_us">
+                  <span class="menu_ar">
+                    About Us
+                  </span>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span class="menu_r">
+                <a href="/pages/contact_us">
+                  <span class="menu_ar">
+                    Contact Us
+                  </span>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span class="menu_r">
+                <a href="/">
+                  <span class="menu_ar">
+                    Home
+                  </span>
+                </a>
+              </span>
+            </li>
           </ul>
           <div class="pmf_clear">&nbsp;</div>
         </div>
@@ -35,17 +67,25 @@
 
       <div id="top_container">
         <div id="topsite_links">
-          <div id="pmf_fund_account_link_container">
+          <div id="stats_container">
             <div class="pic">
-              <%= link_to image_tag("pmf-fund-icon.png"),
+              <%= link_to image_tag("vertical-pmf-fund-icon-small.png"),
                 profile_path(PMF_FUND_ACCOUNT_ID) %>
             </div>
-            <div class="text">
-              <div class="fund_amount">
-                <%= link_to "($75,000)", profile_path(PMF_FUND_ACCOUNT_ID) %>
+            <div id="stats">
+              <div class="stat">
+                PMF Fund Reserving
+                <%= link_to "$#{print_money(@total_pmf_shares_reserved_amount)}",
+                  profile_path(PMF_FUND_ACCOUNT_ID) %>
+                in
+                <%= link_to "$#{print_money(@total_pmf_shares_reserved)}",
+                  profile_path(PMF_FUND_ACCOUNT_ID) %> Projects
               </div>
-              <div id="widget_link">
-                - <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %>
+              <div class="pmf_clear">&nbsp;</div>
+              <div class="stat">
+                Total of <b>$<%= @total_reservations_amount %></b>
+                Reserved in
+                <b><%= @total_reservations %></b> Projects
               </div>
             </div>
           </div>

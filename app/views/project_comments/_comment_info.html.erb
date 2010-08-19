@@ -29,8 +29,8 @@
     <div class="share_buttons">
       <div class="share_buttons">
       <div class="tweet_button">
-        <a href="http://twitter.com/share?url=<%= url_encode(url_for :only_path => false,
-               :controller => "project_comments", :action => "show", :id => project_comment.id) %>&via=piratemyfilm&text=New Comment on Project: <%= project_comment.project.symbol %>"
+        <a href="http://twitter.com/share?url=<%= url_encode(url_for(:only_path => false,
+               :controller => "project_comments", :action => "show", :id => project_comment.id)) %>&via=piratemyfilm&text=New Comment on Project: <%= project_comment.project.symbol %>"
                class="twitter-share-button"
              data-count="vertical" data-related="piratemyfilm">Tweet</a>
           <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>

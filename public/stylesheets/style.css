@@ -126,7 +126,7 @@ div#signup_section {
 }
 
 div#signup_section div#signup_buttons {
-    margin-top: 0px;
+    margin-top: 10px;
 }
 
 div#signup_section div#signup_buttons a {
@@ -271,34 +271,32 @@ div#topsite_links div#widget_link a {
     text-decoration: underline;
 }
 
-div#topsite_links div#pmf_fund_account_link_container {
+div#topsite_links div#stats_container {
     float: left;
 }
 
-div#topsite_links div#pmf_fund_account_link_container div.pic {
+div#topsite_links div#stats_container div.pic {
     float: left;
 }
 
-div#topsite_links div#pmf_fund_account_link_container div.text {
-    margin: 12px 0px 0px 6px;
+div#topsite_links div#stats_container div#stats {
+    margin: 16px 0px 0px 12px;
     font-weight: bold;
     float: left;
 }
 
-div#topsite_links div#pmf_fund_account_link_container div.fund_amount {
-    margin: 2px 0px 0px 6px;
-    font-weight: bold;
+div#short_stats {
+    width: 500px;
+    margin: 5px 0px;
+}
+
+div#topsite_links div#stats_container div#stats div.stat {
     float: left;
 }
 
-div#topsite_links div#pmf_fund_account_link_container div.text a {
+div#topsite_links div#stats_container div#stats div.stat a {
     color: black;
     text-decoration: underline;
-}
-
-div#topsite_links div#pmf_fund_account_link_container div.text div.fund_amount a {
-    color: #666666;
-    text-decoration: none;
 }
 
 /* Top Menu */
@@ -335,8 +333,7 @@ div#sub_nav {
 div#filter_param_box {
     margin: 10px 0px;
     float: right;
-    font-weight: bold;
-    color: #333333;
+    color: #000000;
 }
 
 div#filter_param_box div.label {
@@ -348,7 +345,8 @@ div#filter_param_box div.label {
 
 div#filter_param_box form select {
     float: right;
-    border: 1px solid #666666;
+    border: 1px solid #000000;
+    background-color: #FFFFFF;
     margin-left: 10px;
     height: 22px;
     font-size: 16px;
@@ -950,13 +948,14 @@ div#signup_buttons div {
     float: right;
 }
 
-div#short_stats {
+div#header div#widget_link {
+    font-size: 14px;
     float: right;
-    margin: 5px 0px;
+    font-weight: bold;
 }
 
-div#social_links {
-    padding-top: 30px;
+div#header div#social_links {
+    float: right;
 }
 
 .twitter-link {
@@ -1684,6 +1683,12 @@ div.blog div.share_buttons div.facebook_button {
     margin-top: 0px;
     font-weight: bold;
     float: right;
+}
+
+div#subnav_links span.fund_image_comments_subnav {
+    margin-top: 2px;
+    margin-right: 4px;
+    float: left;
 }
 
 div#subnav_links span.fund_image_blog_subnav {

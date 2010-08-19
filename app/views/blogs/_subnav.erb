@@ -8,6 +8,9 @@
   </div>
 
   <div class="link">
+    <span class="fund_image_comments_subnav">
+      <%= link_to image_tag("pmf-fund-tiny.png", :size => "15x15"), latest_comments_path %>
+    </span>
     <%= link_to "PMF Fund Ratings", latest_comments_path %> -
   </div>
 
@@ -15,7 +18,7 @@
     <span class="fund_image_blog_subnav">
       <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), :action => "admin" %>
     </span>
-    <%= link_to "PMF Fund Blog", :controller => :blogs, :action => "admin" %> -
+    <%= link_to "PMF Blog", :controller => :blogs, :action => "admin" %> -
   </div>
 
   <div class="link">
