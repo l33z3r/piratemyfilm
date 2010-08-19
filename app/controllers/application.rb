@@ -94,7 +94,14 @@ class ApplicationController < ActionController::Base
   end
 
   def load_sitewide_vars
-    @total_reservations = ProjectSubscription.find(:all, :group => "project_id").size
+    @unique_project_subscriptions = ProjectSubscription.find(:all, :group => "project_id")
+    @total_funds_needed = 0
+
+    @unique_project_subscriptions.each do |ps|
+      @total_funds_needed += ps.project.capital_required
+    end
+
+    @total_reservations = @unique_project_subscriptions.size
 
 
     #TODO change this to pick up dynamic ipo

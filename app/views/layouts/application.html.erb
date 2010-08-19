@@ -75,9 +75,9 @@
 
       <div id="top_container">
         <div id="topsite_links">
-          <div id="stats_container">
+          <div id="pmf_fund_stats_container">
             <div class="pic">
-              <%= link_to image_tag("vertical-pmf-fund-icon-small.png"),
+              <%= link_to image_tag("pmf-fund-icon.png"),
                 profile_path(PMF_FUND_ACCOUNT_ID) %>
             </div>
             <div id="stats">
@@ -88,12 +88,6 @@
                 in
                 <%= link_to "#{@total_pmf_projects_invested_in}",
                   profile_path(PMF_FUND_ACCOUNT_ID) %> Projects
-              </div>
-              <div class="pmf_clear">&nbsp;</div>
-              <div class="stat">
-                Total of <b>$<%= @total_reservations_amount %></b>
-                Reserved in
-                <b><%= @total_reservations %></b> Projects
               </div>
             </div>
           </div>

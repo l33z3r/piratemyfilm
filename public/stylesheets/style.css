@@ -253,7 +253,7 @@ div#header_links span.welcome_message {
 
 div#top_search_box {
     float: right;
-    margin-top: -15px;
+    margin-top: -5px;
 }
 
 div#topsite_links {
@@ -271,15 +271,15 @@ div#topsite_links div#widget_link a {
     text-decoration: underline;
 }
 
-div#topsite_links div#stats_container {
+div#topsite_links div#pmf_fund_stats_container {
     float: left;
 }
 
-div#topsite_links div#stats_container div.pic {
+div#topsite_links div#pmf_fund_stats_container div.pic {
     float: left;
 }
 
-div#topsite_links div#stats_container div#stats {
+div#topsite_links div#pmf_fund_stats_container div#stats {
     margin: 16px 0px 0px 12px;
     font-weight: bold;
     float: left;
@@ -958,6 +958,12 @@ div#header div#social_links {
     float: right;
 }
 
+div#header div#stats_container {
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .twitter-link {
     float:right;
 }
@@ -1176,7 +1182,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #header {
-    height: 178px;
+    height: 188px;
     color: #000000;
     text-align: left;
 }
