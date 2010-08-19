@@ -285,6 +285,11 @@ div#topsite_links div#pmf_fund_stats_container div#stats {
     float: left;
 }
 
+div#topsite_links div#pmf_fund_stats_container div#stats div.stat a {
+    color: black;
+    text-decoration: underline;
+}
+
 div#short_stats {
     width: 500px;
     margin: 5px 0px;
