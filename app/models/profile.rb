@@ -204,7 +204,7 @@ class Profile < ActiveRecord::Base
 
   @@filter_params_map = {
     1 => "Please Choose...", 2 => "User Login", 
-    3 => "No. Projects Listed", 4 => "No. Projects Reserved"
+    3 => "No. Projects Listed", 4 => "No. Shares Reserved"
   }
 
   def self.get_sql filter_param

@@ -784,7 +784,11 @@ div#users div#search_text {
 
 div#users div#user_search {
     float: left;
-    margin-top: 4px;
+    margin: 15px 0px;
+}
+
+div#users div#filter_param_box {
+    margin-top: 15px;
 }
 
 div#users div#search_text {
