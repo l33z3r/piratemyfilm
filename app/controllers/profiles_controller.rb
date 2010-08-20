@@ -1,9 +1,23 @@
 class ProfilesController < ApplicationController
   include ApplicationHelper
-  prepend_before_filter :get_profile, :except => [:new, :create, :index, :search]  
-  before_filter :setup, :except => [:index, :search]
-  before_filter :search_results, :only => [:index, :search]
-  skip_filter :login_required, :only=>[:show, :index, :feed, :search]
+    
+  before_filter :search_results, :only => :index
+  before_filter :setup, :except => :index
+  before_filter :load_profile_filter_params
+  skip_filter :login_required, :only => [:index, :show, :portfolio, :friend_list]
+
+  def index
+    #@profiles could be set due to a search
+    if !@profiles
+      if @filter_param = params[:profile_filter_param]
+        @sql = Profile.get_sql @filter_param
+
+        @profiles = Profile.find_by_sql(@sql).paginate :page => (params[:page] || 1), :per_page=> 48
+      else
+        @profiles = Profile.find(:all, :order => "created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 48
+      end
+    end
+  end
 
   def show
     render :action => "profile"
@@ -19,12 +33,17 @@ class ProfilesController < ApplicationController
     @user_subscriptions = @profile.user.subscribed_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
   end
 
-  def search
-    render
-  end
-  
-  def index
-    render :action => :search
+  def friend_list
+    @friend_type = params[:friend_type]
+
+    #validate friend_type
+    if @friend_type && Profile.friend_type_consts.include?(@friend_type.to_i)
+      @user_profile_list = @profile.friends_list(@friend_type)
+      @friend_type_string = Profile.friend_type_string(@friend_type)
+    else
+      flash[:error] = "Invalid Parameter"
+      redirect_to :controller => "/home" and return
+    end
   end
   
   def edit
@@ -61,19 +80,6 @@ class ProfilesController < ApplicationController
     end      
   end
 
-  def friend_list
-    @friend_type = params[:friend_type]
-
-    #validate friend_type
-    if @friend_type && Profile.friend_type_consts.include?(@friend_type.to_i)
-      @user_profile_list = @profile.friends_list(@friend_type)
-      @friend_type_string = Profile.friend_type_string(@friend_type)
-    else
-      flash[:error] = "Invalid Parameter"
-      redirect_to :controller => "/home" and return
-    end
-  end
-
   private
   
   def allow_to
@@ -81,21 +87,20 @@ class ProfilesController < ApplicationController
     super :all, :only => [:show, :index, :search, :portfolio]
   end
   
-  def get_profile
-    @profile = Profile[params[:id]]
-  end
-  
   def setup
+    @profile = Profile[params[:id]]
     @user = @profile.user
   end
-  
+
   def search_results
     if params[:search]
       p = params[:search].dup
-    else
-      p = []
+      @search_query = p.delete(:uq)
+      @profiles = Profile.search((@search_query || ''), p).paginate:page => (params[:page] || 1), :per_page => 50
     end
-    @results = Profile.search((p.delete(:q) || ''), p).paginate(:page => @page, :per_page => @per_page)
   end
-  
+
+  def load_profile_filter_params
+    @profile_filter_params = Profile.filter_param_select_opts
+  end
 end

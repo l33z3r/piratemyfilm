@@ -27,8 +27,6 @@
 
     <div id="site_wrapper">
 
-      <!-- test comment for deploy on mac -->
-
       <div id="header_links">
         <div class="menu bubplastic horizontal gray">
           <ul>
@@ -116,11 +114,6 @@
             <%= yield %>
 
           </div>
-
-          <% if !@hide_filter_params %>
-            <div class="pmf_clear_bottom_border">&nbsp;</div>
-            <%= render :partial => 'shared/filter_param_box' %>
-          <% end %>
 
           <div class="pmf_clear">&nbsp;</div>
           <%= render :partial => 'shared/footer' %>

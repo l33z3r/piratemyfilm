@@ -201,6 +201,47 @@ class Profile < ActiveRecord::Base
     logger.debug arr.inspect
     arr
   end
+
+  @@filter_params_map = {
+    1 => "Please Choose...", 2 => "User Login", 
+    3 => "No. Projects Listed", 4 => "No. Projects Reserved"
+  }
+
+  def self.get_sql filter_param
+    case filter_param
+    when "2" then 
+      return 'select profiles.* from profiles join users on profiles.user_id = users.id
+        order by users.login'
+    when "3" then
+      return 'select profiles.*, count(projects.id) as projects_count from profiles
+        join users on profiles.user_id = users.id join projects on projects.owner_id = users.id
+        where projects.symbol IS NOT NULL and projects.is_deleted = 0 group by users.id
+        order by projects_count DESC'
+    when "4" then
+      return 'select profiles.*, sum(project_subscriptions.amount) as project_subscriptions_count
+        from profiles join users on profiles.user_id = users.id join project_subscriptions on
+        project_subscriptions.user_id = users.id group by users.id order by
+        project_subscriptions_count DESC'
+    else
+      return "created_at DESC"
+    end
+  end
+
+  def self.filter_param_select_opts
+    @filter_param_select_opts = []
+
+    @@filter_params_map.each {  |key, value|
+      @filter_param_select_opts << [value, key.to_s]
+    }
+
+    @filter_param_select_opts.sort! { |arr1, arr2|
+      arr2[1].to_i <=> arr1[1].to_i
+    }
+
+    @filter_param_select_opts.reverse!
+
+    @filter_param_select_opts
+  end
   
   protected
 

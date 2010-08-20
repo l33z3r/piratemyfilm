@@ -1,0 +1,36 @@
+<div id ="users">
+
+  <div class="pmf_clear dashed_light_border">&nbsp;</div>
+
+  <% form_tag url_for(:action => "index"), :method => :get do -%>
+    <div id="user_search">
+      <%= text_field_tag 'search[uq]', (params[:search] && params[:search][:uq] ? params[:search][:uq] : 'Search Users'), :id => 'search[uq]', :size => 16, :onfocus => "this.select();" %>
+      <input type="submit" value="Search"/>
+    </div>
+  <%- end -%>
+
+  <div id="filter_param_box">
+    <% form_tag url_for(:controller => "/profiles"), :method => :get do %>
+      <%= select_tag :profile_filter_param, options_for_select(@profile_filter_params, [params['profile_filter_param']]), :onchange => "this.form.submit();" %>
+      <div class="label">View users by:</div>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <% if @search_query %>
+    <div id="search_text">Search Results For: <b><%= h @search_query %></b></div>
+    <div class="pmf_clear">&nbsp;</div>
+  <% end %>
+  
+  <% @profiles.each do |p| %>
+    <%= render :partial => "/profiles/small", :locals => { :profile => p } %>
+  <% end %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <%= pagination_controls_for @profiles if @profiles.respond_to? :total_pages %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>

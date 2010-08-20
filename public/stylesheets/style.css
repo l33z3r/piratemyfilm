@@ -738,9 +738,8 @@ div#profile div.membership_type {
 }
 
 div#profile div.membership_type div.title {
-    font-weight: bold;
     color: black;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 div#profile div#friend_info {
@@ -748,9 +747,9 @@ div#profile div#friend_info {
 }
 
 div#profile div#friend_info div.title {
-    font-weight: bold;
+    margin-top: 3px;
     color: black;
-    font-size: 14px;
+    font-size: 20px;
     margin-bottom: 12px;
 }
 
@@ -768,7 +767,29 @@ div#profile div#friend_info div#friend_link_container {
     margin: 5px 0px;
 }
 
+div#profile div#friend_info div#friend_link_container a {
+    font-weight: bold;
+    color: #000000;
+    font-size: 14px;
+}
+
 /* End profile page */
+
+/* Users Page */
+
+div#users div#search_text {
+    float: left;
+    margin-top: 3px;
+}
+
+div#users div#user_search {
+    float: left;
+    margin-top: 4px;
+}
+
+div#users div#search_text {
+    clear: both;
+}
 
 /* Project page */
 

@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
   end
 
   def print_money value
-    number_to_currency value
+    number_to_currency value, :precision => 0
   end
 
   def check_captcha(redirect=nil)
