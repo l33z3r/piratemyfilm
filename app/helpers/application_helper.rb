@@ -72,6 +72,18 @@ module ApplicationHelper
     errors = object.errors.on(field_name)
     errors.is_a?(Array) ? errors.first : errors# errors.to_sentence : errors
   end
+
+  def follow_project_button project
+    if @u
+      content_tag :div, :class => "button left" do
+        if @u.following? project
+          link_to "Un-Follow", unfollow_project_project_followings_path(project), :method => :delete
+        else
+          link_to "Follow", project_project_followings_path(project), :method => "post"
+        end
+      end
+    end
+  end
   
   # type can be error or positive or blank
   def show_flash(messages=nil,type='')

@@ -12,8 +12,6 @@
 #
 
 class ProjectComment < ActiveRecord::Base
-  #added by Paul, all
-
   belongs_to :project
   belongs_to :user
 
@@ -21,4 +19,17 @@ class ProjectComment < ActiveRecord::Base
     find(:all, :include => :project, :conditions => "projects.is_deleted = false and projects.symbol is not null",
       :order => "project_comments.created_at desc")
   end
+
+  def self.latest_for_user_followings user
+
+    @project_ids = []
+
+    user.followed_projects.each do |project|
+      @project_ids << project.id
+    end
+
+    find(:all, :include => :project, :conditions => "projects.is_deleted = false and projects.symbol is not null and projects.id in (#{@project_ids.join(",")})",
+      :order => "project_comments.created_at desc")
+  end
+
 end

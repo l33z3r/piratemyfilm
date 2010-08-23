@@ -20,6 +20,22 @@ class ProfilesController < ApplicationController
   end
 
   def show
+    
+    if @p == @profile
+      #users live stream
+
+      @blogs = Blog.all_for_user_followings @u
+      @pmf_fund_comments = ProjectComment.latest_for_user_followings @u
+
+      @items = @blogs + @pmf_fund_comments
+
+      @items.sort! do |a,b|
+        b.created_at <=> a.created_at
+      end
+
+      @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
+    end
+
     render :action => "profile"
   end
   
@@ -31,6 +47,7 @@ class ProfilesController < ApplicationController
 
     @user_projects = @profile.user.owned_public_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
     @user_subscriptions = @profile.user.subscribed_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
+    @followed_projects = @profile.user.followed_projects :order => "created_at DESC", :page => (params[:page] || 1), :per_page=> 10
   end
 
   def friend_list

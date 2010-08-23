@@ -14,6 +14,7 @@
       <div class="button left">
       <%= link_to "#{@project.green_light ? "Revoke" : "Award"} Green", :action => "update_green_light", :id => @project.id %></div>
     <% end %>
+    <%= follow_project_button @project %>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -238,12 +239,12 @@
     <div class="pageTitle">Members Reserving Copies</div>
     <div class="pmf_clear_bottom_border">&nbsp;</div>
 
-  <div class="users">
-    <% @project.subscribers.each do |user| %>
+    <div class="users">
+      <% @project.subscribers.each do |user| %>
         <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
       <% end %>
     </div>
 
     <div class="pmf_clear_bottom_border">&nbsp;</div>
   <% end %>
-  </div>
+</div>

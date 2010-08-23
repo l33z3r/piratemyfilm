@@ -4,7 +4,7 @@ class BlogsController < ApplicationController
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
 
   def index
-    #we want to mix in the pmf fund comments and blogs into one list
+    #global live stream
 
     @blogs = Blog.all_blogs
     @pmf_fund_comments = ProjectComment.latest
@@ -37,10 +37,6 @@ class BlogsController < ApplicationController
         redirect_to :action => "index"
       end
     end
-  end
-
-  def member
-    
   end
 
   def admin

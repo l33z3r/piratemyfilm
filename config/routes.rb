@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :projects,
     :member=>{:delete_icon=>:post}, :collection=>{:search=>:get} do | project |
     project.resources :project_subscriptions, :collection => {:cancel => :delete}
+    project.resources :project_followings, :collection => {:unfollow => :delete}, :only => [:create]
     project.resources :project_comments
   end
 
@@ -21,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     :has_many=>[:friends, :blogs, :photos, :comments, :feed_items, :messages]
 
   map.resources :messages, :collection => {:sent => :get}
-  
+
   map.resources :forums, :collection => {:update_positions => :post} do |forum|
     forum.resources :topics, :controller => :forum_topics do |topic|
       topic.resources :posts, :controller => :forum_posts

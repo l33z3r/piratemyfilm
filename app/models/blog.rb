@@ -77,6 +77,19 @@ class Blog < ActiveRecord::Base
     puts "Updated Max Blog with " + @new_hp_blogs.length.to_s + " blogs!"
   end
 
+  def self.all_for_user_followings user
+
+    @project_ids = []
+
+    user.followed_projects.each do |project|
+      @project_ids << project.id
+    end
+
+    find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null)
+        and projects.id in (#{@project_ids.join(",")})",
+      :order => "blogs.created_at desc")
+  end
+
   def self.all_blogs
     find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null)
         or (blogs.is_admin_blog = 1) or (blogs.guid is not null)",

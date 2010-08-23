@@ -98,5 +98,28 @@
     </div>
 
   </div>
-</div>
+
+  <% if @p == @profile %>
+
+    <div class="dashed_light_border">&nbsp;</div>
+
+    <div class="pmf_clear_20">&nbsp;</div>
+
+    <div class="pageTitle">My Live Feed</div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <% @items.each do |item| %>
+      <% if item.kind_of? Blog %>
+        <%= render :partial => "/blogs/templates/#{blog_template_name(item)}",
+          :locals => {:blog => item, :truncate_blog => true,
+          :link_blog_header => true } %>
+      <% elsif item.kind_of? ProjectComment %>
+        <%= render :partial => 'project_comments/comment_info', :locals => {:project_comment => item} %>
+      <% end %>
+    <% end %>
+
+    <%= pagination_controls_for @items if @items.respond_to? :total_pages %>
+
+  <% end %>
 </div>

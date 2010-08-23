@@ -94,4 +94,28 @@
       <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
     <% end %>
   </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_listing_box">
+    <div class="pageTitleSmaller">
+      <% if @p == @profile %>
+        You are
+      <% else %>
+        <%=@profile.user.login%> is
+      <% end %>
+      <i>following</i> these projects
+    </div>
+
+    <div class="dashed_light_border">&nbsp;</div>
+
+    <% if !@followed_projects or @followed_projects.empty? %>
+      No Projects Found!
+    <% else %>
+      <%= render :partial => "projects/listings", :object => @followed_projects %>
+      <%= pagination_controls_for @followed_projects if @followed_projects.respond_to? :total_pages %>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
 </div>

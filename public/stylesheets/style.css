@@ -1975,6 +1975,7 @@ div#project_show div.highlight_symbol {
 .view-lite-row-icon img {
     height: 100px;
     width: 100px;
+    margin-bottom: 15px;
 }
 
 .view-lite-row-project-name	{
