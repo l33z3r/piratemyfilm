@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100817182557
+# Schema version: 20100824062550
 #
 # Table name: blogs
 #
@@ -84,6 +84,8 @@ class Blog < ActiveRecord::Base
     user.followed_projects.each do |project|
       @project_ids << project.id
     end
+
+    return [] if @project_ids.size == 0
 
     find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null)
         and projects.id in (#{@project_ids.join(",")})",

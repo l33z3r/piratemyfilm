@@ -5,12 +5,8 @@ class Admin::ProjectRatingController < Admin::AdminController
       @project_id = params[:project_id]
       @project = Project.find_by_id(@project_id)
 
-      @current_rating = AdminProjectRating.find_by_project_id @project_id
-
-      if !@current_rating
-        @current_rating = AdminProjectRating.create(:project => @project)
-      end
-
+      @current_rating = AdminProjectRating.create(:project => @project)
+      
       @rating = params[:rating]
       @current_rating.rating = @rating
 

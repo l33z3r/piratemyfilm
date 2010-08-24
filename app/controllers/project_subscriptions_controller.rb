@@ -95,6 +95,11 @@ class ProjectSubscriptionsController < ApplicationController
 
       ProjectSubscription.update_share_queue @project
 
+      if @u.id == PMF_FUND_ACCOUNT_ID
+        #store in reservation history for pmf fund
+        PmfFundSubscriptionHistory.create(:project => @project, :amount => (0 - @num_shares))
+      end
+
       flash[:notice] = "Shares canceled!"
       
     rescue ActiveRecord::RecordInvalid => ex
@@ -176,7 +181,10 @@ class ProjectSubscriptionsController < ApplicationController
       @outstanding_project_subscription.created_at = Time.at(0)
       @outstanding_project_subscription.save
     end
-    
+
+    #store in reservation history for pmf fund
+    PmfFundSubscriptionHistory.create(:project => @project, :amount => @num_shares)
+
     ProjectSubscription.update_share_queue @project
 
     flash[:notice] = "Reservation Complete"

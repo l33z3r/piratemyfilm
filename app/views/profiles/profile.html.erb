@@ -99,7 +99,7 @@
 
   </div>
 
-  <% if @p == @profile %>
+  <% if @p == @profile && @items.size > 0 %>
 
     <div class="dashed_light_border">&nbsp;</div>
 
@@ -115,7 +115,12 @@
           :locals => {:blog => item, :truncate_blog => true,
           :link_blog_header => true } %>
       <% elsif item.kind_of? ProjectComment %>
-        <%= render :partial => 'project_comments/comment_info', :locals => {:project_comment => item} %>
+        <%= render :partial => '/project_comments/comment_info', :locals => {:project_comment => item} %>
+      <% elsif item.kind_of? AdminProjectRating %>
+        <%= render :partial => '/shared/partials/admin_project_rating', :locals => {:admin_project_rating => item} %>
+      <% elsif item.kind_of? PmfFundSubscriptionHistory %>
+        <%= render :partial => '/shared/partials/pmf_subscription_change',
+          :locals => { :pmf_subscription => item } %>
       <% end %>
     <% end %>
 

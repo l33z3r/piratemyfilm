@@ -1,10 +1,14 @@
-<div id ="users">
+<div class="pageTitle">PMF Members</div>
 
-  <div class="pmf_clear dashed_light_border">&nbsp;</div>
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id ="users">
 
   <% form_tag url_for(:action => "index"), :method => :get do -%>
     <div id="user_search">
-      <%= text_field_tag 'search[uq]', (params[:search] && params[:search][:uq] ? params[:search][:uq] : 'Search Users'), :id => 'search[uq]', :size => 16, :onfocus => "this.select();" %>
+      <%= text_field_tag 'search[uq]', (params[:search] && params[:search][:uq] ? params[:search][:uq] : 'Search Members'), :id => 'search[uq]', :size => 16, :onfocus => "this.select();" %>
       <input type="submit" value="Search"/>
     </div>
   <%- end -%>
@@ -12,7 +16,7 @@
   <div id="filter_param_box">
     <% form_tag url_for(:controller => "/profiles"), :method => :get do %>
       <%= select_tag :profile_filter_param, options_for_select(@profile_filter_params, [params['profile_filter_param']]), :onchange => "this.form.submit();" %>
-      <div class="label">View users by:</div>
+      <div class="label">View Members by:</div>
     <% end %>
   </div>
 

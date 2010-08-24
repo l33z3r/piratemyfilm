@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100817182557
+# Schema version: 20100824062550
 #
 # Table name: projects
 #
@@ -90,8 +90,11 @@ class Project < ActiveRecord::Base
   #note that we duplicate the following data as we need it to sort and order projects on the browse page
   #this makes the queries run faster
   has_one :project_rating
+  
+  has_one :admin_project_rating, :order => "created_at DESC"
+  has_many :admin_project_ratings, :order => "created_at DESC"
+  has_many :pmf_fund_subscription_histories
 
-  has_one :admin_project_rating
   has_many :project_comments
   has_one :latest_project_comment, :class_name => "ProjectComment", :order => "created_at DESC"
 

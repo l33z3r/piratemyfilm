@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100823150551) do
+ActiveRecord::Schema.define(:version => 20100824071740) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -166,6 +166,13 @@ ActiveRecord::Schema.define(:version => 20100823150551) do
 
   add_index "photos", ["profile_id"], :name => "index_photos_on_profile_id"
 
+  create_table "pmf_fund_subscription_histories", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "profiles", :force => true do |t|
     t.integer  "user_id"
     t.string   "first_name"
@@ -191,6 +198,13 @@ ActiveRecord::Schema.define(:version => 20100823150551) do
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
+
+  create_table "project_change_info_one_days", :force => true do |t|
+    t.integer  "amount",     :default => 0
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "project_comments", :force => true do |t|
     t.text     "body"

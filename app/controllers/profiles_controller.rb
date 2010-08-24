@@ -23,15 +23,19 @@ class ProfilesController < ApplicationController
     
     if @p == @profile
       #users live stream
-
       @blogs = Blog.all_for_user_followings @u
       @pmf_fund_comments = ProjectComment.latest_for_user_followings @u
+      @admin_project_ratings = AdminProjectRating.latest_for_user_followings @u
+      @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest_for_user_followings @u
 
-      @items = @blogs + @pmf_fund_comments
+      @items = @blogs + @pmf_fund_comments + @admin_project_ratings + @pmf_project_subscriptions
 
       @items.sort! do |a,b|
         b.created_at <=> a.created_at
       end
+
+      #this users top projects (24 hour change)
+      @top_projects = ProjectChangeInfoOneDay.top_five_change_for_user @profile.user
 
       @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
     end

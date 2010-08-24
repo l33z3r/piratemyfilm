@@ -3,14 +3,9 @@
 
     <div class="half left">
       <div class="pageTitle">
-        <% if @p == @profile %>
-          My
-        <% else %>
-          <%=@profile.user.login%>'s
-        <% end %>
-        Portfolio
+        <%= me_or_login %> Portfolio
       </div>
-      
+
       <div class="activity_box learn">
         <div class="left avatar"><%= icon @profile, :medium %></div>
         <div class="right bio_stuff">
@@ -40,8 +35,24 @@
 
     <div class="pmf_clear">&nbsp;</div>
 
+    <div class="half right">
+      <div class="portfolio_info">
+        <div class="title"><%= me_or_login %> Top 5 Projects (24 Hour Change)</div>
+
+        <% @top_projects.each do |tp| %>
+          <div class="pmf_clear">&nbsp;</div>
+          <div class="stat_label"><%= link_to tp.project.symbol, project_path(tp) %></div>
+          <div class="stat"><%= tp.change %></div>
+          <div class="pmf_clear">&nbsp;</div>
+        <% end %>
+                
+      </div>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
     <div class="profile_links">
-       <div class="button">
+      <div class="button">
         <%= link_to "List a Project", new_project_path %>
       </div>
       <div class="button">

@@ -1,25 +1,19 @@
 # == Schema Information
 # Schema version: 20100824062550
 #
-# Table name: project_comments
+# Table name: pmf_fund_subscription_histories
 #
 #  id         :integer(4)    not null, primary key
-#  body       :text          
-#  user_id    :integer(4)    
 #  project_id :integer(4)    
+#  amount     :integer(4)    
 #  created_at :datetime      
 #  updated_at :datetime      
 #
 
-class ProjectComment < ActiveRecord::Base
+class PmfFundSubscriptionHistory < ActiveRecord::Base
+
   belongs_to :project
-  belongs_to :user
-
-  def self.latest
-    find(:all, :include => :project, :conditions => "projects.is_deleted = false and projects.symbol is not null",
-      :order => "project_comments.created_at desc")
-  end
-
+  
   def self.latest_for_user_followings user
 
     @project_ids = []
@@ -29,9 +23,9 @@ class ProjectComment < ActiveRecord::Base
     end
 
     return [] if @project_ids.size == 0
-    
-    find(:all, :include => :project, :conditions => "projects.is_deleted = false and projects.symbol is not null and projects.id in (#{@project_ids.join(",")})",
-      :order => "project_comments.created_at desc")
-  end
 
+    find(:all, :include => :project, :conditions => "projects.is_deleted = false and projects.symbol is not null and projects.id in (#{@project_ids.join(",")})",
+      :order => "pmf_fund_subscription_histories.created_at desc")
+  end
+  
 end

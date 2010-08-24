@@ -251,4 +251,11 @@ module ApplicationHelper
     end
   end
 
+  def me_or_login
+    if @p == @profile
+      "My"
+    else
+      @profile.user.login + "'s"
+    end
+  end
 end

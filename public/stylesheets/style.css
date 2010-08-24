@@ -1672,7 +1672,7 @@ div.blog div.blog_left div.info div.blog_type a {
 div.blog div.blog_left div.info div.user_info {
     float: left;
     margin-right: 4px;
-    margin-top: -5px;
+    margin-top: -4px;
 }
 
 div.blog div.blog_left div.info div.user_info div.user_icon {
@@ -1966,10 +1966,8 @@ div#project_show div.highlight_symbol {
     padding: 12px 0px;
     float: left;
     text-align: center;
-    width: 116px;
-    border: 1px dotted #ffffff;
-    margin: auto;
-    margin-top: 15px;
+    width: 118px;
+    margin-top: 4px;
 }
 
 .view-lite-row-icon img {
