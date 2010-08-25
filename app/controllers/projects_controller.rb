@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   
   skip_filter :store_location, :only => [:create]
-  skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param]
+  skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param, :invite]
   before_filter :setup
   before_filter :load_project, :only => [:show, :edit, :update, :update_symbol, :update_green_light, :blogs]
   skip_before_filter :setup, :only => [:blogs]
@@ -151,6 +151,11 @@ class ProjectsController < ApplicationController
     end
   end
   
+  def invite
+    @email_addresses = params[:email_addresses]
+    ProjectsMailer.deliver_friend_invite @email_addresses
+  end
+  
   protected
 
   def load_membership_settings
@@ -212,7 +217,7 @@ class ProjectsController < ApplicationController
   def allow_to
     super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
     super :admin, :all => true
-    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon]
+    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon, :invite]
   end
   
   def check_owner_or_admin
