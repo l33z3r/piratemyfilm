@@ -23,7 +23,7 @@ class ProfilesController < ApplicationController
     @followed_blogs = []
 
     if @p == @profile
-      @followed_blogs  = Blog.all_for_user_producer_followings @u
+      @followed_blogs  = Blog.all_for_user_producer_followings(@u).paginate :page => (params[:page] || 1), :per_page=> 15
     end
 
     render :action => "profile"

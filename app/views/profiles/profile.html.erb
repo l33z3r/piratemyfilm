@@ -111,6 +111,6 @@
 
     <%= render :partial => '/blogs/blogs', :locals => {:blogs => @followed_blogs} %>
 
-  <%= pagination_controls_for @followed_blogs if @followed_blogs.respond_to? :total_pages %>
+    <%= pagination_controls_for @followed_blogs if @followed_blogs.respond_to? :total_pages %>
   <% end %>
 </div>
