@@ -16,7 +16,7 @@ config.action_controller.perform_caching             = true
 # needed for Avatar::Source::RailsAssetSource
 config.action_controller.asset_host                  = "http://piratemyfilm.piratemyfilm-001.vm.brightbox.net"
 
-config.action_mailer.default_url_options = {:host => "piratemyfilm.com"}
+config.action_mailer.default_url_options = {:host => "www.piratemyfilm.com"}
 
 # Disable delivery errors, bad email addresses will be ignored
 #config.action_mailer.raise_delivery_errors = false
