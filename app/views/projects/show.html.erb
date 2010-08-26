@@ -15,6 +15,7 @@
       <%= link_to "#{@project.green_light ? "Revoke" : "Award"} Green", :action => "update_green_light", :id => @project.id %></div>
     <% end %>
     <%= follow_project_button @project %>
+    <div class="button left"><%= link_to "Invite", invite_friends_project_path(@project) %></div>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
