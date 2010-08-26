@@ -1,0 +1,21 @@
+<div class="pageTitle">Invite Friends to Follow This Project</div>
+
+<div class="pageTitleSmaller"><%= h @project.title %></div>
+
+<div id="sub_nav">
+  <%= link_to "Back to Project", {:controller => "projects", :action => "show",
+    :id => @project.id}, :class => "subnav_inactive" %>
+</div>
+
+<p>
+  Enter your friends email addresses (separated by a comma) and a mail will
+  be sent to them with a link to follow this project.
+</p>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<% form_tag send_friends_invite_project_path(@project), :method => :post do %>
+  <%= text_area_tag :email_addresses, "Enter email addresses here...", :rows => 4, :cols => 50 %>
+  <div class="pmf_clear_10">&nbsp;</div>
+  <%= submit_tag "Send" %>
+<% end %>

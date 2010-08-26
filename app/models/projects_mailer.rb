@@ -1,14 +1,14 @@
 class ProjectsMailer < ActionMailer::Base
   
-  def friend_invite sender, project, recipient
-    @subject        = "Follow notice from #{SITE_NAME}"
+  def follow_invitation inviter, project, recipient
+    @subject        = "Invite to Follow a Project on PMF"
     @recipients     = recipient
     @body['inviter']   = inviter
-    @body['invited']   = invited
-    @body['description'] = description
+    @body['project']   = project
     @from           = MAILER_FROM_ADDRESS
     @sent_on        = Time.new
     @headers        = {}
+    content_type "text/html"
   end
 
 end

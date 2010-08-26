@@ -1,9 +1,13 @@
 class ProjectsController < ApplicationController
   
   skip_filter :store_location, :only => [:create]
-  skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param, :invite]
+  skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param]
+
   before_filter :setup
-  before_filter :load_project, :only => [:show, :edit, :update, :update_symbol, :update_green_light, :blogs]
+
+  before_filter :load_project, :only => [:show, :edit, :update, :update_symbol, 
+    :update_green_light, :blogs, :invite_friends, :send_friends_invite]
+
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
   before_filter :check_owner_or_admin, :only => [:edit, :update]
@@ -150,10 +154,20 @@ class ProjectsController < ApplicationController
       wants.js {render :update do |page| page.visual_effect 'Puff', 'project_icon_picture' end  }
     end
   end
+
+  def invite_friends
+    
+  end
   
-  def invite
-    @email_addresses = params[:email_addresses]
-    ProjectsMailer.deliver_friend_invite @email_addresses
+  def send_friends_invite
+    @email_addresses = params[:email_addresses].split(/, /)
+
+    @email_addresses.each do |email_address|
+      ProjectsMailer.deliver_follow_invitation @u, @project, email_address
+    end
+
+    flash[:positive] = "Your invitation has been sent."
+    redirect_to project_path(@project)
   end
   
   protected
@@ -217,7 +231,8 @@ class ProjectsController < ApplicationController
   def allow_to
     super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
     super :admin, :all => true
-    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon, :invite]
+    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon,
+      :invite_friends, :send_friends_invite]
   end
   
   def check_owner_or_admin

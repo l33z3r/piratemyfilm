@@ -3,6 +3,9 @@ task :update_max_blog=> :environment do
   Blog.update_max_blog
 end
 
+desc "Update the daily share change in each project"
+task :update_daily_share_change 
+
 desc "Clear the whole memcahce"
 task :clear_cache => :environment do
   ActionController::Base.cache_store.clear

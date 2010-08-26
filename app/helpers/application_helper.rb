@@ -74,13 +74,11 @@ module ApplicationHelper
   end
 
   def follow_project_button project
-    if @u
-      content_tag :div, :class => "button left" do
-        if @u.following? project
-          link_to "Un-Follow", unfollow_project_project_followings_path(project), :method => :delete
-        else
-          link_to "Follow", project_project_followings_path(project), :method => "post"
-        end
+    content_tag :div, :class => "button left" do
+      if @u and @u.following? project
+        link_to "Un-Follow", unfollow_project_project_followings_path(project), :method => :delete
+      else
+        link_to "Follow", project_project_followings_path(project), :method => "post"
       end
     end
   end
