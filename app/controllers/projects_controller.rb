@@ -165,7 +165,10 @@ class ProjectsController < ApplicationController
     @email_addresses = params[:email_addresses].split(/, /)
 
     @email_addresses.each do |email_address|
-      ProjectsMailer.deliver_follow_invitation @u, @project, email_address
+      begin
+        ProjectsMailer.deliver_follow_invitation @u, @project, email_address
+      rescue Exception
+      end
     end
 
     flash[:positive] = "Your invitation has been sent."
