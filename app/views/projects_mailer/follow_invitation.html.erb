@@ -2,7 +2,10 @@ You have been sent an invitation from <%= h @inviter.login %> to follow a projec
 
 <br/><br/>
 
-<%= link_to @project.title, project_path(@project), :only_path => false %>
+<a href="<%= url_for(:only_path => false,
+     :controller => "projects", :action => "show", :id => @project.id) %>">
+   <%= h @project.title %>
+</a>
 
 <br/><br/>
 

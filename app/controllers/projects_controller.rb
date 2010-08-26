@@ -64,6 +64,8 @@ class ProjectsController < ApplicationController
       @project.save!
       @hide_filter_params = true
 
+      @project_subscription = ProjectFollowing.create( :user => @u, :project => @project)
+      
       flash.now[:positive] = "Project Created!"
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Project"      
