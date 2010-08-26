@@ -11,6 +11,9 @@
       :link_blog_header => true } %>
   <% elsif item.kind_of? ProjectComment %>
     <%= render :partial => 'project_comments/comment_info', :locals => {:project_comment => item} %>
+  <% elsif item.kind_of? PmfFundSubscriptionHistory %>
+    <%= render :partial => '/shared/partials/pmf_subscription_change',
+      :locals => { :pmf_subscription => item } %>
   <% end %>
 <% end %>
 

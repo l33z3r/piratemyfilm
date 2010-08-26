@@ -27,5 +27,10 @@ class PmfFundSubscriptionHistory < ActiveRecord::Base
     find(:all, :include => :project, :conditions => "projects.is_deleted = false and projects.symbol is not null and projects.id in (#{@project_ids.join(",")})",
       :order => "pmf_fund_subscription_histories.created_at desc")
   end
+
+  def self.latest
+    find(:all, :include => :project, :conditions => "projects.is_deleted = false and projects.symbol is not null",
+      :order => "pmf_fund_subscription_histories.created_at desc")
+  end
   
 end
