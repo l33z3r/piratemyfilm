@@ -92,6 +92,23 @@ class Blog < ActiveRecord::Base
       :order => "blogs.created_at desc")
   end
 
+  def self.all_for_user_producer_followings user
+
+    @profile_ids = []
+
+    @followed_profiles = user.profile.friends + user.profile.followings
+
+    @followed_profiles.each do |profile|
+      @profile_ids << profile.id
+    end
+
+    return [] if @profile_ids.size == 0
+
+    find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null)
+        and blogs.profile_id in (#{@profile_ids.join(",")})",
+      :order => "blogs.created_at desc")
+  end
+
   def self.all_blogs
     find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null)
         or (blogs.is_admin_blog = 1) or (blogs.guid is not null)",

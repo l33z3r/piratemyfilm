@@ -35,7 +35,7 @@
 
     <div class="pmf_clear">&nbsp;</div>
 
-    <div class="half right">
+    <!--div class="half right">
       <div class="portfolio_info">
         <div class="title"><%= me_or_login %> Top 5 Projects (24 Hour Change)</div>
 
@@ -47,19 +47,47 @@
         <% end %>
                 
       </div>
-    </div>
+    </div-->
 
     <div class="pmf_clear">&nbsp;</div>
 
     <div class="profile_links">
       <div class="button">
-        <%= link_to "List a Project", new_project_path %>
-      </div>
-      <div class="button">
         <%= link_to "View Profile", profile_path(@p) %>
       </div>
     </div>
   </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <% if @p == @profile && @items.size > 0 %>
+
+    <div class="dashed_light_border">&nbsp;</div>
+
+    <div class="pmf_clear_20">&nbsp;</div>
+
+    <div class="pageTitle">Followed Projects Feed</div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <% @items.each do |item| %>
+      <% if item.kind_of? Blog %>
+        <%= render :partial => "/blogs/templates/#{blog_template_name(item)}",
+          :locals => {:blog => item, :truncate_blog => true,
+          :link_blog_header => true } %>
+      <% elsif item.kind_of? ProjectComment %>
+        <%= render :partial => '/project_comments/comment_info', :locals => {:project_comment => item} %>
+      <% elsif item.kind_of? AdminProjectRating %>
+        <%= render :partial => '/shared/partials/admin_project_rating', :locals => {:admin_project_rating => item} %>
+      <% elsif item.kind_of? PmfFundSubscriptionHistory %>
+        <%= render :partial => '/shared/partials/pmf_subscription_change',
+          :locals => { :pmf_subscription => item } %>
+      <% end %>
+    <% end %>
+
+    <%= pagination_controls_for @items if @items.respond_to? :total_pages %>
+
+  <% end %>
 
   <div class="dashed_light_border">&nbsp;</div>
 
@@ -105,28 +133,4 @@
       <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
     <% end %>
   </div>
-
-  <div class="pmf_clear">&nbsp;</div>
-
-  <div class="project_listing_box">
-    <div class="pageTitleSmaller">
-      <% if @p == @profile %>
-        You are
-      <% else %>
-        <%=@profile.user.login%> is
-      <% end %>
-      <i>following</i> these projects
-    </div>
-
-    <div class="dashed_light_border">&nbsp;</div>
-
-    <% if !@followed_projects or @followed_projects.empty? %>
-      No Projects Found!
-    <% else %>
-      <%= render :partial => "projects/listings", :object => @followed_projects %>
-      <%= pagination_controls_for @followed_projects if @followed_projects.respond_to? :total_pages %>
-    <% end %>
-  </div>
-
-  <div class="pmf_clear">&nbsp;</div>
 </div>

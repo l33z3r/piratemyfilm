@@ -882,6 +882,16 @@ div.static_content {
     margin: 20px 10px;
 }
 
+div#how_it_works div#text {
+    float: left;
+}
+
+div#how_it_works div#text div#vid {
+    float: right;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
 /* end static pages */
 
 #footer	{

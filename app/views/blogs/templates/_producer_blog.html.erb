@@ -10,10 +10,10 @@
       </div>
       <div class="user_info">
         <div class="user_icon">
-          <%= link_to icon(blog.profile, :small), :action => "producer", :user_id => blog.profile.user %>
+          <%= link_to icon(blog.profile, :small), profile_path(blog.profile) %>
         </div>
         <div class="user_name">
-          <%= link_to h(blog.profile.user.login), :action => "producer", :user_id => blog.profile.user %>
+          <%= link_to h(blog.profile.user.login), profile_path(blog.profile) %>
         </div>
       </div>
       

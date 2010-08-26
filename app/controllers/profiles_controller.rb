@@ -20,9 +20,18 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    
+    @followed_blogs = []
+
     if @p == @profile
-      #users live stream
+      @followed_blogs  = Blog.all_for_user_producer_followings @u
+    end
+
+    render :action => "profile"
+  end
+  
+  def portfolio
+    if @p == @profile
+      #users live project follow stream
       @blogs = Blog.all_for_user_followings @u
       @pmf_fund_comments = ProjectComment.latest_for_user_followings @u
       @admin_project_ratings = AdminProjectRating.latest_for_user_followings @u
@@ -40,10 +49,6 @@ class ProfilesController < ApplicationController
       @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
     end
 
-    render :action => "profile"
-  end
-  
-  def portfolio
     @total_shares_reserved = @profile.user.project_subscriptions.sum("amount")
     
     #TODO pick up dynamically ipo
