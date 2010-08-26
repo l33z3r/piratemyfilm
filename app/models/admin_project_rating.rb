@@ -63,4 +63,9 @@ class AdminProjectRating < ActiveRecord::Base
       :order => "admin_project_ratings.created_at desc")
   end
 
+  def self.latest
+    find(:all, :include => :project, :conditions => "projects.is_deleted = false and projects.symbol is not null",
+      :order => "admin_project_ratings.created_at desc")
+  end
+
 end
