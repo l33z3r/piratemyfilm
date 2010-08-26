@@ -49,6 +49,10 @@ class AdminProjectRating < ActiveRecord::Base
     @@ratings_map
   end
 
+  def self.symbol_for_rating the_rating
+    @@ratings_map[the_rating]
+  end
+
   def self.latest_for_user_followings user
 
     @project_ids = []

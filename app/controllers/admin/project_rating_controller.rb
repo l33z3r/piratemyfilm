@@ -5,17 +5,21 @@ class Admin::ProjectRatingController < Admin::AdminController
       @project_id = params[:project_id]
       @project = Project.find_by_id(@project_id)
 
-      @current_rating = AdminProjectRating.create(:project => @project)
-      
       @rating = params[:rating]
-      @current_rating.rating = @rating
 
-      if @current_rating.save!
-        @project.rated_at = Time.now
-        @project.admin_rating = @rating
-        @project.save!
+      if @project.admin_rating != AdminProjectRating.symbol_for_rating(@rating.to_i)
+
+        @current_rating = AdminProjectRating.create(:project => @project)
+      
+        @current_rating.rating = @rating
+
+        if @current_rating.save!
+          @project.rated_at = Time.now
+          @project.admin_rating = @rating
+          @project.save!
+        end
       end
-
+      
       @body = params[:body]
 
       if !@body.blank?
