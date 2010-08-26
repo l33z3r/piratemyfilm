@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.home "home", :controller => "home", :action => "index"
   
-  map.root :controller => "blogs", :action => "index"
+  map.root :controller => "home", :action => "index"
   
   map.static '/pages/:action', :controller=>'static'
 

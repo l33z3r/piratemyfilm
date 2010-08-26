@@ -2,8 +2,22 @@ class HomeController < ApplicationController
   skip_before_filter :login_required	
 
   def index
-    flash.keep
-    redirect_to :controller => "blogs"
+    #global live stream
+    @blogs = Blog.all_blogs
+    @pmf_fund_comments = ProjectComment.latest
+    @admin_project_ratings = AdminProjectRating.latest
+    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest
+
+    @items = @blogs + @pmf_fund_comments + @pmf_project_subscriptions + @admin_project_ratings
+
+    @items.sort! do |a,b|
+      b.created_at <=> a.created_at
+    end
+
+    @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
+
+    #top 10 % funded projects
+    @projects = Project.find(:all, :order => "percent_funded DESC", :limit => 10)
   end
 
   def newest_members
