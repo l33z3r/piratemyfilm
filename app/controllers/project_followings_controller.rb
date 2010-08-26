@@ -6,7 +6,7 @@ class ProjectFollowingsController < ApplicationController
     @following = ProjectFollowing.find_by_user_id_and_project_id(@u, @project)
 
     if !@following
-      @project_subscription = ProjectFollowing.create( :user => @u, :project => @project)
+      @project_following = ProjectFollowing.create( :user => @u, :project => @project)
       flash[:positive] = "You are now following this project"
     else
       flash[:error] = "You are already following this project"

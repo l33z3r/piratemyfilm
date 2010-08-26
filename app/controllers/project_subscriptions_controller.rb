@@ -56,7 +56,13 @@ class ProjectSubscriptionsController < ApplicationController
         @outstanding_project_subscription = ProjectSubscription.create(:user => @u,
           :project => @project, :amount => @num_outstanding_shares, :outstanding => true)
       end
-      
+
+      @following = ProjectFollowing.find_by_user_id_and_project_id(@u, @project)
+
+      if !@following
+        @project_subscription = ProjectFollowing.create( :user => @u, :project => @project)
+      end
+
       ProjectSubscription.update_share_queue @project
 
       flash[:notice] = "Reservation Complete"
@@ -182,6 +188,12 @@ class ProjectSubscriptionsController < ApplicationController
       @outstanding_project_subscription.save
     end
 
+    @following = ProjectFollowing.find_by_user_id_and_project_id(@u, @project)
+
+    if !@following
+      @project_subscription = ProjectFollowing.create( :user => @u, :project => @project)
+    end
+      
     #store in reservation history for pmf fund
     PmfFundSubscriptionHistory.create(:project => @project, :amount => @num_shares)
 
