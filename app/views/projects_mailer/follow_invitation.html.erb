@@ -1,5 +1,9 @@
 You have been sent an invitation from <%= h @inviter.login %> to follow a project on PirateMyFilm.
 
-<%= link_to @project.title, project_path(@project) %>
+<br/><br/>
+
+<%= link_to @project.title, project_path(@project), :only_path => false %>
+
+<br/><br/>
 
 Click on the link above and click the follow button in order to follow this project.
