@@ -114,7 +114,7 @@ class ProjectsController < ApplicationController
   end
 
   def share_queue
-    @subscriptions = @project.project_subscriptions.find(:all, :order => "created_at")
+    @subscriptions = @project.project_subscriptions.find(:all, :order => "created_at, id")
   end
 
   def show
