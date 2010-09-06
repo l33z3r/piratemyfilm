@@ -377,6 +377,26 @@ class Project < ActiveRecord::Base
     symbol != nil
   end
 
+  def user_subscription_amount user
+    @sum = 0
+
+    project_subscriptions.find_all_by_user_id_and_outstanding(user.id, false).each do |sub|
+      @sum += sub.amount
+    end
+
+    @sum
+  end
+
+  def user_subscription_amount_outstanding user
+    @sum = 0
+
+    project_subscriptions.find_all_by_user_id_and_outstanding(user.id, true).each do |sub|
+      @sum += sub.amount
+    end
+
+    @sum
+  end
+
   def symbol
     if !super
       return nil

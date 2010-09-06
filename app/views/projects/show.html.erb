@@ -10,9 +10,15 @@
       <div class="button left"><%= link_to "Edit project", edit_project_path(@project) %></div>
       <div class="button left"><%= link_to "Delete Project", {:controller => "admin/deleted_projects", :action => "delete", :id => @project}, :confirm => "Are You Sure?" %></div>
     <% end %>
+    <% if @u && @u.is_admin %>
+      <div class="button left">
+        <%= link_to "Share Queue", :action => "share_queue", :id => @project.id %>
+      </div>
+    <% end %>
     <% if @u && @u.is_admin && @project.budget_reached? %>
       <div class="button left">
-      <%= link_to "#{@project.green_light ? "Revoke" : "Award"} Green", :action => "update_green_light", :id => @project.id %></div>
+        <%= link_to "#{@project.green_light ? "Revoke" : "Award"} Green", :action => "update_green_light", :id => @project.id %>
+      </div>
     <% end %>
     <%= follow_project_button @project %>
     <div class="button left"><%= link_to "Invite", invite_friends_project_path(@project) %></div>

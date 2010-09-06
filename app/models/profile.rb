@@ -223,7 +223,7 @@ class Profile < ActiveRecord::Base
         project_subscriptions.user_id = users.id group by users.id order by
         project_subscriptions_count DESC'
     else
-      return "created_at DESC"
+      return "select profiles.* from profiles order by created_at DESC"
     end
   end
 

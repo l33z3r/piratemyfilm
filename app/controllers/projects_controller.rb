@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   before_filter :setup
 
   before_filter :load_project, :only => [:show, :edit, :update, :update_symbol, 
-    :update_green_light, :blogs, :invite_friends, :send_friends_invite]
+    :update_green_light, :share_queue, :blogs, :invite_friends, :send_friends_invite]
 
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
@@ -111,6 +111,10 @@ class ProjectsController < ApplicationController
       perform_show
       render :action => "show"
     end
+  end
+
+  def share_queue
+    @subscriptions = @project.project_subscriptions.find(:all, :order => "created_at")
   end
 
   def show
@@ -233,13 +237,6 @@ class ProjectsController < ApplicationController
     @selected_admin_rating = [@admin_rating, @current_admin_rating]
   end
 
-  def allow_to
-    super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
-    super :admin, :all => true
-    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon,
-      :invite_friends, :send_friends_invite]
-  end
-  
   def check_owner_or_admin
     if @project.owner != @u && !@u.is_admin
       flash[:error] = 'You are not the owner of this project.'
@@ -289,6 +286,13 @@ class ProjectsController < ApplicationController
         params[:project][:capital_required] = @rounded_budget.to_i
       end
     end
+  end
+
+  def allow_to
+    super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
+    super :admin, :all => true
+    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon,
+      :invite_friends, :send_friends_invite]
   end
 
 end

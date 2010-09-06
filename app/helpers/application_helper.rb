@@ -83,6 +83,39 @@ module ApplicationHelper
     end
   end
   
+  def follow_project_button_small project
+    if @u and @u.following? project
+      content_tag :div, :class => "following_text left" do
+        "Following..."
+      end
+    else
+      content_tag :div, :class => "button_small left" do
+        link_to "Follow", project_project_followings_path(project), :method => "post"
+      end
+    end
+  end
+
+  def subscription_info project
+    if @u
+      @amount = project.user_subscription_amount @u
+
+      if @amount > 0
+        @outstanding_amount = project.user_subscription_amount_outstanding @u
+
+        @outstanding_string = ""
+
+        if @outstanding_amount > 0
+          @outstanding_string = "<i>(#{@outstanding_amount} on
+            <a class='tooltip_arrow'
+               title='standby shares become valid when new orexisting shares become available'>
+              standby</a>)</i>"
+        end
+
+        "You have #{@amount} shares #{@outstanding_string} reserved for this project."
+      end
+    end
+  end
+  
   # type can be error or positive or blank
   def show_flash(messages=nil,type='')
     output = "<p id=\"flash_#{type}\">"
@@ -145,7 +178,7 @@ module ApplicationHelper
   end
 
   def project_green_light project
-    project.green_light ? "Green Lit Project!" : ""
+    project.green_light ? "(Green Light)" : ""
   end
 
   def project_icon project, size
@@ -166,7 +199,7 @@ module ApplicationHelper
     elsif blog.is_mkc_blog
       return "/images/mkc_avatar.png"
     elsif blog.is_admin_blog
-      return "/images/pmf_fund_avatar.png"
+      return "/images/pmf_fund_avatar_40.png"
     end
   end
 

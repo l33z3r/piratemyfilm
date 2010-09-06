@@ -1,0 +1,38 @@
+<div class="pageTitle">Share Queue</div>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pageTitleSmaller">
+  For Project <%= link_to h(@project.title), project_path(@project) %>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id="share_queue">
+
+  <div id="queue_header">
+      <div class="number_header">Position</div>
+      <div class="icon_header">User</div>
+      <div class="name_header">&nbsp;</div>
+      <div class="subscription_amount_header">Amount</div>
+      <div class="subscription_outstanding_header">Outstanding?</div>
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
+
+  <% @subscriptions.each_with_index do |subscription, index| %>
+    <div class="<%= cycle('odd','even') %> subscription">
+      <div class="number"><%= index + 1 %></div>
+      <div class="icon"><%= icon subscription.user.profile, :small %></div>
+      <div class="name"><%= link_to h(subscription.user.profile.f), profile_path(subscription.user.profile) %></div>
+      <div class="subscription_amount">
+        <%= subscription.amount %>
+      </div>
+      <div class="subscription_outstanding">
+        <%= subscription.outstanding ? "Yes" : "No" %>
+      </div>
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
+  <% end %>
+</div>

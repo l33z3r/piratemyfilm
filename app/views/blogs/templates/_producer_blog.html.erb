@@ -3,6 +3,9 @@
   <div class="blog_left">
     <div class="icon">
       <%= link_to project_icon(blog.project, :medium), project_path(blog.project) %>
+      <div class="follow_button">
+        <%= follow_project_button_small blog.project %>
+      </div>
     </div>
     <div class="info">
       <div class="blog_type">
@@ -16,7 +19,7 @@
           <%= link_to h(blog.profile.user.login), profile_path(blog.profile) %>
         </div>
       </div>
-      
+
       <div class="pmf_clear">&nbsp;</div>
 
       <div class="project_title">

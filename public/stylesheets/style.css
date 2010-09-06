@@ -29,16 +29,19 @@ a:hover {
 .pmf_clear {
     clear: both;
     height: 1px;
+    float: none;
 }
 
 .pmf_clear_10 {
     clear: both;
     height: 10px;
+    float: none;
 }
 
 .pmf_clear_20 {
     clear: both;
     height: 20px;
+    float: none;
 }
 
 .pmf_clear_bottom_border {
@@ -46,6 +49,7 @@ a:hover {
     height: 1px;
     border-bottom: 1px solid #333333;
     width: 100%;
+    float: none;
 }
 
 .pmf_top_margin_10 {
@@ -639,22 +643,80 @@ div#project_show div.reservation_form_container div.controls {
 
 /* End Project Page */
 
-/* create project page */
+/* Share Queue Page */
+
+div#share_queue div#header {
+
+}
+
+div#share_queue div#queue_header div {
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 70px;
+}
+
+div#share_queue div.subscription {
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+div#share_queue div.odd {
+    background-color: #F8F6EF;
+}
+
+div#share_queue div.subscription div.number {
+    float: left;
+    width: 70px;
+    margin-left: 10px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+div#share_queue div.subscription div.icon {
+    float: left;
+    width: 70px;
+    margin-right: 10px;
+}
+
+div#share_queue div.subscription div.name {
+    float: left;
+    width: 70px;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+div#share_queue div.subscription div.subscription_amount {
+    float: left;
+    width: 70px;
+    margin-left: 10px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+div#share_queue div.subscription div.subscription_outstanding {
+    float: left;
+    width: 70px;
+    margin-left: 10px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+/* End Share Queue Page */
+
+/* Create project page */
 
 form#new_project div#captcha_section {
 
 }
 
-/* create project page */
+/* Create project page */
 
 /* Home page */
 
-
-
 /* End Home page */
 
-
-/* profile page */
+/* Profile page */
 
 div#profile {
     margin-top: 10px;
@@ -1658,6 +1720,16 @@ div.blog div.blog_left div.icon {
     width: 70px;
 }
 
+div.blog div.blog_left div.icon div.follow_button {
+    margin-top: 4px;
+    margin-left: -2px;
+}
+
+div.blog div.blog_left div.icon div.follow_button div.following_text {
+    margin-left: 2px;
+    margin-top: 2px;
+}
+
 div.blog div.blog_left div.icon a img {
     width: 60px;
     margin-right: 10px;
@@ -1995,6 +2067,20 @@ div#project_show div.highlight_symbol {
     float:left;
 }
 
+.view-lite-row-project-name span.green_light_text {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.project_extra_info {
+    margin-bottom: 3px;
+    margin-left: 8px;
+    width: 100%;
+    float: left;
+    padding-bottom: 2px;
+    float: left;
+}
+
 .view-lite-row-project-name a {
     font-size: 13px;
     font-weight:bold;
@@ -2012,13 +2098,6 @@ div#project_show div.highlight_symbol {
 .view-lite-row-project-name a:hover	{
     text-decoration:underline;
     color:#000;
-}
-
-.view-lite-row-project-green-light {
-    float: right;
-    margin-top: 2px;
-    margin-right: 18px;
-    font-weight: bold;
 }
 
 .view-lite-row-user-icon {
@@ -2336,7 +2415,7 @@ div#admin_stats {
 
 /* End form errors */
 
-/* link button */
+/* link buttons */
 
 div.button {
     background: url(/images/button_bg.png) transparent left top;
@@ -2356,7 +2435,25 @@ div.button a:hover {
     text-decoration: none;
 }
 
-/* end link button */
+div.button_small {
+    background: url(/images/button_bg_small.png) transparent left top;
+    padding: 5px 3px 4px 3px;
+    width: 58px;
+    text-align: center;
+}
+
+div.button_small a {
+    text-decoration: none;
+    color: #666666;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+div.button_small a:hover {
+    text-decoration: none;
+}
+
+/* end link buttons */
 
 /* pagination */
 

@@ -8,10 +8,13 @@ project_link_action ||= "show"
   <div class="view-lite-row-project-name">
     <%= link_to h(project.title), :controller => project_link_controller,
       :action => project_link_action, :id => project %>
+      <span class="green_light_text"><%= project_green_light project %></span>
   </div>
 
-  <div class="view-lite-row-project-green-light">
-    <%= project_green_light project %>
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_extra_info">
+    <%= subscription_info project %>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
