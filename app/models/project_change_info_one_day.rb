@@ -17,7 +17,7 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
   
   def self.top_five_change_for_user user
     find(:all, :include => :project, :conditions => "projects.owner_id = #{user.id}
-      and project_change_info_one_days.created_at > '#{Time.now.midnight.to_s(:db)}'", :order => "abs(share_change) desc", :limit => 5)
+      and project_change_info_one_days.created_at > '#{Time.now.midnight.to_s(:db)}'", :order => "abs(project_change_info_one_days.share_change) desc", :limit => 5)
   end
 
   def self.generate_daily_change
