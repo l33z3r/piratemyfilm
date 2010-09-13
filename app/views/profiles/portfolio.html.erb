@@ -35,19 +35,28 @@
 
     <div class="pmf_clear">&nbsp;</div>
 
-    <!--div class="half right">
+    <div class="half right">
       <div class="portfolio_info">
         <div class="title"><%= me_or_login %> Top 5 Projects (24 Hour Change)</div>
+
+        <div class="stat_label_header">Project Symbol</div>
+        <div class="stat_header">Todays Change</div>
+        <div class="pmf_clear">&nbsp;</div>
 
         <% @top_projects.each do |tp| %>
           <div class="pmf_clear">&nbsp;</div>
           <div class="stat_label"><%= link_to tp.project.symbol, project_path(tp) %></div>
-          <div class="stat"><%= tp.change %></div>
+          <div class="arrow">
+            <%= image_tag(tp.share_change > 0 ? "green_arrow_up.png" : "red_arrow_down.png") %>
+          </div>
+          <div class="stat">
+            <%= tp.share_change %> Shares
+          </div>
           <div class="pmf_clear">&nbsp;</div>
         <% end %>
-                
+
       </div>
-    </div-->
+    </div>
 
     <div class="pmf_clear">&nbsp;</div>
 

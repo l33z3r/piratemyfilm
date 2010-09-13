@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100824062550
+# Schema version: 20100913134333
 #
 # Table name: project_subscriptions
 #
@@ -68,7 +68,7 @@ class ProjectSubscription < ActiveRecord::Base
   def self.calculate_amount project_subscriptions
     @num_shares = 0
 
-    #sum up all the shares the user has in this project
+    #sum up all the shares in project_subscriptions
     project_subscriptions.each do |ps|
       @num_shares += ps.amount
     end
@@ -79,7 +79,7 @@ class ProjectSubscription < ActiveRecord::Base
   def self.calculate_outstanding_amount project_subscriptions
     @num_shares = 0
 
-    #sum up all the shares the user has in this project
+    #sum up all the outstanding shares in project_subscriptions
     project_subscriptions.each do |ps|
       if ps.outstanding
         @num_shares += ps.amount

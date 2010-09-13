@@ -779,16 +779,41 @@ div#profile div.portfolio_info div.title {
     font-size: 14px;
 }
 
+div#profile div.portfolio_info div.stat_label_header {
+    float: left;
+    margin-right: 10px;
+    width: 180px;
+    color: #000000;
+    font-weight: bold;
+}
+
 div#profile div.portfolio_info div.stat_label {
     float: left;
     margin-right: 10px;
-    width: 220px;
+    width: 180px;
+}
+
+div#profile div.portfolio_info div.stat_header {
+    float: left;
+    width: 110px;
+    font-weight: bold;
+    color: #000000;
+    font-weight: bold;
 }
 
 div#profile div.portfolio_info div.stat {
     float: left;
-    width: 100px;
+    width: 110px;
     font-weight: bold;
+}
+
+div#profile div.portfolio_info div.arrow {
+    float: left;
+    width: 20px;
+}
+
+div#profile div.portfolio_info div.arrow img {
+    margin-top: 2px;
 }
 
 div#profile #content .bio_stuff div.pageTitle {

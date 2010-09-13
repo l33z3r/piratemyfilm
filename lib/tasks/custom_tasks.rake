@@ -1,10 +1,12 @@
 desc "Update the Max blog being pulled from maxkeiser.com"
-task :update_max_blog=> :environment do
+task :update_max_blog => :environment do
   Blog.update_max_blog
 end
 
 desc "Update the daily share change in each project"
-task :update_daily_share_change 
+task :update_daily_share_change => :environment do
+  ProjectChangeInfoOneDay.generate_daily_change
+end
 
 desc "Clear the whole memcahce"
 task :clear_cache => :environment do
@@ -12,7 +14,7 @@ task :clear_cache => :environment do
 end
 
 desc "Updates the ferret index for the application."
-task :ferret_index => [ :environment ] do | t |
+task :ferret_index => :environment do
   Project.rebuild_index
   puts "Completed Index Rebuild of Project model"
   Profile.rebuild_index

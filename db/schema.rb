@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100824071740) do
+ActiveRecord::Schema.define(:version => 20100913134333) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -200,7 +200,8 @@ ActiveRecord::Schema.define(:version => 20100824071740) do
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
   create_table "project_change_info_one_days", :force => true do |t|
-    t.integer  "amount",     :default => 0
+    t.integer  "share_amount", :default => 0
+    t.integer  "share_change", :default => 0
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"

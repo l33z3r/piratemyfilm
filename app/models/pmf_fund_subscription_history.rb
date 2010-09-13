@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100824062550
+# Schema version: 20100913134333
 #
 # Table name: pmf_fund_subscription_histories
 #

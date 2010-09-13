@@ -4,6 +4,6 @@ class LoadTrailerGenre < ActiveRecord::Migration
   end
 
   def self.down
-    Genre.find_by_title(:title => "Trailer").destroy!
+    Genre.find_by_title("Trailer").destroy
   end
 end

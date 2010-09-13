@@ -43,11 +43,11 @@ class ProfilesController < ApplicationController
         b.created_at <=> a.created_at
       end
 
-      #this users top projects (24 hour change)
-      @top_projects = ProjectChangeInfoOneDay.top_five_change_for_user @profile.user
-
       @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
     end
+
+    #this users top projects (24 hour change)
+    @top_projects = ProjectChangeInfoOneDay.top_five_change_for_user @profile.user
 
     @total_shares_reserved = @profile.user.project_subscriptions.sum("amount")
     

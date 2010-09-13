@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
       
     @project = Project.new
     @project.genre_id ||= Genre.default.id
-    @genres = Genre.find(:all)
+    @genres = Genre.find(:all, :order => "title")
   end
 
   def create
@@ -127,7 +127,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @genres = Genre.find(:all)
+    @genres = Genre.find(:all, :order => "title")
   end
 
   def update

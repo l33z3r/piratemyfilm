@@ -18,4 +18,8 @@ every 10.minutes do
   rake "update_max_blog"
 end
 
+every 1.day, :at => '1:00 am' do
+  rake "generate_project_change_info"
+end
+
 # Learn more: http://github.com/javan/whenever

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100824062550
+# Schema version: 20100913134333
 #
 # Table name: projects
 #
@@ -397,9 +397,13 @@ class Project < ActiveRecord::Base
     @sum
   end
 
+  def subscription_amount
+    ProjectSubscription.calculate_amount project_subscriptions
+  end
+
   def symbol
-    if !super
-      return nil
+    if !super or super.blank?
+      return "N/A"
     end
     
     super.upcase
