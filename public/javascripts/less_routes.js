@@ -51,6 +51,12 @@ function less_ajaxx(url, verb, params, options){
     new Ajax.Request(url, less_merge_objects({method: verb, parameters: less_get_params(params), onComplete: function(r){eval(r.responseText);}}, options));
   }
 }
+function admin_blogs_path(verb){ return '/blogs/admin';}
+function admin_blogs_ajax(verb, params, options){ return less_ajax('/blogs/admin', verb, params, options);}
+function admin_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/admin', verb, params, options);}
+function formatted_admin_blogs_path(format, verb){ return '/blogs/admin.' + format + '';}
+function formatted_admin_blogs_ajax(format, verb, params, options){ return less_ajax('/blogs/admin.' + format + '', verb, params, options);}
+function formatted_admin_blogs_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs/admin.' + format + '', verb, params, options);}
 function producer_blogs_path(verb){ return '/blogs/producer';}
 function producer_blogs_ajax(verb, params, options){ return less_ajax('/blogs/producer', verb, params, options);}
 function producer_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/producer', verb, params, options);}
@@ -63,12 +69,6 @@ function mkc_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/mkc',
 function formatted_mkc_blogs_path(format, verb){ return '/blogs/mkc.' + format + '';}
 function formatted_mkc_blogs_ajax(format, verb, params, options){ return less_ajax('/blogs/mkc.' + format + '', verb, params, options);}
 function formatted_mkc_blogs_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs/mkc.' + format + '', verb, params, options);}
-function admin_blogs_path(verb){ return '/blogs/admin';}
-function admin_blogs_ajax(verb, params, options){ return less_ajax('/blogs/admin', verb, params, options);}
-function admin_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/admin', verb, params, options);}
-function formatted_admin_blogs_path(format, verb){ return '/blogs/admin.' + format + '';}
-function formatted_admin_blogs_ajax(format, verb, params, options){ return less_ajax('/blogs/admin.' + format + '', verb, params, options);}
-function formatted_admin_blogs_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs/admin.' + format + '', verb, params, options);}
 function blogs_path(verb){ return '/blogs';}
 function blogs_ajax(verb, params, options){ return less_ajax('/blogs', verb, params, options);}
 function blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs', verb, params, options);}

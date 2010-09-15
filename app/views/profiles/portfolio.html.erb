@@ -47,7 +47,7 @@
           <div class="pmf_clear">&nbsp;</div>
           <div class="stat_label"><%= link_to tp.project.symbol, project_path(tp) %></div>
           <div class="arrow">
-            <%= image_tag(tp.share_change > 0 ? "green_arrow_up.png" : "red_arrow_down.png") %>
+            <%= up_down_arrow tp.share_change %>
           </div>
           <div class="stat">
             <%= tp.share_change %> Shares

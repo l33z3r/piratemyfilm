@@ -116,6 +116,8 @@ class ApplicationController < ActionController::Base
 
     #TODO pick up dynamically ipo
     @total_pmf_shares_reserved_amount = @total_pmf_shares_reserved_all_projects * 5
+
+    @top_sitewide_projects = ProjectChangeInfoOneDay.top_five_change_for_site
   end
 
   def print_money value

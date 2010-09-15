@@ -260,6 +260,11 @@ module ApplicationHelper
     end
   end
 
+  def up_down_arrow value
+    return if value == 0
+    image_tag(value > 0 ? "green_arrow_up.png" : "red_arrow_down.png")
+  end
+
   #RJS helper methods
 
   def rjs_update_flashes flash

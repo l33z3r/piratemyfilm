@@ -299,11 +299,15 @@ div#short_stats {
     margin: 5px 0px;
 }
 
-div#topsite_links div#stats_container div#stats div.stat {
+div#stats_container {
     float: left;
 }
 
-div#topsite_links div#stats_container div#stats div.stat a {
+div#stats_container div.stat {
+    color: black;
+}
+
+div#stats_container div.stat a {
     color: black;
     text-decoration: underline;
 }
@@ -1022,7 +1026,7 @@ div#how_it_works div#text div#vid {
 /* End hide */
 
 #icatch	{
-    height: 90px;
+    height: 67px;
 }
 
 .icatch-pictures {
@@ -1091,6 +1095,8 @@ div#signup_form div#captcha_section {
 
 /* End Signup Page */
 
+/* Top Site */
+
 div#signup_buttons {
     float: right;
 }
@@ -1106,7 +1112,8 @@ div#header div#widget_link {
 }
 
 div#header div#social_links {
-    float: right;
+    float: left;
+    margin-top: 20px;
 }
 
 div#header div#stats_container {
@@ -1116,7 +1123,7 @@ div#header div#stats_container {
 }
 
 .twitter-link {
-    float:right;
+    float: left;
 }
 
 .twitter-link a img {
@@ -1128,12 +1135,67 @@ div#header div#stats_container {
 }
 
 .fb-link {
-    float:right;
+    float: left;
 }
 
 .fb-link a img {
     margin-top: 7px;
 }
+
+div#header div.sitewide_portfolio_info {
+    width: 320px;
+    float: right;
+}
+
+div#header div.sitewide_portfolio_info div.title {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: black;
+    font-size: 14px;
+}
+
+div#header div.sitewide_portfolio_info div.stat_label_header {
+    float: left;
+    margin-right: 10px;
+    width: 180px;
+    color: #000000;
+    font-weight: bold;
+}
+
+div#header div.sitewide_portfolio_info div.stat_label {
+    float: left;
+    margin-right: 10px;
+    width: 180px;
+}
+
+div#header div.sitewide_portfolio_info div.stat_header {
+    float: left;
+    width: 110px;
+    font-weight: bold;
+    color: #000000;
+    font-weight: bold;
+}
+
+div#header div.sitewide_portfolio_info div.stat {
+    float: left;
+    width: 110px;
+    font-weight: bold;
+}
+
+div#header div.sitewide_portfolio_info div.arrow {
+    float: left;
+    width: 20px;
+}
+
+div#header div.sitewide_portfolio_info div.arrow img {
+    margin-top: 2px;
+}
+
+div#header_left {
+    float: left;
+}
+
+/* End Top Site */
 
 form	{
     margin:0;
@@ -1141,7 +1203,7 @@ form	{
 }
 
 #brand {
-    height:82px;
+    height: 82px;
 }
 
 #brand img#header_image {
@@ -1333,7 +1395,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #header {
-    height: 188px;
+    height: 168px;
     color: #000000;
     text-align: left;
 }

@@ -1,13 +1,15 @@
 <div id="header">
 
-  <div id="brand">
-    <a href="/">
-      <img id="header_image" src="/images/pmf_header.png" border="0"
-           title="Pirate My Film!"/>
-    </a>
+  <div id="header_left">
+    <div id="brand">
+      <a href="/">
+        <img id="header_image" src="/images/pmf_header.png" border="0"
+             title="Pirate My Film!"/>
+      </a>
 
-    <div class="big-number">
-      <p></p>
+      <div class="big-number">
+        <p></p>
+      </div>
     </div>
 
     <div id="social_links">
@@ -29,54 +31,76 @@
           :target => "_blank" %>
       </div>
     </div>
-  </div>
-
-  <div class="pmf_clear">&nbsp;</div>
-
-  <div id="stats_container">
-    <div class="stat">
-      <b><%= print_money @total_reservations_amount %></b>
-      Reserved in
-      <b><%= @total_reservations %></b> Projects
-      Seeking <b><%= print_money @total_funds_needed %></b>
-    </div>
-  </div>
-
-  <% if !@hide_filter_params %>
-    <div id="top_search_box">
-      <%= render :partial => 'shared/filter_param_box' %>
-    </div>
-  <% end %>
-
-  <div class="pmf_clear">&nbsp;</div>
-
-  <div id="icatch">
-    <div class="icatch-pictures">
-      <div class="local-navbar-button">
-        <span><%= link_to 'List a Project', new_project_path %></span>
-        <p>Raise Money</p>
-      </div>
-
-      <div class="local-navbar-button">
-        <span><%= link_to 'Members', profiles_path %></span>
-        <p>Browse Members</p>
-      </div>
-
-      <div class="right">
-        <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
-          <div id="search">
-            <img src="/images/brand-search.gif" alt="Search" />
-            <%= text_field_tag 'search[q]',
-              (params[:search] && params[:search][:q] ? params[:search][:q] : ''),
-              :id => 'search_q', :size => 14 %>
-            <input type="image" src="/images/brand-go-off.gif" name="submit" />
-          </div>
-        <% end %>
-      </div>
-    </div>
 
   </div>
-  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="sitewide_portfolio_info">
+    <div class="title">Top 5 Projects (24 Hour Change)</div>
+
+    <div class="stat_label_header">Project Symbol</div>
+    <div class="stat_header">Todays Change</div>
+    <div class="pmf_clear">&nbsp;</div>
+
+    <% @top_sitewide_projects.each do |tp| %>
+      <div class="pmf_clear">&nbsp;</div>
+      <div class="stat_label"><%= link_to tp.project.symbol, project_path(tp) %></div>
+      <div class="arrow">
+        <%= up_down_arrow tp.share_change %>
+      </div>
+      <div class="stat">
+        <%= tp.share_change %> Shares
+      </div>
+      <div class="pmf_clear">&nbsp;</div>
+    <% end %>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+  </div>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id="stats_container">
+  <div class="stat">
+    <b><%= print_money @total_reservations_amount %></b>
+    Reserved in
+    <b><%= @total_reservations %></b> Projects
+    Seeking <b><%= print_money @total_funds_needed %></b>
+  </div>
+</div>
+
+<% if !@hide_filter_params %>
+  <div id="top_search_box">
+    <%= render :partial => 'shared/filter_param_box' %>
+  </div>
+<% end %>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id="icatch">
+  <div class="icatch-pictures">
+    <div class="local-navbar-button">
+      <span><%= link_to 'List a Project', new_project_path %></span>
+      <p>Raise Money</p>
+    </div>
+
+    <div class="local-navbar-button">
+      <span><%= link_to 'Members', profiles_path %></span>
+      <p>Browse Members</p>
+    </div>
+
+    <div class="right">
+      <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
+        <div id="search">
+          <img src="/images/brand-search.gif" alt="Search" />
+          <%= text_field_tag 'search[q]',
+            (params[:search] && params[:search][:q] ? params[:search][:q] : ''),
+            :id => 'search_q', :size => 14 %>
+          <input type="image" src="/images/brand-go-off.gif" name="submit" />
+        </div>
+      <% end %>
+    </div>
+  </div>
 
 </div>
 <div class="pmf_clear">&nbsp;</div>

@@ -199,6 +199,14 @@ ActiveRecord::Schema.define(:version => 20100913134333) do
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
+  create_table "project_change_info_one_days", :force => true do |t|
+    t.integer  "share_amount", :default => 0
+    t.integer  "share_change", :default => 0
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "project_comments", :force => true do |t|
     t.text     "body"
     t.integer  "user_id"
