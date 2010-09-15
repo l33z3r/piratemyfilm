@@ -43,7 +43,7 @@
 
     <% @top_sitewide_projects.each do |tp| %>
       <div class="pmf_clear">&nbsp;</div>
-      <div class="stat_label"><%= link_to tp.project.symbol, project_path(tp) %></div>
+      <div class="stat_label"><%= link_to tp.project.symbol, project_path(tp.project) %></div>
       <div class="arrow">
         <%= up_down_arrow tp.share_change %>
       </div>
