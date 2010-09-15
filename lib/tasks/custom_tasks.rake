@@ -4,7 +4,7 @@ task :update_max_blog => :environment do
 end
 
 desc "Update the daily share change in each project"
-task :update_daily_share_change => :environment do
+task :generate_project_change_info => :environment do
   ProjectChangeInfoOneDay.generate_daily_change
 end
 
