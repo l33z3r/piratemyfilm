@@ -85,7 +85,7 @@
   <div class="view-lite-row-description latest_blog">
     <span class="header">Latest Blog Entry:</span>
     <% if @latest_project_blog %>
-      <span class="date"><%= @latest_project_blog.created_at.to_formatted_s(:long_ordinal) %></span>
+      <span class="date"><%= time_ago_in_words @latest_project_blog.created_at %> ago</span>
       <span class="body">
         <%= truncate(h(@latest_project_blog.title), 50) %>
         <%= link_to "...(more)", {:controller => "blogs", :action => "show", :id => @latest_project_blog.id} unless @latest_project_blog.title.length < 51 %>

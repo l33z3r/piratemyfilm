@@ -118,6 +118,7 @@ class ApplicationController < ActionController::Base
     @total_pmf_shares_reserved_amount = @total_pmf_shares_reserved_all_projects * 5
 
     @top_sitewide_projects = ProjectChangeInfoOneDay.top_five_change_for_site
+    @bottom_sitewide_projects = ProjectChangeInfoOneDay.bottom_five_change_for_site
   end
 
   def print_money value

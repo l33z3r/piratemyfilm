@@ -5,7 +5,16 @@ class ProjectCommentsController < ApplicationController
   before_filter :load_comment, :only => [:show, :edit, :update, :destroy]
 
   def latest
-    @project_comments = ProjectComment.latest.paginate :page => (params[:page] || 1), :per_page=> 15
+    @pmf_fund_comments = ProjectComment.latest
+    @admin_project_ratings = AdminProjectRating.latest
+
+    @items = @pmf_fund_comments + @admin_project_ratings
+
+    @items.sort! do |a,b|
+      b.created_at <=> a.created_at
+    end
+
+    @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
   end
 
   def index

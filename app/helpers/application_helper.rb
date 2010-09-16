@@ -86,7 +86,7 @@ module ApplicationHelper
   def follow_project_button_small project
     if @u and @u.following? project
       content_tag :div, :class => "following_text left" do
-        "Following..."
+        "Following"
       end
     else
       content_tag :div, :class => "button_small left" do

@@ -33,7 +33,7 @@
         :tweet_text => "New mkc blog: #{blog.title}"} %>
 
       <div class="blog-date">
-        <%= blog.created_at.to_formatted_s(:long_ordinal) %>
+        <%= time_ago_in_words blog.created_at %> ago
       </div>
     </div>
 

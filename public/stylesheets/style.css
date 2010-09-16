@@ -1143,8 +1143,16 @@ div#header div#stats_container {
 }
 
 div#header div.sitewide_portfolio_info {
-    width: 320px;
+    width: 460px;
     float: right;
+}
+
+div#header div.sitewide_portfolio_info div#winners {
+    float: left;
+}
+
+div#header div.sitewide_portfolio_info div#losers {
+    float: left;
 }
 
 div#header div.sitewide_portfolio_info div.title {
@@ -1157,7 +1165,7 @@ div#header div.sitewide_portfolio_info div.title {
 div#header div.sitewide_portfolio_info div.stat_label_header {
     float: left;
     margin-right: 10px;
-    width: 180px;
+    width: 70px;
     color: #000000;
     font-weight: bold;
 }
@@ -1165,12 +1173,12 @@ div#header div.sitewide_portfolio_info div.stat_label_header {
 div#header div.sitewide_portfolio_info div.stat_label {
     float: left;
     margin-right: 10px;
-    width: 180px;
+    width: 70px;
 }
 
 div#header div.sitewide_portfolio_info div.stat_header {
     float: left;
-    width: 110px;
+    width: 120px;
     font-weight: bold;
     color: #000000;
     font-weight: bold;
@@ -1178,7 +1186,7 @@ div#header div.sitewide_portfolio_info div.stat_header {
 
 div#header div.sitewide_portfolio_info div.stat {
     float: left;
-    width: 110px;
+    width: 120px;
     font-weight: bold;
 }
 
@@ -1721,6 +1729,8 @@ div.TabView div.Pages div.Page div.Pad {
     text-decoration:none;
     color: #666;
     font-size: 12px;
+    float: left;
+    margin-left: 3px;
 }
 
 .local-navbar-button span a:hover {
@@ -1741,6 +1751,7 @@ div.TabView div.Pages div.Page div.Pad {
     font-size:7pt;
     line-height:7pt;
     color: #8b8b8b;
+    float: left;
 }
 
 .local-navbar-username {
@@ -1798,7 +1809,7 @@ div.blog-row {
 }
 
 div.blog div.blog_left {
-    width: 57%;
+    width: 65%;
     float: left;
 }
 
@@ -2154,9 +2165,21 @@ div#project_show div.highlight_symbol {
     float:left;
 }
 
+.view-lite-row-project-name div.link_arrow {
+    float: left;
+}
+
+.view-lite-row-project-name span.link_arrow img {
+    width: 20px;
+    height: 20px;
+    margin-bottom: -5px;
+    margin-left: 2px;
+}
+
 .view-lite-row-project-name span.green_light_text {
     font-weight: bold;
     font-style: italic;
+    color: green;
 }
 
 .project_extra_info {

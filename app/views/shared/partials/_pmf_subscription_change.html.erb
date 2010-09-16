@@ -3,6 +3,9 @@
   <div class="blog_left">
     <div class="icon">
       <%= link_to project_icon(pmf_subscription.project, :medium), project_path(pmf_subscription.project) %>
+      <div class="follow_button">
+        <%= follow_project_button_small pmf_subscription.project %>
+      </div>
     </div>
     <div class="info">
       <div class="blog_type">
@@ -54,7 +57,7 @@
       </div>
 
       <div class="blog-date">
-        <%= pmf_subscription.created_at.to_formatted_s(:long_ordinal) %>
+        <%= time_ago_in_words pmf_subscription.created_at %> ago
       </div>
     </div>
 
