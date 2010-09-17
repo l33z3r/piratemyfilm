@@ -56,7 +56,8 @@ class BlogsController < ApplicationController
   def create
     begin
       @blog = Blog.new(params[:blog])
-      @blog.profile_id = @p.id
+      @project = Project.find(params[:blog][:project_id])
+      @blog.profile_id = @project.owner.profile.id
       @blog.save!
 
       flash[:notice] = 'New blog post created.'

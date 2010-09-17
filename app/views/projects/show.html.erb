@@ -17,7 +17,7 @@
     <% end %>
     <% if @u && @u.is_admin && @project.budget_reached? %>
       <div class="button left">
-        <%= link_to "#{@project.green_light ? "Revoke" : "Award"} Green", :action => "update_green_light", :id => @project.id %>
+        <%= link_to "#{@project.green_light ? "Revoke" : "Green"} Green", :action => "update_green_light", :id => @project.id %>
       </div>
     <% end %>
     <%= follow_project_button @project %>

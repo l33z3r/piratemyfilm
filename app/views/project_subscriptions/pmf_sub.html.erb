@@ -3,7 +3,7 @@
   <meta name="description" content="PMF Fund
         <%= @pmf_project_subscription_change.amount > 0 ?
           "Reserved #{@pmf_project_subscription_change.amount}" :
-          "Canceled #{0 - @pmf_project_subscription_change.amount} Shares"%>"/>
+          "Canceled #{0 - @pmf_project_subscription_change.amount}"%>"/> Shares
   <link rel="image_src" href="<%= project_icon_path @pmf_project_subscription_change.project, :big %>" />
 <% end %>
 
