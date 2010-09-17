@@ -2159,10 +2159,29 @@ div#project_show div.highlight_symbol {
 .view-lite-row-project-name	{
     margin-bottom: 3px;
     margin-left: 8px;
-    width: 700px;
+    width: 650px;
     float: left;
     padding-bottom: 2px;
     float:left;
+}
+
+.view-lite-row-project-green-light {
+    width: 140px;
+    margin-right: 67px;
+    margin-top: 14px;
+    font-size: 14px;
+    float: right;
+    font-weight: bold;
+    text-align: right;
+    color: #000000;
+}
+
+.view-lite-row-project-green-light span.off {
+    color: red;
+}
+
+.view-lite-row-project-green-light span.on {
+    color: green;
 }
 
 .view-lite-row-project-name div.link_arrow {
@@ -2176,15 +2195,8 @@ div#project_show div.highlight_symbol {
     margin-left: 2px;
 }
 
-.view-lite-row-project-name span.green_light_text {
-    font-weight: bold;
-    font-style: italic;
-    color: green;
-}
-
 .project_extra_info {
-    margin-bottom: 3px;
-    margin-left: 8px;
+    margin-top: 3px;
     width: 100%;
     float: left;
     padding-bottom: 2px;

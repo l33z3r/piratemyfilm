@@ -8,16 +8,20 @@ project_link_action ||= "show"
   <div class="view-lite-row-project-name">
     <%= link_to h(project.title), :controller => project_link_controller,
       :action => project_link_action, :id => project %>
-    <span class="green_light_text"><%= project_green_light project %></span>
     <span class="link_arrow">
       <%= link_to image_tag("right_arrow.png"), project_path(project) %>
     </span>
+
+    <div class="project_extra_info">
+      <%= subscription_info project %>
+    </div>
   </div>
 
-  <div class="pmf_clear">&nbsp;</div>
-
-  <div class="project_extra_info">
-    <%= subscription_info project %>
+  <div class="view-lite-row-project-green-light">
+    Green Light:
+    <span class="<%= project.green_light ? "on" : "off" %>">
+      <%= project.green_light ? "On" : "Off" %>
+    </span>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>

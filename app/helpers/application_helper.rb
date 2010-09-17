@@ -177,10 +177,6 @@ module ApplicationHelper
     return u.id == PMF_FUND_ACCOUNT_ID
   end
 
-  def project_green_light project
-    project.green_light ? "(Green Light)" : ""
-  end
-
   def project_icon project, size
     image_tag project_icon_path(project, size)
   end
