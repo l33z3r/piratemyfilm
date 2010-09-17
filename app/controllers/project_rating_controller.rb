@@ -1,5 +1,7 @@
 class ProjectRatingController < ApplicationController
 
+  skip_before_filter :login_required, :only=> [:pmf_rating]
+
   def rate
     begin
       @project_id = params[:project_id]
@@ -52,10 +54,20 @@ class ProjectRatingController < ApplicationController
     end
   end
 
+  def pmf_rating
+    if params[:pmf_rating_id]
+      @pmf_rating = AdminProjectRating.find(params[:pmf_rating_id])
+    else
+      flash[:error] = "Rating not found"
+      redirect_to home_path
+    end
+  end
+
   protected
 
   def allow_to
     super :user, :all => true
+    super :all, :only => [:pmf_rating]
   end
 
 end

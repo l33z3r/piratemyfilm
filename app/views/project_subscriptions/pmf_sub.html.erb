@@ -1,0 +1,17 @@
+<% content_for :head do %>
+  <meta name="title" content="PMF Fund Subscription Changed on Project: <%= h @pmf_project_subscription_change.project.title %>" />
+  <meta name="description" content="PMF Fund
+        <%= @pmf_project_subscription_change.amount > 0 ?
+          "Reserved #{@pmf_project_subscription_change.amount}" :
+          "Canceled #{0 - @pmf_project_subscription_change.amount} Shares"%>"/>
+  <link rel="image_src" href="<%= project_icon_path @pmf_project_subscription_change.project, :big %>" />
+<% end %>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pageTitle">PMF Fund Subscription Changed</div>
+
+<%= render :partial => '/project_subscriptions/pmf_subscription_change',
+  :locals => { :pmf_subscription => @pmf_project_subscription_change } %>
+
+<div class="pmf_clear">&nbsp;</div>

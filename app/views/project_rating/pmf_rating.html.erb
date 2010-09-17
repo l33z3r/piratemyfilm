@@ -1,0 +1,13 @@
+<% content_for :head do %>
+  <meta name="title" content="New Rating on Project: <%= h @pmf_rating.project.title %>" />
+  <meta name="description" content="Rating changed to <%= @pmf_rating.rating_symbol %>" />
+<% end %>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pageTitle">PMF Fund Rating</div>
+
+<%= render :partial => '/project_rating/admin_project_rating',
+  :locals => { :admin_project_rating => @pmf_rating } %>
+
+<div class="pmf_clear">&nbsp;</div>

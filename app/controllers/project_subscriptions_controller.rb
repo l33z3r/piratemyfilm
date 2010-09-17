@@ -1,6 +1,7 @@
 class ProjectSubscriptionsController < ApplicationController
 
-  before_filter :load_project, :get_project_subscriptions
+  before_filter :load_project, :get_project_subscriptions, :except => :pmf_sub
+  skip_before_filter :login_required, :only=> [:pmf_sub]
 
   cache_sweeper :project_sweeper, :only => [:create, :destroy]
 
@@ -116,11 +117,21 @@ class ProjectSubscriptionsController < ApplicationController
     redirect_to project_path(@project)
   end
 
+  def pmf_sub
+    if params[:pmf_sub_id]
+      @pmf_project_subscription_change = PmfFundSubscriptionHistory.find(params[:pmf_sub_id])
+    else
+      flash[:error] = "Subscription not found"
+      redirect_to home_path
+    end
+  end
+
   protected
 
   def allow_to
     super :admin, :all => true
     super :user, :only => [:create, :cancel]
+    super :all, :only => [:pmf_sub]
   end
   
   def get_project_subscriptions

@@ -29,7 +29,7 @@
       <%= render :partial => "/blogs/templates/share_buttons",
         :locals => {:target_url => url_for(:only_path => false,
           :controller => "blogs", :action => "show", :id => blog.id),
-        :tweet_text => "New pmf fund blog: #{blog.title}"} %>
+        :tweet_text => "New PMF Fund Blog: #{blog.title}"} %>
 
       <div class="blog-date">
         <%= time_ago_in_words blog.created_at %> ago

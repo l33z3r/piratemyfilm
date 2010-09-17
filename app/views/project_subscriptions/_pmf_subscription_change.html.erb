@@ -9,7 +9,7 @@
     </div>
     <div class="info">
       <div class="blog_type">
-        PMF Fund Subscription by
+        <b>PMF Fund Subscription by</b>
       </div>
       <div class="user_info">
         <div class="user_icon">
@@ -27,12 +27,15 @@
       </div>
 
       <div class="blog_body">
-        PMF Fund
-        <% if pmf_subscription.amount > 0 %>
-          Reserved <b><%= pmf_subscription.amount %></b> Shares
-        <% else %>
-          Canceled <b><%= 0 - pmf_subscription.amount %></b> Shares
-        <% end %>
+        <a href="<%= url_for :controller => "project_subscriptions",
+             :action => "pmf_sub", :pmf_sub_id => pmf_subscription.id %>">
+          PMF Fund
+          <% if pmf_subscription.amount > 0 %>
+            Reserved <b><%= pmf_subscription.amount %></b> Shares
+          <% else %>
+            Canceled <b><%= 0 - pmf_subscription.amount %></b> Shares
+          <% end %>
+        </a>
       </div>
     </div>
   </div>
@@ -42,7 +45,7 @@
       <div class="share_buttons">
         <div class="tweet_button">
           <a href="http://twitter.com/share?url=<%= url_encode(url_for(:only_path => false,
-                 :controller => "projects", :action => "show", :id => pmf_subscription.project.id)) %>&via=piratemyfilm&text=PMF Fund Subscription on Project: <%= pmf_subscription.project.symbol %>"
+                 :controller => "project_subscriptions", :action => "pmf_sub", :pmf_sub_id => pmf_subscription.id)) %>&via=piratemyfilm&text=PMF Fund Subscription on Project: <%= pmf_subscription.project.symbol %>"
              class="twitter-share-button"
              data-count="vertical" data-related="piratemyfilm">Tweet</a>
           <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
@@ -50,7 +53,7 @@
 
         <div class="facebook_button">
           <a name="fb_share" type="box_count" share_url="<%= url_for :only_path => false,
-               :controller => "projects", :action => "show", :id => pmf_subscription.project.id %>"
+               :controller => "project_subscriptions", :action => "pmf_sub", :pmf_sub_id => pmf_subscription.id %>"
              href="http://www.facebook.com/sharer.php">Share</a>
           <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
         </div>

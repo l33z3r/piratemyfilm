@@ -31,6 +31,11 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
       and projects.is_deleted = 0", :order => "project_change_info_one_days.share_change", :limit => 5)
   end
 
+  def self.top_ten_movers
+    find(:all, :include => :project, :conditions => "project_change_info_one_days.created_at > '#{Time.now.midnight.to_s(:db)}'
+      and projects.is_deleted = 0", :order => "abs(project_change_info_one_days.share_change) desc", :limit => 10)
+  end
+
   def self.generate_daily_change
     puts "Generating Daily Change Info For Projects"
 
