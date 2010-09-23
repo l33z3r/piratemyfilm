@@ -306,7 +306,7 @@ class Project < ActiveRecord::Base
     10 => "PMF Fund Rating", 11 => "Member Rating", 12 => "Newest", 13 => "Oldest",
     14 => "Producer Dividend", 15 => "Shareholder Dividend", 16 => "PMF Fund Dividend",
     17 => "% PMF Fund Shares", 18 => "No. PMF Fund Shares",
-    19 => "Green Lit"
+    19 => "Green Light"
   }
 
   def self.get_filter_sql filter_param
@@ -402,8 +402,8 @@ class Project < ActiveRecord::Base
   end
 
   def symbol
-    if !super or super.blank?
-      return "N/A"
+    if !super
+      return nil
     end
     
     super.upcase
