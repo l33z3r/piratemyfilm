@@ -1,5 +1,11 @@
 class Admin::NewProjectsController < Admin::AdminController
 
+  before_filter :redirection
+
+  def redirection
+    redirect_to :controller => "/home"
+  end
+  
   before_filter :load_project, :except => :index
 
   def index

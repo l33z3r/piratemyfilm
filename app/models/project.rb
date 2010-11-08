@@ -106,6 +106,8 @@ class Project < ActiveRecord::Base
     }
   }
 
+  after_create :generate_symbol
+
   #find projects that have been given initial rating and are not deleted
   def self.find_all_public(*args)
 
@@ -411,6 +413,21 @@ class Project < ActiveRecord::Base
 
   protected
 
+  def generate_symbol
+    gen_symbol = title.downcase
+    gen_symbol = gen_symbol.gsub("and", "").gsub("the", "Ruby").gsub(" ", "")
+    gen_symbol = gen_symbol[0..4]
+
+    while Project.find_by_symbol gen_symbol
+      chars = ('a'..'z').to_a | ('0'..'9').to_a
+      gen_symbol[4] = chars[rand(36)]
+    end
+
+    self.write_attribute("symbol", gen_symbol)
+    
+    save
+  end
+
   def validate
     errors.add(:share_percent_ads_producer, "must be between 0% - 100%") if share_percent_ads_producer && (share_percent_ads_producer < 0 || share_percent_ads_producer > 100)
     errors.add(:share_percent_ads, "must be 0% if producer % is 0") if share_percent_ads_producer && share_percent_ads_producer == 0 && share_percent_ads > 0
@@ -422,6 +439,7 @@ class Project < ActiveRecord::Base
   end
 
   def funding_limit_not_exceeded
+    #set funding limit equal to either the users limit, or the current demand
     funding_limit = owner.membership_type.funding_limit_per_project
     
     if self.capital_required > funding_limit && !self.is_deleted

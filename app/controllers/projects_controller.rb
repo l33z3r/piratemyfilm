@@ -5,12 +5,12 @@ class ProjectsController < ApplicationController
 
   before_filter :setup
 
-  before_filter :load_project, :only => [:show, :edit, :update, :update_symbol, 
+  before_filter :load_project, :only => [:show, :edit, :update, :delete, :update_symbol,
     :update_green_light, :share_queue, :blogs, :invite_friends, :send_friends_invite]
 
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
-  before_filter :check_owner_or_admin, :only => [:edit, :update]
+  before_filter :check_owner_or_admin, :only => [:edit, :update, :delete]
   
   before_filter :load_membership_settings, :only => [:new, :create]
 
@@ -66,7 +66,8 @@ class ProjectsController < ApplicationController
 
       @project_subscription = ProjectFollowing.create( :user => @u, :project => @project)
       
-      flash.now[:positive] = "Project Created!"
+      flash[:positive] = "Project Created!"
+      redirect_to project_path(@project)
     rescue ActiveRecord::RecordInvalid
       logger.debug "Error creating Project"      
       @genres = Genre.find(:all)
@@ -148,6 +149,22 @@ class ProjectsController < ApplicationController
         render :action=>'edit'
       end            
     end 
+  end
+
+  def delete
+    #must delete all subscribtions to this project
+    @subscriptions = ProjectSubscription.find_all_by_project_id(@project)
+    @subscriptions.each do |subscription|
+      subscription.destroy
+    end
+
+    #reset the member rating by deleting the member rating history
+    @project.project_rating.destroy unless !@project.project_rating
+
+    @project.delete
+
+    flash[:positive] = "Project has been deleted!"
+    redirect_to :controller => "/home", :action => "index"
   end
   
   def search
