@@ -9,6 +9,10 @@ class Admin::UsersController < Admin::AdminController
     @membership_types.each do |@mt| 
       @membership_select_opts << [@mt.name, @mt.id.to_s]
     end
+
+    @membership_type_filter_params = []
+    @membership_type_filter_params << ["All", -1]
+    @membership_type_filter_params += @membership_select_opts
   end
 
   def update_membership
@@ -70,13 +74,21 @@ class Admin::UsersController < Admin::AdminController
   end
   
   def search_results
+    @membership_type_filter = params[:membership_filter_param]
+
+    if @membership_type_filter && @membership_type_filter != "-1"
+      @find_conditions = {:include => [{:user => :membership_type}], :conditions => ['membership_types.id = ?', @membership_type_filter]}
+    else
+      @find_conditions = {}
+    end
+
     if params[:search]
       p = params[:search].dup
     else
       p = []
     end
     @search_query = p.delete(:uq)
-    @profiles = Profile.search((@search_query || ''), p).paginate:page => (params[:page] || 1), :per_page => 50
+    @profiles = Profile.search((@search_query || ''), p, @find_conditions).paginate:page => (params[:page] || 1), :per_page => 50
   end
 
   def set_selected_tab

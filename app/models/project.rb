@@ -59,6 +59,7 @@ class Project < ActiveRecord::Base
     :order => "project_subscriptions.created_at", :group => "id"
 
   has_many :blogs
+  has_many :project_flaggings
   
   belongs_to :genre, :foreign_key=>'genre_id'
 
@@ -409,6 +410,20 @@ class Project < ActiveRecord::Base
     end
     
     super.upcase
+  end
+
+  def is_flagged
+    project_flaggings.size > 0
+  end
+
+  def unflag
+    ProjectFlagging.destroy project_flaggings.collect(&:id)
+  end
+
+  def self.all_flagged
+    find(:all, :include => :project_flaggings, :group => "projects.id",
+      :conditions => "project_flaggings.id is not null and projects.is_deleted = 0",
+      :order => "count(project_flaggings.id) DESC")
   end
 
   protected

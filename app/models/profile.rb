@@ -193,11 +193,11 @@ class Profile < ActiveRecord::Base
     write_attribute(:flickr, fix_http(val))
   end
 
-  def self.search query = '', options = {}
+  def self.search query = '', options = {}, conditions = {}
     query ||= ''
     q = '*' + query.gsub(/[^\w\s-]/, '').gsub(' ', '* *') + '*'
     options.each {|key, value| q += " #{key}:#{value}"}
-    arr = find_by_contents q, :limit=>:all
+    arr = find_by_contents q, {:limit=>:all}, conditions
     logger.debug arr.inspect
     arr
   end

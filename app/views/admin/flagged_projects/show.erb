@@ -1,8 +1,8 @@
 <div id="project_show">
-  <h3 class="deleted_notice">
-    This project was deleted on <%= @project.deleted_at %>
-    <%= link_to "(Restore Project)", {:controller => "admin/deleted_projects", :action => "restore", :id => @project},
-      :confirm => "Are You Sure?", :method => :post %>
+  <h3 class="flagged_notice">
+    This project has been flagged <%= pluralize(@project.project_flaggings.size, "time") %>
+    <%= link_to "(Un-Flag Project)", {:controller => "admin/flagged_projects", :action => "unflag",
+      :id => @project}, :confirm => "Are You Sure?", :method => :post %>
   </h3>
 
   <div class="dashed_light_border">&nbsp;</div>

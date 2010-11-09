@@ -1,5 +1,6 @@
 class Admin::NewProjectsController < Admin::AdminController
 
+  #we are auto releasing projects now
   before_filter :redirection
 
   def redirection

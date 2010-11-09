@@ -56,6 +56,10 @@ a:hover {
     margin-top: 10px;
 }
 
+.pmf_bottom_margin_10 {
+    margin-bottom: 10px;
+}
+
 div.dashed_light_border {
     border-bottom: 1px dashed #666666;
     height: 1px;
@@ -2025,8 +2029,8 @@ div.admin_section ul#tabs A.selected:visited {
 /* user admin section */
 
 div.admin_section div.users div#search_text {
-    float: left;
     margin-top: 3px;
+    font-weight: bold;
 }
 
 div.admin_section div.users div#user_search {
@@ -2091,6 +2095,13 @@ div#project_show div.highlight_symbol {
     border: 1px solid #4F8A10;
     color: #4F8A10;
     background-color: #DFF2BF;
+}
+
+div#project_show h3.flagged_notice {
+    padding: 2px;
+    border: 1px solid #D8000C;
+    color: #D8000C;
+    background-color: #FFBABA;
 }
 
 /* project admin section */

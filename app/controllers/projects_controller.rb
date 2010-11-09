@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   before_filter :setup
 
   before_filter :load_project, :only => [:show, :edit, :update, :delete, :update_symbol,
-    :update_green_light, :share_queue, :blogs, :invite_friends, :send_friends_invite]
+    :update_green_light, :share_queue, :blogs, :invite_friends, :send_friends_invite, :flag]
 
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
@@ -180,6 +180,17 @@ class ProjectsController < ApplicationController
 
   def invite_friends
     
+  end
+
+  def flag
+    if !@u.flagged_project? @project
+      ProjectFlagging.create(:project => @project, :user => @u)
+      flash[:positive] = "This project has been flagged as inappropriate content and will be reviewed!"
+    else
+      flash[:error] = "You have already flagged this project."
+    end
+
+    redirect_to project_path(@project)
   end
   
   def send_friends_invite

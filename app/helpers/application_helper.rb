@@ -82,6 +82,14 @@ module ApplicationHelper
       end
     end
   end
+
+  def flag_project_button project
+    if @u and !@u.flagged_project? project
+      content_tag :div, :class => "button left" do
+        link_to "Flag", flag_project_path(project), :method => "post"
+      end
+    end
+  end
   
   def follow_project_button_small project
     if @u and @u.following? project

@@ -9,14 +9,13 @@
       :class => (@selected_tab_name == "admin_stats" ? "selected" : "") %>
   </li>
   <li>
-    <%= link_to "New Projects <b>(#{@num_pending_projects})</b>",
-      {:controller => "admin/new_projects"},
-      :class => (@selected_tab_name == "new_projects" ? "selected" : "") %>
-  </li>
-  <li>
     <%= link_to "Deleted Projects <b>(#{@num_deleted_projects})</b>", {:controller => "admin/deleted_projects"},
       :class => (@selected_tab_name == "deleted_projects" ? "selected" : "") %>
-    </li>
+  </li>
+  <li>
+    <%= link_to "Flagged Projects <b>(#{@num_flagged_projects})</b>", {:controller => "admin/flagged_projects"},
+      :class => (@selected_tab_name == "flagged_projects" ? "selected" : "") %>
+  </li>
   <li>
     <%= link_to "Membership Types", {:controller => "admin/membership_types"},
       :class => (@selected_tab_name == "membership_types" ? "selected" : "") %>

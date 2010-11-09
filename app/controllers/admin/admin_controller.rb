@@ -9,6 +9,7 @@ class Admin::AdminController < ApplicationController
   def load_vars
     @num_pending_projects = Project.find(:all, :conditions => "symbol is null and is_deleted = 0").size
     @num_deleted_projects = Project.find(:all, :conditions => "is_deleted").size
+    @num_flagged_projects = Project.all_flagged.size
     @user_count = User.find(:all).size
   end
 

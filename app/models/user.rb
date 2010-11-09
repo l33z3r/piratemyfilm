@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
   has_one :profile, :dependent => :nullify
 
   has_many :blog_comments
+  has_many :project_flaggings
+  has_many :flagged_projects, :through => :project_flaggings, :source => :project
   
   # Virtual attribute for the unencrypted password
   attr_accessor :password, :email, :terms_of_service
@@ -278,6 +280,10 @@ class User < ActiveRecord::Base
 
   def following? project
     followed_projects.include? project
+  end
+
+  def flagged_project? project
+    flagged_projects.include? project
   end
 
   protected
