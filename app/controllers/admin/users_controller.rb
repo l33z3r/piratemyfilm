@@ -77,8 +77,10 @@ class Admin::UsersController < Admin::AdminController
     @membership_type_filter = params[:membership_filter_param]
 
     if @membership_type_filter && @membership_type_filter != "-1"
+      @membership_type_name = MembershipType.find(@membership_type_filter).name
       @find_conditions = {:include => [{:user => :membership_type}], :conditions => ['membership_types.id = ?', @membership_type_filter]}
     else
+      @membership_type_name = "All"
       @find_conditions = {}
     end
 

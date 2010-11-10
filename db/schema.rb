@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101109143526) do
+ActiveRecord::Schema.define(:version => 20101110202452) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -120,6 +120,21 @@ ActiveRecord::Schema.define(:version => 20101109143526) do
 
   create_table "genres", :force => true do |t|
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "member_rating_histories", :force => true do |t|
+    t.integer  "member_id"
+    t.integer  "rater_id"
+    t.integer  "rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "member_ratings", :force => true do |t|
+    t.integer  "member_id"
+    t.integer  "average_rating"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -319,6 +334,7 @@ ActiveRecord::Schema.define(:version => 20101109143526) do
     t.boolean  "can_send_messages",                       :default => true
     t.string   "email_verification"
     t.boolean  "email_verified"
+    t.integer  "member_rating",                           :default => 0
   end
 
   add_index "users", ["login"], :name => "index_users_on_login"

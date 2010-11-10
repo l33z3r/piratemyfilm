@@ -743,6 +743,25 @@ div#profile div#profile_section div.avatar a img {
     border: 1px solid #666666;
 }
 
+div#profile div#profile_section div#producer_rating_area {
+    width: 360px;
+}
+
+div#profile div#profile_section div#producer_rating_area div.label {
+    font-weight: bold;
+    width: 170px;
+    float: left;
+}
+
+div#profile div#profile_section div#producer_rating_area div.value {
+    float: left;
+}
+
+div#profile div#profile_section div#producer_rating_area input#rating_submit {
+    margin-left: 25px;
+    margin-top: -6px;
+}
+
 div#profile div.profile_links {
     float: right;
     margin: 5px 0px;
@@ -768,7 +787,7 @@ div#profile .bio_stuff div.user_name {
 
 div#profile .bio_stuff div#user_info div.label {
     font-weight: bold;
-    width: 130px;
+    width: 170px;
     float: left;
 }
 

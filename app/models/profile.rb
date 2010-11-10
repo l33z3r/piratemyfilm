@@ -204,7 +204,7 @@ class Profile < ActiveRecord::Base
 
   @@filter_params_map = {
     1 => "Please Choose...", 2 => "User Login", 
-    3 => "No. Projects Listed", 4 => "No. Shares Reserved"
+    3 => "No. Projects Listed", 4 => "No. Shares Reserved", 5 => "Producer Rating"
   }
 
   def self.get_sql filter_param
@@ -222,6 +222,9 @@ class Profile < ActiveRecord::Base
         from profiles join users on profiles.user_id = users.id join project_subscriptions on
         project_subscriptions.user_id = users.id group by users.id order by
         project_subscriptions_count DESC'
+    when "5" then
+      return 'select profiles.* from profiles join users on profiles.user_id = users.id
+        order by users.member_rating DESC'
     else
       return "select profiles.* from profiles order by created_at DESC"
     end

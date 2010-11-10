@@ -26,6 +26,16 @@ class ProfilesController < ApplicationController
       @followed_blogs  = Blog.all_for_user_producer_followings(@u).paginate :page => (params[:page] || 1), :per_page=> 15
     end
 
+    #load this users producer rating info
+    @my_member_rating = MemberRatingHistory.find_by_member_id_and_rater_id(@profile.user, @u, :order => "created_at DESC", :limit => "1")
+    @selected_my_member_rating = @my_member_rating ? [@my_member_rating.rating, @my_member_rating.rating.to_s] : [1, "1"]
+
+    #check if user can rate this producer
+    @allowed_to_rate = !@my_member_rating || @my_member_rating.created_at < Time.now.beginning_of_day
+
+    #load rating select opts
+    @rating_select_opts = MemberRating.rating_select_opts
+
     render :action => "profile"
   end
   
