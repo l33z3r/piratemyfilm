@@ -1,8 +1,9 @@
 class ProfilesController < ApplicationController
   include ApplicationHelper
     
+  prepend_before_filter :setup, :except => :index
+
   before_filter :search_results, :only => :index
-  before_filter :setup, :except => :index
   before_filter :load_profile_filter_params
   skip_filter :login_required, :only => [:index, :show, :portfolio, :friend_list]
 
