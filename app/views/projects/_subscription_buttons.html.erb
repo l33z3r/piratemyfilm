@@ -1,3 +1,25 @@
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+  <!-- Identify your business so that you can collect the payments. -->
+  <input type="hidden" name="business" value="pmf_te_1285615419_biz@gmail.com">
+
+  <!-- Specify a Buy Now button. -->
+  <input type="hidden" name="cmd" value="_xclick">
+
+  <!-- Specify details about the item that buyers will purchase. -->
+  <input type="hidden" name="item_name" value="20 Shares in X on PMF">
+  <input type="hidden" name="amount" value="100.00">
+  <input type="hidden" name="currency_code" value="USD">
+  <input type="hidden" name="item_number" value="999999">
+
+  <!-- return to the project page -->
+  <input type="hidden" name="return" value="http://localhost:3000">
+
+  <!-- Display the payment button. -->
+  <input type="image" name="submit" border="0" src="https://www.paypal.com/en_US/i/btn/btn_buynow_LG.gif"
+         alt="PayPal - The safer, easier way to pay online">
+  <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >
+</form>
+
 <% if logged_in %>
   <h3>Your Shares</h3>
   <% if allowed_reserve_shares %>
@@ -10,7 +32,7 @@
             (<%= @my_outstanding_subscriptions_amount %> on
             <a class="tooltip_arrow"
                title="standby shares become valid when new or existing shares become available">
-              standby</a>)
+            standby</a>)
           </i>
         <% end %>
         reserved for this project.

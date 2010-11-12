@@ -224,7 +224,9 @@ class Profile < ActiveRecord::Base
         project_subscriptions_count DESC'
     when "5" then
       return 'select profiles.* from profiles join users on profiles.user_id = users.id
-        order by users.member_rating DESC'
+        join member_rating_histories on profiles.user_id = member_rating_histories.member_id
+        group by profiles.user_id
+        order by users.member_rating DESC, count(member_rating_histories.member_id) DESC'
     else
       return "select profiles.* from profiles order by created_at DESC"
     end
