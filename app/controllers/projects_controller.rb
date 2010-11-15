@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
 
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
-  before_filter :check_owner_or_admin, :only => [:edit, :update, :delete]
+  before_filter :check_owner_or_admin, :only => [:edit, :update, :delete, :share_queue]
   
   before_filter :load_membership_settings, :only => [:new, :create]
 
@@ -115,7 +115,7 @@ class ProjectsController < ApplicationController
   end
 
   def share_queue
-    @subscriptions = @project.project_subscriptions.find(:all, :order => "created_at, id")
+    @subscriptions = @project.share_queue
   end
 
   def show
@@ -319,8 +319,8 @@ class ProjectsController < ApplicationController
   def allow_to
     super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
     super :admin, :all => true
-    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon,
-      :invite_friends, :send_friends_invite]
+    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon, 
+      :share_queue, :invite_friends, :send_friends_invite]
   end
 
 end

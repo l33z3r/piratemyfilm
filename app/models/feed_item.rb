@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100913134333
+# Schema version: 20101115184046
 #
 # Table name: feed_items
 #

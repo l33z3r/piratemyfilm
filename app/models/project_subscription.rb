@@ -1,22 +1,24 @@
 # == Schema Information
-# Schema version: 20100913134333
+# Schema version: 20101115184046
 #
 # Table name: project_subscriptions
 #
-#  id          :integer(4)    not null, primary key
-#  project_id  :integer(4)    
-#  user_id     :integer(4)    
-#  created_at  :datetime      
-#  updated_at  :datetime      
-#  amount      :integer(10)   default(1)
-#  outstanding :boolean(1)    
+#  id                      :integer(4)    not null, primary key
+#  project_id              :integer(4)    
+#  user_id                 :integer(4)    
+#  created_at              :datetime      
+#  updated_at              :datetime      
+#  amount                  :integer(10)   default(1)
+#  outstanding             :boolean(1)    
+#  subscription_payment_id :integer(4)    
 #
 
 class ProjectSubscription < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :project
-
+  belongs_to :subscription_payment
+  
   after_save :update_project_funding
   after_destroy :update_project_funding
 

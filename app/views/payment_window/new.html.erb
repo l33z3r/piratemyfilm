@@ -1,0 +1,43 @@
+<div class="pageTitle">New Payment Window</div>
+
+<div class="pmf_clear_bottom_border pmf_top_margin_10">&nbsp;</div>
+
+<div id="sub_nav">
+  <%= link_to "Back to Project", {:controller => "projects", :action => "show", :id => @project.id}, :class => "subnav_inactive" %>
+</div>
+
+<% form_for @payment_window, :url => {:controller => "payment_window", :action => "create"}  do |f| %>
+  <input type="hidden" name="id" value="<%= @project.id %>"/>
+
+  <table class="project_form" style="border-spacing: 10px; width: 100%;">
+
+    <tr><td colspan="2"><%= f.error_messages %></td></tr>
+
+    <tr>
+      <td>
+        Enter your paypal email address where the payments should be made:
+      </td>
+      <td>
+        <%= f.text_field :paypal_email %>
+        <%= display_error_on(@payment_window, :paypal_email) -%>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Enter a closing date for this window (note, you will have to close it manually, but this is simply to notify users):
+      </td>
+      <td>
+        <%= f.date_select :close_date %>
+        <%= display_error_on(@payment_window, :close_date) -%>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2" align="right">
+        <input type="submit" value="Submit"/>
+      </td>
+    </tr>
+
+  </table>
+<% end %>

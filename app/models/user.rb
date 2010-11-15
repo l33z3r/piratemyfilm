@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100913134333
+# Schema version: 20101115184046
 #
 # Table name: users
 #
@@ -15,6 +15,7 @@
 #  can_send_messages         :boolean(1)    default(TRUE)
 #  email_verification        :string(255)   
 #  email_verified            :boolean(1)    
+#  member_rating             :integer(4)    default(0)
 #
 
 

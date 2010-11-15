@@ -1,12 +1,13 @@
 # == Schema Information
 # Schema version: 20101115184046
 #
-# Table name: project_change_info_one_days
+# Table name: payment_windows
 #
 #  id           :integer(4)    not null, primary key
-#  share_amount :integer(4)    default(0)
-#  share_change :integer(4)    default(0)
 #  project_id   :integer(4)    
+#  paypal_email :string(255)   
+#  close_date   :date          
+#  status       :string(255)   
 #  created_at   :datetime      
 #  updated_at   :datetime      
 #

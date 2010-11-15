@@ -9,8 +9,6 @@
     <% if @u && (@project.owner == @u || @u.is_admin) %>
       <div class="button left"><%= link_to "Edit project", edit_project_path(@project) %></div>
       <div class="button left"><%= link_to "Delete Project", {:controller => "projects", :action => "delete", :id => @project}, :confirm => "Are You Sure?" %></div>
-    <% end %>
-    <% if @u && @u.is_admin %>
       <div class="button left">
         <%= link_to "Share Queue", :action => "share_queue", :id => @project.id %>
       </div>
@@ -20,6 +18,7 @@
         <%= link_to "#{@project.green_light ? "Revoke" : "Give"} Green", :action => "update_green_light", :id => @project.id %>
       </div>
     <% end %>
+    <%= fund_collection_button @project %>
     <%= follow_project_button @project %>
     <div class="button left"><%= link_to "Invite", invite_friends_project_path(@project) %></div>
     <%= flag_project_button @project %>

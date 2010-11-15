@@ -83,6 +83,14 @@ module ApplicationHelper
     end
   end
 
+  def fund_collection_button project
+    if @u && (@project.owner == @u || @u.is_admin) && project.green_light
+      content_tag :div, :class => "button left" do
+        link_to "Collect Funds", {:controller => "payment_window", :action => "history", :id => project.id}
+      end
+    end
+  end
+
   def flag_project_button project
     if @u and !@u.flagged_project? project
       content_tag :div, :class => "button left" do

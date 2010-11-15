@@ -1,0 +1,47 @@
+<div class="pageTitle">Collect Funds</div>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pageTitleSmaller">
+  For Project <%= link_to h(@project.title), project_path(@project) %>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div class="project_action_links">
+  <div class="button left">
+    <%= link_to "New Window", :action => "new", :id => @project.id %>
+  </div>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div class="pageTitleSmaller">
+  Current Window
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<% if @current_payment_window %>
+  <%= @current_payment_window.id %>
+  <%= @current_payment_window.created_at %>
+  <%= @current_payment_window.close_date %>
+  <%= @current_payment_window.amount_payment_collected %>
+  <%= @current_payment_window.status %>
+<% else %>
+  There is no active payment window for this project
+<% end %>
+
+<div class="pageTitleSmaller">
+  Previous Payment Windows
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<% @previous_payment_windows.each do |window| %>
+  <%= window.id %>
+  <%= window.created_at %>
+  <%= window.close_date %>
+  <%= window.amount_payment_collected %>
+  <%= window.status %>
+<% end %>

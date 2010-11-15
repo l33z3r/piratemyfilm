@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100913134333
+# Schema version: 20101115184046
 #
 # Table name: projects
 #
@@ -45,12 +45,15 @@
 #  director_photography             :string(255)   
 #  editor                           :string(255)   
 #  pmf_fund_investment_share_amount :integer(4)    default(0)
+#  project_payment_status           :string(255)   
 #
 
 class Project < ActiveRecord::Base    
 
   @@PROJECT_STATUSES = ["Pre Production", "In Production", "Post Production",
     "Finishing Funds", "Trailer", "In Release"]
+
+  @@PROJECT_PAYMENT_STATUSES = ["In Payment", "Finished Payment"]
   
   belongs_to :owner, :class_name=>'User', :foreign_key=>'owner_id'
   
@@ -96,6 +99,9 @@ class Project < ActiveRecord::Base
   has_many :admin_project_ratings, :order => "created_at DESC"
   has_many :pmf_fund_subscription_histories
 
+  has_many :subscription_payments
+  has_many :payment_windows
+  
   has_many :project_comments
   has_one :latest_project_comment, :class_name => "ProjectComment", :order => "created_at DESC"
 
@@ -410,6 +416,26 @@ class Project < ActiveRecord::Base
     end
     
     super.upcase
+  end
+
+  def share_queue
+    project_subscriptions.find(:all, :order => "created_at, id")
+  end
+
+  def current_payment_window
+    payment_windows.find(:first, :conditions => "status = 'Active'", :order => "created_at DESC")
+  end
+
+  def amount_payment_collected
+    @amount = 0
+
+    subscription_payments.each do |sp|
+      if sp.status == "Paid"
+        @amount += (sp.share_amount * sp.share_price)
+      end
+    end
+
+    @amount
   end
 
   def is_flagged

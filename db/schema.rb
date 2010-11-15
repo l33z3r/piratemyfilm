@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101110202452) do
+ActiveRecord::Schema.define(:version => 20101115184046) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -171,6 +171,15 @@ ActiveRecord::Schema.define(:version => 20101110202452) do
   add_index "messages", ["sender_id"], :name => "index_messages_on_sender_id"
   add_index "messages", ["receiver_id"], :name => "index_messages_on_receiver_id"
 
+  create_table "payment_windows", :force => true do |t|
+    t.integer  "project_id"
+    t.string   "paypal_email"
+    t.date     "close_date"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "photos", :force => true do |t|
     t.string   "caption",    :limit => 1000
     t.datetime "created_at"
@@ -265,8 +274,9 @@ ActiveRecord::Schema.define(:version => 20101110202452) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "amount",      :limit => 10, :precision => 10, :scale => 0, :default => 1
-    t.boolean  "outstanding",                                              :default => false
+    t.integer  "amount",                  :limit => 10, :precision => 10, :scale => 0, :default => 1
+    t.boolean  "outstanding",                                                          :default => false
+    t.integer  "subscription_payment_id"
   end
 
   create_table "projects", :force => true do |t|
@@ -311,6 +321,7 @@ ActiveRecord::Schema.define(:version => 20101110202452) do
     t.string   "director_photography"
     t.string   "editor"
     t.integer  "pmf_fund_investment_share_amount",                                              :default => 0
+    t.string   "project_payment_status"
   end
 
   create_table "sessions", :force => true do |t|
@@ -321,6 +332,17 @@ ActiveRecord::Schema.define(:version => 20101110202452) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "subscription_payments", :force => true do |t|
+    t.integer  "payment_window_id"
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.float    "share_amount"
+    t.integer  "share_price"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login"
