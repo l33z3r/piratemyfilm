@@ -13,6 +13,9 @@ class ProjectSubscriptionsController < ApplicationController
         pmf_fund_reserve and return
       end
 
+      #check that this project is no already in payment
+      check_project_in_payment
+
       if !allowed_reserve_shares
         flash[:error] = "As the owner of this project, you cannot reserve shares!"
         redirect_to project_path(@project) and return
@@ -136,6 +139,13 @@ class ProjectSubscriptionsController < ApplicationController
   
   def get_project_subscriptions
     @project_subscriptions = ProjectSubscription.load_subscriptions(@u, @project)
+  end
+
+  def check_project_in_payment
+    if @project.in_payment
+      flash[:error] = "You cannot reserve/cancel shares, as this project is now in payment!"
+      redirect_to project_path(@project) and return
+    end
   end
   
   def load_project

@@ -4,8 +4,8 @@ class CreateSubscriptionPayments < ActiveRecord::Migration
       t.integer :payment_window_id
       t.integer :project_id
       t.integer :user_id
-      t.float :share_amount
-      t.integer :share_price
+      t.integer :share_amount
+      t.float :share_price
       t.string :status#pending, paid, defaulted
       t.timestamps
     end

@@ -712,6 +712,73 @@ div#share_queue div.subscription div.subscription_outstanding {
 
 /* End Share Queue Page */
 
+/* Payment Windows */
+
+div#payment_window div#subscription_payments div#header_cols div{
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 90px;
+}
+
+div#payment_window div#subscription_payments div.subscription_payment {
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+div#payment_window div#subscription_payments div.subscription_payment div.sp_id {
+    float: left;
+    width: 90px;
+    margin-left: 10px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+div#payment_window div#subscription_payments div.subscription_payment div.user_name {
+    float: left;
+    width: 90px;
+    margin-left: 10px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+div#payment_window div#subscription_payments div.subscription_payment div.share_amount {
+    float: left;
+    width: 90px;
+    margin-left: 10px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+div#payment_window div#subscription_payments div.subscription_payment div.share_price {
+    float: left;
+    width: 90px;
+    margin-left: 10px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+div#payment_window div#subscription_payments div.subscription_payment div.payment_amount {
+    float: left;
+    width: 90px;
+    margin-left: 10px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+div#payment_window div#subscription_payments div.subscription_payment div.mark_as_paid {
+    float: left;
+    width: 90px;
+    margin-top: 9px;
+    font-weight: bold;
+}
+
+div#payment_window div#subscription_payments div.odd {
+    background-color: #F8F6EF;
+}
+
+/* End Payment Windows */
+
 /* Create project page */
 
 form#new_project div#captcha_section {

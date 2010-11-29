@@ -56,6 +56,8 @@ class User < ActiveRecord::Base
   has_many :subscribed_projects, :through => :project_subscriptions, :source=> :project, 
     :conditions=>'symbol IS NOT NULL and is_deleted = 0', :order => "project_subscriptions.created_at", :group => "projects.id"
 
+  has_many :subscription_payments
+  
   has_many :project_comments
   has_many :project_followings
   has_many :followed_projects, :through => :project_followings, :source => :project
@@ -277,6 +279,22 @@ class User < ActiveRecord::Base
   def number_projects_subscribed_to
     @num = self.subscribed_projects.size > 0 ? self.subscribed_projects.uniq.size : 0
     @num
+  end
+
+  def current_subscription_payment project
+    subscription_payments.find(:first, :conditions => "project_id = #{project.id} and status = 'Pending'")
+  end
+
+  def completed_subscription_payment_amount project
+    @sum = 0
+
+    @completed_payments = subscription_payments.find(:all, :conditions => "project_id = #{project.id} and status = 'Paid'")
+
+    @completed_payments.each do |cp|
+      @sum = cp.share_amount
+    end
+
+    @sum
   end
 
   def following? project

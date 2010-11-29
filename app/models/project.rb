@@ -422,6 +422,10 @@ class Project < ActiveRecord::Base
     project_subscriptions.find(:all, :order => "created_at, id")
   end
 
+    def in_payment
+    payment_windows.size > 0
+  end
+
   def current_payment_window
     payment_windows.find(:first, :conditions => "status = 'Active'", :order => "created_at DESC")
   end

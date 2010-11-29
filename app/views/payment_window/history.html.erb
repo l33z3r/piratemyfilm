@@ -8,14 +8,6 @@
 
 <div class="pmf_clear">&nbsp;</div>
 
-<div class="project_action_links">
-  <div class="button left">
-    <%= link_to "New Window", :action => "new", :id => @project.id %>
-  </div>
-</div>
-
-<div class="pmf_clear">&nbsp;</div>
-
 <div class="pageTitleSmaller">
   Current Window
 </div>
@@ -23,13 +15,21 @@
 <div class="pmf_clear">&nbsp;</div>
 
 <% if @current_payment_window %>
-  <%= @current_payment_window.id %>
+  <%= link_to @current_payment_window.id, :action => "show", :id => @project.id %>
   <%= @current_payment_window.created_at %>
   <%= @current_payment_window.close_date %>
   <%= @current_payment_window.amount_payment_collected %>
   <%= @current_payment_window.status %>
+  <%= link_to "Close Window", :action => "close", :id => @current_payment_window.id,
+    :confirm => "This will mark all non paid shares as such. Are you sure?" %>
 <% else %>
-  There is no active payment window for this project
+  There is no active payment window for this project.
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="button left">
+    <%= link_to "New Window", :action => "new", :id => @project.id %>
+  </div>
 <% end %>
 
 <div class="pageTitleSmaller">

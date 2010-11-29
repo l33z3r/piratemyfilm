@@ -1,0 +1,17 @@
+A payment window has opened for a project you have reserved shares in:
+
+<br/><br/>
+
+<%= h  @payment_window.project.title %>
+
+<br/><br/>
+
+You must log in to PirateMyFilm and pay for these shares before
+<%= @payment_window.close_date %>, or they will be made available to others in the queue.
+
+<br/><br/>
+
+You can pay for your shares by
+<a href="<%= url_for(:only_path => false,
+  :controller => "projects", :action => "show", :id => @payment_window.project.id) %>">
+  going to the project page</a> and clicking the "Buy Now" paypal button!

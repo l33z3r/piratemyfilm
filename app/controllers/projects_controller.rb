@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   
   skip_filter :store_location, :only => [:create]
-  skip_before_filter :login_required, :only=> [:index, :show, :blogs, :search, :filter_by_param]
+  skip_before_filter :login_required, :only => [:index, :show, :blogs, :search, :filter_by_param]
 
   before_filter :setup
 

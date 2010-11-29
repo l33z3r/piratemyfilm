@@ -1,2 +1,76 @@
-<h1>PaymentWindow#show</h1>
-<p>Find me in app/views/payment_window/show.html.erb</p>
+<div class="pageTitle">Current Payment Window</div>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pageTitleSmaller">
+  For Project <%= h @payment_window.project.title %>
+</div>
+
+<div id="payment_window">
+  <div class="pmf_clear_10">&nbsp;</div>
+
+  A total of <b><%= print_money @payment_window.amount_payment_collected %></b>
+  has been collected from <b><%= @payment_window.completed_payments.size %></b> payments for this payment window.
+
+  <div class="pmf_clear_10">&nbsp;</div>
+
+  There are <b><%= @payment_window.pending_payments.size %></b> payments outstanding, amounting to
+
+  <b><%= print_money @payment_window.amount_payment_pending %></b>.
+
+  <div class="pmf_clear_10">&nbsp;</div>
+
+  This payment window will close <b><%= @payment_window.close_date %></b>
+  <i>(Note, you must close the window manually, this date is only used to notify users)</i>
+
+  <div class="pmf_clear_20">&nbsp;</div>
+
+  <b>Note to the producer:</b>
+
+  <div class="pmf_clear_10">&nbsp;</div>
+
+  You will receive an <i>item number</i> in your paypal payment. It corresponds to the payment ID's below.
+  Using the ID's you receive in the payments, you can mark each payment as paid.
+
+  <div class="pmf_clear_10">&nbsp;</div>
+
+  <div id="subscription_payments">
+
+    <div id="header_cols">
+      <div class="sp_id_header">Payment Id</div>
+      <div class="user_name_header">User</div>
+      <div class="share_amount_header">Share Amount</div>
+      <div class="share_price_header">Share Price</div>
+      <div class="payment_amount_header">Payment Amount</div>
+      <div class="mark_as_paid_header">Paid?</div>
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <% @payment_window.subscription_payments.each do |subscription_payment| %>
+      <div class="<%= cycle('odd','even') %> subscription_payment">
+        <div class="sp_id"><%= subscription_payment.id %></div>
+        <div class="user_name"><%= link_to subscription_payment.user.login, profile_path(subscription_payment.user.id) %></div>
+        <div class="share_amount"><%= subscription_payment.share_amount %></div>
+        <div class="share_price"><%= subscription_payment.share_price %></div>
+        <div class="payment_amount"><%= subscription_payment.payment_amount %></div>
+
+        <div class="mark_as_paid">
+          <% if subscription_payment.paid? %>
+            Paid
+          <% else %>
+            <div class="button">
+              <%= link_to "Mark As Paid",
+                {:action => "mark_payment_paid", :id => subscription_payment.id},
+                :confirm => "Are you sure?", :method => :post %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+      <div class="pmf_clear">&nbsp;</div>
+    <% end %>
+  </div>
+</div>

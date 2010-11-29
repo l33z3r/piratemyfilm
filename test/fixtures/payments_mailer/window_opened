@@ -1,0 +1,3 @@
+PaymentsMailer#window_opened
+
+Find me in app/views/payments_mailer/window_opened.erb

@@ -22,4 +22,12 @@ class SubscriptionPayment < ActiveRecord::Base
   has_many :project_subscriptions
 
   @@PAYMENT_STATUSES = ["Pending", "Paid", "Defaulted"]
+
+  def payment_amount
+    share_amount * share_price
+  end
+
+  def paid?
+    status == "Paid"
+  end
 end

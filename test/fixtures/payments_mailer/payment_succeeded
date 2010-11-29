@@ -1,0 +1,3 @@
+PaymentsMailer#payment_succeeded
+
+Find me in app/views/payments_mailer/payment_succeeded.erb
