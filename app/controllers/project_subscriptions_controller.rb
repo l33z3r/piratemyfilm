@@ -142,7 +142,7 @@ class ProjectSubscriptionsController < ApplicationController
   end
 
   def check_project_in_payment
-    if @project.in_payment
+    if @project.in_payment?
       flash[:error] = "You cannot reserve/cancel shares, as this project is now in payment!"
       redirect_to project_path(@project) and return
     end

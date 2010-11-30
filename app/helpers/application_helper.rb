@@ -91,6 +91,14 @@ module ApplicationHelper
     end
   end
 
+  def green_light_button project
+    if @u && @u.is_admin && project.budget_reached? && !@project.green_light
+      content_tag :div, :class => "button left" do
+        link_to "Give Green", {:action => "update_green_light", :id => @project.id}
+      end
+    end
+  end
+
   def flag_project_button project
     if @u and !@u.flagged_project? project
       content_tag :div, :class => "button left" do

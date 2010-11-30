@@ -13,11 +13,7 @@
         <%= link_to "Share Queue", :action => "share_queue", :id => @project.id %>
       </div>
     <% end %>
-    <% if @u && @u.is_admin && @project.budget_reached? %>
-      <div class="button left">
-        <%= link_to "#{@project.green_light ? "Revoke" : "Give"} Green", :action => "update_green_light", :id => @project.id %>
-      </div>
-    <% end %>
+    <%= green_light_button @project %>
     <%= fund_collection_button @project %>
     <%= follow_project_button @project %>
     <div class="button left"><%= link_to "Invite", invite_friends_project_path(@project) %></div>

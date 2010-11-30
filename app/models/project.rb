@@ -422,7 +422,7 @@ class Project < ActiveRecord::Base
     project_subscriptions.find(:all, :order => "created_at, id")
   end
 
-    def in_payment
+  def in_payment?
     payment_windows.size > 0
   end
 

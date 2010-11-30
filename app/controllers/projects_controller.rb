@@ -6,7 +6,8 @@ class ProjectsController < ApplicationController
   before_filter :setup
 
   before_filter :load_project, :only => [:show, :edit, :update, :delete, :update_symbol,
-    :update_green_light, :share_queue, :blogs, :invite_friends, :send_friends_invite, :flag]
+    :update_green_light, :share_queue, :blogs, :invite_friends, :send_friends_invite, 
+    :flag, :buy_shares]
 
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
@@ -69,11 +70,38 @@ class ProjectsController < ApplicationController
       flash[:positive] = "Project Created!"
       redirect_to project_path(@project)
     rescue ActiveRecord::RecordInvalid
-      logger.debug "Error creating Project"      
+      logger.info "Error creating Project"
       @genres = Genre.find(:all)
       flash[:error] = "Sorry, there was a problem creating your project"
       render :action=>'new'
     end
+  end
+
+  def buy_shares
+    @payment_window = @project.current_payment_window
+
+    if !@payment_window
+      flash[:error] = "There is no active payment window for this project"
+      redirect_to project_path(@project) and return
+    end
+
+    @ps = @u.current_subscription_payment(@project)
+
+    if !@ps
+      flash[:error] = "You do not have an actice subscription payment!"
+      redirect_to project_path(@project) and return
+    end
+
+    @warn = true
+
+    #mark payment as pending verification
+    if @ps.open?
+      @warn = false
+      @ps.status = "Pending"
+      @ps.save!
+    end
+    
+    perform_show
   end
 
   def update_symbol
@@ -92,17 +120,15 @@ class ProjectsController < ApplicationController
 
   def update_green_light
     begin
-      @green_light = nil
-      
-      if @project.green_light.nil?
-        if !@project.budget_reached?
-          flash[:error] = "Project must have 100% budget to be Green!"
-          redirect_to project_path(@project) and return
-        end
-        @green_light = Time.now
+      #we only allow granting of green light for now
+      return if @project.green_light
+    
+      if !@project.budget_reached?
+        flash[:error] = "Project must have 100% budget to be Green!"
+        redirect_to project_path(@project) and return
       end
-      
-      @project.green_light = @green_light
+        
+      @project.green_light = Time.now
       @project.save!
 
       flash[:positive] = "Project Updated."
@@ -320,7 +346,7 @@ class ProjectsController < ApplicationController
     super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
     super :admin, :all => true
     super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon, 
-      :share_queue, :invite_friends, :send_friends_invite]
+      :share_queue, :invite_friends, :send_friends_invite, :buy_shares]
   end
 
 end

@@ -282,15 +282,31 @@ class User < ActiveRecord::Base
   end
 
   def current_subscription_payment project
-    subscription_payments.find(:first, :conditions => "project_id = #{project.id} and status = 'Pending'")
+    subscription_payments.find(:first, :conditions => "project_id = #{project.id} and (status != 'Defaulted')")
+  end
+
+  def completed_subscription_payments project
+    subscription_payments.find(:all, :conditions => "project_id = #{project.id} and status = 'Paid'")
+  end
+
+  def failed_subscription_payments project
+    subscription_payments.find(:all, :conditions => "project_id = #{project.id} and status = 'Defaulted'")
   end
 
   def completed_subscription_payment_amount project
     @sum = 0
 
-    @completed_payments = subscription_payments.find(:all, :conditions => "project_id = #{project.id} and status = 'Paid'")
+    completed_subscription_payments(project).each do |cp|
+      @sum = cp.share_amount
+    end
 
-    @completed_payments.each do |cp|
+    @sum
+  end
+
+  def failed_subscription_payment_amount project
+    @sum = 0
+
+    failed_subscription_payments(project).each do |cp|
       @sum = cp.share_amount
     end
 

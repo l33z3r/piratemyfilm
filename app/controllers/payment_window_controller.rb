@@ -6,13 +6,21 @@ class PaymentWindowController < ApplicationController
   end
     
   def create
+    #must have green light
     if !@project.green_light
       flash[:error] = "Project has not been given green light by admin"
       redirect_to project_path @project and return
     end
 
+    #has project already collected all funds
     if @project.project_payment_status == "Finished Payment"
-      flash[:error] = "Project has has already been marked as payment complete!"
+      flash[:error] = "All funds have already been collected for this project!"
+      redirect_to project_path @project and return
+    end
+
+    #must not have window open already
+    if @project.current_payment_window
+      flash[:error] = "There is already an active payment window for this project!"
       redirect_to project_path @project and return
     end
 
@@ -26,13 +34,6 @@ class PaymentWindowController < ApplicationController
 
     @payment_window.status = "Active"
     @payment_window.project_id = @project.id
-
-    begin
-      @payment_window.save!
-    rescue ActiveRecord::RecordInvalid
-      flash[:error] = "Error Creating Payment Window"
-      render :action=>'new' and return
-    end
 
     #create subscription payments using the share queue
     #create a hash indexed on user ids, to work out exactly what we need to create
@@ -66,6 +67,13 @@ class PaymentWindowController < ApplicationController
       redirect_to project_path @project and return
     end
 
+    begin
+      @payment_window.save!
+    rescue ActiveRecord::RecordInvalid
+      flash[:error] = "Error Creating Payment Window"
+      render :action=>'new' and return
+    end
+
     @notify_emails = []
     
     @user_subscription_array.each do |user_id, subscription_map|
@@ -74,7 +82,7 @@ class PaymentWindowController < ApplicationController
 
       @subscription_payment = SubscriptionPayment.create(:payment_window_id => @payment_window.id,
         :project_id => @project.id, :user_id => user_id, :share_amount => @user_share_amount,
-        :share_price => @user_share_price, :status => "Pending")
+        :share_price => @user_share_price, :status => "Open")
 
       @notify_emails << @subscription_payment.user.profile.email
 
@@ -97,6 +105,7 @@ class PaymentWindowController < ApplicationController
       begin
         PaymentsMailer.deliver_window_opened @payment_window, email_address
       rescue Exception
+        logger.info "Error sending mail!"
       end
     end
     
@@ -112,17 +121,35 @@ class PaymentWindowController < ApplicationController
       redirect_to project_path @project and return
     end
 
+    @notify_emails_defaulted = []
+    @notify_emails_paid = []
+
     #mark all payment_subscriptions to defaulted, that are not already marked as paid
     @payment_window.subscription_payments.each do |payment|
-      payment.status = "Defaulted"
-      payment.save!
+      if payment.paid?
+        @notify_emails_paid << payment.user.profile.email
+      else
+        @notify_emails_defaulted << payment.user.profile.email
+        payment.status = "Defaulted"
+        payment.save!
+      end
     end
 
-    #email all users in this payment window
-    @notify_emails.each do |email_address|
+    #email all users in this payment window who defaulted on payment
+    @notify_emails_defaulted.each do |email_address|
       begin
-        PaymentsMailer.deliver_window_opened @payment_window, email_address
+        PaymentsMailer.deliver_window_closed_payment_failed @payment_window, email_address
       rescue Exception
+        logger.info "Error sending mail!"
+      end
+    end
+
+    #email all users in this payment window who succeeded in payment
+    @notify_emails_paid.each do |email_address|
+      begin
+        PaymentsMailer.deliver_window_closed_payment_succeeded @payment_window, email_address
+      rescue Exception
+        logger.info "Error sending mail!"
       end
     end
     
@@ -152,26 +179,34 @@ class PaymentWindowController < ApplicationController
 
   def history
     @current_payment_window = @project.current_payment_window
-    @payment_windows = @project.payment_windows.find(:all, :conditions => "status != 'Active'")
+    @previous_payment_windows = @project.payment_windows.find(:all, :conditions => "status != 'Active'")
   end
 
   def mark_payment_paid
     #only allow post
     return unless request.post?
-    
+
     #users can only mark as paid, the system will mark shares as defaulted when a payment window is closed
     begin
       @subscription_payment = SubscriptionPayment.find(params[:id])
 
+      @payment_window = @subscription_payment.project.current_payment_window
+
+      if !@payment_window
+        flash[:error] = "There is no active payment window for this project"
+        redirect_to :action => "history", :id => @project
+      end
+
       if @subscription_payment.status == "Pending"
         @subscription_payment.status = "Paid"
 
-        #TODO: email the user
-
-
-
-
-
+        #email all users in this payment window who succeeded in payment
+        begin
+          PaymentsMailer.deliver_payment_succeeded @payment_window, @subscription_payment.user.profile.email
+        rescue Exception
+          logger.info "Error sending mail!"
+        end
+    
         @subscription_payment.save!
       else
         flash[:error] = "This payment has already been marked as #{@subscription_payment.status}"

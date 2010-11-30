@@ -1,8 +1,7 @@
 <% if logged_in %>
   <h3>Your Shares</h3>
   <% if allowed_reserve_shares %>
-    <% if @project.in_payment %>
-
+    <% if @project.in_payment? %>
       <ul>
         <li>
           This project is currently in the payment stage. No more shares are available to reserve.
@@ -15,119 +14,136 @@
             <% if @my_outstanding_subscriptions_amount > 0 %>
               <i>
                 <b>(<%= @my_outstanding_subscriptions_amount %> initially marked as on
-                <a class="tooltip_arrow"
-                   title="standby shares become valid when new or existing shares become available">
-                  standby</a>)</b>
+                  <a class="tooltip_arrow"
+                     title="standby shares become valid when new or existing shares become available">
+                standby</a>)</b>
               </i>
             <% end %>
           </li>
 
           <li>
-            Depending on availability, your outstanding shares may be available.
+            Depending on availability, your outstanding shares may be available. If this is the case, you will see a "Buy Shares" button below.
           </li>
 
           <li>
-            You have already paid for <b><%= @u.completed_subscription_payment_amount(@project) %></b> shares in this project.
+            You have <i>paid</i> for a total of <b><%= @u.completed_subscription_payments(@project).size %></b> shares in this project,
+            amounting to <b><%= print_money @u.completed_subscription_payment_amount(@project) %></b>.
           </li>
 
           <li>
-            You can now pay for <b><%= @u.current_subscription_payment(@project).share_amount %></b> shares by paypal.
+            You have <i>defaulted</i> for a total of <b><%= @u.failed_subscription_payments(@project).size %></b> shares in this project,
+            amounting to <b><%= print_money @u.failed_subscription_payment_amount(@project) %></b>.
           </li>
 
           <li>
-            Click the button below to pay into the producers paypal account.
+            Failure to pay for your shares will result in them being given to another user in the share queue.
           </li>
 
-          <li>
-            The producer will be sent a payment with your share ids, and can validate them
+          <% if @project.current_payment_window && @u.current_subscription_payment(@project) %>
+            <% if @u.current_subscription_payment(@project).paid? %>
+              <li>
+                You have already paid for your <b><%= @u.current_subscription_payment(@project).share_amount %></b> shares in this payment window.
+              </li>
+            <% else %>
+              <% if @u.current_subscription_payment(@project).open? %>
+                <li>
+                  You can now pay for <b><%= @u.current_subscription_payment(@project).share_amount %></b> shares by paypal.
+                </li>
 
-            <div class="pmf_clear">&nbsp;</div>
+                <li>
+                  Click the "buy shares" button below to pay into the producers paypal account.
+                </li>
+              <% elsif @u.current_subscription_payment(@project).pending? %>
+                <li>
+                  You have <b><%= @u.current_subscription_payment(@project).share_amount %></b> shares pending verification.
+                  If you are sure you have not completed the payment process, please do so, by clicking the "Buy Shares" button below,
+                  and completing the paypal transaction.
+                </li>
 
-            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-              <!-- Identify your business so that you can collect the payments. -->
-              <input type="hidden" name="business" value="<%= @u.current_subscription_payment(@project).payment_window.paypal_email %>">
+                <li>
+                  You have already clicked buy for your shares in this window.
+                  If you are sure that you did not complete the transaction and still
+                  need to pay for your shares, click the "Buy Shares" button below.
+                  If you do not pay for your shares, and they are not verified by the
+                  window close date, they will be given to the next user in the queue.
+                </li>
+              <% end %>
+              <li>
+                Click the button below to start the payment process for your
+                <b><%= @u.current_subscription_payment(@project).share_amount %></b> shares
+                (Cost: <b><%= print_money @u.current_subscription_payment(@project).payment_amount %></b>).
 
-              <!-- Specify a Buy Now button. -->
-              <input type="hidden" name="cmd" value="_xclick">
+                <div class="pmf_clear_10">&nbsp;</div>
 
-              <!-- Specify details about the item that buyers will purchase. -->
-              <input type="hidden" name="item_name"
-                     value="<%= @u.current_subscription_payment(@project).share_amount %>
-                     Shares in <%= h @project.title %> on PMF">
-              <input type="hidden" name="amount" value="<%= @u.current_subscription_payment(@project).share_amount * @u.current_subscription_payment(@project).share_price %>">
-              <input type="hidden" name="currency_code" value="USD">
-
-              <!-- pass the subscription_payment id for producer verification -->
-              <input type="hidden" name="item_number" value="<%= @u.current_subscription_payment(@project).id %>">
-
-              <!-- return to the project page -->
-              <input type="hidden" name="return" value="<%= project_url(@project) %>">
-
-              <!-- Display the payment button. -->
-              <input type="image" name="submit" border="0" src="https://www.paypal.com/en_US/i/btn/btn_buynow_LG.gif"
-                     alt="PayPal - The safer, easier way to pay online">
-              <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >
-            </form>
-          </li>
-        <% end %>
-      </ul>
-
-    <% else %>
-      <ul>
-        <li>
-          You have
-          <%= @my_subscriptions_amount == 0 ? "no" : @my_subscriptions_amount %> shares
-          <% if @my_outstanding_subscriptions_amount > 0 %>
-            <i>
-              (<%= @my_outstanding_subscriptions_amount %> on
-              <a class="tooltip_arrow"
-                 title="standby shares become valid when new or existing shares become available">
-                standby</a>)
-            </i>
+                <div class="button left">
+                  <%= link_to "Buy Shares", :action => "buy_shares", :id => @project.id %>
+                </div>
+              </li>
+            <% end %>
+          <% else %>
+            <li>
+              There are currently no shares available for you to pay for.
+            </li>
           <% end %>
-          reserved for this project.
-        </li>
-
-        <% if @max_subscription_reached %>
-          <li><b>Your share limit for this project has been reached.</b></li>
-        <% elsif @max_project_subscription_reached %>
-          <li><b>You cannot reserve shares for any more projects.</b></li>
+        <% end %>
         <% else %>
-          <li>You can reserve up to <%= @max_subscription %> shares.</li>
+        <ul>
+      <li>
+        You have
+        <%= @my_subscriptions_amount == 0 ? "no" : @my_subscriptions_amount %> shares
+        <% if @my_outstanding_subscriptions_amount > 0 %>
+          <i>
+            (<%= @my_outstanding_subscriptions_amount %> on
+            <a class="tooltip_arrow"
+               title="standby shares become valid when new or existing shares become available">
+            standby</a>)
+          </i>
         <% end %>
-      </ul>
-      <h3>Reserve/Cancel Shares</h3>
+        reserved for this project.
+      </li>
 
-      <% if !@max_subscription_reached && !@max_project_subscription_reached %>
-        <div class="reservation_form_container">
-          <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
-            <div class="text">
-              Enter amount of shares to reserve (max <%= @num_shares_allowed %>) :
-            </div>
-            <div class="controls">
-              <input type="text" value="1" name="num_shares" size="3"/>
-              <%= submit_tag "Reserve Shares", :confirm => "Are You Sure You Want to Reserve Shares?" %>
-            </div>
-          </form>
-        </div>
+      <% if @max_subscription_reached %>
+        <li><b>Your share limit for this project has been reached.</b></li>
+      <% elsif @max_project_subscription_reached %>
+        <li><b>You cannot reserve shares for any more projects.</b></li>
+      <% else %>
+        <li>You can reserve up to <%= @max_subscription %> shares.</li>
       <% end %>
+    </ul>
 
-      <div class="pmf_clear">&nbsp;</div>
+    <h3>Reserve/Cancel Shares</h3>
 
-      <% if @my_subscriptions_amount > 0 %>
-        <div class="reservation_form_container">
-          <% form_tag cancel_project_project_subscriptions_path(@project), :method => :delete do %>
-            <div class="text">
-              Enter amount of shares to cancel (max <%= @my_subscriptions_amount %>) :
-            </div>
-            <div class="controls">
-              <input type="text" value="1" name="num_shares" size="3"/>
-              <%= submit_tag "Cancel Shares", :confirm => "Are You Sure You Want to Cancel Shares?" %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+    <% if !@max_subscription_reached && !@max_project_subscription_reached %>
+      <div class="reservation_form_container">
+        <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
+          <div class="text">
+            Enter amount of shares to reserve (max <%= @num_shares_allowed %>) :
+          </div>
+          <div class="controls">
+            <input type="text" value="1" name="num_shares" size="3"/>
+            <%= submit_tag "Reserve Shares", :confirm => "Are You Sure You Want to Reserve Shares?" %>
+          </div>
+        </form>
+      </div>
     <% end %>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <% if @my_subscriptions_amount > 0 %>
+      <div class="reservation_form_container">
+        <% form_tag cancel_project_project_subscriptions_path(@project), :method => :delete do %>
+          <div class="text">
+            Enter amount of shares to cancel (max <%= @my_subscriptions_amount %>) :
+          </div>
+          <div class="controls">
+            <input type="text" value="1" name="num_shares" size="3"/>
+            <%= submit_tag "Cancel Shares", :confirm => "Are You Sure You Want to Cancel Shares?" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+      <% end %>
+    </ul>
   <% else %>
     <ul><li><b>As the owner of this project, you cannot reserve shares!</b></li></ul>
   <% end %>
