@@ -33,10 +33,18 @@
   <tr>
     <td>
       * Funds Needed ($)
+      <br/><br/>
+      <i>
+        This cannot be updated once project reaches the "In Payment" phase.
+      </i>
     </td>
     <td>
-      <%= f.text_field :capital_required %>
-      <%= display_error_on(project, :capital_required) -%>
+      <% if project.in_payment? %>
+        <%= project.capital_required %>
+      <% else %>
+        <%= f.text_field :capital_required %>
+        <%= display_error_on(project, :capital_required) -%>
+      <% end %>
     </td>
   </tr>
 
@@ -48,8 +56,8 @@
       <input type="hidden" name="project[ipo_price]" value="5"/>$5
     </td>
     <!--td>
-<%= f.text_field :ipo_price, :value => 0 %>
-<%= display_error_on(project, :ipo_price) -%>
+    <%= f.text_field :ipo_price, :value => 0 %>
+    <%= display_error_on(project, :ipo_price) -%>
     </td-->
   </tr>
 

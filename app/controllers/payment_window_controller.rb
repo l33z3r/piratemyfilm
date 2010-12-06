@@ -1,7 +1,12 @@
 class PaymentWindowController < ApplicationController
-  before_filter :load_project, :check_owner_or_admin, :except => "mark_payment_paid"
+  before_filter :load_project, :check_owner_or_admin, :except => ["mark_payment_paid", "show"]
   
   def new
+    if @project.finished_payment_collection
+      flash[:error] = "All funds have already been collected for this project!"
+      redirect_to project_path @project and return
+    end
+
     @payment_window = PaymentWindow.new
   end
     
@@ -13,7 +18,7 @@ class PaymentWindowController < ApplicationController
     end
 
     #has project already collected all funds
-    if @project.project_payment_status == "Finished Payment"
+    if @project.finished_payment_collection
       flash[:error] = "All funds have already been collected for this project!"
       redirect_to project_path @project and return
     end
@@ -50,6 +55,29 @@ class PaymentWindowController < ApplicationController
         next
       end
 
+      @subscription_amount_dollar = subscription.amount * @project_share_price
+
+      #do we need to split a users subscription amount?
+      if @total_amount + @subscription_amount_dollar > @project.capital_required
+        @over_amount_dollar = (@total_amount + @subscription_amount_dollar) - @project.capital_required
+        @over_amount = @over_amount_dollar / @project.ipo_price
+        @actual_amount = subscription.amount
+        @available_amount = @actual_amount - @over_amount
+
+        #we must split this subscription into @over_amount and @available_amount
+        subscription.amount = @available_amount
+        subscription.save!
+
+        @new_subscription = ProjectSubscription.create( :user => subscription.user,
+          :project => subscription.project, :amount => @over_amount,
+          :outstanding => true )
+        @new_subscription.created_at = subscription.created_at
+        @new_subscription.save!
+
+        @subscription_amount_dollar = @available_amount * @project.ipo_price
+
+      end
+
       if @user_subscription_array[subscription.user_id]
         @user_subscription_array[subscription.user_id][:share_amount] += subscription.amount
         @user_subscription_array[subscription.user_id][:subscription_ids] << subscription.id
@@ -59,7 +87,7 @@ class PaymentWindowController < ApplicationController
           :subscription_ids => [subscription.id]}
       end
 
-      @total_amount += (subscription.amount * @project_share_price)
+      @total_amount += @subscription_amount_dollar
     end
 
     if @user_subscription_array.size == 0
@@ -110,15 +138,24 @@ class PaymentWindowController < ApplicationController
     end
     
     flash[:positive] = "Payment Window Created! Users will be notified that they must submit payment for their shares!"
-    redirect_to :controller => "payment_window", :action => "show", :id => @project.id
+    redirect_to :controller => "payment_window", :action => "show_current", :id => @project.id
   end
 
   def close
+    #only allow post
+    return unless request.post?
+
     @payment_window = @project.current_payment_window
 
     if !@payment_window
       flash[:error] = "There is no active payment window for this project!"
-      redirect_to project_path @project and return
+      redirect_to :action => "history", :id => @project and return
+    end
+
+    #payment window date must have elapsed
+    if @payment_window.close_date > Date.today
+      flash[:error] = "It has not passed the payment window close date, you must wait till then to close this window!"
+      redirect_to :action => "history", :id => @project and return
     end
 
     @notify_emails_defaulted = []
@@ -156,7 +193,7 @@ class PaymentWindowController < ApplicationController
     #if we have enough paid shares, mark the project as payment complete
     if @project.amount_payment_collected >= @project.capital_required
       @payment_window.status = "Successful"
-      @project.payment_status = "Finished Payment"
+      @project.project_payment_status = "Finished Payment"
     else
       @payment_window.status = "Failed"
     end
@@ -165,16 +202,28 @@ class PaymentWindowController < ApplicationController
     @payment_window.save!
 
     flash[:positive] = "Payment Window Closed!"
-    redirect_to project_path @project
+    redirect_to :action => "history", :id => @project
   end
 
   def show
+    begin
+      @payment_window = PaymentWindow.find(params[:id])
+      @project = @payment_window.project
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Payment Window Not Found"
+      redirect_to :controller => "home"
+    end
+  end
+
+  def show_current
     @payment_window = @project.current_payment_window
 
     if !@payment_window
       flash[:error] = "There is no active payment window for this project"
       redirect_to :action => "history", :id => @project
     end
+
+    render :action => "show"
   end
 
   def history
@@ -190,14 +239,14 @@ class PaymentWindowController < ApplicationController
     begin
       @subscription_payment = SubscriptionPayment.find(params[:id])
 
-      @payment_window = @subscription_payment.project.current_payment_window
+      @payment_window = @subscription_payment.payment_window
 
-      if !@payment_window
-        flash[:error] = "There is no active payment window for this project"
-        redirect_to :action => "history", :id => @project
+      if !@payment_window.open?
+        flash[:error] = "This payment window is not active"
+        redirect_to :action => "history", :id => @project and return
       end
 
-      if @subscription_payment.status == "Pending"
+      if @subscription_payment.pending?
         @subscription_payment.status = "Paid"
 
         #email all users in this payment window who succeeded in payment
@@ -208,17 +257,20 @@ class PaymentWindowController < ApplicationController
         end
     
         @subscription_payment.save!
-      else
-        flash[:error] = "This payment has already been marked as #{@subscription_payment.status}"
-        redirect_to project_path @project and return
+      elsif @subscription_payment.paid?
+        flash[:error] = "This payment has already been marked as Paid"
+        redirect_to :action => "show_current", :id => @subscription_payment.project and return
+      elsif @subscription_payment.open?
+        flash[:error] = "This payment cannot be marked as paid, as the user has not yet clicked the 'Pay For Shares' button."
+        redirect_to :action => "show_current", :id => @subscription_payment.project and return
       end
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "Subscription Payment Not Found"
-      redirect_to project_path @project
+      redirect_to :action => "show_current", :id => @subscription_payment.project and return
     end
 
     flash[:positive] = "Payment has been marked as paid!"
-    redirect_to :controller => "payment_window", :action => "show", :id => @subscription_payment.project.id
+    redirect_to :controller => "payment_window", :action => "show_current", :id => @subscription_payment.project.id
   end
 
   protected

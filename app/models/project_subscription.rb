@@ -22,6 +22,27 @@ class ProjectSubscription < ActiveRecord::Base
   after_save :update_project_funding
   after_destroy :update_project_funding
 
+  def payment_status
+    return "N/A" if subscription_payment.nil?
+    subscription_payment.status
+  end
+
+  def payment_window_id
+    if subscription_payment
+      return subscription_payment.payment_window.id
+    else
+      return nil
+    end
+  end
+
+  def in_active_window?
+    if subscription_payment
+      return subscription_payment.payment_window.open?
+    else
+      return nil
+    end
+  end
+
   private
 
   def update_project_funding

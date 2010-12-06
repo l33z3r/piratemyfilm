@@ -74,6 +74,11 @@ div.banner {
     border: 1px solid #4F8A10;
 }
 
+.warn {
+    color: red;
+    font-weight: bold;
+}
+
 /* Global CSS */
 
 /* Latest Max Blog */
@@ -649,6 +654,88 @@ div#project_show div.reservation_form_container div.controls {
     float: left;
 }
 
+div#project_show .view-lite-row-description {
+    padding: 1px 5px;
+    width: 870px;
+}
+
+div#project_show div.latest_blog {
+
+}
+
+div#project_show div.latest_blog span.comments_link {
+    float: right;
+}
+
+div#project_show div.latest_blog span.date {
+    float: right;
+    font-weight: bold;
+}
+
+.project-overview	{
+    width:100%;
+    background:#fff;
+    text-transform: uppercase;
+}
+
+div.project_action_links {
+    float: right;
+    margin: 5px 0px;
+}
+
+div#project_blogs {
+    margin-top: 20px;
+}
+
+#video	{
+    width:640px;
+    height:391px;
+    margin-bottom:1em;
+}
+
+.project-overview-button	{
+    background:#fff;
+    width:120px;
+    height:40px;
+    float:left;
+    margin-right:5px;
+    margin-top:10px;
+    line-height:9pt;
+}
+
+.project-overview-button span a:hover	{
+    text-decoration:none;
+    color: #000;
+}
+
+.project-overview-button span	{
+    font-weight:bold;
+    font-size:8pt;
+    text-decoration:none;
+    color: #b1b1b1;
+    display:block;
+    text-transform: uppercase;
+}
+
+.project-overview-button p	{
+    margin:0px 0px 0px 0px;
+    padding:0;
+    font-weight:bold;
+    color:#666666;
+    text-transform: uppercase;
+    font-size:8pt;
+}
+
+div.links {
+    float: right;
+    margin-right: 25px;
+}
+
+div#project_show div#subscription_buttons ul li.warn {
+    color: red;
+    font-weight: bold;
+}
+
 /* End Project Page */
 
 /* Share Queue Page */
@@ -662,6 +749,15 @@ div#share_queue div#queue_header div {
     font-weight: bold;
     margin-right: 10px;
     width: 70px;
+}
+
+div#share_queue div#queue_header div.subscription_payment_status {
+    width: 110px;
+}
+
+div#share_queue div#queue_header div.subscription_payment_window {
+    width: 130px;
+    margin-left: 10px;
 }
 
 div#share_queue div.subscription {
@@ -710,15 +806,75 @@ div#share_queue div.subscription div.subscription_outstanding {
     font-weight: bold;
 }
 
+div#share_queue div.subscription div.subscription_payment_status {
+    float: left;
+    width: 110px;
+    margin-left: 10px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+div#share_queue div.subscription div.subscription_payment_window {
+    float: left;
+    width: 130px;
+    margin-left: 10px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
 /* End Share Queue Page */
 
 /* Payment Windows */
 
-div#payment_window div#subscription_payments div#header_cols div{
+div#payment_window_history div.window_header div {
     float: left;
     font-weight: bold;
     margin-right: 10px;
+    width: 130px;
+}
+
+div#payment_window_history div.payment_window {
+    margin-top: 10px;
+    padding: 5px;
+}
+
+div#payment_window_history div.payment_window div {
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 130px;
+}
+
+div#payment_window_history div.payment_window div.pmf_clear {
+    float: none;
+}
+
+div#payment_window_history div.odd {
+    background-color: #F8F6EF;
+}
+
+div#payment_window_history div.payment_window div.window_id a {
+    font-weight: bold;
+}
+
+div#payment_window_history div.payment_window div.window_status {
+    font-weight: bold;
+}
+
+div#payment_window_history div.payment_window div.window_id div.link_img {
+    margin-top: -7px;
+    float: left;
+    width: 34px;
+}
+
+div#payment_window div#subscription_payments div#header_cols div {
+    font-weight: bold;
+    margin-right: 10px;
     width: 90px;
+    float: left;
+}
+div#payment_window div#subscription_payments div#header_cols div.payment_amount_header {
+    width: 150px;
 }
 
 div#payment_window div#subscription_payments div.subscription_payment {
@@ -760,7 +916,7 @@ div#payment_window div#subscription_payments div.subscription_payment div.share_
 
 div#payment_window div#subscription_payments div.subscription_payment div.payment_amount {
     float: left;
-    width: 90px;
+    width: 150px;
     margin-left: 10px;
     margin-top: 18px;
     font-weight: bold;
@@ -975,87 +1131,6 @@ div#users div#filter_param_box {
 div#users div#search_text {
     clear: both;
 }
-
-/* Project page */
-
-div#project_show .view-lite-row-description {
-    padding: 1px 5px;
-    width: 870px;
-}
-
-div#project_show div.latest_blog {
-
-}
-
-div#project_show div.latest_blog span.comments_link {
-    float: right;
-}
-
-div#project_show div.latest_blog span.date {
-    float: right;
-    font-weight: bold;
-}
-
-.project-overview	{
-    width:100%;
-    background:#fff;
-    text-transform: uppercase;
-}
-
-div.project_action_links {
-    float: right;
-    margin: 5px 0px;
-}
-
-div#project_blogs {
-    margin-top: 20px;
-}
-
-#video	{
-    width:640px;
-    height:391px;
-    margin-bottom:1em;
-}
-
-.project-overview-button	{
-    background:#fff;
-    width:120px;
-    height:40px;
-    float:left;
-    margin-right:5px;
-    margin-top:10px;
-    line-height:9pt;
-}
-
-.project-overview-button span a:hover	{
-    text-decoration:none;
-    color: #000;
-}
-
-.project-overview-button span	{
-    font-weight:bold;
-    font-size:8pt;
-    text-decoration:none;
-    color: #b1b1b1;
-    display:block;
-    text-transform: uppercase;
-}
-
-.project-overview-button p	{
-    margin:0px 0px 0px 0px;
-    padding:0;
-    font-weight:bold;
-    color:#666666;
-    text-transform: uppercase;
-    font-size:8pt;
-}
-
-div.links {
-    float: right;
-    margin-right: 25px;
-}
-
-/* End project page */
 
 /* static pages */
 

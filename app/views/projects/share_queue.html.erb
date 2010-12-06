@@ -11,14 +11,16 @@
 <div id="share_queue">
 
   <div id="queue_header">
-      <div class="number_header">Position</div>
-      <div class="icon_header">User</div>
-      <div class="name_header">&nbsp;</div>
-      <div class="subscription_amount_header">Amount</div>
-      <div class="subscription_outstanding_header">Outstanding?</div>
-      <div class="pmf_clear">&nbsp;</div>
-    </div>
+    <div class="number_header">Position</div>
+    <div class="icon_header">User</div>
+    <div class="name_header">&nbsp;</div>
+    <div class="subscription_amount_header">Amount</div>
+    <div class="subscription_outstanding_header">Outstanding?</div>
+    <div class="subscription_payment_status">Payment Status</div>
+    <div class="subscription_payment_window">Payment Window ID</div>
     <div class="pmf_clear">&nbsp;</div>
+  </div>
+  <div class="pmf_clear">&nbsp;</div>
 
   <% @subscriptions.each_with_index do |subscription, index| %>
     <div class="<%= cycle('odd','even') %> subscription">
@@ -30,6 +32,13 @@
       </div>
       <div class="subscription_outstanding">
         <%= subscription.outstanding ? "Yes" : "No" %>
+      </div>
+      <div class="subscription_payment_status">
+        <%= subscription.payment_status %>
+      </div>
+      <div class="subscription_payment_window">
+        <%= subscription.payment_window_id %>
+        <%= subscription.in_active_window? ? "(Current Window)" : "" %>
       </div>
       <div class="pmf_clear">&nbsp;</div>
     </div>

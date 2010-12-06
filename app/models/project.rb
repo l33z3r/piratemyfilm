@@ -251,6 +251,11 @@ class Project < ActiveRecord::Base
     capital_required / ipo_price
   end
 
+  #only allow update of capital_required if project not in payment
+  def capital_required=(newval)
+    super unless in_payment?
+  end
+
   def capital_required
     if !super
       return 0
@@ -426,6 +431,10 @@ class Project < ActiveRecord::Base
     payment_windows.size > 0
   end
 
+  def finished_payment_collection
+    project_payment_status == "Finished Payment"
+  end
+
   def current_payment_window
     payment_windows.find(:first, :conditions => "status = 'Active'", :order => "created_at DESC")
   end
@@ -440,6 +449,10 @@ class Project < ActiveRecord::Base
     end
 
     @amount
+  end
+
+  def amount_payment_outstanding
+    capital_required - amount_payment_collected
   end
 
   def is_flagged

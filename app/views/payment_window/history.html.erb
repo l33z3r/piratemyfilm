@@ -1,55 +1,171 @@
-<div class="pageTitle">Collect Funds</div>
+<div id="payment_window_history">
+  <div class="pageTitle">Collect Funds</div>
 
-<div class="dashed_light_border">&nbsp;</div>
+  <div class="dashed_light_border">&nbsp;</div>
 
-<div class="pageTitleSmaller">
-  For Project <%= link_to h(@project.title), project_path(@project) %>
-</div>
-
-<div class="pmf_clear">&nbsp;</div>
-
-<div class="pageTitleSmaller">
-  Current Window
-</div>
-
-<div class="pmf_clear">&nbsp;</div>
-
-<% if @current_payment_window %>
-  <%= link_to @current_payment_window.id, :action => "show", :id => @project.id %>
-  <%= @current_payment_window.created_at %>
-  <%= @current_payment_window.close_date %>
-  <%= @current_payment_window.amount_payment_collected %>
-  <%= @current_payment_window.status %>
-
-  <div class="pmf_clear_10">&nbsp;</div>
-
-  <div class="button">
-    <%= link_to "Close Window", {:action => "close", :id => @project.id},
-      :confirm => "This will mark all non paid shares as such. Are you sure?" %>
-  </div>
-<% else %>
-  There is no active payment window for this project.
-
-  <div class="pmf_clear_10">&nbsp;</div>
-
-  <div class="button left">
-    <%= link_to "New Window", :action => "new", :id => @project.id %>
+  <div class="pageTitleSmall">
+    For Project <%= link_to h(@project.title), project_path(@project) %>
   </div>
 
+  <div class="pmf_clear">&nbsp;</div>
+
+  <% if @project.finished_payment_collection %>
+    <div class="pageTitleSmall">
+      Funds For This Project Have Been Collected In Full! Congratulations!
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+  <% end %>
+
+  <p>
+    The following is a summary of the payment windows associated with this project.
+    You can create a payment window, where users will be able to pay for their shares by depositing into
+    your paypal account. You will also see a list of previous windows.
+  </p>
+
+  <p>
+    You select a window close date, at which users must pay for their shares.
+    If you close the window, their shares will be given to the users who were
+    initially given outstanding shares in the queue.
+    Once you close a window, and still have not fully funded your project, you
+    can open another one until you exhaust the share queue.
+    When you have reached the end of the share queue, you can then request that
+    PMF buy the outstanding shares
+  </p>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <ul>
+    <li>A total of <%= print_money @project.amount_payment_collected %> has been collected for this project.</li>
+    <li>There is an amount of <%= print_money @project.amount_payment_outstanding %> still outstanding.</li>
+    <li>
+      If there is still outstanding funds to be collected, and users requesting shares that were initially 
+      marked as outstanding, you can collect funding from these shares by creating a new payment window below.
+    </li>
+    <li>If there are no users left in the share queue, you must request that PMF buys out the outstanding shares.</li>
+  </ul>
+
   <div class="pmf_clear_10">&nbsp;</div>
 
-<% end %>
+  <div class="pageTitleSmall">
+    Currently Active Payment Window
+  </div>
 
-<div class="pageTitleSmaller">
-  Previous Payment Windows
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div id="active_window">
+    <div class="window_header">
+      <div class="window_id">Window ID</div>
+      <div class="window_opened_date">Window Open Date</div>
+      <div class="window_close_date">Window Close Date</div>
+      <div class="amount_collected">Amount Collected</div>
+      <div class="amount_defaulted">Amount Defaulted</div>
+      <div class="window_status">Window Status</div>
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
+
+    <% if @current_payment_window %>
+      <div class="odd payment_window">
+        <div class="window_id">
+          <%= link_to @current_payment_window.id, :action => "show_current", :id => @project.id %>
+          <div class="link_img">
+            <%= link_to image_tag("right_arrow.png"), :action => "show_current", :id => @project.id %>
+          </div>
+        </div>
+        <div class="window_opened_date">
+          <%= @current_payment_window.created_at.to_s(:short) %>
+        </div>
+        <div class="window_close_date">
+          <%= @current_payment_window.close_date.to_s(:short) %>
+        </div>
+        <div class="amount_collected">
+          <%= print_money @current_payment_window.amount_payment_collected %>
+        </div>
+        <div class="amount_defaulted">
+          <%= print_money @current_payment_window.amount_defaulted_payment %>
+        </div>
+        <div class="window_status">
+          <%= @current_payment_window.status %>
+        </div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="pmf_clear_10">&nbsp;</div>
+
+      <div class="button">
+        <%= link_to "Close Window", {:action => "close", :id => @project.id},
+          :confirm => "This will mark all non paid shares as such. Are you sure?", :method => :post %>
+      </div>
+    </div>
+  <% else %>
+
+    <p>There is no currently active payment window for this project.</p>
+
+    <% if !@project.finished_payment_collection %>
+      <p>
+        Note: Opening a new payment window will allocate payments in the share queue
+        for the amount of <%= print_money @project.amount_payment_outstanding %>
+      </p>
+      <div class="button left">
+        <%= link_to "New Window", :action => "new", :id => @project.id %>
+      </div>
+    <% end %>
+
+  <% end %>
+
+  <div class="pmf_clear_20">&nbsp;</div>
+
+  <div class="pageTitleSmall">
+    Previous Payment Windows
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div id="window_history">
+    <div class="window_header">
+      <div class="window_id">Window ID</div>
+      <div class="window_opened_date">Window Open Date</div>
+      <div class="window_close_date">Window Close Date</div>
+      <div class="amount_collected">Amount Collected</div>
+      <div class="amount_defaulted">Amount Defaulted</div>
+      <div class="window_status">Window Status</div>
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
+
+    <% if @previous_payment_windows.size == 0 %>
+      <p>No Windows Found!</p>
+    <% end %>
+
+    <% @previous_payment_windows.each do |window| %>
+      <div class="<%= cycle('odd','even') %> payment_window">
+        <div class="window_id">
+          <%= link_to window.id, :action => "show", :id => window.id %>
+          <div class="link_img">
+            <%= link_to image_tag("right_arrow.png"), :action => "show", :id => window.id %>
+          </div>
+        </div>
+        <div class="window_opened_date">
+          <%= window.created_at.to_s(:short) %>
+        </div>
+        <div class="window_close_date">
+          <%= window.close_date.to_s(:short) %>
+        </div>
+        <div class="amount_collected">
+          <%= print_money window.amount_payment_collected %>
+        </div>
+        <div class="amount_defaulted">
+          <%= print_money window.amount_defaulted_payment %>
+        </div>
+        <div class="window_status">
+          <%= window.status %>
+        </div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+    <% end %>
+
+    <div class="pmf_clear_10">&nbsp;</div>
+
+  </div>
 </div>
-
-<div class="pmf_clear">&nbsp;</div>
-
-<% @previous_payment_windows.each do |window| %>
-  <%= window.id %>
-  <%= window.created_at %>
-  <%= window.close_date %>
-  <%= window.amount_payment_collected %>
-  <%= window.status %>
-<% end %>

@@ -313,6 +313,14 @@ class User < ActiveRecord::Base
     @sum
   end
 
+  def completed_subscription_payment_dollar_amount project
+    completed_subscription_payment_amount(project) * project.ipo_price
+  end
+
+  def failed_subscription_payment_dollar_amount project
+    failed_subscription_payment_amount(project) * project.ipo_price
+  end
+
   def following? project
     followed_projects.include? project
   end

@@ -2,19 +2,19 @@
 
 <div class="dashed_light_border">&nbsp;</div>
 
-<div class="pageTitleSmaller">
+<div class="pageTitleSmall">
   For Project <%= link_to @project.title, project_path(@project) %>
 </div>
 
 <% if @warn %>
   <div class="pmf_clear_10">&nbsp;</div>
 
-  <b>
+  <div class="warn">
     <i>Warning:</i>
     You have already started the payment process for these shares before.
     Only continue if you are sure you did not complete the payment process,
     or you will end up paying twice for your shares.
-  </b>
+  </div>
 <% end %>
 
 <div class="pmf_clear_10">&nbsp;</div>
@@ -29,7 +29,7 @@
     At <b><%= print_money @u.current_subscription_payment(@project).share_price %></b> per share,
     this will cost you <b><%= print_money @u.current_subscription_payment(@project).payment_amount %></b>
   </li>
-  
+
   <li>
     If you have already paid for these shares, please be aware that they payments may take a while to validate.
     In this case, do not go through the payment process again.
