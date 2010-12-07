@@ -1,0 +1,13 @@
+PMF has accepted a request from you to buy out shares for one of your projects.
+
+<br/><br/>
+
+Here is the project: <%= h @pmf_share_buyout.project.title %>
+
+<br/><br/>
+
+You must
+<a href="<%= url_for(:only_path => false,
+  :controller => "projects", :action => "show", :id => @pmf_share_buyout.project.id) %>">
+  going to the project page</a>
+to PirateMyFilm and confirm the payment once it hits your paypal account.

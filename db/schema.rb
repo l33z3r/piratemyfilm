@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101115184046) do
+ActiveRecord::Schema.define(:version => 20101207123403) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -193,6 +193,16 @@ ActiveRecord::Schema.define(:version => 20101115184046) do
   create_table "pmf_fund_subscription_histories", :force => true do |t|
     t.integer  "project_id"
     t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pmf_share_buyouts", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "share_amount"
+    t.float    "share_price"
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

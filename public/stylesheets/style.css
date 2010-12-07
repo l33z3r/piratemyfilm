@@ -74,6 +74,13 @@ div.banner {
     border: 1px solid #4F8A10;
 }
 
+.green_message {
+    color: green;
+    border: 1px solid #4F8A10;
+    background-color: #DFF2BF;
+    padding: 2px;
+}
+
 .warn {
     color: red;
     font-weight: bold;
@@ -2266,6 +2273,57 @@ div#project_show h3.flagged_notice {
 }
 
 /* project admin section */
+
+/* pmf buyout admin section */
+
+div#buyout_requests div#header_cols {
+
+}
+
+div#buyout_requests div#header_cols div {
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 125px;
+}
+
+div#buyout_requests div#header_cols div.status {
+    width: 110px;
+}
+
+div#buyout_requests div#header_cols div.project {
+    width: 130px;
+}
+
+div#buyout_requests div.request div {
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 125px;
+}
+
+div#buyout_requests div.request div.project {
+    width: 130px;
+}
+
+div#buyout_requests div.request div.status {
+    width: 110px;
+}
+
+div#buyout_requests div.request {
+    margin-top: 10px;
+    padding: 5px;
+}
+
+div#buyout_requests div.request div.pmf_clear {
+    float: none;
+}
+
+div#buyout_requests div.odd {
+    background-color: #F8F6EF;
+}
+
+/* end pmf buyout admin section */
 
 .view-lite-row-title {
     background:#fff;

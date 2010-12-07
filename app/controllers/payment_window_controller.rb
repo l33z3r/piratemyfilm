@@ -1,34 +1,14 @@
 class PaymentWindowController < ApplicationController
-  before_filter :load_project, :check_owner_or_admin, :except => ["mark_payment_paid", "show"]
+  before_filter :load_project, :except => ["mark_payment_paid", "show"]
+  before_filter :check_owner_or_admin
+  
+  before_filter :check_allow_create_window, :only => ["new", "create"]
   
   def new
-    if @project.finished_payment_collection
-      flash[:error] = "All funds have already been collected for this project!"
-      redirect_to project_path @project and return
-    end
-
     @payment_window = PaymentWindow.new
   end
     
   def create
-    #must have green light
-    if !@project.green_light
-      flash[:error] = "Project has not been given green light by admin"
-      redirect_to project_path @project and return
-    end
-
-    #has project already collected all funds
-    if @project.finished_payment_collection
-      flash[:error] = "All funds have already been collected for this project!"
-      redirect_to project_path @project and return
-    end
-
-    #must not have window open already
-    if @project.current_payment_window
-      flash[:error] = "There is already an active payment window for this project!"
-      redirect_to project_path @project and return
-    end
-
     @payment_window = PaymentWindow.new(params[:payment_window])
 
     #make sure the date is in the future only on window creation
@@ -141,6 +121,65 @@ class PaymentWindowController < ApplicationController
     redirect_to :controller => "payment_window", :action => "show_current", :id => @project.id
   end
 
+  def pmf_buyout_request
+    #only allow post
+    return unless request.post?
+
+    #must have green light
+    if !@project.green_light
+      flash[:error] = "Project has not been given green light by admin"
+      redirect_to :action => "history", :id => @project and return
+    end
+
+    #has project already collected all funds
+    if @project.finished_payment_collection
+      flash[:error] = "All funds have already been collected for this project!"
+      redirect_to :action => "history", :id => @project and return
+    end
+
+    #must not have window open already
+    if @project.current_payment_window
+      flash[:error] = "There is already an active payment window for this project!"
+      redirect_to :action => "history", :id => @project and return
+    end
+
+    #is there a request pending
+    if !@project.share_queue_exhausted?
+      flash[:error] = "You cannot create this request as there are still users in the queue who will buy out your outstanding shares!"
+      redirect_to :action => "history", :id => @project and return
+    end
+
+    if @project.pmf_share_buyout
+      flash[:error] = "There is already a request created for this project. It will be dealt with shorlty!"
+      redirect_to :action => "history", :id => @project and return
+    end
+
+    #if all conditions above are met... create the request!
+    PmfShareBuyout.create(:project => @project, :user => @project.owner,
+      :share_amount => @project.amount_shares_outstanding_payment,
+    :share_price => @project.ipo_price, :status => "Open")
+
+    flash[:positive] = "Your request has been created and will be dealt with shortly!"
+    redirect_to :action => "history", :id => @project
+
+  end
+
+  def pmf_buyout_request_paid
+    #only allow post
+    return unless request.post?
+
+    #do not need to perform all the state checks for the project,
+    #as they were done when the initial buyout request was created
+    @project.pmf_share_buyout.status = "Verified"
+    @project.pmf_share_buyout.save!
+
+    @project.project_payment_status = "Finished Payment"
+    @project.save!
+    
+    flash[:positive] = "Payment Confirmed!"
+    redirect_to :action => "history", :id => @project
+  end
+  
   def close
     #only allow post
     return unless request.post?
@@ -299,5 +338,33 @@ class PaymentWindowController < ApplicationController
     super :admin, :all => true
     super :user, :all => true
   end
-  
+
+  def check_allow_create_window
+    #must have green light
+    if !@project.green_light
+      flash[:error] = "Project has not been given green light by admin"
+      redirect_to :action => "history", :id => @project and return
+    end
+
+    #has project already collected all funds
+    if @project.finished_payment_collection
+      flash[:error] = "All funds have already been collected for this project!"
+      redirect_to :action => "history", :id => @project and return
+    end
+
+    #must not have window open already
+    if @project.current_payment_window
+      flash[:error] = "There is already an active payment window for this project!"
+      redirect_to :action => "history", :id => @project and return
+    end
+    
+    #must be users left in the share queue
+    if !@project.share_queue_exhausted?
+      flash[:error] = "There are no users left in the share queue to offer outstanding shares to.
+        You must request that PMF buy out the remaining shares."
+      redirect_to :action => "history", :id => @project and return
+    end
+    
+  end
+
 end

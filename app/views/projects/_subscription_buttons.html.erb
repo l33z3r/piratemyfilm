@@ -17,7 +17,7 @@
                   <b>(<%= @my_outstanding_subscriptions_amount %> initially marked as on
                     <a class="tooltip_arrow"
                        title="standby shares become valid when new or existing shares become available">
-                      standby</a>)</b>
+                  standby</a>)</b>
                 </i>
               <% end %>
             </li>
@@ -56,7 +56,7 @@
                   </li>
                 <% elsif @u.current_subscription_payment(@project).pending? %>
                   <li class="warn">
-                    You have <b><%= @u.current_subscription_payment(@project).share_amount %></b> 
+                    You have <b><%= @u.current_subscription_payment(@project).share_amount %></b>
                     shares pending verification. It is in our system that you have
                     already clicked "Pay For Shares" for your shares in this window.
                     If you are sure that you did not complete the transaction and still
@@ -84,6 +84,13 @@
             <% end %>
           <% end %>
         </ul>
+      <% elsif @project.finished_payment_collection %>
+        <p>
+          This project has successfully finished collecting funds. You own <%= @u.completed_subscription_payment_amount @project %> share worth
+          <%= print_money @u.completed_subscription_payment_dollar_amount @project %>. Your dividends will be managed by the producer, who will be in touch.
+        </p>
+
+        <div class="pmf_clear_10">&nbsp;</div>
       <% else %>
         <ul>
           <li>
@@ -94,7 +101,7 @@
                 (<%= @my_outstanding_subscriptions_amount %> on
                 <a class="tooltip_arrow"
                    title="standby shares become valid when new or existing shares become available">
-                  standby</a>)
+                standby</a>)
               </i>
             <% end %>
             reserved for this project.

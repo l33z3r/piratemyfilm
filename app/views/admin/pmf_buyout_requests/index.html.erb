@@ -1,0 +1,174 @@
+<div class="pageTitle">
+  PMF Buyout Requests
+</div>
+
+<p>
+  Below are a list of buyout requests from users who can not get full funding for their projects.
+  You can accept/deny the requests using the buttons provided. If you accept the payment, you will be
+  able to transfer money to that producers paypal account by clicking the paypal button that will
+  appear beside the accepted request.
+</p>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div class="pageTitleSmall">
+  Open Requests
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id="buyout_requests">
+  <div id="header_cols">
+    <div class="project">Project</div>
+    <div class="user">User</div>
+    <div class="share_amount">Share Amount</div>
+    <div class="share_price">Share Price</div>
+    <div class="payment_amount">Payment Amount</div>
+    <div class="status">Actions</div>
+    <div class="pmf_clear">&nbsp;</div>
+  </div>
+  <div class="pmf_clear">&nbsp;</div>
+
+  <% if @open_requests.size == 0 %>
+    <p>No Open Requests Found!</p>
+  <% end %>
+
+  <% @open_requests.each do |buyout_request| %>
+    <div class="<%= cycle('odd','even') %> request">
+      <div class="project"><%= link_to buyout_request.project.title, project_path(buyout_request.project) %></div>
+      <div class="user"><%= link_to buyout_request.user.login, profile_path(buyout_request.user.id) %></div>
+      <div class="share_amount"><%= buyout_request.share_amount %></div>
+      <div class="share_price"><%= print_money buyout_request.share_price %></div>
+      <div class="payment_amount"><%= print_money buyout_request.payment_amount %></div>
+
+      <div class="status">
+        <% if buyout_request.open? %>
+          <%= link_to "Accept",
+              {:action => "accept", :id => buyout_request.project.id },
+              :confirm => "Are you sure?", :method => :post %> |
+          <%= link_to "Deny",
+              {:action => "deny", :id => buyout_request.project.id },
+              :confirm => "Are you sure?", :method => :post %>
+        <% elsif buyout_request.pending? %>
+          <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+            <!-- Identify your business so that you can collect the payments. -->
+            <input type="hidden" name="business" value="<%= buyout_request.project.last_window_paypal_email %>">
+
+            <!-- Specify a Buy Now button. -->
+            <input type="hidden" name="cmd" value="_xclick">
+
+            <!-- Specify details about the item that buyers will purchase. -->
+            <input type="hidden" name="item_name"
+                   value="<%= buyout_request.share_amount %>
+                   Shares in <%= h buyout_request.project.title %> (ID:#<%= buyout_request.project.id %>) on PMF">
+            <input type="hidden" name="amount" value="<%= buyout_request.payment_amount %>">
+            <input type="hidden" name="currency_code" value="USD">
+
+            <!-- pass the subscription_payment id for producer verification -->
+            <input type="hidden" name="item_number" value="<%= buyout_request.project.pmf_share_buyout_paypal_id %>">
+
+            <!-- return to the project page -->
+            <input type="hidden" name="return" value="<%= project_url(buyout_request.project) %>">
+
+            <!-- Display the payment button. -->
+            <input type="image" name="submit" border="0" src="https://www.paypal.com/en_US/i/btn/btn_buynow_LG.gif"
+                   alt="PayPal - The safer, easier way to pay online">
+            <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >
+          </form>
+        <% end %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
+  <% end %>
+
+  <div class="pmf_clear_10">&nbsp;</div>
+
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div class="pageTitleSmall">
+  Verified Requests
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id="buyout_requests">
+  <div id="header_cols">
+    <div class="project">Project</div>
+    <div class="user">User</div>
+    <div class="share_amount">Share Amount</div>
+    <div class="share_price">Share Price</div>
+    <div class="payment_amount">Payment Amount</div>
+    <div class="status">Actions</div>
+    <div class="pmf_clear">&nbsp;</div>
+  </div>
+  <div class="pmf_clear">&nbsp;</div>
+
+  <% if @verified_requests.size == 0 %>
+    <p>No Verified Requests Found!</p>
+  <% end %>
+
+  <% @verified_requests.each do |buyout_request| %>
+    <div class="<%= cycle('odd','even') %> request">
+      <div class="project"><%= link_to buyout_request.project.title, project_path(buyout_request.project) %></div>
+      <div class="user"><%= link_to buyout_request.user.login, profile_path(buyout_request.user.id) %></div>
+      <div class="share_amount"><%= buyout_request.share_amount %></div>
+      <div class="share_price"><%= print_money buyout_request.share_price %></div>
+      <div class="payment_amount"><%= print_money buyout_request.payment_amount %></div>
+
+      <div class="status">Verified</div>
+
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
+  <% end %>
+
+  <div class="pmf_clear_10">&nbsp;</div>
+
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div class="pageTitleSmall">
+  Denied Requests
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id="buyout_requests">
+  <div id="header_cols">
+    <div class="project">Project</div>
+    <div class="user">User</div>
+    <div class="share_amount">Share Amount</div>
+    <div class="share_price">Share Price</div>
+    <div class="payment_amount">Payment Amount</div>
+    <div class="status">Actions</div>
+    <div class="pmf_clear">&nbsp;</div>
+  </div>
+  <div class="pmf_clear">&nbsp;</div>
+
+  <% if @denied_requests.size == 0 %>
+    <p>No Denied Requests Found!</p>
+  <% end %>
+
+  <% @denied_requests.each do |buyout_request| %>
+    <div class="<%= cycle('odd','even') %> request">
+      <div class="project"><%= link_to buyout_request.project.title, project_path(buyout_request.project) %></div>
+      <div class="user"><%= link_to buyout_request.user.login, profile_path(buyout_request.user.id) %></div>
+      <div class="share_amount"><%= buyout_request.share_amount %></div>
+      <div class="share_price"><%= print_money buyout_request.share_price %></div>
+      <div class="payment_amount"><%= print_money buyout_request.payment_amount %></div>
+
+      <div class="status">Denied</div>
+
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
+  <% end %>
+
+  <div class="pmf_clear_10">&nbsp;</div>
+
+</div>

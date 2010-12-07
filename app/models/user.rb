@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101115184046
+# Schema version: 20101207123403
 #
 # Table name: users
 #
@@ -57,7 +57,9 @@ class User < ActiveRecord::Base
     :conditions=>'symbol IS NOT NULL and is_deleted = 0', :order => "project_subscriptions.created_at", :group => "projects.id"
 
   has_many :subscription_payments
-  
+
+  has_many :pmf_share_buyouts
+
   has_many :project_comments
   has_many :project_followings
   has_many :followed_projects, :through => :project_followings, :source => :project

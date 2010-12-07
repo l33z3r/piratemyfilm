@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101115184046
+# Schema version: 20101207123403
 #
 # Table name: projects
 #
@@ -101,6 +101,8 @@ class Project < ActiveRecord::Base
 
   has_many :subscription_payments
   has_many :payment_windows
+
+  has_one :pmf_share_buyout
   
   has_many :project_comments
   has_one :latest_project_comment, :class_name => "ProjectComment", :order => "created_at DESC"
@@ -428,7 +430,7 @@ class Project < ActiveRecord::Base
   end
 
   def in_payment?
-    payment_windows.size > 0
+    project_payment_status == "In Payment"
   end
 
   def finished_payment_collection
@@ -443,7 +445,7 @@ class Project < ActiveRecord::Base
     @amount = 0
 
     subscription_payments.each do |sp|
-      if sp.status == "Paid"
+      if sp.paid?
         @amount += (sp.share_amount * sp.share_price)
       end
     end
@@ -451,8 +453,74 @@ class Project < ActiveRecord::Base
     @amount
   end
 
+  #how mush is still to be collected in the payment stage
   def amount_payment_outstanding
     capital_required - amount_payment_collected
+  end
+
+  #how many shares are to be collected in the payment stage
+  def amount_shares_outstanding_payment
+    @amount_shares_paid_for = 0
+
+    subscription_payments.each do |sp|
+      if sp.paid?
+        @amount_shares_paid_for += sp.share_amount
+      end
+    end
+
+    (total_copies - @amount_shares_paid_for).to_i
+  end
+
+  def share_queue_exhausted?
+    project_subscriptions.find(:all, :conditions => "subscription_payment_id is null").empty?
+  end
+
+  def pmf_share_buyout_open?
+    if pmf_share_buyout
+      return pmf_share_buyout.open?
+    end
+
+    return false
+  end
+
+  def pmf_share_buyout_accepted?
+    if pmf_share_buyout
+      return pmf_share_buyout.accepted?
+    end
+
+    return false
+  end
+
+  def pmf_share_buyout_denied?
+    if pmf_share_buyout
+      return pmf_share_buyout.denied?
+    end
+
+    return false
+  end
+
+  def pmf_share_buyout_pending?
+    if pmf_share_buyout
+      return pmf_share_buyout.pending?
+    end
+
+    return false
+  end
+
+  def pmf_share_buyout_verified?
+    if pmf_share_buyout
+      return pmf_share_buyout.verified?
+    end
+
+    return false
+  end
+
+  def pmf_share_buyout_paypal_id
+    "buyout_request_##{pmf_share_buyout.id}"
+  end
+
+  def last_window_paypal_email
+    payment_windows.find(:first, :order => "created_at DESC").paypal_email
   end
 
   def is_flagged
