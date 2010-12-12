@@ -1,6 +1,8 @@
 class PaymentWindowController < ApplicationController
   before_filter :load_project, :except => ["mark_payment_paid", "show"]
-  before_filter :check_owner_or_admin
+
+  #we will manually check ownership in the mark_payment_paid action
+  before_filter :check_owner_or_admin, :except => ["mark_payment_paid"]
   
   before_filter :check_allow_create_window, :only => ["new", "create"]
   
@@ -68,11 +70,6 @@ class PaymentWindowController < ApplicationController
       end
 
       @total_amount += @subscription_amount_dollar
-    end
-
-    if @user_subscription_array.size == 0
-      flash[:error] = "There are no more subscriptions in the queue, you must request that pmf buys out the rest of your outstanding shares!"
-      redirect_to project_path @project and return
     end
 
     begin
@@ -157,7 +154,7 @@ class PaymentWindowController < ApplicationController
     #if all conditions above are met... create the request!
     PmfShareBuyout.create(:project => @project, :user => @project.owner,
       :share_amount => @project.amount_shares_outstanding_payment,
-    :share_price => @project.ipo_price, :status => "Open")
+      :share_price => @project.ipo_price, :status => "Open")
 
     flash[:positive] = "Your request has been created and will be dealt with shortly!"
     redirect_to :action => "history", :id => @project
@@ -278,6 +275,14 @@ class PaymentWindowController < ApplicationController
     begin
       @subscription_payment = SubscriptionPayment.find(params[:id])
 
+      @project = @subscription_payment.project
+
+      #manually check permissions
+      if @project.owner != @u && !@u.is_admin
+        flash[:error] = 'You are not the owner of this project.'
+        redirect_to project_path(@project) and return
+      end
+
       @payment_window = @subscription_payment.payment_window
 
       if !@payment_window.open?
@@ -296,6 +301,9 @@ class PaymentWindowController < ApplicationController
         end
     
         @subscription_payment.save!
+
+        #check is this window finished... close it if it is
+
       elsif @subscription_payment.paid?
         flash[:error] = "This payment has already been marked as Paid"
         redirect_to :action => "show_current", :id => @subscription_payment.project and return
@@ -359,7 +367,7 @@ class PaymentWindowController < ApplicationController
     end
     
     #must be users left in the share queue
-    if !@project.share_queue_exhausted?
+    if @project.share_queue_exhausted?
       flash[:error] = "There are no users left in the share queue to offer outstanding shares to.
         You must request that PMF buy out the remaining shares."
       redirect_to :action => "history", :id => @project and return

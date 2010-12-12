@@ -475,6 +475,22 @@ class Project < ActiveRecord::Base
     project_subscriptions.find(:all, :conditions => "subscription_payment_id is null").empty?
   end
 
+  def share_queue_has_enough_funds_left
+    amount_shares_left_in_share_queue >= amount_shares_outstanding_payment
+  end
+
+  def amount_shares_left_in_share_queue
+    @subs = project_subscriptions.find(:all, :conditions => "subscription_payment_id is null")
+
+    @amount = 0
+
+    @subs.each do |sub|
+      @amount += sub.amount
+    end
+
+    @amount
+  end
+
   def pmf_share_buyout_open?
     if pmf_share_buyout
       return pmf_share_buyout.open?

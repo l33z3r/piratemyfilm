@@ -45,7 +45,7 @@
     Once you close a window, and still have not fully funded your project, you
     can open another one until you exhaust the share queue.
     When you have reached the end of the share queue, you can then request that
-    PMF buy the outstanding shares
+    PMF buy the outstanding shares.
   </p>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -64,7 +64,7 @@
 
   <% if @project.finished_payment_collection %>
     <p>You cannot open another payment window, as your funds have been collected in full!</p>
-  <% elsif !@project.finished_payment_collection and !@project.share_queue_exhausted? %>
+  <% elsif @project.current_payment_window or (!@project.finished_payment_collection and !@project.share_queue_exhausted?) %>
     <div class="pageTitleSmall">
       Currently Active Payment Window
     </div>
@@ -120,10 +120,18 @@
 
       <p>There is no currently active payment window for this project.</p>
 
-      <p>
-        Note: Opening a new payment window will allocate payments in the share queue
-        for the amount of <%= print_money @project.amount_payment_outstanding %>
-      </p>
+      <% if @project.share_queue_has_enough_funds_left %>
+        <p>
+          Note: Opening a new payment window will allocate payments in the share queue
+          for the amount of <%= print_money @project.amount_payment_outstanding %>
+        </p>
+      <% else %>
+        <p>
+          Note: There is not enough users in the rest of the queue to fill the rest of the required funding.
+          This window will allocate shares to the amount of <%= @project.amount_shares_left_in_share_queue %>.
+          You must then require that PMF buy out whatever amount of shares are left over after the window has been closed.
+        </p>
+      <% end %>
       <div class="button left">
         <%= link_to "New Window", :action => "new", :id => @project.id %>
       </div>

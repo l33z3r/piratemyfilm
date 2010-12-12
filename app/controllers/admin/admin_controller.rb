@@ -11,6 +11,7 @@ class Admin::AdminController < ApplicationController
     @num_deleted_projects = Project.find(:all, :conditions => "is_deleted").size
     @num_flagged_projects = Project.all_flagged.size
     @user_count = User.find(:all).size
+    @num_buyout_requests = (PmfShareBuyout.all_open | PmfShareBuyout.all_pending).size
   end
 
   def allow_to

@@ -88,7 +88,7 @@ class ProjectsController < ApplicationController
     @ps = @u.current_subscription_payment(@project)
 
     if !@ps
-      flash[:error] = "You do not have an actice subscription payment!"
+      flash[:error] = "You do not have an active subscription payment!"
       redirect_to project_path(@project) and return
     end
 
@@ -100,6 +100,9 @@ class ProjectsController < ApplicationController
       @ps.status = "Pending"
       @ps.save!
     end
+
+    #load the paypal submission url
+    @paypal_url = CUSTOM_CONFIG['paypal_button_submission_url']
     
     perform_show
   end

@@ -18,104 +18,104 @@
 
     <div class="pageTitleSmaller">
       This payment window has been successful, all funds have been collected! Congratulations!
+    </div>
+  <% end %>
 
-    <% end %>
+  <ul>
 
-    <ul>
+    <li>
+      A total of <b><%= print_money @payment_window.amount_payment_collected %></b>
+      has been collected from <b><%= @payment_window.completed_payments.size %></b> payments for this payment window.
+    </li>
 
-      <li>
-        A total of <b><%= print_money @payment_window.amount_payment_collected %></b>
-        has been collected from <b><%= @payment_window.completed_payments.size %></b> payments for this payment window.
-      </li>
+    <li>
+      There are <b><%= @payment_window.pending_payments.size %></b> payments outstanding, amounting to
+      <b><%= print_money @payment_window.amount_payment_pending %></b>.
+    </li>
 
-      <li>
-        There are <b><%= @payment_window.pending_payments.size %></b> payments outstanding, amounting to
-        <b><%= print_money @payment_window.amount_payment_pending %></b>.
-      </li>
+    <li>
+      There are <b><%= @payment_window.defaulted_payments.size %></b> defaulted payments, amounting to
+      <b><%= print_money @payment_window.amount_defaulted_payment %></b>.
+    </li>
 
-      <li>
-        There are <b><%= @payment_window.defaulted_payments.size %></b> defaulted payments, amounting to
-        <b><%= print_money @payment_window.amount_defaulted_payment %></b>.
-      </li>
+    <li>
+      The project requires a budget of <b><%= print_money @project.capital_required %></b>, of which
+      <b><%= print_money @project.amount_payment_collected %></b> has been collected.
+    </li>
+  </ul>
+  This payment window will close <b><%= @payment_window.close_date %></b>
+  <i>(Note, you must close the window manually, this date is only used to notify users)</i>
 
-      <li>
-        The project requires a budget of <b><%= print_money @project.capital_required %></b>, of which
-        <b><%= print_money @project.amount_payment_collected %></b> has been collected.
-      </li>
-    </ul>
-    This payment window will close <b><%= @payment_window.close_date %></b>
-    <i>(Note, you must close the window manually, this date is only used to notify users)</i>
+  <div class="pmf_clear_20">&nbsp;</div>
 
-    <div class="pmf_clear_20">&nbsp;</div>
+  <b>Note to the producer:</b>
 
-    <b>Note to the producer:</b>
+  <div class="pmf_clear_10">&nbsp;</div>
 
-    <div class="pmf_clear_10">&nbsp;</div>
+  You will receive an <i>item number</i> in your paypal payment. It corresponds to the payment ID's below.
+  Using the ID's you receive in the payments, you can mark each payment as paid.
 
-    You will receive an <i>item number</i> in your paypal payment. It corresponds to the payment ID's below.
-    Using the ID's you receive in the payments, you can mark each payment as paid.
+  <div class="pmf_clear_10">&nbsp;</div>
 
-    <div class="pmf_clear_10">&nbsp;</div>
+  Click below to close this window. All shares that have not been marked as paid, will be marked as defaulted.
+  You can then offer the outstanding shares to the next users in the queue, by opening a new window.
 
-    Click below to close this window. All shares that have not been marked as paid, will be marked as defaulted.
-    You can then offer the outstanding shares to the next users in the queue, by opening a new window.
+  <div class="pmf_clear_10">&nbsp;</div>
 
-    <div class="pmf_clear_10">&nbsp;</div>
-
-    <% if @payment_window.open? %>
-      <div class="button">
-        <%= link_to "Close Window", {:action => "close", :id => @project.id},
-          :confirm => "This will mark all non paid shares as such. Are you sure?", :method => :post %>
-      </div>
-
-      <div class="pmf_clear_10">&nbsp;</div>
-    <% end %>
-
-    <div class="pageTitleSmall">
-      Payment Log For This Window
+  <% if @payment_window.open? %>
+    <div class="button">
+      <%= link_to "Close Window", {:action => "close", :id => @project.id},
+        :confirm => "This will mark all non paid shares as such. Are you sure?", :method => :post %>
     </div>
 
     <div class="pmf_clear_10">&nbsp;</div>
+  <% end %>
 
-    <div id="subscription_payments">
-
-      <div id="header_cols">
-        <div class="sp_id_header">Item Number</div>
-        <div class="user_name_header">User</div>
-        <div class="share_amount_header">Share Amount</div>
-        <div class="share_price_header">Share Price</div>
-        <div class="payment_amount_header">Payment Amount</div>
-        <div class="mark_as_paid_header">Paid?</div>
-        <div class="pmf_clear">&nbsp;</div>
-      </div>
-
-      <div class="pmf_clear">&nbsp;</div>
-
-      <% @payment_window.subscription_payments.each do |subscription_payment| %>
-        <div class="<%= cycle('odd','even') %> subscription_payment">
-          <div class="sp_id"><%= subscription_payment.id %></div>
-          <div class="user_name"><%= link_to subscription_payment.user.login, profile_path(subscription_payment.user.id) %></div>
-          <div class="share_amount"><%= subscription_payment.share_amount %></div>
-          <div class="share_price"><%= print_money subscription_payment.share_price %></div>
-          <div class="payment_amount"><%= print_money subscription_payment.payment_amount %></div>
-
-          <div class="mark_as_paid">
-            <% if subscription_payment.paid? %>
-              Paid
-            <% elsif subscription_payment.defaulted? %>
-              Defaulted
-            <% else %>
-              <div class="button">
-                <%= link_to "Mark As Paid",
-                  {:action => "mark_payment_paid", :id => subscription_payment.id},
-                  :confirm => "Are you sure?", :method => :post %>
-              </div>
-            <% end %>
-          </div>
-
-          <div class="pmf_clear">&nbsp;</div>
-        </div>
-        <div class="pmf_clear">&nbsp;</div>
-      <% end %>
-    </div>
+  <div class="pageTitleSmall">
+    Payment Log For This Window
   </div>
+
+  <div class="pmf_clear_10">&nbsp;</div>
+
+  <div id="subscription_payments">
+
+    <div id="header_cols">
+      <div class="sp_id_header">Item Number</div>
+      <div class="user_name_header">User</div>
+      <div class="share_amount_header">Share Amount</div>
+      <div class="share_price_header">Share Price</div>
+      <div class="payment_amount_header">Payment Amount</div>
+      <div class="mark_as_paid_header">Paid?</div>
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <% @payment_window.subscription_payments.each do |subscription_payment| %>
+      <div class="<%= cycle('odd','even') %> subscription_payment">
+        <div class="sp_id"><%= subscription_payment.id %></div>
+        <div class="user_name"><%= link_to subscription_payment.user.login, profile_path(subscription_payment.user.id) %></div>
+        <div class="share_amount"><%= subscription_payment.share_amount %></div>
+        <div class="share_price"><%= print_money subscription_payment.share_price %></div>
+        <div class="payment_amount"><%= print_money subscription_payment.payment_amount %></div>
+
+        <div class="mark_as_paid">
+          <% if subscription_payment.paid? %>
+            Paid
+          <% elsif subscription_payment.defaulted? %>
+            Defaulted
+          <% else %>
+            <div class="button">
+              <%= link_to "Mark As Paid",
+                {:action => "mark_payment_paid", :id => subscription_payment.id},
+                :confirm => "Are you sure?", :method => :post %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+      <div class="pmf_clear">&nbsp;</div>
+    <% end %>
+  </div>
+</div>

@@ -50,7 +50,7 @@
               {:action => "deny", :id => buyout_request.project.id },
               :confirm => "Are you sure?", :method => :post %>
         <% elsif buyout_request.pending? %>
-          <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+          <form action="<%= @paypal_url %>" method="post">
             <!-- Identify your business so that you can collect the payments. -->
             <input type="hidden" name="business" value="<%= buyout_request.project.last_window_paypal_email %>">
 

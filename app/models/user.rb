@@ -284,7 +284,7 @@ class User < ActiveRecord::Base
   end
 
   def current_subscription_payment project
-    subscription_payments.find(:first, :conditions => "project_id = #{project.id} and (status != 'Defaulted')")
+    subscription_payments.find(:first, :conditions => "project_id = #{project.id} and (status = 'Open' or status = 'Pending')")
   end
 
   def completed_subscription_payments project

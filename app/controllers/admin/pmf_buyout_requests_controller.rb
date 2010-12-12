@@ -6,6 +6,9 @@ class Admin::PmfBuyoutRequestsController < Admin::AdminController
     @open_requests = PmfShareBuyout.all_open | PmfShareBuyout.all_pending
     @denied_requests = PmfShareBuyout.all_denied
     @verified_requests = PmfShareBuyout.all_verified
+
+    #load the paypal submission url
+    @paypal_url = CUSTOM_CONFIG['paypal_button_submission_url']
   end
 
   def accept
