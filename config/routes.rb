@@ -4,6 +4,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :project_comments
 
+  map.resources :user_talents, :only => [:index, :create, :destroy]
+
   map.namespace :admin do |a|
     a.resources :users, :collection => {:search => :post}
   end

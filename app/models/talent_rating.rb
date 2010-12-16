@@ -1,20 +1,21 @@
 # == Schema Information
 # Schema version: 20101216130905
 #
-# Table name: project_ratings
+# Table name: talent_ratings
 #
 #  id             :integer(4)    not null, primary key
-#  project_id     :integer(4)    
+#  user_talent_id :integer(4)    
 #  average_rating :integer(4)    
 #  created_at     :datetime      
 #  updated_at     :datetime      
 #
 
-class ProjectRating < ActiveRecord::Base
-  belongs_to :project
-  has_many :project_rating_histories, :dependent => :destroy
+class TalentRating < ActiveRecord::Base
+  belongs_to :user_talent
 
-  @@MAX_RATING = 10
+  has_many :talent_rating_histories, :dependent => :destroy
+
+  @@MAX_RATING = 5
 
   validates_numericality_of :average_rating
   validates_inclusion_of :average_rating, :in => 1..@@MAX_RATING
@@ -24,8 +25,7 @@ class ProjectRating < ActiveRecord::Base
   end
 
   @@ratings_map = {
-    1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5",
-    6 => "6", 7 => "7", 8 => "8", 9 => "9", 10 => "10"
+    1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5"
   }
 
   def self.rating_select_opts
@@ -40,7 +40,7 @@ class ProjectRating < ActiveRecord::Base
     }
 
     @ratings_select_opts.reverse!
-    
+
     @ratings_select_opts
   end
 
@@ -51,5 +51,4 @@ class ProjectRating < ActiveRecord::Base
   def self.ratings_map
     @@ratings_map
   end
-  
 end

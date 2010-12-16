@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101207123403) do
+ActiveRecord::Schema.define(:version => 20101216130905) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -350,6 +350,28 @@ ActiveRecord::Schema.define(:version => 20101207123403) do
     t.integer  "share_amount"
     t.float    "share_price"
     t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "talent_rating_histories", :force => true do |t|
+    t.integer  "talent_rating_id"
+    t.integer  "user_id"
+    t.integer  "rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "talent_ratings", :force => true do |t|
+    t.integer  "user_talent_id"
+    t.integer  "average_rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_talents", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "talent_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

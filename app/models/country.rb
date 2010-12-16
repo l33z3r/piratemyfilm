@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101207123403
+# Schema version: 20101216130905
 #
 # Table name: countries
 #

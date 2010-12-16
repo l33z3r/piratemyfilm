@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101207123403
+# Schema version: 20101216130905
 #
 # Table name: users
 #
@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
   has_one :membership_type, :through => :membership
   has_one :profile, :dependent => :nullify
 
+  has_many :user_talents
+  
   has_many :blog_comments
   has_many :project_flaggings
   has_many :flagged_projects, :through => :project_flaggings, :source => :project
@@ -329,6 +331,14 @@ class User < ActiveRecord::Base
 
   def flagged_project? project
     flagged_projects.include? project
+  end
+
+  def has_talent? talent_type_id
+    return !talent(talent_type_id).nil?
+  end
+
+  def talent talent_type_id
+    user_talents.find_by_talent_type(TalentType.talent_types_map[talent_type_id])
   end
 
   protected
