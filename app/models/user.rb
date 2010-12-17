@@ -149,6 +149,29 @@ class User < ActiveRecord::Base
     save
   end
 
+  def user_talents_not_applied_for
+    @talent_types_map = UserTalent.talent_types_map
+
+    #put the keys of the current users talents into an array
+    @current_talent_keys = []
+
+    user_talents.each do |talent|
+      @key = @talent_types_map.invert[talent.talent_type]
+      @current_talent_keys << @key.to_i
+    end
+
+    #now collect the ones that this user has not yet applied for
+    @talents = {}
+
+    @talent_types_map.each do |key, value|
+      if !@current_talent_keys.include?(key)
+        @talents[key] = value.humanize.titleize
+      end
+    end
+
+    @talents
+  end
+
   #takes the users current membership and applies the limits of that
   #membership to their account
   def apply_membership_limits
@@ -338,7 +361,7 @@ class User < ActiveRecord::Base
   end
 
   def talent talent_type_id
-    user_talents.find_by_talent_type(TalentType.talent_types_map[talent_type_id])
+    user_talents.find_by_talent_type(UserTalent.talent_types_map[talent_type_id])
   end
 
   protected

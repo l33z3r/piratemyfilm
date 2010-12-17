@@ -960,6 +960,10 @@ div#profile {
     margin-top: 10px;
 }
 
+div#profile div.half {
+    width: 48%;
+}
+
 div#profile div.pageTitle {
     margin-top: 0px;
     margin-bottom: 20px;
@@ -1115,6 +1119,35 @@ div#profile div#friend_info div#friend_link_container a {
     font-weight: bold;
     color: #000000;
     font-size: 14px;
+}
+
+div#profile div#user_talents {
+    margin-top: 20px;
+}
+
+div#profile div#user_talents div#current_talents div.list div.talent_label,
+div#profile div#user_talents div#current_talents div.list div.rating,
+div#profile div#user_talents div#current_talents div.list div.link,
+div#profile div#user_talents div#current_talents div.list div.link div.button {
+    float: left;
+}
+
+div#profile div#user_talents div#current_talents div.list div.talent_label {
+    font-weight: bold;
+    width: 200px;
+    margin: 10px 3px 3px 3px;
+}
+
+div#profile div#user_talents div#other_talents div.list div.talent_label,
+div#profile div#user_talents div#other_talents div.list div.apply,
+div#profile div#user_talents div#other_talents div.list div.apply div.button {
+    float: left;
+}
+
+div#profile div#user_talents div#other_talents div.list div.talent_label {
+    font-weight: bold;
+    width: 200px;
+    margin: 10px 3px 3px 3px;
 }
 
 /* End profile page */

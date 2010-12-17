@@ -1,0 +1,28 @@
+<div class="pageTitle">PMF Talent</div>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id ="users">
+
+  <div id="filter_param_box">
+    <% form_tag url_for(:controller => "user_talents"), :method => :get do %>
+      <%= select_tag :talent_filter_param, options_for_select(@talent_filter_params, [params['talent_filter_param']]), :onchange => "this.form.submit();" %>
+      <div class="label">View Talent by:</div>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <% @talents.each do |talent| %>
+    <%= render :partial => "/profiles/small", :locals => { :profile => talent.user.profile } %>
+  <% end %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <%= pagination_controls_for @talents if @talents.respond_to? :total_pages %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>

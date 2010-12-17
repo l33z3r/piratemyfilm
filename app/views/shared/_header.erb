@@ -113,6 +113,11 @@
       <p>Browse Members</p>
     </div>
 
+    <div class="local-navbar-button">
+      <span><%= link_to 'Project Talent', :controller => "user_talents" %></span>
+      <p>Browse Talent</p>
+    </div>
+
     <div class="right">
       <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
         <div id="search">
