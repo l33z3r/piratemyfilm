@@ -3,12 +3,17 @@
 
     <div class="half left">
       <div class="pageTitle">
-        <%= me_or_login %> Portfolio
+        <% if @p == @profile %>
+          My
+        <% else %>
+          <%=@profile.user.login%>'s
+        <% end %>
+        Portfolio
       </div>
 
       <div class="activity_box learn">
         <div class="left avatar"><%= icon @profile, :medium %></div>
-        <div class="right bio_stuff">
+        <div class="left bio_stuff">
           <div class="user_name"><%= h @profile.f %></div>
         </div>
         <div class="pmf_clear">&nbsp;</div>
@@ -117,7 +122,6 @@
       No Projects Found!
     <% else %>
       <%= render :partial => "projects/listings", :object => @user_projects %>
-      <%= pagination_controls_for @user_projects if @user_projects.respond_to? :total_pages %>
     <% end %>
   </div>
 
@@ -140,7 +144,6 @@
       No Projects Found!
     <% else %>
       <%= render :partial => "projects/listings", :object => @user_subscriptions %>
-      <%= pagination_controls_for @user_subscriptions if @user_subscriptions.respond_to? :total_pages %>
     <% end %>
   </div>
 </div>

@@ -59,11 +59,65 @@ class UserTalentsController < ApplicationController
     redirect_to profile_path(@u.profile)
   end
 
+  def rate
+    return if !request.post?
+    
+    begin
+      @user_talent_id = params[:user_talent_id]
+
+      begin
+        @user_talent = UserTalent.find @user_talent_id
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "You have already rated this talent today!"
+        redirect_to :controller => "profiles" and return
+      end
+
+      @my_talent_rating = @u.talent_rating(@user_talent.talent_rating_id)
+
+      if @my_talent_rating && !@u.can_talent_rate(@user_talent.talent_rating_id)
+        flash[:error] = "You have already rated this talent today!"
+        redirect_to :controller => "profiles", :action => "show", :id => @user_talent.user.profile.id and return
+      end
+
+      @current_talent_rating = TalentRating.find_by_user_talent_id @user_talent.id
+
+      if !@current_talent_rating
+        @current_talent_rating = TalentRating.create(:user_talent => @user_talent, :average_rating => 0)
+      end
+
+      #Get all talent rating historys
+      @talent_rating_histories = TalentRatingHistory.find_all_by_talent_rating_id @current_talent_rating.id
+
+      @rating = params[:rating].to_f
+
+      #update the running average
+      @alpha = 1.0/(@talent_rating_histories.size + 1)
+      @current_sample = @rating
+      @current_avg = @current_talent_rating.average_rating
+
+      #formula for updating running avg
+      @new_avg = ((1 - @alpha) * @current_avg) + (@alpha * @current_sample)
+
+      @current_talent_rating.average_rating = @new_avg
+      @current_talent_rating.save!
+
+      #add the new sample
+      TalentRatingHistory.create(:user => @u, :rating => @rating,
+        :talent_rating => @current_talent_rating)
+
+      flash[:positive] = "Talent Rated!"
+
+      redirect_to :controller => "profiles", :action => "show", :id => @user_talent.user.profile.id
+    rescue ActiveRecord::RecordInvalid
+      flash[:error] = "Error rating talent!"
+      redirect_to :controller => "profiles", :action => "show", :id => @user_talent.user.profile.id
+    end
+  end
+
   def allow_to
-    super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
+    super :all, :only => [:index]
     super :admin, :all => true
-    super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon,
-      :share_queue, :invite_friends, :send_friends_invite, :buy_shares]
+    super :user, :only => [:create, :destroy, :rate]
   end
 
 end

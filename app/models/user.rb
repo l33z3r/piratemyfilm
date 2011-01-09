@@ -172,6 +172,16 @@ class User < ActiveRecord::Base
     @talents
   end
 
+  #load talent rating history for a talent rating
+  def talent_rating talent_rating_id
+    TalentRatingHistory.find_by_user_id_and_talent_rating_id(id, talent_rating_id, :order => "created_at DESC", :limit => "1")
+  end
+
+  def can_talent_rate talent_rating_id
+    @tr = talent_rating talent_rating_id
+    !@tr || @tr.created_at < Time.now.beginning_of_day
+  end
+
   #takes the users current membership and applies the limits of that
   #membership to their account
   def apply_membership_limits

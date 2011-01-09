@@ -13,10 +13,16 @@ task :clear_cache => :environment do
   ActionController::Base.cache_store.clear
 end
 
-desc "Updates the ferret index for the application."
+desc "Update Ferret index for the application."
 task :ferret_index => :environment do
   Project.rebuild_index
   puts "Completed Index Rebuild of Project model"
   Profile.rebuild_index
   puts "Completed Index Rebuild of Profile model"
+end
+
+desc "Clear expired sessions"
+task :clear_expired_sessions => :environment do
+    sql = 'DELETE FROM sessions WHERE updated_at < DATE_SUB(NOW(), INTERVAL 1 DAY);'
+    ActiveRecord::Base.connection.execute(sql)
 end

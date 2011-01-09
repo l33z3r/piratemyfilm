@@ -37,6 +37,9 @@ class ProfilesController < ApplicationController
     #load rating select opts
     @rating_select_opts = MemberRating.rating_select_opts
 
+    #load talent rating select opts
+    @talent_rating_select_opts = TalentRating.rating_select_opts
+
     render :action => "profile"
   end
   
@@ -65,9 +68,8 @@ class ProfilesController < ApplicationController
     #TODO pick up dynamically ipo
     @total_shares_reserved_amount = @total_shares_reserved * 5
 
-    @user_projects = @profile.user.owned_public_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
-    @user_subscriptions = @profile.user.subscribed_projects.paginate :order=>"created_at DESC", :page => (params[:page] || 1), :per_page=> 10
-    @followed_projects = @profile.user.followed_projects :order => "created_at DESC", :page => (params[:page] || 1), :per_page=> 10
+    @user_projects = @profile.user.owned_public_projects
+    @user_subscriptions = @profile.user.subscribed_projects
   end
 
   def friend_list

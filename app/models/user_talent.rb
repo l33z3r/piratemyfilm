@@ -12,14 +12,14 @@
 
 class UserTalent < ActiveRecord::Base
   belongs_to :user
-  has_one :talent_rating
+  has_one :talent_rating, :dependent => :destroy
 
   @@TALENT_TYPES_MAP = {
-  1 => "director",
-  2 => "writer",
-  3 => "exec_producer",
-  4 => "director_photography",
-  5 => "editor"}
+    1 => "director",
+    2 => "writer",
+    3 => "exec_producer",
+    4 => "director_photography",
+    5 => "editor"}
 
   validates_inclusion_of :talent_type, :in => @@TALENT_TYPES_MAP.values
 
@@ -33,13 +33,13 @@ class UserTalent < ActiveRecord::Base
 
   def current_rating
     if talent_rating
-      talent_rating.rating
+      talent_rating.average_rating
     else
       0
     end
   end
   
-def self.filter_param_select_opts
+  def self.filter_param_select_opts
     @filter_param_select_opts = []
 
     @@TALENT_TYPES_MAP.each {  |key, value|
@@ -59,4 +59,12 @@ def self.filter_param_select_opts
     @@TALENT_TYPES_MAP
   end
 
+  def talent_rating_id
+    if talent_rating
+      return talent_rating.id
+    else
+      return nil
+    end
   end
+
+end

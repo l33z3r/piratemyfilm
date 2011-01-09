@@ -121,21 +121,25 @@ module ApplicationHelper
 
   def subscription_info project
     if @u
-      @amount = project.user_subscription_amount @u
-
-      if @amount > 0
+      if project.finished_payment_collection
+        "This project has successfully finished collecting funds"
+      else
+        @amount = project.user_subscription_amount @u
         @outstanding_amount = project.user_subscription_amount_outstanding @u
+        @total_amount = @amount + @outstanding_amount
 
-        @outstanding_string = ""
+        if @total_amount > 0
+          @outstanding_string = ""
 
-        if @outstanding_amount > 0
-          @outstanding_string = "<i>(#{@outstanding_amount} on
+          if @outstanding_amount > 0
+            @outstanding_string = "<i>(#{@outstanding_amount} on
             <a class='tooltip_arrow'
                title='standby shares become valid when new orexisting shares become available'>
               standby</a>)</i>"
-        end
+          end
 
-        "You have #{@amount} shares #{@outstanding_string} reserved for this project."
+          "You have #{@total_amount} shares #{@outstanding_string} reserved for this project."
+        end
       end
     end
   end

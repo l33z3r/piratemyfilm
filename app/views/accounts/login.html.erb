@@ -1,12 +1,12 @@
 <div id="main">
   <% less_form_for @user, :url => login_path, :method => :post do |f| %>
 
-    <div id="MENU_HEADER" class="pageTitle">Log in to PMF</div><br/><br/>
+    <div id="MENU_HEADER" class="pageTitle">Log In to PMF</div><br/><br/>
 
     <div id="login_form">
 
       <div class='row clear'>
-        <%= f.text_field :login, :class => "focus_first", :size => 30 %>
+        <%= f.text_field :login, :class => "focus_first", :label => "Username", :size => 30 %>
         <div class='clear'></div>
       </div>
 
