@@ -4,7 +4,7 @@
 
   <% form_tag url_for(:action => "index"), :method => :get do -%>
     <div id="user_search">
-      Search for user (Leave blank to view all users): <%= text_field_tag 'search[uq]', (params[:search] && params[:search][:uq] ? params[:search][:uq] : 'Enter Username...'), :id => 'search[uq]', :size => 20, :onfocus => "this.select();" %>
+      Search by username (blank for all users): <%= text_field_tag 'search[uq]', (params[:search] && params[:search][:uq] ? params[:search][:uq] : ''), :id => 'search[uq]', :size => 20, :onfocus => "this.select();" %>
       Filter By Membership Type:
       <%= select_tag :membership_filter_param, options_for_select(@membership_type_filter_params, [params['membership_filter_param']]) %>
       <input type="submit" value="Search"/>

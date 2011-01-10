@@ -56,8 +56,8 @@
       <input type="hidden" name="project[ipo_price]" value="5"/>$5
     </td>
     <!--td>
-    <%= f.text_field :ipo_price, :value => 0 %>
-    <%= display_error_on(project, :ipo_price) -%>
+<%= f.text_field :ipo_price, :value => 0 %>
+<%= display_error_on(project, :ipo_price) -%>
     </td-->
   </tr>
 
@@ -104,48 +104,20 @@
       Enter the name of the producer
     </td>
     <td>
-      <%= f.text_field :producer_name %>
+      <%= f.text_field :producer_name, :id => "producer_name", :disabled => (project.producer_talent_id ? true : false) %>
       <%= display_error_on(project, :producer_name) -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      Enter the name of the executive producer
-    </td>
-    <td>
-      <%= f.text_field :exec_producer %>
-      <%= display_error_on(project, :exec_producer) -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      Enter the name of the writer
-    </td>
-    <td>
-      <%= f.text_field :writer %>
-      <%= display_error_on(project, :writer) -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      Enter the name of the editor
-    </td>
-    <td>
-      <%= f.text_field :editor %>
-      <%= display_error_on(project, :editor) -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      Enter the name of the director of photography
-    </td>
-    <td>
-      <%= f.text_field :director_photography %>
-      <%= display_error_on(project, :director_photography) -%>
+      <br/>
+      <div class="talent_select">
+        <div class="talent_select_text">Or select member:</div>
+        <div class="button_small left">
+          <%= link_to_remote "Select", :url => {:controller => "user_talents",
+            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["producer"]} %>
+        </div>
+        <input id="producer_talent_id" type="hidden" name="project[producer_talent_id]" value=""/>
+        <div id="producer_clear_talent_link_container" class="button_small left" <%= (project.producer_talent_id ? "" : "style='display: none;'") %>>
+          <%= link_to_function "Clear", "clearTalent('producer');" %>
+        </div>
+      </div>
     </td>
   </tr>
 
@@ -154,8 +126,108 @@
       Enter the name of the director
     </td>
     <td>
-      <%= f.text_field :director %>
+      <%= f.text_field :director, :id => "director_name", :disabled => (project.director_talent_id ? true : false) %>
       <%= display_error_on(project, :director) -%>
+      <br/>
+      <div class="talent_select">
+        <div class="talent_select_text">Or select member:</div>
+        <div class="button_small left">
+          <%= link_to_remote "Select", :url => {:controller => "user_talents",
+            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["director"]} %>
+        </div>
+        <input id="director_talent_id" type="hidden" name="project[director_talent_id]" value=""/>
+        <div id="director_clear_talent_link_container" class="button_small left" <%= (project.director_talent_id ? "" : "style='display: none;'") %>>
+          <%= link_to_function "Clear", "clearTalent('director');" %>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the executive producer
+    </td>
+    <td>
+      <%= f.text_field :exec_producer, :id => "exec_producer_name", :disabled => (project.exec_producer_talent_id ? true : false) %>
+      <%= display_error_on(project, :exec_producer) -%>
+      <br/>
+      <div class="talent_select">
+        <div class="talent_select_text">Or select member:</div>
+        <div class="button_small left">
+          <%= link_to_remote "Select", :url => {:controller => "user_talents",
+            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["exec_producer"]} %>
+        </div>
+        <input id="exec_producer_talent_id" type="hidden" name="project[exec_producer_talent_id]" value=""/>
+        <div id="exec_producer_clear_talent_link_container" class="button_small left" <%= (project.exec_producer_talent_id ? "" : "style='display: none;'") %>>
+          <%= link_to_function "Clear", "clearTalent('exec_producer');" %>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the writer
+    </td>
+    <td>
+      <%= f.text_field :writer, :id => "writer_name", :disabled => (project.writer_talent_id ? true : false) %>
+      <%= display_error_on(project, :writer) -%>
+      <br/>
+      <div class="talent_select">
+        <div class="talent_select_text">Or select member:</div>
+        <div class="button_small left">
+          <%= link_to_remote "Select", :url => {:controller => "user_talents",
+            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["writer"]} %>
+        </div>
+        <input id="writer_talent_id" type="hidden" name="project[writer_talent_id]" value=""/>
+        <div id="writer_clear_talent_link_container" class="button_small left" <%= (project.writer_talent_id ? "" : "style='display: none;'") %>>
+          <%= link_to_function "Clear", "clearTalent('writer');" %>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the editor
+    </td>
+    <td>
+      <%= f.text_field :editor, :id => "editor_name", :disabled => (project.editor_talent_id ? true : false) %>
+      <%= display_error_on(project, :editor) -%>
+      <br/>
+      <div class="talent_select">
+        <div class="talent_select_text">Or select member:</div>
+        <div class="button_small left">
+          <%= link_to_remote "Select", :url => {:controller => "user_talents",
+            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["editor"]} %>
+        </div>
+        <input id="editor_talent_id" type="hidden" name="project[editor_talent_id]" value=""/>
+        <div id="editor_clear_talent_link_container" class="button_small left" <%= (project.editor_talent_id ? "" : "style='display: none;'") %>>
+          <%= link_to_function "Clear", "clearTalent('editor');" %>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the name of the director of photography
+    </td>
+    <td>
+      <%= f.text_field :director_photography, :id => "director_photography_name", :disabled => (project.director_photography_talent_id ? true : false) %>
+      <%= display_error_on(project, :director_photography) -%>
+      <br/>
+      <div class="talent_select">
+        <div class="talent_select_text">Or select member:</div>
+        <div class="button_small left">
+          <%= link_to_remote "Select", :url => {:controller => "user_talents",
+            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["director_photography"]} %>
+        </div>
+        <input id="director_photography_talent_id" type="hidden" name="project[director_photography_talent_id]" value=""/>
+        <div id="director_photography_clear_talent_link_container" class="button_small left" <%= (project.director_photography_talent_id ? "" : "style='display: none;'") %>>
+          <%= link_to_function "Clear", "clearTalent('director_photography');" %>
+        </div>
+      </div>
     </td>
   </tr>
 

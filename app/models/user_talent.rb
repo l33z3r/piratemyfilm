@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101216130905
+# Schema version: 20110110160522
 #
 # Table name: user_talents
 #
@@ -19,7 +19,8 @@ class UserTalent < ActiveRecord::Base
     2 => "writer",
     3 => "exec_producer",
     4 => "director_photography",
-    5 => "editor"}
+    5 => "editor",
+    6 => "producer"}
 
   validates_inclusion_of :talent_type, :in => @@TALENT_TYPES_MAP.values
 
@@ -65,6 +66,11 @@ class UserTalent < ActiveRecord::Base
     else
       return nil
     end
+  end
+
+  def self.all_for_talent_type talent_type_name
+    find(:all, :include => :talent_rating, :conditions => "talent_type = '#{talent_type_name}'",
+      :order => "talent_ratings.average_rating desc")
   end
 
 end

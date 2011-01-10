@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101216130905
+# Schema version: 20110110160522
 #
 # Table name: projects
 #
@@ -46,6 +46,12 @@
 #  editor                           :string(255)   
 #  pmf_fund_investment_share_amount :integer(4)    default(0)
 #  project_payment_status           :string(255)   
+#  producer_talent_id               :integer(4)    
+#  director_talent_id               :integer(4)    
+#  writer_talent_id                 :integer(4)    
+#  exec_producer_talent_id          :integer(4)    
+#  director_photography_talent_id   :integer(4)    
+#  editor_talent_id                 :integer(4)    
 #
 
 project1:

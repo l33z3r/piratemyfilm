@@ -422,6 +422,15 @@ div.project_listings {
     vertical-align: top;
 }
 
+.project_form div.talent_select_text {
+    float: left;
+    margin-top: 6px;
+}
+
+.project_form div.talent_select {
+    float: right;
+}
+
 small	{
     font-size:110%;
 }

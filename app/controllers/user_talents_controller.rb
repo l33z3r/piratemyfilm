@@ -1,4 +1,6 @@
 class UserTalentsController < ApplicationController
+
+  skip_before_filter :login_required, :only => [:index]
   
   def index
     if params[:talent_filter_param]
@@ -12,13 +14,32 @@ class UserTalentsController < ApplicationController
     @talents = nil
 
     if @talent_type_name
-      @talents = UserTalent.find_all_by_talent_type(@talent_type_name)
+      @talents = UserTalent.all_for_talent_type(@talent_type_name)
     else
       flash[:error] = "Cannot find that talent!"
       redirect_to home_path
     end
 
     @talent_filter_params = UserTalent.filter_param_select_opts
+  end
+
+  def talent_select_list
+    if params[:talent_filter_param]
+      @talent_type_id = params[:talent_filter_param].to_i
+    else
+      @talent_type_id = 1
+    end
+
+    @talent_type_name = UserTalent.talent_types_map[@talent_type_id]
+
+    @talents = nil
+
+    if @talent_type_name
+      @talents = UserTalent.all_for_talent_type(@talent_type_name)
+    else
+      flash[:error] = "Cannot find that talent!"
+      redirect_to home_path
+    end
   end
 
   def create
@@ -49,7 +70,15 @@ class UserTalentsController < ApplicationController
 
     if @talent_type_name
       if @u.has_talent? @talent_type_id
-        @u.talent(@talent_type_id).destroy
+        @user_talent = @u.talent(@talent_type_id)
+
+        #make sure the user is not part of a project
+        if !Project.find_all_for_talent_id(@user_talent.id).empty?
+          flash[:error] = "You cannot un-register from this talent, as you are currently enlisted in a project!"
+          redirect_to profile_path(@u.profile) and return
+        end
+        
+        @user_talent.destroy
         flash[:positive] = "You are no longer registered as #{@talent_type_name.humanize.titleize} for projects!"
       else
         flash[:error] = "You are not registered as #{@talent_type_name.humanize.titleize} for projects, to be able to un-register!"

@@ -39,19 +39,19 @@ project_link_action ||= "show"
       <li class="pmf_clear"></li>
       <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Exec Producer:</li><li class="stat"><%= h project.exec_producer %></li>
+      <li class="label">Producer:</li><li class="stat"><%= producer_for project %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Producer:</li><li class="stat"><%= h project.producer_name %></li>
+      <li class="label">Exec Producer:</li><li class="stat"><%= exec_producer_for project %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Director:</li><li class="stat"><%= h project.director %></li>
+      <li class="label">Director:</li><li class="stat"><%= director_for project %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Writer:</li><li class="stat"><%= project.writer %></li>
+      <li class="label">Writer:</li><li class="stat"><%= writer_for project %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Editor:</li><li class="stat"><%= project.editor %></li>
+      <li class="label">Editor:</li><li class="stat"><%= editor_for project %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Cinematographer:</li><li class="stat"><%= project.director_photography %></li>
+      <li class="label">Cinematographer:</li><li class="stat"><%= director_photography_for project %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Genre:</li><li class="stat"><%=h project.genre.title %></li>
+      <li class="label">Genre:</li><li class="stat"><%=  h project.genre.title %></li>
       <li class="pmf_clear"></li>
       <li class="label">Project Status:</li><li class="stat"><%= project.status %></li>
       <li class="pmf_clear"></li>

@@ -217,6 +217,55 @@ module ApplicationHelper
     end
   end
 
+  #helpers to display project talent
+  def director_for project
+    if project.director_talent
+      link_to h(project.director_talent.user.login), profile_path(project.director_talent.user.profile)
+    else
+      h project.director
+    end
+  end
+
+  def writer_for project
+    if project.writer_talent
+      link_to h(project.writer_talent.user.login), profile_path(project.writer_talent.user.profile)
+    else
+      h project.writer
+    end
+  end
+
+  def exec_producer_for project
+    if project.exec_producer_talent
+      link_to h(project.exec_producer_talent.user.login), profile_path(project.exec_producer_talent.user.profile)
+    else
+      h project.exec_producer
+    end
+  end
+
+  def director_photography_for project
+    if project.director_photography_talent
+      link_to h(project.director_photography_talent.user.login), profile_path(project.director_photography_talent.user.profile)
+    else
+      h project.director_photography
+    end
+  end
+
+  def editor_for project
+    if project.editor_talent
+      link_to h(project.editor_talent.user.login), profile_path(project.editor_talent.user.profile)
+    else
+      h project.editor
+    end
+  end
+
+  def producer_for project
+    if project.producer_talent
+      link_to h(project.producer_talent.user.login), profile_path(project.producer_talent.user.profile)
+    else
+      h project.producer_name
+    end
+  end
+
   def blog_icon_path blog, size
     if blog.is_producer_blog
       return project_icon_path(blog.project, size)

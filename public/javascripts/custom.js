@@ -32,3 +32,29 @@ function hideLoadingImage() {
     ModalPopups.Close("loadingImgContainer");
     loadingImage = false;
 }
+
+function selectTalent(talentName, talentId, talentUsername) {
+    talentIdContainerId = $('#' + talentName + '_talent_id');
+    talentUsernameContainerId = $('#' + talentName + '_name');
+    talentClearLink = $('#' + talentName + '_clear_talent_link_container');
+
+    talentIdContainerId.val(talentId);
+    talentUsernameContainerId.val(talentUsername);
+    talentUsernameContainerId.attr('disabled', true);
+    talentClearLink.show();
+
+    talentIdContainerId = talentUsernameContainerId = null;
+
+    ModalPopups.Close('talentSelectListContainer');
+}
+
+function clearTalent(talentName) {
+    talentIdContainerId = $('#' + talentName + '_talent_id');
+    talentUsernameContainerId = $('#' + talentName + '_name');
+    talentClearLink = $('#' + talentName + '_clear_talent_link_container');
+
+    talentIdContainerId.val('');
+    talentUsernameContainerId.val('');
+    talentUsernameContainerId.attr('disabled', false);
+    talentClearLink.hide();
+}

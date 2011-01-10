@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101216130905
+# Schema version: 20110110160522
 #
 # Table name: projects
 #
@@ -46,6 +46,12 @@
 #  editor                           :string(255)   
 #  pmf_fund_investment_share_amount :integer(4)    default(0)
 #  project_payment_status           :string(255)   
+#  producer_talent_id               :integer(4)    
+#  director_talent_id               :integer(4)    
+#  writer_talent_id                 :integer(4)    
+#  exec_producer_talent_id          :integer(4)    
+#  director_photography_talent_id   :integer(4)    
+#  editor_talent_id                 :integer(4)    
 #
 
 class Project < ActiveRecord::Base    
@@ -107,6 +113,13 @@ class Project < ActiveRecord::Base
   has_many :project_comments
   has_one :latest_project_comment, :class_name => "ProjectComment", :order => "created_at DESC"
 
+  belongs_to :director_talent, :class_name => "UserTalent", :foreign_key => 'director_talent_id'
+  belongs_to :writer_talent, :class_name => "UserTalent", :foreign_key => 'writer_talent_id'
+  belongs_to :exec_producer_talent, :class_name => "UserTalent", :foreign_key => 'exec_producer_talent_id'
+  belongs_to :director_photography_talent, :class_name => "UserTalent", :foreign_key => 'director_photography_talent_id'
+  belongs_to :editor_talent, :class_name => "UserTalent", :foreign_key => 'editor_talent_id'
+  belongs_to :producer_talent, :class_name => "UserTalent", :foreign_key => 'producer_talent_id'
+
   file_column :icon, :magick => {
     :versions => { 
       :big => {:crop => "1:1", :size => "150x150", :name => "big"},
@@ -116,6 +129,7 @@ class Project < ActiveRecord::Base
   }
 
   after_create :generate_symbol
+  before_save :set_talent
 
   #find projects that have been given initial rating and are not deleted
   def self.find_all_public(*args)
@@ -148,6 +162,13 @@ class Project < ActiveRecord::Base
     else
       return nil
     end
+  end
+
+  def self.find_all_for_talent_id talent_id
+    Project.find(:all, :conditions => "director_talent_id = #{talent_id} or
+      writer_talent_id = #{talent_id} or exec_producer_talent_id = #{talent_id}
+      or director_photography_talent_id = #{talent_id} or editor_talent_id = #{talent_id}
+      or producer_talent_id = #{talent_id}")
   end
   
   def self.search query = '', options = {}
@@ -600,6 +621,33 @@ class Project < ActiveRecord::Base
 
   def update_recycled_percent
     self.capital_recycled_percent = 100 - share_percent_ads_producer
+  end
+
+  def set_talent
+    #check if any of the talent ids are set, and set the text fields accordingly
+    if director_talent_id
+      self.director = director_talent.user.login
+    end
+
+    if writer_talent_id
+      self.writer = writer_talent.user.login
+    end
+
+    if exec_producer_talent_id
+      self.exec_producer = exec_producer_talent.user.login
+    end
+
+    if director_photography_talent_id
+      self.director_photography = director_photography_talent.user.login
+    end
+
+    if editor_talent_id
+      self.editor = editor_talent.user.login
+    end
+
+    if producer_talent_id
+      self.producer_name = producer_talent.user.login
+    end
   end
 
 end

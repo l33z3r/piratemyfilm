@@ -1,0 +1,16 @@
+page << "
+ModalPopups.Custom('talentSelectListContainer',
+   'Select From The Following Users...',
+   '#{escape_javascript(render :partial => "talent_select_markup",
+      :locals => {:talents => @talents, :talent_type_name => @talent_type_name})}',
+   {
+       width: 500,
+       buttons: 'cancel',
+       cancelButtonText: 'Cancel',
+       onCancel: 'doCancel()'
+   }
+);
+
+function doCancel() {
+   ModalPopups.Close('talentSelectListContainer');
+}"

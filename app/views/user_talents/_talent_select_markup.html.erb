@@ -1,0 +1,33 @@
+<div class="pageTitle">Project Talent</div>
+
+<div class="dashed_light_border">&nbsp;</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div class="pageTitleSmall left">
+  Viewing all <%= talent_type_name.humanize.titleize %>s
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id="talents">
+  <% talents.each do |talent| %>
+    <div class="user_talent">
+      <div class="user-icon">
+        <%= link_to_function icon(talent.user.profile, :small), "selectTalent('#{talent_type_name}', #{talent.id}, '#{talent.user.login}');" %>
+      </div>
+      <div class="talent_info">
+        <div class="username">
+          <%= link_to_function talent.user.login, "selectTalent('#{talent_type_name}', #{talent.id}, '#{talent.user.login}');" %>
+        </div>
+        <div class="rating">
+          Rating: <span><%= talent.current_rating %></span>
+        </div>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+  <% end %>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
