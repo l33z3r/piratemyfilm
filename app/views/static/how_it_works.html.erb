@@ -30,7 +30,7 @@
 
     <p>
       After a project has been 'green lit', members will receive an email from the
-      producer instructing them on how to pay for their shares. * See Below For Details
+      producer instructing them on how to pay for their shares. * See <a href="#payment_desc">Below</a> For Details
     </p>
 
     <p>
@@ -96,6 +96,77 @@
       the community and forced to 'walk the plank.'
     </p>
 
+    <div class="pageTitleSmall">
+      Payment Procedure<a name="payment_desc">&nbsp;</a>
+    </div>
+
+    <p>
+      1. The project reaches 100% funding.<br/><br/>
+
+      2. Given green light by admin.<br/><br/>
+
+      3. Producer clicks "Collect Funds", which opens a payment window in which
+      funds will be collected from users.<br/><br/>
+
+      4. The producer enters their paypal email address and a date in the future
+      when they will close this payment window.<br/><br/>
+
+      5. This payment window is now active.<br/><br/>
+
+      6. Our system creates a bunch of rows in a table for each payment that is
+      due to be processed for the project. It does this by looking at the share queue.
+      It will sum up all the non-outstanding shares for each user, and will
+      create a row in this table that represents the total amount of shares they have purchased.<br/><br/>
+
+      7. Emails get sent to all the users who are to pay for their shares in this window.<br/><br/>
+
+      8. A user logs in and goes to the project page where they own the shares.
+      They now see a paypal button and a some information regarding what shares they have,
+      what are outstanding, and what they are about to pay for.<br/><br/>
+
+      9. The paypal button brings the user to the paypal site, to a page where
+      we pass the amount due to be paid. The user then goes through the standard
+      paypal payment process and the money goes to the project owners paypal account
+      (via the email address they entered when opening this payment window).<br/><br/>
+
+      10. A unique code is also passed to paypal that appears on the payment
+      receipt that the producer sees. This code is used by the producer in the next step.<br/><br/>
+
+      11. The producer logs into PMF and goes to the project page, where they
+      can see a list of users who are due to pay for shares in the current window.
+      It shows the username and the amount they are due to pay.
+      It also shows the unique code that was passed through to paypal earlier on.
+      The producer matches up the code in the receipt to this code, and then clicks
+      "Mark as Paid" for that user. The system updates the project funding
+      variables and the producer can then see how much money has actually been collected.
+      This process continues for all the users who are in this payment window.<br/><br/>
+
+      12. On the window close date, the project owner logs in and clicks "Close Window".
+      This then marks all unpaid shares as "defaulted", but maintains the value of the amount
+      that was collected in that window.<br/><br/>
+
+      13. The producer now clicks "Open window" again and another window is created.
+      This time the system looks down the queue to the users holding outstanding
+      shares and creates a payment row for each user until the window is full
+      with enough people to potentially reach the target funding and the paypal
+      process described above takes place again.<br/><br/>
+
+      14. If the payment window fails again, the producer opens another window
+      and the system looks down the queue like before.<br/>
+
+      15. The producer has access to a page where they can see statistics on all of
+      the payment windows that were created and all the users who were involved in each window.<br/><br/>
+
+      16. The above steps are repeated until either all funds have been collected, or the queue has been exhausted.<br/><br/>
+
+      17. When the queue has been exhausted, the user can ask PMF to buy out the remaining shares.
+      This request will appear in a new section in the admin part of the site,
+      where the admin user can accept or deny to buy out the shares.<br/><br/>
+
+      18. When a window is open/closed or a payment has been verified by a producer,
+      an email is sent to the associated user.<br/><br/>
+    </p>
+
     <p>
       <b>Disclaimer:</b>
       PMF takes zero responsibility for funds collected, projects, and downloads
@@ -103,5 +174,6 @@
       on funds, or to produce projects or make downloads available. Share buyers
       assume 100% of the risk for funding, production and distribution.
     </p>
+
   </div>
 </div>
