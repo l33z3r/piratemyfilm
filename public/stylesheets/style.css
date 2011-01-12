@@ -147,10 +147,11 @@ div#hp_latest_blog div.blog_comments_link {
 
 div#signup_section {
     float: right;
+    margin-top: -12px;
 }
 
 div#signup_section div#signup_buttons {
-    margin-top: -12px;
+    
 }
 
 div#signup_section div#signup_buttons a {
