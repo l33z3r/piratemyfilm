@@ -75,6 +75,16 @@
 
       <div id="top_container">
         <div id="topsite_links">
+
+          <div id="stats_container">
+            <div class="stat">
+              <b><%= print_money @total_reservations_amount %></b>
+              Reserved in
+              <b><%= @total_reservations %></b> Projects
+              Seeking <b><%= print_money @total_funds_needed %></b>
+            </div>
+          </div>
+
           <div id="pmf_fund_stats_container">
             <div class="pic">
               <%= link_to image_tag("pmf-fund-icon.png"),

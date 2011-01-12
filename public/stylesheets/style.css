@@ -150,7 +150,7 @@ div#signup_section {
 }
 
 div#signup_section div#signup_buttons {
-    margin-top: 10px;
+    margin-top: -12px;
 }
 
 div#signup_section div#signup_buttons a {
@@ -297,14 +297,19 @@ div#topsite_links div#widget_link a {
 
 div#topsite_links div#pmf_fund_stats_container {
     float: left;
+    margin-top: 7px;
 }
 
 div#topsite_links div#pmf_fund_stats_container div.pic {
     float: left;
 }
 
+div#topsite_links div#pmf_fund_stats_container div.pic a img {
+    height: 35px;
+}
+
 div#topsite_links div#pmf_fund_stats_container div#stats {
-    margin: 16px 0px 0px 12px;
+    margin: 10px 0px 0px 12px;
     font-weight: bold;
     float: left;
 }
@@ -320,7 +325,7 @@ div#short_stats {
 }
 
 div#stats_container {
-    float: left;
+    text-align: left;
 }
 
 div#stats_container div.stat {

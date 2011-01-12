@@ -84,15 +84,6 @@
 
 <div class="pmf_clear">&nbsp;</div>
 
-<div id="stats_container">
-  <div class="stat">
-    <b><%= print_money @total_reservations_amount %></b>
-    Reserved in
-    <b><%= @total_reservations %></b> Projects
-    Seeking <b><%= print_money @total_funds_needed %></b>
-  </div>
-</div>
-
 <% if !@hide_filter_params %>
   <div id="top_search_box">
     <%= render :partial => 'shared/filter_param_box' %>
