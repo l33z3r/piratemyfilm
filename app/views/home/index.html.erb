@@ -18,19 +18,3 @@
 <% end %>
 
 <%= pagination_controls_for @items if @items.respond_to? :total_pages %>
-
-<div class="pmf_clear">&nbsp;</div>
-
-<div class="pageTitle">Top 10 Movers on PMF</div>
-
-<div class="project_listings">
-  <div class="pmf_clear">&nbsp;</div>
-
-  <div class="dashed_light_border">&nbsp;</div>
-
-  <div class="pmf_clear">&nbsp;</div>
-
-  <% for @project in @projects do %>
-      <%= render :partial => "projects/project", :locals => {:project => @project} %>
-    <% end %>
-  </div>

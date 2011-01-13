@@ -15,13 +15,6 @@ class HomeController < ApplicationController
     end
 
     @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
-
-    #top 10 moving projects
-    @projects = []
-
-    ProjectChangeInfoOneDay.top_ten_movers.each do |project_change_info|
-      @projects << project_change_info.project
-    end
   end
 
   def newest_members
