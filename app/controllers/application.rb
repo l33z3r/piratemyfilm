@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
   filter_parameter_logging "password"
   
+  before_filter :clean_pagination_params
+
   before_filter :allow_to, :check_user, :login_from_cookie, :login_required, :set_profile
   before_filter :check_permissions, :pagination_defaults
   before_filter :load_filter_params, :load_sitewide_vars
@@ -25,6 +27,16 @@ class ApplicationController < ActionController::Base
     @page = (params[:page] || 1).to_i
     @page = 1 if @page < 1
     @per_page = (params[:per_page] || (RAILS_ENV=='test' ? 1 : 40)).to_i
+  end
+
+  def clean_pagination_params
+    if params[:page]
+      if params[:page].is_a? Integer
+        params[:page] = params[:page] < 1 ? 1 : params[:page]
+      else
+        params[:page] = 1
+      end
+    end
   end
   
   def set_profile

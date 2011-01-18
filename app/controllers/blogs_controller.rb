@@ -1,5 +1,6 @@
 class BlogsController < ApplicationController
   skip_before_filter :login_required, :only=> [:show, :index, :admin, :mkc, :producer]
+
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
 
