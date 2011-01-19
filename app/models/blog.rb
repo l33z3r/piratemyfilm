@@ -37,8 +37,12 @@ class Blog < ActiveRecord::Base
     "#{self.id}-#{title.to_safe_uri}"
   end
 
+  def is_pmf_producer_blog
+    return project && profile.user.id == PMF_FUND_ACCOUNT_ID
+  end
+
   def is_producer_blog
-    return project
+    return project && !is_pmf_producer_blog
   end
 
   def is_mkc_blog

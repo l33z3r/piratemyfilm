@@ -439,6 +439,7 @@ div.project_listings {
 
 .project_form div.talent_select {
     float: right;
+    margin-right: 76px;
 }
 
 small	{
@@ -2128,6 +2129,11 @@ div.blog div.blog_left div.info div.blog_type {
 }
 
 div.blog div.blog_left div.info div.blog_type a {
+    font-weight: bold;
+    color: #000000;
+}
+
+div.blog div.blog_left div.info div.blog_type span {
     font-weight: bold;
     color: #000000;
 }

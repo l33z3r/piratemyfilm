@@ -32,7 +32,7 @@ class ProjectFollowingsController < ApplicationController
 
   def allow_to
     super :admin, :all => true
-    super :user, :only => [:create, :destroy]
+    super :user, :only => [:create, :unfollow]
   end
 
   def load_project

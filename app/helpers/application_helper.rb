@@ -92,9 +92,9 @@ module ApplicationHelper
   end
 
   def green_light_button project
-    if @u && @u.is_admin && project.budget_reached? && !@project.green_light
+    if @u && @u.is_admin && project.budget_reached? && !project.green_light
       content_tag :div, :class => "button left" do
-        link_to "Give Green", {:action => "update_green_light", :id => @project.id}
+        link_to "Give Green", {:action => "update_green_light", :id => project.id}
       end
     end
   end
@@ -103,6 +103,14 @@ module ApplicationHelper
     if @u and !@u.flagged_project? project
       content_tag :div, :class => "button left" do
         link_to "Flag", flag_project_path(project), :method => "post"
+      end
+    end
+  end
+
+  def delete_button project
+    if !project.green_light
+      content_tag :div, :class => "button left" do
+        link_to "Delete Project", {:controller => "projects", :action => "delete", :id => project.id}
       end
     end
   end
@@ -324,7 +332,9 @@ module ApplicationHelper
   end
 
   def blog_template_name blog
-    if blog.is_producer_blog
+    if blog.is_pmf_producer_blog
+      return "pmf_producer_blog"
+    elsif blog.is_producer_blog
       return "producer_blog"
     elsif blog.is_mkc_blog
       return "mkc_blog"

@@ -87,6 +87,12 @@ class ProjectSubscriptionsController < ApplicationController
         redirect_to project_path(@project) and return
       end
 
+      #can't cancel at green light stage
+      if @project.green_light
+        flash[:error] = "You cannot cancel shares at the green light stage!"
+        redirect_to project_path(@project) and return
+      end
+
       @num_shares = params[:num_shares].to_i
 
       if !@num_shares || @num_shares <= 0

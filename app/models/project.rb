@@ -341,7 +341,7 @@ class Project < ActiveRecord::Base
     4 => "% Funded - In Production", 5 => "% Funded - Post Production", 6 => "% Funded - Finishing Funds",
     7 => "% Funded - Trailer", 8 => "Funds Needed", 9 => "Funds Reserved",
     10 => "PMF Fund Rating", 11 => "Member Rating", 12 => "Newest", 13 => "Oldest",
-    14 => "Producer Dividend", 15 => "Shareholder Dividend", 16 => "PMF Fund Dividend",
+    #14 => "Producer Dividend", 15 => "Shareholder Dividend", 16 => "PMF Fund Dividend",
     17 => "% PMF Fund Shares", 18 => "No. PMF Fund Shares",
     19 => "Green Light"
   }
@@ -384,9 +384,9 @@ class Project < ActiveRecord::Base
     when "11" then return "member_rating DESC"
     when "12" then return "created_at DESC"
     when "13" then return "created_at ASC"
-    when "14" then return "producer_dividend DESC"
-    when "15" then return "shareholder_dividend DESC"
-    when "16" then return "fund_dividend DESC"
+#    when "14" then return "producer_dividend DESC"
+#    when "15" then return "shareholder_dividend DESC"
+#    when "16" then return "fund_dividend DESC"
     when "17" then return "pmf_fund_investment_percentage DESC"
     when "18" then return "pmf_fund_investment_share_amount DESC"
     when "19" then return "green_light DESC"
@@ -592,6 +592,7 @@ class Project < ActiveRecord::Base
   end
 
   def validate
+    validate_green_light_fields
     errors.add(:share_percent_ads_producer, "must be between 0% - 100%") if share_percent_ads_producer && (share_percent_ads_producer < 0 || share_percent_ads_producer > 100)
     errors.add(:share_percent_ads, "must be 0% if producer % is 0") if share_percent_ads_producer && share_percent_ads_producer == 0 && share_percent_ads > 0
     errors.add(:share_percent_ads, "must be between 0% - 100%") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
@@ -599,6 +600,17 @@ class Project < ActiveRecord::Base
     errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
     errors.add(:symbol, "must be 5 alphabetic characters long") if symbol && !symbol.blank? && !(symbol=~/[a-zA-Z]{5}/)
     logger.info "Validation Errors: #{errors_to_s}"
+  end
+
+  def validate_green_light_fields
+    if green_light
+      #must not perform the change? check if the old val of the attribute was 0 due to some bug????
+
+      errors.add(:capital_required, "cannot be modified in green light stage, proper value was #{capital_required_was}") if capital_required_was != 0 && capital_required_changed?
+      errors.add(:share_percent_ads_producer, "cannot be modified in green light stage, proper value was #{share_percent_ads_producer_was}") if share_percent_ads_producer_was !=0 && share_percent_ads_producer_changed?
+      errors.add(:share_percent_ads, "cannot be modified in green light stage, proper value was #{share_percent_ads_was}") if share_percent_ads_was !=0 && share_percent_ads_changed?
+      errors.add(:producer_fee_percent, "cannot be modified in green light stage, proper value was #{producer_fee_percent_was}") if producer_fee_percent_was != 0 && producer_fee_percent_changed?
+    end
   end
 
   def funding_limit_not_exceeded

@@ -135,6 +135,7 @@
         <div class="pmf_clear">&nbsp;</div>
 
         <% if @my_subscriptions_amount > 0 %>
+          <% if !@project.green_light %>
           <div class="reservation_form_container">
             <% form_tag cancel_project_project_subscriptions_path(@project), :method => :delete do %>
               <div class="text">
@@ -146,6 +147,9 @@
               </div>
             <% end %>
           </div>
+          <% else %>
+            <p>You cannot cancel any shares in the green light stage of a project!</p>
+          <% end %>
         <% end %>
       <% end %>
     <% else %>

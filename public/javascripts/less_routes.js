@@ -51,12 +51,6 @@ function less_ajaxx(url, verb, params, options){
     new Ajax.Request(url, less_merge_objects({method: verb, parameters: less_get_params(params), onComplete: function(r){eval(r.responseText);}}, options));
   }
 }
-function producer_blogs_path(verb){ return '/blogs/producer';}
-function producer_blogs_ajax(verb, params, options){ return less_ajax('/blogs/producer', verb, params, options);}
-function producer_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/producer', verb, params, options);}
-function formatted_producer_blogs_path(format, verb){ return '/blogs/producer.' + format + '';}
-function formatted_producer_blogs_ajax(format, verb, params, options){ return less_ajax('/blogs/producer.' + format + '', verb, params, options);}
-function formatted_producer_blogs_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs/producer.' + format + '', verb, params, options);}
 function mkc_blogs_path(verb){ return '/blogs/mkc';}
 function mkc_blogs_ajax(verb, params, options){ return less_ajax('/blogs/mkc', verb, params, options);}
 function mkc_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/mkc', verb, params, options);}
@@ -69,6 +63,12 @@ function admin_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/adm
 function formatted_admin_blogs_path(format, verb){ return '/blogs/admin.' + format + '';}
 function formatted_admin_blogs_ajax(format, verb, params, options){ return less_ajax('/blogs/admin.' + format + '', verb, params, options);}
 function formatted_admin_blogs_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs/admin.' + format + '', verb, params, options);}
+function producer_blogs_path(verb){ return '/blogs/producer';}
+function producer_blogs_ajax(verb, params, options){ return less_ajax('/blogs/producer', verb, params, options);}
+function producer_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/producer', verb, params, options);}
+function formatted_producer_blogs_path(format, verb){ return '/blogs/producer.' + format + '';}
+function formatted_producer_blogs_ajax(format, verb, params, options){ return less_ajax('/blogs/producer.' + format + '', verb, params, options);}
+function formatted_producer_blogs_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs/producer.' + format + '', verb, params, options);}
 function blogs_path(verb){ return '/blogs';}
 function blogs_ajax(verb, params, options){ return less_ajax('/blogs', verb, params, options);}
 function blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs', verb, params, options);}
@@ -195,18 +195,18 @@ function delete_icon_project_ajaxx(id, verb, params, options){ return less_ajaxx
 function formatted_delete_icon_project_path(id, format, verb){ return '/projects/' + id + '/delete_icon.' + format + '';}
 function formatted_delete_icon_project_ajax(id, format, verb, params, options){ return less_ajax('/projects/' + id + '/delete_icon.' + format + '', verb, params, options);}
 function formatted_delete_icon_project_ajaxx(id, format, verb, params, options){ return less_ajaxx('/projects/' + id + '/delete_icon.' + format + '', verb, params, options);}
-function flag_project_path(id, verb){ return '/projects/' + id + '/flag';}
-function flag_project_ajax(id, verb, params, options){ return less_ajax('/projects/' + id + '/flag', verb, params, options);}
-function flag_project_ajaxx(id, verb, params, options){ return less_ajaxx('/projects/' + id + '/flag', verb, params, options);}
-function formatted_flag_project_path(id, format, verb){ return '/projects/' + id + '/flag.' + format + '';}
-function formatted_flag_project_ajax(id, format, verb, params, options){ return less_ajax('/projects/' + id + '/flag.' + format + '', verb, params, options);}
-function formatted_flag_project_ajaxx(id, format, verb, params, options){ return less_ajaxx('/projects/' + id + '/flag.' + format + '', verb, params, options);}
 function send_friends_invite_project_path(id, verb){ return '/projects/' + id + '/send_friends_invite';}
 function send_friends_invite_project_ajax(id, verb, params, options){ return less_ajax('/projects/' + id + '/send_friends_invite', verb, params, options);}
 function send_friends_invite_project_ajaxx(id, verb, params, options){ return less_ajaxx('/projects/' + id + '/send_friends_invite', verb, params, options);}
 function formatted_send_friends_invite_project_path(id, format, verb){ return '/projects/' + id + '/send_friends_invite.' + format + '';}
 function formatted_send_friends_invite_project_ajax(id, format, verb, params, options){ return less_ajax('/projects/' + id + '/send_friends_invite.' + format + '', verb, params, options);}
 function formatted_send_friends_invite_project_ajaxx(id, format, verb, params, options){ return less_ajaxx('/projects/' + id + '/send_friends_invite.' + format + '', verb, params, options);}
+function flag_project_path(id, verb){ return '/projects/' + id + '/flag';}
+function flag_project_ajax(id, verb, params, options){ return less_ajax('/projects/' + id + '/flag', verb, params, options);}
+function flag_project_ajaxx(id, verb, params, options){ return less_ajaxx('/projects/' + id + '/flag', verb, params, options);}
+function formatted_flag_project_path(id, format, verb){ return '/projects/' + id + '/flag.' + format + '';}
+function formatted_flag_project_ajax(id, format, verb, params, options){ return less_ajax('/projects/' + id + '/flag.' + format + '', verb, params, options);}
+function formatted_flag_project_ajaxx(id, format, verb, params, options){ return less_ajaxx('/projects/' + id + '/flag.' + format + '', verb, params, options);}
 function edit_project_path(id, verb){ return '/projects/' + id + '/edit';}
 function edit_project_ajax(id, verb, params, options){ return less_ajax('/projects/' + id + '/edit', verb, params, options);}
 function edit_project_ajaxx(id, verb, params, options){ return less_ajaxx('/projects/' + id + '/edit', verb, params, options);}

@@ -28,16 +28,6 @@ class ApplicationController < ActionController::Base
     @page = 1 if @page < 1
     @per_page = (params[:per_page] || (RAILS_ENV=='test' ? 1 : 40)).to_i
   end
-
-  def clean_pagination_params
-    if params[:page]
-      if params[:page].is_a? Integer
-        params[:page] = params[:page] < 1 ? 1 : params[:page]
-      else
-        params[:page] = 1
-      end
-    end
-  end
   
   def set_profile
     @p = @u.profile if @u && @u.profile
@@ -69,13 +59,22 @@ class ApplicationController < ActionController::Base
     @level ||= []
     @level << [level, args]    
   end
+
+  def clean_pagination_params
+    @page = params[:page]
+
+    if @page
+      @page = @page.to_i
+      params[:page] = @page < 1 ? 1 : @page
+    end
+  end
   
   def check_permissions
     return failed_check_permissions if @p && !@p.is_active
     return true if @u && @u.is_admin
     raise '@level is blank. Did you override the allow_to method in your controller?' if @level.blank?
     @level.each do |l|
-      next unless (l[0] == :all) || 
+      next unless (l[0] == :all) ||
         (l[0] == :non_user && !@u) ||
         (l[0] == :user && @u) ||
         (l[0] == :owner && @p && @profile && @p == @profile)

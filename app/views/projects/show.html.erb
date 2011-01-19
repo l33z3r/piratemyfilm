@@ -8,7 +8,7 @@
   <div class="project_action_links">
     <% if @u && (@project.owner == @u || @u.is_admin) %>
       <div class="button left"><%= link_to "Edit project", edit_project_path(@project) %></div>
-      <div class="button left"><%= link_to "Delete Project", {:controller => "projects", :action => "delete", :id => @project}, :confirm => "Are You Sure?" %></div>
+      <%= delete_button @project %>
       <div class="button left">
         <%= link_to "Share Queue", :action => "share_queue", :id => @project.id %>
       </div>

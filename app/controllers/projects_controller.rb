@@ -163,6 +163,8 @@ class ProjectsController < ApplicationController
   def update
     if request.put?
       begin
+        @genres = Genre.find(:all)
+
         round_budget_from_params
 
         @project.update_attributes!(params[:project])
@@ -173,14 +175,19 @@ class ProjectsController < ApplicationController
         redirect_to project_path(@project)
       rescue ActiveRecord::RecordInvalid
         logger.debug "Error Updating Project"
-        @genres = Genre.find(:all)
         flash[:error] = "Sorry, there was a problem updating your project"
-        render :action=>'edit'
+        render :action => "edit"
       end            
     end 
   end
 
   def delete
+
+    if @project.green_light
+      flash[:error] = "You cannot delete the project as it is in the green light stage!"
+      redirect_to project_path(@project) and return
+    end
+    
     #must delete all subscribtions to this project
     @subscriptions = ProjectSubscription.find_all_by_project_id(@project)
     @subscriptions.each do |subscription|

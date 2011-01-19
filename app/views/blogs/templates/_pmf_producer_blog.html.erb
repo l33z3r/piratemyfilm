@@ -1,0 +1,64 @@
+<div class="blog-row blog">
+
+  <div class="blog_left">
+    <div class="icon">
+      <%= link_to image_tag("/images/pmf_fund_avatar.png"), profile_path(blog.profile) %>
+      <div class="follow_button">
+        <%= follow_project_button_small blog.project %>
+      </div>
+    </div>
+    <div class="info">
+      <div class="blog_type">
+        PMF Producer Blog:
+      </div>
+      <div class="user_info">
+        <div class="user_icon">
+          <%= link_to project_icon(blog.project, :small), project_path(blog.project) %>
+        </div>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <div class="project_title">
+        on project <%= blog_project_header(blog, truncate_blog) %>:
+      </div>
+      <div class="blog_title">
+        <%= blog_header(blog, link_blog_header, truncate_blog) %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <div class="blog_body">
+        <%= blog_body(blog, truncate_blog) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog_right">
+    <div class="share_buttons">
+      <%= render :partial => "/blogs/templates/share_buttons",
+        :locals => {:target_url => url_for(:only_path => false,
+          :controller => "blogs", :action => "show", :id => blog.id),
+        :tweet_text => "New blog on project: #{blog.project.symbol}"} %>
+
+      <div class="blog-date">
+        <%= time_ago_in_words blog.created_at %> ago
+      </div>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <div class="blog_comments_link">
+      <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
+      <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+  </div>
+
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div class="dashed_light_border pmf_top_margin_10">&nbsp;</div>
