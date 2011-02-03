@@ -447,7 +447,7 @@ class Project < ActiveRecord::Base
   end
 
   def share_queue
-    project_subscriptions.find(:all, :order => "created_at, id")
+    ProjectSubscription.share_queue self
   end
 
   def in_payment?

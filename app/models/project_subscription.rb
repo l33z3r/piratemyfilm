@@ -132,11 +132,20 @@ class ProjectSubscription < ActiveRecord::Base
     
   end
 
+  def self.share_queue project
+    @subscriptions = find_all_by_project_id(project, :order => "created_at, id")
+    @subscriptions = sort_pmf_fund_subs(@subscriptions)
+    @subscriptions
+  end
+
   def self.update_share_queue project
     ProjectSubscription.transaction do
       project.reload
 
       @subscriptions = find_all_by_project_id(project, :order => "created_at, id", :lock => true)
+
+      @subscriptions = sort_pmf_fund_subs(@subscriptions)
+
       @subscriptions = @subscriptions ? @subscriptions : {}
 
       @shares_available = project.total_copies
@@ -187,6 +196,26 @@ class ProjectSubscription < ActiveRecord::Base
       end
       
     end
+  end
+
+  def self.sort_pmf_fund_subs(subscriptions)
+    @subscriptions = subscriptions
+    
+    #must bump all pmf fund shares to the back of the queue
+    #we know that pmf fund shares have a creation date of 0
+    @temp_subscriptions = []
+    @temp_pmf_fund_subs = []
+
+    @subscriptions.each do |sub|
+      if sub.user_id == PMF_FUND_ACCOUNT_ID
+        @temp_pmf_fund_subs << sub
+      else
+        @temp_subscriptions << sub
+      end
+    end
+
+    #now join the two arrays
+    @subscriptions = @temp_subscriptions + @temp_pmf_fund_subs
   end
 
   def self.load_subscriptions user, project
