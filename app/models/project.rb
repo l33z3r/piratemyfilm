@@ -244,13 +244,17 @@ class Project < ActiveRecord::Base
 
     @pmf_fund_user = User.find(PMF_FUND_ACCOUNT_ID)
 
-    @subscriptions = ProjectSubscription.load_subscriptions @pmf_fund_user, self
+    @subscriptions = ProjectSubscription.load_non_outstanding_subscriptions @pmf_fund_user, self
     @subscription_amount = ProjectSubscription.calculate_amount @subscriptions
 
     if @subscription_amount >= 0
       self.pmf_fund_investment_share_amount = @subscription_amount
       self.pmf_fund_investment_percentage = (@subscription_amount/total_copies) * 100
     end
+  end
+
+  def pmf_fund_investment_total
+    self.pmf_fund_investment_share_amount * self.ipo_price
   end
 
   def user_rating

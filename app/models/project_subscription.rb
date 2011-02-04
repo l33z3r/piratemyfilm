@@ -223,4 +223,9 @@ class ProjectSubscription < ActiveRecord::Base
     @subscriptions = @subscriptions ? @subscriptions.to_a : {}
   end
 
+  def self.load_non_outstanding_subscriptions user, project
+    @subscriptions = find_all_by_user_id_and_project_id(user, project, :conditions => "outstanding is false", :order => "created_at DESC, id DESC")
+    @subscriptions = @subscriptions ? @subscriptions.to_a : {}
+  end
+
 end

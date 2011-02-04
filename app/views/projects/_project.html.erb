@@ -70,8 +70,8 @@ project_link_action ||= "show"
       <li class="pmf_clear"></li>
       <li class="label">% Producer:</li>
       <li class="stat">NYA</li>
-        <!--li class="stat">
-        <%= project.share_percent_ads_producer %>%
+      <!--li class="stat">
+<%= project.share_percent_ads_producer %>%
         (<a class="tooltip_arrow" title="The producer will take this percentage of the advertisement revenue.
             The remaining percent will go to the PMF Fund (see below)">?</a>)
       </li-->
@@ -79,7 +79,7 @@ project_link_action ||= "show"
       <li class="label">% Shares:</li>
       <li class="stat">NYA</li>
       <!--li class="stat">
-        <%= project.share_percent_ads %>%
+<%= project.share_percent_ads %>%
         (<a class="tooltip_arrow" title="This is a percentage of the producers
             take (above) that will go to the shareholders.">?</a>)
       </li-->
@@ -135,24 +135,29 @@ project_link_action ||= "show"
     <ul>
       <li class="label">Funds Needed:</li><li class="stat"><%= print_money project.capital_required %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Funds Reserved:</li><li class="stat"><%= print_money project.current_funds %></li>
+      <li class="label">Funds Reserved:</li><li class="stat"><%= print_money project.current_funds - project.pmf_fund_investment_total %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Funds Still Needed:</li><li class="stat"><%= print_money project.funds_needed %></li>
+      <li class="label">Funds Still Needed:</li><li class="stat"><%= print_money project.funds_needed + project.pmf_fund_investment_total %></li>
       <li class="pmf_clear"></li>
-      <li class="label">% Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
+      <li class="label">% Funded:</li>
+      <li class="stat">
+        <%= project.percent_funded - project.pmf_fund_investment_percentage %>&#37
+        (<a class="tooltip_arrow" title="This is the value of the investment by the PMF
+            community and does not include shares held by the PMF Fund.">?</a>)
+      </li>
       <li class="pmf_clear"></li>
       <li class="label">Price Per Share:</li><li class="stat"><%= print_money project.ipo_price %></li>
       <li class="pmf_clear"></li>
       <li class="label">Total Shares:</li><li class="stat"><%= project.total_copies.to_i %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Shares Available:</li><li class="stat"><%= project.downloads_available %></li>
+      <li class="label">Shares Available:</li><li class="stat"><%= project.downloads_available + project.pmf_fund_investment_share_amount %></li>
       <li class="pmf_clear"></li>
-      <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
+      <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved - project.pmf_fund_investment_share_amount %></li>
       <li class="pmf_clear"></li>
       <li class="label">No. PMF Fund Shares:</li>
       <li class="stat"><%= project.pmf_fund_investment_share_amount %></li>
-      <li class="label">% PMF Fund Shares:</li>
-      <li class="stat"><%= project.pmf_fund_investment_percentage %>%</li>
+      <li class="label">% Funded Total:</li><li class="stat"><%= project.percent_funded %>&#37</li>
+      <li class="pmf_clear"></li>
     </ul>
   </div>
 </div>
