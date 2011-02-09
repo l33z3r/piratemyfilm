@@ -187,6 +187,7 @@ class Project < ActiveRecord::Base
 
   #overide save to perform updating of estimates
   def save!
+    super
     logger.debug "overriden save called!"
     update_vars
     super
