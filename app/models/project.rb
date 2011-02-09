@@ -201,9 +201,9 @@ class Project < ActiveRecord::Base
   def update_vars
     set_defaults
     update_recycled_percent
+    update_pmf_fund_investment
     update_funding
     update_estimates
-    update_pmf_fund_investment
   end
 
   def set_defaults
@@ -215,12 +215,14 @@ class Project < ActiveRecord::Base
     self.save_without_validating
   end
 
+  #funding does not take into account the pmf fund investment
   def update_funding
     logger.debug "Updating percent funded"
     @total_copies = total_copies
-    self.downloads_reserved = project_subscriptions.collect { |s| s.amount }.sum
+    @downloads_reserved = project_subscriptions.collect { |s| s.amount }.sum - self.pmf_fund_investment_share_amount_incl_outstanding
+    self.downloads_reserved = @downloads_reserved
     self.downloads_available = @total_copies - self.downloads_reserved
-    self.percent_funded = (self.downloads_reserved * 100) / @total_copies
+    self.percent_funded = (downloads_reserved * 100) / @total_copies
   end
 
   def update_estimates
@@ -253,8 +255,19 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def pmf_fund_investment_share_amount_incl_outstanding
+    @pmf_fund_user = User.find(PMF_FUND_ACCOUNT_ID)
+
+    @subscriptions = ProjectSubscription.load_subscriptions @pmf_fund_user, self
+    @subscription_amount = ProjectSubscription.calculate_amount @subscriptions
+  end
+
   def pmf_fund_investment_total
     self.pmf_fund_investment_share_amount * self.ipo_price
+  end
+
+  def percent_funded_with_pmf_fund_non_outstanding
+    percent_funded + pmf_fund_investment_percentage
   end
 
   def user_rating
@@ -273,7 +286,7 @@ class Project < ActiveRecord::Base
   def funds_needed
     self.capital_required - self.current_funds
   end
-  
+
   def total_copies
     capital_required / ipo_price
   end
@@ -346,7 +359,8 @@ class Project < ActiveRecord::Base
     7 => "% Funded - Trailer", 8 => "Funds Needed", 9 => "Funds Reserved",
     10 => "PMF Fund Rating", 11 => "Member Rating", 12 => "Newest", 13 => "Oldest",
     #14 => "Producer Dividend", 15 => "Shareholder Dividend", 16 => "PMF Fund Dividend",
-    17 => "% PMF Fund Shares", 18 => "No. PMF Fund Shares",
+    #17 => "% PMF Fund Shares",
+    #18 => "No. PMF Fund Shares",
     19 => "Green Light"
   }
 
@@ -391,7 +405,7 @@ class Project < ActiveRecord::Base
 #    when "14" then return "producer_dividend DESC"
 #    when "15" then return "shareholder_dividend DESC"
 #    when "16" then return "fund_dividend DESC"
-    when "17" then return "pmf_fund_investment_percentage DESC"
+#    when "17" then return "pmf_fund_investment_percentage DESC"
     when "18" then return "pmf_fund_investment_share_amount DESC"
     when "19" then return "green_light DESC"
     else return "created_at DESC"
