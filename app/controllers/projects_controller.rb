@@ -168,8 +168,6 @@ class ProjectsController < ApplicationController
         round_budget_from_params
 
         @project.update_attributes!(params[:project])
-
-        ProjectSubscription.update_share_queue @project
         
         flash[:positive] = "Your project has been updated."
         redirect_to project_path(@project)

@@ -25,16 +25,17 @@
 
     <% if @num_projects_shares_over > 0 %>
       <li>
-        <%= @user.login %> has shares in <b><%= @num_projects_shares_over %></b> projects which exceeds the
+        <%= @user.login %> has shares in <b><%= @num_projects_shares_over %></b> project(s),
+        in which the amount of shares held exceed the
         new share limit of <b><%= @new_membership_type.pc_limit %></b> per project,
-        these shares will be revoked from these projects.
+        these shares will be revoked from these project(s).
       </li>
     <% end %>
 
     <% if @num_projects_exceeding_share_limit > 0 %>
       <li>
-        <%= @user.login %> has shares in <b><%= @num_projects_exceeding_share_limit %></b> projects,
-        which exceeds the new overall share limit of <b><%= @new_membership_type.pc_project_limit %></b> projects.
+        <%= @user.login %> has shares in <b><%= @num_projects_exceeding_share_limit + @new_membership_type.pc_project_limit %></b> project(s),
+        which exceeds the new overall limit of only holding shares in <b><%= @new_membership_type.pc_project_limit %></b> project(s).
         These outstanding shares will be revoked from these projects.
       </li>
     <% end %>

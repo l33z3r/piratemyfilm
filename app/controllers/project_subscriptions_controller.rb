@@ -1,6 +1,7 @@
 class ProjectSubscriptionsController < ApplicationController
 
   before_filter :load_project, :get_project_subscriptions, :except => :pmf_sub
+  after_filter :update_project_funding, :except => :pmf_sub
   skip_before_filter :login_required, :only=> [:pmf_sub]
 
   cache_sweeper :project_sweeper, :only => [:create, :destroy]
@@ -67,8 +68,6 @@ class ProjectSubscriptionsController < ApplicationController
         @project_subscription = ProjectFollowing.create( :user => @u, :project => @project)
       end
 
-      ProjectSubscription.update_share_queue @project
-
       flash[:notice] = "Reservation Complete"
       
     rescue ActiveRecord::RecordInvalid => ex
@@ -109,8 +108,6 @@ class ProjectSubscriptionsController < ApplicationController
 
       ProjectSubscription.cancel_shares_for_project(@project_subscriptions, @num_shares)
 
-      ProjectSubscription.update_share_queue @project
-
       if @u.id == PMF_FUND_ACCOUNT_ID
         #store in reservation history for pmf fund
         PmfFundSubscriptionHistory.create(:project => @project, :amount => (0 - @num_shares))
@@ -141,6 +138,10 @@ class ProjectSubscriptionsController < ApplicationController
     super :admin, :all => true
     super :user, :only => [:create, :cancel]
     super :all, :only => [:pmf_sub]
+  end
+
+  def update_project_funding
+    @project.update_funding_and_estimates
   end
   
   def get_project_subscriptions
@@ -223,8 +224,6 @@ class ProjectSubscriptionsController < ApplicationController
       
     #store in reservation history for pmf fund
     PmfFundSubscriptionHistory.create(:project => @project, :amount => @num_shares)
-
-    ProjectSubscription.update_share_queue @project
 
     flash[:notice] = "Reservation Complete"
 

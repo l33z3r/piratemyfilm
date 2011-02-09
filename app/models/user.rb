@@ -262,7 +262,7 @@ class User < ActiveRecord::Base
       if @project_subscription_amount > cap
         @cancel_amount = @project_subscription_amount - cap
         ProjectSubscription.cancel_shares_for_project(@project_subscriptions, @cancel_amount)
-        ProjectSubscription.update_share_queue project
+        project.update_funding_and_estimates
       end
     end
   end
@@ -283,7 +283,7 @@ class User < ActiveRecord::Base
         ps.destroy
       end
 
-      ProjectSubscription.update_share_queue project
+      project.update_funding_and_estimates
     end
   end
 

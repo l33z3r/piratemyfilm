@@ -19,9 +19,6 @@ class ProjectSubscription < ActiveRecord::Base
   belongs_to :project
   belongs_to :subscription_payment
   
-  after_save :update_project_funding
-  after_destroy :update_project_funding
-
   def payment_status
     return "N/A" if subscription_payment.nil?
     subscription_payment.status
@@ -44,10 +41,6 @@ class ProjectSubscription < ActiveRecord::Base
   end
 
   private
-
-  def update_project_funding
-    project.update_funding_and_estimates
-  end
 
   #returns the number of shares the user can take from this project
   def self.num_shares_allowed user, project
@@ -139,6 +132,7 @@ class ProjectSubscription < ActiveRecord::Base
   end
 
   def self.update_share_queue project
+    logger.debug "UPDATING SHARE QUEUE FOR PROJECT #{project.id}"
     ProjectSubscription.transaction do
       project.reload
 

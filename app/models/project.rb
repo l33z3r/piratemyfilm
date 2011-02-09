@@ -199,6 +199,8 @@ class Project < ActiveRecord::Base
   end
 
   def update_vars
+    #must update the share queue first
+    ProjectSubscription.update_share_queue self
     set_defaults
     update_recycled_percent
     update_pmf_fund_investment
