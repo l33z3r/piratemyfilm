@@ -638,7 +638,7 @@ class Project < ActiveRecord::Base
     #set funding limit equal to either the users limit, or the current demand
     funding_limit = owner.membership_type.funding_limit_per_project
     
-    if self.capital_required > funding_limit && !self.is_deleted
+    if !self.is_deleted && !self.in_payment? && !green_light && self.capital_required > funding_limit
       errors.add(:capital_required, " must be less than $#{funding_limit}, the limit for your membership type.")
     end
   end
@@ -646,9 +646,8 @@ class Project < ActiveRecord::Base
   def min_funding_limit_passed
     min_funding_limit = owner.membership_type.min_funding_limit_per_project
 
-    if self.capital_required < min_funding_limit && !self.is_deleted
-      errors.add(:capital_required, " must be greater than or equal to $#{min_funding_limit}, the limit for your membership type,
-          We will be allowing account upgrades shortly!")
+    if !self.is_deleted && !self.in_payment? && !green_light && self.capital_required < min_funding_limit
+      errors.add(:capital_required, " must be greater than or equal to $#{min_funding_limit}, the limit for your membership type.")
     end
   end
 
