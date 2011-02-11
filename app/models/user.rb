@@ -334,7 +334,7 @@ class User < ActiveRecord::Base
     @sum = 0
 
     completed_subscription_payments(project).each do |cp|
-      @sum = cp.share_amount
+      @sum += cp.share_amount
     end
 
     @sum
@@ -344,7 +344,7 @@ class User < ActiveRecord::Base
     @sum = 0
 
     failed_subscription_payments(project).each do |cp|
-      @sum = cp.share_amount
+      @sum += cp.share_amount
     end
 
     @sum

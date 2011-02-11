@@ -293,7 +293,7 @@ class PaymentWindowController < ApplicationController
       if @subscription_payment.pending?
         @subscription_payment.status = "Paid"
 
-        #email all users in this payment window who succeeded in payment
+        #email the user whos payment has been marked as paid
         begin
           PaymentsMailer.deliver_payment_succeeded @payment_window, @subscription_payment.user.profile.email
         rescue Exception
