@@ -59,6 +59,6 @@ class PaymentWindow < ActiveRecord::Base
   end
 
   def all_payments_collected?
-    amount_payment_pending == 0
+    amount_payment_collected == 0
   end
 end
