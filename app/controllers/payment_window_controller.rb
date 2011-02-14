@@ -189,7 +189,7 @@ class PaymentWindowController < ApplicationController
     end
 
     #payment window date must have elapsed
-    if @payment_window.close_date > Date.today
+    if !@payment_window.all_payments_collected? && @payment_window.close_date > Date.today
       flash[:error] = "It has not passed the payment window close date, you must wait till then to close this window!"
       redirect_to :action => "history", :id => @project and return
     end
