@@ -194,6 +194,7 @@ class Project < ActiveRecord::Base
   end
 
   def save_without_validating
+    save(false)
     logger.debug "overriden non validating save called!"
     update_vars
     save(false)
