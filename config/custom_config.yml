@@ -1,15 +1,18 @@
 development:
   max_profile_id: 1
+  maxriot_profile_id: 8
   mkc_wordpress_feed_url: http://maxkeiser.com/category/pirate-myfilm/feed
   paypal_button_submission_url: https://www.sandbox.paypal.com/cgi-bin/webscr
 
 test:
   max_profile_id: 2
+  maxriot_profile_id: 3
   mkc_wordpress_feed_url: http://maxkeiser.com/category/pirate-myfilm/feed
   paypal_button_submission_url: https://www.sandbox.paypal.com/cgi-bin/webscr
 
 production:
   max_profile_id: 2
+  maxriot_profile_id: 7
   mkc_wordpress_feed_url: http://maxkeiser.com/category/pirate-myfilm/feed
   paypal_button_submission_url: https://www.paypal.com/cgi-bin/webscr
 

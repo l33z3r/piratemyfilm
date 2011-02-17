@@ -207,29 +207,65 @@ class Profile < ActiveRecord::Base
     3 => "No. Projects Listed", 4 => "No. Shares Reserved", 5 => "Producer Rating"
   }
 
-  def self.get_sql filter_param
+  def self.get_sql filter_param, condition_clause
     case filter_param
     when "2" then 
-      return 'select profiles.* from profiles join users on profiles.user_id = users.id
-        order by users.login'
+      return "select profiles.* from profiles join users on profiles.user_id = users.id 
+        join memberships on profiles.user_id = memberships.user_id
+        #{condition_clause}
+        order by users.login"
     when "3" then
-      return 'select profiles.*, count(projects.id) as projects_count from profiles
+      #need to put in either where or and keyword
+
+      if condition_clause.length == 0
+        condition_clause = "where "
+      else
+        condition_clause += " and "
+      end
+
+      return "select profiles.*, count(projects.id) as projects_count from profiles
         join users on profiles.user_id = users.id join projects on projects.owner_id = users.id
-        where projects.symbol IS NOT NULL and projects.is_deleted = 0 group by users.id
-        order by projects_count DESC'
+        join memberships on profiles.user_id = memberships.user_id
+        #{condition_clause}
+        projects.symbol IS NOT NULL and projects.is_deleted = 0 group by users.id
+        order by projects_count DESC"
     when "4" then
-      return 'select profiles.*, sum(project_subscriptions.amount) as project_subscriptions_count
+      return "select profiles.*, sum(project_subscriptions.amount) as project_subscriptions_count
         from profiles join users on profiles.user_id = users.id join project_subscriptions on
-        project_subscriptions.user_id = users.id group by users.id order by
-        project_subscriptions_count DESC'
+        project_subscriptions.user_id = users.id
+        join memberships on profiles.user_id = memberships.user_id
+        #{condition_clause}
+        group by users.id order by
+        project_subscriptions_count DESC"
     when "5" then
-      return 'select profiles.* from profiles join users on profiles.user_id = users.id
+      return "select profiles.* from profiles join users on profiles.user_id = users.id
         join member_rating_histories on profiles.user_id = member_rating_histories.member_id
+        join memberships on profiles.user_id = memberships.user_id
+        #{condition_clause}
         group by profiles.user_id
-        order by users.member_rating DESC, count(member_rating_histories.member_id) DESC'
+        order by users.member_rating DESC, count(member_rating_histories.member_id) DESC"
     else
       return "select profiles.* from profiles order by created_at DESC"
     end
+  end
+  
+  @@membership_filter_params_map = {
+    1 => "Please Choose...", 2 => "User Login", 
+    3 => "No. Projects Listed", 4 => "No. Shares Reserved", 5 => "Producer Rating"
+  }
+
+  def self.get_membership_condition_clause(membership_id)
+    begin
+      #load the membership
+      MembershipType.find(membership_id)
+
+      @clause = "where memberships.membership_type_id = #{membership_id}"
+
+    rescue ActiveRecord::RecordNotFound
+      @clause = ""
+    end
+
+    @clause
   end
 
   def self.filter_param_select_opts

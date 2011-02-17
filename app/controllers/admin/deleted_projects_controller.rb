@@ -40,6 +40,19 @@ class Admin::DeletedProjectsController < Admin::AdminController
     redirect_to :controller => "/projects", :action => "show", :id => @project
   end
 
+  def delete_permanent
+    if !@project.is_deleted
+      flash[:error] = "Project is not deleted!"
+      redirect_to :controller => "/home" and return
+    end
+
+    #all ratings and share holdings were already deleted before this, so all we need to do now is delete the project from db
+    @project.destroy
+
+    flash[:positive] = "Project has been permanently deleted."
+    redirect_to :action => "index"
+  end
+
   def load_project
     begin
       @project = Project.find(params[:id]) unless params[:id].blank?

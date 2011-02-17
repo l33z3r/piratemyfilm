@@ -12,7 +12,8 @@ class ProjectsController < ApplicationController
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
   before_filter :check_owner_or_admin, :only => [:edit, :update, :delete, :share_queue]
-  
+  before_filter :check_admin, :only => [:update_green_light]
+
   before_filter :load_membership_settings, :only => [:new, :create]
 
   cache_sweeper :project_sweeper, :only => [:update, :create]
@@ -297,6 +298,13 @@ class ProjectsController < ApplicationController
     @current_admin_rating = @project.admin_project_rating ? @project.admin_project_rating.rating.to_s : "1";
     @rating_select_opts = ProjectRating.rating_select_opts
     @selected_admin_rating = [@admin_rating, @current_admin_rating]
+  end
+
+  def check_admin
+    if !@u || !@u.is_admin
+      flash[:error] = 'You are not the owner of this project.'
+      redirect_to project_path(@project)
+    end
   end
 
   def check_owner_or_admin

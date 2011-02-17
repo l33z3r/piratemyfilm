@@ -127,18 +127,23 @@ class ProjectSubscription < ActiveRecord::Base
 
   def self.share_queue project
     @subscriptions = find_all_by_project_id(project, :order => "created_at, id")
-    @subscriptions = sort_pmf_fund_subs(@subscriptions)
+    @subscriptions = apply_sorting_rules(@subscriptions)
     @subscriptions
   end
 
   def self.update_share_queue project
     logger.debug "UPDATING SHARE QUEUE FOR PROJECT #{project.id}"
+
+    if project.in_payment? || project.finished_payment_collection
+      logger.debug "Will not update share queue for project that is in payment"
+      return
+    end
+
     ProjectSubscription.transaction do
       project.reload
 
       @subscriptions = find_all_by_project_id(project, :order => "created_at, id", :lock => true)
-
-      @subscriptions = sort_pmf_fund_subs(@subscriptions)
+      @subscriptions = apply_sorting_rules(@subscriptions)
 
       @subscriptions = @subscriptions ? @subscriptions : {}
 
@@ -192,6 +197,19 @@ class ProjectSubscription < ActiveRecord::Base
     end
   end
 
+  #this makes the share queue in memory
+  def self.apply_sorting_rules(subscriptions)
+    @subscriptions = subscriptions
+
+    #pmf fund subs go to back of queue
+    @subscriptions = sort_pmf_fund_subs(@subscriptions)
+
+    #some accounts can skip the queue
+    @subscriptions = apply_account_skipping(@subscriptions)
+
+    @subscriptions
+  end
+
   def self.sort_pmf_fund_subs(subscriptions)
     @subscriptions = subscriptions
     
@@ -210,6 +228,31 @@ class ProjectSubscription < ActiveRecord::Base
 
     #now join the two arrays
     @subscriptions = @temp_subscriptions + @temp_pmf_fund_subs
+    @subscriptions
+  end
+
+  def self.apply_account_skipping(subscriptions)
+    #for now we want the maxriot account to skip the queue
+    @maxriot_user_id = Profile.find(MAXRIOT_PROFILE_ID).user.id
+
+    @subscriptions = subscriptions
+
+    #must bump all pmf fund shares to the back of the queue
+    #we know that pmf fund shares have a creation date of 0
+    @temp_subscriptions = []
+    @temp_maxriot_subs = []
+
+    @subscriptions.each do |sub|
+      if sub.user_id == @maxriot_user_id
+        @temp_maxriot_subs << sub
+      else
+        @temp_subscriptions << sub
+      end
+    end
+
+    #now join the two arrays
+    @subscriptions = @temp_maxriot_subs + @temp_subscriptions
+    @subscriptions
   end
 
   def self.load_subscriptions user, project

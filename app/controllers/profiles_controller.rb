@@ -11,13 +11,23 @@ class ProfilesController < ApplicationController
     #@profiles could be set due to a search
     if !@profiles
       if @filter_param = params[:profile_filter_param]
-        @sql = Profile.get_sql @filter_param
+
+        #are we filtering by membership
+        @filter_membership_id = params[:profile_membership_filter_param]
+
+        if @filter_membership_id
+          @condition_clause = Profile.get_membership_condition_clause(@filter_membership_id)
+        end
+
+        @sql = Profile.get_sql @filter_param, @condition_clause
 
         @profiles = Profile.find_by_sql(@sql).paginate :page => (params[:page] || 1), :per_page=> 48
       else
         @profiles = Profile.find(:all, :order => "created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 48
       end
     end
+
+    @profile_membership_filter_params = MembershipType.membership_select_opts
   end
 
   def show

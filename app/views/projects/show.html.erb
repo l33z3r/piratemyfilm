@@ -12,9 +12,9 @@
       <div class="button left">
         <%= link_to "Share Queue", :action => "share_queue", :id => @project.id %>
       </div>
+      <%= fund_collection_button @project %>
     <% end %>
     <%= green_light_button @project %>
-    <%= fund_collection_button @project %>
     <%= follow_project_button @project %>
     <div class="button left"><%= link_to "Invite", invite_friends_project_path(@project) %></div>
     <%= flag_project_button @project %>
@@ -239,7 +239,7 @@
   <% end %>
 
   <% if @project.subscribers.length > 0 %>
-    <div class="pageTitle">Members Reserving Copies</div>
+    <div class="pageTitle">Members Reserving Shares</div>
     <div class="pmf_clear_bottom_border">&nbsp;</div>
 
     <div class="users">

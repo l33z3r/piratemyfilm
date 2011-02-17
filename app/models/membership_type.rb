@@ -45,5 +45,17 @@ class MembershipType < ActiveRecord::Base
   def self.funding_options
     @@FUNDING_OPTIONS
   end
+
+  def self.membership_select_opts
+    @membership_select_opts = []
+
+    @membership_types = find(:all)
+
+    @membership_types.each do |@mt|
+      @membership_select_opts << [@mt.name, @mt.id.to_s]
+    end
+
+    @membership_select_opts
+  end
   
 end

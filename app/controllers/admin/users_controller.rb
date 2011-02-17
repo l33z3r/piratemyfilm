@@ -2,13 +2,7 @@ class Admin::UsersController < Admin::AdminController
   before_filter :search_results, :except => [:destroy]
 
   def index
-    @membership_select_opts = []
-
-    @membership_types = MembershipType.find(:all)
-
-    @membership_types.each do |@mt| 
-      @membership_select_opts << [@mt.name, @mt.id.to_s]
-    end
+    @membership_select_opts = MembershipType.membership_select_opts
 
     @membership_type_filter_params = []
     @membership_type_filter_params << ["All", -1]

@@ -14,3 +14,4 @@ REGISTRATION_RECIPIENTS = %W(l33z3r@gmail.com) #send an email to this list every
 YOUTUBE_BASE_URL = "http://gdata.youtube.com/feeds/api/videos/"
 
 PMF_FUND_ACCOUNT_ID = CUSTOM_CONFIG['max_profile_id']
+MAXRIOT_PROFILE_ID = CUSTOM_CONFIG['maxriot_profile_id']
