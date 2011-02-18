@@ -85,6 +85,7 @@ class Project < ActiveRecord::Base
   #description will be the logline of the project
   #we are limiting it to 140 characters so that it is like twitter
   validates_length_of :description, :within => 0..140
+  validates_length_of :title, :minimum => 5
   
   validates_numericality_of :capital_required, :ipo_price, :project_length, :allow_nil => true
   validates_numericality_of :capital_recycled_percent, :producer_fee_percent, :allow_nil => true
@@ -130,6 +131,25 @@ class Project < ActiveRecord::Base
 
   after_create :generate_symbol
   before_save :set_talent
+
+  def youtube_vid_id_stripped
+    #split the url to get the video id
+    @start = youtube_vid_id.rindex("v=")
+    if @start
+      @start += 2
+      @stop = youtube_vid_id.index("&", @start)
+      @stop = youtube_vid_id.length if !@stop
+      @vid_id = youtube_vid_id[@start..@stop - 1]
+    else
+      @vid_id = nil
+    end
+
+    @vid_id
+  end
+  
+  def youtube_vid_id=(new_link)
+    write_attribute("youtube_vid_id", new_link)
+  end
 
   #find projects that have been given initial rating and are not deleted
   def self.find_all_public(*args)
@@ -406,10 +426,10 @@ class Project < ActiveRecord::Base
     when "11" then return "member_rating DESC"
     when "12" then return "created_at DESC"
     when "13" then return "created_at ASC"
-#    when "14" then return "producer_dividend DESC"
-#    when "15" then return "shareholder_dividend DESC"
-#    when "16" then return "fund_dividend DESC"
-#    when "17" then return "pmf_fund_investment_percentage DESC"
+      #    when "14" then return "producer_dividend DESC"
+      #    when "15" then return "shareholder_dividend DESC"
+      #    when "16" then return "fund_dividend DESC"
+      #    when "17" then return "pmf_fund_investment_percentage DESC"
     when "18" then return "pmf_fund_investment_share_amount DESC"
     when "19" then return "green_light DESC"
     else return "created_at DESC"
@@ -470,6 +490,10 @@ class Project < ActiveRecord::Base
 
   def share_queue
     ProjectSubscription.share_queue self
+  end
+
+  def in_payment_phases?
+    in_payment? || finished_payment_collection
   end
 
   def in_payment?
@@ -596,6 +620,9 @@ class Project < ActiveRecord::Base
       :order => "count(project_flaggings.id) DESC")
   end
 
+  def gensym
+    generate_symbol
+  end
   protected
 
   def generate_symbol
@@ -620,7 +647,7 @@ class Project < ActiveRecord::Base
     errors.add(:share_percent_ads, "must be between 0% - 100%") if share_percent_ads && (share_percent_ads < 0 || share_percent_ads > 100)
     errors.add(:producer_fee_percent, "must be between 0% - 100%") if producer_fee_percent && (producer_fee_percent < 0 || producer_fee_percent > 100)
     errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
-    errors.add(:symbol, "must be 5 alphabetic characters long") if symbol && !symbol.blank? && !(symbol=~/[a-zA-Z]{5}/)
+    errors.add(:symbol, "must be 5 characters long") if symbol && !symbol.blank? && !(symbol=~/[0-9a-zA-Z]{5}/)
     logger.info "Validation Errors: #{errors_to_s}"
   end
 

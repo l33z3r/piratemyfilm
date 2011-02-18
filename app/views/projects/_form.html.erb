@@ -32,6 +32,16 @@
 
   <tr>
     <td>
+      Enter a youtube link for your project
+    </td>
+    <td>
+       <%= f.text_field :youtube_vid_id %>
+      <%= display_error_on(project, :youtube_vid_id) %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
       * Funds Needed ($)
       <br/><br/>
       <i>
@@ -233,16 +243,6 @@
       </div>
     </td>
   </tr>
-
-  <!--tr>
-    <td>
-      Enter a youtube video id for your project
-    </td>
-    <td>
-       f.text_field :youtube_vid_id
-      display_error_on(project, :youtube_vid_id)
-    </td>
-  </tr-->
 
   <tr>
     <td>

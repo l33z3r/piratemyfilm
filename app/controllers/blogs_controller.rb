@@ -5,7 +5,7 @@ class BlogsController < ApplicationController
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
 
   def index
-    #global live stream
+    #this content is the same as what is on the homepage
 
     @blogs = Blog.all_blogs
     @pmf_fund_comments = ProjectComment.latest

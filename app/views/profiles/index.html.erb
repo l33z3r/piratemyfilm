@@ -4,7 +4,7 @@
 
 <div class="pmf_clear">&nbsp;</div>
 
-<div id ="users">
+<div id="users">
 
   <% form_tag url_for(:action => "index"), :method => :get do -%>
     <div id="user_search">
@@ -17,7 +17,7 @@
     <% form_tag url_for(:controller => "/profiles"), :method => :get do %>
       <%= select_tag :profile_filter_param, options_for_select(@profile_filter_params, [params['profile_filter_param']]), :onchange => "this.form.submit();" %>
       <div class="label">Order by:</div>
-    <%= select_tag :profile_membership_filter_param, options_for_select(@profile_membership_filter_params, [params['profile_membership_filter_param']]), :onchange => "this.form.submit();" %>
+      <%= select_tag :profile_membership_filter_param, options_for_select(@profile_membership_filter_params, [params['profile_membership_filter_param']]), :onchange => "this.form.submit();" %>
       <div class="label">Filter by Membership:</div>
     <% end %>
   </div>

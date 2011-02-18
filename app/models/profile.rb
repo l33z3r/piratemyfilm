@@ -224,14 +224,15 @@ class Profile < ActiveRecord::Base
       end
 
       return "select profiles.*, count(projects.id) as projects_count from profiles
-        join users on profiles.user_id = users.id join projects on projects.owner_id = users.id
+        join users on profiles.user_id = users.id left join projects on projects.owner_id = users.id
         join memberships on profiles.user_id = memberships.user_id
         #{condition_clause}
-        projects.symbol IS NOT NULL and projects.is_deleted = 0 group by users.id
+        (projects.id is null or (projects.symbol IS NOT NULL and projects.is_deleted = 0))
+        group by users.id
         order by projects_count DESC"
     when "4" then
       return "select profiles.*, sum(project_subscriptions.amount) as project_subscriptions_count
-        from profiles join users on profiles.user_id = users.id join project_subscriptions on
+        from profiles join users on profiles.user_id = users.id left join project_subscriptions on
         project_subscriptions.user_id = users.id
         join memberships on profiles.user_id = memberships.user_id
         #{condition_clause}
@@ -239,13 +240,15 @@ class Profile < ActiveRecord::Base
         project_subscriptions_count DESC"
     when "5" then
       return "select profiles.* from profiles join users on profiles.user_id = users.id
-        join member_rating_histories on profiles.user_id = member_rating_histories.member_id
+        left join member_rating_histories on profiles.user_id = member_rating_histories.member_id
         join memberships on profiles.user_id = memberships.user_id
         #{condition_clause}
         group by profiles.user_id
         order by users.member_rating DESC, count(member_rating_histories.member_id) DESC"
     else
-      return "select profiles.* from profiles order by created_at DESC"
+      return "select profiles.* from profiles join users on profiles.user_id = users.id
+        join memberships on profiles.user_id = memberships.user_id
+        #{condition_clause} order by users.created_at DESC"
     end
   end
   

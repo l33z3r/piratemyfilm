@@ -291,7 +291,7 @@ class User < ActiveRecord::Base
     @count = 0
 
     for project in owned_public_projects do
-      if project.capital_required > cap
+      if !project.in_payment_phases? && project.capital_required > cap
         @count = @count + 1
       end
 
@@ -304,7 +304,7 @@ class User < ActiveRecord::Base
     @count = 0
 
     for project in owned_public_projects do
-      if project.capital_required < cap
+      if !project.in_payment_phases? && project.capital_required < cap
         @count = @count + 1
       end
 

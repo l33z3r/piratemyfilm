@@ -82,38 +82,6 @@ module ApplicationHelper
       end
     end
   end
-
-  def fund_collection_button project
-    if @u && (@project.owner == @u || @u.is_admin) && project.green_light
-      content_tag :div, :class => "button left" do
-        link_to "Collect Funds", {:controller => "payment_window", :action => "history", :id => project.id}
-      end
-    end
-  end
-
-  def green_light_button project
-    if @u && @u.is_admin && project.budget_reached? && !project.green_light
-      content_tag :div, :class => "button left" do
-        link_to "Give Green", {:action => "update_green_light", :id => project.id}
-      end
-    end
-  end
-
-  def flag_project_button project
-    if @u and !@u.flagged_project? project
-      content_tag :div, :class => "button left" do
-        link_to "Flag", flag_project_path(project), :method => "post"
-      end
-    end
-  end
-
-  def delete_button project
-    if !project.green_light
-      content_tag :div, :class => "button left" do
-        link_to "Delete Project", {:controller => "projects", :action => "delete", :id => project.id}
-      end
-    end
-  end
   
   def follow_project_button_small project
     if @u and @u.following? project

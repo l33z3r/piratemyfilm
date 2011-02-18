@@ -134,7 +134,7 @@ class ProjectSubscription < ActiveRecord::Base
   def self.update_share_queue project
     logger.debug "UPDATING SHARE QUEUE FOR PROJECT #{project.id}"
 
-    if project.in_payment? || project.finished_payment_collection
+    if project.in_payment_phases?
       logger.debug "Will not update share queue for project that is in payment"
       return
     end

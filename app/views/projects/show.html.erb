@@ -5,19 +5,53 @@
 <% end %>
 
 <div id="project_show">
+
+  <div class="dashed_light_border">&nbsp;</div>
+
   <div class="project_action_links">
-    <% if @u && (@project.owner == @u || @u.is_admin) %>
-      <div class="button left"><%= link_to "Edit project", edit_project_path(@project) %></div>
-      <%= delete_button @project %>
-      <div class="button left">
-        <%= link_to "Share Queue", :action => "share_queue", :id => @project.id %>
-      </div>
-      <%= fund_collection_button @project %>
+
+    <% if owner_or_admin? %>
+      <%= edit_project_link @project %>
+      <%= delete_project_link @project %>
+      <%= share_queue_link @project %>
+      <%= fund_collection_link @project %>
     <% end %>
-    <%= green_light_button @project %>
-    <%= follow_project_button @project %>
-    <div class="button left"><%= link_to "Invite", invite_friends_project_path(@project) %></div>
-    <%= flag_project_button @project %>
+
+    <%= green_light_link @project %>
+    <%= follow_project_link @project %>
+
+    <div class="left"><%= link_to "Invite", invite_friends_project_path(@project) %> - </div>
+    <%= flag_project_link @project %>
+  </div>
+
+  <div class="project_share_buttons">
+
+    <div class="tweet_button">
+      <a href="http://twitter.com/share?url=<%= url_encode(url_for(:only_path => false,
+          :controller => "project", :action => "show",
+             :id => @project)) %>&via=piratemyfilm&text=Check out this project on PMF! <%= @project.title %>"
+         class="twitter-share-button" data-count="horizontal" data-related="piratemyfilm">
+        Tweet
+      </a>
+      <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    </div>
+
+    <div class="facebook_button">
+      <a name="fb_share" type="button_count" share_url="<%= url_for :only_path => false,
+           :controller => "project", :action => "show", :id => @project %>"
+         href="http://www.facebook.com/sharer.php">Share</a>
+      <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+    </div>
+
+    <div class="facebook_like_button">
+      <iframe src="http://www.facebook.com/plugins/like.php?href=<%= url_encode(url_for(:only_path => false,
+          :controller => "project", :action => "show",
+                  :id => @project)) %>&amp;layout=button_count&amp;show_faces=false&amp;width=80&amp;action=like&amp;colorscheme=light&amp;height=21"
+              scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;"
+              allowTransparency="true">
+      </iframe>
+    </div>
+    
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -54,7 +88,7 @@
       <div class="top_share_buttons">
         <div class="tweet_button">
           <a href="http://twitter.com/share?url=<%= url_encode(url_for(:only_path => false,
-                 :controller => "project_comments", :action => "show",
+              :controller => "project_comments", :action => "show",
                  :id => @project.latest_project_comment.id, :anchor => "pmf_comment")) %>&via=piratemyfilm&text=New Comment on Project: <%= @project.symbol %>"
              class="twitter-share-button"data-count="vertical" data-related="piratemyfilm">
             Tweet
@@ -120,6 +154,22 @@
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
+
+  <% if @project.youtube_vid_id %>
+    <div id="project_youtube_vid">
+      <fieldset>
+        <div class="header">Youtube Video</div>
+        <ol>
+          <li>
+            <iframe align="center" title="YouTube video player" width="800" height="500"
+                    src="http://www.youtube.com/embed/<%= @project.youtube_vid_id_stripped %>"
+                    frameborder="0" allowfullscreen>
+            </iframe>
+          </li>
+        </ol>
+      </fieldset>
+    </div>
+  <% end %>
 
   <div id="project_blogs">
     <fieldset>

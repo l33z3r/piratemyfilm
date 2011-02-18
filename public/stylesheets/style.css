@@ -706,8 +706,30 @@ div#project_show div.latest_blog span.date {
 }
 
 div.project_action_links {
-    float: right;
+    float: left;
     margin: 5px 0px;
+}
+
+div.project_action_links div {
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+div.project_action_links div a {
+    font-weight: bold;
+}
+
+div.project_share_buttons {
+    margin-top: 7px;
+    float: right;
+}
+
+div.project_share_buttons div {
+    float: left;
+}
+
+div.project_share_buttons div.facebook_like_button {
+    margin-left: 10px;
 }
 
 div#project_blogs {
@@ -1266,6 +1288,10 @@ div#users div#filter_param_box {
 
 div#users div#search_text {
     clear: both;
+}
+
+div#users div#filter_param_box div.label {
+    margin-left: 10px;
 }
 
 /* static pages */
