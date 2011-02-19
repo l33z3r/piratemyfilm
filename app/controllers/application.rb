@@ -130,7 +130,7 @@ class ApplicationController < ActionController::Base
     @top_sitewide_projects = ProjectChangeInfoOneDay.top_five_change_for_site
     @bottom_sitewide_projects = ProjectChangeInfoOneDay.bottom_five_change_for_site
 
-    @projects_awaiting_payment_count = @u.subscribed_projects_awaiting_payment.size
+    @projects_awaiting_payment_count = @u ? @u.subscribed_projects_awaiting_payment.size : 0
 
     @num_funded_projects = Project.all_funded.size
     @total_funded_amount = Project.all_funded_amount
