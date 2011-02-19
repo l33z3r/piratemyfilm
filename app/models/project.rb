@@ -165,7 +165,7 @@ class Project < ActiveRecord::Base
       options[:conditions] = sanitize_sql('symbol IS NOT NULL')
     end
 
-    options[:conditions] << sanitize_sql(' AND is_deleted = 0')
+    options[:conditions] << sanitize_sql(' AND is_deleted = 0 ')
 
     @projects = self.find(:all, options)
 
@@ -364,6 +364,10 @@ class Project < ActiveRecord::Base
     self.percent_funded >= 100
   end
 
+  def budget_reached_include_pmf?
+    self.percent_funded_with_pmf_fund_non_outstanding >= 100
+  end
+
   def delete
     self.is_deleted = true
     self.member_rating = 0
@@ -385,30 +389,34 @@ class Project < ActiveRecord::Base
     #14 => "Producer Dividend", 15 => "Shareholder Dividend", 16 => "PMF Fund Dividend",
     #17 => "% PMF Fund Shares",
     #18 => "No. PMF Fund Shares",
-    19 => "Green Light"
+    19 => "Green Light", 20 => "Fully Funded"
   }
 
   def self.get_filter_sql filter_param
+
+    @payment_status_filter = "(project_payment_status is null or project_payment_status != 'Finished Payment')"
+
     case filter_param
-    when "2" then return nil
-    when "3" then return "status = \"Pre Production\""
-    when "4" then return "status = \"In Production\""
-    when "5" then return "status = \"Post Production\""
-    when "6" then return "status = \"Finishing Funds\""
-    when "7" then return "genre_id = #{Genre.find_by_title("Trailer").id}"
-    when "8" then return nil
-    when "9" then return nil
-    when "10" then return nil
-    when "11" then return nil
-    when "12" then return nil
-    when "13" then return nil
-    when "14" then return nil
-    when "15" then return nil
-    when "16" then return nil
-    when "17" then return nil
-    when "18" then return nil
+    when "2" then return @payment_status_filter
+    when "3" then return "status = \"Pre Production\" and #{@payment_status_filter}"
+    when "4" then return "status = \"In Production\" and #{@payment_status_filter}"
+    when "5" then return "status = \"Post Production\" and #{@payment_status_filter}"
+    when "6" then return "status = \"Finishing Funds\" and #{@payment_status_filter}"
+    when "7" then return "genre_id = #{Genre.find_by_title("Trailer").id} #{@payment_status_filter}"
+    when "8" then return @payment_status_filter
+    when "9" then return @payment_status_filter
+    when "10" then return @payment_status_filter
+    when "11" then return @payment_status_filter
+    when "12" then return @payment_status_filter
+    when "13" then return @payment_status_filter
+    when "14" then return @payment_status_filter
+    when "15" then return @payment_status_filter
+    when "16" then return @payment_status_filter
+    when "17" then return @payment_status_filter
+    when "18" then return @payment_status_filter
     when "19" then return "green_light is NOT NULL"
-    else return nil
+    when "20" then return "project_payment_status = 'Finished Payment'"
+    else return @payment_status_filter
     end
   end
 
@@ -432,6 +440,7 @@ class Project < ActiveRecord::Base
       #    when "17" then return "pmf_fund_investment_percentage DESC"
     when "18" then return "pmf_fund_investment_share_amount DESC"
     when "19" then return "green_light DESC"
+    when "20" then return "fully_funded_time DESC"
     else return "created_at DESC"
     end
   end
@@ -538,6 +547,12 @@ class Project < ActiveRecord::Base
     (total_copies - @amount_shares_paid_for).to_i
   end
 
+  def mark_as_finished_payment
+    self.project_payment_status = "Finished Payment"
+    self.fully_funded_time = Time.now
+    self.save_without_validating
+  end
+
   def share_queue_exhausted?
     project_subscriptions.find(:all, :conditions => "subscription_payment_id is null").empty?
   end
@@ -618,6 +633,14 @@ class Project < ActiveRecord::Base
     find(:all, :include => :project_flaggings, :group => "projects.id",
       :conditions => "project_flaggings.id is not null and projects.is_deleted = 0",
       :order => "count(project_flaggings.id) DESC")
+  end
+
+  def self.all_funded
+    find(:all, :conditions => "project_payment_status = 'Finished Payment'")
+  end
+
+  def self.all_funded_amount
+    sum(:capital_required, :conditions => "project_payment_status = 'Finished Payment'")
   end
 
   def gensym

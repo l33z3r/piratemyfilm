@@ -73,7 +73,7 @@ class ProjectSubscription < ActiveRecord::Base
     @max_project_subscription_reached = false
 
     if @project_subscriptions.size == 0
-      @number_projects_subscribed_to = user.number_projects_subscribed_to
+      @number_projects_subscribed_to = user.number_non_funded_projects_subscribed_to
       @max_overall_project_subscriptions = user.membership_type.pc_project_limit
       @max_project_subscription_reached = @number_projects_subscribed_to >= @max_overall_project_subscriptions
     end

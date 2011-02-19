@@ -3,17 +3,17 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; utf-8" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="alternate" type="application/rss+xml"
-          title="PMF Blogs Feed" href="<%= url_for :only_path => false, :controller => "blogs", :format => "rss" %>" />
+      <link rel="alternate" type="application/rss+xml"
+            title="PMF Blogs Feed" href="<%= url_for :only_path => false, :controller => "blogs", :format => "rss" %>" />
 
-    <meta name="description" content="Crowd Funding For Pirates"/>
-    <meta name="keywords" content="max keiser, pirate film, market" />
+      <meta name="description" content="Crowd Funding For Pirates"/>
+      <meta name="keywords" content="max keiser, pirate film, market" />
 
-    <title><%= @title ? "Pirate My Film - " + h(@title) : "Pirate My Film" %></title>
+      <title><%= @title ? "Pirate My Film - " + h(@title) : "Pirate My Film" %></title>
 
-    <%= render :partial => 'shared/head_load' %>
+      <%= render :partial => 'shared/head_load' %>
 
-    <%= yield :head %>
+      <%= yield :head %>
 
   </head>
 
@@ -79,9 +79,19 @@
           <div id="stats_container">
             <div class="stat">
               <b><%= print_money @total_reservations_amount %></b>
-              Reserved in
+              Reserved In
               <b><%= @total_reservations %></b> Projects
               Seeking <b><%= print_money @total_funds_needed %></b>
+            </div>
+          </div>
+
+          <div class="pmf_clear">&nbsp;</div>
+
+          <div id="stats_container">
+            <div class="stat">
+              <b><%= print_money @total_funded_amount %></b>
+              In Funds Have Been Raised For
+              <b><%= pluralize @num_funded_projects, "Project" %></b>
             </div>
           </div>
 

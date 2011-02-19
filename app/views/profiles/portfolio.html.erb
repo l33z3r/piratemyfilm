@@ -24,15 +24,32 @@
       <div class="portfolio_info">
         <div class="title">Portfolio Info</div>
         <div class="pmf_clear">&nbsp;</div>
-        <div class="stat_label">No. Projects Listed:</div>
+
+        <% if @projects_awaiting_payment_count > 0 %>
+          <div class="stat_label">Projects Awaiting Payment:</div>
+          <div class="stat">
+            <a href="<%= url_for(:controller => "profiles", :action => "portfolio_awaiting_payment") %>">
+              <b><%= @projects_awaiting_payment_count %></b>
+            </a>
+          </div>
+          <div class="pmf_clear">&nbsp;</div>
+        <% end %>
+
+        <div class="stat_label">No. Projects Offering Shares:</div>
         <div class="stat"><%= @user_projects.size %></div>
         <div class="pmf_clear">&nbsp;</div>
-        <div class="stat_label">No. Projects Reserving Shares In:</div>
-        <div class="stat"><%= @user_subscriptions.size %></div>
+        <div class="stat_label">No. Projects Funded:</div>
+        <div class="stat"><%= @user_funded_projects.size %></div>
         <div class="pmf_clear">&nbsp;</div>
-        <div class="stat_label">No. Shares Reserved:</div>
+        <div class="stat_label">No. Funded Projects Reserving Shares In:</div>
+        <div class="stat"><%= @user_funded_subscriptions.size %></div>
+        <div class="pmf_clear">&nbsp;</div>
+        <div class="stat_label">No. Non Funded Projects Reserving Shares In:</div>
+        <div class="stat"><%= @user_non_funded_subscriptions.size %></div>
+        <div class="pmf_clear">&nbsp;</div>
+        <div class="stat_label">No. Shares Reserved Total:</div>
         <div class="stat"><%= @total_shares_reserved %></div>
-        <div class="stat_label">$ Amount of Shares Reserved:</div>
+        <div class="stat_label">$ Amount of Shares Reserved Total:</div>
         <div class="stat">$<%= @total_shares_reserved_amount %></div>
         <div class="pmf_clear">&nbsp;</div>
       </div>
@@ -109,6 +126,27 @@
   <div class="project_listing_box">
     <div class="pageTitleSmaller">
       <% if @p == @profile %>
+        You have
+      <% else %>
+        <%=@profile.user.login%> has
+      <% end %>
+      <i>funded</i> these projects
+    </div>
+
+    <div class="dashed_light_border">&nbsp;</div>
+
+    <% if !@user_funded_projects or @user_funded_projects.empty? %>
+      No Projects Found!
+    <% else %>
+      <%= render :partial => "projects/listings", :object => @user_funded_projects %>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_listing_box">
+    <div class="pageTitleSmaller">
+      <% if @p == @profile %>
         You are
       <% else %>
         <%=@profile.user.login%> is
@@ -131,19 +169,41 @@
 
     <div class="pageTitleSmaller">
       <% if @p == @profile %>
-        You are
+        You have
       <% else %>
-        <%=@profile.user.login%> is
+        <%=@profile.user.login%> has
       <% end %>
-      <i>reserving</i> shares in these projects
+      <i>reserved</i> shares in these funded projects
     </div>
 
     <div class="dashed_light_border">&nbsp;</div>
 
-    <% if !@user_subscriptions or @user_subscriptions.empty? %>
+    <% if !@user_funded_subscriptions or @user_funded_subscriptions.empty? %>
       No Projects Found!
     <% else %>
-      <%= render :partial => "projects/listings", :object => @user_subscriptions %>
+      <%= render :partial => "projects/listings", :object => @user_funded_subscriptions %>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_listing_box">
+
+    <div class="pageTitleSmaller">
+      <% if @p == @profile %>
+        You are
+      <% else %>
+        <%=@profile.user.login%> is
+      <% end %>
+      <i>reserving</i> shares in these projects that are not yet funded
+    </div>
+
+    <div class="dashed_light_border">&nbsp;</div>
+
+    <% if !@user_non_funded_subscriptions or @user_non_funded_subscriptions.empty? %>
+      No Projects Found!
+    <% else %>
+      <%= render :partial => "projects/listings", :object => @user_non_funded_subscriptions %>
     <% end %>
   </div>
 </div>

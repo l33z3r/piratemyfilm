@@ -114,8 +114,7 @@ class ApplicationController < ActionController::Base
       @total_funds_needed += ps.project.capital_required
     end
 
-    @total_reservations = @unique_project_subscriptions.size
-
+    @total_reservations = Project.count(:all)
 
     #TODO change this to pick up dynamic ipo
     @total_reservations_amount = ProjectSubscription.sum(:amount) * 5
@@ -130,6 +129,11 @@ class ApplicationController < ActionController::Base
 
     @top_sitewide_projects = ProjectChangeInfoOneDay.top_five_change_for_site
     @bottom_sitewide_projects = ProjectChangeInfoOneDay.bottom_five_change_for_site
+
+    @projects_awaiting_payment_count = @u.subscribed_projects_awaiting_payment.size
+
+    @num_funded_projects = Project.all_funded.size
+    @total_funded_amount = Project.all_funded_amount
   end
 
   def print_money value

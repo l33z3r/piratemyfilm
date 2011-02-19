@@ -50,13 +50,30 @@ class User < ActiveRecord::Base
   
   before_save :encrypt_password
   validates_less_reverse_captcha
-  
+
   has_many :owned_public_projects, :class_name => "Project", :foreign_key => "owner_id", 
-    :conditions=>'symbol IS NOT NULL and is_deleted = 0', :order => "created_at"
+    :conditions=>"symbol IS NOT NULL and is_deleted = 0 and (project_payment_status is null or project_payment_status != 'Finished Payment')", 
+    :order => "created_at"
+  
+  has_many :owned_public_funded_projects, :class_name => "Project", :foreign_key => "owner_id",
+    :conditions=>"symbol IS NOT NULL and is_deleted = 0 and project_payment_status = 'Finished Payment'",
+    :order => "created_at"
+
   has_many :owned_projects, :class_name => "Project", :foreign_key => "owner_id"
+
   has_many :project_subscriptions, :dependent => :destroy
-  has_many :subscribed_projects, :through => :project_subscriptions, :source=> :project, 
-    :conditions=>'symbol IS NOT NULL and is_deleted = 0', :order => "project_subscriptions.created_at", :group => "projects.id"
+
+  has_many :subscribed_projects, :through => :project_subscriptions, :source=> :project,
+    :conditions=>'symbol IS NOT NULL and is_deleted = 0', :order => "project_subscriptions.created_at",
+    :group => "projects.id"
+  
+  has_many :subscribed_funded_projects, :through => :project_subscriptions, :source=> :project,
+    :conditions=>"symbol IS NOT NULL and is_deleted = 0 and project_payment_status = 'Finished Payment'",
+    :order => "project_subscriptions.created_at", :group => "projects.id"
+
+  has_many :subscribed_non_funded_projects, :through => :project_subscriptions, :source=> :project,
+    :conditions=>"symbol IS NOT NULL and is_deleted = 0 and (project_payment_status is null or project_payment_status != 'Finished Payment')",
+    :order => "project_subscriptions.created_at", :group => "projects.id"
 
   has_many :subscription_payments
 
@@ -241,7 +258,7 @@ class User < ActiveRecord::Base
   def projects_with_shares_over(cap)
     @count = 0
 
-    for project in subscribed_projects do
+    for project in subscribed_non_funded_projects do
       @project_subscriptions = ProjectSubscription.load_subscriptions self, project
       @project_subscription_amount = ProjectSubscription.calculate_amount @project_subscriptions
 
@@ -255,7 +272,7 @@ class User < ActiveRecord::Base
 
   #this function deletes and reduces shares over cap per project
   def delete_subscriptions_in_projects_with_shares_over(cap)
-    for project in subscribed_projects do
+    for project in subscribed_non_funded_projects do
       @project_subscriptions = ProjectSubscription.load_subscriptions self, project
       @project_subscription_amount = ProjectSubscription.calculate_amount @project_subscriptions
 
@@ -270,7 +287,7 @@ class User < ActiveRecord::Base
   #this function deletes shares over cap projects for a user
   #the deleted subscriptions are the most recent first subscription
   def delete_subscriptions_in_projects_over_total_allowed(cap)
-    @subscribed_projects = subscribed_projects.to_a
+    @subscribed_projects = subscribed_non_funded_projects.to_a
 
     return if @subscribed_projects.length < cap
 
@@ -315,6 +332,11 @@ class User < ActiveRecord::Base
 
   def number_projects_subscribed_to
     @num = self.subscribed_projects.size > 0 ? self.subscribed_projects.uniq.size : 0
+    @num
+  end
+
+  def number_non_funded_projects_subscribed_to
+    @num = self.subscribed_non_funded_projects.size > 0 ? self.subscribed_non_funded_projects.uniq.size : 0
     @num
   end
 
@@ -372,6 +394,12 @@ class User < ActiveRecord::Base
 
   def talent talent_type_id
     user_talents.find_by_talent_type(UserTalent.talent_types_map[talent_type_id])
+  end
+
+  def subscribed_projects_awaiting_payment
+    Project.find_by_sql("select projects.* from projects where id in
+    (select project_id from subscription_payments where (status is null or (status != 'Pending' and status != 'Paid'
+    and status != 'Defaulted') and user_id = #{id}) group by project_id)")
   end
 
   protected

@@ -127,7 +127,7 @@ class ProjectsController < ApplicationController
       #we only allow granting of green light for now
       return if @project.green_light
     
-      if !@project.budget_reached?
+      if !@project.budget_reached_include_pmf?
         flash[:error] = "Project must have 100% budget to be Green!"
         redirect_to project_path(@project) and return
       end

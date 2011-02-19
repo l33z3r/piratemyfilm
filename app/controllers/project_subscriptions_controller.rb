@@ -1,4 +1,4 @@
-class ProjectSubscriptionsController < ApplicationController
+  class ProjectSubscriptionsController < ApplicationController
 
   before_filter :load_project, :get_project_subscriptions, :except => :pmf_sub
   after_filter :update_project_funding, :except => :pmf_sub
@@ -11,7 +11,8 @@ class ProjectSubscriptionsController < ApplicationController
 
       #if we are the pmf_fund
       if @u.id == PMF_FUND_ACCOUNT_ID
-        pmf_fund_reserve and return
+        pmf_fund_reserve
+        return
       end
 
       #check that this project is no already in payment

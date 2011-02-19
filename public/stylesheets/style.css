@@ -147,7 +147,7 @@ div#hp_latest_blog div.blog_comments_link {
 
 div#signup_section {
     float: right;
-    margin-top: -12px;
+    margin-top: -32px;
 }
 
 div#signup_section div#signup_buttons {
@@ -1100,7 +1100,7 @@ div#profile div.portfolio_info div.stat_label_header {
 div#profile div.portfolio_info div.stat_label {
     float: left;
     margin-right: 10px;
-    width: 180px;
+    width: 275px;
 }
 
 div#profile div.portfolio_info div.stat_header {
@@ -2642,6 +2642,10 @@ div#buyout_requests div.odd {
     width: 214px;
     padding-left: 10px;
     float: left;
+}
+
+.view-lite-row-numbers ul li.fully_funded_textline {
+    text-align: center; font-weight: bold; width: 100%;
 }
 
 .view-lite-row-numbers ul {

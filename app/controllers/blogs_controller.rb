@@ -10,9 +10,9 @@ class BlogsController < ApplicationController
     @blogs = Blog.all_blogs
     @pmf_fund_comments = ProjectComment.latest
     @admin_project_ratings = AdminProjectRating.latest
-    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest
+#    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest
 
-    @items = @blogs + @pmf_fund_comments + @pmf_project_subscriptions + @admin_project_ratings
+    @items = @blogs + @pmf_fund_comments + @admin_project_ratings# + @pmf_project_subscriptions
 
     @items.sort! do |a,b|
       b.created_at <=> a.created_at

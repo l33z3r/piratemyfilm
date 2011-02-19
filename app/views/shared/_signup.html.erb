@@ -28,5 +28,17 @@
         </div>
       <% end %>
     </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+    <div id="links">
+      <% if @projects_awaiting_payment_count > 0 %>
+        <div class="link">
+          <a href="<%= url_for(:controller => "profiles", :action => "portfolio_awaiting_payment") %>">
+            <b><%= pluralize(@projects_awaiting_payment_count, "Project") %></b> Awaiting Payment
+          </a>
+        </div>
+      <% end %>
+    </div>
+
   </div>
 <% end %>

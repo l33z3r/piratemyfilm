@@ -58,7 +58,7 @@ class Admin::UsersController < Admin::AdminController
 
     #how many projects has the user got shares in, and does it exceed the
     #total amount of projects they are allowed to hold shares in
-    @num_projects_exceeding_share_limit = @user.subscribed_projects.length - @new_membership_type.pc_project_limit
+    @num_projects_exceeding_share_limit = @user.subscribed_non_funded_projects.length - @new_membership_type.pc_project_limit
 
     #how many projects exceed the budget limit
     @num_projects_exceeding_budget_limit = @user.projects_exceeding_budget_limit(@new_membership_type.funding_limit_per_project)

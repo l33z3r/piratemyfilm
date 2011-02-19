@@ -170,7 +170,7 @@ class PaymentWindowController < ApplicationController
     @project.pmf_share_buyout.status = "Verified"
     @project.pmf_share_buyout.save!
 
-    @project.project_payment_status = "Finished Payment"
+    @project.mark_as_finished_payment
     @project.save!
     
     flash[:positive] = "Payment Confirmed!"
@@ -229,7 +229,7 @@ class PaymentWindowController < ApplicationController
     #if we have enough paid shares, mark the project as payment complete
     if @project.amount_payment_collected >= @project.capital_required
       @payment_window.status = "Successful"
-      @project.project_payment_status = "Finished Payment"
+      @project.mark_as_finished_payment
     else
       @payment_window.status = "Failed"
     end

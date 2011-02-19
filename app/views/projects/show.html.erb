@@ -10,6 +10,10 @@
 
   <div class="project_action_links">
 
+    <div class="left">
+      <%= link_to "Invite Friends", invite_friends_project_path(@project) %>
+    </div>
+
     <% if owner_or_admin? %>
       <%= edit_project_link @project %>
       <%= delete_project_link @project %>
@@ -20,7 +24,6 @@
     <%= green_light_link @project %>
     <%= follow_project_link @project %>
 
-    <div class="left"><%= link_to "Invite", invite_friends_project_path(@project) %> - </div>
     <%= flag_project_link @project %>
   </div>
 
@@ -51,7 +54,7 @@
               allowTransparency="true">
       </iframe>
     </div>
-    
+
   </div>
 
   <div class="pmf_clear">&nbsp;</div>

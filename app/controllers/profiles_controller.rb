@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   include ApplicationHelper
     
-  prepend_before_filter :setup, :except => :index
+  prepend_before_filter :setup, :except => [:index, :portfolio_awaiting_payment]
 
   before_filter :search_results, :only => :index
   before_filter :load_profile_filter_params
@@ -79,7 +79,21 @@ class ProfilesController < ApplicationController
     @total_shares_reserved_amount = @total_shares_reserved * 5
 
     @user_projects = @profile.user.owned_public_projects
-    @user_subscriptions = @profile.user.subscribed_projects
+    @user_funded_projects = @profile.user.owned_public_funded_projects
+
+    @user_non_funded_subscriptions = @profile.user.subscribed_non_funded_projects
+    @user_funded_subscriptions = @profile.user.subscribed_funded_projects
+  end
+
+  def portfolio_awaiting_payment
+    @profile = @u.profile
+
+    @projects_awaiting_payment = @profile.user.subscribed_projects_awaiting_payment
+
+    if @projects_awaiting_payment.size == 0
+      flash[:error] = "No projects are awaiting payment of shares by you!"
+      redirect_to profile_path(@profile)
+    end
   end
 
   def friend_list
