@@ -414,7 +414,7 @@ class Project < ActiveRecord::Base
     when "16" then return @payment_status_filter
     when "17" then return @payment_status_filter
     when "18" then return @payment_status_filter
-    when "19" then return "green_light is NOT NULL"
+    when "19" then return "#{@payment_status_filter} and green_light is NOT NULL"
     when "20" then return "project_payment_status = 'Finished Payment'"
     else return @payment_status_filter
     end
