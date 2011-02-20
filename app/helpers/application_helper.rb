@@ -73,6 +73,10 @@ module ApplicationHelper
     errors.is_a?(Array) ? errors.first : errors# errors.to_sentence : errors
   end
 
+  def project_completion project
+    distance_of_time_in_words Time.now, project.completion_date unless !project.completion_date
+  end
+
   def follow_project_button project
     content_tag :div, :class => "button left" do
       if @u and @u.following? project

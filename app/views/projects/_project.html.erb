@@ -57,6 +57,12 @@ project_link_action ||= "show"
       <li class="pmf_clear"></li>
       <li class="label">Project Status:</li><li class="stat"><%= project.status %></li>
       <li class="pmf_clear"></li>
+      <li class="label">Time to Completion:</li>
+      <li class="stat">
+        <%= project_completion project %>
+        (<a class="tooltip_arrow" title="This is the estimated time it will take to complete the project production">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
     </ul>
   </div>
 

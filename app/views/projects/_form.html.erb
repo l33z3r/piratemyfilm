@@ -35,8 +35,18 @@
       Enter a youtube link for your project
     </td>
     <td>
-       <%= f.text_field :youtube_vid_id %>
+      <%= f.text_field :youtube_vid_id %>
       <%= display_error_on(project, :youtube_vid_id) %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter estimated project completion date
+    </td>
+    <td>
+      <%= f.date_select :completion_date %>
+      <%= display_error_on(project, :completion_date) -%>
     </td>
   </tr>
 
@@ -66,8 +76,8 @@
       <input type="hidden" name="project[ipo_price]" value="5"/>$5
     </td>
     <!--td>
-<%= f.text_field :ipo_price, :value => 0 %>
-<%= display_error_on(project, :ipo_price) -%>
+    <%= f.text_field :ipo_price, :value => 0 %>
+    <%= display_error_on(project, :ipo_price) -%>
     </td-->
   </tr>
 
@@ -83,8 +93,8 @@
     </td>
     <td>NYA</td>
     <!--td>
-      <%= f.text_field :share_percent_ads_producer %>
-      <%= display_error_on(project, :share_percent_ads_producer) -%>
+    <%= f.text_field :share_percent_ads_producer %>
+    <%= display_error_on(project, :share_percent_ads_producer) -%>
     </td-->
   </tr>
 
@@ -95,8 +105,8 @@
     </td>
     <td>NYA</td>
     <!--td>
-      <%= f.text_field :share_percent_ads %>
-      <%= display_error_on(project, :share_percent_ads) -%>
+    <%= f.text_field :share_percent_ads %>
+    <%= display_error_on(project, :share_percent_ads) -%>
     </td-->
   </tr>
 
@@ -107,8 +117,8 @@
     </td>
     <td>NYA</td>
     <!--td>
-      <%= f.text_field :producer_fee_percent %>
-      <%= display_error_on(project, :producer_fee_percent) -%>
+    <%= f.text_field :producer_fee_percent %>
+    <%= display_error_on(project, :producer_fee_percent) -%>
     </td-->
   </tr>
 

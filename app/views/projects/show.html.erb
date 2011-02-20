@@ -2,6 +2,7 @@
   <meta name="title" content="<%= @project.symbol %>" />
   <meta name="description" content="<%= @project.description %>" />
   <link rel="image_src" href="<%= project_icon_path @project, :big %>" />
+  <%= render :partial => "og_tags", :locals => {:project => @project} %>
 <% end %>
 
 <div id="project_show">
