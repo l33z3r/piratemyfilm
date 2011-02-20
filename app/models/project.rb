@@ -67,8 +67,8 @@ class Project < ActiveRecord::Base
   has_many :subscribers, :through => :project_subscriptions, :source => :user,
     :order => "project_subscriptions.created_at", :group => "id"
 
-  has_many :blogs
-  has_many :project_flaggings
+  has_many :blogs, :dependent => :destroy
+  has_many :project_flaggings, :dependent => :destroy
   
   belongs_to :genre, :foreign_key=>'genre_id'
 
@@ -100,18 +100,18 @@ class Project < ActiveRecord::Base
 
   #note that we duplicate the following data as we need it to sort and order projects on the browse page
   #this makes the queries run faster
-  has_one :project_rating
+  has_one :project_rating, :dependant => :destroy
   
-  has_one :admin_project_rating, :order => "created_at DESC"
-  has_many :admin_project_ratings, :order => "created_at DESC"
-  has_many :pmf_fund_subscription_histories
+  has_one :admin_project_rating, :order => "created_at DESC", :dependant => :destroy
+  has_many :admin_project_ratings, :order => "created_at DESC", :dependant => :destroy
+  has_many :pmf_fund_subscription_histories, :dependant => :destroy
 
   has_many :subscription_payments
   has_many :payment_windows
 
   has_one :pmf_share_buyout
   
-  has_many :project_comments
+  has_many :project_comments, :dependant => :destroy
   has_one :latest_project_comment, :class_name => "ProjectComment", :order => "created_at DESC"
 
   belongs_to :director_talent, :class_name => "UserTalent", :foreign_key => 'director_talent_id'
@@ -389,7 +389,7 @@ class Project < ActiveRecord::Base
     #14 => "Producer Dividend", 15 => "Shareholder Dividend", 16 => "PMF Fund Dividend",
     #17 => "% PMF Fund Shares",
     #18 => "No. PMF Fund Shares",
-    19 => "Green Light", 20 => "Fully Funded"
+    19 => "Green Light", 20 => "Fully Funded", 21 => "In Payment"
   }
 
   def self.get_filter_sql filter_param
@@ -416,6 +416,7 @@ class Project < ActiveRecord::Base
     when "18" then return @payment_status_filter
     when "19" then return "#{@payment_status_filter} and green_light is NOT NULL"
     when "20" then return "project_payment_status = 'Finished Payment'"
+    when "21" then return "project_payment_status = 'In Payment'"
     else return @payment_status_filter
     end
   end
@@ -441,6 +442,7 @@ class Project < ActiveRecord::Base
     when "18" then return "pmf_fund_investment_share_amount DESC"
     when "19" then return "green_light DESC"
     when "20" then return "fully_funded_time DESC"
+    when "21" then return "green_light DESC"
     else return "created_at DESC"
     end
   end
