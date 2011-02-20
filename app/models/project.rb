@@ -96,7 +96,9 @@ class Project < ActiveRecord::Base
   validate_on_create :funding_limit_not_exceeded, :min_funding_limit_passed
   validate_on_update :funding_limit_not_exceeded, :min_funding_limit_passed
 
-  acts_as_ferret :fields => [ :title, :synopsis, :description, :user_login, :user_full_name ], :remote => true
+  acts_as_ferret :fields => [ :title, :synopsis, :description, 
+    :user_login, :user_full_name, :director, :writer, :exec_producer,
+    :director_photography, :editor ], :remote => true
 
   #note that we duplicate the following data as we need it to sort and order projects on the browse page
   #this makes the queries run faster
