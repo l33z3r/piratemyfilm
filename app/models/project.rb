@@ -158,8 +158,8 @@ class Project < ActiveRecord::Base
 
     #TODO: use with_scope
 
-    
-    options = args[0]
+
+    options = args[0] ? args[0] : {}
 
     if options[:conditions]
       options[:conditions] << sanitize_sql(' AND symbol IS NOT NULL')

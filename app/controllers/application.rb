@@ -114,7 +114,7 @@ class ApplicationController < ActionController::Base
       @total_funds_needed += ps.project.capital_required
     end
 
-    @total_reservations = Project.count(:all)
+    @total_reservations = Project.find_all_public.size
 
     #TODO change this to pick up dynamic ipo
     @total_reservations_amount = ProjectSubscription.sum(:amount) * 5
