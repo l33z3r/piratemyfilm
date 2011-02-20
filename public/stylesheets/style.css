@@ -1462,6 +1462,7 @@ div#header div#stats_container {
 div#header div.sitewide_portfolio_info {
     width: 460px;
     float: right;
+    margin-bottom: 10px;
 }
 
 div#header div.sitewide_portfolio_info div#winners {
@@ -1477,6 +1478,12 @@ div#header div.sitewide_portfolio_info div.title {
     font-weight: bold;
     color: black;
     font-size: 14px;
+}
+
+div#header div.sitewide_portfolio_info div.explain {
+    margin-bottom: 10px;
+    color: black;
+    font-size: 12px;
 }
 
 div#header div.sitewide_portfolio_info div.stat_label_header {
@@ -2704,6 +2711,19 @@ div#buyout_requests div.odd {
     width: 125px;
     margin-bottom: 1px;
     overflow: hidden;
+}
+
+div.project_listings div.action_links {
+    float: right;
+    margin: 10px 55px 10px 0px;
+}
+
+div.project_listings div.action_links div.link {
+    float: left;
+}
+
+div.project_listings div.action_links div.link a {
+    font-weight: bold;
 }
 
 #content .view-lite-row-words li.stat {

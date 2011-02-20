@@ -291,12 +291,12 @@
     </fieldset>
   <% end %>
 
-  <% if @project.subscribers.length > 0 %>
+  <% if @project.ordered_subscribers.length > 0 %>
     <div class="pageTitle">Members Reserving Shares</div>
     <div class="pmf_clear_bottom_border">&nbsp;</div>
 
     <div class="users">
-      <% @project.subscribers.each do |user| %>
+      <% @project.ordered_subscribers.each do |user| %>
         <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
       <% end %>
     </div>

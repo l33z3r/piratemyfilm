@@ -131,6 +131,34 @@ class ProjectSubscription < ActiveRecord::Base
     @subscriptions
   end
 
+  #get the end of the queue that has not been assigned a payment yet
+  def self.share_queue_pending project
+    @subscriptions = find_all_by_project_id(project, :order => "created_at, id")
+    @subscriptions = apply_sorting_rules(@subscriptions)
+
+    #trim off the start of the queue for subscriptions that have been assigned a paymentd
+    @subscriptions = @subscriptions.reject(&:subscription_payment_id)
+
+    @subscriptions
+  end
+
+  #get the end of the queue that has not been assigned a payment yet and
+  #that belong to the pmf fund
+  def self.share_queue_pending_pmf_fund project
+    @subscriptions = find_all_by_project_id(project, :order => "created_at, id")
+    @subscriptions = apply_sorting_rules(@subscriptions)
+
+    #trim off the start of the queue for subscriptions that have been assigned a paymentd
+    @subscriptions = @subscriptions.reject(&:subscription_payment_id)
+
+    #take out any shares that are not belonging to pmf fund
+    @subscriptions = @subscriptions.reject do |sub|
+      sub.user_id != PMF_FUND_ACCOUNT_ID
+    end
+
+    @subscriptions
+  end
+
   def self.update_share_queue project
     logger.debug "UPDATING SHARE QUEUE FOR PROJECT #{project.id}"
 

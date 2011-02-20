@@ -13,8 +13,11 @@
 #
 
 class PaymentWindow < ActiveRecord::Base
+
   belongs_to :project
+
   has_many :subscription_payments
+
   has_many :pending_payments, :class_name => "SubscriptionPayment", :foreign_key => "payment_window_id", :conditions => "status = 'Pending' or status = 'Open'"
   has_many :completed_payments, :class_name => "SubscriptionPayment", :foreign_key => "payment_window_id", :conditions => "status = 'Paid'"
   has_many :defaulted_payments, :class_name => "SubscriptionPayment", :foreign_key => "payment_window_id", :conditions => "status = 'Defaulted'"
@@ -60,5 +63,22 @@ class PaymentWindow < ActiveRecord::Base
 
   def all_payments_collected?
     pending_payments.size == 0 && defaulted_payments.size == 0
+  end
+
+  def total_share_amount
+    subscription_payments.sum(:share_amount)
+  end
+
+  def share_queue_pending_amount
+    project.share_queue_pending.sum(&:amount)
+  end
+
+  def share_queue_pending_pmf_fund_amount
+    project.share_queue_pending_pmf_fund.sum(&:amount)
+  end
+
+  def share_queue_pending_dollar_amount
+    #TODO: pick up IPO dynamically
+    project.share_queue_pending.sum(&:amount) * 5
   end
 end

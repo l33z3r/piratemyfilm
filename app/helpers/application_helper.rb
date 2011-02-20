@@ -95,6 +95,12 @@ module ApplicationHelper
     end
   end
 
+  def small_view_edit_link project
+    if @u && (project.owner == @u || @u.is_admin)
+      link_to "Edit Project", edit_project_path(project)
+    end
+  end
+
   def subscription_info project
     if @u
       if project.finished_payment_collection

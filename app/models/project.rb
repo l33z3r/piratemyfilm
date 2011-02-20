@@ -505,6 +505,19 @@ class Project < ActiveRecord::Base
     ProjectSubscription.share_queue self
   end
 
+  #get the end of the queue that has not been assigned a payment yet
+  def share_queue_pending
+    ProjectSubscription.share_queue_pending self
+  end
+
+  def share_queue_pending_pmf_fund
+    ProjectSubscription.share_queue_pending_pmf_fund self
+  end
+
+  def ordered_subscribers
+    share_queue.collect(&:user).uniq
+  end
+
   def in_payment_phases?
     in_payment? || finished_payment_collection
   end

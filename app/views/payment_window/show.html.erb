@@ -52,6 +52,13 @@
 
   <div class="pmf_clear_10">&nbsp;</div>
 
+  This is the order for <%= @payment_window.total_share_amount %> shares that funds your project.<br/>
+  There are <%= pluralize(@payment_window.share_queue_pending_amount, "Share") %> left in the queue
+  (including <%= pluralize(@payment_window.share_queue_pending_pmf_fund_amount, "Share") %> from the pmf fund)<br/>
+  totalling <%= print_money(@payment_window.share_queue_pending_dollar_amount) %> available if this reservation does not pay up.
+
+  <div class="pmf_clear_10">&nbsp;</div>
+
   You will receive an <i>item number</i> in your paypal payment. It corresponds to the payment ID's below.
   Using the ID's you receive in the payments, you can mark each payment as paid.
 
