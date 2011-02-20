@@ -25,7 +25,7 @@ class ProjectWidgetsController < ApplicationController
     end
 
     @order = Project.get_order_sql @filter_param
-    @projects = Project.find_all_public(:order=> @order, :limit => @num_projects)
+    @projects = Project.find_all_public(:conditions => "project_payment_status != 'Finished Payment'", :order=> @order, :limit => @num_projects)
 
     render :action => "render_widget", :layout => false
   end
