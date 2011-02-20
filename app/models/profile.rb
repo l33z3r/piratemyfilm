@@ -74,7 +74,7 @@ class Profile < ActiveRecord::Base
   #Forums
   has_many :forum_posts, :foreign_key => 'owner_id', :dependent => :destroy
   
-  acts_as_ferret :fields => [ :location, :f, :about_me ], :remote => true
+  acts_as_ferret :fields => [ :location, :f, :about_me, :user_login ], :remote => true
   
   file_column :icon, :magick => {
     :versions => { 
@@ -145,6 +145,10 @@ class Profile < ActiveRecord::Base
       ((self.first_name || '') + ' ' + (self.last_name || '')).strip
     end
   end
+
+  def user_login
+    user.login
+  end
   
   def location
     return Profile::NOWHERE if attributes['location'].blank?
@@ -208,6 +212,9 @@ class Profile < ActiveRecord::Base
   }
 
   def self.get_sql filter_param, condition_clause
+
+    condition_clause = "" if !condition_clause
+
     case filter_param
     when "2" then 
       return "select profiles.* from profiles join users on profiles.user_id = users.id 

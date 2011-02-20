@@ -96,7 +96,7 @@ class Project < ActiveRecord::Base
   validate_on_create :funding_limit_not_exceeded, :min_funding_limit_passed
   validate_on_update :funding_limit_not_exceeded, :min_funding_limit_passed
 
-  acts_as_ferret :fields => [ :title, :synopsis, :description ], :remote => true
+  acts_as_ferret :fields => [ :title, :synopsis, :description, :user_login, :user_full_name ], :remote => true
 
   #note that we duplicate the following data as we need it to sort and order projects on the browse page
   #this makes the queries run faster
@@ -648,6 +648,15 @@ class Project < ActiveRecord::Base
   def gensym
     generate_symbol
   end
+
+  def user_login
+    owner.profile.user_login
+  end
+
+  def user_full_name
+    owner.f
+  end
+
   protected
 
   def generate_symbol
