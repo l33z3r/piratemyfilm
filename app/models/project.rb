@@ -100,18 +100,18 @@ class Project < ActiveRecord::Base
 
   #note that we duplicate the following data as we need it to sort and order projects on the browse page
   #this makes the queries run faster
-  has_one :project_rating, :dependant => :destroy
+  has_one :project_rating, :dependent => :destroy
   
-  has_one :admin_project_rating, :order => "created_at DESC", :dependant => :destroy
-  has_many :admin_project_ratings, :order => "created_at DESC", :dependant => :destroy
-  has_many :pmf_fund_subscription_histories, :dependant => :destroy
+  has_one :admin_project_rating, :order => "created_at DESC", :dependent => :destroy
+  has_many :admin_project_ratings, :order => "created_at DESC", :dependent => :destroy
+  has_many :pmf_fund_subscription_histories, :dependent => :destroy
 
   has_many :subscription_payments
   has_many :payment_windows
 
   has_one :pmf_share_buyout
   
-  has_many :project_comments, :dependant => :destroy
+  has_many :project_comments, :dependent => :destroy
   has_one :latest_project_comment, :class_name => "ProjectComment", :order => "created_at DESC"
 
   belongs_to :director_talent, :class_name => "UserTalent", :foreign_key => 'director_talent_id'
@@ -402,7 +402,7 @@ class Project < ActiveRecord::Base
     when "4" then return "status = \"In Production\" and #{@payment_status_filter}"
     when "5" then return "status = \"Post Production\" and #{@payment_status_filter}"
     when "6" then return "status = \"Finishing Funds\" and #{@payment_status_filter}"
-    when "7" then return "genre_id = #{Genre.find_by_title("Trailer").id} #{@payment_status_filter}"
+    when "7" then return "genre_id = #{Genre.find_by_title("Trailer").id} and #{@payment_status_filter}"
     when "8" then return @payment_status_filter
     when "9" then return @payment_status_filter
     when "10" then return @payment_status_filter
