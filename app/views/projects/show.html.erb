@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <meta name="title" content="<%= @project.symbol %>" />
   <meta name="description" content="<%= @project.description %>" />
-  <link rel="image_src" href="http://www.piratemyfilm.com<%= project_icon_url @project, :big %>" />
+  <link rel="image_src" href="http://www.piratemyfilm.com<%= project_icon_path @project, :big %>" />
   <%= render :partial => "og_tags", :locals => {:project => @project} %>
 <% end %>
 
