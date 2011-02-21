@@ -24,9 +24,15 @@ class ProjectWidgetsController < ApplicationController
       render :inline => "Bad Parameters" and return
     end
 
-    @order = Project.get_order_sql @filter_param
-    @projects = Project.find_all_public(:conditions => "project_payment_status != 'Finished Payment'", :order=> @order, :limit => @num_projects)
+    if @filter_param = params[:filter_param]
+      @filter = Project.get_filter_sql @filter_param
+      @order = Project.get_order_sql @filter_param
 
+      @projects = Project.find_all_public(:conditions => @filter, :order=> @order).paginate :page => (params[:page] || 1), :per_page=> 15
+    else
+      @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 15
+    end
+    
     render :action => "render_widget", :layout => false
   end
 

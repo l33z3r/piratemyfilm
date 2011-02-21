@@ -179,9 +179,9 @@ div#signup_section div#signup_buttons div.login {
 }
 
 div#signup_section div#welcome_message div#icon {
-    float: left;
+    float: right;
     margin-top: -3px;
-    margin-right: 5px;
+    margin-left: 3px;
 }
 
 div#signup_section div#welcome_message div#icon a img {
@@ -214,6 +214,15 @@ div#signup_section div#welcome_message div#links div.link a {
     color: #000000;
     text-decoration: underline;
     font-size: 12px;
+}
+
+div#signup_section div#welcome_message div#links div.awaiting_payment_link a {
+    color: #000000;
+    font-weight: bold;
+}
+
+div#signup_section div#welcome_message div#links div.awaiting_payment_link a:hover {
+    text-decoration: underline;
 }
 
 /* Latest Max Blog */
@@ -2713,17 +2722,12 @@ div#buyout_requests div.odd {
     overflow: hidden;
 }
 
-div.project_listings div.action_links {
-    float: right;
-    margin: 10px 55px 10px 0px;
-}
-
-div.project_listings div.action_links div.link {
-    float: left;
-}
-
-div.project_listings div.action_links div.link a {
-    font-weight: bold;
+div.view-lite-row div.view-lite-row-project-name span.edit_link a ,
+div.view-lite-row-alt div.view-lite-row-project-name span.edit_link a {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 12px;
+    color: #444444;
 }
 
 #content .view-lite-row-words li.stat {

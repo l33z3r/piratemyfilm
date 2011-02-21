@@ -397,29 +397,30 @@ class Project < ActiveRecord::Base
   def self.get_filter_sql filter_param
 
     @payment_status_filter = "(project_payment_status is null or project_payment_status != 'Finished Payment')"
-
+    @green_light_filter = " green_light is null"
+    
     case filter_param
-    when "2" then return @payment_status_filter
-    when "3" then return "status = \"Pre Production\" and #{@payment_status_filter}"
-    when "4" then return "status = \"In Production\" and #{@payment_status_filter}"
-    when "5" then return "status = \"Post Production\" and #{@payment_status_filter}"
-    when "6" then return "status = \"Finishing Funds\" and #{@payment_status_filter}"
-    when "7" then return "genre_id = #{Genre.find_by_title("Trailer").id} and #{@payment_status_filter}"
-    when "8" then return @payment_status_filter
-    when "9" then return @payment_status_filter
-    when "10" then return @payment_status_filter
-    when "11" then return @payment_status_filter
-    when "12" then return @payment_status_filter
-    when "13" then return @payment_status_filter
-    when "14" then return @payment_status_filter
-    when "15" then return @payment_status_filter
-    when "16" then return @payment_status_filter
-    when "17" then return @payment_status_filter
-    when "18" then return @payment_status_filter
+    when "2" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "3" then return "status = \"Pre Production\" and #{@payment_status_filter} and #{@green_light_filter}"
+    when "4" then return "status = \"In Production\" and #{@payment_status_filter} and #{@green_light_filter}"
+    when "5" then return "status = \"Post Production\" and #{@payment_status_filter} and #{@green_light_filter}"
+    when "6" then return "status = \"Finishing Funds\" and #{@payment_status_filter} and #{@green_light_filter}"
+    when "7" then return "genre_id = #{Genre.find_by_title("Trailer").id} and #{@payment_status_filter} and #{@green_light_filter}"
+    when "8" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "9" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "10" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "11" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "12" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "13" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "14" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "15" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "16" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "17" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "18" then return "#{@payment_status_filter} and #{@green_light_filter}"
     when "19" then return "#{@payment_status_filter} and green_light is NOT NULL"
     when "20" then return "project_payment_status = 'Finished Payment'"
     when "21" then return "project_payment_status = 'In Payment'"
-    else return @payment_status_filter
+    else return "#{@payment_status_filter} and #{@green_light_filter}"
     end
   end
 

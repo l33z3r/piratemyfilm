@@ -8,6 +8,11 @@ project_link_action ||= "show"
   <div class="view-lite-row-project-name">
     <%= link_to h(project.title), :controller => project_link_controller,
       :action => project_link_action, :id => project %>
+
+    <span class="edit_link">
+      <%= small_view_edit_link project %>
+    </span>
+
     <span class="link_arrow">
       <%= link_to image_tag("right_arrow.png"), project_path(project) %>
     </span>
@@ -186,13 +191,5 @@ project_link_action ||= "show"
       </ul>
     </div>
   <% end %>
-
-  <div class="pmf_clear">&nbsp;</div>
-
-  <div class="action_links">
-    <div class="link">
-      <%= small_view_edit_link project %>
-    </div>
-  </div>
 
 </div>
