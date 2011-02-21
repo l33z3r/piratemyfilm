@@ -28,7 +28,7 @@ class ProjectWidgetsController < ApplicationController
       @filter = Project.get_filter_sql @filter_param
       @order = Project.get_order_sql @filter_param
 
-      @projects = Project.find_all_public(:conditions => @filter, :order=> @order).paginate :page => (params[:page] || 1), :per_page=> 15
+      @projects = Project.find_all_public(:conditions => @filter, :order=> @order, :limit => @num_projects).paginate :page => (params[:page] || 1), :per_page=> 15
     else
       @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 15
     end
