@@ -57,7 +57,7 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
       if @previous_day_change_info_obj
         @yesterday_share_amount = @previous_day_change_info_obj.share_amount
       else
-        @yesterday_share_amount = @today_share_amount
+        @yesterday_share_amount = 0
       end
 
       @change_amount = @today_share_amount - @yesterday_share_amount
