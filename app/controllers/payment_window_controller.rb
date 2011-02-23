@@ -2,7 +2,7 @@ class PaymentWindowController < ApplicationController
   before_filter :load_project, :except => ["mark_payment_paid", "show"]
 
   #we will manually check ownership in the mark_payment_paid action
-  before_filter :check_owner_or_admin, :except => ["mark_payment_paid"]
+  before_filter :check_owner_or_admin, :except => ["mark_payment_paid", "show"]
   
   before_filter :check_allow_create_window, :only => ["new", "create"]
   
@@ -245,6 +245,11 @@ class PaymentWindowController < ApplicationController
     begin
       @payment_window = PaymentWindow.find(params[:id])
       @project = @payment_window.project
+
+      if @project.owner != @u && !@u.is_admin
+        flash[:error] = 'You are not the owner of this project.'
+        redirect_to project_path(@project) and return
+      end
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "Payment Window Not Found"
       redirect_to :controller => "home"
