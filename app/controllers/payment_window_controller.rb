@@ -13,12 +13,6 @@ class PaymentWindowController < ApplicationController
   def create
     @payment_window = PaymentWindow.new(params[:payment_window])
 
-    #make sure the date is in the future only on window creation
-    if @payment_window.close_date <= (Date.today + 7)
-      flash[:error] = "Payment Window closing date must be set to at least a week in the future!"
-      render :action => "new" and return
-    end
-
     @payment_window.status = "Active"
     @payment_window.project_id = @project.id
 
@@ -185,12 +179,6 @@ class PaymentWindowController < ApplicationController
 
     if !@payment_window
       flash[:error] = "There is no active payment window for this project!"
-      redirect_to :action => "history", :id => @project and return
-    end
-
-    #payment window date must have elapsed
-    if !@payment_window.all_payments_collected? && @payment_window.close_date > Date.today
-      flash[:error] = "It has not passed the payment window close date, you must wait till then to close this window!"
       redirect_to :action => "history", :id => @project and return
     end
 
