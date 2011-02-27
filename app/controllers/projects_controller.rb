@@ -67,7 +67,9 @@ class ProjectsController < ApplicationController
       @hide_filter_params = true
 
       @project_subscription = ProjectFollowing.create( :user => @u, :project => @project)
-      
+
+      Notification.deliver_project_listed_notification @project
+
       flash[:positive] = "Project Created!"
       redirect_to project_path(@project)
     rescue ActiveRecord::RecordInvalid
@@ -135,6 +137,8 @@ class ProjectsController < ApplicationController
       @project.green_light = Time.now
       @project.save!
 
+      Notification.deliver_green_light_notification @project
+      
       flash[:positive] = "Project Updated."
       redirect_to project_path(@project)
     rescue ActiveRecord::RecordInvalid

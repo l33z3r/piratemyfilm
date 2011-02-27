@@ -73,7 +73,7 @@
 
         <div class="pmf_clear">&nbsp;</div>
       <% end %>
-      
+
       <%= render :partial => "talents" %>
     </div>
 
@@ -121,6 +121,27 @@
       </div>
 
       <%= render :partial => "membership_info" %>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <div id="notification_info">
+        <% if @p == @profile %>
+          <div class="membership_type">
+            <div class="title">Your Email Notifications</div>
+            <p>
+              You are currently set to receive email notifications for the
+              following events (note you can change these settings by clicking 
+              the edit profile button at the bottom of the page):
+            </p>
+
+            <ul>
+              <% @u.notifications.each do |notification| %>
+                <li><%= notification.description %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
 
       <div class="pmf_clear">&nbsp;</div>
 

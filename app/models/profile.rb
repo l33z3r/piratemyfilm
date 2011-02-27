@@ -197,6 +197,19 @@ class Profile < ActiveRecord::Base
     write_attribute(:flickr, fix_http(val))
   end
 
+  def notification_type_ids
+    user.notifications.collect(&:notification_type_id)
+  end
+
+  def notification_type_ids=(ids)
+    #clear all notifications first
+    Notification.destroy(user.notifications.collect(&:id))
+
+    ids.each do |id|
+      Notification.find_or_create_by_user_id_and_notification_type_id(user.id, id)
+    end
+  end
+
   def self.search query = '', options = {}, conditions = {}
     query ||= ''
     q = '*' + query.gsub(/[^\w\s-]/, '').gsub(' ', '* *') + '*'
@@ -292,6 +305,10 @@ class Profile < ActiveRecord::Base
     @filter_param_select_opts.reverse!
 
     @filter_param_select_opts
+  end
+
+  def receiving_notification_type(required_notification_type_id)
+    user.notifications.collect(&:notification_type_id).include?(required_notification_type_id)
   end
   
   protected

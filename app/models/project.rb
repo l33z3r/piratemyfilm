@@ -248,7 +248,16 @@ class Project < ActiveRecord::Base
     @downloads_reserved = project_subscriptions.collect { |s| s.amount }.sum - self.pmf_fund_investment_share_amount_incl_outstanding
     self.downloads_reserved = @downloads_reserved
     self.downloads_available = @total_copies - self.downloads_reserved
-    self.percent_funded = (downloads_reserved * 100) / @total_copies
+
+    @new_funding_percentage = (downloads_reserved * 100) / @total_copies
+
+    if percent_funded < 100 and @new_funding_percentage >= 100
+      Notification.deliver_fully_funded_notification self
+    elsif percent_funded < 90 and @new_funding_percentage >= 90
+      Notification.deliver_90_percent_funded_notification self
+    end
+
+    self.percent_funded = @new_funding_percentage
   end
 
   def update_estimates

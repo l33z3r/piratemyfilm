@@ -1,0 +1,13 @@
+PMF admin has just changed the rating on your project
+
+<%= h @project.title %>
+
+from <%= @old_rating_symbol %>
+
+to <%= @new_rating_symbol %>
+
+<br/><br/>
+
+<a href="<%= project_url(@project) %>">Log In Here</a>
+
+to see your project!

@@ -110,6 +110,7 @@ class ProfilesController < ApplicationController
   end
   
   def edit
+    @notification_types = Notification.all_types
     render
   end
   

@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   has_one :profile, :dependent => :nullify
 
   has_many :user_talents
+
+  has_many :notifications
   
   has_many :blog_comments
   has_many :project_flaggings

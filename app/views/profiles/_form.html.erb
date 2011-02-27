@@ -29,6 +29,33 @@
 
 <div class="pmf_clear">&nbsp;</div>
 
+<div id="notifications">
+  <% form_for @p, :html=>{:method=>:put, :class=>"box no_top"} do |f| %>
+    <h2>Notification Emails</h2>
+
+    Select Which Events You Wish To Be Notified Of Via Email:
+    
+    <div class="pmf_top_margin_10">&nbsp;</div>
+
+    <div class="row clear">
+      <% @notification_types.each do |notification_type_id, notification_type_desc| %>
+        <label><%= notification_type_desc %>:</label>
+        <%= check_box_tag "profile[notification_type_ids][]", notification_type_id, @p.receiving_notification_type(notification_type_id) %>
+        <div>&nbsp;</div>
+      <% end %>
+    </div>
+
+    <div class='row clear'>
+      <label>&nbsp;</label>
+      <%= f.submit 'Save', :class => 'button' %>
+    </div>
+
+    <input type="hidden" name="switch" value="name" />
+  <% end %>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>
+
 <div id="upload_icon">
   <% less_form_for @p, :html=>{:method=>:put, :multipart=>true, :class=>"box no_top"} do |p| %>
     <h2>Upload Avatar</h2>

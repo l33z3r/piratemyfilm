@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110220154924) do
+ActiveRecord::Schema.define(:version => 20110226213148) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -170,6 +170,13 @@ ActiveRecord::Schema.define(:version => 20110220154924) do
 
   add_index "messages", ["sender_id"], :name => "index_messages_on_sender_id"
   add_index "messages", ["receiver_id"], :name => "index_messages_on_receiver_id"
+
+  create_table "notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "notification_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "payment_windows", :force => true do |t|
     t.integer  "project_id"
