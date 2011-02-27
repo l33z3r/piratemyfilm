@@ -1,0 +1,51 @@
+<% if @project.ordered_subscribers_for_black_pearl_membership.length > 0 %>
+  <div class="pageTitle">Black Pearl Members Reserving Shares</div>
+  <div class="pmf_clear_bottom_border">&nbsp;</div>
+
+  <div class="users">
+    <% @project.ordered_subscribers_for_black_pearl_membership.each do |user| %>
+      <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear_bottom_border">&nbsp;</div>
+<% end %>
+
+<% if @project.ordered_subscribers_for_platinum_membership.length > 0 %>
+  <div class="pageTitle">Platinum Members Reserving Shares</div>
+  <div class="pmf_clear_bottom_border">&nbsp;</div>
+
+  <div class="users">
+    <% @project.ordered_subscribers_for_platinum_membership.each do |user| %>
+      <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear_bottom_border">&nbsp;</div>
+<% end %>
+
+<% if @project.ordered_subscribers_for_gold_membership.length > 0 %>
+  <div class="pageTitle">Gold Members Reserving Shares</div>
+  <div class="pmf_clear_bottom_border">&nbsp;</div>
+
+  <div class="users">
+    <% @project.ordered_subscribers_for_gold_membership.each do |user| %>
+      <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear_bottom_border">&nbsp;</div>
+<% end %>
+
+<% if @project.ordered_subscribers_for_basic_membership.length > 0 %>
+  <div class="pageTitle">Basic Members Reserving Shares</div>
+  <div class="pmf_clear_bottom_border">&nbsp;</div>
+
+  <div class="users">
+    <% @project.ordered_subscribers_for_basic_membership.each do |user| %>
+      <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear_bottom_border">&nbsp;</div>
+<% end %>

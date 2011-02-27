@@ -232,6 +232,9 @@ class ProjectSubscription < ActiveRecord::Base
     #pmf fund subs go to back of queue
     @subscriptions = sort_pmf_fund_subs(@subscriptions)
 
+    #maxriot goes to front of queue
+    @subscriptions = sort_maxriot_subs(@subscriptions)
+
     #some accounts can skip the queue
     @subscriptions = apply_account_skipping(@subscriptions)
 
@@ -259,7 +262,7 @@ class ProjectSubscription < ActiveRecord::Base
     @subscriptions
   end
 
-  def self.apply_account_skipping(subscriptions)
+  def self.sort_maxriot_subs(subscriptions)
     #for now we want the maxriot account to skip the queue
     @maxriot_user_id = Profile.find(MAXRIOT_PROFILE_ID).user.id
 
@@ -280,6 +283,40 @@ class ProjectSubscription < ActiveRecord::Base
 
     #now join the two arrays
     @subscriptions = @temp_maxriot_subs + @temp_subscriptions
+    @subscriptions
+  end
+
+  def self.apply_account_skipping(subscriptions)
+    #for now we want the maxriot account to skip the queue
+    @maxriot_user_id = Profile.find(MAXRIOT_PROFILE_ID).user.id
+
+    @temp_maxriot_subs = []
+    @temp_black_pearl_subs = []
+    @temp_platinum_subs = []
+    @temp_gold_subs = []
+    @temp_basic_subs = []
+    @temp_pmf_fund_subs = []
+
+    @subscriptions = subscriptions
+    
+    @subscriptions.each do |sub|
+      if sub.user_id == @maxriot_user_id
+        @temp_maxriot_subs << sub
+      elsif sub.user_id == PMF_FUND_ACCOUNT_ID
+        @temp_pmf_fund_subs << sub
+      elsif sub.user.membership.membership_type_id == MembershipType.find_by_name("Black Pearl").id
+        @temp_black_pearl_subs << sub
+      elsif sub.user.membership.membership_type_id == MembershipType.find_by_name("Platinum").id
+        @temp_platinum_subs << sub
+      elsif sub.user.membership.membership_type_id == MembershipType.find_by_name("Gold").id
+        @temp_gold_subs << sub
+      elsif sub.user.membership.membership_type_id == MembershipType.find_by_name("Basic").id
+        @temp_basic_subs << sub
+      end
+    end
+
+    #join all arrays
+    @subscriptions = @temp_maxriot_subs + @temp_black_pearl_subs + @temp_platinum_subs + @temp_gold_subs + @temp_basic_subs + @temp_pmf_fund_subs
     @subscriptions
   end
 

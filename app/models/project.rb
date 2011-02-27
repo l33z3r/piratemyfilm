@@ -528,6 +528,30 @@ class Project < ActiveRecord::Base
     share_queue.collect(&:user).uniq
   end
 
+  def ordered_subscribers_for_basic_membership
+    ordered_subscribers_for_membership_type(MembershipType.find_by_name("Basic"))
+  end
+  
+  def ordered_subscribers_for_gold_membership
+    ordered_subscribers_for_membership_type(MembershipType.find_by_name("Gold"))
+  end
+
+  def ordered_subscribers_for_platinum_membership
+    ordered_subscribers_for_membership_type(MembershipType.find_by_name("Platinum"))
+  end
+
+  def ordered_subscribers_for_black_pearl_membership
+    ordered_subscribers_for_membership_type(MembershipType.find_by_name("Black Pearl"))
+  end
+
+  def ordered_subscribers_for_membership_type membership_type
+    @subs = share_queue.reject do |ps|
+      ps.user.membership.membership_type_id != membership_type.id
+    end
+
+    @subs.collect(&:user).uniq
+  end
+
   def in_payment_phases?
     in_payment? || finished_payment_collection
   end

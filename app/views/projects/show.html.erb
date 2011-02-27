@@ -287,16 +287,5 @@
     </fieldset>
   <% end %>
 
-  <% if @project.ordered_subscribers.length > 0 %>
-    <div class="pageTitle">Members Reserving Shares</div>
-    <div class="pmf_clear_bottom_border">&nbsp;</div>
-
-    <div class="users">
-      <% @project.ordered_subscribers.each do |user| %>
-        <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
-      <% end %>
-    </div>
-
-    <div class="pmf_clear_bottom_border">&nbsp;</div>
-  <% end %>
+  <%= render :partial => "subscribers" %>
 </div>
