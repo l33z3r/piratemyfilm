@@ -285,11 +285,6 @@ div#header_links span.welcome_message {
     font-weight: bold;
 }
 
-div#top_search_box {
-    float: right;
-    margin-top: -5px;
-}
-
 div#topsite_links {
     margin-bottom: 4px;
 }
@@ -393,13 +388,12 @@ div#filter_param_box div.label {
 
 div#filter_param_box form select {
     float: right;
-    border: 1px solid #000000;
     background-color: #FFFFFF;
     margin-left: 10px;
+    margin-right: 10px;
     height: 22px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #636363;
+    font-size: 13px;
+    color: #666666;
     vertical-align: middle;
 }
 
@@ -1352,7 +1346,7 @@ div.static_content {
 /* End hide */
 
 #icatch	{
-    height: 67px;
+    margin-top: 3px;
 }
 
 .icatch-pictures {
@@ -1372,6 +1366,7 @@ div.static_content {
 
 .navbar-search {
     float:right;
+    width: 227px;
 }
 
 .icatch-button	a {
@@ -1382,9 +1377,9 @@ div.static_content {
 #search	{
     background: #fff url(/images/brand-search-bg.gif) repeat-x left top;
     padding:0px 10px;
-    margin-top:5px;
     height:40px;
     text-align:center;
+    margin-left: 5px;
 }
 
 #search form	{
@@ -1398,6 +1393,15 @@ div.static_content {
     margin-bottom:24px;
     color: #666;
     padding-left:3px;
+}
+
+div#filter_projects_nav {
+    background: #fff url(/images/brand-search-bg.gif) repeat-x left top;
+}
+
+div#filter_users_nav {
+    background: #fff url(/images/brand-search-bg.gif) repeat-x left top;
+    margin-right: 5px;
 }
 
 .big-number	{
@@ -1757,8 +1761,9 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #content {
+    clear: both;
     padding-top: 9px;
-    margin-top: -20px;
+    margin-top: 1px;
     display: block;
     text-align: left;
     background: url(/images/content-bg.gif) repeat-x left top;
@@ -2053,7 +2058,6 @@ div.TabView div.Pages div.Page div.Pad {
     width:120px;
     height:40px;
     float:left;
-    margin-top:5px;
     margin-right:5px;
     border-right: 1px solid #999999;
 }
@@ -3152,3 +3156,32 @@ div.project_listings_widget div.project_widget_footer img {
 }
 
 /* End Project Widget */
+
+/* Stats Page */
+
+div#stats_page div.subsection {
+    background-color: #EFEADC;
+    margin-bottom: 6px;
+    padding: 4px;
+    padding-bottom: 8px;
+}
+
+div#stats_page div#stats p {
+    margin-bottom: 10px;
+}
+
+div#stats_page div#stats div.stat_row {
+    width: 700px;
+}
+
+div#stats_page div#stats div.label {
+    float: left;
+    width: 50%;
+}
+
+div#stats_page div#stats div.stat {
+    float: left;
+    width: 50%;
+}
+
+/* End Stats Page */

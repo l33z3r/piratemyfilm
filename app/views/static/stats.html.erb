@@ -1,0 +1,122 @@
+<div id="stats_page" class="static_content">
+  <div class="pageTitle">PMF Statistics</div>
+
+  <div id="stats">
+
+    <div class="subsection">
+      <div class="pageTitleSmall">Projects</div>
+
+      <div class="stat_row">
+        <div class="label">No. Projects Listed:</div>
+        <div class="stat"><%= @projects_listed_count %></div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="stat_row">
+        <div class="label">Total Budget:</div>
+        <div class="stat"><%= print_money @total_budget %></div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="stat_row">
+        <div class="label">Average Budget:</div>
+        <div class="stat"><%= print_money @avg_budget %></div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="stat_row">
+        <div class="label">Total Dollar Amount Reserved:</div>
+        <div class="stat"><%= print_money @total_reservations_dollar_amount %></div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="stat_row">
+        <div class="label">Avg No. Shares Reserved Per Project:</div>
+        <div class="stat"><%= @avg_shares_reserved_per_project %></div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="stat_row">
+        <div class="label">Avg. Funding %:</div>
+        <div class="stat"><%= @avg_funding_percent %>%</div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="pageTitleSmall">Members</div>
+
+        <div class="stat_row">
+          <div class="label">No. Members</div>
+          <div class="stat"><%= @members_count %></div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+
+        <div class="stat_row">
+          <div class="label">No. Members Reserving Shares</div>
+          <div class="stat"><%= @num_users_reserving_shares %></div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+
+        <div class="stat_row">
+          <div class="label">% Members Reserving Shares</div>
+          <div class="stat"><%= @members_reserving_shares_percent %>%</div>
+            <div class="pmf_clear">&nbsp;</div>
+          </div>
+
+          <div class="stat_row">
+            <div class="label">Avg No. Projects Per Member</div>
+            <div class="stat"><%= @avg_number_projects_per_member %></div>
+            <div class="pmf_clear">&nbsp;</div>
+          </div>
+
+          <div class="stat_row">
+            <div class="label">Avg No. Reservations Per Member</div>
+            <div class="stat"><%= @avg_number_reservations_per_member %></div>
+            <div class="pmf_clear">&nbsp;</div>
+          </div>
+
+          <div class="pageTitleSmaller">No. Members By Country</div>
+
+          <% Country.all.each do |country| %>
+            <% country_count = Profile.find_all_by_country_id(country).size %>
+            <% if country_count > 0 %>
+              <div class="stat_row">
+                <div class="label"><%= country.name %>:</div>
+                <div class="stat"><%= country_count %></div>
+                <div class="pmf_clear">&nbsp;</div>
+              </div>
+            <% end %>
+          <% end %>
+
+          <div class="pageTitleSmaller">No. Members By Membership Type</div>
+
+          <% MembershipType.all.each do |mt| %>
+            <div class="stat_row">
+              <div class="label"><%= mt.name %>:</div>
+              <div class="stat"><%= User.find(:all, :include => "membership", :conditions => "memberships.membership_type_id = #{mt.id}").size %></div>
+              <div class="pmf_clear">&nbsp;</div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="subsection">
+          <div class="pageTitleSmall">Genres</div>
+
+          <div class="pageTitleSmaller">No. Projects Per Genre</div>
+
+          <% Genre.all.each do |genre| %>
+            <% genre_count = Project.find_all_public(:conditions => "genre_id = #{genre.id}").size %>
+            <% if genre_count > 0 %>
+              <div class="stat_row">
+                <div class="label"><%= genre.title %>:</div>
+                <div class="stat"><%= genre_count %></div>
+                <div class="pmf_clear">&nbsp;</div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+
+      </div>
+
+    </div>

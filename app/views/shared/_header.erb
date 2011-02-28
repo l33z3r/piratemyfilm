@@ -36,7 +36,7 @@
 
   <div class="sitewide_portfolio_info">
     <div class="title">Most Active Projects</div>
-    
+
     <div class="explain">
       Projects that have gained/lost
       the most share reservations in the last 24 hours
@@ -83,17 +83,9 @@
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
-    
+
   </div>
 </div>
-
-<div class="pmf_clear">&nbsp;</div>
-
-<% if !@hide_filter_params %>
-  <div id="top_search_box">
-    <%= render :partial => 'shared/filter_param_box' %>
-  </div>
-<% end %>
 
 <div class="pmf_clear">&nbsp;</div>
 
@@ -102,16 +94,6 @@
     <div class="local-navbar-button">
       <span><%= link_to 'List a Project', new_project_path %></span>
       <p>Raise Money</p>
-    </div>
-
-    <div class="local-navbar-button">
-      <span><%= link_to 'Members', profiles_path %></span>
-      <p>Browse Members</p>
-    </div>
-
-    <div class="local-navbar-button">
-      <span><%= link_to 'Project Talent', :controller => "user_talents" %></span>
-      <p>Browse Talent</p>
     </div>
 
     <div class="right">
@@ -127,5 +109,37 @@
     </div>
   </div>
 
+  <div class="pmf_clear">&nbsp;</div>
+
 </div>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id="icatch">
+  <div class="icatch-pictures">
+    <div class="local-navbar-button">
+      <span><%= link_to 'Project Talent', :controller => "user_talents" %></span>
+      <p>Browse Talent</p>
+    </div>
+
+    <div class="local-navbar-button">
+      <span><a href="/pages/stats">Site Statistics</a></span>
+      <p></p>
+    </div>
+
+    <% if !@hide_filter_params %>
+      <div id="filter_projects_nav" class="right">
+        <%= render :partial => 'shared/filter_param_box' %>
+      </div>
+
+      <div id="filter_users_nav" class="right">
+        <%= render :partial => 'shared/filter_users_param_box' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>
+
 <div class="pmf_clear">&nbsp;</div>

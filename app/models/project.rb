@@ -393,7 +393,7 @@ class Project < ActiveRecord::Base
   end
 
   @@filter_params_map = {
-    1 => "Please Choose...", 2 => "% Funded All", 3 => "% Funded - Pre Production",
+    1 => "View Projects By...", 2 => "% Funded All", 3 => "% Funded - Pre Production",
     4 => "% Funded - In Production", 5 => "% Funded - Post Production", 6 => "% Funded - Finishing Funds",
     7 => "% Funded - Trailer", 8 => "Funds Needed", 9 => "Funds Reserved",
     10 => "PMF Fund Rating", 11 => "Member Rating", 12 => "Newest", 13 => "Oldest",

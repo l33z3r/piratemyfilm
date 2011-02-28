@@ -4,7 +4,6 @@ class ProfilesController < ApplicationController
   prepend_before_filter :setup, :except => [:index, :portfolio_awaiting_payment]
 
   before_filter :search_results, :only => :index
-  before_filter :load_profile_filter_params
   skip_filter :login_required, :only => [:index, :show, :portfolio, :friend_list]
 
   def index
@@ -162,9 +161,5 @@ class ProfilesController < ApplicationController
       @search_query = p.delete(:uq)
       @profiles = Profile.search((@search_query || ''), p).paginate:page => (params[:page] || 1), :per_page => 50
     end
-  end
-
-  def load_profile_filter_params
-    @profile_filter_params = Profile.filter_param_select_opts
   end
 end
