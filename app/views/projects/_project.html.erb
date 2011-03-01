@@ -151,13 +151,25 @@ project_link_action ||= "show"
         <li class="pmf_clear"></li>
         <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
         <li class="pmf_clear"></li>
-        <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
-        <li class="pmf_clear"></li>
-        <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
-        <li class="pmf_clear"></li>
         <li class="fully_funded_textline">
           Project Fully Funded For <%= print_money project.capital_required %>!
         </li>
+        <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
+        <li class="pmf_clear"></li>
+        <% if project.premier_date %>
+          <li class="fully_funded_textline">
+            Premier Date: <%= project.premier_date.to_s(:short) %>
+          </li>
+          <li class="pmf_clear"></li>
+        <% end %>
+        <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
+        <li class="pmf_clear"></li>
+        <% if project.watch_url %>
+          <li class="fully_funded_textline">
+            <a href="<%= project.watch_url %>">Watch Film Here</a>
+          </li>
+          <li class="pmf_clear"></li>
+        <% end %>
       </ul>
     </div>
   <% else %>

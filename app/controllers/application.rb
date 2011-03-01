@@ -122,8 +122,8 @@ class ApplicationController < ActionController::Base
 
     @pmf_fund_user = User.find(PMF_FUND_ACCOUNT_ID)
 
-    @total_pmf_projects_invested_in = @pmf_fund_user.subscribed_projects.length
-    @total_pmf_shares_reserved_all_projects = @pmf_fund_user.project_subscriptions.sum("amount")
+    @total_pmf_projects_invested_in = @pmf_fund_user.subscribed_non_funded_projects.length
+    @total_pmf_shares_reserved_all_projects = @pmf_fund_user.non_funded_project_subscriptions.sum("amount")
 
     #TODO pick up dynamically ipo
     @total_pmf_shares_reserved_amount = @total_pmf_shares_reserved_all_projects * 5

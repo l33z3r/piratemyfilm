@@ -2668,6 +2668,11 @@ div#buyout_requests div.odd {
     text-align: center; font-weight: bold; width: 100%;
 }
 
+.view-lite-row-numbers ul li.fully_funded_textline a {
+    color: #000000;
+    text-decoration: underline;
+}
+
 .view-lite-row-numbers ul {
     margin-top: 5px;
     padding: 0;
@@ -3172,6 +3177,7 @@ div#stats_page div#stats p {
 
 div#stats_page div#stats div.stat_row {
     width: 700px;
+    margin-bottom: 2px;
 }
 
 div#stats_page div#stats div.label {

@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
 
   has_many :project_subscriptions, :dependent => :destroy
 
+  has_many :non_funded_project_subscriptions, :include => "project", 
+    :class_name => "ProjectSubscription",
+    :conditions => "projects.project_payment_status is null or project_payment_status != 'Finished Payment'"
+
   has_many :subscribed_projects, :through => :project_subscriptions, :source=> :project,
     :conditions=>'symbol IS NOT NULL and is_deleted = 0', :order => "project_subscriptions.created_at",
     :group => "projects.id"

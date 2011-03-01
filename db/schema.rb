@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110226213148) do
+ActiveRecord::Schema.define(:version => 20110301100557) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -347,6 +347,8 @@ ActiveRecord::Schema.define(:version => 20110226213148) do
     t.integer  "editor_talent_id"
     t.datetime "fully_funded_time"
     t.datetime "completion_date"
+    t.string   "watch_url"
+    t.date     "premier_date"
   end
 
   create_table "sessions", :force => true do |t|

@@ -16,5 +16,19 @@ class Genre < ActiveRecord::Base
   def self.default
     find_by_title("Not Sure")
   end
+
+  def self.all_volumes_today
+    @volumes = []
+
+    Genre.all.each do |genre|
+      @volumes << [genre, ProjectChangeInfoOneDay.today_volume_for_genre(genre)]
+    end
+
+    @volumes.sort! { |arr1, arr2|
+      arr2[1].to_i.abs <=> arr1[1].to_i.abs
+    }
+
+    @volumes
+  end
   
 end

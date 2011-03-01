@@ -400,7 +400,8 @@ class Project < ActiveRecord::Base
     #14 => "Producer Dividend", 15 => "Shareholder Dividend", 16 => "PMF Fund Dividend",
     #17 => "% PMF Fund Shares",
     #18 => "No. PMF Fund Shares",
-    19 => "Green Light", 20 => "Fully Funded", 21 => "In Payment"
+    19 => "Green Light", 20 => "Fully Funded", 21 => "In Payment",
+    22 => "In Release"
   }
 
   def self.get_filter_sql filter_param
@@ -429,6 +430,7 @@ class Project < ActiveRecord::Base
     when "19" then return "#{@payment_status_filter} and green_light is NOT NULL"
     when "20" then return "project_payment_status = 'Finished Payment'"
     when "21" then return "project_payment_status = 'In Payment'"
+    when "22" then return "project_payment_status = 'Finished Payment' and status = 'In Release'"
     else return "#{@payment_status_filter} and #{@green_light_filter}"
     end
   end
@@ -455,6 +457,7 @@ class Project < ActiveRecord::Base
     when "19" then return "green_light DESC"
     when "20" then return "fully_funded_time DESC"
     when "21" then return "green_light DESC"
+    when "22" then return "fully_funded_time DESC"
     else return "created_at DESC"
     end
   end

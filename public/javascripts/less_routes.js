@@ -51,6 +51,12 @@ function less_ajaxx(url, verb, params, options){
     new Ajax.Request(url, less_merge_objects({method: verb, parameters: less_get_params(params), onComplete: function(r){eval(r.responseText);}}, options));
   }
 }
+function mkc_blogs_path(verb){ return '/blogs/mkc';}
+function mkc_blogs_ajax(verb, params, options){ return less_ajax('/blogs/mkc', verb, params, options);}
+function mkc_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/mkc', verb, params, options);}
+function formatted_mkc_blogs_path(format, verb){ return '/blogs/mkc.' + format + '';}
+function formatted_mkc_blogs_ajax(format, verb, params, options){ return less_ajax('/blogs/mkc.' + format + '', verb, params, options);}
+function formatted_mkc_blogs_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs/mkc.' + format + '', verb, params, options);}
 function admin_blogs_path(verb){ return '/blogs/admin';}
 function admin_blogs_ajax(verb, params, options){ return less_ajax('/blogs/admin', verb, params, options);}
 function admin_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/admin', verb, params, options);}
@@ -63,12 +69,6 @@ function producer_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/
 function formatted_producer_blogs_path(format, verb){ return '/blogs/producer.' + format + '';}
 function formatted_producer_blogs_ajax(format, verb, params, options){ return less_ajax('/blogs/producer.' + format + '', verb, params, options);}
 function formatted_producer_blogs_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs/producer.' + format + '', verb, params, options);}
-function mkc_blogs_path(verb){ return '/blogs/mkc';}
-function mkc_blogs_ajax(verb, params, options){ return less_ajax('/blogs/mkc', verb, params, options);}
-function mkc_blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs/mkc', verb, params, options);}
-function formatted_mkc_blogs_path(format, verb){ return '/blogs/mkc.' + format + '';}
-function formatted_mkc_blogs_ajax(format, verb, params, options){ return less_ajax('/blogs/mkc.' + format + '', verb, params, options);}
-function formatted_mkc_blogs_ajaxx(format, verb, params, options){ return less_ajaxx('/blogs/mkc.' + format + '', verb, params, options);}
 function blogs_path(verb){ return '/blogs';}
 function blogs_ajax(verb, params, options){ return less_ajax('/blogs', verb, params, options);}
 function blogs_ajaxx(verb, params, options){ return less_ajaxx('/blogs', verb, params, options);}

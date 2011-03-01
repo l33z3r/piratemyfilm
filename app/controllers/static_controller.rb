@@ -16,7 +16,11 @@ class StaticController < ApplicationController
 
     @avg_funding_percent = (Project.find_all_public.sum(&:percent_funded).to_f/@num_all_projects).ceil
     @avg_shares_reserved_per_project = (ProjectSubscription.sum(:amount).to_f/@num_all_projects).ceil
-       
+
+    @total_ups = ProjectChangeInfoOneDay.total_today_ups
+    @total_downs = ProjectChangeInfoOneDay.total_today_downs
+    @total_volume = ProjectChangeInfoOneDay.total_today_volume
+    
     #member stats
     @members_count = User.count(:all)
     @num_users_reserving_shares = ProjectSubscription.all.collect(&:user).uniq.size

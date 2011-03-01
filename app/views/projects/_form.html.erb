@@ -42,11 +42,31 @@
 
   <tr>
     <td>
+      Enter an address to watch your project
+    </td>
+    <td>
+      <%= f.text_field :watch_url %>
+      <%= display_error_on(project, :watch_url) %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
       Enter estimated project completion date
     </td>
     <td>
       <%= f.date_select :completion_date %>
       <%= display_error_on(project, :completion_date) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter date of premier
+    </td>
+    <td>
+      <%= f.date_select :premier_date %>
+      <%= display_error_on(project, :premier_date) -%>
     </td>
   </tr>
 

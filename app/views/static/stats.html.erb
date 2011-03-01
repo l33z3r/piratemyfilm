@@ -41,64 +41,83 @@
         <div class="stat"><%= @avg_funding_percent %>%</div>
           <div class="pmf_clear">&nbsp;</div>
         </div>
-      </div>
-
-      <div class="subsection">
-        <div class="pageTitleSmall">Members</div>
 
         <div class="stat_row">
-          <div class="label">No. Members</div>
-          <div class="stat"><%= @members_count %></div>
-          <div class="pmf_clear">&nbsp;</div>
+          <div class="label">Total Positive Volume (24 Hour):</div>
+          <div class="stat"><%= up_down_arrow @total_ups %><%= @total_ups.abs %></div>
+            <div class="pmf_clear">&nbsp;</div>
+          </div>
+
+        <div class="stat_row">
+          <div class="label">Total Negative Volume (24 Hour):</div>
+          <div class="stat"><%= up_down_arrow @total_downs %><%= @total_downs.abs %></div>
+            <div class="pmf_clear">&nbsp;</div>
+          </div>
+
+        <div class="stat_row">
+          <div class="label">Total Site Volume (24 Hour):</div>
+          <div class="stat"><%= up_down_arrow @total_volume %><%= @total_volume.abs %></div>
+            <div class="pmf_clear">&nbsp;</div>
+          </div>
+
         </div>
 
-        <div class="stat_row">
-          <div class="label">No. Members Reserving Shares</div>
-          <div class="stat"><%= @num_users_reserving_shares %></div>
-          <div class="pmf_clear">&nbsp;</div>
-        </div>
+        <div class="subsection">
+          <div class="pageTitleSmall">Members</div>
 
-        <div class="stat_row">
-          <div class="label">% Members Reserving Shares</div>
-          <div class="stat"><%= @members_reserving_shares_percent %>%</div>
+          <div class="stat_row">
+            <div class="label">No. Members</div>
+            <div class="stat"><%= @members_count %></div>
             <div class="pmf_clear">&nbsp;</div>
           </div>
 
           <div class="stat_row">
-            <div class="label">Avg No. Projects Per Member</div>
-            <div class="stat"><%= @avg_number_projects_per_member %></div>
+            <div class="label">No. Members Reserving Shares</div>
+            <div class="stat"><%= @num_users_reserving_shares %></div>
             <div class="pmf_clear">&nbsp;</div>
           </div>
 
           <div class="stat_row">
-            <div class="label">Avg No. Reservations Per Member</div>
-            <div class="stat"><%= @avg_number_reservations_per_member %></div>
-            <div class="pmf_clear">&nbsp;</div>
-          </div>
+            <div class="label">% Members Reserving Shares</div>
+            <div class="stat"><%= @members_reserving_shares_percent %>%</div>
+              <div class="pmf_clear">&nbsp;</div>
+            </div>
 
-          <div class="pageTitleSmaller">No. Members By Country</div>
+            <div class="stat_row">
+              <div class="label">Avg No. Projects Per Member</div>
+              <div class="stat"><%= @avg_number_projects_per_member %></div>
+              <div class="pmf_clear">&nbsp;</div>
+            </div>
 
-          <% Country.all.each do |country| %>
-            <% country_count = Profile.find_all_by_country_id(country).size %>
-            <% if country_count > 0 %>
+            <div class="stat_row">
+              <div class="label">Avg No. Reservations Per Member</div>
+              <div class="stat"><%= @avg_number_reservations_per_member %></div>
+              <div class="pmf_clear">&nbsp;</div>
+            </div>
+
+            <div class="pageTitleSmaller">No. Members By Country</div>
+
+            <% Country.all.each do |country| %>
+              <% country_count = Profile.find_all_by_country_id(country).size %>
+              <% if country_count > 0 %>
+                <div class="stat_row">
+                  <div class="label"><%= country.name %>:</div>
+                  <div class="stat"><%= country_count %></div>
+                  <div class="pmf_clear">&nbsp;</div>
+                </div>
+              <% end %>
+            <% end %>
+
+            <div class="pageTitleSmaller">No. Members By Membership Type</div>
+
+            <% MembershipType.all.each do |mt| %>
               <div class="stat_row">
-                <div class="label"><%= country.name %>:</div>
-                <div class="stat"><%= country_count %></div>
+                <div class="label"><%= mt.name %>:</div>
+                <div class="stat"><%= User.find(:all, :include => "membership", :conditions => "memberships.membership_type_id = #{mt.id}").size %></div>
                 <div class="pmf_clear">&nbsp;</div>
               </div>
             <% end %>
-          <% end %>
-
-          <div class="pageTitleSmaller">No. Members By Membership Type</div>
-
-          <% MembershipType.all.each do |mt| %>
-            <div class="stat_row">
-              <div class="label"><%= mt.name %>:</div>
-              <div class="stat"><%= User.find(:all, :include => "membership", :conditions => "memberships.membership_type_id = #{mt.id}").size %></div>
-              <div class="pmf_clear">&nbsp;</div>
-            </div>
-          <% end %>
-        </div>
+          </div>
 
         <div class="subsection">
           <div class="pageTitleSmall">Genres</div>
@@ -115,8 +134,17 @@
               </div>
             <% end %>
           <% end %>
+
+          <div class="pageTitleSmaller">Genre Performance (24 Hour)</div>
+
+          <% Genre.all_volumes_today.each do |genre, genre_volume| %>
+            <div class="stat_row">
+              <div class="label"><%= genre.title %>:</div>
+              <div class="stat"><%= up_down_arrow genre_volume %><%= genre_volume.abs %> Shares</div>
+              <div class="pmf_clear">&nbsp;</div>
+            </div>
+          <% end %>
         </div>
 
       </div>
-
     </div>

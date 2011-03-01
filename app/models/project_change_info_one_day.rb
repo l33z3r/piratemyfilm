@@ -36,6 +36,33 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
       and projects.is_deleted = 0", :order => "abs(project_change_info_one_days.share_change) desc, projects.id", :limit => 10)
   end
 
+  def self.today_volume_for_genre genre
+    @changes = find(:all, :include => :project, :conditions => "project_change_info_one_days.created_at > '#{Time.now.midnight.to_s(:db)}'
+      and projects.genre_id = #{genre.id}", :order => "abs(project_change_info_one_days.share_change) desc, projects.id", :limit => 10)
+
+    @changes.sum(&:share_change)
+  end
+
+  def self.total_today_volume
+    @changes = find(:all, :include => :project, :conditions => "project_change_info_one_days.created_at > '#{Time.now.midnight.to_s(:db)}'", :order => "abs(project_change_info_one_days.share_change) desc, projects.id", :limit => 10)
+
+    @changes.sum(&:share_change)
+  end
+
+  def self.total_today_ups
+    @changes = find(:all, :include => :project, :conditions => "project_change_info_one_days.created_at > '#{Time.now.midnight.to_s(:db)}'
+      and share_change > 0", :order => "abs(project_change_info_one_days.share_change) desc, projects.id", :limit => 10)
+
+    @changes.sum(&:share_change)
+  end
+
+  def self.total_today_downs
+    @changes = find(:all, :include => :project, :conditions => "project_change_info_one_days.created_at > '#{Time.now.midnight.to_s(:db)}'
+      and share_change < 0", :order => "abs(project_change_info_one_days.share_change) desc, projects.id", :limit => 10)
+
+    @changes.sum(&:share_change)
+  end
+
   def self.generate_daily_change
     puts "Generating Daily Change Info For Projects"
 
