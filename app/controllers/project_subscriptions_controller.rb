@@ -127,6 +127,11 @@
   def pmf_sub
     if params[:pmf_sub_id]
       @pmf_project_subscription_change = PmfFundSubscriptionHistory.find(params[:pmf_sub_id])
+
+      if @pmf_project_subscription_change.project.is_deleted
+        flash[:error] = "Project for this subscription has been deleted"
+      redirect_to home_path
+      end
     else
       flash[:error] = "Subscription not found"
       redirect_to home_path

@@ -60,4 +60,16 @@ class PaymentsMailer < ActionMailer::Base
     content_type "text/html"
   end
 
+  def buyout_request pmf_share_buyout
+    @recipient = Profile.find(PMF_FUND_ACCOUNT_ID).email
+
+    @subject        = "User Requesting a PMF Share Buyout!"
+    @recipients     =  @recipient
+    @body['pmf_share_buyout'] = pmf_share_buyout
+    @from           = MAILER_FROM_ADDRESS
+    @sent_on        = Time.new
+    @headers        = {}
+    content_type "text/html"
+  end
+
 end

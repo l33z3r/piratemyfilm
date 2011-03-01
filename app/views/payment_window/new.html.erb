@@ -6,6 +6,17 @@
   <%= link_to "Back to Project", {:controller => "projects", :action => "show", :id => @project.id}, :class => "subnav_inactive" %>
 </div>
 
+<p>
+  Please note that Paypal takes a % of all payments into your account. This is out of our control.
+  The following is a rough guideline of the breakdown:
+
+<ul>
+  <li>$5,00 payment takes $0,50 resulting in $4,50 (10%)</li>
+  <li>$10,00 payment takes $0,69 resulting in $9,31 (6,9%)</li>
+  <li>$75,00 payment takes $3,23 resulting in $71,77 (Roughly 4.8%)</li>
+</ul>
+</p>
+
 <% form_for @payment_window, :url => {:controller => "payment_window", :action => "create"}  do |f| %>
   <input type="hidden" name="id" value="<%= @project.id %>"/>
 
@@ -25,7 +36,7 @@
 
     <tr>
       <td>
-        Enter a closing date for this window (note, you will have to close it manually, 
+        Enter a closing date for this window (note, you will have to close it manually,
         but this is simply to notify users) This date must be at least a week from today:
       </td>
       <td>

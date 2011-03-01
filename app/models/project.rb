@@ -67,6 +67,8 @@ class Project < ActiveRecord::Base
   has_many :subscribers, :through => :project_subscriptions, :source => :user,
     :order => "project_subscriptions.created_at", :group => "id"
 
+  has_many :project_change_info_one_days, :dependent => :destroy
+  
   has_many :blogs, :dependent => :destroy
   has_many :project_flaggings, :dependent => :destroy
   
@@ -400,7 +402,7 @@ class Project < ActiveRecord::Base
     #14 => "Producer Dividend", 15 => "Shareholder Dividend", 16 => "PMF Fund Dividend",
     #17 => "% PMF Fund Shares",
     #18 => "No. PMF Fund Shares",
-    19 => "Green Light", 20 => "Fully Funded", 21 => "In Payment",
+    19 => "Green Light", 20 => "In Payment", 21 => "Fully Funded",
     22 => "In Release"
   }
 
@@ -428,8 +430,8 @@ class Project < ActiveRecord::Base
     when "17" then return "#{@payment_status_filter} and #{@green_light_filter}"
     when "18" then return "#{@payment_status_filter} and #{@green_light_filter}"
     when "19" then return "#{@payment_status_filter} and green_light is NOT NULL"
-    when "20" then return "project_payment_status = 'Finished Payment'"
-    when "21" then return "project_payment_status = 'In Payment'"
+    when "20" then return "project_payment_status = 'In Payment'"
+    when "21" then return "project_payment_status = 'Finished Payment'"
     when "22" then return "project_payment_status = 'Finished Payment' and status = 'In Release'"
     else return "#{@payment_status_filter} and #{@green_light_filter}"
     end
@@ -455,8 +457,8 @@ class Project < ActiveRecord::Base
       #    when "17" then return "pmf_fund_investment_percentage DESC"
     when "18" then return "pmf_fund_investment_share_amount DESC"
     when "19" then return "green_light DESC"
-    when "20" then return "fully_funded_time DESC"
-    when "21" then return "green_light DESC"
+    when "20" then return "green_light DESC"
+    when "21" then return "fully_funded_time DESC"
     when "22" then return "fully_funded_time DESC"
     else return "created_at DESC"
     end

@@ -152,9 +152,12 @@ class PaymentWindowController < ApplicationController
     end
 
     #if all conditions above are met... create the request!
-    PmfShareBuyout.create(:project => @project, :user => @project.owner,
+    @pmf_share_buyout = PmfShareBuyout.create(:project => @project, :user => @project.owner,
       :share_amount => @project.amount_shares_outstanding_payment,
       :share_price => @project.ipo_price, :status => "Open")
+
+    #email pmf admin
+    PaymentsMailer.deliver_buyout_request @pmf_share_buyout
 
     flash[:positive] = "Your request has been created and will be dealt with shortly!"
     redirect_to :action => "history", :id => @project

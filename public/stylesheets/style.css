@@ -796,6 +796,12 @@ div#share_queue div#header {
 
 }
 
+div#share_queue div.window_info {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
 div#share_queue div#queue_header div {
     float: left;
     font-weight: bold;
@@ -884,6 +890,10 @@ div#share_queue div.subscription div.subscription_payment_window {
 /* End Share Queue Page */
 
 /* Payment Windows */
+
+div#payment_window_history ol#payment_procedure_explanation {
+    font-size: 13px;
+}
 
 div#payment_window_history div.window_header div {
     float: left;
@@ -2597,7 +2607,7 @@ div#buyout_requests div.odd {
 
 .project_extra_info {
     margin-top: 3px;
-    width: 100%;
+    width: 410px;
     float: left;
     padding-bottom: 2px;
     float: left;

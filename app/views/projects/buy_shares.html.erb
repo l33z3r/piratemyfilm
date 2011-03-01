@@ -19,6 +19,13 @@
 
 <div class="pmf_clear_10">&nbsp;</div>
 
+<p>
+  You can follow all the payments in this window by visiting the
+  <%= link_to "Share Queue", :action => "share_queue", :id => @project %>
+</p>
+
+<div class="pmf_clear_10">&nbsp;</div>
+
 <ul>
   <li>
     You are about to pay for <b><%= @u.current_subscription_payment(@project).share_amount %></b> shares of this project by paypal.

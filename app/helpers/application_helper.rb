@@ -108,7 +108,7 @@ module ApplicationHelper
   def subscription_info project
     if @u
       if project.finished_payment_collection
-        "This project has successfully finished collecting funds"
+        @info = "This project has successfully finished collecting funds"
       else
         @amount = project.user_subscription_amount @u
         @outstanding_amount = project.user_subscription_amount_outstanding @u
@@ -120,14 +120,20 @@ module ApplicationHelper
           if @outstanding_amount > 0
             @outstanding_string = "<i>(#{@outstanding_amount} on
             <a class='tooltip_arrow'
-               title='standby shares become valid when new orexisting shares become available'>
+               title='standby shares become valid when new or existing shares become available'>
               standby</a>)</i>"
           end
 
-          "You have #{@total_amount} shares #{@outstanding_string} reserved for this project."
+          @info = "You have #{@total_amount} shares #{@outstanding_string} reserved for this project."
         end
       end
     end
+
+    if @project.in_payment? and !@project.current_payment_window
+      @info = "#{@info} Producer has not yet opened the next payment window!"
+    end
+
+    return @info
   end
   
   # type can be error or positive or blank
@@ -322,7 +328,7 @@ module ApplicationHelper
   end
 
   def up_down_arrow value
-    return if value == 0
+    return " - " if value == 0
     image_tag(value > 0 ? "green_arrow_up.png" : "red_arrow_down.png")
   end
 

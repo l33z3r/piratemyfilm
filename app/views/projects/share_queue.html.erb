@@ -10,6 +10,17 @@
 
 <div id="share_queue">
 
+  <% if @project.current_payment_window %>
+    <div class="window_info">
+      <p>
+        The current payment window will close:
+        <%= @project.current_payment_window.close_date.to_s(:short) %>
+      </p>
+    </div>
+  <% end %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
   <div id="queue_header">
     <div class="number_header">Position</div>
     <div class="icon_header">User</div>

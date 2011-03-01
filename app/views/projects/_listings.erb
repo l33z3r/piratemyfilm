@@ -1,4 +1,8 @@
 <div class="project_listings">
+  <% if listings.size == 0 %>
+    <p>No Projects Found!</p>
+  <% end %>
+
   <% for @project in listings do %>
       <%= render :partial => "/projects/project", :locals => {:project => @project} %>
     <% end %>

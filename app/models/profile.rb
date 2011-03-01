@@ -221,7 +221,8 @@ class Profile < ActiveRecord::Base
 
   @@filter_params_map = {
     1 => "View Members By...", 2 => "User Login",
-    3 => "No. Projects Listed", 4 => "No. Shares Reserved", 5 => "Producer Rating"
+    3 => "No. Projects Listed", 4 => "No. Shares Reserved", 
+    5 => "Producer Rating", 6 => "No. Projects Funded"
   }
 
   def self.get_sql filter_param, condition_clause
@@ -265,17 +266,29 @@ class Profile < ActiveRecord::Base
         #{condition_clause}
         group by profiles.user_id
         order by users.member_rating DESC, count(member_rating_histories.member_id) DESC"
+    when "6" then
+      #need to put in either where or and keyword
+
+      if condition_clause.length == 0
+        condition_clause = "where "
+      else
+        condition_clause += " and "
+      end
+
+      return "select profiles.*, count(projects.id) as projects_count from profiles
+        join users on profiles.user_id = users.id left join projects on projects.owner_id = users.id
+        join memberships on profiles.user_id = memberships.user_id
+        #{condition_clause}
+        (projects.id is null or (projects.symbol IS NOT NULL 
+        and projects.is_deleted = 0 and projects.project_payment_status = 'Finished Payment'))
+        group by users.id
+        order by projects_count DESC"
     else
       return "select profiles.* from profiles join users on profiles.user_id = users.id
         join memberships on profiles.user_id = memberships.user_id
         #{condition_clause} order by users.created_at DESC"
     end
   end
-  
-  @@membership_filter_params_map = {
-    1 => "Please Choose...", 2 => "User Login", 
-    3 => "No. Projects Listed", 4 => "No. Shares Reserved", 5 => "Producer Rating"
-  }
 
   def self.get_membership_condition_clause(membership_id)
     begin

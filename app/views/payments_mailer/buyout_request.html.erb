@@ -1,0 +1,9 @@
+PMF Fund has received a request to buy out
+
+the remaining <%= @pmf_share_buyout.share_amount %> shares in the project:
+
+<%= h @pmf_share_buyout.project.title %>
+
+<br/><br/>
+
+Please <a href="<%= url_for :only_path => false, :controller => "admin/pmf_buyout_requests" %>">Accept/Deny</a> the request.

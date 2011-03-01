@@ -1,7 +1,82 @@
-<h3>Site Stats</h3>
+<div id="stats_page" class="static_content">
+  <div class="pageTitle">PMF Admin Stats</div>
 
-<div id="admin_stats">
-  There are <%= @user_count %> users on PMF
-  <br/>
-  There were <%= @signups_yesterday %> signups yesterday.
+  <div id="stats">
+
+    <div class="subsection">
+      <div class="pageTitleSmall">Projects</div>
+
+      <div class="stat_row">
+        <div class="label">No. Projects Created Yesterday:</div>
+        <div class="stat">
+          <%= @projects_created_yesterday %>
+        </div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="stat_row">
+        <div class="label">No. Projects Where Budget Between $100 and $500:</div>
+        <div class="stat">
+          <%= Project.find_all_public(
+            :conditions => "capital_required >= 100 and capital_required <= 500").size %>
+        </div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="stat_row">
+        <div class="label">No. Projects Where Budget Between $501 and $1000:</div>
+        <div class="stat">
+          <%= Project.find_all_public(
+            :conditions => "capital_required > 500 and capital_required <= 1000").size %>
+        </div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="stat_row">
+        <div class="label">No. Projects Where Budget Between $1001 and $2500:</div>
+        <div class="stat">
+          <%= Project.find_all_public(
+            :conditions => "capital_required > 1000 and capital_required <= 2500").size %>
+        </div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="stat_row">
+        <div class="label">No. Projects Where Budget Between $2501 and $5000:</div>
+        <div class="stat">
+          <%= Project.find_all_public(
+            :conditions => "capital_required > 2500 and capital_required <= 5000").size %>
+        </div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+    </div>
+
+    <div class="subsection">
+      <div class="pageTitleSmall">Members</div>
+
+      <div class="stat_row">
+        <div class="label">No. Members On PMF:</div>
+        <div class="stat"><%= @user_count %></div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="stat_row">
+        <div class="label">No. Signups Yesterday:</div>
+        <div class="stat"><%= @signups_yesterday %></div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="pageTitleSmaller">No. Members By Membership Type</div>
+
+      <% MembershipType.all.each do |mt| %>
+        <div class="stat_row">
+          <div class="label"><%= mt.name %>:</div>
+          <div class="stat"><%= User.find(:all, :include => "membership", :conditions => "memberships.membership_type_id = #{mt.id}").size %></div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
 </div>

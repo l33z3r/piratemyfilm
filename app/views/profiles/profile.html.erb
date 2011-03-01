@@ -34,6 +34,11 @@
             <div class="label">Avg. Member Rating:</div>
             <div class="value"><%= @profile.user.member_rating %></div>
 
+            <div class="pmf_clear">&nbsp;</div>
+
+            <div class="label">Member Since:</div>
+            <div class="value"><%= @profile.created_at.strftime '%d %b %Y' %></div>
+
           </div>
         </div>
         <div class="pmf_clear">&nbsp;</div>

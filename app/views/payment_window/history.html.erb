@@ -33,6 +33,40 @@
     <div class="pmf_clear">&nbsp;</div>
   <% end %>
 
+  <div class="pageTitleSmall">
+    Payment Procedure Brief Explanation
+  </div>
+
+  <ol id="payment_procedure_explanation">
+    <li>Producer collects funds By opening payment window below, and linking their paypal email address</li>
+    <li>Users get an email stating that they must now pay for their shares</li>
+    <li>User pays for his shares in the current window</li>
+    <li>Funds appear in the producers paypal account</li>
+    <li>
+      Using the "item number" that we pass to paypal, the producer matches up a users payment in paypal
+      with his associated payment in the payment window
+    </li>
+    <li>
+      The producer clicks "Mark as Paid" for each payment he receives
+    </li>
+    <li>The producer must then close the payment window, marking all defaulted shares as such</li>
+    <li>
+      If funds are not fully collected in a particular window, and there are more users wanting shares,
+      the producer opens another window, and the above process repeats
+    </li>
+    <li>
+      If the queue has been exhausted, the producer then requests that the pmf_fund buy out the rest of the shares
+    </li>
+    <li>
+      The project automatically gets bumped to "fully funded" once the final payment window closes successfully
+      (meaning all funds were collected in that window)
+    </li>
+  </ol>
+
+  <div class="pageTitleSmall">
+    More Info
+  </div>
+
   <p>
     The following is a summary of the payment windows associated with this project.
     You can create a payment window, where users will be able to pay for their shares by depositing into
