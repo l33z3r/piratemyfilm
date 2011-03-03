@@ -24,7 +24,7 @@ project_link_action ||= "show"
     </div>
   </div>
 
-  <% if !@project.finished_payment_collection %>
+  <% if !project.finished_payment_collection %>
     <div class="view-lite-row-project-green-light">
       Green Light:
       <span class="<%= project.green_light ? "on" : "off" %>">
@@ -146,7 +146,7 @@ project_link_action ||= "show"
     </ul>
   </div>
 
-  <% if @project.finished_payment_collection %>
+  <% if project.finished_payment_collection %>
     <div class="view-lite-row-numbers">
       <ul>
         <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>

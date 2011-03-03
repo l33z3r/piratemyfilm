@@ -1,5 +1,5 @@
 class ProjectsMailer < ActionMailer::Base
-  
+
   def follow_invitation inviter, project, recipient
     @subject        = "Invite to Follow a Project on PMF"
     @recipients     = recipient

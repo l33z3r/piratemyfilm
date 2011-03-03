@@ -1,6 +1,5 @@
 class NotificationsMailer < ActionMailer::Base
   
-
   def my_green_light project, recipient
     @subject        = "Green Light On Your Project!"
     @recipients     = recipient

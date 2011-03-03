@@ -129,7 +129,7 @@ module ApplicationHelper
       end
     end
 
-    if @project.in_payment? and !@project.current_payment_window
+    if project.in_payment? and !@project.current_payment_window
       @info = "#{@info} Producer has not yet opened the next payment window!"
     end
 
