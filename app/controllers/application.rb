@@ -108,33 +108,10 @@ class ApplicationController < ActionController::Base
   end
 
   def load_sitewide_vars
-    @unique_project_subscriptions = ProjectSubscription.find(:all, :group => "project_id")
-    @total_funds_needed = 0
-
-    @unique_project_subscriptions.each do |ps|
-      @total_funds_needed += ps.project.capital_required
-    end
-
-    @total_reservations = Project.find_all_public.size
-
-    #TODO change this to pick up dynamic ipo
-    @total_reservations_amount = ProjectSubscription.sum(:amount) * 5
-
-    @pmf_fund_user = User.find(PMF_FUND_ACCOUNT_ID)
-
-    @total_pmf_projects_invested_in = @pmf_fund_user.subscribed_non_funded_projects.length
-    @total_pmf_shares_reserved_all_projects = @pmf_fund_user.non_funded_project_subscriptions.sum("amount")
-
-    #TODO pick up dynamically ipo
-    @total_pmf_shares_reserved_amount = @total_pmf_shares_reserved_all_projects * 5
-
     @top_sitewide_projects = ProjectChangeInfoOneDay.top_five_change_for_site
     @bottom_sitewide_projects = ProjectChangeInfoOneDay.bottom_five_change_for_site
 
     @projects_awaiting_payment_count = @u ? @u.subscribed_projects_awaiting_payment.size : 0
-
-    @num_funded_projects = Project.all_funded.size
-    @total_funded_amount = Project.all_funded_amount
   end
 
   def print_money value

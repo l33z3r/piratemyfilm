@@ -12,7 +12,9 @@ class BlogsController < ApplicationController
     @admin_project_ratings = AdminProjectRating.latest
 #    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest
 
-    @items = @blogs + @pmf_fund_comments + @admin_project_ratings# + @pmf_project_subscriptions
+    @new_projects = Project.find_all_public(:order => "created_at DESC")
+
+    @items = @blogs + @pmf_fund_comments + @admin_project_ratings + @new_projects# + @pmf_project_subscriptions
 
     @items.sort! do |a,b|
       b.created_at <=> a.created_at

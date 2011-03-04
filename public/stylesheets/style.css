@@ -97,7 +97,7 @@ p.bold {
 div#top_container {
     font-size: 13px;
     border-bottom: 2px dotted #999999;
-    max-height: 200px;
+    
     overflow: hidden;
     padding: 20px 0px 10px 0px;
     margin-left: 40px;
@@ -151,7 +151,7 @@ div#signup_section {
 }
 
 div#signup_section div#signup_buttons {
-    
+    margin-top: 23px;
 }
 
 div#signup_section div#signup_buttons a {
