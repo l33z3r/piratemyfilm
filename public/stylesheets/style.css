@@ -178,6 +178,10 @@ div#signup_section div#signup_buttons div.login {
     background-color: #999999;
 }
 
+div#signup_section div#welcome_message {
+    margin-top: 23px;
+}
+
 div#signup_section div#welcome_message div#icon {
     float: right;
     margin-top: -3px;
