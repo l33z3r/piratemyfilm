@@ -55,6 +55,8 @@ class MembershipType < ActiveRecord::Base
       @membership_select_opts << [@mt.name, @mt.id.to_s]
     end
 
+    @membership_select_opts.unshift(["All", "0"])
+
     @membership_select_opts
   end
   

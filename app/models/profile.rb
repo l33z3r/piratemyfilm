@@ -222,7 +222,7 @@ class Profile < ActiveRecord::Base
   @@filter_params_map = {
     1 => "View Members By...", 2 => "User Login",
     3 => "No. Projects Listed", 4 => "No. Shares Reserved", 
-    5 => "Producer Rating", 6 => "No. Projects Funded"
+    5 => "Member Rating", 6 => "No. Projects Funded"
   }
 
   def self.get_sql filter_param, condition_clause
@@ -249,6 +249,7 @@ class Profile < ActiveRecord::Base
         join memberships on profiles.user_id = memberships.user_id
         #{condition_clause}
         (projects.id is null or (projects.symbol IS NOT NULL and projects.is_deleted = 0))
+        and profiles.id != #{PMF_FUND_ACCOUNT_ID}
         group by users.id
         order by projects_count DESC"
     when "4" then
@@ -292,6 +293,9 @@ class Profile < ActiveRecord::Base
 
   def self.get_membership_condition_clause(membership_id)
     begin
+
+      return if membership_id == "0"
+      
       #load the membership
       MembershipType.find(membership_id)
 
