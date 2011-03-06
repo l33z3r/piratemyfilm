@@ -47,7 +47,7 @@ class ProjectsController < ApplicationController
   def create
     begin
       if @u.owned_public_projects.size >= @project_limit
-        flash[:error] = "Sorry you have reached your limit of #{project_limit} project listings"
+        flash[:error] = "Sorry you have reached your limit of #{@project_limit} project listings"
         redirect_to :controller => "projects" and return
       end
 
