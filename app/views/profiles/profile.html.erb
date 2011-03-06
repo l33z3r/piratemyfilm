@@ -6,7 +6,7 @@
         <% if @p == @profile %>
           My
         <% else %>
-          <%=@profile.user.login%>'s
+          <%=@profile.user.f.titleize%>'s
         <% end %>
         Profile
       </div>

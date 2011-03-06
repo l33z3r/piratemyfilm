@@ -94,7 +94,7 @@
               profile_path(PMF_FUND_ACCOUNT_ID) %></b>
             in
             <b><%= link_to "#{@total_pmf_projects_invested_in}",
-              profile_path(PMF_FUND_ACCOUNT_ID) %> Projects</b>
+                profile_path(PMF_FUND_ACCOUNT_ID) %> Projects</b>
           </div>
           <div class="pmf_clear">&nbsp;</div>
         </div>
@@ -135,23 +135,20 @@
 
           <div class="pageTitleSmaller">No. Members By Country</div>
 
-          <% Country.all.each do |country| %>
-            <% country_count = Profile.find_all_by_country_id(country).size %>
-            <% if country_count > 0 %>
-              <div class="stat_row">
-                <div class="label"><%= country.name %>:</div>
-                <div class="stat"><%= country_count %></div>
-                <div class="pmf_clear">&nbsp;</div>
-              </div>
-            <% end %>
+          <% @members_by_country.each do |country_name, country_count| %>
+            <div class="stat_row">
+              <div class="label"><%= country_name %>:</div>
+              <div class="stat"><%= country_count %></div>
+              <div class="pmf_clear">&nbsp;</div>
+            </div>
           <% end %>
 
           <div class="pageTitleSmaller">No. Members By Membership Type</div>
 
-          <% MembershipType.all.each do |mt| %>
+          <% @members_by_membership_type.each do |type_name, count| %>
             <div class="stat_row">
-              <div class="label"><%= mt.name %>:</div>
-              <div class="stat"><%= User.find(:all, :include => "membership", :conditions => "memberships.membership_type_id = #{mt.id}").size %></div>
+              <div class="label"><%= type_name %>:</div>
+              <div class="stat"><%= count %></div>
               <div class="pmf_clear">&nbsp;</div>
             </div>
           <% end %>
@@ -162,15 +159,12 @@
 
           <div class="pageTitleSmaller">No. Projects Per Genre</div>
 
-          <% Genre.all.each do |genre| %>
-            <% genre_count = Project.find_all_public(:conditions => "genre_id = #{genre.id}").size %>
-            <% if genre_count > 0 %>
-              <div class="stat_row">
-                <div class="label"><%= genre.title %>:</div>
-                <div class="stat"><%= genre_count %></div>
-                <div class="pmf_clear">&nbsp;</div>
-              </div>
-            <% end %>
+          <% @projects_by_genre.each do |genre_title, genre_count| %>
+            <div class="stat_row">
+              <div class="label"><%= genre_title %>:</div>
+              <div class="stat"><%= genre_count %></div>
+              <div class="pmf_clear">&nbsp;</div>
+            </div>
           <% end %>
 
           <div class="pageTitleSmaller">Genre Performance (24 Hour)</div>

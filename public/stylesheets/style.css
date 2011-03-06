@@ -2157,6 +2157,13 @@ div.blog-row {
     min-height: 100px;
 }
 
+div.blog-row div.new_project_text {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 4px;
+}
+
 div.blog div.blog_left {
     width: 64%;
     float: left;

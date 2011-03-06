@@ -15,7 +15,10 @@
     <%= render :partial => '/project_subscriptions/pmf_subscription_change',
       :locals => { :pmf_subscription => item } %>
   <% elsif item.kind_of? Project %>
-    <%= render :partial => 'projects/project', :locals => {:project => item} %>
+    <div class="blog-row blog">
+      <div class="new_project_text">New Project:</div>
+      <%= render :partial => 'projects/project', :locals => {:project => item} %>
+    </div>
     <div class="pmf_clear">&nbsp;</div>
   <% end %>
 <% end %>

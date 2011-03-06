@@ -123,8 +123,13 @@
     </div>
 
     <div class="local-navbar-button">
+      <span><%= link_to "Members", :controller => "profiles" %></span>
+      <p>View Members</p>
+    </div>
+
+    <div class="local-navbar-button">
       <span><a href="/pages/stats">Site Statistics</a></span>
-      <p></p>
+      <p>General Stats</p>
     </div>
 
     <% if !@hide_filter_params %>

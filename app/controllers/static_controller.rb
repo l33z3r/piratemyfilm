@@ -21,18 +21,24 @@ class StaticController < ApplicationController
     @total_downs = ProjectChangeInfoOneDay.total_today_downs
     @total_volume = ProjectChangeInfoOneDay.total_today_volume
 
+    @projects_by_genre = []
+
+    Genre.all.each do |genre|
+      @count = Project.find_all_public(:conditions => "genre_id = #{genre.id}").size
+      @projects_by_genre << [genre.title, @count]
+    end
+
+    @projects_by_genre.sort! { |arr1, arr2|
+      arr2[1].to_i <=> arr1[1].to_i
+    }
+
     #funding stats
     @total_reservations = Project.find_all_public.size
 
     #TODO change this to pick up dynamic ipo
     @total_reservations_amount = ProjectSubscription.sum(:amount) * 5
 
-    @unique_project_subscriptions = ProjectSubscription.find(:all, :group => "project_id")
-    @total_funds_needed = 0
-
-    @unique_project_subscriptions.each do |ps|
-      @total_funds_needed += ps.project.capital_required
-    end
+    @total_funds_needed = @total_budget
 
     @num_funded_projects = Project.all_funded.size
     @total_funded_amount = Project.all_funded_amount
@@ -47,6 +53,32 @@ class StaticController < ApplicationController
 
     #member stats
     @members_count = User.count(:all)
+
+    @members_by_country = []
+
+    Country.all.each do |country|
+      @country_count = Profile.find_all_by_country_id(country).size
+      if @country_count > 0
+        @members_by_country << [country.name, @country_count]
+      end
+    end
+
+    @members_by_country.sort! { |arr1, arr2|
+      arr2[1].to_i <=> arr1[1].to_i
+    }
+
+    @members_by_membership_type = []
+
+    MembershipType.all.each do |mt|
+      @type_name = mt.name
+      @count = User.find(:all, :include => "membership", :conditions => "memberships.membership_type_id = #{mt.id}").size
+      @members_by_membership_type << [@type_name, @count]
+    end
+
+    @members_by_membership_type.sort! { |arr1, arr2|
+      arr2[1].to_i <=> arr1[1].to_i
+    }
+
     @num_users_reserving_shares = ProjectSubscription.all.collect(&:user).uniq.size
     @members_reserving_shares_percent = ((@num_users_reserving_shares * 100).to_f/@members_count).ceil
     @avg_number_projects_per_member = (@num_all_projects.to_f / @members_count).ceil
@@ -61,6 +93,6 @@ class StaticController < ApplicationController
 
   def allow_to
     super :all, :all => true
-  end  
+  end
 
 end
