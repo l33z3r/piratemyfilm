@@ -106,6 +106,8 @@ module ApplicationHelper
   end
 
   def subscription_info project
+    @info = nil
+
     if @u
       if project.finished_payment_collection
         @info = "This project has successfully finished collecting funds"
