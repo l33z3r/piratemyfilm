@@ -38,7 +38,9 @@ ActionController::Routing::Routes.draw do |map|
     accounts.logout  "/logout",  :action => 'logout'
     accounts.signup  "/signup",  :action => 'signup'
   end
-  
+
+  map.login_vanity '/:userlogin', :controller => "profiles", :action => "show"
+
   map.connect ':controller/:action/:id'
 
   map.home "home", :controller => "home", :action => "index"

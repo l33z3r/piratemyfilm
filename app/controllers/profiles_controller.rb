@@ -151,8 +151,18 @@ class ProfilesController < ApplicationController
   end
   
   def setup
-    @profile = Profile[params[:id]]
-    @user = @profile.user
+    if params[:userlogin]
+      @user = User.find_by_login(params[:userlogin])
+      @profile = @user.profile if @user
+    else
+      @profile = Profile.find(params[:id])
+      @user = @profile.user
+    end
+
+    if @user.nil?
+      flash[:error] = "Profile not found"
+      redirect_to :controller => root_path
+    end
   end
 
   def search_results

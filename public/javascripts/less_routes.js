@@ -627,6 +627,9 @@ function logout_ajaxx(verb, params, options){ return less_ajaxx('/logout', verb,
 function signup_path(verb){ return '/signup';}
 function signup_ajax(verb, params, options){ return less_ajax('/signup', verb, params, options);}
 function signup_ajaxx(verb, params, options){ return less_ajaxx('/signup', verb, params, options);}
+function login_vanity_path(userlogin, verb){ return '/' + userlogin + '';}
+function login_vanity_ajax(userlogin, verb, params, options){ return less_ajax('/' + userlogin + '', verb, params, options);}
+function login_vanity_ajaxx(userlogin, verb, params, options){ return less_ajaxx('/' + userlogin + '', verb, params, options);}
 function home_path(verb){ return '/home';}
 function home_ajax(verb, params, options){ return less_ajax('/home', verb, params, options);}
 function home_ajaxx(verb, params, options){ return less_ajaxx('/home', verb, params, options);}
