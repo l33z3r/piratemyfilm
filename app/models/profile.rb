@@ -286,9 +286,17 @@ class Profile < ActiveRecord::Base
         group by users.id
         order by projects_count DESC"
     when "7" then
+      
+      if condition_clause.length == 0
+        condition_clause = "where "
+      else
+        condition_clause += " and "
+      end
+
       return "select profiles.* from profiles join users on profiles.user_id = users.id
         join memberships on profiles.user_id = memberships.user_id
         #{condition_clause}
+        users.warn_points > 0
         order by users.warn_points desc"
     else
       return "select profiles.* from profiles join users on profiles.user_id = users.id
