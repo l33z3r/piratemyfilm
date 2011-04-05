@@ -208,6 +208,8 @@ class PaymentWindowController < ApplicationController
         @notify_emails_defaulted << payment.user.profile.email
         payment.status = "Defaulted"
         payment.save!
+
+        payment.user.update_warn_points
       end
     end
 

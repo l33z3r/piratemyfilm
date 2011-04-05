@@ -260,6 +260,16 @@ class Project < ActiveRecord::Base
     end
 
     self.percent_funded = @new_funding_percentage
+
+    #update percentage of bad shares
+    @bad_share_count = 0
+
+    project_subscriptions.each do |ps|
+      next if ps.user.id == PMF_FUND_ACCOUNT_ID
+      @bad_share_count += ps.amount if ps.user.warn_points > 0
+    end
+
+    self.percent_bad_shares = @downloads_reserved > 0 ? (@bad_share_count * 100) / @downloads_reserved : 0
   end
 
   def update_estimates

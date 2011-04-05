@@ -402,6 +402,12 @@ class User < ActiveRecord::Base
     user_talents.find_by_talent_type(UserTalent.talent_types_map[talent_type_id])
   end
 
+  def update_warn_points
+    @unpaid_payments = SubscriptionPayment.find(:all, :conditions => "user_id = #{id} and status = 'Defaulted'", :group => "project_id")
+    self.warn_points = @unpaid_payments.size
+    save
+  end
+
   def subscribed_projects_awaiting_payment
     Project.find_by_sql("select projects.* from projects where id in
     (select project_id from subscription_payments where (status is null or (status != 'Pending' and status != 'Paid'

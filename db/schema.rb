@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110306104211) do
+ActiveRecord::Schema.define(:version => 20110405062544) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -349,6 +349,7 @@ ActiveRecord::Schema.define(:version => 20110306104211) do
     t.datetime "completion_date"
     t.string   "watch_url"
     t.date     "premier_date"
+    t.integer  "percent_bad_shares",                                                            :default => 0
   end
 
   create_table "sessions", :force => true do |t|
@@ -406,6 +407,7 @@ ActiveRecord::Schema.define(:version => 20110306104211) do
     t.string   "email_verification"
     t.boolean  "email_verified"
     t.integer  "member_rating",                           :default => 0
+    t.integer  "warn_points",                             :default => 0
   end
 
   add_index "users", ["login"], :name => "index_users_on_login"

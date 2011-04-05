@@ -190,6 +190,12 @@ project_link_action ||= "show"
               community and does not include shares held by the PMF Fund.">?</a>)
         </li>
         <li class="pmf_clear"></li>
+        <li class="label">% Bad Shares:</li>
+        <li class="stat">
+          <%= project.percent_bad_shares %>&#37
+          (<a class="tooltip_arrow" title="This is the percentage of shares held by plank walkers!">?</a>)
+        </li>
+        <li class="pmf_clear"></li>
         <li class="label">Price Per Share:</li><li class="stat"><%= print_money project.ipo_price %></li>
         <li class="pmf_clear"></li>
         <li class="label">Total Shares:</li><li class="stat"><%= project.total_copies.to_i %></li>

@@ -222,7 +222,8 @@ class Profile < ActiveRecord::Base
   @@filter_params_map = {
     1 => "View Members By...", 2 => "User Login",
     3 => "No. Projects Listed", 4 => "No. Shares Reserved", 
-    5 => "Member Rating", 6 => "No. Projects Funded"
+    5 => "Member Rating", 6 => "No. Projects Funded",
+    7 => "Walk The Plank"
   }
 
   def self.get_sql filter_param, condition_clause
@@ -284,6 +285,11 @@ class Profile < ActiveRecord::Base
         and projects.is_deleted = 0 and projects.project_payment_status = 'Finished Payment'))
         group by users.id
         order by projects_count DESC"
+    when "7" then
+      return "select profiles.* from profiles join users on profiles.user_id = users.id
+        join memberships on profiles.user_id = memberships.user_id
+        #{condition_clause}
+        order by users.warn_points desc"
     else
       return "select profiles.* from profiles join users on profiles.user_id = users.id
         join memberships on profiles.user_id = memberships.user_id

@@ -35,6 +35,11 @@
           <div class="pmf_clear">&nbsp;</div>
         <% end %>
 
+        <div class="stat_label">Walked the plank:</div>
+        <div class="stat">
+          <%= pluralize(@user.warn_points, "time") %>
+          (<a class="tooltip_arrow" title="When a user defaults on paying for shares, he will walk the plank!">?</a>)
+        </div>
         <div class="stat_label">No. Projects Offering Shares:</div>
         <div class="stat"><%= @user_projects.size %></div>
         <div class="pmf_clear">&nbsp;</div>
