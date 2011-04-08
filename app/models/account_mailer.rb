@@ -38,5 +38,6 @@ class AccountMailer < ActionMailer::Base
     @from           = MAILER_FROM_ADDRESS
     @sent_on        = Time.new
     @headers        = {}
+    content_type "text/html"
   end
 end
