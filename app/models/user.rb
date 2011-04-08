@@ -92,16 +92,20 @@ class User < ActiveRecord::Base
   def before_create
     p = Profile.find_by_email @email
     return true if p.blank?
+
     errors.add(:email, 'address has already been taken.') and return false unless p.user.blank?
   end
   
   def after_create
+    #make activation code
+    self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+    save
+    
     p = Profile.find_or_create_by_email @email
     raise 'User found when should be nil' unless p.user.blank?
     p.is_active=true
     p.user_id = id
     p.save
-    AccountMailer.deliver_signup self.reload
   end
   
   def after_destroy
@@ -121,6 +125,8 @@ class User < ActiveRecord::Base
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
     u && u.authenticated?(password) ? u : nil
+    raise Exceptions::UserNotActivated unless u.activated?
+    u
   end
 
   # Encrypts some data with the salt.
@@ -412,6 +418,17 @@ class User < ActiveRecord::Base
     Project.find_by_sql("select projects.* from projects where id in
     (select project_id from subscription_payments where (status is null or (status != 'Pending' and status != 'Paid'
     and status != 'Defaulted') and user_id = #{id}) group by project_id)")
+  end
+
+  # Activates the user in the database.
+  def activate
+    self.activated_at = Time.now.utc
+    self.activation_code = nil
+    save
+  end
+
+  def activated?
+    activation_code.nil?
   end
 
   protected

@@ -24,8 +24,6 @@
         <div id="captcha_section"><%= recaptcha_tags %></div>
       </div>
 
-      <%= f.wrap(:remember_me, :for => :remember_me){ check_box_tag :remember_me, 1, params[:remember_me], :class=>"checkbox"} %>
-
       <div class='row clear'>
         <label>&nbsp;</label>
         <%= f.submit 'Sign Up', :class => 'button' %>

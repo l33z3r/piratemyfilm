@@ -37,6 +37,7 @@ ActionController::Routing::Routes.draw do |map|
     accounts.login   "/login",   :action => 'login'
     accounts.logout  "/logout",  :action => 'logout'
     accounts.signup  "/signup",  :action => 'signup'
+    accounts.activate "/activate", :action => 'activate'
   end
 
   map.login_vanity '/:userlogin', :controller => "profiles", :action => "show"

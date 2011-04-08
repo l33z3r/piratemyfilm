@@ -18,13 +18,19 @@ class AccountsController < ApplicationController
     else
       params[:login] ||= params[:user][:login] if params[:user]
       params[:password] ||= params[:user][:password] if params[:user]
-      self.user = User.authenticate(params[:login], params[:password])
-      if @u
-        remember_me if params[:remember_me] == "1"
-        flash[:notice] = "Logged In Successfully"
-        redirect_back_or_default profile_url(@u.profile)
-      else
-        flash.now[:error] = "Uh-oh, login didn't work. Do you have caps locks on? Try it again."
+
+      begin
+        self.user = User.authenticate(params[:login], params[:password])
+        if @u
+          remember_me if params[:remember_me] == "1"
+          flash[:notice] = "Logged In Successfully"
+          redirect_back_or_default profile_url(@u.profile)
+        else
+          flash.now[:error] = "Uh-oh, login didn't work. Do you have caps locks on? Try it again."
+        end
+      rescue Exceptions::UserNotActivated
+        AccountMailer.deliver_signup_notification User.find_by_login(params[:login])
+        redirect_to :action => "activation_required"
       end
     end
   end
@@ -35,7 +41,7 @@ class AccountsController < ApplicationController
     session[:return_to] = nil
     flash[:notice] = "You have been logged out."
     redirect_to '/'
-  end  
+  end
 
   def signup
     redirect_back_or_default(home_path) and return if @u
@@ -56,21 +62,36 @@ class AccountsController < ApplicationController
     #give user a membership
     Membership.create(:user => u, :membership_type => MembershipType.find_by_name("Basic"))
 
-    @u = u
     if u.save
-      self.user = u
-      remember_me if params[:remember_me] == "1"
-      flash[:notice] = "Thanks for signing up!"
-      AuthMailer.deliver_registration(:subject=>"new #{SITE_NAME} registration", :body => "username = '#{@u.login}', email = '#{@u.profile.email}'", :recipients=>REGISTRATION_RECIPIENTS)
-      redirect_to profile_url(@u.profile)
-    else  
-      @user = @u
+      #self.user = u
+      flash[:notice] = "Thanks for signing up, please check your email to verify your account!"
+      AccountMailer.deliver_signup_notification u
+      AuthMailer.deliver_registration(:subject=>"new #{SITE_NAME} registration", 
+        :body => "username = '#{u.login}', email = '#{u.profile.email}'",
+        :recipients=>REGISTRATION_RECIPIENTS)
+      redirect_back_or_default('/')
+    else
+      @user = u
       params[:user][:password] = params[:user][:password_confirmation] = ''
       self.user = u
     end
-  end  
+  end
 
-protected
+  def activate
+    @user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
+    if @user && !@user.activated?
+      @user.activate
+      self.user = @user unless logged_in?
+      AccountMailer.deliver_signup @user
+      flash[:positive] = "Thanks, your account has been activated"
+      redirect_back_or_default('/')
+    else
+      flash[:negative] = "You have already activated your account!"
+      redirect_back_or_default('/')
+    end
+  end
+
+  protected
 
   def remember_me
     self.user.remember_me
@@ -78,9 +99,9 @@ protected
       :value => self.user.remember_token ,
       :expires => self.user.remember_token_expires_at
     }
-  end  
+  end
   
-  def allow_to 
+  def allow_to
     super :all, :all=>true
   end
   

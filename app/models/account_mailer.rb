@@ -30,4 +30,13 @@ class AccountMailer < ActionMailer::Base
     @sent_on        = Time.new
     @headers        = {}
   end
+
+  def signup_notification user
+    @subject        = "Activate Your PMF Account!"
+    @body['user']   = user
+    @recipients     = user.email
+    @from           = MAILER_FROM_ADDRESS
+    @sent_on        = Time.new
+    @headers        = {}
+  end
 end

@@ -1,0 +1,15 @@
+Welcome to the Piratemyfilm!
+
+Follow the link below to activate your account.
+
+<% if @user.activated? %>
+  <a href="<%= profile_url @user.profile %>"><%= profile_url @user.profile %></a>
+<% else %>
+  <a href="<%= activate_url(:activation_code => @user.activation_code) %>">
+    <%= activate_url(:activation_code => @user.activation_code) %>
+  </a>
+<% end %>
+
+regards,
+
+the PMF team!
