@@ -1,11 +1,11 @@
 class ProjectsController < ApplicationController
   
   skip_filter :store_location, :only => [:create]
-  skip_before_filter :login_required, :only => [:index, :show, :blogs, :search, :filter_by_param]
+  skip_before_filter :login_required, :only => [:index, :show, :player, :blogs, :search, :filter_by_param]
 
   before_filter :setup
 
-  before_filter :load_project, :only => [:show, :edit, :update, :delete, :update_symbol,
+  before_filter :load_project, :only => [:show, :edit, :player, :update, :delete, :update_symbol,
     :update_green_light, :share_queue, :blogs, :invite_friends, :send_friends_invite, 
     :flag, :buy_shares]
 
@@ -121,6 +121,13 @@ class ProjectsController < ApplicationController
       flash[:error] = "Error updating symbol"
       perform_show
       render :action => "show"
+    end
+  end
+
+  def player
+    if !@project.main_video
+      flash[:error] = "This project has no video attatched to it."
+      redirect_to :action => "show", :id => @project
     end
   end
 
@@ -363,7 +370,7 @@ class ProjectsController < ApplicationController
   end
 
   def allow_to
-    super :all, :only => [:index, :show, :blogs, :search, :filter_by_param]
+    super :all, :only => [:index, :show, :player, :blogs, :search, :filter_by_param]
     super :admin, :all => true
     super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon, 
       :share_queue, :invite_friends, :send_friends_invite, :buy_shares]

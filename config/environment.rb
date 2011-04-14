@@ -29,6 +29,7 @@ Rails::Initializer.run do |config|
   config.time_zone = 'UTC'
   
   # Gem dependencies
+  config.gem 'mechanize', :version => '1.0.0'
   config.gem 'will_paginate', :version => '~> 2.2.2'
   config.gem 'colored', :version=> '1.1'
   config.gem 'youtube-g', :version=> '0.4.1', :lib=>'youtube_g'

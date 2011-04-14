@@ -1,0 +1,34 @@
+<% content_for :head do %>
+  <meta name="title" content="<%= @project.symbol %>" />
+  <meta name="description" content="<%= @project.description %>" />
+  <link rel="image_src" href="http://www.piratemyfilm.com<%= project_icon_path @project, :big %>" />
+  <%= render :partial => "og_tags", :locals => {:project => @project} %>
+
+  <%= javascript_include_tag 'jwplayer', 'swfobject' %>
+  
+<% end %>
+
+<div id="project_player">
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="dashed_light_border">&nbsp;</div>
+
+  <div class="pageTitle">PMF Player</div>
+
+  <div class="pageTitleSmaller">Playing - <%= h @project.title %></div>
+  
+  <div class="pmf_clear_20">&nbsp;</div>
+  
+  <p id="container1">
+    You must have flash installed to be able to view the video.
+  </p>
+  
+  <script type="text/javascript">
+    var flashvars = { file:'<%= url_for_file_column(@project, "main_video") %>',autostart:'false' };
+    var params = { allowfullscreen:'true', allowscriptaccess:'always' };
+    var attributes = { id:'player1', name:'player1' };
+    swfobject.embedSWF('/jwplayer/player.swf','container1','880','670','9.0.115','false', flashvars, params, attributes);
+  </script>
+
+</div>

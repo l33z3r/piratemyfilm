@@ -124,6 +124,7 @@ class User < ActiveRecord::Base
   # Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
+    return nil unless u
     u && u.authenticated?(password) ? u : nil
     raise Exceptions::UserNotActivated unless u.activated?
     u

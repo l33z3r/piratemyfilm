@@ -2,6 +2,8 @@ Welcome to the Piratemyfilm!
 
 Follow the link below to activate your account.
 
+<br/><br/>
+
 <% if @user.activated? %>
   <a href="<%= profile_url @user.profile %>"><%= profile_url @user.profile %></a>
 <% else %>
@@ -9,6 +11,8 @@ Follow the link below to activate your account.
     <%= activate_url(:activation_code => @user.activation_code) %>
   </a>
 <% end %>
+
+<br/><br/>
 
 regards,
 

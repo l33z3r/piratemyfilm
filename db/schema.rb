@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110408082014) do
+ActiveRecord::Schema.define(:version => 20110412072440) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -350,6 +350,7 @@ ActiveRecord::Schema.define(:version => 20110408082014) do
     t.string   "watch_url"
     t.date     "premier_date"
     t.integer  "percent_bad_shares",                                                            :default => 0
+    t.string   "main_video"
   end
 
   create_table "sessions", :force => true do |t|

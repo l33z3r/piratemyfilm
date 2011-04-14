@@ -355,6 +355,29 @@
     </td>
   </tr>
 
+  <% unless project.main_video.blank? %>
+    <tr>
+      <td>
+        Current Main Video:
+      </td>
+      <td>
+        <%= url_for_file_column(project, "main_video") %>
+      </td>
+    </tr>
+  <% end %>
+
+  <!--tr>
+    <td>
+      Upload a Video:
+      <br/><br/>
+      <i>Note: your project video must be less than 1 megabyte in size</i>
+    </td>
+    <td>
+      <%= file_column_field( "project", "main_video", :size => 15)%>
+      <%= display_error_on(project, :main_video) -%>
+    </td>
+  </tr-->
+
   <% if(defined?(include_captcha) && include_captcha) %>
     <tr>
       <td>Enter the words in the box to prove you are human:</td>

@@ -16,6 +16,12 @@ class Admin::AdminBlogsController < Admin::AdminController
       @blog.is_admin_blog = true
       @blog.profile_id = PMF_FUND_ACCOUNT_ID
       @blog.save!
+
+      if params[:publish_to_mkc]
+        #send blog to mkc
+        PostLib.do_post @blog.title, @blog.body
+      end
+
       flash[:notice] = 'New blog post created.'
       redirect_to :action => "index"
     rescue ActiveRecord::RecordInvalid

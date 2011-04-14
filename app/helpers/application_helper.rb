@@ -211,6 +211,14 @@ module ApplicationHelper
     end
   end
 
+  def watch_project_url project
+    if project.main_video
+      url_for :controller => "projects", :action => "player", :id => project
+    elsif project.watch_url
+      project.watch_url
+    end
+  end
+
   #helpers to display project talent
   def director_for project
     if project.director_talent

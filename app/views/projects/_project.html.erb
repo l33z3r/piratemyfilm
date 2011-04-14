@@ -143,6 +143,7 @@ project_link_action ||= "show"
         (<a class="tooltip_arrow" title="This is a % of the budget
             that the producer will take as an initial fee">?</a>)
       </li-->
+      <li class="pmf_clear"></li>
     </ul>
   </div>
 
@@ -166,12 +167,10 @@ project_link_action ||= "show"
         <% end %>
         <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
         <li class="pmf_clear"></li>
-        <% if project.watch_url %>
-          <li class="fully_funded_textline">
-            <a href="<%= project.watch_url %>">Watch Film Here</a>
-          </li>
-          <li class="pmf_clear"></li>
-        <% end %>
+        <li class="fully_funded_textline">
+          <a href="<%= watch_project_url project %>">Watch Film Here</a>
+        </li>
+        <li class="pmf_clear"></li>
       </ul>
     </div>
   <% else %>

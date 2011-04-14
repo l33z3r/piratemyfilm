@@ -160,7 +160,7 @@ class ProfilesController < ApplicationController
     end
 
     if @user.nil?
-      flash[:error] = "Profilehnn not found"
+      flash[:error] = "Profile not found"
       redirect_to :controller => root_path
     end
   end

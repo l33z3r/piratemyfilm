@@ -133,6 +133,8 @@ class Project < ActiveRecord::Base
     }
   }
 
+  file_column :main_video
+
   after_create :generate_symbol
   before_save :set_talent
 

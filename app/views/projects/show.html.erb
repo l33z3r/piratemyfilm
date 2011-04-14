@@ -154,7 +154,7 @@
 
   <div class="pmf_clear">&nbsp;</div>
 
-  <% if @project.youtube_vid_id %>
+  <% if @project.youtube_vid_id and !@project.youtube_vid_id.blank? %>
     <div id="project_youtube_vid">
       <fieldset>
         <div class="header">Youtube Video</div>

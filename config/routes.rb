@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :projects,
-    :member=>{:delete_icon=>:post, :invite_friends => :get, :send_friends_invite => :post, :flag => :post},
+    :member=>{:delete_icon=>:post, :invite_friends => :get, :send_friends_invite => :post, :flag => :post, :player => :get},
     :collection=>{:search=>:get} do | project |
     project.resources :project_subscriptions, :collection => {:cancel => :delete}
     project.resources :project_followings, :collection => {:unfollow => :delete}, :only => [:create]
