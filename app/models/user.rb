@@ -30,7 +30,9 @@ class User < ActiveRecord::Base
   has_many :user_talents
 
   has_many :notifications
-  
+
+  has_many :blogs, :through => :profiles
+
   has_many :blog_comments
   has_many :project_flaggings
   has_many :flagged_projects, :through => :project_flaggings, :source => :project
@@ -266,7 +268,19 @@ class User < ActiveRecord::Base
     end
   end
 
-  #this function returns the projects the user has shares in
+  #get all projects belonging to a user and
+  #return them as select opts for a dropdown
+  def project_select_opts
+    @project_select_opts = [["Choose a project...", -1]]
+
+    owned_public_projects.each do |project|
+      @project_select_opts << [project.title, project.id]
+    end
+
+    @project_select_opts
+  end
+
+  ##this function returns the projects the user has shares in
   #in which the amount of shares they have in each exceeds cap
   def projects_with_shares_over(cap)
     @count = 0

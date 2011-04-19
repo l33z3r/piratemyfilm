@@ -38,11 +38,11 @@ class Blog < ActiveRecord::Base
   end
 
   def is_pmf_producer_blog
-    return project && profile.user.id == PMF_FUND_ACCOUNT_ID
+    return project && profile.user.id == PMF_FUND_ACCOUNT_ID && !is_member_blog
   end
 
   def is_producer_blog
-    return project && !is_pmf_producer_blog
+    return project && !is_pmf_producer_blog && !is_member_blog
   end
 
   def is_mkc_blog
@@ -139,6 +139,13 @@ class Blog < ActiveRecord::Base
 
   def self.mkc_blogs
     find(:all, :conditions => "guid IS NOT NULL", :order => "created_at DESC")
+  end
+
+  def self.my_followings user
+    find_by_sql("select blogs.* from blogs where is_member_blog = 1 and profile_id in
+      (select id from profiles where user_id in
+      (select invited_id from friends where inviter_id = #{user.id}) or
+      user_id = #{user.id}) order by created_at DESC")
   end
 
 end

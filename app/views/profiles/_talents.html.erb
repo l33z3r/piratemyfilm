@@ -42,32 +42,31 @@
               (Rating: <span><%= talent.current_rating %></span>)
             </span>
           </div>
-          <div class="link">
-            <% if logged_in %>
-              <% if @p == @profile %>
-                <div class="button">
-                  <%= link_to "Quit", {:controller => "user_talents", :action => "destroy", :talent_type_id => talent.key},
-                    :confirm => "Are You Sure?", :method => :delete %>
-                </div>
-              <% else %>
+          <% if logged_in %>
+            <% if @p == @profile %>
+              <div class="button_small left">
+                <%= link_to "Quit", {:controller => "user_talents", :action => "destroy", :talent_type_id => talent.key},
+                  :confirm => "Are You Sure?", :method => :delete %>
+              </div>
+            <% else %>
+              <div id="talent_ratings">
                 <% form_tag :controller => "user_talents", :action => "rate", :user_talent_id => talent.id do %>
                   <% if @u.talent_rating(talent.talent_rating_id) %>
-                    <div class="label">Your Rating:</div>
-                    <div class="value"><%= @u.talent_rating(talent.talent_rating_id).rating %></div>
+                    <div class="label left">Your Rating:</div>
+                    <div class="value left"><%= @u.talent_rating(talent.talent_rating_id).rating %></div>
                   <% end %>
                   <% if @u.can_talent_rate(talent.talent_rating_id) %>
-                    <div class="pmf_clear">&nbsp;</div>
-                    <div class="label">New Rating:</div>
-                    <div class="value">
+                    <div class="label left">New Rating:</div>
+                    <div class="value left">
                       <%= select_tag "rating", options_for_select(@talent_rating_select_opts, @u.talent_rating(talent.talent_rating_id)) %>
                     </div>
-                    <input id="rating_submit" type="submit" name="submit" value="Submit"/>
+                    <input id="rating_submit" type="submit" name="submit" class="button_small left" value="Rate"/>
                     <div class="pmf_clear">&nbsp;</div>
                   <% end %>
                 <% end %>
-              <% end %>
+              </div>
             <% end %>
-          </div>
+          <% end %>
           <div class="pmf_clear_10">&nbsp;</div>
         <% end %>
       </div>
@@ -86,11 +85,9 @@
         <div class="list">
           <% @profile.user.user_talents_not_applied_for.each do |key, label| %>
             <div class="talent_label"><%= label %></div>
-            <div class="link">
-              <div class="button">
-                <%= link_to "Apply", {:controller => "user_talents", :action => "create", :talent_type_id => key},
-                  :confirm => "Are You Sure?", :method => :post %>
-              </div>
+            <div class="button_small left">
+              <%= link_to "Apply", {:controller => "user_talents", :action => "create", :talent_type_id => key},
+                :confirm => "Are You Sure?", :method => :post %>
             </div>
             <div class="pmf_clear_10">&nbsp;</div>
           <% end %>

@@ -326,7 +326,9 @@ module ApplicationHelper
   end
 
   def blog_template_name blog
-    if blog.is_pmf_producer_blog
+    if blog.is_member_blog
+      return "member_blog"
+    elsif blog.is_pmf_producer_blog
       return "pmf_producer_blog"
     elsif blog.is_producer_blog
       return "producer_blog"

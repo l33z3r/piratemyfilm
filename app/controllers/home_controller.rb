@@ -2,21 +2,16 @@ class HomeController < ApplicationController
   skip_before_filter :login_required	
 
   def index
-    #global live stream
-    @blogs = Blog.all_blogs
-    @pmf_fund_comments = ProjectComment.latest
-    @admin_project_ratings = AdminProjectRating.latest
-#    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest
-
-    @new_projects = Project.find_all_public(:order => "created_at DESC")
-
-    @items = @blogs + @pmf_fund_comments + @admin_project_ratings + @new_projects# + @pmf_project_subscriptions
-
-    @items.sort! do |a,b|
-      b.created_at <=> a.created_at
+    if !logged_in
+      redirect_to :controller => :blogs, :action => :index and return
     end
 
-    @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
+    @blogs = Blog.my_followings @u
+    @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+
+    @blog = Blog.new
+    
+    render :template => "/blogs/members"
   end
 
   def newest_members

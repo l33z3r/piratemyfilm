@@ -33,7 +33,11 @@ class ProfilesController < ApplicationController
     @followed_blogs = []
 
     if @p == @profile
-      @followed_blogs  = Blog.all_for_user_producer_followings(@u).paginate :page => (params[:page] || 1), :per_page=> 15
+      #we now have different semantics for followed blogs, we use the member live feed and the project live feed
+      #@followed_blogs  = Blog.all_for_user_producer_followings(@u).paginate :page => (params[:page] || 1), :per_page=> 15
+
+      @blogs = Blog.my_followings @u
+      @blog = Blog.new
     end
 
     #load this users producer rating info

@@ -4,13 +4,28 @@ class BlogsController < ApplicationController
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
 
+  #this is the members live feed
+  def members
+    if !logged_in
+      redirect_to :action => :index and return
+    end
+
+    @blogs = Blog.my_followings @u
+    @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+
+    @blog = Blog.new
+  end
+
+  #this lists all blogs about projects
   def index
     #this content is the same as what is on the homepage
 
     @blogs = Blog.all_blogs
     @pmf_fund_comments = ProjectComment.latest
     @admin_project_ratings = AdminProjectRating.latest
-#    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest
+
+    #we don't show the subscription history anymore
+    #    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest
 
     @new_projects = Project.find_all_public(:order => "created_at DESC")
 
@@ -59,11 +74,20 @@ class BlogsController < ApplicationController
   def create
     begin
       @blog = Blog.new(params[:blog])
-      @project = Project.find(params[:blog][:project_id])
-      @blog.profile_id = @project.owner.profile.id
+      
+      if params[:project_id] and params[:project_id] != "-1"
+        @project = Project.find(params[:project_id])
+        @blog.project_id = @project.id
+      end
+
       @blog.save!
 
       flash[:notice] = 'New blog post created.'
+
+      if @blog.is_member_blog
+        redirect_to :action => "members" and return
+      end
+      
       redirect_to :controller => "blogs", :action => "show", :id => @blog.id
     rescue ActiveRecord::RecordInvalid
       flash[:error] = "Sorry, there was a problem creating your blog post"
@@ -143,7 +167,7 @@ class BlogsController < ApplicationController
         permission_denied
       end
     rescue ActiveRecord::RecordNotFound
-      permission_denied
+      #ignore this, as there may not be a project linked to this blog
     end
 
   end

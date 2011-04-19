@@ -135,7 +135,7 @@
             <div class="title">Your Email Notifications</div>
             <p>
               You are currently set to receive email notifications for the
-              following events (note you can change these settings by clicking 
+              following events (note you can change these settings by clicking
               the edit profile button at the bottom of the page):
             </p>
 
@@ -168,18 +168,37 @@
 
   </div>
 
-  <% if @p == @profile && @followed_blogs.size > 0 %>
+  <% if @p == @profile && @blogs.size > 0 %>
 
     <div class="dashed_light_border">&nbsp;</div>
 
-    <div class="pmf_clear_20">&nbsp;</div>
+    <div class="pmf_clear_10">&nbsp;</div>
 
-    <div class="pageTitle">Followed Members Feed</div>
+    <div class="pageTitle">Member Feed</div>
+
+    <div class="dashed_light_border">&nbsp;</div>
 
     <div class="pmf_clear">&nbsp;</div>
 
-    <%= render :partial => '/blogs/blogs', :locals => {:blogs => @followed_blogs} %>
+    <%= render :partial => "/blogs/member_blog_update_form", :locals => {:blog => @blog} %>
 
-    <%= pagination_controls_for @followed_blogs if @followed_blogs.respond_to? :total_pages %>
+    <% if @blogs.empty? %>
+      <div class="pageTitleSmaller">
+        You are not following any PMF Members!
+      </div>
+      <div class="pageTitleSmaller">
+        When you follow someone, their updates will appear here!
+      </div>
+      <div class="pmf_clear">&nbsp;</div>
+    <% end %>
+
+    <% @blogs.each do |blog| %>
+      <%= render :partial => "/blogs/templates/member_blog",
+        :locals => {:blog => blog, :truncate_blog => true,
+        :link_blog_header => true } %>
+    <% end %>
+
+    <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>
+
   <% end %>
 </div>

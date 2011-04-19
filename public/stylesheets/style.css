@@ -1221,10 +1221,19 @@ div#profile div#user_talents div#current_talents div.list div.link div.value {
     float: left;
 }
 
+div#profile div#user_talents div#current_talents div.list div#talent_ratings div.label {
+    width: 75px;
+}
+
+div#profile div#user_talents div#current_talents div.list div#talent_ratings input#rating_submit {
+    margin-top: -5px;
+}
+
 div#profile div#user_talents div#current_talents div.list div.talent_label {
     font-weight: bold;
     color: #000000;
-    width: 100%;
+    width: 200px;
+    float: left;
 }
 
 div#profile div#user_talents div#current_talents div.list div.talent_label span.rating {
@@ -1241,15 +1250,15 @@ div#profile div#user_talents div#other_talents div.list div.link div.button {
     float: left;
 }
 
+div#profile div#user_talents div.button_small {
+    margin-top: -5px;
+}
+
 div#profile div#user_talents div#other_talents div.list div.talent_label {
     font-weight: bold;
     color: #000000;
-    width: 100%;
-}
-
-div#profile div#user_talents div#other_talents div.list div.link {
-    margin-top: 10px;
-    margin-bottom: 5px;
+    width: 200px;
+    float: left;
 }
 
 /* End profile page */
@@ -1810,6 +1819,13 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     padding: 9px 10px 10px 10px;
     width: 120px;
     cursor: pointer;
+    text-align: center;
+}
+
+#content input[type=submit].button_small {
+    background: url(/images/button_bg_small.png) transparent left top;
+    padding: 5px 3px 4px 3px;
+    width: 62px;
     text-align: center;
 }
 
