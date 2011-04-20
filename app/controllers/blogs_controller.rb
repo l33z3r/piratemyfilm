@@ -6,10 +6,6 @@ class BlogsController < ApplicationController
 
   #this is the members live feed
   def members
-    if !logged_in
-      redirect_to :action => :index and return
-    end
-
     @blogs = Blog.my_followings @u
     @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
 
@@ -20,7 +16,7 @@ class BlogsController < ApplicationController
   def index
     #this content is the same as what is on the homepage
 
-    @blogs = Blog.all_blogs
+    @blogs = Blog.all_project_blogs
     @pmf_fund_comments = ProjectComment.latest
     @admin_project_ratings = AdminProjectRating.latest
 

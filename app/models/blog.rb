@@ -119,6 +119,12 @@ class Blog < ActiveRecord::Base
       :order => "blogs.created_at desc")
   end
 
+  def self.all_project_blogs
+    find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null and blogs.is_member_blog = 0)
+        or (blogs.is_admin_blog = 1) or (blogs.guid is not null)",
+      :order => "blogs.created_at desc")
+  end
+
   def self.producer_blogs
     find(:all, :include => :project, :conditions => "guid is null and is_admin_blog = false and
       projects.symbol is not null and projects.is_deleted = false",
@@ -142,10 +148,14 @@ class Blog < ActiveRecord::Base
   end
 
   def self.my_followings user
-    find_by_sql("select blogs.* from blogs where is_member_blog = 1 and profile_id in
+    if !user
+      Blog.find(:all, :conditions => "is_member_blog = 1", :order => "created_at DESC")
+    else
+      find_by_sql("select blogs.* from blogs where is_member_blog = 1 and profile_id in
       (select id from profiles where user_id in
       (select invited_id from friends where inviter_id = #{user.id}) or
       user_id = #{user.id}) order by created_at DESC")
+    end
   end
 
 end

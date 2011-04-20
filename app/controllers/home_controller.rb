@@ -2,10 +2,6 @@ class HomeController < ApplicationController
   skip_before_filter :login_required	
 
   def index
-    if !logged_in
-      redirect_to :controller => :blogs, :action => :index and return
-    end
-
     @blogs = Blog.my_followings @u
     @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
 
