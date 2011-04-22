@@ -22,7 +22,7 @@ every 1.day, :at => '1:00 am' do
   rake "generate_project_change_info"
 end
 
-every 1.month, :at => '1:00 am' do
+every 3.days, :at => '1:00 am' do
   rake "clear_expired_sessions"
 end
 
