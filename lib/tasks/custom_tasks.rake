@@ -23,7 +23,7 @@ end
 
 desc "Clear expired sessions"
 task :clear_expired_sessions => :environment do
-  sql = 'DELETE FROM sessions WHERE updated_at < DATE_SUB(NOW(), INTERVAL 3 DAYS);'
+  sql = 'DELETE FROM sessions WHERE updated_at < DATE_SUB(NOW(), INTERVAL 3 DAY);'
   ActiveRecord::Base.connection.execute(sql)
 
   #defrag the table
