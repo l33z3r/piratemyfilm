@@ -108,9 +108,6 @@ class ApplicationController < ActionController::Base
   end
 
   def load_sitewide_vars
-    @top_sitewide_projects = ProjectChangeInfoOneDay.top_five_change_for_site
-    @bottom_sitewide_projects = ProjectChangeInfoOneDay.bottom_five_change_for_site
-
     @projects_awaiting_payment_count = @u ? @u.subscribed_projects_awaiting_payment.size : 0
   end
 

@@ -1495,34 +1495,33 @@ div#header div#stats_container {
     margin-top: 7px;
 }
 
-div#header div.sitewide_portfolio_info {
+div#stats div.sitewide_portfolio_info {
+    margin: 15px 0px 15px 0px;
     width: 460px;
-    float: right;
-    margin-bottom: 10px;
 }
 
-div#header div.sitewide_portfolio_info div#winners {
+div#stats div.sitewide_portfolio_info div#winners {
     float: left;
 }
 
-div#header div.sitewide_portfolio_info div#losers {
+div#stats div.sitewide_portfolio_info div#losers {
     float: left;
 }
 
-div#header div.sitewide_portfolio_info div.title {
+div#stats div.sitewide_portfolio_info div.title {
     margin-bottom: 10px;
     font-weight: bold;
     color: black;
     font-size: 14px;
 }
 
-div#header div.sitewide_portfolio_info div.explain {
+div#stats div.sitewide_portfolio_info div.explain {
     margin-bottom: 10px;
     color: black;
     font-size: 12px;
 }
 
-div#header div.sitewide_portfolio_info div.stat_label_header {
+div#stats div.sitewide_portfolio_info div.stat_label_header {
     float: left;
     margin-right: 10px;
     width: 70px;
@@ -1530,13 +1529,13 @@ div#header div.sitewide_portfolio_info div.stat_label_header {
     font-weight: bold;
 }
 
-div#header div.sitewide_portfolio_info div.stat_label {
+div#stats div.sitewide_portfolio_info div.stat_label {
     float: left;
     margin-right: 10px;
     width: 70px;
 }
 
-div#header div.sitewide_portfolio_info div.stat_header {
+div#stats div.sitewide_portfolio_info div.stat_header {
     float: left;
     width: 120px;
     font-weight: bold;
@@ -1544,22 +1543,22 @@ div#header div.sitewide_portfolio_info div.stat_header {
     font-weight: bold;
 }
 
-div#header div.sitewide_portfolio_info div.stat {
+div#stats div.sitewide_portfolio_info div.stat {
     float: left;
     width: 120px;
     font-weight: bold;
 }
 
-div#header div.sitewide_portfolio_info div.arrow {
+div#stats div.sitewide_portfolio_info div.arrow {
     float: left;
     width: 20px;
 }
 
-div#header div.sitewide_portfolio_info div.arrow img {
+div#stats div.sitewide_portfolio_info div.arrow img {
     margin-top: 2px;
 }
 
-div#header_left {
+div#stats_left {
     float: left;
 }
 
@@ -2677,6 +2676,15 @@ div#buyout_requests div.odd {
     float: left;
     padding: 10px;
     width: 115px;
+}
+
+.user-icon div.follow_button {
+    margin-left: 25px;
+}
+
+.user-icon div.follow_button div.following_text {
+    margin-left: 2px;
+    margin-top: 3px;
 }
 
 .user-icon span {

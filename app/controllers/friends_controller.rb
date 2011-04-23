@@ -8,8 +8,17 @@ class FriendsController < ApplicationController
       #not sure why this is here
       friend = @p.reload.friend_of? @profile
 
-      render :update do |page|
-        page.replace @p.dom_id(@profile.dom_id + '_friendship_'), get_friend_link( @p, @profile)
+      respond_to do |format|
+        format.js do
+          render :update do |page|
+            page.replace @p.dom_id(@profile.dom_id + '_friendship_'), get_friend_link( @p, @profile)
+          end
+        end
+
+        format.html do
+          flash[:positive] = "You are now following #{@profile.user.f}"
+          redirect_to profile_path @profile
+        end
       end
     else
       @message = "Oops... That didn't work. Try again!"

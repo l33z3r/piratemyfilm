@@ -1,16 +1,8 @@
 class BlogsController < ApplicationController
-  skip_before_filter :login_required, :only=> [:show, :index, :admin, :mkc, :producer]
+  skip_before_filter :login_required, :only=> [:show, :index, :members, :admin, :mkc, :producer]
 
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
-
-  #this is the members live feed
-  def members
-    @blogs = Blog.my_followings @u
-    @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
-
-    @blog = Blog.new
-  end
 
   #this lists all blogs about projects
   def index
@@ -37,6 +29,14 @@ class BlogsController < ApplicationController
       render :action => "all_blogs_rss", :layout => false
       response.headers["Content-Type"] = "application/xml; charset=utf-8"
     end
+  end
+
+  #this is the members live feed
+  def members
+    @blogs = Blog.my_followings @u
+    @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+
+    @blog = Blog.new
   end
 
   def producer
@@ -174,7 +174,7 @@ class BlogsController < ApplicationController
   end
 
   def allow_to
-    super :all, :only => [:show, :index, :admin, :mkc, :producer]
+    super :all, :only => [:show, :index, :members, :admin, :mkc, :producer]
     super :user, :all => true
   end
   

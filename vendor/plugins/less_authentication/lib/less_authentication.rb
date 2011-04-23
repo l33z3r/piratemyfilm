@@ -72,7 +72,7 @@ class ActionController::Base
   # simply close itself.
   def access_denied
     store_location
-    redirect_to signup_url
+    redirect_to login_url
   end  
   
   # Store the URI of the current request in the session.

@@ -11,6 +11,20 @@ module FriendsHelper
     return wrap_get_friend_link(link_to_remote( 'Be Friends', :url => profile_friends_path(target), :method => :post), dom_id) if profile.followed_by? target
     wrap_get_friend_link(link_to_remote( 'Start Following', :url => profile_friends_path(target), :method => :post), dom_id)
   end
+
+  def follow_member_button_small target_member
+    return if @u and target_member == @u.profile
+    
+    if @u and (@u.profile.following? target_member or @u.profile.friend_of? target_member)
+      content_tag :div, :class => "following_text left" do
+        "Following"
+      end
+    else
+      content_tag :div, :class => "button_small left" do
+        link_to "Follow", profile_friends_path(target_member), :method => "post"
+      end
+    end
+  end
   
   protected
   

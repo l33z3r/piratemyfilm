@@ -24,7 +24,10 @@ class AccountsController < ApplicationController
         if @u
           remember_me if params[:remember_me] == "1"
           flash[:notice] = "Logged In Successfully"
-          redirect_back_or_default profile_url(@u.profile)
+          
+          #go to the users profile page now, rather than the last url
+          #redirect_back_or_default profile_url(@u.profile)
+          redirect_to profile_url(@u.profile)
         else
           flash.now[:error] = "Uh-oh, login didn't work. Do you have caps locks on? Try it again."
         end

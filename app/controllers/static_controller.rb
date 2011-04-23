@@ -83,6 +83,10 @@ class StaticController < ApplicationController
     @members_reserving_shares_percent = ((@num_users_reserving_shares * 100).to_f/@members_count).ceil
     @avg_number_projects_per_member = (@num_all_projects.to_f / @members_count).ceil
     @avg_number_reservations_per_member = (ProjectSubscription.sum(:amount).to_f/@members_count).ceil
+
+    #top movers that used to be at the top of the site
+    @top_sitewide_projects = ProjectChangeInfoOneDay.top_five_change_for_site
+    @bottom_sitewide_projects = ProjectChangeInfoOneDay.bottom_five_change_for_site
   end
   
   protected
