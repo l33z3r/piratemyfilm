@@ -154,8 +154,8 @@ class Blog < ActiveRecord::Base
       find_by_sql("select blogs.* from blogs where is_member_blog = 1 and profile_id in
       (select id from profiles where user_id in
       (select invited_id from friends where inviter_id = #{user.id}) or
-      user_id = #{user.id}) or user_id in (select inviter_id from friends
-      where invited_id = #{user.id} and status = 1) order by created_at DESC")
+      user_id = #{user.id} or user_id in (select inviter_id from friends
+      where invited_id = #{user.id} and status = 1)) order by created_at DESC")
     end
   end
 
