@@ -57,6 +57,11 @@ class ProjectRatingController < ApplicationController
   def pmf_rating
     if params[:pmf_rating_id]
       @pmf_rating = AdminProjectRating.find(params[:pmf_rating_id])
+
+      if @pmf_rating.project.is_deleted
+        flash[:error] = "Project for this rating has been deleted"
+        redirect_to home_path
+      end
     else
       flash[:error] = "Rating not found"
       redirect_to home_path

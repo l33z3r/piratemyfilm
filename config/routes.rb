@@ -40,12 +40,12 @@ ActionController::Routing::Routes.draw do |map|
     accounts.activate "/activate", :action => 'activate'
   end
 
+  map.home "home", :controller => "home", :action => "index"
+
   map.login_vanity '/:userlogin', :controller => "profiles", :action => "show"
 
   map.connect ':controller/:action/:id'
 
-  map.home "home", :controller => "home", :action => "index"
-  
   map.root :controller => "home", :action => "index"
   
   map.static '/pages/:action', :controller=>'static'

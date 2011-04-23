@@ -1,4 +1,4 @@
-  class ProjectSubscriptionsController < ApplicationController
+class ProjectSubscriptionsController < ApplicationController
 
   before_filter :load_project, :get_project_subscriptions, :except => :pmf_sub
   after_filter :update_project_funding, :except => :pmf_sub
@@ -126,11 +126,16 @@
 
   def pmf_sub
     if params[:pmf_sub_id]
-      @pmf_project_subscription_change = PmfFundSubscriptionHistory.find(params[:pmf_sub_id])
+      begin
+        @pmf_project_subscription_change = PmfFundSubscriptionHistory.find(params[:pmf_sub_id])
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "Subscription not found!"
+        redirect_to home_path and return
+      end
 
       if @pmf_project_subscription_change.project.is_deleted
         flash[:error] = "Project for this subscription has been deleted"
-      redirect_to home_path
+        redirect_to home_path
       end
     else
       flash[:error] = "Subscription not found"

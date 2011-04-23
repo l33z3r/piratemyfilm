@@ -7,8 +7,12 @@ class BlogCommentsController < ApplicationController
     @blog = @blog_comment.blog
 
     #verify captcha
-    redirect_to blog_url(@blog) and return unless check_captcha true
-      
+    if need_captcha
+      if !check_captcha true
+        redirect_to blog_url(@blog) and return
+      end
+    end
+
     if @blog_comment.save
       flash[:notice] = 'Comment was successfully created.'
       redirect_to blog_url(@blog)

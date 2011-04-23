@@ -642,12 +642,12 @@ function signup_ajaxx(verb, params, options){ return less_ajaxx('/signup', verb,
 function activate_path(verb){ return '/activate';}
 function activate_ajax(verb, params, options){ return less_ajax('/activate', verb, params, options);}
 function activate_ajaxx(verb, params, options){ return less_ajaxx('/activate', verb, params, options);}
-function login_vanity_path(userlogin, verb){ return '/' + userlogin + '';}
-function login_vanity_ajax(userlogin, verb, params, options){ return less_ajax('/' + userlogin + '', verb, params, options);}
-function login_vanity_ajaxx(userlogin, verb, params, options){ return less_ajaxx('/' + userlogin + '', verb, params, options);}
 function home_path(verb){ return '/home';}
 function home_ajax(verb, params, options){ return less_ajax('/home', verb, params, options);}
 function home_ajaxx(verb, params, options){ return less_ajaxx('/home', verb, params, options);}
+function login_vanity_path(userlogin, verb){ return '/' + userlogin + '';}
+function login_vanity_ajax(userlogin, verb, params, options){ return less_ajax('/' + userlogin + '', verb, params, options);}
+function login_vanity_ajaxx(userlogin, verb, params, options){ return less_ajaxx('/' + userlogin + '', verb, params, options);}
 function root_path(verb){ return '';}
 function root_ajax(verb, params, options){ return less_ajax('', verb, params, options);}
 function root_ajaxx(verb, params, options){ return less_ajaxx('', verb, params, options);}

@@ -10,7 +10,7 @@
 
   <%= render :partial => "/blogs/templates/#{blog_template_name(@blog)}",
     :locals => {:blog => @blog, :truncate_blog => false,
-      :link_blog_header => false } %>
+    :link_blog_header => false } %>
 
   <div class="pmf_clear">&nbsp;</div>
 
@@ -60,7 +60,9 @@
           <%= f.text_area :body, :cols => 42, :rows => 4 %>
 
           <div class="row clear">
-            <div id="captcha_section"><%= recaptcha_tags %></div>
+            <% if need_captcha %>
+              <div id="captcha_section"><%= recaptcha_tags %></div>
+            <% end %>
           </div>
 
           <p><%= f.submit 'Submit' %></p>

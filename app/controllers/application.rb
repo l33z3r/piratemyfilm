@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
   layout 'application'  
 
-  helper_method :print_money, :print_number, :allowed_reserve_shares
+  helper_method :print_money, :print_number, :allowed_reserve_shares, :need_captcha
   
   def check_featured
     return if Profile.featured_profile[:date] == Date.today
@@ -32,7 +32,14 @@ class ApplicationController < ActionController::Base
   def set_profile
     @p = @u.profile if @u && @u.profile
     Time.zone = @p.time_zone if @p && @p.time_zone
-    #@p.update_attribute :last_activity_at, Time.now if @p
+    @p.update_attribute :last_activity_at, Time.now if @p
+  end
+
+  def need_captcha
+    return false if @u.membership_type.id == MembershipType.find_by_name("Black Pearl").id
+    return false if @u.membership_type.id == MembershipType.find_by_name("Platinum").id
+    return false if @u.membership_type.id == MembershipType.find_by_name("Gold").id
+    return true
   end
   
   # API objects that get built once per request

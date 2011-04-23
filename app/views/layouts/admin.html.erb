@@ -66,25 +66,6 @@
       <div class="pmf_clear">&nbsp;</div>
 
       <div id="top_container">
-        <div id="topsite_links">
-          <div id="pmf_fund_stats_container">
-            <div class="pic">
-              <%= link_to image_tag("pmf-fund-icon.png"),
-                profile_path(PMF_FUND_ACCOUNT_ID) %>
-            </div>
-            <div id="stats">
-              <div class="stat">
-                PMF Fund Reserving
-                <%= link_to "#{print_money(@total_pmf_shares_reserved_amount)}",
-                  profile_path(PMF_FUND_ACCOUNT_ID) %>
-                in
-                <%= link_to "#{@total_pmf_projects_invested_in}",
-                  profile_path(PMF_FUND_ACCOUNT_ID) %> Projects
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div id="signup_section">
           <%= render :partial => "shared/signup" %>
         </div>
