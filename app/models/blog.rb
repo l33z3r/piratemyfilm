@@ -151,10 +151,10 @@ class Blog < ActiveRecord::Base
     if !user
       Blog.find(:all, :conditions => "is_member_blog = 1", :order => "created_at DESC")
     else
-      find_by_sql("select blogs.* from blogs where is_member_blog = 1 and profile_id in
+      find_by_sql("select blogs.* from blogs where is_member_blog = 1 and (profile_id in
       (select invited_id from friends where inviter_id = #{user.profile.id}) or
       profile_id = #{user.profile.id} or profile_id in (select inviter_id from friends
-      where invited_id = #{user.id} and status = 1) order by created_at DESC")
+      where invited_id = #{user.id} and status = 1)) order by created_at DESC")
     end
   end
 
