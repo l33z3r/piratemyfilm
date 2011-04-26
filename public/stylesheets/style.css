@@ -97,7 +97,7 @@ p.bold {
 div#top_container {
     font-size: 13px;
     border-bottom: 2px dotted #999999;
-    
+
     overflow: hidden;
     padding: 20px 0px 10px 0px;
     margin-left: 40px;
@@ -151,7 +151,7 @@ div#signup_section {
 }
 
 div#signup_section div#signup_buttons {
-    margin-top: 23px;
+    margin-top: 32px;
 }
 
 div#signup_section div#signup_buttons a {
@@ -176,6 +176,38 @@ div#signup_section div#signup_buttons div.signup {
 
 div#signup_section div#signup_buttons div.login {
     background-color: #999999;
+}
+
+div#signup_section div#login_form_top {
+    text-align: left;
+    float: left;
+    margin-top: 30px;
+}
+
+div#signup_section div#login_form_top div#fields {
+    float: left;
+    text-align: left;
+}
+
+div#signup_section div#login_form_top div#fields div.label {
+    width: 70px;
+    margin-top: 3px;
+    float: left;
+}
+
+div#signup_section div#login_form_top input#user_submit {
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+div#signup_section div#login_form_top div#controls {
+    float: left;
+}
+
+div#signup_section div#login_form_top input#user_login,
+div#signup_section div#login_form_top input#user_password {
+    width: 100px;
+    float: left;
 }
 
 div#signup_section div#welcome_message {
@@ -838,6 +870,10 @@ div#share_queue div.odd {
     background-color: #F8F6EF;
 }
 
+div#share_queue div.outstanding {
+    border: 1px solid #FFBABA;
+}
+
 div#share_queue div.subscription div.number {
     float: left;
     width: 70px;
@@ -873,6 +909,10 @@ div#share_queue div.subscription div.subscription_outstanding {
     margin-left: 10px;
     margin-top: 18px;
     font-weight: bold;
+}
+
+div#share_queue div.subscription div.subscription_outstanding span.outstanding {
+    color: #D8000C;
 }
 
 div#share_queue div.subscription div.subscription_payment_status {
@@ -1208,7 +1248,7 @@ div#profile div#user_talents div#current_talents div.list div.link input[type=su
 }
 
 div#profile div#user_talents div#current_talents div.list div.link div.button {
-    
+
 }
 
 div#profile div#user_talents div#current_talents div.list div.link div.label {
@@ -1264,6 +1304,11 @@ div#profile div#user_talents div#other_talents div.list div.talent_label {
 /* End profile page */
 
 /* Project Talent Page */
+
+div#talents {
+    height: 275px;
+    overflow: scroll;
+}
 
 div#talents div.user_talent {
     float: left;
@@ -1495,33 +1540,34 @@ div#header div#stats_container {
     margin-top: 7px;
 }
 
-div#stats div.sitewide_portfolio_info {
+div#stats_page div#stats div.sitewide_portfolio_info {
     margin: 15px 0px 15px 0px;
     width: 460px;
 }
 
-div#stats div.sitewide_portfolio_info div#winners {
+div#stats_page div#stats div.sitewide_portfolio_info div#winners {
     float: left;
 }
 
-div#stats div.sitewide_portfolio_info div#losers {
+div#stats_page div#stats div.sitewide_portfolio_info div#losers {
     float: left;
+    margin-top: 10px;
 }
 
-div#stats div.sitewide_portfolio_info div.title {
+div#stats_page div#stats div.sitewide_portfolio_info div.title {
     margin-bottom: 10px;
     font-weight: bold;
     color: black;
     font-size: 14px;
 }
 
-div#stats div.sitewide_portfolio_info div.explain {
+div#stats_page div#stats div.sitewide_portfolio_info div.explain {
     margin-bottom: 10px;
     color: black;
     font-size: 12px;
 }
 
-div#stats div.sitewide_portfolio_info div.stat_label_header {
+div#stats_page div#stats div.sitewide_portfolio_info div.stat_label_header {
     float: left;
     margin-right: 10px;
     width: 70px;
@@ -1529,13 +1575,21 @@ div#stats div.sitewide_portfolio_info div.stat_label_header {
     font-weight: bold;
 }
 
-div#stats div.sitewide_portfolio_info div.stat_label {
+div#stats_page div#stats div.sitewide_portfolio_info div.stat_header {
+    float: left;
+    margin-right: 10px;
+    width: 140px;
+    color: #000000;
+    font-weight: bold;
+}
+
+div#stats_page div#stats div.sitewide_portfolio_info div.stat_label {
     float: left;
     margin-right: 10px;
     width: 70px;
 }
 
-div#stats div.sitewide_portfolio_info div.stat_header {
+div#stats_page div#stats_page div#stats div.sitewide_portfolio_info div.stat_header {
     float: left;
     width: 120px;
     font-weight: bold;
@@ -1543,18 +1597,25 @@ div#stats div.sitewide_portfolio_info div.stat_header {
     font-weight: bold;
 }
 
-div#stats div.sitewide_portfolio_info div.stat {
+div#stats_page div#stats div.sitewide_portfolio_info div.stat {
     float: left;
     width: 120px;
     font-weight: bold;
+    margin-right: 10px;
 }
 
-div#stats div.sitewide_portfolio_info div.arrow {
+div#stats_page div#stats div.sitewide_portfolio_info div.move {
+    width: 150px;
+    float: left;
+    font-weight: bold;
+}
+
+div#stats_page div#stats div.sitewide_portfolio_info div.arrow {
     float: left;
     width: 20px;
 }
 
-div#stats div.sitewide_portfolio_info div.arrow img {
+div#stats_page div#stats div.sitewide_portfolio_info div.arrow img {
     margin-top: 2px;
 }
 
@@ -1718,8 +1779,8 @@ body	{
     float: right;
 }
 head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*fix for FF floating buttons - hide from IE & Opera*/
-    float: none;
-    height: 20px;
+                                                                              float: none;
+                                                                              height: 20px;
 }
 .floatButtonFormat, .pageFooter {
     margin: auto;
@@ -2433,12 +2494,21 @@ div.admin_section div.users div.user div.icon {
     margin-top: 0px;
 }
 
+div.admin_section div.users div.headers div.email_header {
+    width: 300px;
+}
+
 div.admin_section div.users div.headers div.membership_type_header {
-    width: 450px;
+    width: 250px;
+}
+
+div.admin_section div.users div.user div.email {
+    width: 300px;
+    float: left;
 }
 
 div.admin_section div.users div.user div.membership_type {
-    width: 450px;
+    width: 250px;
 }
 
 div.admin_section div.users div.user div.membership_type form select {
@@ -2575,13 +2645,13 @@ div#buyout_requests div.odd {
 }
 
 .view-lite-row-icon	{;
-    display: inline;
-    margin-top: 10px;
-    padding: 12px 0px;
-    float: left;
-    text-align: center;
-    width: 118px;
-    margin-top: 4px;
+                     display: inline;
+                     margin-top: 10px;
+                     padding: 12px 0px;
+                     float: left;
+                     text-align: center;
+                     width: 118px;
+                     margin-top: 4px;
 }
 
 .view-lite-row-icon img {
@@ -3152,13 +3222,13 @@ div.project_listings_widget div.project_widget_footer img {
 }
 
 .view-lite-row-icon-widget {;
-    display: inline;
-    margin-top: 10px;
-    padding: 5px;
-    float: left;
-    text-align: center;
-    width: 75px;
-    margin: auto;
+                            display: inline;
+                            margin-top: 10px;
+                            padding: 5px;
+                            float: left;
+                            text-align: center;
+                            width: 75px;
+                            margin: auto;
 }
 
 .view-lite-row-icon-widget img {

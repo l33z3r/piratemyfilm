@@ -44,9 +44,16 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
   end
 
   def self.total_today_volume
-    @changes = find(:all, :include => :project, :conditions => "project_change_info_one_days.created_at > '#{Time.now.midnight.to_s(:db)}'", :order => "abs(project_change_info_one_days.share_change) desc, projects.id", :limit => 10)
+    @changes = find(:all, :include => :project, :conditions => "project_change_info_one_days.created_at > '#{Time.now.midnight.to_s(:db)}'",
+      :order => "abs(project_change_info_one_days.share_change) desc, projects.id", :limit => 10)
 
-    @changes.sum(&:share_change)
+    @sum = 0
+
+    @changes.each do |change|
+      @sum += change.share_change.abs
+    end
+
+    @sum
   end
 
   def self.total_today_ups
@@ -72,7 +79,7 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
       return
     end
 
-    @all_projects = Project.find(:all)
+    @all_projects = Project.find_all_public
 
     @all_projects.each do |project|
       @previous_day_change_info_obj = find(:first, :conditions => "project_id = #{project.id}
@@ -90,8 +97,16 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
       @change_amount = @today_share_amount - @yesterday_share_amount
 
       #create a today entry for this project
-      ProjectChangeInfoOneDay.create(:project => project, :share_amount => @today_share_amount, :share_change => @change_amount)
+      @change_info = ProjectChangeInfoOneDay.create(:project => project, :share_amount => @today_share_amount, :share_change => @change_amount)
+
+      project.daily_percent_move = @change_info.percent_move
+      project.save
+      
     end
 
+  end
+
+  def percent_move
+    (share_change/project.total_copies) * 100
   end
 end

@@ -126,10 +126,8 @@
 
   <% end %>
 
-  <div class="dashed_light_border">&nbsp;</div>
-
   <div class="project_listing_box">
-    <div class="pageTitleSmaller">
+    <div class="pageTitle">
       <% if @p == @profile %>
         You have
       <% else %>
@@ -138,19 +136,15 @@
       <i>funded</i> these projects
     </div>
 
-    <div class="dashed_light_border">&nbsp;</div>
+    <div class="pmf_clear">&nbsp;</div>
 
-    <% if !@user_funded_projects or @user_funded_projects.empty? %>
-      No Projects Found!
-    <% else %>
-      <%= render :partial => "projects/listings", :object => @user_funded_projects %>
-    <% end %>
+    <%= render :partial => "projects/listings", :object => @user_funded_projects %>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
 
   <div class="project_listing_box">
-    <div class="pageTitleSmaller">
+    <div class="pageTitle">
       <% if @p == @profile %>
         You are
       <% else %>
@@ -159,20 +153,14 @@
       <i>offering</i> shares in these projects
     </div>
 
-    <div class="dashed_light_border">&nbsp;</div>
-
-    <% if !@user_projects or @user_projects.empty? %>
-      No Projects Found!
-    <% else %>
-      <%= render :partial => "projects/listings", :object => @user_projects %>
-    <% end %>
+    <%= render :partial => "projects/listings", :object => @user_projects %>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
 
   <div class="project_listing_box">
 
-    <div class="pageTitleSmaller">
+    <div class="pageTitle">
       <% if @p == @profile %>
         You have
       <% else %>
@@ -181,20 +169,14 @@
       <i>reserved</i> shares in these funded projects
     </div>
 
-    <div class="dashed_light_border">&nbsp;</div>
-
-    <% if !@user_funded_subscriptions or @user_funded_subscriptions.empty? %>
-      No Projects Found!
-    <% else %>
-      <%= render :partial => "projects/listings", :object => @user_funded_subscriptions %>
-    <% end %>
+    <%= render :partial => "projects/listings", :object => @user_funded_subscriptions %>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
 
   <div class="project_listing_box">
 
-    <div class="pageTitleSmaller">
+    <div class="pageTitle">
       <% if @p == @profile %>
         You are
       <% else %>
@@ -203,12 +185,6 @@
       <i>reserving</i> shares in these projects that are not yet funded
     </div>
 
-    <div class="dashed_light_border">&nbsp;</div>
-
-    <% if !@user_non_funded_subscriptions or @user_non_funded_subscriptions.empty? %>
-      No Projects Found!
-    <% else %>
-      <%= render :partial => "projects/listings", :object => @user_non_funded_subscriptions %>
-    <% end %>
+    <%= render :partial => "projects/listings", :object => @user_non_funded_subscriptions %>
   </div>
 </div>

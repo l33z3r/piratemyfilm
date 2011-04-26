@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110419110221) do
+ActiveRecord::Schema.define(:version => 20110426115558) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -352,6 +352,7 @@ ActiveRecord::Schema.define(:version => 20110419110221) do
     t.date     "premier_date"
     t.integer  "percent_bad_shares",                                                            :default => 0
     t.string   "main_video"
+    t.integer  "daily_percent_move",                                                            :default => 0
   end
 
   create_table "sessions", :force => true do |t|

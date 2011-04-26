@@ -87,6 +87,14 @@ class StaticController < ApplicationController
     #top movers that used to be at the top of the site
     @top_sitewide_projects = ProjectChangeInfoOneDay.top_five_change_for_site
     @bottom_sitewide_projects = ProjectChangeInfoOneDay.bottom_five_change_for_site
+
+    #stats moved over from admin section of site
+    @signups_yesterday = User.find(:all, :conditions => ['created_at > :date1 and created_at < :date2',
+        {:date1 => 2.days.ago.midnight, :date2 => 1.day.ago.midnight}]).size
+
+    @projects_created_yesterday = Project.find(:all, :conditions => ['created_at > :date1 and created_at < :date2',
+        {:date1 => 2.days.ago.midnight, :date2 => 1.day.ago.midnight}]).size
+
   end
   
   protected

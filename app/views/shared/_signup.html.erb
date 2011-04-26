@@ -1,8 +1,33 @@
 <% if(@u.nil? or @u.new_record?) %>
   <div id="signup_buttons">
     <a href="<%= signup_path %>"><div class="signup">Sign Up</div></a>
-    <a href="<%= login_path %>"><div class="login">Log In</div></a>
   </div>
+
+  <div id="login_form_top">
+
+    <% form_for User.new, :url => login_path, :method => :post do |f| %>
+
+      <div id="fields">
+        <div class="label">Username:</div>
+        <%= f.text_field :login, :class => "focus_first", :label => "Username", :size => 30 %>
+        <div class="pmf_clear">&nbsp;</div>
+        <div class="label">Password:</div>
+        <%= f.password_field :password, :size => 30 %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <div id="controls">
+        <%= f.check_box :remember_me %> Remember Me
+        <%= f.submit 'Log In', :class=>'button' %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+    <% end %>
+
+  </div>
+
 <% else %>
   <div id="welcome_message">
     <div id="icon">
@@ -14,7 +39,7 @@
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
-    
+
     <div id="links">
       <div class="link">
         <%= link_to 'My Profile', profile_path(@p) %>
@@ -38,7 +63,7 @@
         <div class="link awaiting_payment_link">
           You have
           <a href="<%= url_for(:controller => "profiles", :action => "portfolio_awaiting_payment") %>">
-            <%= pluralize(@projects_awaiting_payment_count, "Project") %></a>
+          <%= pluralize(@projects_awaiting_payment_count, "Project") %></a>
           awaiting payment of shares!
         </div>
       <% end %>

@@ -5,7 +5,6 @@ class Admin::UsersController < Admin::AdminController
     @membership_select_opts = MembershipType.membership_select_opts
 
     @membership_type_filter_params = []
-    @membership_type_filter_params << ["All", -1]
     @membership_type_filter_params += @membership_select_opts
   end
 
@@ -70,7 +69,7 @@ class Admin::UsersController < Admin::AdminController
   def search_results
     @membership_type_filter = params[:membership_filter_param]
 
-    if @membership_type_filter && @membership_type_filter != "-1"
+    if @membership_type_filter && @membership_type_filter != "0"
       @membership_type_name = MembershipType.find(@membership_type_filter).name
       @find_conditions = {:include => [{:user => :membership_type}], :conditions => ['membership_types.id = ?', @membership_type_filter]}
     else

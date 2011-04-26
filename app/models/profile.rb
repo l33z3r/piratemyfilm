@@ -139,6 +139,11 @@ class Profile < ActiveRecord::Base
   end
     
   def f
+    #special case for pmf_fund
+    if id == PMF_FUND_ACCOUNT_ID
+      return "PMF Fund"
+    end
+
     if self.first_name.blank? && self.last_name.blank?
       user.login rescue 'Deleted user'
     else

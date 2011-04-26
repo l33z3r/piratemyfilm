@@ -34,7 +34,7 @@
   <div class="pmf_clear">&nbsp;</div>
 
   <% @subscriptions.each_with_index do |subscription, index| %>
-    <div class="<%= cycle('odd','even') %> subscription">
+    <div class="<%= cycle('odd','even') %> subscription <%= subscription.outstanding ? "outstanding" : "" %>">
       <div class="number"><%= index + 1 %></div>
       <div class="icon"><%= icon subscription.user.profile, :small %></div>
       <div class="name"><%= link_to h(subscription.user.profile.f), profile_path(subscription.user.profile) %></div>
@@ -42,7 +42,11 @@
         <%= subscription.amount %>
       </div>
       <div class="subscription_outstanding">
-        <%= subscription.outstanding ? "Yes" : "No" %>
+        <%  if subscription.outstanding %>
+          <span class="outstanding">Yes</span>
+        <% else %>
+          No
+        <% end %>
       </div>
       <div class="subscription_payment_status">
         <%= subscription.payment_status %>

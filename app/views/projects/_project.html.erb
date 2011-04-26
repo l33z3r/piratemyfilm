@@ -144,6 +144,8 @@ project_link_action ||= "show"
             that the producer will take as an initial fee">?</a>)
       </li-->
       <li class="pmf_clear"></li>
+      <li class="label">Daily % Move:</li><li class="stat"><%= number_to_percentage(project.daily_percent_move, :precision => 0) %></li>
+      <li class="pmf_clear"></li>
     </ul>
   </div>
 
@@ -207,6 +209,7 @@ project_link_action ||= "show"
         <li class="stat"><%= project.pmf_fund_investment_share_amount %></li>
         <li class="label">% Funded Total:</li><li class="stat"><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</li>
         <li class="pmf_clear"></li>
+
       </ul>
     </div>
   <% end %>

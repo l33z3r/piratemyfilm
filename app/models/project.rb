@@ -415,7 +415,7 @@ class Project < ActiveRecord::Base
     #17 => "% PMF Fund Shares",
     #18 => "No. PMF Fund Shares",
     19 => "Green Light", 20 => "In Payment", 21 => "Fully Funded",
-    22 => "In Release"
+    22 => "In Release", 23 => "% Move Up", 24 => "% Move Down"
   }
 
   def self.get_filter_sql filter_param
@@ -445,6 +445,8 @@ class Project < ActiveRecord::Base
     when "20" then return "project_payment_status = 'In Payment'"
     when "21" then return "project_payment_status = 'Finished Payment'"
     when "22" then return "project_payment_status = 'Finished Payment' and status = 'In Release'"
+    when "23" then return "#{@payment_status_filter}"
+    when "24" then return "#{@payment_status_filter}"
     else return "#{@payment_status_filter} and #{@green_light_filter}"
     end
   end
@@ -472,6 +474,8 @@ class Project < ActiveRecord::Base
     when "20" then return "green_light DESC"
     when "21" then return "fully_funded_time DESC"
     when "22" then return "fully_funded_time DESC"
+    when "23" then return "daily_percent_move DESC"
+    when "24" then return "daily_percent_move"
     else return "created_at DESC"
     end
   end

@@ -24,6 +24,7 @@
   <div class="headers">
     <div class="icon_header">User Avatar</div>
     <div class="name_header">User Name</div>
+    <div class="email_header">User Email</div>
     <div class="membership_type_header">Membership Type</div>
   </div>
 
@@ -33,6 +34,10 @@
     <div class="<%= cycle('odd','even') %> search_row left user">
       <div class="icon"><%= icon p, :small %></div>
       <div class="name"><%= h p.f %></div>
+      <div class="email">
+        <%= p.email %>
+        <a href="mailto:<%= p.email %>?subject=Message From PMF!">(Send Message)</a>
+      </div>
       <div class="membership_type">
         <% form_remote_tag :url => {:action => "update_membership"}, :html => {:id => "membership_#{p.user.id}"} do %>
           <%= select_tag "user_membership", options_for_select(@membership_select_opts,

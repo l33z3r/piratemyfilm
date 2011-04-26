@@ -114,6 +114,16 @@ class User < ActiveRecord::Base
     profile.update_attributes :is_active=>false
   end
 
+  def login
+    #special case for pmf_fund
+    #special case for pmf_fund
+    if id == PMF_FUND_ACCOUNT_ID
+      return "PMF Fund"
+    end
+
+    super
+  end
+
   def f
     profile.f
   end

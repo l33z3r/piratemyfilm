@@ -43,6 +43,50 @@
         </div>
 
         <div class="stat_row">
+          <div class="label">No. Projects Created Yesterday:</div>
+          <div class="stat">
+            <%= @projects_created_yesterday %>
+          </div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+
+        <div class="stat_row">
+          <div class="label">No. Projects Where Budget Between $100 and $500:</div>
+          <div class="stat">
+            <%= Project.find_all_public(
+              :conditions => "capital_required >= 100 and capital_required <= 500").size %>
+          </div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+
+        <div class="stat_row">
+          <div class="label">No. Projects Where Budget Between $501 and $1000:</div>
+          <div class="stat">
+            <%= Project.find_all_public(
+              :conditions => "capital_required > 500 and capital_required <= 1000").size %>
+          </div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+
+        <div class="stat_row">
+          <div class="label">No. Projects Where Budget Between $1001 and $2500:</div>
+          <div class="stat">
+            <%= Project.find_all_public(
+              :conditions => "capital_required > 1000 and capital_required <= 2500").size %>
+          </div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+
+        <div class="stat_row">
+          <div class="label">No. Projects Where Budget Between $2501 and $5000:</div>
+          <div class="stat">
+            <%= Project.find_all_public(
+              :conditions => "capital_required > 2500 and capital_required <= 5000").size %>
+          </div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+
+        <div class="stat_row">
           <div class="label">Total Positive Volume (24 Hour):</div>
           <div class="stat"><%= up_down_arrow @total_ups %><%= @total_ups.abs %></div>
           <div class="pmf_clear">&nbsp;</div>
@@ -60,9 +104,11 @@
           <div class="pmf_clear">&nbsp;</div>
         </div>
 
-        <div class="sitewide_portfolio_info">
-          <div class="title">Most Active Projects</div>
+      </div>
+      <div class="subsection">
+        <div class="pageTitleSmall">Most Active Projects</div>
 
+        <div class="sitewide_portfolio_info">
           <div class="explain">
             Projects that have gained/lost
             the most share reservations in the last 24 hours
@@ -71,6 +117,7 @@
           <div id="winners">
             <div class="stat_label_header">Symbol</div>
             <div class="stat_header">Todays Change</div>
+            <div class="stat_header">% Move</div>
             <div class="pmf_clear">&nbsp;</div>
 
             <% @top_sitewide_projects.each do |tp| %>
@@ -82,6 +129,9 @@
               <div class="stat">
                 <%= tp.share_change.abs %> Shares
               </div>
+              <div class="move">
+                (<%= number_to_percentage(tp.percent_move, :precision => 0) %> Move)
+              </div>
               <div class="pmf_clear">&nbsp;</div>
             <% end %>
 
@@ -91,6 +141,7 @@
           <div id="losers">
             <div class="stat_label_header">Symbol</div>
             <div class="stat_header">Todays Change</div>
+            <div class="stat_header">% Move</div>
             <div class="pmf_clear">&nbsp;</div>
 
             <% @bottom_sitewide_projects.each do |tp| %>
@@ -101,6 +152,9 @@
               </div>
               <div class="stat">
                 <%= tp.share_change.abs %> Shares
+              </div>
+              <div class="move">
+                (<%= number_to_percentage(tp.percent_move, :precision => 0) %> Move)
               </div>
               <div class="pmf_clear">&nbsp;</div>
             <% end %>
@@ -113,7 +167,7 @@
         </div>
 
         <div class="pmf_clear">&nbsp;</div>
-        
+
       </div>
 
       <div class="subsection">
@@ -160,6 +214,12 @@
         <div class="stat_row">
           <div class="label">No. Members</div>
           <div class="stat"><%= @members_count %></div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+
+        <div class="stat_row">
+          <div class="label">No. Signups Yesterday:</div>
+          <div class="stat"><%= @signups_yesterday %></div>
           <div class="pmf_clear">&nbsp;</div>
         </div>
 

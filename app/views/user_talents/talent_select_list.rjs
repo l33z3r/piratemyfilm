@@ -4,7 +4,7 @@ ModalPopups.Custom('talentSelectListContainer',
    '#{escape_javascript(render :partial => "talent_select_markup",
       :locals => {:talents => @talents, :talent_type_name => @talent_type_name})}',
    {
-       width: 500,
+       width: 510,
        buttons: 'cancel',
        cancelButtonText: 'Cancel',
        onCancel: 'doCancel()'

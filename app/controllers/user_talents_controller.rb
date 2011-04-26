@@ -146,7 +146,7 @@ class UserTalentsController < ApplicationController
   def allow_to
     super :all, :only => [:index]
     super :admin, :all => true
-    super :user, :only => [:create, :destroy, :rate]
+    super :user, :only => [:create, :destroy, :rate, :talent_select_list]
   end
 
 end
