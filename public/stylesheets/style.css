@@ -1434,7 +1434,7 @@ div.static_content {
 
 .navbar-search {
     float:right;
-    width: 227px;
+    width: 260px;
 }
 
 .icatch-button	a {
@@ -1465,6 +1465,10 @@ div.static_content {
 
 div#filter_projects_nav {
     background: #fff url(/images/brand-search-bg.gif) repeat-x left top;
+}
+
+div#filter_projects_nav div#filter_param_box select {
+    width: 235px;
 }
 
 div#filter_users_nav {
