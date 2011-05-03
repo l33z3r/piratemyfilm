@@ -1468,7 +1468,8 @@ div#filter_projects_nav {
 }
 
 div#filter_projects_nav div#filter_param_box select {
-    width: 235px;
+    width: 235px; 
+    
 }
 
 div#filter_users_nav {
