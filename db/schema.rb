@@ -412,7 +412,7 @@ ActiveRecord::Schema.define(:version => 20110426115558) do
     t.integer  "member_rating",                           :default => 0
     t.integer  "warn_points",                             :default => 0
     t.string   "activation_code",           :limit => 40
-    t.datetime "activated_at",                            :default => '2011-04-08 11:01:37'
+    t.datetime "activated_at",                            :default => '2011-05-02 18:25:08'
   end
 
   add_index "users", ["login"], :name => "index_users_on_login"

@@ -5,21 +5,21 @@
 
   <div id="login_form_top">
 
-    <% form_for User.new, :url => login_path, :method => :post do |f| %>
+    <% form_tag login_path, :method => :post do |f| %>
 
       <div id="fields">
         <div class="label">Username:</div>
-        <%= f.text_field :login, :class => "focus_first", :label => "Username", :size => 30 %>
+        <%= text_field_tag "user[login]", "", :size => 9 %>
         <div class="pmf_clear">&nbsp;</div>
         <div class="label">Password:</div>
-        <%= f.password_field :password, :size => 30 %>
+        <%= password_field_tag "user[password]", "", :size => 9 %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
 
       <div id="controls">
-        <%= f.check_box :remember_me %> Remember Me
-        <%= f.submit 'Log In', :class=>'button' %>
+        <%= check_box_tag :remember_me %> Remember Me
+        <%= submit_tag 'Log In', :class=>'button' %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
