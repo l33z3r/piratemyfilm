@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110426115558) do
+ActiveRecord::Schema.define(:version => 20110503194137) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -412,7 +412,7 @@ ActiveRecord::Schema.define(:version => 20110426115558) do
     t.integer  "member_rating",                           :default => 0
     t.integer  "warn_points",                             :default => 0
     t.string   "activation_code",           :limit => 40
-    t.datetime "activated_at",                            :default => '2011-05-02 18:25:08'
+    t.datetime "activated_at"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login"

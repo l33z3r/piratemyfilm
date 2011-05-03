@@ -26,6 +26,20 @@ module FriendsHelper
     end
   end
   
+  def follow_member_button target_member
+    return if @u and target_member == @u.profile
+    
+    if @u and (@u.profile.following? target_member or @u.profile.friend_of? target_member)
+      content_tag :div, :class => "following_text left" do
+        "Following"
+      end
+    else
+      content_tag :div, :class => "button left" do
+        link_to "Follow", profile_friends_path(target_member), :method => "post"
+      end
+    end
+  end
+  
   protected
   
   def wrap_get_friend_link str, dom_id = ''

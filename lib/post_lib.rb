@@ -1,6 +1,6 @@
 module PostLib
   def self.do_post title, body
-    a = WWW::Mechanize.new
+    a = Mechanize.new
     
     a.get("http://www.maxkeiser.com/wp-admin/") do |login_page|
       success_page = login_page.form_with(:action => "http://maxkeiser.com/wp-login.php") do |f|
@@ -18,6 +18,8 @@ module PostLib
 
     @nonce = @json_response["nonce"]
 
+    body = "#{body} (posted on www.piratemyfilm.com)"
+    
     a.get("http://www.maxkeiser.com/?json=create_post&nonce=#{@nonce}&status=publish&title=#{title}&content=#{body}") do |page|
       @page = page
     end

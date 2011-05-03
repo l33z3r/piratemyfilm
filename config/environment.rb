@@ -43,7 +43,7 @@ Rails::Initializer.run do |config|
   config.gem "recaptcha", :lib => "recaptcha/rails"
   config.gem 'rflickr', :version => '2006.02.01', :lib => 'flickr'
   config.gem 'recaptcha', :version => '0.2.3'
-  
+  config.gem 'RedCloth', :version => '4.1.9'
 end
 
 Less::JsRoutes.generate!

@@ -281,7 +281,7 @@ class User < ActiveRecord::Base
   #get all projects belonging to a user and
   #return them as select opts for a dropdown
   def project_select_opts
-    @project_select_opts = [["Choose a project...", -1]]
+    @project_select_opts = [["Choose a project...", -1], ["None", -1]]
 
     owned_public_projects.each do |project|
       @project_select_opts << [project.title, project.id]
