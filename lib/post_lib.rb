@@ -1,5 +1,5 @@
 module PostLib
-  def self.do_post title, body
+  def self.do_post blog, link_back_html
     a = Mechanize.new
     
     a.get("http://www.maxkeiser.com/wp-admin/") do |login_page|
@@ -16,14 +16,22 @@ module PostLib
 
     @json_response = ActiveSupport::JSON.decode(@page.body)
 
+    @link_back_html = link_back_html
+    
     @nonce = @json_response["nonce"]
 
-    body = "#{body} (posted on www.piratemyfilm.com)"
+    @title = CGI::escape(blog.title)
     
-    a.get("http://www.maxkeiser.com/?json=create_post&nonce=#{@nonce}&status=publish&title=#{title}&content=#{body}") do |page|
+    @body = "#{blog.body} #{@link_back_html}"
+    @body = CGI::escape(@body)
+    
+    @params = "json=create_post&nonce=#{@nonce}&status=publish&title=#{@title}&content=#{@body}"
+    @post_url = "http://www.maxkeiser.com/?#{@params}"
+    
+    a.get(@post_url) do |page|
       @page = page
     end
 
-    return @page
+    return @post_url
   end
 end
