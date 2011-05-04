@@ -1,15 +1,5 @@
 class Admin::AdminBlogsController < Admin::AdminController
-
-  #inclusion of some view helpers so we can render some 
-  #linkback html for the cross posting to mkc
-#  include ActionView::Helpers::TagHelper
-#  include ActionView::Helpers::AssetTagHelper
-#  include ProfilesHelper
-#  
-#  include ActionView::Helpers::UrlHelper
-#  include ActionController::UrlWriter
-#  
-        
+      
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
 
   def index
@@ -30,7 +20,7 @@ class Admin::AdminBlogsController < Admin::AdminController
       if params[:publish_to_mkc]
         @link_back_html = "</br></br>Posted by <div class='icon'>#{@template.icon(@blog.profile, :small)}</div>"
         @link_back_html += "<div class='name'>#{@template.link_to(@blog.profile.user.f.titleize, @template.profile_url(@blog.profile))} - #{@template.link_to("Follow this member!", @template.profile_url(@blog.profile))}</div>" 
-        @link_back_html += "</br></br>on <a href='www.piratemyfilm.com'>www.piratemyfilm.com</a>"
+        @link_back_html += "</br></br>on <a href='http://www.piratemyfilm.com'>www.piratemyfilm.com</a>"
         
         #send blog to mkc
         @post_url = PostLib.do_post @blog, @link_back_html
