@@ -134,32 +134,8 @@ div#hp_latest_blog div.blog_comments_link {
 }
 
 div#signup_section {
-    margin-top: 6px;
-}
-
-div#signup_section div#signup_buttons a {
-    text-decoration: none;
-}
-
-div#signup_section div#signup_buttons a div {
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border: 1px solid #999999;
-    width: 170px;
-    margin-top: 5px;
-    padding: 3px 5px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #FFFFFF;
-    text-align: center;
-}
-
-div#signup_section div#signup_buttons div.signup {
-    background-color: #009900;
-}
-
-div#signup_section div#signup_buttons div.login {
-    background-color: #999999;
+    float: right;
+    margin-bottom: 10px;
 }
 
 div#signup_section div#login_form_top div#fields {
@@ -168,18 +144,53 @@ div#signup_section div#login_form_top div#fields {
 }
 
 div#signup_section div#login_form_top div#fields div.label {
-    width: 70px;
+    width: 65px;
     margin-top: 3px;
+    float: left;
+    margin-left: 5px;
+}
+
+div#signup_section div#login_form_top div#fields div.input {
     float: left;
 }
 
-div#signup_section div#login_form_top input#user_submit {
+div#signup_section div#login_form_top div#fields div.input input {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    width: 70px;
+    height: 15px;
+    border: 1px solid #666666;
+    margin-top: 2px;
+    background-color: #EEEEEE;
+}
+
+div#signup_section div#login_form_top div#controls input[type=submit] {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+div#signup_section div#login_form_top div#controls input[type=checkbox] {
+    margin-left: 0px;
+}
+
+div#signup_section div#login_form_top div#controls {
+    float: right;
+    margin: 5px 0px 5px 0px;
+}
+
+div#signup_section div#login_form_top div#controls div.label {
+    float: left;
+    margin-right: 5px;
+}
+
+div#signup_section div#login_form_top div#signup_link {
+    float: left;
     margin-top: 5px;
     margin-left: 5px;
 }
 
-div#signup_section div#login_form_top div#controls {
-    float: left;
+div#signup_section div#login_form_top div#signup_link a div {
+    text-decoration: underline;
 }
 
 div#signup_section div#login_form_top input#user_login,
@@ -243,7 +254,7 @@ div#signup_section div#welcome_message div#links div.awaiting_payment_link a:hov
 
 /* Top Menu */
 
-div#header_links .bubplastic.horizontal {
+.bubplastic.horizontal {
     width: 100%;
     height: 27px;
     margin: 0;
@@ -251,20 +262,20 @@ div#header_links .bubplastic.horizontal {
     background: #000000 url(/images/bg-bubplastic.gif) top left repeat-x;
 }
 
-div#header_links .bubplastic.horizontal ul {
+.bubplastic.horizontal ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-div#header_links .bubplastic.horizontal ul li {
+.bubplastic.horizontal ul li {
     float: right;
     margin: 0;
     padding: 0;
     background: transparent url(/images/bg-bubplastic-button.gif) top left no-repeat;
 }
 
-div#header_links .bubplastic.horizontal ul li a {
+.bubplastic.horizontal ul li a {
     display: block;
     height: 27px;
     padding-left: 35px;
@@ -275,7 +286,7 @@ div#header_links .bubplastic.horizontal ul li a {
     text-decoration: none;
 }
 
-div#header_links .bubplastic.horizontal ul li a span.menu_ar {
+.bubplastic.horizontal ul li a span.menu_ar {
     display: block;
     float: left;
     height: 22px;
@@ -285,14 +296,53 @@ div#header_links .bubplastic.horizontal ul li a span.menu_ar {
     cursor: pointer;
 }
 
-div#header_links .bubplastic.gray ul li a:hover,
-div#header_links .bubplastic.gray ul li.highlight a {
+.bubplastic.gray ul li a:hover,
+.bubplastic.gray ul li.highlight a {
     background: transparent url(/images/bg-bubplastic-h-gray.gif) top left no-repeat;
 }
 
-div#header_links .bubplastic.gray ul li a:hover span.menu_ar,
-div#header_links .bubplastic.gray ul li.highlight a span.menu_ar {
+.bubplastic.gray ul li a:hover span.menu_ar,
+.bubplastic.gray ul li.highlight a span.menu_ar {
     background: transparent url(/images/bg-bubplastic-h-gray.gif) top right no-repeat;
+}
+
+div#header_links {
+    margin: 0px 40px;
+    border-bottom: 1px dashed #666666;
+}
+
+div#header_links div#social_links {
+    float: left;
+    margin-top: 7px;
+}
+
+div#header_links div#social_links div#widget_link {
+    float: left;
+    margin-top: 5px;
+    margin-left: 7px;
+}
+
+div#header_links div#social_links div#widget_link a {
+    font-weight: bold;
+}
+
+div#header_links div#social_links div.twitter-link {
+    float: left;
+}
+
+div#header_links div#social_links div.fb-link {
+    float: left;
+}
+
+div#header_links ul {
+    float: right;
+    list-style: none;
+}
+
+div#header_links ul li {
+    float: left;
+    margin-right: 15px;
+    font-weight: bold;
 }
 
 div#header_links span.welcome_message {
@@ -1489,49 +1539,16 @@ div#signup_form div#captcha_section {
 
 /* Top Site */
 
-div#signup_buttons {
-    float: right;
-}
-
-div#signup_buttons div {
-    float: right;
-}
-
 div#header div#widget_link {
     font-size: 14px;
     float: right;
     font-weight: bold;
 }
 
-div#header div#social_links {
-    float: right;
-    margin-top: 10px;
-}
-
 div#header div#stats_container {
     float: left;
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-.twitter-link {
-    float: left;
-}
-
-.twitter-link a img {
-    margin-top: 7px;
-}
-
-.mk-link {
-    float:right;
-}
-
-.fb-link {
-    float: left;
-}
-
-.fb-link a img {
-    margin-top: 7px;
 }
 
 div#stats_page div#stats div.sitewide_portfolio_info {
@@ -1624,23 +1641,12 @@ form	{
     padding:0;
 }
 
-#brand {
-    height: 82px;
+#header #brand a img {
+    width: 120px;
     float: left;
-    width: 230px;
-}
-
-#brand img#header_image {
-    float:left;
-    margin-top: 13px;
 }
 
 div#ad_banner {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding-bottom: 20px;
-    border-bottom: 1px dashed #666;
 }
 
 div#site_wrapper {
@@ -1820,7 +1826,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #header {
-    height: 130px;
+    height: 175px;
     color: #000000;
     text-align: left;
 }
@@ -2365,6 +2371,12 @@ div.blog div.share_buttons div.facebook_button {
     margin-top: 0px;
     font-weight: bold;
     float: right;
+}
+
+div#subnav_links {
+    border-bottom: 1px dashed #666666;
+    width: 100%;
+    padding-bottom: 11px;
 }
 
 div#subnav_links span.fund_image_comments_subnav {

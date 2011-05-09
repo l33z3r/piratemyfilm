@@ -2,19 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; utf-8" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-      <link rel="alternate" type="application/rss+xml"
-            title="PMF Blogs Feed" href="<%= url_for :only_path => false, :controller => "blogs", :format => "rss" %>" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="alternate" type="application/rss+xml"
+          title="PMF Blogs Feed" href="<%= url_for :only_path => false, :controller => "blogs", :format => "rss" %>" />
 
-      <meta name="description" content="Crowd Funding For Pirates"/>
-      <meta name="keywords" content="max keiser, pirate film, market" />
+    <meta name="description" content="Crowd Funding For Pirates"/>
+    <meta name="keywords" content="max keiser, pirate film, market" />
 
-      <title><%= @title ? "Pirate My Film - " + h(@title) : "Pirate My Film" %></title>
+    <title><%= @title ? "Pirate My Film - " + h(@title) : "Pirate My Film" %></title>
 
-      <%= render :partial => 'shared/head_load' %>
+    <%= render :partial => 'shared/head_load' %>
 
-      <%= yield :head %>
-
+    <%= yield :head %>
   </head>
 
   <body onload="doInit();">
@@ -22,47 +21,63 @@
     <div id="site_wrapper">
 
       <div id="header_links">
-        <div class="menu bubplastic horizontal gray">
-          <ul>
-            <li>
-              <span class="menu_r">
-                <a href="/pages/how_it_works">
-                  <span class="menu_ar">
-                    How It Works
-                  </span>
-                </a>
-              </span>
-            </li>
-            <li>
-              <span class="menu_r">
-                <a href="/pages/about_us">
-                  <span class="menu_ar">
-                    About Us
-                  </span>
-                </a>
-              </span>
-            </li>
-            <li>
-              <span class="menu_r">
-                <a href="/pages/contact_us">
-                  <span class="menu_ar">
-                    Contact Us
-                  </span>
-                </a>
-              </span>
-            </li>
-            <li>
-              <span class="menu_r">
-                <a href="/">
-                  <span class="menu_ar">
-                    Home
-                  </span>
-                </a>
-              </span>
-            </li>
-          </ul>
-          <div class="pmf_clear">&nbsp;</div>
+        <div id="social_links">
+          <div class="twitter-link">
+            <%= link_to image_tag("twitter.gif", :size => "35x30"),
+              "http://www.twitter.com/piratemyfilm",
+              :target => "_blank" %>
+          </div>
+
+          <div class="fb-link">
+            <%= link_to image_tag("facebook-logo.png", :size => "30x30"),
+              "http://www.facebook.com/pages/PirateMyFilm/75309097341",
+              :target => "_blank" %>
+          </div>
+
+          <div id="widget_link">
+            <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %>
+          </div>
         </div>
+
+        <ul>
+          <li>
+            <span class="menu_r">
+              <a href="/pages/how_it_works">
+                <span class="menu_ar">
+                  How It Works
+                </span>
+              </a>
+            </span>
+          </li>
+          <li>
+            <span class="menu_r">
+              <a href="/pages/about_us">
+                <span class="menu_ar">
+                  About Us
+                </span>
+              </a>
+            </span>
+          </li>
+          <li>
+            <span class="menu_r">
+              <a href="/pages/contact_us">
+                <span class="menu_ar">
+                  Contact Us
+                </span>
+              </a>
+            </span>
+          </li>
+          <li>
+            <span class="menu_r">
+              <a href="/">
+                <span class="menu_ar">
+                  Home
+                </span>
+              </a>
+            </span>
+          </li>
+        </ul>
+        <div class="pmf_clear">&nbsp;</div>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
@@ -75,12 +90,6 @@
 
             <div id="flashes">
               <%= show_default_flash -%>
-            </div>
-
-            <div id="ad_banner">
-              <script language="JavaScript" type="text/javascript">;
-                document.write('<script language="JavaScript" src="http://ad.doubleclick.net/adj/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;dcopt=ist;sz=728x90;ord=' + ord + '?" type="text/javascript"><\/script>');
-              </script><noscript><a href="http://ad.doubleclick.net/jump/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;sz=728x90;ord=123456789?" target="_blank"><img src="http://ad.doubleclick.net/ad/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;sz=728x90;ord=123456789?" width="728" height="90" border="0" alt=""></a></noscript>
             </div>
 
             <%= render :partial => "/blogs/subnav" %>
