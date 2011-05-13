@@ -27,7 +27,7 @@ class AccountsController < ApplicationController
           
           #go to the users profile page now, rather than the last url
           #redirect_back_or_default profile_url(@u.profile)
-          redirect_to profile_url(@u.profile)
+          redirect_to profile_url(@u.profile) and return
         else
           flash.now[:error] = "Uh-oh, login didn't work. Do you have caps locks on? Try it again."
         end

@@ -1642,11 +1642,12 @@ form	{
 }
 
 #header #brand a img {
-    width: 120px;
+    width: 146px;
     float: left;
 }
 
 div#ad_banner {
+    float: right;
 }
 
 div#site_wrapper {
@@ -1829,14 +1830,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     height: 175px;
     color: #000000;
     text-align: left;
-}
-
-#header div#header_left {
-    float: left;
-}
-
-#header div#header_right {
-    float: right;
 }
 
 #header.collapsed {
