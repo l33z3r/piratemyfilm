@@ -47,8 +47,8 @@
               &nbsp; -
               <%= link_to 'Admin', :controller => "admin/home" %>
             </div>
-            <div class="link"><%= link_to 'Log Out', logout_path %></div>
           <% end %>
+          <div class="link"><%= link_to 'Log Out', logout_path %></div>
 
           <% if @projects_awaiting_payment_count > 0 %>
             <div class="link awaiting_payment_link">
