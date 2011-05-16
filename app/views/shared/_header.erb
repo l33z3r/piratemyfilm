@@ -20,27 +20,27 @@
 
 <div id="icatch">
   <div class="icatch-pictures">
-    <div class="local-navbar-button">
+    <div id="new_project_button" class="local-navbar-button">
       <span><%= link_to 'List a Project', new_project_path %></span>
       <p>Raise Money</p>
     </div>
-    
-    <div class="local-navbar-button">
-      <span><%= link_to 'Project Talent', :controller => "/user_talents" %></span>
-      <p>Browse Talent</p>
-    </div>
 
-    <div class="local-navbar-button">
-      <span><%= link_to "Members", :controller => "/profiles" %></span>
-      <p>View Members</p>
-    </div>
-
-    <div class="local-navbar-button">
-      <span><a href="/pages/stats">Site Statistics</a></span>
-      <p>General Stats</p>
-    </div>
-    
     <div class="right">
+      <div class="local-navbar-button">
+        <span><%= link_to 'Project Talent', :controller => "/user_talents" %></span>
+        <p>Browse Talent</p>
+      </div>
+
+      <div class="local-navbar-button">
+        <span><%= link_to "Members", :controller => "/profiles" %></span>
+        <p>View Members</p>
+      </div>
+
+      <div class="local-navbar-button">
+        <span><a href="/pages/stats">Site Statistics</a></span>
+        <p>General Stats</p>
+      </div>
+      
       <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
         <div id="search">
           <img src="/images/brand-search.gif" alt="Search" />

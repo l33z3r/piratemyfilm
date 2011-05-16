@@ -14,15 +14,15 @@
 
           <div class="pmf_clear">&nbsp;</div>
 
+          <div id="signup_link">
+            <a href="<%= signup_path %>"><div class="signup">Join PMF!</div></a>
+          </div>
+
           <div id="controls">
             <div class="label">Remember Me</div>
             <%= check_box_tag :remember_me %>
             <%= submit_tag 'Log In', :class=>'button' %>
 
-          </div>
-
-          <div id="signup_link">
-            <a href="<%= signup_path %>"><div class="signup">Sign Up</div></a>
           </div>
 
           <div class="pmf_clear">&nbsp;</div>
@@ -39,24 +39,6 @@
         <div id="message">
           Welcome <%= @u.f %>
           <%= link_to '(Log Out)', logout_path %>
-        </div>
-
-        <div class="pmf_clear">&nbsp;</div>
-
-        <div id="links">
-          <div class="link">
-            <%= link_to 'My Profile', profile_path(@p) %>
-          </div>
-          <div class="link">
-            &nbsp;-&nbsp;
-            <%= link_to 'My Portfolio', portfolio_profile_path(@p) %>
-          </div>
-          <%- if_admin do %>
-            <div class="link">
-              &nbsp;-&nbsp;
-              <%= link_to 'Admin', :controller => "admin/home" %>
-            </div>
-          <% end %>
         </div>
 
         <div class="pmf_clear">&nbsp;</div>

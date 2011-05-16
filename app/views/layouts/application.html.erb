@@ -36,8 +36,22 @@
 
             <%= render :partial => "/blogs/subnav" %>
 
-            <%= render :partial => "shared/login_box" %>
-            
+            <div id="profile_links">
+              <div class="link">
+                <%= link_to 'My Profile', profile_path(@p) %>
+              </div>
+              <div class="link">
+                &nbsp;-&nbsp;
+                <%= link_to 'My Portfolio', portfolio_profile_path(@p) %>
+              </div>
+              <%- if_admin do %>
+                <div class="link">
+                  &nbsp;-&nbsp;
+                  <%= link_to 'Admin', :controller => "admin/home" %>
+                </div>
+              <% end %>
+            </div>
+
             <%= yield %>
 
           </div>

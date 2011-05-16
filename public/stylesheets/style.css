@@ -135,7 +135,7 @@ div#hp_latest_blog div.blog_comments_link {
 
 div#signup_section {
     float: right;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 div#signup_section div#login_form_top div#fields {
@@ -180,6 +180,26 @@ div#signup_section div#login_form_top div#controls input[type=submit] {
     float: left;
 }
 
+div#signup_section div#signup_link {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    margin-left: 5px;
+    background-image: none;
+    background-color: #6CE26C;
+    border: 1px solid #666;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 5px;
+    width: 60px;
+    float: right;
+    text-decoration: none;
+}
+
+div#signup_section div#signup_link a div {
+    color: #FFF;
+}
+
 div#signup_section div#login_form_top div#controls input[type=checkbox] {
     margin-left: 0px;
     float: left;
@@ -194,16 +214,7 @@ div#signup_section div#login_form_top div#controls div.label {
     float: left;
     margin-right: 5px;
     width: auto;
-}
-
-div#signup_section div#login_form_top div#signup_link {
-    float: left;
-    margin-top: 5px;
-    margin-left: 5px;
-}
-
-div#signup_section div#login_form_top div#signup_link a div {
-    text-decoration: underline;
+    margin-top: 2px;
 }
 
 div#signup_section div#login_form_top input#user_login,
@@ -239,27 +250,27 @@ div#signup_section div#welcome_message div#message a {
     color: #000000;
 }
 
-div#signup_section div#welcome_message div#links {
+div#profile_links {
     margin-top: 3px;
     float: right;
 }
 
-div#signup_section div#welcome_message div#links div.link {
+div#profile_links div.link {
     float: left;
 }
 
-div#signup_section div#welcome_message div#links div.link a {
+div#profile_links div.link a {
     color: #000000;
     text-decoration: underline;
     font-size: 12px;
 }
 
-div#signup_section div#welcome_message div#links div.awaiting_payment_link a {
+div#profile_links div.awaiting_payment_link a {
     color: #000000;
     font-weight: bold;
 }
 
-div#signup_section div#welcome_message div#links div.awaiting_payment_link a:hover {
+div#profile_links div.awaiting_payment_link a:hover {
     text-decoration: underline;
 }
 
@@ -1683,7 +1694,7 @@ div#site_wrapper div#content_container {
 }
 
 #stage	{
-    padding-top: 15px;
+    
 }
 
 #logintop	{
@@ -1845,7 +1856,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #header {
-    margin-bottom: 15px;
+    margin: 10px 0px;
     text-align: left;
 }
 
@@ -1926,9 +1937,9 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     border-bottom: 1px dashed #666666;
     color: #000000;
     font-size: 20px;
-    margin-top: 20px;
+    margin-top: 5px;
     margin-bottom: 10px;
-    padding-bottom: 25px;
+    padding-bottom: 10px;
 }
 
 .pageTitleSmall {
@@ -2170,9 +2181,19 @@ div.TabView div.Pages div.Page div.Pad {
     background:#ccc url(/images/local-nav-bg.png) top left repeat-x;
     width:120px;
     height:40px;
-    float:left;
+    float: left;
     margin-right:5px;
     border-right: 1px solid #999999;
+}
+
+div#new_project_button {
+    width: 100px;
+    padding-right: 45px;
+    float: left;
+}
+
+div#new_project_button {
+    
 }
 
 .local-navbar-button span a	{

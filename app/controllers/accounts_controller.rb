@@ -33,7 +33,7 @@ class AccountsController < ApplicationController
         end
       rescue Exceptions::UserNotActivated
         AccountMailer.deliver_signup_notification User.find_by_login(params[:login])
-        redirect_to :action => "activation_required"
+        redirect_to :action => "activation_required" and return
       end
     end
   end
