@@ -5,13 +5,18 @@
     <%=@profile.user.f.titleize%>'s
   <% end %>
   Profile 
-  <span class="sublink"><%= link_to "View Portfolio", portfolio_profile_path(@profile) %></div>
 </div>
 
 <div id="profile">
   <div id="profile_section">
 
     <div class="half left">
+
+      <div class="sublinks">
+        <div class="selected_profile_sublink"><%= link_to "View Profile", profile_path(@p) %></div>
+        <div class="profile_sublink"><%= link_to "View Portfolio", portfolio_profile_path(@profile) %></div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
 
       <div class="activity_box learn">
         <div class="left avatar">

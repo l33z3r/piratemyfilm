@@ -1145,9 +1145,24 @@ div#profile div#profile_section {
     margin: 20px 0px;
 }
 
+div#profile div#profile_section div.sublinks {
+    margin-bottom: 10px;
+}
+
+div#profile div#profile_section div.sublinks div.profile_sublink {
+    float: left;
+    text-decoration: underline;
+    margin-right: 8px;
+}
+
+div#profile div#profile_section div.sublinks div.selected_profile_sublink {
+    float: left;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
 div#profile div#profile_section div.avatar a img {
     border: 1px solid #666666;
-    margin-left: 10px;
 }
 
 div#profile div#profile_section div.avatar div.follow_button {
@@ -1954,16 +1969,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     margin-top: 5px;
     margin-bottom: 10px;
     padding-bottom: 10px;
-}
-
-.pageTitle span.sublink {
-    margin-left: 5px;
-    font-size: 13px;
-    text-decoration: underline;
-}
-
-.pageTitle span.sublink a {
-    color: #000;
 }
 
 .pageTitleSmall {
