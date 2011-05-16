@@ -4,7 +4,8 @@
   <% else %>
     <%=@profile.user.f.titleize%>'s
   <% end %>
-  Profile
+  Profile 
+  <span class="sublink"><%= link_to "View Portfolio", portfolio_profile_path(@profile) %></div>
 </div>
 
 <div id="profile">

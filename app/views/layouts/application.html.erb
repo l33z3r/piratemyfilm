@@ -36,21 +36,17 @@
 
             <%= render :partial => "/blogs/subnav" %>
 
-            <div id="profile_links">
-              <div class="link">
-                <%= link_to 'My Profile', profile_path(@p) %>
-              </div>
-              <div class="link">
-                &nbsp;-&nbsp;
-                <%= link_to 'My Portfolio', portfolio_profile_path(@p) %>
-              </div>
-              <%- if_admin do %>
+            <!--div id="profile_links">
+              <% if logged_in? %>
+                <div class="link">
+                  <%= link_to 'My Profile', profile_path(@p) %>
+                </div>
                 <div class="link">
                   &nbsp;-&nbsp;
-                  <%= link_to 'Admin', :controller => "admin/home" %>
+                  <%= link_to 'My Portfolio', portfolio_profile_path(@p) %>
                 </div>
               <% end %>
-            </div>
+            </div-->
 
             <%= yield %>
 

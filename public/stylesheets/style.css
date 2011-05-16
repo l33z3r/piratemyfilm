@@ -197,7 +197,7 @@ div#signup_section div#signup_link {
 }
 
 div#signup_section div#signup_link a div {
-    color: #FFF;
+
 }
 
 div#signup_section div#login_form_top div#controls input[type=checkbox] {
@@ -236,18 +236,32 @@ div#signup_section div#welcome_message div#icon {
 div#signup_section div#welcome_message div#icon a img {
     height: 20px;
     border: 1px solid #999999;
+    margin-left: 5px;
 }
 
 div#signup_section div#welcome_message div#message {
     float: right;
     text-align: right;
-    font-weight: bold;
 }
 
 div#signup_section div#welcome_message div#message a {
-    font-weight: normal;
-    clear: both;
-    color: #000000;
+    color: #666;
+    font-weight: bold;
+}
+
+div#signup_section div#welcome_message div#links {
+    float: right;
+    margin-top: 2px;
+}
+
+div#signup_section div#welcome_message div#links div.link a {
+    text-decoration: underline;
+    font-weight: bold;
+    color: #000;
+}
+
+div#signup_section div#welcome_message div#links div.link {
+    float: right;
 }
 
 div#profile_links {
@@ -1694,7 +1708,7 @@ div#site_wrapper div#content_container {
 }
 
 #stage	{
-    
+
 }
 
 #logintop	{
@@ -1940,6 +1954,16 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     margin-top: 5px;
     margin-bottom: 10px;
     padding-bottom: 10px;
+}
+
+.pageTitle span.sublink {
+    margin-left: 5px;
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+.pageTitle span.sublink a {
+    color: #000;
 }
 
 .pageTitleSmall {
@@ -2193,7 +2217,7 @@ div#new_project_button {
 }
 
 div#new_project_button {
-    
+
 }
 
 .local-navbar-button span a	{
@@ -3028,7 +3052,7 @@ div.view-lite-row-alt div.view-lite-row-project-name span.edit_link a {
 } 
 
 #main {
-    
+
 }
 
 .instruction {
