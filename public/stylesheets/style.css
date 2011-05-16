@@ -330,8 +330,9 @@ div#header_links div#social_links {
 
 div#header_links div#social_links div#widget_link {
     float: left;
-    margin-top: 5px;
-    margin-left: 7px;
+    margin-top: 6px;
+    margin-left: 22px;
+    font-family: menu;
 }
 
 div#header_links div#social_links div#widget_link a {
@@ -1519,8 +1520,9 @@ div#filter_projects_nav {
 }
 
 div#filter_projects_nav div#filter_param_box select {
-    width: 150px;
+    width: 130px;
     margin-right: 0px;
+    font-size: 12px;
 }
 
 div#filter_users_nav {
@@ -1528,7 +1530,8 @@ div#filter_users_nav {
 }
 
 div#filter_users_nav div#filter_param_box select {
-    width: 150px;
+    width: 130px;
+    font-size: 12px;
 }
 
 .big-number	{
