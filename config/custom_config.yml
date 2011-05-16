@@ -1,14 +1,14 @@
 development:
-  max_profile_id: 1
-  maxriot_profile_id: 3
+  max_profile_id: 9
+  maxriot_profile_id: 10
   mkc_wordpress_feed_url: http://maxkeiser.com/category/pirate-myfilm/feed
   paypal_button_submission_url: https://www.sandbox.paypal.com/cgi-bin/webscr
   max_wp_login_name: blah
   max_wp_login_pw: blah
 
 test:
-  max_profile_id: 2
-  maxriot_profile_id: 3
+  max_profile_id: 9
+  maxriot_profile_id: 10
   mkc_wordpress_feed_url: http://maxkeiser.com/category/pirate-myfilm/feed
   paypal_button_submission_url: https://www.sandbox.paypal.com/cgi-bin/webscr
   max_wp_login_name: blah

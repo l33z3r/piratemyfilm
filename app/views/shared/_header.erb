@@ -1,86 +1,5 @@
 <div id="header">
 
-  <div class="right">
-    <div id="signup_section">
-      <% if(@u.nil? or @u.new_record?) %>
-        <div id="login_form_top">
-
-          <% form_tag login_path, :method => :post do |f| %>
-
-            <div id="fields">
-              <div class="label">Username:</div>
-              <div class="input"><%= text_field_tag "user[login]", "", :size => 9 %></div>
-              <div class="label">Password:</div>
-              <div class="input"><%= password_field_tag "user[password]", "", :size => 9 %></div>
-            </div>
-
-            <div class="pmf_clear">&nbsp;</div>
-
-            <div id="controls">
-              <div class="label">Remember Me</div>
-              <%= check_box_tag :remember_me %>
-              <%= submit_tag 'Log In', :class=>'button' %>
-
-            </div>
-
-            <div id="signup_link">
-              <a href="<%= signup_path %>"><div class="signup">Sign Up</div></a>
-            </div>
-
-            <div class="pmf_clear">&nbsp;</div>
-
-          <% end %>
-
-        </div>
-
-      <% else %>
-        <div id="welcome_message">
-          <div id="icon">
-            <%= link_to icon(@p, :small), profile_path(@p) %>
-          </div>
-          <div id="message">
-            Welcome <%= @u.f %>
-            <%= link_to '(Log Out)', logout_path %>
-          </div>
-
-          <div class="pmf_clear">&nbsp;</div>
-
-          <div id="links">
-            <div class="link">
-              <%= link_to 'My Profile', profile_path(@p) %>
-            </div>
-            <div class="link">
-              &nbsp;-&nbsp;
-              <%= link_to 'My Portfolio', portfolio_profile_path(@p) %>
-            </div>
-            <%- if_admin do %>
-              <div class="link">
-                &nbsp;-&nbsp;
-                <%= link_to 'Admin', :controller => "admin/home" %>
-              </div>
-            <% end %>
-          </div>
-
-          <div class="pmf_clear">&nbsp;</div>
-
-          <div id="links">
-            <% if @projects_awaiting_payment_count > 0 %>
-              <div class="link awaiting_payment_link">
-                You have
-                <a href="<%= url_for(:controller => "profiles", :action => "portfolio_awaiting_payment") %>">
-                  <%= pluralize(@projects_awaiting_payment_count, "Project") %></a>
-                awaiting payment of shares!
-              </div>
-            <% end %>
-          </div>
-
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="pmf_clear">&nbsp;</div>
-
   <div id="brand">
     <a href="/">
       <img id="header_image" src="/images/pmf-logo-temp.png" border="0"
@@ -105,28 +24,7 @@
       <span><%= link_to 'List a Project', new_project_path %></span>
       <p>Raise Money</p>
     </div>
-
-    <div class="right">
-      <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
-        <div id="search">
-          <img src="/images/brand-search.gif" alt="Search" />
-          <%= text_field_tag 'search[q]',
-            (params[:search] && params[:search][:q] ? params[:search][:q] : ''),
-            :id => 'search_q', :size => 14 %>
-          <input type="image" src="/images/brand-go-off.gif" name="submit" />
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="pmf_clear">&nbsp;</div>
-
-</div>
-
-<div class="pmf_clear">&nbsp;</div>
-
-<div id="icatch">
-  <div class="icatch-pictures">
+    
     <div class="local-navbar-button">
       <span><%= link_to 'Project Talent', :controller => "/user_talents" %></span>
       <p>Browse Talent</p>
@@ -141,16 +39,18 @@
       <span><a href="/pages/stats">Site Statistics</a></span>
       <p>General Stats</p>
     </div>
-
-    <% if !@hide_filter_params %>
-      <div id="filter_projects_nav" class="right">
-        <%= render :partial => 'shared/filter_param_box' %>
-      </div>
-
-      <div id="filter_users_nav" class="right">
-        <%= render :partial => 'shared/filter_users_param_box' %>
-      </div>
-    <% end %>
+    
+    <div class="right">
+      <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
+        <div id="search">
+          <img src="/images/brand-search.gif" alt="Search" />
+          <%= text_field_tag 'search[q]',
+            (params[:search] && params[:search][:q] ? params[:search][:q] : ''),
+            :id => 'search_q', :size => 14 %>
+          <input type="image" src="/images/brand-go-off.gif" name="submit" />
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>

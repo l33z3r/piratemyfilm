@@ -20,65 +20,7 @@
 
     <div id="site_wrapper">
 
-      <div id="header_links">
-        <div id="social_links">
-          <div class="twitter-link">
-            <%= link_to image_tag("twitter.gif", :size => "35x30"),
-              "http://www.twitter.com/piratemyfilm",
-              :target => "_blank" %>
-          </div>
-
-          <div class="fb-link">
-            <%= link_to image_tag("facebook-logo.png", :size => "30x30"),
-              "http://www.facebook.com/pages/PirateMyFilm/75309097341",
-              :target => "_blank" %>
-          </div>
-
-          <div id="widget_link">
-            <%= link_to "Get a Widget for Your Site!", :controller => "project_widgets" %>
-          </div>
-        </div>
-
-        <ul>
-          <li>
-            <span class="menu_r">
-              <a href="/pages/how_it_works">
-                <span class="menu_ar">
-                  How It Works
-                </span>
-              </a>
-            </span>
-          </li>
-          <li>
-            <span class="menu_r">
-              <a href="/pages/about_us">
-                <span class="menu_ar">
-                  About Us
-                </span>
-              </a>
-            </span>
-          </li>
-          <li>
-            <span class="menu_r">
-              <a href="/pages/contact_us">
-                <span class="menu_ar">
-                  Contact Us
-                </span>
-              </a>
-            </span>
-          </li>
-          <li>
-            <span class="menu_r">
-              <a href="/">
-                <span class="menu_ar">
-                  Home
-                </span>
-              </a>
-            </span>
-          </li>
-        </ul>
-        <div class="pmf_clear">&nbsp;</div>
-      </div>
+      <%= render :partial => 'shared/header_links' %>
 
       <div class="pmf_clear">&nbsp;</div>
 
@@ -94,6 +36,8 @@
 
             <%= render :partial => "/blogs/subnav" %>
 
+            <%= render :partial => "shared/login_box" %>
+            
             <%= yield %>
 
           </div>

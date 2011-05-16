@@ -6,7 +6,7 @@
   <div class="link">
     <%= link_to "Project Feed", :controller => :blogs, :action => "index" %> -
   </div>
-  
+
   <div class="link">
     <%= link_to "Producer Blogs", :controller => :blogs, :action => "producer" %> -
   </div>
@@ -31,6 +31,16 @@
     </span>
     <%= link_to "maxkeiser", :controller => :blogs, :action => "mkc" %>
   </div>
+
+  <% if !@hide_filter_params %>
+    <div id="filter_projects_nav" class="right">
+      <%= render :partial => 'shared/filter_param_box' %>
+    </div>
+
+    <div id="filter_users_nav" class="right">
+      <%= render :partial => 'shared/filter_users_param_box' %>
+    </div>
+  <% end %>
 
 </div>
 

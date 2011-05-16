@@ -135,7 +135,7 @@ div#hp_latest_blog div.blog_comments_link {
 
 div#signup_section {
     float: right;
-    margin-bottom: 10px;
+    margin-top: 5px;
 }
 
 div#signup_section div#login_form_top div#fields {
@@ -165,12 +165,24 @@ div#signup_section div#login_form_top div#fields div.input input {
 }
 
 div#signup_section div#login_form_top div#controls input[type=submit] {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
     margin-left: 5px;
+    background-image: none;
+    background-color: #EEE;
+    border: 1px solid #666;
     cursor: pointer;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 0px;
+    text-align: center;
+    width: 60px;
+    float: left;
 }
 
 div#signup_section div#login_form_top div#controls input[type=checkbox] {
     margin-left: 0px;
+    float: left;
 }
 
 div#signup_section div#login_form_top div#controls {
@@ -181,6 +193,7 @@ div#signup_section div#login_form_top div#controls {
 div#signup_section div#login_form_top div#controls div.label {
     float: left;
     margin-right: 5px;
+    width: auto;
 }
 
 div#signup_section div#login_form_top div#signup_link {
@@ -200,7 +213,7 @@ div#signup_section div#login_form_top input#user_password {
 }
 
 div#signup_section div#welcome_message {
-    
+    margin-top: 3px;
 }
 
 div#signup_section div#welcome_message div#icon {
@@ -308,7 +321,6 @@ div#signup_section div#welcome_message div#links div.awaiting_payment_link a:hov
 
 div#header_links {
     margin: 0px 40px;
-    border-bottom: 1px dashed #666666;
 }
 
 div#header_links div#social_links {
@@ -1407,7 +1419,7 @@ div#users div#filter_param_box div.label {
 /* static pages */
 
 div.static_content {
-    margin: 20px 10px;
+    margin: 20px 0px;
 }
 
 /* end static pages */
@@ -1503,17 +1515,20 @@ div.static_content {
 }
 
 div#filter_projects_nav {
-    background: #fff url(/images/brand-search-bg.gif) repeat-x left top;
+    margin-top: -13px;
 }
 
 div#filter_projects_nav div#filter_param_box select {
-    width: 235px; 
-    
+    width: 150px;
+    margin-right: 0px;
 }
 
 div#filter_users_nav {
-    background: #fff url(/images/brand-search-bg.gif) repeat-x left top;
-    margin-right: 5px;
+    margin-top: -13px;
+}
+
+div#filter_users_nav div#filter_param_box select {
+    width: 150px;
 }
 
 .big-number	{
@@ -1783,8 +1798,8 @@ body	{
     float: right;
 }
 head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*fix for FF floating buttons - hide from IE & Opera*/
-                                                                              float: none;
-                                                                              height: 20px;
+    float: none;
+    height: 20px;
 }
 .floatButtonFormat, .pageFooter {
     margin: auto;
@@ -1827,8 +1842,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #header {
-    height: 175px;
-    color: #000000;
+    margin-bottom: 15px;
     text-align: left;
 }
 
@@ -1906,10 +1920,12 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 .pageTitle {
-    font-size: 20px;
+    border-bottom: 1px dashed #666666;
     color: #000000;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 25px;
 }
 
 .pageTitleSmall {
@@ -2369,7 +2385,6 @@ div.blog div.share_buttons div.facebook_button {
 div#subnav_links {
     border-bottom: 1px dashed #666666;
     width: 100%;
-    padding-bottom: 11px;
 }
 
 div#subnav_links span.fund_image_comments_subnav {
@@ -2989,11 +3004,7 @@ div.view-lite-row-alt div.view-lite-row-project-name span.edit_link a {
 } 
 
 #main {
-    width: 800px;
-    padding:5px;
-    margin: 2em 0 1em 0;
-    border-style: none;
-    background: #f8f6ef;
+    
 }
 
 .instruction {
