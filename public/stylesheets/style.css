@@ -203,6 +203,7 @@ div#signup_section div#signup_link a div {
 div#signup_section div#login_form_top div#controls input[type=checkbox] {
     margin-left: 0px;
     float: left;
+    cursor: pointer;
 }
 
 div#signup_section div#login_form_top div#controls {
@@ -1467,7 +1468,6 @@ div.static_content {
 
 #footer	{
     background: #fff url(/images/footer-contents-bg.gif) repeat-x left top;
-    height: 64px;
     font-size:85%;
     line-height: 3.1em;
 }
@@ -1705,6 +1705,10 @@ form	{
 
 div#ad_banner {
     float: right;
+}
+
+div#footer_ad_banner {
+    margin: 30px auto 20px auto;
 }
 
 div#site_wrapper {

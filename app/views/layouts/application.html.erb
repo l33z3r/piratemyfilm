@@ -36,26 +36,22 @@
 
             <%= render :partial => "/blogs/subnav" %>
 
-            <!--div id="profile_links">
-              <% if logged_in? %>
-                <div class="link">
-                  <%= link_to 'My Profile', profile_path(@p) %>
-                </div>
-                <div class="link">
-                  &nbsp;-&nbsp;
-                  <%= link_to 'My Portfolio', portfolio_profile_path(@p) %>
-                </div>
-              <% end %>
-            </div-->
-
             <%= yield %>
 
           </div>
 
           <div class="pmf_clear">&nbsp;</div>
+
           <%= render :partial => 'shared/footer' %>
+
         </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+
+        <%= render :partial => "shared/footer_banner_ad" %>
+
       </div>
+
     </div>
 
     <div id="footer_scripts">

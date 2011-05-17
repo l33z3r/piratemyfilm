@@ -7,6 +7,9 @@ class HomeController < ApplicationController
 
     @blog = Blog.new
     
+    #tell view that this is homepage (used for banner ad for now)
+    @is_home_page = true
+    
     render :template => "/blogs/members"
   end
 
