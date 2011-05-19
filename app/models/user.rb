@@ -137,7 +137,10 @@ class User < ActiveRecord::Base
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
     return nil unless u
-    u && u.authenticated?(password) ? u : nil
+    u = (u && u.authenticated?(password) ? u : nil)
+    
+    return nil if !u
+    
     raise Exceptions::UserNotActivated unless u.activated?
     u
   end
