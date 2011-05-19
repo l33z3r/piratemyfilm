@@ -1604,7 +1604,7 @@ div#filter_projects_nav {
 }
 
 div#filter_projects_nav div#filter_param_box select {
-    width: 130px;
+    width: 118px;
     margin-right: 0px;
     font-size: 12px;
 }
@@ -1614,7 +1614,7 @@ div#filter_users_nav {
 }
 
 div#filter_users_nav div#filter_param_box select {
-    width: 130px;
+    width: 122px;
     font-size: 12px;
 }
 

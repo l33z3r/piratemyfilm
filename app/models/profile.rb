@@ -225,7 +225,7 @@ class Profile < ActiveRecord::Base
   end
 
   @@filter_params_map = {
-    1 => "View Members By...", 2 => "User Login",
+    1 => "View Members By", 2 => "User Login",
     3 => "No. Projects Listed", 4 => "No. Shares Reserved", 
     5 => "Member Rating", 6 => "No. Projects Funded",
     7 => "Walk The Plank"
