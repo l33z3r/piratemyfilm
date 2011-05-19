@@ -3,33 +3,29 @@
   <div class="blog_left">
     <div class="icon">
       <%= link_to icon(blog.profile, :small), profile_path(blog.profile) %>
+      <div class="user_name">
+        <%= link_to blog.profile.user.login, profile_path(blog.profile) %>
+      </div>
       <div class="follow_button">
         <%= follow_member_button_small blog.profile %>
       </div>
     </div>
     <div class="info">
-      <div class="blog_type">
-        <%= link_to "Member Blog", profile_path(blog.profile) %>
-      </div>
       <% if blog.project %>
+        <div class="blog_type">
+          <%= link_to "Owner Of:", project_path(blog.project) %>
+        </div>
         <div class="user_info">
           <div class="user_icon">
-            <%= link_to project_icon(blog.project, :medium), project_path(blog.project) %>
+            <div class="project_icon">
+              <%= link_to project_icon(blog.project, :medium), project_path(blog.project) %>
+            </div>
+            <div class="project_title">
+              <%= link_to blog.project.title, project_path(blog.project) %>
+            </div>
           </div>
         </div>
       <% end %>
-
-      <div class="pmf_clear">&nbsp;</div>
-
-      <% if blog.project %>
-        <div class="project_title">
-          on project <%= blog_project_header(blog, truncate_blog) %>:
-        </div>
-      <% end %>
-
-      <div class="blog_title">
-        <%= blog_header(blog, link_blog_header, truncate_blog) %>
-      </div>
 
       <div class="pmf_clear">&nbsp;</div>
 

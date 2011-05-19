@@ -1,22 +1,21 @@
-<div class="pageTitle">
-  <% if @p == @profile %>
-    My
-  <% else %>
-    <%=@profile.user.f.titleize%>'s
-  <% end %>
-  Profile 
-</div>
+<% if @p != @profile %>
+  <div class="pageTitle">
+    <%=@profile.user.login%>'s
+    Profile
+  </div>
+<% end %>
 
 <div id="profile">
   <div id="profile_section">
 
     <div class="half left">
 
-      <div class="sublinks">
-        <div class="selected_profile_sublink"><%= link_to "View Profile", profile_path(@p) %></div>
-        <div class="profile_sublink"><%= link_to "View Portfolio", portfolio_profile_path(@profile) %></div>
-        <div class="pmf_clear">&nbsp;</div>
-      </div>
+      <% if @p != @profile %>
+        <div class="sublinks">
+          <div class="profile_sublink"><%= link_to "View Portfolio", portfolio_profile_path(@profile) %></div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+      <% end %>
 
       <div class="activity_box learn">
         <div class="left avatar">
@@ -176,37 +175,4 @@
 
   </div>
 
-  <% if @p == @profile && @blogs.size > 0 %>
-
-    <div class="dashed_light_border">&nbsp;</div>
-
-    <div class="pmf_clear_10">&nbsp;</div>
-
-    <div class="pageTitle">Member Feed</div>
-
-    <div class="dashed_light_border">&nbsp;</div>
-
-    <div class="pmf_clear">&nbsp;</div>
-
-    <%= render :partial => "/blogs/member_blog_update_form", :locals => {:blog => @blog} %>
-
-    <% if @blogs.empty? %>
-      <div class="pageTitleSmaller">
-        You are not following any PMF Members!
-      </div>
-      <div class="pageTitleSmaller">
-        When you follow someone, their updates will appear here!
-      </div>
-      <div class="pmf_clear">&nbsp;</div>
-    <% end %>
-
-    <% @blogs.each do |blog| %>
-      <%= render :partial => "/blogs/templates/member_blog",
-        :locals => {:blog => blog, :truncate_blog => true,
-        :link_blog_header => true } %>
-    <% end %>
-
-    <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>
-
-  <% end %>
 </div>

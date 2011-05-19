@@ -1,0 +1,24 @@
+<% if @u %>
+  <div id="user_subnav_links">
+    <div class="link <%= (@selected_user_subnav_link == "my_member_blogs" ? "selected" : "") %>">
+      <%= link_to "My Member Feed", :controller => :blogs, :action => "my_member_blogs" %>
+    </div>
+
+    <div class="link <%= (@selected_user_subnav_link == "my_project_blogs" ? "selected" : "") %>">
+      <%= link_to "My Project Feed", :controller => :blogs, :action => "my_project_blogs" %>
+    </div>
+
+    <div class="link <%= (@selected_user_subnav_link == "my_portfolio" ? "selected" : "") %>">
+      <%= link_to "My Portfolio", portfolio_profile_path(@u.profile) %>
+    </div>
+
+    <div class="link <%= (@selected_user_subnav_link == "my_profile" ? "selected" : "") %>">
+      <%= link_to "My Profile", profile_path(@u.profile) %>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+<% end %>

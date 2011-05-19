@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :blogs,
-    :collection => {:members => :get, :admin => :get, :producer => :get, :mkc => :get}
+    :collection => {:all_member_blogs => :get, :my_member_blogs => :get, 
+    :my_project_blogs => :get, :admin => :get, :producer => :get, :mkc => :get}
 
   map.resources :project_comments
 

@@ -30,16 +30,6 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    @followed_blogs = []
-
-    if @p == @profile
-      #we now have different semantics for followed blogs, we use the member live feed and the project live feed
-      #@followed_blogs  = Blog.all_for_user_producer_followings(@u).paginate :page => (params[:page] || 1), :per_page=> 15
-
-      @blogs = Blog.my_followings @u
-      @blog = Blog.new
-    end
-
     #load this users producer rating info
     @my_member_rating = MemberRatingHistory.find_by_member_id_and_rater_id(@profile.user, @u, :order => "created_at DESC", :limit => "1")
     @selected_my_member_rating = @my_member_rating ? [@my_member_rating.rating, @my_member_rating.rating.to_s] : [1, "1"]
@@ -53,26 +43,12 @@ class ProfilesController < ApplicationController
     #load talent rating select opts
     @talent_rating_select_opts = TalentRating.rating_select_opts
 
+    @selected_user_subnav_link = "my_profile"
+    
     render :action => "profile"
   end
   
   def portfolio
-    if @p == @profile
-      #users live project follow stream
-      @blogs = Blog.all_for_user_followings @u
-      @pmf_fund_comments = ProjectComment.latest_for_user_followings @u
-      @admin_project_ratings = AdminProjectRating.latest_for_user_followings @u
-      @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest_for_user_followings @u
-
-      @items = @blogs + @pmf_fund_comments + @admin_project_ratings + @pmf_project_subscriptions
-
-      @items.sort! do |a,b|
-        b.created_at <=> a.created_at
-      end
-
-      @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
-    end
-
     #this users top projects (24 hour change)
     @top_projects = ProjectChangeInfoOneDay.top_five_change_for_user @profile.user
 
@@ -86,6 +62,8 @@ class ProfilesController < ApplicationController
 
     @user_non_funded_subscriptions = @profile.user.subscribed_non_funded_projects
     @user_funded_subscriptions = @profile.user.subscribed_funded_projects
+    
+    @selected_user_subnav_link = "my_portfolio"
   end
 
   def portfolio_awaiting_payment

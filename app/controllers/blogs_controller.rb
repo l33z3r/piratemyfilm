@@ -4,16 +4,14 @@ class BlogsController < ApplicationController
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
 
-  #this lists all blogs about projects
+  #this is the global live project feed
   def index
-    #this content is the same as what is on the homepage
-
     @blogs = Blog.all_project_blogs
     @pmf_fund_comments = ProjectComment.latest
     @admin_project_ratings = AdminProjectRating.latest
 
     #we don't show the subscription history anymore
-    #    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest
+    #@pmf_project_subscriptions = PmfFundSubscriptionHistory.latest
 
     @new_projects = Project.find_all_public(:order => "created_at DESC")
 
@@ -30,13 +28,42 @@ class BlogsController < ApplicationController
       response.headers["Content-Type"] = "application/xml; charset=utf-8"
     end
   end
+  
+  #this is the users personal live project feed
+  def my_project_blogs
+    #users live project follow stream
+    @blogs = Blog.all_for_user_followings @u
+    @pmf_fund_comments = ProjectComment.latest_for_user_followings @u
+    @admin_project_ratings = AdminProjectRating.latest_for_user_followings @u
+    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest_for_user_followings @u
 
-  #this is the members live feed
-  def members
+    @items = @blogs + @pmf_fund_comments + @admin_project_ratings + @pmf_project_subscriptions
+
+    @items.sort! do |a,b|
+      b.created_at <=> a.created_at
+    end
+
+    @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
+    
+    @selected_user_subnav_link = "my_project_blogs"
+  end
+
+  #this is the global live member feed
+  def all_member_blogs
+    @blogs = Blog.all_member_blogs
+    @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+
+    @blog = Blog.new
+  end
+  
+  #this is the users personal live member feed
+  def my_member_blogs
     @blogs = Blog.my_followings @u
     @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
 
     @blog = Blog.new
+    
+    @selected_user_subnav_link = "my_member_blogs"
   end
 
   def producer
@@ -81,7 +108,7 @@ class BlogsController < ApplicationController
       flash[:notice] = 'New blog post created.'
 
       if @blog.is_member_blog
-        redirect_to :action => "members" and return
+        redirect_to :action => "my_member_blogs" and return
       end
       
       redirect_to :controller => "blogs", :action => "show", :id => @blog.id

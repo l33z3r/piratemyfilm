@@ -1,22 +1,21 @@
-<div class="pageTitle">
-  <% if @p == @profile %>
-    My
-  <% else %>
+<% if @p != @profile %>
+  <div class="pageTitle">
     <%=@profile.user.login%>'s
-  <% end %>
-  Portfolio
-</div>
+    Portfolio
+  </div>
+<% end %>
 
 <div id="profile">
   <div id="profile_section">
 
     <div class="half left">
 
-      <div class="sublinks">
-        <div class="profile_sublink"><%= link_to "View Profile", profile_path(@p) %></div>
-        <div class="selected_profile_sublink"><%= link_to "View Portfolio", portfolio_profile_path(@profile) %></div>
-        <div class="pmf_clear">&nbsp;</div>
-      </div>
+      <% if @p != @profile %>
+        <div class="sublinks">
+          <div class="profile_sublink"><%= link_to "View Profile", profile_path(@profile) %></div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+      <% end %>
 
       <div class="activity_box learn">
         <div class="left avatar"><%= icon @profile, :medium %></div>
@@ -97,35 +96,6 @@
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
-
-  <% if @p == @profile && @items.size > 0 %>
-
-    <div class="dashed_light_border">&nbsp;</div>
-
-    <div class="pmf_clear_20">&nbsp;</div>
-
-    <div class="pageTitle">Followed Projects Feed</div>
-
-    <div class="pmf_clear">&nbsp;</div>
-
-    <% @items.each do |item| %>
-      <% if item.kind_of? Blog %>
-        <%= render :partial => "/blogs/templates/#{blog_template_name(item)}",
-          :locals => {:blog => item, :truncate_blog => true,
-          :link_blog_header => true } %>
-      <% elsif item.kind_of? ProjectComment %>
-        <%= render :partial => '/project_comments/comment_info', :locals => {:project_comment => item} %>
-      <% elsif item.kind_of? AdminProjectRating %>
-        <%= render :partial => '/project_rating/admin_project_rating', :locals => {:admin_project_rating => item} %>
-      <% elsif item.kind_of? PmfFundSubscriptionHistory %>
-        <%= render :partial => '/project_subscriptions/pmf_subscription_change',
-          :locals => { :pmf_subscription => item } %>
-      <% end %>
-    <% end %>
-
-    <%= pagination_controls_for @items if @items.respond_to? :total_pages %>
-
-  <% end %>
 
   <div class="project_listing_box">
     <div class="pageTitle">

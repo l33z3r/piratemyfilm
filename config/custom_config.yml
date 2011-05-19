@@ -1,6 +1,7 @@
 development:
+  #this is actually the pmf fund user id (need to change the property name eventually)
   max_profile_id: 9
-  maxriot_profile_id: 10
+  maxriot_profile_id: 2
   mkc_wordpress_feed_url: http://maxkeiser.com/category/pirate-myfilm/feed
   paypal_button_submission_url: https://www.sandbox.paypal.com/cgi-bin/webscr
   max_wp_login_name: blah
@@ -15,6 +16,7 @@ test:
   max_wp_login_pw: blah
 
 production:
+  #this is actually the pmf fund user id (need to change the property name eventually)
   max_profile_id: 2
   maxriot_profile_id: 7
   mkc_wordpress_feed_url: http://maxkeiser.com/category/pirate-myfilm/feed

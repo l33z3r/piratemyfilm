@@ -147,9 +147,13 @@ class Blog < ActiveRecord::Base
     find(:all, :conditions => "guid IS NOT NULL", :order => "created_at DESC")
   end
 
+  def self.all_member_blogs
+    Blog.find(:all, :conditions => "is_member_blog = 1", :order => "created_at DESC")
+  end
+  
   def self.my_followings user
     if !user
-      Blog.find(:all, :conditions => "is_member_blog = 1", :order => "created_at DESC")
+      all_member_blogs
     else
       find_by_sql("select blogs.* from blogs where is_member_blog = 1 and (profile_id in
       (select invited_id from friends where inviter_id = #{user.profile.id}) or

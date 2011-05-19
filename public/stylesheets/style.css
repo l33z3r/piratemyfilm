@@ -159,7 +159,7 @@ div#signup_section div#login_form_top div#fields div.input input {
     -moz-border-radius: 4px;
     width: 70px;
     height: 15px;
-    border: 1px solid #666666;
+    border: 1px solid #666;
     margin-top: 2px;
     background-color: #EEEEEE;
 }
@@ -178,6 +178,7 @@ div#signup_section div#login_form_top div#controls input[type=submit] {
     text-align: center;
     width: 60px;
     float: left;
+    color: #333;
 }
 
 div#signup_section div#signup_link {
@@ -194,10 +195,12 @@ div#signup_section div#signup_link {
     width: 60px;
     float: right;
     text-decoration: none;
+    padding-top: 1px;
+    height: 16px;
 }
 
 div#signup_section div#signup_link a div {
-
+    color: #333;
 }
 
 div#signup_section div#login_form_top div#controls input[type=checkbox] {
@@ -520,6 +523,43 @@ div#subnav_links div.link a {
 }
 
 /* End sub navigation */
+
+/* user sub navigation */
+
+div#user_subnav_links {
+    margin-bottom: 10px;
+    margin-top: 4px;
+}
+
+div#user_subnav_links div.link {
+    width: 108px;
+    text-align: center;
+    margin-right: 5px;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 2px 3px;
+    border: 1px solid #666666;
+    color: #666;
+    background-color: #EEE;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+div#user_subnav_links div.link.selected {
+    background-color: #FFF;
+}
+
+div#user_subnav_links div.link.selected a {
+    color: #000;
+}
+
+div#user_subnav_links div.link a:hover {
+    text-decoration: none;
+}
+
+/* End user sub navigation */
 
 .project_listing_box {
     margin-top: 20px;
@@ -1152,14 +1192,18 @@ div#profile div#profile_section div.sublinks {
 
 div#profile div#profile_section div.sublinks div.profile_sublink {
     float: left;
-    text-decoration: underline;
-    margin-right: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 4px 5px;
+    border: 1px solid #666666;
+    color: #666;
+    background-color: #EEE;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
 }
 
-div#profile div#profile_section div.sublinks div.selected_profile_sublink {
-    float: left;
-    font-weight: bold;
-    margin-right: 8px;
+div#profile div#profile_section div.sublinks div.profile_sublink a:hover {
+    text-decoration: none;
 }
 
 div#profile div#profile_section div.avatar a img {
@@ -1406,6 +1450,7 @@ div#talents {
 div#talents div.user_talent {
     float: left;
     margin-right: 15px;
+    width: 190px;
 }
 
 div#talents div.user_talent div.user-icon {
@@ -2325,6 +2370,16 @@ div.blog div.blog_left div.icon {
     width: 70px;
 }
 
+div.blog div.blog_left div.icon div.user_name {
+    margin-top: 4px;
+    text-align: center;
+    width: 60px;
+}
+
+div.blog div.blog_left div.icon div.user_name a {
+    font-weight: bold;
+}
+
 div.blog div.blog_left div.icon div.follow_button {
     margin-top: 4px;
     margin-left: -2px;
@@ -2375,6 +2430,27 @@ div.blog div.blog_left div.info div.user_info div.user_icon {
 div.blog div.blog_left div.info div.user_info div.user_icon a img {
     height: 25px;
     width: 25px;
+}
+
+div.blog div.blog_left div.info div.user_info div.user_icon div.project_icon {
+    float: left;
+}
+
+div.blog div.blog_left div.info div.user_info div.user_icon div.project_icon a img {
+    height: 25px;
+    width: 25px;
+}
+
+div.blog div.blog_left div.info div.user_info div.user_icon div.project_title {
+    float: left;
+    margin-top: 3px;
+    margin-left: 10px;
+}
+
+div.blog div.blog_left div.info div.user_info div.user_icon div.project_title a {
+    font-weight: bold;
+    font-size: 13px;
+    color: #000;
 }
 
 div.blog div.blog_left div.info div.user_info div.user_name {
