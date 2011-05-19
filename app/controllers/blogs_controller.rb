@@ -1,5 +1,5 @@
 class BlogsController < ApplicationController
-  skip_before_filter :login_required, :only=> [:show, :index, :members, :admin, :mkc, :producer]
+  skip_before_filter :login_required, :only=> [:show, :index, :all_member_blogs, :admin, :mkc, :producer]
 
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
   before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
@@ -201,7 +201,7 @@ class BlogsController < ApplicationController
   end
 
   def allow_to
-    super :all, :only => [:show, :index, :members, :admin, :mkc, :producer]
+    super :all, :only => [:show, :index, :all_member_blogs, :admin, :mkc, :producer]
     super :user, :all => true
   end
   

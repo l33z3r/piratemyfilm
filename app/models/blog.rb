@@ -120,8 +120,8 @@ class Blog < ActiveRecord::Base
   end
 
   def self.all_project_blogs
-    find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null and blogs.is_member_blog = 0)
-        or (blogs.is_admin_blog = 1) or (blogs.guid is not null)",
+    find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null 
+        and blogs.is_member_blog = 0) or (blogs.guid is not null)",
       :order => "blogs.created_at desc")
   end
 
