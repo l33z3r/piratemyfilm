@@ -333,21 +333,24 @@ function project_project_comment_ajaxx(project_id, id, verb, params, options){ r
 function formatted_project_project_comment_path(project_id, id, format, verb){ return '/projects/' + project_id + '/project_comments/' + id + '.' + format + '';}
 function formatted_project_project_comment_ajax(project_id, id, format, verb, params, options){ return less_ajax('/projects/' + project_id + '/project_comments/' + id + '.' + format + '', verb, params, options);}
 function formatted_project_project_comment_ajaxx(project_id, id, format, verb, params, options){ return less_ajaxx('/projects/' + project_id + '/project_comments/' + id + '.' + format + '', verb, params, options);}
+function project_widgets_path(verb){ return '/project_widgets';}
+function project_widgets_ajax(verb, params, options){ return less_ajax('/project_widgets', verb, params, options);}
+function project_widgets_ajaxx(verb, params, options){ return less_ajaxx('/project_widgets', verb, params, options);}
 function latest_comments_path(verb){ return '/latest_comments';}
 function latest_comments_ajax(verb, params, options){ return less_ajax('/latest_comments', verb, params, options);}
 function latest_comments_ajaxx(verb, params, options){ return less_ajaxx('/latest_comments', verb, params, options);}
-function portfolio_awaiting_payment_profiles_path(verb){ return '/profiles/portfolio_awaiting_payment';}
-function portfolio_awaiting_payment_profiles_ajax(verb, params, options){ return less_ajax('/profiles/portfolio_awaiting_payment', verb, params, options);}
-function portfolio_awaiting_payment_profiles_ajaxx(verb, params, options){ return less_ajaxx('/profiles/portfolio_awaiting_payment', verb, params, options);}
-function formatted_portfolio_awaiting_payment_profiles_path(format, verb){ return '/profiles/portfolio_awaiting_payment.' + format + '';}
-function formatted_portfolio_awaiting_payment_profiles_ajax(format, verb, params, options){ return less_ajax('/profiles/portfolio_awaiting_payment.' + format + '', verb, params, options);}
-function formatted_portfolio_awaiting_payment_profiles_ajaxx(format, verb, params, options){ return less_ajaxx('/profiles/portfolio_awaiting_payment.' + format + '', verb, params, options);}
 function search_profiles_path(verb){ return '/profiles/search';}
 function search_profiles_ajax(verb, params, options){ return less_ajax('/profiles/search', verb, params, options);}
 function search_profiles_ajaxx(verb, params, options){ return less_ajaxx('/profiles/search', verb, params, options);}
 function formatted_search_profiles_path(format, verb){ return '/profiles/search.' + format + '';}
 function formatted_search_profiles_ajax(format, verb, params, options){ return less_ajax('/profiles/search.' + format + '', verb, params, options);}
 function formatted_search_profiles_ajaxx(format, verb, params, options){ return less_ajaxx('/profiles/search.' + format + '', verb, params, options);}
+function portfolio_awaiting_payment_profiles_path(verb){ return '/profiles/portfolio_awaiting_payment';}
+function portfolio_awaiting_payment_profiles_ajax(verb, params, options){ return less_ajax('/profiles/portfolio_awaiting_payment', verb, params, options);}
+function portfolio_awaiting_payment_profiles_ajaxx(verb, params, options){ return less_ajaxx('/profiles/portfolio_awaiting_payment', verb, params, options);}
+function formatted_portfolio_awaiting_payment_profiles_path(format, verb){ return '/profiles/portfolio_awaiting_payment.' + format + '';}
+function formatted_portfolio_awaiting_payment_profiles_ajax(format, verb, params, options){ return less_ajax('/profiles/portfolio_awaiting_payment.' + format + '', verb, params, options);}
+function formatted_portfolio_awaiting_payment_profiles_ajaxx(format, verb, params, options){ return less_ajaxx('/profiles/portfolio_awaiting_payment.' + format + '', verb, params, options);}
 function profiles_path(verb){ return '/profiles';}
 function profiles_ajax(verb, params, options){ return less_ajax('/profiles', verb, params, options);}
 function profiles_ajaxx(verb, params, options){ return less_ajaxx('/profiles', verb, params, options);}

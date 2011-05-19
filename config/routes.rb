@@ -19,6 +19,8 @@ ActionController::Routing::Routes.draw do |map|
     project.resources :project_comments
   end
 
+  map.project_widgets "project_widgets", :controller => "project_widgets", :action => "index"
+  
   map.latest_comments "latest_comments", :controller => "project_comments", :action => "latest"
 
   map.resources :profiles, 

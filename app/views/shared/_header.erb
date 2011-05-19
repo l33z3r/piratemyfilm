@@ -22,32 +22,27 @@
   <div class="icatch-pictures">
     <div id="new_project_button" class="local-navbar-button">
       <span><%= link_to 'List a Project', new_project_path %></span>
-      <p>Raise Money</p>
     </div>
 
     <div class="right">
       <div class="local-navbar-button">
         <span><%= link_to 'Browse Talent', :controller => "/user_talents" %></span>
-        <p>&nbsp;</p>
       </div>
 
       <div class="local-navbar-button">
-        <span><%= link_to "Members", :controller => "/profiles" %></span>
-        <p>View Members</p>
+        <span><%= link_to "View Members", :controller => "/profiles" %></span>
       </div>
 
       <div class="local-navbar-button">
         <span><a href="/pages/stats">Site Statistics</a></span>
-        <p>General Stats</p>
       </div>
       
       <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
         <div id="search">
-          <img src="/images/brand-search.gif" alt="Search" />
           <%= text_field_tag 'search[q]',
-            (params[:search] && params[:search][:q] ? params[:search][:q] : ''),
-            :id => 'search_q', :size => 14 %>
-          <input type="image" src="/images/brand-go-off.gif" name="submit" />
+            (params[:search] && params[:search][:q] ? params[:search][:q] : 'Search'),
+            :id => 'search_q', :size => 14, :onfocus => "$(this).select();" %>
+          <input type="submit" value="Search"/>
         </div>
       <% end %>
     </div>
@@ -55,6 +50,8 @@
 
   <div class="pmf_clear">&nbsp;</div>
 
+  <%= render :partial => "/blogs/subnav" %>
+  
 </div>
 
 <div class="pmf_clear">&nbsp;</div>

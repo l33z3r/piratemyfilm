@@ -354,7 +354,7 @@ div#header_links {
 
 div#header_links div#social_links {
     float: left;
-    margin-top: 7px;
+    margin-top: 14px;
 }
 
 div#header_links div#social_links div#widget_link {
@@ -480,7 +480,7 @@ div#sub_nav {
 }
 
 div#filter_param_box {
-    margin: 10px 0px;
+    margin-top: -3px;
     float: right;
     color: #000000;
 }
@@ -508,13 +508,12 @@ div#filter_param_box form select {
 /* sub navigation */
 
 div#subnav_links {
-    float: left;
-    margin-bottom: 6px;
+    margin-top: 7px;
 }
 
 div#subnav_links div.link {
     float: left;
-    margin-right: 3px;
+    margin-right: 6px;
 }
 
 div#subnav_links div.link a {
@@ -1555,6 +1554,7 @@ div.static_content {
 }
 
 .icatch-pictures {
+    border-bottom: 2px solid #CCC;
     width: 100%;
     float: left;
 }
@@ -1571,7 +1571,6 @@ div.static_content {
 
 .navbar-search {
     float:right;
-    width: 260px;
 }
 
 .icatch-button	a {
@@ -1580,10 +1579,13 @@ div.static_content {
 }
 
 #search	{
-    background: #fff url(/images/brand-search-bg.gif) repeat-x left top;
-    padding:0px 10px;
-    height:40px;
-    text-align:center;
+    height: 30px;
+    background:#ccc url(/images/local-nav-bg.png) top left repeat-x;
+    padding: 3px 5px;
+}
+
+#search input[type=submit] {
+    cursor: pointer;
 }
 
 #search form	{
@@ -1591,16 +1593,12 @@ div.static_content {
     margin:0;
 }
 
-#search_q	{
-    border:1px solid #666;
-    vertical-align:middle;
-    margin-bottom:24px;
-    color: #666;
-    padding-left:3px;
+#search_q {
+    margin-top: 3px;
 }
 
 div#filter_projects_nav {
-    margin-top: -13px;
+    
 }
 
 div#filter_projects_nav div#filter_param_box select {
@@ -1610,7 +1608,7 @@ div#filter_projects_nav div#filter_param_box select {
 }
 
 div#filter_users_nav {
-    margin-top: -13px;
+    
 }
 
 div#filter_users_nav div#filter_param_box select {
@@ -2253,17 +2251,18 @@ div.TabView div.Pages div.Page div.Pad {
     padding: 0px 0px;
 }
 
-.local-navbar-button	{
+.local-navbar-button {
+    padding: 3px;
     background:#ccc url(/images/local-nav-bg.png) top left repeat-x;
-    width:120px;
-    height:40px;
+    width:105px;
+    height:30px;
     float: left;
     margin-right:5px;
     border-right: 1px solid #999999;
 }
 
 div#new_project_button {
-    width: 100px;
+    width: 96px;
     padding-right: 45px;
     float: left;
 }
@@ -2275,7 +2274,7 @@ div#new_project_button {
 .local-navbar-button span a	{
     text-decoration:none;
     color: #666;
-    font-size: 12px;
+    font-size: 13px;
     float: left;
     margin-left: 3px;
 }
@@ -2286,7 +2285,6 @@ div#new_project_button {
 }
 
 .local-navbar-button span {
-    margin:4px 3px 0px 3px;
     color: #666;
     font-weight:bold;
     font-size:9pt;
@@ -2370,14 +2368,15 @@ div.blog div.blog_left div.icon {
     width: 70px;
 }
 
-div.blog div.blog_left div.icon div.user_name {
-    margin-top: 4px;
-    text-align: center;
-    width: 60px;
+div.blog div.blog_left div.info div.user_name {
+    float: left;
+    margin-right: 3px;
 }
 
-div.blog div.blog_left div.icon div.user_name a {
+div.blog div.blog_left div.info div.user_name a {
     font-weight: bold;
+    color: #000;
+    font-size: 13px;
 }
 
 div.blog div.blog_left div.icon div.follow_button {
@@ -2513,13 +2512,7 @@ div.blog div.share_buttons div.facebook_button {
     float: right;
 }
 
-div#subnav_links {
-    border-bottom: 1px dashed #666666;
-    width: 100%;
-}
-
 div#subnav_links span.fund_image_comments_subnav {
-    margin-top: 2px;
     margin-right: 4px;
     float: left;
 }

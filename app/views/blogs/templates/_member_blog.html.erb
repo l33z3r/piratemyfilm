@@ -3,17 +3,17 @@
   <div class="blog_left">
     <div class="icon">
       <%= link_to icon(blog.profile, :small), profile_path(blog.profile) %>
-      <div class="user_name">
-        <%= link_to blog.profile.user.login, profile_path(blog.profile) %>
-      </div>
       <div class="follow_button">
         <%= follow_member_button_small blog.profile %>
       </div>
     </div>
     <div class="info">
+      <div class="user_name">
+        <%= link_to blog.profile.user.login, profile_path(blog.profile) %>
+      </div>
       <% if blog.project %>
         <div class="blog_type">
-          <%= link_to "Owner Of:", project_path(blog.project) %>
+          - <%= link_to "owner of:", project_path(blog.project) %>
         </div>
         <div class="user_info">
           <div class="user_icon">
