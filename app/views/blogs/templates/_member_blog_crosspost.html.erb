@@ -1,0 +1,248 @@
+<style>
+  div.blog-row {
+    margin-top: 10px;
+    min-height: 100px;
+  }
+
+  div.blog-row div.new_project_text {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 4px;
+  }
+
+  div.blog div.blog_left {
+    float: left;
+  }
+
+  div.blog div.blog_left div.icon {
+    float: left;
+    width: 80px;
+  }
+
+  div.blog div.blog_left div.info div.user_name {
+    float: left;
+    margin-right: 3px;
+  }
+
+  div.blog div.blog_left div.info div.user_name a {
+    font-weight: bold;
+    color: #000;
+    font-size: 13px;
+  }
+
+  div.blog div.blog_left div.icon div.follow_button {
+    margin-top: 6px;
+    margin-left: 3px;
+  }
+
+  div.blog div.blog_left div.icon div.follow_button div.following_text {
+    margin-left: 6px;
+    margin-top: 2px;
+  }
+
+  div.blog div.blog_left div.icon a img {
+    width: 70px;
+    margin-right: 10px;
+  }
+
+  div.blog div.blog_left div.info {
+    float: left;
+    width: 400px;
+  }
+
+  div.blog div.blog_left div.info div.blog_user_relationship {
+    float: left;
+    margin-right: 15px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #000000;
+  }
+
+  div.blog div.blog_left div.info div.user_info {
+    float: left;
+    margin-right: 4px;
+    margin-top: -4px;
+  }
+
+  div.blog div.blog_left div.info div.user_info div.user_icon {
+    float: left;
+    margin-right: 4px;
+  }
+
+  div.blog div.blog_left div.info div.user_info div.user_icon a img {
+    height: 25px;
+    width: 25px;
+  }
+
+  div.blog div.blog_left div.info div.user_info div.user_icon div.project_icon {
+    float: left;
+  }
+
+  div.blog div.blog_left div.info div.user_info div.user_icon div.project_icon a img {
+    height: 25px;
+    width: 25px;
+  }
+
+  div.blog div.blog_left div.info div.user_info div.user_icon div.project_title {
+    float: left;
+    margin-top: 3px;
+    margin-left: 10px;
+  }
+
+  div.blog div.blog_left div.info div.user_info div.user_icon div.project_title a {
+    font-weight: bold;
+    font-size: 13px;
+    color: #000;
+  }
+
+  div.blog div.blog_left div.info div.user_info div.user_name {
+    float: left;
+    margin-top: 3px;
+  }
+
+  div.blog div.blog_left div.info div.user_info div.user_name a {
+    font-weight: bold;
+  }
+
+  div.blog div.blog_left div.info div.project_info {
+    float: left;
+    margin-right: 10px;
+  }
+
+  div.blog div.blog_left div.info div.project_info div.project_title {
+    margin-bottom: 2px;
+    float: left;
+  }
+
+  div.blog div.blog_left div.info div.project_info div.project_title a {
+    font-weight: bold;
+    color: #000000;
+    font-size: 14px;
+  }
+
+  div.blog div.blog_left div.info div.project_info div.project_stats {
+    float: left;
+    margin-top: 1px;
+  }
+
+  div.blog div.blog_left div.info div.project_info div.project_stats div.funds_needed,
+  div.blog div.blog_left div.info div.project_info div.project_stats div.percent_funded {
+    float: left;
+    margin-right: 5px;
+  }
+
+  div.blog div.blog_left div.info div.project_info div.project_stats div span {
+    font-weight: bold;
+  }
+
+  div.blog div.blog_left div.info div.project_info div.project_icon {
+    float: left;
+    width: 35px;
+    margin-top: -3px
+  }
+
+  div.blog div.blog_left div.info div.project_info div.project_icon img {
+    width: 30px;
+  }
+
+  div.blog div.blog_left div.info div.blog_title {
+    float: left;
+    margin-top: 4px;
+  }
+
+  div.blog div.blog_left div.info div.blog_title a {
+    font-weight: bold;
+    color: #000000;
+  }
+
+  div.blog div.blog_left div.info div.blog_body {
+    margin-top: 6px;
+    color: #000000;
+  }
+
+  /* follow button css */
+
+  div.button_small {
+    background: url(<%= image_path "button_bg_small.png" %>) transparent left top;
+    padding: 5px 3px 4px 3px;
+    width: 58px;
+    text-align: center;
+  }
+
+  div.button_small a {
+    text-decoration: none;
+    color: #666666;
+    font-weight: bold;
+    font-size: 11px;
+  }
+
+  div.button_small a:hover {
+    text-decoration: none;
+  }
+
+  /* override global wp css */
+
+  div.blog-row {
+    font-size:0.8em;
+    line-height:1.4em;
+    font-family: "lucida grande", "tahoma", "arial", "sans-serif";
+    font-size: 12px;
+    color:#666666;
+  }
+  
+  .postContent img {
+    border: none;
+    margin: 0px;
+  }
+
+</style>
+
+<div class="blog-row blog">
+
+  <div class="blog_left">
+    <div class="icon">
+      <%= link_to icon(blog.profile, :small), profile_url(blog.profile) %>
+      <div class="follow_button">
+        <div class="button_small left">
+          <%= link_to "Follow", profile_url(blog.profile) %>
+        </div>
+      </div>
+    </div>
+    <div class="info">
+      <div class="user_name">
+        <%= link_to blog.profile.user.login, profile_url(blog.profile) %>
+      </div>
+      <% if blog.project %>
+        <div class="blog_user_relationship">
+          Owner of
+        </div>
+        <div class="project_info">
+          <div class="project_icon">
+            <%= link_to project_icon(blog.project, :medium), project_url(blog.project) %>
+          </div>
+          <div class="project_title">
+            <%= link_to h(blog.project.title), project_url(blog.project) %>
+            &nbsp;-&nbsp;
+          </div>
+          <div class="project_stats">
+            <div class="funds_needed">
+              <span><%= print_money blog.project.capital_required %></span> needed
+            </div>
+            <div class="percent_funded">
+              <span><%= blog.project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <div class="blog_body">
+        <%= blog_body(blog, false) %>
+      </div>
+    </div>
+  </div>
+
+</div>

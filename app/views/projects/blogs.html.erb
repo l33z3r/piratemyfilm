@@ -1,24 +1,26 @@
 <div id="project_blogs">
-  <div class="right">
-    <%= link_to "Back to Project", project_path(@project_id), :class => "subnav_inactive" %>
-    <% if @u && (@project.owner == @u || @u.is_admin) %>
-      - <%= link_to "Add a new blog entry", {:controller => :blogs, :action => :new, :project_id => @project.id}, :class => "subnav_inactive" %>
-    <% end %>
-  </div>
-
   <div class="pageTitle">
-    Blogs for Project:
+    Blogs for <%= link_to h(@project.title), project_path(@project) %>
   </div>
-
-  <div class="pageTitleSmall"><%= @project.title %></div>
 
   <div class="pmf_clear">&nbsp;</div>
 
-  <% if @project_blogs.blank? %>
-    No Blogs Found!
-  <% else %>
-  <%= render :partial => '/blogs/blogs', :locals => {:blogs => @project_blogs} %>
+  <%= render :partial => "/blogs/member_blog_update_form", :locals => {:project => @project} unless !@u %>
+
+  <% if @blogs.empty? %>
+    <div class="pageTitleSmaller">
+      No Updates Found!
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
   <% end %>
+
+  <% @blogs.each do |blog| %>
+    <%= render :partial => "/blogs/templates/project_blog",
+      :locals => {:blog => blog, :truncate_blog => true,
+      :link_blog_header => true } %>
+  <% end %>
+
+  <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>
 
   <div class="pmf_clear">&nbsp;</div>
 

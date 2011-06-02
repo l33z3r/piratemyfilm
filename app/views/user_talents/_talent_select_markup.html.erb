@@ -1,7 +1,5 @@
 <div class="pageTitle">Project Talent</div>
 
-<div class="dashed_light_border">&nbsp;</div>
-
 <div class="pmf_clear">&nbsp;</div>
 
 <div class="pageTitleSmall left">
@@ -14,11 +12,11 @@
   <% talents.each do |talent| %>
     <div class="user_talent">
       <div class="user-icon">
-        <%= link_to_function icon(talent.user.profile, :small), "selectTalent('#{talent_type_name}', #{talent.id}, '#{talent.user.login}');" %>
+        <%= link_to_function icon(talent.user.profile, :small), "addTalent(#{talent.id}, #{project.id});" %>
       </div>
       <div class="talent_info">
         <div class="username">
-          <%= link_to_function talent.user.login, "selectTalent('#{talent_type_name}', #{talent.id}, '#{talent.user.login}');" %>
+          <%= link_to_function talent.user.login, "addTalent(#{talent.id}, #{project.id});" %>
         </div>
         <div class="rating">
           Rating: <span><%= talent.current_rating %></span>

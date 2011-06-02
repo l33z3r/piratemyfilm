@@ -1,0 +1,16 @@
+<div id="project_talent_container_<%=pt.id%>">
+  <div class="user_info">
+    <div class="user_name">
+      <%= h(pt.user_talent.user.login) %>
+    </div>
+    <div class="user_icon">
+      <%= icon pt.user_talent.user.profile, :small %>
+    </div>
+  </div>
+
+  <div class="clear_talent_link_container button_small left">
+    <%= link_to_function "Remove", "removeTalent(#{pt.id}, #{pt.project.id})" %>
+  </div>
+</div>
+
+<div class="pmf_clear">&nbsp;</div>

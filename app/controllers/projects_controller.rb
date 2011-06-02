@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
 
   before_filter :load_project, :only => [:show, :edit, :player, :update, :delete, :update_symbol,
     :update_green_light, :share_queue, :blogs, :invite_friends, :send_friends_invite, 
-    :flag, :buy_shares]
+    :flag, :buy_shares, :add_talent]
 
   skip_before_filter :setup, :only => [:blogs]
   before_filter :search_results, :only => [:search]
@@ -164,8 +164,7 @@ class ProjectsController < ApplicationController
   end
 
   def blogs
-    @project_blogs = Project.find(params[:id]).blogs(:all, :order => "created_at desc")
-    @project_id = params[:id]
+    @blogs = @project.blogs(:all, :order => "created_at desc").paginate :page => (params[:page] || 1), :per_page=> 15
   end
 
   def edit
@@ -253,6 +252,24 @@ class ProjectsController < ApplicationController
     redirect_to project_path(@project)
   end
   
+  def add_talent
+    @user_talent = UserTalent.find(params[:talent_id])
+    
+    @pt = ProjectUserTalent.find_or_initialize_by_project_id_and_user_talent_id({:project_id => @project.id, :user_talent_id => @user_talent.id})
+    
+    if @pt.new_record?
+      @pt.save
+    else
+      @pt = nil
+    end
+  end
+  
+  def remove_talent
+    @pt_id = params[:pt_id]
+    @pt = ProjectUserTalent.find(@pt_id)
+    @pt.destroy
+  end
+  
   protected
 
   def load_membership_settings
@@ -262,12 +279,13 @@ class ProjectsController < ApplicationController
   def perform_show
 
     #load project blogs
-    @project_blogs = @latest_project_blog = nil
+    @latest_project_blog = nil
 
     unless @project.blogs.empty?
       @latest_project_blog = @project.blogs.last
-      @project_blogs = @project.blogs.find(:all, :order => "created_at desc", :limit => 5)
     end
+    
+    @project_blogs = @project.blogs.find(:all, :order => "created_at desc", :limit => 5)
 
     #load project comments
     @project_comments = nil

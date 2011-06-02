@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110503194137) do
+ActiveRecord::Schema.define(:version => 20110602175605) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -32,12 +32,12 @@ ActiveRecord::Schema.define(:version => 20110503194137) do
     t.integer  "profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_admin_blog",    :default => false
+    t.boolean  "is_admin_blog",          :default => false
     t.integer  "project_id"
-    t.integer  "num_wp_comments",  :default => 0
+    t.integer  "num_wp_comments",        :default => 0
     t.string   "wp_comments_link"
     t.string   "guid"
-    t.boolean  "is_member_blog",   :default => false
+    t.integer  "project_user_talent_id"
   end
 
   add_index "blogs", ["profile_id"], :name => "index_blogs_on_profile_id"
@@ -297,6 +297,13 @@ ActiveRecord::Schema.define(:version => 20110503194137) do
     t.integer  "subscription_payment_id"
   end
 
+  create_table "project_user_talents", :force => true do |t|
+    t.integer  "user_talent_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "projects", :force => true do |t|
     t.integer  "owner_id"
     t.string   "title"
@@ -413,6 +420,9 @@ ActiveRecord::Schema.define(:version => 20110503194137) do
     t.integer  "warn_points",                             :default => 0
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
+    t.boolean  "following_mkc_blogs",                     :default => false
+    t.boolean  "following_admin_blogs",                   :default => false
+    t.boolean  "mkc_post_ability",                        :default => false
   end
 
   add_index "users", ["login"], :name => "index_users_on_login"

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110110160522
+# Schema version: 20110521081435
 #
 # Table name: users
 #
@@ -16,6 +16,11 @@
 #  email_verification        :string(255)   
 #  email_verified            :boolean(1)    
 #  member_rating             :integer(4)    default(0)
+#  warn_points               :integer(4)    default(0)
+#  activation_code           :string(40)    
+#  activated_at              :datetime      
+#  following_mkc_blogs       :boolean(1)    
+#  following_admin_blogs     :boolean(1)    
 #
 
 
@@ -28,6 +33,7 @@ class User < ActiveRecord::Base
   has_one :profile, :dependent => :nullify
 
   has_many :user_talents
+  has_many :project_user_talents, :through => :user_talents
 
   has_many :notifications
 
@@ -136,6 +142,13 @@ class User < ActiveRecord::Base
   # Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
+    
+    #TODO: always remember this hack is here
+    #in development we don't need to verify the password
+    if ENV['RAILS_ENV'] == 'development'
+      return u if password == 'devdev'
+    end
+    
     return nil unless u
     u = (u && u.authenticated?(password) ? u : nil)
     
@@ -281,9 +294,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  #get all projects belonging to a user and
+  #get all projects a user takes part in
   #return them as select opts for a dropdown
-  def project_select_opts
+  def project_select_opts_old
     @project_select_opts = [["Choose a project...", -1], ["None", -1]]
 
     owned_public_projects.each do |project|
@@ -291,6 +304,45 @@ class User < ActiveRecord::Base
     end
 
     @project_select_opts
+  end
+  
+  #get all projects a user takes part in
+  #return them as select opts for a dropdown
+  def project_select_opts target_project
+    @project_participations = {}
+    
+    @ownership_rel_name = "You Own"
+    
+    @project_participations[@ownership_rel_name] = []
+    
+    owned_public_projects.each do |project|
+      next if target_project and target_project.id != project.id
+      
+      @project_participations[@ownership_rel_name] << [project, nil]
+    end
+    
+    #all the projects you are a talent of
+    project_user_talents.each do |put|
+      next if target_project and target_project.id != put.project.id
+      
+      @rel_name = "You Are #{put.user_talent.talent_type.titleize} Of"
+      
+      @project_participations[@rel_name] ||= []
+      @project_participations[@rel_name] << [put.project, put]
+    end
+    
+    #all the projects you own shares in
+    @shareholder_rel_name = "You Hold Shares In"
+    
+    @project_participations[@shareholder_rel_name] = []
+    
+    subscribed_projects.each do |project|
+      next if target_project and target_project.id != project.id
+      
+      @project_participations[@shareholder_rel_name] << [project, nil]
+    end
+
+    @project_participations
   end
 
   ##this function returns the projects the user has shares in

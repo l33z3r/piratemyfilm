@@ -1,0 +1,7 @@
+<div class="pageTitle">New Blog Entry</div>
+
+<div class="pmf_clear_bottom_border pmf_top_margin_10">&nbsp;</div>
+
+<% form_for @blog, :url => {:controller => "blogs", :action => "create", :id => @blog.id}  do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>

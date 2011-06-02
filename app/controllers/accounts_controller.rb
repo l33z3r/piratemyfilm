@@ -23,10 +23,6 @@ class AccountsController < ApplicationController
         self.user = User.authenticate(params[:login], params[:password])
         if @u
           remember_me if params[:remember_me] == "1"
-          flash[:notice] = "Logged In Successfully"
-          
-          #go to the users profile page now, rather than the last url
-          #redirect_back_or_default profile_url(@u.profile)
           redirect_to :controller => :blogs, :action => "my_member_blogs" and return
         else
           flash.now[:error] = "Uh-oh, login didn't work. Do you have caps locks on? Try it again."
@@ -42,7 +38,6 @@ class AccountsController < ApplicationController
     cookies[:auth_token] = {:expires => Time.now-1.day, :value => "" }
     session[:user] = nil
     session[:return_to] = nil
-    flash[:notice] = "You have been logged out."
     redirect_to '/'
   end
 

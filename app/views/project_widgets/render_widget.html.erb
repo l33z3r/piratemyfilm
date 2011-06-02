@@ -4,14 +4,14 @@
     <meta http-equiv="Content-Type" content="text/html; utf-8" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-    <meta name="description" content="The Film Futures Market for Pirates" />
-    <meta name="keywords" content="max keiser, pirate film, market" />
+      <meta name="description" content="The Film Futures Market for Pirates" />
+      <meta name="keywords" content="max keiser, pirate film, market" />
 
-    <title><%= @title || "Pirate My Film" %></title>
+      <title><%= @title || "Pirate My Film" %></title>
 
-    <%= render :partial => 'shared/head_load' %>
+      <%= render :partial => 'shared/head_load' %>
 
-    <%= yield :head %>
+      <%= yield :head %>
 
   </head>
 
@@ -25,37 +25,48 @@
       </div>
 
       <% for project in @projects do %>
-          <div class="<%= cycle("view-lite-row-widget", "view-lite-row-alt-widget") %>">
+          <div class="project_mini_view">
 
-            <div class="view-lite-row-project-name-widget">
-              <%= link_to project.symbol, project_path(project), :target => "_blank" %>
+            <div class="project_icon">
+              <%= link_to project_icon(project, :big), project_path(project) %>
+              <div class="follow_button">
+                <%= follow_project_button_small project %>
+              </div>
+            </div>
+
+            <div class="project_info">
+              <div class="project_title">
+                <%= link_to h(project.title), project_path(project) %>
+              </div>
+
+              <div class="pmf_clear">&nbsp;</div>
+
+              <div class="user_info">
+                <div class="user_icon">
+                  <%= link_to icon(project.owner.profile, :small), profile_path(project.owner.profile) %>
+                </div>
+                <div class="user_name">
+                  <%= link_to h(project.owner.login), profile_path(project.owner.profile) %>
+                </div>
+              </div>
+
+              <div class="pmf_clear">&nbsp;</div>
+
+              <div class="project_stats">
+                <div class="funds_needed">
+                  <span><%= print_money project.capital_required %></span> needed
+                </div>
+                <div class="percent_funded">
+                  <span><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
+                </div>
+              </div>
             </div>
 
             <div class="pmf_clear">&nbsp;</div>
 
-            <div class="view-lite-row-icon-widget">
-              <a href="<%= url_for project_path(project) %>" target="_blank">
-                <%= project_icon project, :big %>
-              </a>
-            </div>
-
-            <div class="view-lite-row-numbers-widget">
-              <ul>
-                <li class="label">Owner:</li>
-                <li class="stat">
-                  <%= link_to h(project.owner.profile.user.login),
-                    profile_path(project.owner.profile), :target => "_blank" %>
-                </li>
-                <li class="pmf_clear"></li>
-                <li class="label">Funds Needed:</li><li class="stat"><%= print_money project.capital_required %></li>
-                <li class="pmf_clear"></li>
-                <li class="label">% Funded:</li><li class="stat"><%= project.percent_funded %>&#37</li>
-                <li class="pmf_clear"></li>
-                <li class="label">PMF Fund Rating:</li><li class="stat"><%= project.admin_rating %></li>
-                <li class="pmf_clear"></li>
-              </ul>
-            </div>
           </div>
+
+          <div class="pmf_clear">&nbsp;</div>
         <% end %>
 
         <div class="pmf_clear">&nbsp;</div>

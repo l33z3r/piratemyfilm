@@ -1,15 +1,11 @@
 <div id="subnav_links">
 
   <div class="link">
-    <%= link_to "Member Feed", :controller => :blogs, :action => "all_member_blogs" %> -
+    <%= link_to "Member Updates", :controller => "/blogs", :action => "all_member_blogs" %> -
   </div>
 
   <div class="link">
-    <%= link_to "Project Feed", :controller => :blogs, :action => "index" %> -
-  </div>
-
-  <div class="link">
-    <%= link_to "Producer Blogs", :controller => :blogs, :action => "producer" %> -
+    <%= link_to "Project Updates", :controller => "/blogs", :action => "index" %> -
   </div>
 
   <div class="link">
@@ -23,28 +19,18 @@
     <span class="fund_image_blog_subnav">
       <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), :action => "admin" %>
     </span>
-    <%= link_to "PMF Blog", :controller => :blogs, :action => "admin" %> -
+    <%= link_to "PMF Blog", :controller => "/blogs", :action => "admin" %> -
   </div>
 
   <div class="link">
     <span class="mkc_image_blog_subnav">
       <%= link_to image_tag("mkc_favicon.png", :size => "15x15"), :controller => :blogs, :action => "mkc" %>
     </span>
-    <%= link_to "maxkeiser", :controller => :blogs, :action => "mkc" %>
+    <%= link_to "maxkeiser", :controller => "/blogs", :action => "mkc" %>
   </div>
 
-  <% if !@hide_filter_params %>
-    <div id="filter_projects_nav" class="right">
-      <%= render :partial => 'shared/filter_param_box' %>
-    </div>
-
-    <div id="filter_users_nav" class="right">
-      <%= render :partial => 'shared/filter_users_param_box' %>
-    </div>
-  <% end %>
-
   <div class="pmf_clear">&nbsp;</div>
-  
+
 </div>
 
 <div class="pmf_clear">&nbsp;</div>

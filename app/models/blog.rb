@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110110160522
+# Schema version: 20110521081435
 #
 # Table name: blogs
 #
@@ -19,13 +19,14 @@
 class Blog < ActiveRecord::Base
   has_many :comments, :as => :commentable, :order => "created_at asc"
   belongs_to :profile
-  validates_presence_of :title, :body
-  attr_immutable :id, :profile_id
+  validates_presence_of :body
 
   belongs_to :project
 
   has_many :blog_comments
 
+  belongs_to :project_user_talent
+  
   def num_comments
     if is_mkc_blog
       num_wp_comments
@@ -33,25 +34,23 @@ class Blog < ActiveRecord::Base
       blog_comments.length
     end
   end
+  
   def to_param
-    "#{self.id}-#{title.to_safe_uri}"
-  end
-
-  def is_pmf_producer_blog
-    return project && profile.user.id == PMF_FUND_ACCOUNT_ID && !is_member_blog
-  end
-
-  def is_producer_blog
-    return project && !is_pmf_producer_blog && !is_member_blog
-  end
-
-  def is_mkc_blog
-    return guid
+    "#{self.id}"
   end
   
-  def self.update_max_blog
+  def user_relationship
+    if project and project.owner.id == profile.user.id
+      return "Owner"
+    elsif project_user_talent
+      return "#{project_user_talent.user_talent.talent_type.titleize}"
+    else
+      "Shareholder"
+    end
+  end
 
-    @max_profile_id = CUSTOM_CONFIG['max_profile_id']
+  def self.update_max_blog
+    
     @wordpress_feed_url = CUSTOM_CONFIG['mkc_wordpress_feed_url']
     
     puts "Updating Max Blog"
@@ -61,26 +60,101 @@ class Blog < ActiveRecord::Base
       @next_guid = item.search("guid").first.children.first.inner_text
       @blog = Blog.find_by_guid(@next_guid) || Blog.new()
       @blog.guid = @next_guid
-      @blog.title = item.search("title").first.children.first.inner_text
-      @blog.body = item.search("content:encoded").first.children.first.inner_text
-      @blog.body = @blog.body.gsub(/<\/?[^>]*>/, "").gsub(/&#8216;/, "'").gsub(/&#8211;/, "-")
-      @blog.body = @blog.body.gsub(/&#8220;/, "'").gsub(/&#8221;/, "'").gsub(/&#8217;/, "'")
-      @blog.body = @blog.body.gsub(/&#8243;/, "'")
+      
+      @blog.title = item.search("title").inner_html
+      
+      #replace problematic chars
+      @blog.title = strip_problematic_chars @blog.title
+      
+      @blog.body = item.search("description").inner_text
+      
+      #replace problematic chars
+      @blog.body = strip_problematic_chars @blog.body
+      
+      #strip white space
+      @blog.body = @blog.body.strip
+      
       @blog.num_wp_comments = item.search("slash:comments").first.children.first.inner_text
       @blog.wp_comments_link = item.search("comments").first.children.first.inner_text
-      @blog.profile_id = @max_profile_id unless @blog.profile_id
+      @blog.profile_id = nil
       @blog.created_at = @blog.updated_at = item.search("pubdate").first.children.first.inner_text
       
-      if @blog.body.strip!.length != 0
+      if @blog.body.length != 0
         @blog.save!
       end
 
     end
 
     @new_hp_blogs = Blog.mkc_blogs
-    puts "Updated Max Blog with " + @new_hp_blogs.length.to_s + " blogs!"
+    puts "Updated Max Blogs Feed with " + @new_hp_blogs.length.to_s + " blogs!"
   end
-
+  
+  def self.strip_problematic_chars thestring
+    thestring = thestring.gsub(/<\/?[^>]*>/, "").gsub(/&#8216;/, "'").gsub(/&#8211;/, "-")
+    thestring = thestring.gsub(/&#8220;/, "'").gsub(/&#8221;/, "'").gsub(/&#8217;/, "'")
+    thestring = thestring.gsub(/&#8243;/, "'")
+    thestring
+  end
+    
+  #if its an admin blog the flag will be set in db
+  def is_admin_blog
+    super
+  end
+  
+  #the guid of the blog on the wordpress mkc site will be set
+  def is_mkc_blog
+    return guid
+  end
+  
+  #the following functions retrieve blogs for different feeds
+  
+  #public member feed
+  def self.all_member_blogs
+    #all blogs, including admin blogs and mkc blogs
+    find(:all, :include => "project", 
+      :conditions => "blogs.project_id is null or projects.is_deleted = false", :order => "blogs.created_at DESC")
+  end
+  
+  #private member feed
+  def self.my_followings user
+    #all blogs that have been created by users that the user is following
+    @mkc_blog_filter_sql = @admin_blog_filter_sql = nil
+    
+    if user.following_mkc_blogs
+      @mkc_blog_filter_sql = "guid is not null"
+    end
+    
+    if user.following_admin_blogs
+      @admin_blog_filter_sql = "is_admin_blog is true"
+    end
+    
+    @admin_mkc_blog_filter_sql = ""
+    
+    if @mkc_blog_filter_sql
+      @admin_mkc_blog_filter_sql += "#{@mkc_blog_filter_sql} or "
+    end
+    
+    if @admin_blog_filter_sql
+      @admin_mkc_blog_filter_sql += "#{@admin_blog_filter_sql} or "
+    end
+    
+    find_by_sql("select distinct blogs.* from blogs left outer join projects on projects.id = blogs.project_id 
+      where #{@admin_mkc_blog_filter_sql} 
+      (blogs.project_id is null or projects.is_deleted = false)
+      and (profile_id in
+      (select invited_id from friends where inviter_id = #{user.profile.id}) or
+      profile_id = #{user.profile.id} or profile_id in (select inviter_id from friends
+      where invited_id = #{user.id} and status = 1)) order by blogs.created_at desc")
+  end
+  
+  #public project feed
+  def self.all_project_blogs
+    find(:all, :include => :project, 
+      :conditions => "blogs.project_id is not null and projects.is_deleted = false",
+      :order => "blogs.created_at desc")
+  end
+  
+  #private project feed
   def self.all_for_user_followings user
 
     @project_ids = []
@@ -91,75 +165,35 @@ class Blog < ActiveRecord::Base
 
     return [] if @project_ids.size == 0
 
-    find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null)
-        and projects.id in (#{@project_ids.join(",")})",
-      :order => "blogs.created_at desc")
+    find(:all, :include => :project, :conditions => "(blogs.project_id is not null and projects.is_deleted = false)
+        and projects.id in (#{@project_ids.join(",")})", :order => "blogs.created_at desc")
   end
-
-  def self.all_for_user_producer_followings user
-
-    @profile_ids = []
-
-    @followed_profiles = user.profile.friends + user.profile.followings
-
-    @followed_profiles.each do |profile|
-      @profile_ids << profile.id
-    end
-
-    return [] if @profile_ids.size == 0
-
-    find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null)
-        and blogs.profile_id in (#{@profile_ids.join(",")})",
-      :order => "blogs.created_at desc")
-  end
-
-  def self.all_blogs
-    find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null)
-        or (blogs.is_admin_blog = 1) or (blogs.guid is not null)",
-      :order => "blogs.created_at desc")
-  end
-
-  def self.all_project_blogs
-    find(:all, :include => :project, :conditions => "(projects.is_deleted = false and projects.symbol is not null 
-        and blogs.is_member_blog = 0) or (blogs.guid is not null)",
-      :order => "blogs.created_at desc")
-  end
-
-  def self.producer_blogs
-    find(:all, :include => :project, :conditions => "guid is null and is_admin_blog = false and
-      projects.symbol is not null and projects.is_deleted = false",
-      :order=>"blogs.created_at DESC")
-  end
-
-  def self.user_blogs user
-    @profile_id = user.profile.id
-
-    find(:all, :include => :project, :conditions => "guid is null and is_admin_blog = false and
-      projects.symbol is not null and projects.is_deleted = false and blogs.profile_id =  #{@profile_id}",
-      :order=>"blogs.created_at DESC")
-  end
-
-  def self.admin_blogs
-    find_all_by_is_admin_blog(true, :order => "created_at DESC")
-  end
-
+  
+  #mkc blogs
   def self.mkc_blogs
     find(:all, :conditions => "guid IS NOT NULL", :order => "created_at DESC")
   end
-
-  def self.all_member_blogs
-    Blog.find(:all, :conditions => "is_member_blog = 1", :order => "created_at DESC")
+  
+  #pmf fund blogs
+  def self.admin_blogs
+    find_all_by_is_admin_blog(true, :order => "created_at desc")
   end
   
-  def self.my_followings user
-    if !user
-      all_member_blogs
-    else
-      find_by_sql("select blogs.* from blogs where is_member_blog = 1 and (profile_id in
-      (select invited_id from friends where inviter_id = #{user.profile.id}) or
-      profile_id = #{user.profile.id} or profile_id in (select inviter_id from friends
-      where invited_id = #{user.id} and status = 1)) order by created_at DESC")
-    end
-  end
+  #users personal wall
+  def self.user_blogs user
+    @profile_id = user.profile.id
 
+    find(:all, :include => "project", 
+      :conditions => "(blogs.project_id is null or (blogs.project_id is not null and projects.is_deleted = false))
+      and blogs.profile_id = #{@profile_id}", 
+      :order => "blogs.created_at DESC")
+  end
+  
+  #project page blogs
+  def self.project_blogs project
+    find(:all, :include => :project, 
+      :conditions => "blogs.project_id is not null and projects.is_deleted = false
+        and projects.id = #{project.id}", :order => "blogs.created_at desc")
+  end
+  
 end

@@ -1,0 +1,48 @@
+<div class="project_top">
+
+  <% if !project.finished_payment_collection %>
+    <div class="green_light">
+      Green Light:
+      <span class="<%= project.green_light ? "on" : "off" %>">
+        <%= project.green_light ? "On" : "Off" %>
+      </span>
+    </div>
+  <% end %>
+
+  <div class="project_icon">
+    <%= project_icon project, :big %>
+    <div class="follow_button">
+      <%= follow_project_button_small project %>
+    </div>
+  </div>
+
+  <div class="project_info">
+    <div class="project_title">
+      <%= h project.title %>
+      &nbsp;-&nbsp;Owned By 
+    </div>
+
+    <div class="user_info">
+      <div class="user_icon">
+        <%= link_to icon(project.owner.profile, :small), profile_path(project.owner.profile) %>
+      </div>
+      <div class="user_name">
+        <%= link_to h(project.owner.login), profile_path(project.owner.profile) %>
+      </div>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <div class="project_stats">
+      <div class="funds_needed">
+        <span><%= print_money project.capital_required %></span> needed
+      </div>
+      <div class="percent_funded">
+        <span><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
+      </div>
+    </div>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>

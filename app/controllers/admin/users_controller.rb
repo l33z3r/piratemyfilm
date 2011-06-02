@@ -40,6 +40,15 @@ class Admin::UsersController < Admin::AdminController
     flash[:positive] = "Membership type changed."
   end
   
+  def update_mkc_post_ability
+    @user = User.find(params[:user_id])
+    @user.mkc_post_ability = params[:mkc_post_ability] ? true : false
+    @user.save!
+    
+    flash[:positive] = "Setting updated!"
+    redirect_to :action => "index"
+  end
+  
   private
 
   def prepare_update_confirm_vars

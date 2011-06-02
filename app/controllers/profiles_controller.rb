@@ -45,6 +45,8 @@ class ProfilesController < ApplicationController
 
     @selected_user_subnav_link = "my_profile"
     
+    @blogs = Blog.user_blogs @profile.user
+    
     render :action => "profile"
   end
   

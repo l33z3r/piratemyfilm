@@ -3,6 +3,9 @@
   <div class="blog_left">
     <div class="icon">
       <%= link_to image_tag("/images/mkc_avatar.png"), :action => "mkc" %>
+      <div class="follow_button">
+        <%= follow_mkc_blogs_button_small %>
+      </div>
     </div>
     <div class="info">
       <div class="blog_type">
@@ -10,14 +13,6 @@
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
-
-
-      <div class="blog_title">
-        <%= blog_header(blog, link_blog_header, truncate_blog) %>
-      </div>
-
-      <div class="pmf_clear">&nbsp;</div>
-
 
       <div class="blog_body">
         <%= blog_body(blog, truncate_blog) %>

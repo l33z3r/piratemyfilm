@@ -8,7 +8,19 @@
 
 <div id="blog_<%= @blog.id %>" class="border_top blog">
 
-  <%= render :partial => "/blogs/templates/#{blog_template_name(@blog)}",
+  <% 
+  if @blog.is_mkc_blog
+    @template_name = "mkc_blog"
+  elsif @blog.is_admin_blog
+    @template_name = "admin_blog"
+  elsif @blog.project
+    @template_name = "project_blog"
+  else
+    @template_name = "member_blog"
+  end
+%>
+
+  <%= render :partial => "/blogs/templates/#{@template_name}",
     :locals => {:blog => @blog, :truncate_blog => false,
     :link_blog_header => false } %>
 
@@ -22,6 +34,8 @@
   <% end %>
 
   <% if !@blog.is_mkc_blog %>
+    <div class="pmf_clear">&nbsp;</div>
+
     <div class="pageTitle">
       <a name="comment_list">Comments</a>
     </div>

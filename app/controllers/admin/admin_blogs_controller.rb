@@ -14,7 +14,7 @@ class Admin::AdminBlogsController < Admin::AdminController
     begin
       @blog = Blog.new(params[:blog])
       @blog.is_admin_blog = true
-      @blog.profile_id = PMF_FUND_ACCOUNT_ID
+      @blog.profile_id = nil
       @blog.save!
 
       if params[:publish_to_mkc]
@@ -24,7 +24,7 @@ class Admin::AdminBlogsController < Admin::AdminController
         
         #send blog to mkc
         @post_url = PostLib.do_post @blog, @link_back_html
-        logger.info "Sent blog to mkc: #{@post_url}"
+        logger.info "Sent blog to wordpress site via url: #{@post_url}"
       end
 
       flash[:notice] = 'New blog post created.'

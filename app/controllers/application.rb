@@ -112,6 +112,7 @@ class ApplicationController < ActionController::Base
   def load_filter_params
     @filter_params = Project.filter_param_select_opts
     @profile_filter_params = Profile.filter_param_select_opts
+    @talent_filter_params = UserTalent.filter_param_select_opts
   end
 
   def load_sitewide_vars

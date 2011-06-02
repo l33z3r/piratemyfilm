@@ -9,25 +9,6 @@
 
   <div class="dashed_light_border">&nbsp;</div>
 
-  <div class="project_action_links">
-
-    <div class="left">
-      <%= link_to "Invite Friends", invite_friends_project_path(@project) %>
-    </div>
-
-    <% if owner_or_admin? %>
-      <%= edit_project_link @project %>
-      <%= delete_project_link @project %>
-      <%= share_queue_link @project %>
-      <%= fund_collection_link @project %>
-    <% end %>
-
-    <%= green_light_link @project %>
-    <%= follow_project_link @project %>
-
-    <%= flag_project_link @project %>
-  </div>
-
   <div class="project_share_buttons">
 
     <div class="tweet_button">
@@ -53,17 +34,42 @@
 
   </div>
 
+  <%= render :partial => "project_top", :locals => {:project => @project} %>
+
   <div class="pmf_clear">&nbsp;</div>
 
   <div class="dashed_light_border">&nbsp;</div>
 
-  <%= render :partial => "project", :locals => {:project => @project} %>
+  <div class="project_action_links">
 
-  <div class="pmf_clear">&nbsp;</div>
+    <div class="left">
+      <%= link_to "Invite Friends", invite_friends_project_path(@project) %>
+    </div>
+
+    <% if owner_or_admin? %>
+      <%= edit_project_link @project %>
+      <%= delete_project_link @project %>
+      <%= share_queue_link @project %>
+      <%= fund_collection_link @project %>
+    <% end %>
+
+    <%= green_light_link @project %>
+    <%= follow_project_link @project %>
+
+    <%= flag_project_link @project %>
+  </div>
+
+  <div class="dashed_light_border">&nbsp;</div>
 
   <div class="left">
     <%= render :partial => "subscription_buttons" %>
   </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="dashed_light_border">&nbsp;</div>
+
+  <%= render :partial => "project_fields", :locals => {:project => @project} %>
 
   <div class="pmf_clear">&nbsp;</div>
 
@@ -116,8 +122,8 @@
     <% if @latest_project_blog %>
       <span class="date"><%= time_ago_in_words @latest_project_blog.created_at %> ago</span>
       <span class="body">
-        <%= truncate(h(@latest_project_blog.title), 50) %>
-        <%= link_to "...(more)", {:controller => "blogs", :action => "show", :id => @latest_project_blog.id} unless @latest_project_blog.title.length < 51 %>
+        <%= truncate(h(@latest_project_blog.body), 50) %>
+        <%= link_to "...(more)", {:controller => "blogs", :action => "show", :id => @latest_project_blog.id} unless @latest_project_blog.body.length < 51 %>
       </span>
       <span class="comments_link"><%= link_to "#{pluralize(@latest_project_blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => @latest_project_blog.id %></span>
     <% else %>
@@ -171,26 +177,25 @@
   <% end %>
 
   <div id="project_blogs">
-    <fieldset>
-      <div class="header">Latest Project Blogs</div>
-      <div class="links">
-        <% if @project_blogs %>
-          <div class="button left">
-            <%= link_to "All Blogs", {:controller => "projects", :action => "blogs", :id => @project.id} %>
-          </div>
-        <% end %>
-        <% if @u && (@project.owner == @u || @u.is_admin) %>
-          <div class="button left">
-            <%= link_to "New Blog", :controller => :blogs, :action => :new, :project_id => @project.id %>
-          </div>
-        <% end %>
-      </div>
-      <ol>
-        <li>
-          <%= render :partial => 'blogs/blogs', :locals => {:blogs => @project_blogs} %>
-        </li>
-      </ol>
-    </fieldset>
+    <h3>Latest Project Blogs</h3>
+    
+    <div class="dashed_light_border">&nbsp;</div>
+    
+    <% if @project_blogs.empty? %>
+      No Blogs Found!
+      <div class="pmf_clear">&nbsp;</div>
+    <% else %>
+      <% @project_blogs.each do |blog| %>
+        <%= render :partial => "/blogs/templates/member_blog",
+          :locals => {:blog => blog, :truncate_blog => true,
+          :link_blog_header => true } %>
+      <% end %>
+    <% end %>
+    <div class="links">
+      <h4 class="right">
+        <%= link_to "Show All", {:controller => "projects", :action => "blogs", :id => @project.id} %>
+      </h4>
+    </div>
   </div>
 
   <div id="project_comments">

@@ -1,28 +1,30 @@
 class BlogsController < ApplicationController
-  skip_before_filter :login_required, :only=> [:show, :index, :all_member_blogs, :admin, :mkc, :producer]
+  skip_before_filter :login_required, :only=> [:show, :index, :all_member_blogs, :admin, :mkc]
 
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
-  before_filter :check_project_owner, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :check_blog_permissions, :only => [:new, :create, :edit, :update, :destroy]
 
   #this is the global live project feed
   def index
     @blogs = Blog.all_project_blogs
-    @pmf_fund_comments = ProjectComment.latest
-    @admin_project_ratings = AdminProjectRating.latest
+    #    @pmf_fund_comments = ProjectComment.latest
+    #    @admin_project_ratings = AdminProjectRating.latest
 
     #we don't show the subscription history anymore
     #@pmf_project_subscriptions = PmfFundSubscriptionHistory.latest
 
-    @new_projects = Project.find_all_public(:order => "created_at DESC")
+    #    @new_projects = Project.find_all_public(:order => "created_at DESC")
 
-    @items = @blogs + @pmf_fund_comments + @admin_project_ratings + @new_projects# + @pmf_project_subscriptions
+    #    @items = @blogs + @pmf_fund_comments + @admin_project_ratings + @new_projects# + @pmf_project_subscriptions
+    #
+    #    @items.sort! do |a,b|
+    #      b.created_at <=> a.created_at
+    #    end
+    #
+    #    @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
 
-    @items.sort! do |a,b|
-      b.created_at <=> a.created_at
-    end
-
-    @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
-
+    @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+    
     if params[:format] == "rss"
       render :action => "all_blogs_rss", :layout => false
       response.headers["Content-Type"] = "application/xml; charset=utf-8"
@@ -33,17 +35,20 @@ class BlogsController < ApplicationController
   def my_project_blogs
     #users live project follow stream
     @blogs = Blog.all_for_user_followings @u
-    @pmf_fund_comments = ProjectComment.latest_for_user_followings @u
-    @admin_project_ratings = AdminProjectRating.latest_for_user_followings @u
-    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest_for_user_followings @u
+    
+    #    @pmf_fund_comments = ProjectComment.latest_for_user_followings @u
+    #    @admin_project_ratings = AdminProjectRating.latest_for_user_followings @u
+    #    @pmf_project_subscriptions = PmfFundSubscriptionHistory.latest_for_user_followings @u
 
-    @items = @blogs + @pmf_fund_comments + @admin_project_ratings + @pmf_project_subscriptions
+    #    @items = @blogs + @pmf_fund_comments + @admin_project_ratings + @pmf_project_subscriptions
+    #
+    #    @items.sort! do |a,b|
+    #      b.created_at <=> a.created_at
+    #    end
+    #
+    #    @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
 
-    @items.sort! do |a,b|
-      b.created_at <=> a.created_at
-    end
-
-    @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
+    @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
     
     @selected_user_subnav_link = "my_project_blogs"
   end
@@ -52,8 +57,6 @@ class BlogsController < ApplicationController
   def all_member_blogs
     @blogs = Blog.all_member_blogs
     @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
-
-    @blog = Blog.new
   end
   
   #this is the users personal live member feed
@@ -61,25 +64,7 @@ class BlogsController < ApplicationController
     @blogs = Blog.my_followings @u
     @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
 
-    @blog = Blog.new
-    
     @selected_user_subnav_link = "my_member_blogs"
-  end
-
-  def producer
-    @user_id = params[:user_id]
-
-    if !@user_id
-      @blogs = Blog.producer_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
-    else
-      begin
-        @user = User.find(@user_id)
-        @blogs = Blog.user_blogs(@user).paginate :page => (params[:page] || 1), :per_page=> 15
-      rescue ActiveRecord::RecordNotFound
-        flash[:error] = "User not found!"
-        redirect_to :action => "index"
-      end
-    end
   end
 
   def admin
@@ -89,28 +74,38 @@ class BlogsController < ApplicationController
   def mkc
     @blogs = Blog.mkc_blogs
   end
-
-  def new
-    @blog = Blog.new
-  end
   
   def create
     begin
       @blog = Blog.new(params[:blog])
       
       if params[:project_id] and params[:project_id] != "-1"
+        if !params[:project_user_talent_id].blank?
+          @put = ProjectUserTalent.find(params[:project_user_talent_id])
+          @blog.project_user_talent_id = @put.id
+        end
+        
         @project = Project.find(params[:project_id])
         @blog.project_id = @project.id
       end
 
+      @blog.profile_id = @u.profile.id
       @blog.save!
+      
+      #do mkc cross post
+      if params[:publish_to_mkc] and @u.mkc_post_ability
+        
+        #send blog to wordpress
+        @html_content = render_to_string(
+          :partial => "/blogs/templates/member_blog_crosspost",
+          :locals => {:blog => @blog})
+        
+        @post_url = PostLib.do_post @html_content
+        
+        logger.info "Sent blog to wordpress site via url: #{@post_url}"
+      end
 
       flash[:notice] = 'New blog post created.'
-
-      if @blog.is_member_blog
-        redirect_to :action => "my_member_blogs" and return
-      end
-      
       redirect_to :controller => "blogs", :action => "show", :id => @blog.id
     rescue ActiveRecord::RecordInvalid
       flash[:error] = "Sorry, there was a problem creating your blog post"
@@ -148,6 +143,22 @@ class BlogsController < ApplicationController
     flash[:notice] = 'Blog post deleted.'
     redirect_to :controller => "home"
   end
+  
+  def follow_admin_blogs
+    @u.following_admin_blogs = true
+    @u.save
+    
+    flash[:notice] = "You are now following the PMF Blog!"
+    redirect_to :action => "admin"
+  end
+  
+  def follow_mkc_blogs
+    @u.following_mkc_blogs = true
+    @u.save
+    
+    flash[:notice] = "You are now following the MKC Blog!"
+    redirect_to :action => "mkc"
+  end
 
   protected
   
@@ -168,7 +179,7 @@ class BlogsController < ApplicationController
     end
   end
 
-  def check_project_owner
+  def check_blog_permissions
     #is this an admin blog and are we admin
     if @blog && @blog.is_admin_blog && @u.is_admin
       return
@@ -186,13 +197,30 @@ class BlogsController < ApplicationController
 
       @project ||= Project.find(@project_id) 
 
-      if @u.id != @project.owner_id && !@u.is_admin
+      if !allowed_to_blog?(@u, @project) && !@u.is_admin
         permission_denied
       end
     rescue ActiveRecord::RecordNotFound
       #ignore this, as there may not be a project linked to this blog
     end
 
+  end
+  
+  def allowed_to_blog?(u, project)
+    #can blog if owner
+    return true if u.id == project.owner_id
+    
+    #can blog if talent of project
+    project.project_user_talents.each do |put|
+      return true if u.id == put.user_talent.user.id
+    end
+    
+    #can blog if own shares in project
+    project.subscribers.each do |subscriber|
+      return true if u.id == subscriber.id
+    end
+    
+    return false
   end
 
   def permission_denied
@@ -201,7 +229,7 @@ class BlogsController < ApplicationController
   end
 
   def allow_to
-    super :all, :only => [:show, :index, :all_member_blogs, :admin, :mkc, :producer]
+    super :all, :only => [:show, :index, :all_member_blogs, :admin, :mkc]
     super :user, :all => true
   end
   

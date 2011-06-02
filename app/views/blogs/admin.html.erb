@@ -2,6 +2,15 @@
 
 <div class="pmf_clear">&nbsp;</div>
 
-<%= render :partial => 'blogs', :locals => {:blogs => @blogs} %>
+<% if @blogs.empty? %>
+  No Blogs Found!
+  <div class="pmf_clear">&nbsp;</div>
+<% else %>
+  <% @blogs.each do |blog| %>
+    <%= render :partial => "/blogs/templates/admin_blog",
+      :locals => {:blog => blog, :truncate_blog => true,
+      :link_blog_header => true } %>
+  <% end %>
+<% end %>
 
 <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>

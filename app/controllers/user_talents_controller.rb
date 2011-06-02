@@ -19,8 +19,6 @@ class UserTalentsController < ApplicationController
       flash[:error] = "Cannot find that talent!"
       redirect_to home_path
     end
-
-    @talent_filter_params = UserTalent.filter_param_select_opts
   end
 
   def talent_select_list
@@ -34,6 +32,9 @@ class UserTalentsController < ApplicationController
 
     @talents = nil
 
+    #need the project for the popup
+    @project = Project.find(params[:project_id])
+    
     if @talent_type_name
       @talents = UserTalent.all_for_talent_type(@talent_type_name)
     else

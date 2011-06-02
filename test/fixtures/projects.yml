@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110110160522
+# Schema version: 20110521081435
 #
 # Table name: projects
 #
@@ -52,6 +52,13 @@
 #  exec_producer_talent_id          :integer(4)    
 #  director_photography_talent_id   :integer(4)    
 #  editor_talent_id                 :integer(4)    
+#  fully_funded_time                :datetime      
+#  completion_date                  :datetime      
+#  watch_url                        :string(255)   
+#  premier_date                     :date          
+#  percent_bad_shares               :integer(4)    default(0)
+#  main_video                       :string(255)   
+#  daily_percent_move               :integer(4)    default(0)
 #
 
 project1:

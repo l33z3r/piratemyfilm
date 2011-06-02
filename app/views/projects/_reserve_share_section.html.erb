@@ -1,0 +1,59 @@
+<ul>
+  <li>
+    You have
+    <%= @my_subscriptions_amount == 0 ? "no" : @my_subscriptions_amount %> shares
+    <% if @my_outstanding_subscriptions_amount > 0 %>
+      <i>
+        (<%= @my_outstanding_subscriptions_amount %> on
+        <a class="tooltip_arrow"
+           title="standby shares become valid when new or existing shares become available">
+          standby</a>)
+      </i>
+    <% end %>
+    reserved for this project.
+  </li>
+
+  <% if @max_subscription_reached %>
+    <li><b>Your share limit for this project has been reached.</b></li>
+  <% elsif @max_project_subscription_reached %>
+    <li><b>You cannot reserve shares for any more projects.</b></li>
+  <% else %>
+    <li>You can reserve up to <%= @max_subscription %> shares.</li>
+  <% end %>
+</ul>
+
+<h3>Reserve/Cancel Shares</h3>
+
+<% if !@max_subscription_reached && !@max_project_subscription_reached %>
+  <div class="reservation_form_container">
+    <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
+      <div class="text">
+        Enter amount of shares to reserve (max <%= @num_shares_allowed %>) :
+      </div>
+      <div class="controls">
+        <input type="text" value="1" name="num_shares" size="3"/>
+        <%= submit_tag "Reserve Shares", :confirm => "Are You Sure You Want to Reserve Shares?" %>
+      </div>
+    </form>
+  </div>
+<% end %>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<% if @my_subscriptions_amount > 0 %>
+  <% if !@project.green_light %>
+    <div class="reservation_form_container">
+      <% form_tag cancel_project_project_subscriptions_path(@project), :method => :delete do %>
+        <div class="text">
+          Enter amount of shares to cancel (max <%= @my_subscriptions_amount %>) :
+        </div>
+        <div class="controls">
+          <input type="text" value="1" name="num_shares" size="3"/>
+          <%= submit_tag "Cancel Shares", :confirm => "Are You Sure You Want to Cancel Shares?" %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>You cannot cancel any shares in the green light stage of a project!</p>
+  <% end %>
+<% end %>

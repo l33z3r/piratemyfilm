@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110110160522
+# Schema version: 20110521081435
 #
 # Table name: user_talents
 #
@@ -14,6 +14,8 @@ class UserTalent < ActiveRecord::Base
   belongs_to :user
   has_one :talent_rating, :dependent => :destroy
 
+  has_many :project_user_talents
+  
   @@TALENT_TYPES_MAP = {
     1 => "director",
     2 => "writer",
@@ -47,6 +49,8 @@ class UserTalent < ActiveRecord::Base
       @filter_param_select_opts << [value.humanize.titleize, key.to_s]
     }
 
+    @filter_param_select_opts << ["View Talents By", "0"]
+    
     @filter_param_select_opts.sort! { |arr1, arr2|
       arr2[1].to_i <=> arr1[1].to_i
     }

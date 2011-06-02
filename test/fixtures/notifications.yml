@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20110521081435
+#
+# Table name: notifications
+#
+#  id                   :integer(4)    not null, primary key
+#  user_id              :integer(4)    
+#  notification_type_id :integer(4)    
+#  created_at           :datetime      
+#  updated_at           :datetime      
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 # one:

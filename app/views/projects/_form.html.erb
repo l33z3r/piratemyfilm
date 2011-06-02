@@ -1,22 +1,52 @@
 <%= f.hidden_field :share_percent_downloads, :value => 0 %>
 
-<table class="project_form" style="border-spacing: 10px; width: 100%;">
+<h4>All fields marked with * are mandatory</h4>
+
+<table class="project_form" style="">
 
   <tr><td colspan="2"><%= f.error_messages %></td></tr>
 
   <tr>
-    <td colspan="2">
-      <b>All fields marked with * are mandatory</b>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
+    <td class="mandatory">
       * Enter project title
     </td>
     <td>
       <%= f.text_field :title %>
       <%= display_error_on(project, :title) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="mandatory">
+      * Funds Needed ($)
+      <div class="pmf_clear">&nbsp;</div>
+      <span class="subtext">Note: This field cannot be updated once project reaches the "In Payment" phase.</span>
+    </td>
+    <td>
+      <% if project.in_payment? %>
+        <%= project.capital_required %>
+      <% else %>
+        <%= f.text_field :capital_required %>
+        <%= display_error_on(project, :capital_required) -%>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">
+      <div class="dashed_light_border pmf_bottom_margin_20 pmf_top_margin_20">&nbsp;</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Upload a Project Icon:
+      <div class="pmf_clear">&nbsp;</div>
+      <span class="subtext">Note: your project image must be less than 1 megabyte in size</span>
+    </td>
+    <td>
+      <%= file_column_field( "project", "icon", :size => 15)%>
+      <%= display_error_on(project, :icon) -%>
     </td>
   </tr>
 
@@ -67,24 +97,6 @@
     <td>
       <%= f.date_select :premier_date %>
       <%= display_error_on(project, :premier_date) -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      * Funds Needed ($)
-      <br/><br/>
-      <i>
-        This cannot be updated once project reaches the "In Payment" phase.
-      </i>
-    </td>
-    <td>
-      <% if project.in_payment? %>
-        <%= project.capital_required %>
-      <% else %>
-        <%= f.text_field :capital_required %>
-        <%= display_error_on(project, :capital_required) -%>
-      <% end %>
     </td>
   </tr>
 
@@ -151,14 +163,17 @@
       <%= display_error_on(project, :producer_name) -%>
       <br/>
       <div class="talent_select">
-        <div class="talent_select_text">Or select member:</div>
         <div class="button_small left">
           <%= link_to_remote "Select", :url => {:controller => "user_talents",
-            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["producer"]} %>
+            :action => "talent_select_list", 
+            :talent_filter_param => UserTalent.talent_types_map.invert["producer"],
+            :project_id => project.id} %>
         </div>
-        <input id="producer_talent_id" type="hidden" name="project[producer_talent_id]" value=""/>
-        <div id="producer_clear_talent_link_container" class="button_small left" <%= (project.producer_talent_id ? "" : "style='display: none;'") %>>
-          <%= link_to_function "Clear", "clearTalent('producer');" %>
+        <div class="talent_select_text">Or select members:</div>
+        <div id="producer_user_talent_container">
+          <% project.producer_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
         </div>
       </div>
     </td>
@@ -173,14 +188,17 @@
       <%= display_error_on(project, :director) -%>
       <br/>
       <div class="talent_select">
-        <div class="talent_select_text">Or select member:</div>
         <div class="button_small left">
           <%= link_to_remote "Select", :url => {:controller => "user_talents",
-            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["director"]} %>
+            :action => "talent_select_list", 
+            :talent_filter_param => UserTalent.talent_types_map.invert["director"],
+            :project_id => project.id} %>
         </div>
-        <input id="director_talent_id" type="hidden" name="project[director_talent_id]" value=""/>
-        <div id="director_clear_talent_link_container" class="button_small left" <%= (project.director_talent_id ? "" : "style='display: none;'") %>>
-          <%= link_to_function "Clear", "clearTalent('director');" %>
+        <div class="talent_select_text">Or select members:</div>
+        <div id="director_user_talent_container">
+          <% project.director_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
         </div>
       </div>
     </td>
@@ -195,14 +213,17 @@
       <%= display_error_on(project, :exec_producer) -%>
       <br/>
       <div class="talent_select">
-        <div class="talent_select_text">Or select member:</div>
         <div class="button_small left">
           <%= link_to_remote "Select", :url => {:controller => "user_talents",
-            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["exec_producer"]} %>
+            :action => "talent_select_list", 
+            :talent_filter_param => UserTalent.talent_types_map.invert["exec_producer"],
+            :project_id => project.id} %>
         </div>
-        <input id="exec_producer_talent_id" type="hidden" name="project[exec_producer_talent_id]" value=""/>
-        <div id="exec_producer_clear_talent_link_container" class="button_small left" <%= (project.exec_producer_talent_id ? "" : "style='display: none;'") %>>
-          <%= link_to_function "Clear", "clearTalent('exec_producer');" %>
+        <div class="talent_select_text">Or select members:</div>
+        <div id="exec_producer_user_talent_container">
+          <% project.exec_producer_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
         </div>
       </div>
     </td>
@@ -217,14 +238,17 @@
       <%= display_error_on(project, :writer) -%>
       <br/>
       <div class="talent_select">
-        <div class="talent_select_text">Or select member:</div>
         <div class="button_small left">
           <%= link_to_remote "Select", :url => {:controller => "user_talents",
-            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["writer"]} %>
+            :action => "talent_select_list", 
+            :talent_filter_param => UserTalent.talent_types_map.invert["writer"],
+            :project_id => project.id} %>
         </div>
-        <input id="writer_talent_id" type="hidden" name="project[writer_talent_id]" value=""/>
-        <div id="writer_clear_talent_link_container" class="button_small left" <%= (project.writer_talent_id ? "" : "style='display: none;'") %>>
-          <%= link_to_function "Clear", "clearTalent('writer');" %>
+        <div class="talent_select_text">Or select members:</div>
+        <div id="writer_user_talent_container">
+          <% project.writer_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
         </div>
       </div>
     </td>
@@ -239,14 +263,17 @@
       <%= display_error_on(project, :editor) -%>
       <br/>
       <div class="talent_select">
-        <div class="talent_select_text">Or select member:</div>
         <div class="button_small left">
           <%= link_to_remote "Select", :url => {:controller => "user_talents",
-            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["editor"]} %>
+            :action => "talent_select_list", 
+            :talent_filter_param => UserTalent.talent_types_map.invert["editor"],
+            :project_id => project.id} %>
         </div>
-        <input id="editor_talent_id" type="hidden" name="project[editor_talent_id]" value=""/>
-        <div id="editor_clear_talent_link_container" class="button_small left" <%= (project.editor_talent_id ? "" : "style='display: none;'") %>>
-          <%= link_to_function "Clear", "clearTalent('editor');" %>
+        <div class="talent_select_text">Or select members:</div>
+        <div id="editor_user_talent_container">
+          <% project.editor_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
         </div>
       </div>
     </td>
@@ -261,14 +288,17 @@
       <%= display_error_on(project, :director_photography) -%>
       <br/>
       <div class="talent_select">
-        <div class="talent_select_text">Or select member:</div>
         <div class="button_small left">
           <%= link_to_remote "Select", :url => {:controller => "user_talents",
-            :action => "talent_select_list", :talent_filter_param => UserTalent.talent_types_map.invert["director_photography"]} %>
+            :action => "talent_select_list", 
+            :talent_filter_param => UserTalent.talent_types_map.invert["director_photography"],
+            :project_id => project.id} %>
         </div>
-        <input id="director_photography_talent_id" type="hidden" name="project[director_photography_talent_id]" value=""/>
-        <div id="director_photography_clear_talent_link_container" class="button_small left" <%= (project.director_photography_talent_id ? "" : "style='display: none;'") %>>
-          <%= link_to_function "Clear", "clearTalent('director_photography');" %>
+        <div class="talent_select_text">Or select members:</div>
+        <div id="director_photography_user_talent_container" class="project_talent_container">
+          <% project.director_photography_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
         </div>
       </div>
     </td>
@@ -299,7 +329,7 @@
       Enter a short synopsis for your project
     </td>
     <td>
-      <%= f.text_area :synopsis, :cols => 20, :rows => 5 %>
+      <%= f.text_area :synopsis, :cols => 42, :rows => 4 %>
       <%= display_error_on(project, :synopsis) -%>
     </td>
   </tr>
@@ -309,7 +339,7 @@
       Enter a brief list of cast in your project
     </td>
     <td>
-      <%= f.text_area :cast, :cols => 20, :rows => 3 %>
+      <%= f.text_area :cast, :cols => 42, :rows => 4 %>
       <%= display_error_on(project, :cast) -%>
     </td>
   </tr>
@@ -343,18 +373,6 @@
     </tr>
   <% end %>
 
-  <tr>
-    <td>
-      Upload a Project Icon:
-      <br/><br/>
-      <i>Note: your project image must be less than 1 megabyte in size</i>
-    </td>
-    <td>
-      <%= file_column_field( "project", "icon", :size => 15)%>
-      <%= display_error_on(project, :icon) -%>
-    </td>
-  </tr>
-
   <% unless project.main_video.blank? %>
     <tr>
       <td>
@@ -373,8 +391,8 @@
       <i>Note: your project video must be less than 1 megabyte in size</i>
     </td>
     <td>
-      <%= file_column_field( "project", "main_video", :size => 15)%>
-      <%= display_error_on(project, :main_video) -%>
+  <%= file_column_field( "project", "main_video", :size => 15)%>
+  <%= display_error_on(project, :main_video) -%>
     </td>
   </tr-->
 

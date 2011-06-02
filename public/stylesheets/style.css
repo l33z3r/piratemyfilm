@@ -9,6 +9,15 @@ a {
     text-decoration: none;
 }
 
+h1,h2,h3,h4,h5 {
+    color: #000;
+    font-weight: normal;
+}
+
+input[type=radio], input[type=checkbox], select {
+    cursor: pointer;
+}
+
 a:hover {
     color: #666666;
     text-decoration: underline;
@@ -57,6 +66,14 @@ a:hover {
 }
 
 .pmf_bottom_margin_10 {
+    margin-bottom: 10px;
+}
+
+.pmf_top_margin_20 {
+    margin-top: 10px;
+}
+
+.pmf_bottom_margin_20 {
     margin-bottom: 10px;
 }
 
@@ -352,27 +369,16 @@ div#header_links {
     margin: 0px 40px;
 }
 
-div#header_links div#social_links {
-    float: left;
-    margin-top: 14px;
+div#social_links {
+    float: right;
+    margin-top: 4px;
 }
 
-div#header_links div#social_links div#widget_link {
-    float: left;
-    margin-top: 6px;
-    margin-left: 22px;
-    font-family: menu;
-}
-
-div#header_links div#social_links div#widget_link a {
-    font-weight: bold;
-}
-
-div#header_links div#social_links div.twitter-link {
+div#social_links div.twitter-link {
     float: left;
 }
 
-div#header_links div#social_links div.fb-link {
+div#social_links div.fb-link {
     float: left;
 }
 
@@ -480,9 +486,11 @@ div#sub_nav {
 }
 
 div#filter_param_box {
-    margin-top: -3px;
+    padding: 7px 8px;
     float: right;
     color: #000000;
+    background: #ccc url(/images/local-nav-bg.png) top left repeat-x;
+    border-bottom: 1px solid #999999;
 }
 
 div#filter_param_box div.label {
@@ -490,17 +498,34 @@ div#filter_param_box div.label {
     margin-top: 3px;
     width: auto;
     font-size: 14px;
+    margin-right: 3px;
 }
 
 div#filter_param_box form select {
     float: right;
     background-color: #FFFFFF;
-    margin-left: 10px;
-    margin-right: 10px;
     height: 22px;
     font-size: 13px;
     color: #666666;
     vertical-align: middle;
+}
+
+div#filter_projects_nav div#filter_param_box select {
+    width: 135px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+div#filter_users_nav div#filter_param_box select {
+    width: 135px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+div#filter_talent_nav div#filter_param_box select {
+    width: 135px;
+    font-size: 12px;
+    cursor: pointer;
 }
 
 /* Navigation */
@@ -531,19 +556,19 @@ div#user_subnav_links {
 }
 
 div#user_subnav_links div.link {
-    width: 108px;
+    width: 125px;
     text-align: center;
     margin-right: 5px;
     float: left;
     font-size: 12px;
     font-weight: bold;
     text-decoration: none;
-    padding: 2px 3px;
+    padding: 2px;
     border: 1px solid #666666;
     color: #666;
     background-color: #EEE;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
 }
 
 div#user_subnav_links div.link.selected {
@@ -580,11 +605,58 @@ div.project_listings {
 .project_form div.talent_select_text {
     float: left;
     margin-top: 6px;
+    margin-right: 6px;
+    font-weight: bold;
+    float: right;
 }
 
 .project_form div.talent_select {
     float: right;
-    margin-right: 76px;
+}
+
+.project_form div.talent_select div.button_small {
+    float: right;
+}
+
+.project_form div.talent_select div.project_talent_container {
+    
+}
+
+.project_form div.talent_select div.clear_talent_link_container {
+    margin-top: 12px;
+    margin-left: 7px;
+}
+
+.project_form div.talent_select div.user_info {
+    float: left;
+    margin-top: 20px;
+}
+
+.project_form div.talent_select div.user_info div.user_name {
+    width: 90px;
+    text-align: right;
+    margin-left: 10px;
+    float: left;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+}
+
+.project_form div.talent_select div.user_info div.user_name a {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+}
+
+.project_form div.talent_select div.user_info div.user_icon {
+    margin-left: 10px;
+    float: left;
+}
+
+.project_form div.talent_select div.user_info div.user_icon a img {
+    height: 30px;
+    margin-top: -7px;
 }
 
 small	{
@@ -786,6 +858,98 @@ fieldset#select	{
 
 /* Project Page */
 
+div#project_show div.fields {
+    margin: 5px 0px;
+}
+div#project_show div.project_top {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+div#project_show div.project_top div.project_icon {
+    width: 100px;
+    margin-right: 10px;
+    float: left;
+}
+
+div#project_show div.project_top div.project_icon img {
+    width: 100px;
+}
+
+div#project_show div.project_top div.project_icon div.follow_button {
+    margin-top: 7px;
+    margin-left: 15px;
+}
+
+div#project_show div.project_top div.green_light {
+    font-weight: bold;
+    float: right;
+    margin-right: 10px;
+    margin-top: 7px;
+    font-size: 15px;
+    color: #000;
+}
+
+div#project_show div.project_top div.green_light span.off {
+    color: red;
+}
+
+div#project_show div.project_top div.green_light span.on {
+    color: green;
+}
+
+div#project_show div.project_top div.project_info {
+    float: left;
+    margin-top: 6px;
+}
+
+div#project_show div.project_top div.project_info div.project_title {
+    font-size: 16px;
+    font-weight: bold;
+    float: left;
+    color: #000;
+}
+
+div#project_show div.project_top div.project_info div.project_stats {
+    float: left;
+}
+
+div#project_show div.project_top div.project_info div.project_stats div.funds_needed,
+div#project_show div.project_top div.project_info div.project_stats div.percent_funded {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+div#project_show div.project_top div.project_info div.user_info {
+    float: left;
+}
+
+div#project_show div.project_top div.project_info div.user_info div.user_name {
+    margin-left: 10px;
+    float: left;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+}
+
+div#project_show div.project_top div.project_info div.user_info div.user_name a {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+}
+
+div#project_show div.project_top div.project_info div.user_info div.user_icon {
+    margin-left: 10px;
+    float: left;
+}
+
+div#project_show div.project_top div.project_info div.user_info div.user_icon a img {
+    height: 30px;
+    margin-top: -7px;
+}
+
 .project_listings .project_row .view-lite-row-icon {
     border: 0px;
     padding: 0px;
@@ -836,6 +1000,7 @@ div#project_show div.latest_blog {
 }
 
 div#project_show div.latest_blog span.comments_link {
+    margin-top: 8px;
     float: right;
 }
 
@@ -865,7 +1030,7 @@ div.project_action_links div a {
 }
 
 div.project_share_buttons {
-    margin-top: 7px;
+    margin-top: 20px;
     float: right;
 }
 
@@ -931,6 +1096,138 @@ div#project_show div#subscription_buttons ul li.warn {
 }
 
 /* End Project Page */
+
+/* Project mini view */
+
+div.project_mini_view div.fields {
+    margin: 5px 0px;
+}
+
+div.project_mini_view {
+    border-bottom: 1px dashed #666;
+    margin-top: 15px;
+    padding-bottom: 15px;
+}
+
+div.project_mini_view div.project_extra_info {
+    color: #000;
+    font-weight: bold;
+    float: right;
+    margin-top: -20px;
+    text-align: right;
+}
+
+div.project_mini_view div.project_icon {
+    width: 100px;
+    margin-right: 10px;
+    float: left;
+}
+
+div.project_mini_view div.project_icon img {
+    width: 100px;
+}
+
+div.project_mini_view div.project_icon div.follow_button {
+    margin-top: 7px;
+    margin-left: 15px;
+}
+
+div.project_mini_view div.project_icon div.follow_button div.following_text {
+    margin-left: 4px;
+}
+
+div.project_mini_view div.green_light {
+    font-weight: bold;
+    float: right;
+    margin-right: 10px;
+    font-size: 15px;
+    color: #000;
+}
+
+div.project_mini_view div.green_light span.off {
+    color: red;
+}
+
+div.project_mini_view div.green_light span.on {
+    color: green;
+}
+
+div.project_mini_view div.project_info {
+    float: left;
+    margin-top: 4px;
+}
+
+div.project_mini_view div.project_info div.project_title {
+    font-size: 16px;
+    font-weight: bold;
+    float: left;
+}
+
+div.project_mini_view div.project_info div.project_title a {
+    color: #000;
+}
+
+div.project_mini_view div.project_info div.edit_link {
+    float: left;
+    margin-left: 3px;
+}
+
+div.project_mini_view div.project_info div.edit_link a {
+    font-size: 13px;
+    font-style: italic;
+}
+
+div.project_mini_view div.project_info div.link_arrow {
+    float: left;
+}
+
+div.project_mini_view div.project_info div.link_arrow a img {
+    margin-top: -2px;
+    margin-left: 5px;
+    height: 20px;
+}
+
+div.project_mini_view div.project_info div.project_stats {
+    float: left;
+}
+
+div.project_mini_view div.project_info div.project_stats div.funds_needed,
+div.project_mini_view div.project_info div.project_stats div.percent_funded {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+div.project_mini_view div.project_info div.user_info {
+    float: left;
+}
+
+div.project_mini_view div.project_info div.user_info div.user_name {
+    margin-left: 10px;
+    float: left;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+}
+
+div.project_mini_view div.project_info div.user_info div.user_name a {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+}
+
+div.project_mini_view div.project_info div.user_info div.user_icon {
+    margin-left: 10px;
+    float: left;
+}
+
+div.project_mini_view div.project_info div.user_info div.user_icon a img {
+    height: 30px;
+    margin-top: -7px;
+}
+
+/* End Project Mini View */
 
 /* Share Queue Page */
 
@@ -1156,8 +1453,21 @@ div#payment_window div#subscription_payments div.odd {
 
 /* Create project page */
 
-form#new_project div#captcha_section {
+table.project_form {
+    border-spacing: 10px;
+}
 
+table.project_form input[type=text] {
+    width: 99%;
+}
+
+table.project_form td.mandatory {
+    font-weight: bold;
+}
+
+table.project_form td span.subtext {
+    font-style: italic;
+    font-weight: normal;
 }
 
 /* Create project page */
@@ -1169,7 +1479,7 @@ form#new_project div#captcha_section {
 /* Profile page */
 
 div#profile {
-    margin-top: 10px;
+
 }
 
 div#profile div.half {
@@ -1182,7 +1492,7 @@ div#profile div.pageTitle {
 }
 
 div#profile div#profile_section {
-    margin: 20px 0px;
+    margin-top: 10px;
 }
 
 div#profile div#profile_section div.sublinks {
@@ -1239,12 +1549,17 @@ div#profile div#profile_section div#producer_rating_area input#rating_submit {
 }
 
 div#profile div.profile_links {
-    float: right;
-    margin: 5px 0px;
+    float: left;
 }
 
-div#profile div.profile_links div {
+div#profile div.profile_links div.link {
     float: left;
+}
+
+div#profile div.profile_links div.link a {
+    text-decoration: underline;
+    font-size: 14px;
+    color: #000;
 }
 
 div#profile .bio_stuff {
@@ -1446,10 +1761,15 @@ div#talents {
     overflow: scroll;
 }
 
+input#talentSelectListContainer_cancelButton {
+    cursor: pointer;
+}
+
 div#talents div.user_talent {
     float: left;
     margin-right: 15px;
-    width: 190px;
+    margin-top: 15px;
+    width: 170px;
 }
 
 div#talents div.user_talent div.user-icon {
@@ -1554,7 +1874,6 @@ div.static_content {
 }
 
 .icatch-pictures {
-    border-bottom: 2px solid #CCC;
     width: 100%;
     float: left;
 }
@@ -1581,7 +1900,8 @@ div.static_content {
 #search	{
     height: 30px;
     background:#ccc url(/images/local-nav-bg.png) top left repeat-x;
-    padding: 3px 5px;
+    padding: 3px 7px;
+    border-bottom: 1px solid #999999;
 }
 
 #search input[type=submit] {
@@ -1595,25 +1915,6 @@ div.static_content {
 
 #search_q {
     margin-top: 3px;
-}
-
-div#filter_projects_nav {
-    
-}
-
-div#filter_projects_nav div#filter_param_box select {
-    width: 123px;
-    margin-right: 0px;
-    font-size: 12px;
-}
-
-div#filter_users_nav {
-    
-}
-
-div#filter_users_nav div#filter_param_box select {
-    width: 131px;
-    font-size: 12px;
 }
 
 .big-number	{
@@ -2259,24 +2560,56 @@ div.TabView div.Pages div.Page div.Pad {
     float: left;
     margin-right:5px;
     border-right: 1px solid #999999;
+    border-bottom: 1px solid #999999;
 }
 
 div#new_project_button {
-    width: 96px;
-    padding-right: 45px;
+    width: 138px;
+    margin-right: 0px;
     float: left;
+    text-align: left;
+    margin-top: 10px;
+    height: 46px;
 }
 
-div#new_project_button {
-
-}
-
-.local-navbar-button span a	{
+div#new_project_button.local-navbar-button span {
     text-decoration:none;
     color: #666;
-    font-size: 13px;
+    font-size: 14px;
     float: left;
     margin-left: 3px;
+}
+
+div#new_project_button.local-navbar-button span span {
+    font-size: 12px;
+    margin-top: 3px;
+    margin-left: 0px;
+}
+
+div#header_links div#widget_link {
+    float: left;
+    margin-top: 17px;
+    margin-left: 40px;
+    font-family: menu;
+    width: 155px;
+    text-decoration: underline;
+}
+
+div#header_links div#widget_link a {
+    font-weight: bold;
+}
+
+div#header_links div#site_stats_link {
+    float: left;
+    margin-top: 25px;
+    margin-left: 6px;
+    font-family: menu;
+    width: 155px;
+    text-decoration: underline;
+}
+
+div#header_links div#site_stats_link a {
+    font-weight: bold;
 }
 
 .local-navbar-button span a:hover {
@@ -2359,58 +2692,52 @@ div.blog-row div.new_project_text {
 }
 
 div.blog div.blog_left {
-    width: 64%;
+    width: 590px;
     float: left;
 }
 
 div.blog div.blog_left div.icon {
     float: left;
-    width: 70px;
+    width: 80px;
 }
 
 div.blog div.blog_left div.info div.user_name {
     float: left;
-    margin-right: 3px;
+    margin-right: 7px;
 }
 
 div.blog div.blog_left div.info div.user_name a {
     font-weight: bold;
     color: #000;
-    font-size: 13px;
+    font-size: 14px;
+    text-decoration: underline;
 }
 
 div.blog div.blog_left div.icon div.follow_button {
-    margin-top: 4px;
-    margin-left: -2px;
+    margin-top: 6px;
+    margin-left: 3px;
 }
 
 div.blog div.blog_left div.icon div.follow_button div.following_text {
-    margin-left: 2px;
+    margin-left: 6px;
     margin-top: 2px;
 }
 
 div.blog div.blog_left div.icon a img {
-    width: 60px;
+    width: 70px;
     margin-right: 10px;
 }
 
 div.blog div.blog_left div.info {
     float: left;
-    width: 80%;
+    width: 510px;
 }
 
-div.blog div.blog_left div.info div.blog_type {
+div.blog div.blog_left div.info div.blog_user_relationship {
     float: left;
-    margin-right: 10px;
+    margin-right: 7px;
+    margin-top: 1px;
     font-size: 13px;
-}
-
-div.blog div.blog_left div.info div.blog_type a {
-    font-weight: bold;
-    color: #000000;
-}
-
-div.blog div.blog_left div.info div.blog_type span {
     font-weight: bold;
     color: #000000;
 }
@@ -2461,15 +2788,45 @@ div.blog div.blog_left div.info div.user_info div.user_name a {
     font-weight: bold;
 }
 
-div.blog div.blog_left div.info div.project_title {
+div.blog div.blog_left div.info div.project_info {
     float: left;
-    margin-right: 4px;
-    margin-top: 4px;
+    margin-right: 10px;
 }
 
-div.blog div.blog_left div.info div.project_title a {
+div.blog div.blog_left div.info div.project_info div.project_title {
+    margin-bottom: 2px;
+    float: left;
+}
+
+div.blog div.blog_left div.info div.project_info div.project_title a {
     font-weight: bold;
     color: #000000;
+    font-size: 14px;
+}
+
+div.blog div.blog_left div.info div.project_info div.project_stats {
+    float: left;
+    margin-top: 1px;
+}
+
+div.blog div.blog_left div.info div.project_info div.project_stats div.funds_needed,
+div.blog div.blog_left div.info div.project_info div.project_stats div.percent_funded {
+    float: left;
+    margin-right: 5px;
+}
+
+div.blog div.blog_left div.info div.project_info div.project_stats div span {
+    font-weight: bold;
+}
+
+div.blog div.blog_left div.info div.project_info div.project_icon {
+    float: left;
+    width: 35px;
+    margin-top: -3px
+}
+
+div.blog div.blog_left div.info div.project_info div.project_icon img {
+    width: 30px;
 }
 
 div.blog div.blog_left div.info div.blog_title {
@@ -2483,7 +2840,8 @@ div.blog div.blog_left div.info div.blog_title a {
 }
 
 div.blog div.blog_left div.info div.blog_body {
-    margin-top: 4px;
+    margin-top: 6px;
+    color: #000000;
 }
 
 div.blog div.blog_right div.blog_comments_link {
@@ -2628,13 +2986,13 @@ div.admin_section div.users div.headers div {
     float: left;
     font-weight: bold;
     font-size: 13px;
-    width: 150px;
+    width: 110px;
 }
 
 div.admin_section div.users div.user div {
     float: left;
     margin-top: 15px;
-    width: 150px;
+    width: 110px;
     text-align: left;
     font-weight: bold;
 }
@@ -2644,30 +3002,44 @@ div.admin_section div.users div.user div.icon {
 }
 
 div.admin_section div.users div.headers div.email_header {
-    width: 300px;
+    width: 290px;
 }
 
 div.admin_section div.users div.headers div.membership_type_header {
-    width: 250px;
+    width: 240px;
+}
+
+div.admin_section div.users div.headers div.mkc_post_ability_header {
+    width: 110px;
 }
 
 div.admin_section div.users div.user div.email {
-    width: 300px;
+    width: 290px;
     float: left;
 }
 
 div.admin_section div.users div.user div.membership_type {
-    width: 250px;
+    width: 240px;
 }
 
 div.admin_section div.users div.user div.membership_type form select {
     float: left;
+    cursor: pointer;
 }
 
-div.admin_section div.users div.user div.membership_type form div.submit {
-    float: left;
-    margin-top: -6px;
-    margin-left: 25px;
+div.admin_section div.users div.user div.membership_type div.submit {
+    width: 40px;
+    margin-top: 0px;
+    margin-left: 10px;
+}
+
+div.admin_section div.users div.user div.mkc_post_ability {
+    width: 110px;
+    text-align: center;
+}
+
+div.admin_section div.users div.user div.mkc_post_ability input {
+    cursor: pointer;
 }
 
 /* end user admin section */
@@ -2820,8 +3192,8 @@ div#buyout_requests div.odd {
 
 .view-lite-row-project-green-light {
     width: 140px;
-    margin-right: 67px;
-    margin-top: 14px;
+    margin-right: 60px;
+    margin-top: 3px;
     font-size: 14px;
     float: right;
     font-weight: bold;
@@ -2921,7 +3293,7 @@ div#buyout_requests div.odd {
 }
 
 .view-lite-row-numbers {
-    width: 214px;
+    width: 280px;
     padding-left: 10px;
     float: left;
 }
@@ -2958,7 +3330,7 @@ div#buyout_requests div.odd {
 #content .view-lite-row-numbers li.stat {
     text-align: left;
     color: #636363;
-    width: 74px;
+    width: 135px;
     margin-bottom: 1px;
     overflow: hidden;
 }
@@ -3096,7 +3468,6 @@ div.view-lite-row-alt div.view-lite-row-project-name span.edit_link a {
 }
 
 .row {
-    width:560px;
     margin:0 0 10px 0;
     padding:0;
 }
@@ -3323,6 +3694,56 @@ div.project_listings_widget {
     -moz-border-radius: 4px;
 }
 
+/* override project mini view for widget */
+
+div.project_listings_widget div.project_mini_view {
+    padding: 7px;
+    margin-top: 0px;
+}
+
+div.project_listings_widget div.project_mini_view div.project_icon {
+    width: 80px;
+}
+
+div.project_listings_widget div.project_mini_view div.project_icon img {
+    width: 80px;
+}
+
+div.project_listings_widget div.project_mini_view div.project_title {
+    font-size: 14px;
+}
+
+div.project_listings_widget div.project_mini_view div.project_info {
+    margin-top: 0px;
+}
+
+div.project_listings_widget div.project_mini_view div.user_info {
+    font-size: 13px;
+    margin-top: 0px;
+}
+
+div.project_listings_widget div.project_mini_view div.user_info div.user_name {
+    margin-top: 7px;
+}
+
+div.project_listings_widget div.project_mini_view div.user_info div.user_icon {
+    margin-left: 0px;
+    margin-top: 9px;
+}
+
+div.project_listings_widget div.project_mini_view div.project_stats {
+    margin-top: 3px;
+}
+
+div.project_listings_widget div.project_mini_view div.project_stats div.funds_needed,
+div.project_listings_widget div.project_mini_view div.project_stats div.percent_funded {
+    font-size: 13px;
+}
+
+div.project_listings_widget div.project_mini_view div.follow_button {
+    margin-left: 8px;
+}
+
 div.project_listings_widget div.project_widget_header img {
     width: 297px;
 }
@@ -3449,3 +3870,40 @@ div#stats_page div#stats div.stat {
 }
 
 /* End Stats Page */
+
+/* Post update box for feeds */
+
+div#post_update_box {
+    border: 1px solid #CCC;
+    width: 866px;
+    padding-left: 10px;
+    margin: 10px 0px;
+}
+
+div#post_update_box input[type=checkbox] {
+    cursor: pointer;
+}
+
+div#post_update_box div.pageTitleSmall a {
+    text-decoration: none;
+}
+
+div#post_update_box div.pageTitleSmall a:hover {
+    text-decoration: none;
+    color: #666;
+}
+
+div#blog_entry_section form {
+    width: 840px;
+    font-weight: bold;
+}
+
+div#blog_entry_section form input[type=textarea] {
+    margin-top: -6px;
+}
+
+div#blog_entry_section form input[type=select] {
+    margin-top: 6px;
+}
+
+/* End Post update box for feeds */

@@ -6,6 +6,17 @@
 <% end %>
 
 <div id="profile">
+
+  <div class="profile_links">
+    <% if @p == @profile %>
+      <div class="link">
+        <%= link_to "Edit Profile", edit_profile_path %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+  
   <div id="profile_section">
 
     <div class="half left">
@@ -166,13 +177,30 @@
 
   <div class="pmf_clear">&nbsp;</div>
 
-  <div class="profile_links">
-    <% if @p == @profile %>
-      <div class="button">
-        <%= link_to "Edit Profile", edit_profile_path %>
-      </div>
-    <% end %>
+  <div class="dashed_light_border">&nbsp;</div>
 
-  </div>
+  <h2>
+    <% if @p == @profile %>
+      My
+    <% else %>
+      <%=@profile.user.login%>'s
+    <% end %>
+    Updates
+  </h2>
+
+  <div class="dashed_light_border">&nbsp;</div>
+
+  <% if @blogs.empty? %>
+    <div class="pageTitleSmaller">
+      No Updates Found!
+    </div>
+    <div class="pmf_clear">&nbsp;</div>
+  <% end %>
+
+  <% @blogs.each do |blog| %>
+    <%= render :partial => "/blogs/templates/member_blog",
+      :locals => {:blog => blog, :truncate_blog => true,
+      :link_blog_header => true } %>
+  <% end %>
 
 </div>

@@ -26,6 +26,7 @@
     <div class="name_header">User Name</div>
     <div class="email_header">User Email</div>
     <div class="membership_type_header">Membership Type</div>
+    <div class="mkc_post_ability_header">MKC Cross Post?</div>
   </div>
 
   <div class="dashed_light_border">&nbsp;</div>
@@ -45,8 +46,14 @@
           <%= hidden_field_tag :user_id, p.user.id %>
           <input type="hidden" id="skip_confirm_<%= p.user.id %>" name="skip_confirm" value=""/>
           <div class="submit" id="submit_container_<%= p.user.id %>" style="display: none;">
-            <%= submit_tag "Update" %>
+            <%= submit_tag "Update", :class => "button_small" %>
           </div>
+        <% end %>
+      </div>
+      <div class="mkc_post_ability">
+        <% form_tag :action => "update_mkc_post_ability" do %>
+          <%= hidden_field_tag :user_id, p.user.id %>
+          <%= check_box_tag "mkc_post_ability", p.user.mkc_post_ability, p.user.mkc_post_ability, :onchange => "this.form.submit()" %>
         <% end %>
       </div>
     </div>

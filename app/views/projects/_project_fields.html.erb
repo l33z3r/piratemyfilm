@@ -1,0 +1,177 @@
+<div class="fields">
+
+  <div class="view-lite-row-numbers">
+    <ul>
+      <li class="label">Symbol:</li><li class="stat"><%= h project.symbol %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Owner:</li><li class="stat"><%= link_to h(project.owner.profile.user.login), profile_path(project.owner.profile) %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Producers:</li><li class="stat"><%= producers_for project %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Exec Producers:</li><li class="stat"><%= exec_producers_for project %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Directors:</li><li class="stat"><%= directors_for project %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Writers:</li><li class="stat"><%= writers_for project %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Editors:</li><li class="stat"><%= editors_for project %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Cinematographers:</li><li class="stat"><%= directors_photography_for project %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Genre:</li><li class="stat"><%=  h project.genre.title %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Project Status:</li><li class="stat"><%= project.status %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Time to Completion:</li>
+      <li class="stat">
+        <%= project_completion project %>
+        (<a class="tooltip_arrow" title="This is the estimated time it will take to complete the project production">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+    </ul>
+  </div>
+
+  <div class="view-lite-row-numbers">
+    <ul>
+      <li class="label">PMF Fund Rating:</li><li class="stat"><%= project.admin_rating %></li>
+      <li class="pmf_clear"></li>
+      <li class="label">Member Rating:</li>
+      <li class="stat">
+        <%= project.member_rating %>
+      </li>
+      <li class="pmf_clear"></li><li class="label">Project Length:</li><li class="stat"><%=h project.project_length %> mins</li>
+      <li class="pmf_clear"></li>
+      <li class="label">% Producer:</li>
+      <li class="stat">NYA</li>
+      <!--li class="stat">
+      <%= project.share_percent_ads_producer %>%
+        (<a class="tooltip_arrow" title="The producer will take this percentage of the advertisement revenue.
+            The remaining percent will go to the PMF Fund (see below)">?</a>)
+      </li-->
+      <li class="pmf_clear"></li>
+      <li class="label">% Shares:</li>
+      <li class="stat">NYA</li>
+      <!--li class="stat">
+      <%= project.share_percent_ads %>%
+        (<a class="tooltip_arrow" title="This is a percentage of the producers
+            take (above) that will go to the shareholders.">?</a>)
+      </li-->
+      <li class="pmf_clear"></li>
+      <li class="label">
+        % PMF Fund:
+      </li>
+      <li class="stat">
+        <%= project.capital_recycled_percent %>%
+        (<a class="tooltip_arrow" title="This fund is used to invest (top up)
+            existing projects at the discretion of PMF.">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="pmf_clear"></li>
+      <li class="label">
+        Producer Dividend:
+      </li>
+      <li class="stat">
+        <%= print_money project.producer_dividend %>
+        (<a class="tooltip_arrow" title="This is the estimated producer
+            return per $1000 of ad sales.">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="label">Share Dividend:</li>
+      <li class="stat">
+        <%= print_money project.shareholder_dividend %>
+        (<a class="tooltip_arrow" title="This is the estimated shareholder
+            return per $1000 of ad sales.">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="label">
+        PMF Fund Dividend:
+      </li>
+      <li class="stat">
+        <%= print_money project.fund_dividend %>
+        (<a class="tooltip_arrow" title="This is the estimated pmf fund
+            return per $1000 of ad sales.">?</a>)
+      </li>
+      <li class="pmf_clear"></li>
+      <li class="label">
+        % Producer Fee:
+      </li>
+      <li class="stat">NYA</li>
+      <!--li class="stat">
+      <%= project.producer_fee_percent %>%
+        (<a class="tooltip_arrow" title="This is a % of the budget
+            that the producer will take as an initial fee">?</a>)
+      </li-->
+      <li class="pmf_clear"></li>
+      <li class="label">Daily % Move:</li><li class="stat"><%= number_to_percentage(project.daily_percent_move, :precision => 0) %></li>
+      <li class="pmf_clear"></li>
+    </ul>
+  </div>
+
+  <% if project.finished_payment_collection %>
+    <div class="view-lite-row-numbers">
+      <ul>
+        <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
+        <li class="pmf_clear"></li>
+        <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
+        <li class="pmf_clear"></li>
+        <li class="fully_funded_textline">
+          Project Fully Funded For <%= print_money project.capital_required %>!
+        </li>
+        <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
+        <li class="pmf_clear"></li>
+        <% if project.premier_date %>
+          <li class="fully_funded_textline">
+            Premier Date: <%= project.premier_date.to_s(:short) %>
+          </li>
+          <li class="pmf_clear"></li>
+        <% end %>
+        <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
+        <li class="pmf_clear"></li>
+        <li class="fully_funded_textline">
+          <a href="<%= watch_project_url project %>">Watch Film Here</a>
+        </li>
+        <li class="pmf_clear"></li>
+      </ul>
+    </div>
+  <% else %>
+    <div class="view-lite-row-numbers">
+      <ul>
+        <li class="label">Funds Needed:</li><li class="stat"><%= print_money project.capital_required %></li>
+        <li class="pmf_clear"></li>
+        <li class="label">Funds Reserved:</li><li class="stat"><%= print_money project.current_funds %></li>
+        <li class="pmf_clear"></li>
+        <li class="label">Funds Still Needed:</li><li class="stat"><%= print_money project.funds_needed %></li>
+        <li class="pmf_clear"></li>
+        <li class="label">% Funded:</li>
+        <li class="stat">
+          <%= project.percent_funded %>&#37
+          (<a class="tooltip_arrow" title="This is the value of the investment by the PMF
+              community and does not include shares held by the PMF Fund.">?</a>)
+        </li>
+        <li class="pmf_clear"></li>
+        <li class="label">% Bad Shares:</li>
+        <li class="stat">
+          <%= project.percent_bad_shares %>&#37
+          (<a class="tooltip_arrow" title="This is the percentage of shares held by plank walkers!">?</a>)
+        </li>
+        <li class="pmf_clear"></li>
+        <li class="label">Price Per Share:</li><li class="stat"><%= print_money project.ipo_price %></li>
+        <li class="pmf_clear"></li>
+        <li class="label">Total Shares:</li><li class="stat"><%= project.total_copies.to_i %></li>
+        <li class="pmf_clear"></li>
+        <li class="label">Shares Available:</li><li class="stat"><%= project.downloads_available %></li>
+        <li class="pmf_clear"></li>
+        <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
+        <li class="pmf_clear"></li>
+        <li class="label">No. PMF Fund Shares:</li>
+        <li class="stat"><%= project.pmf_fund_investment_share_amount %></li>
+        <li class="label">% Funded Total:</li><li class="stat"><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</li>
+        <li class="pmf_clear"></li>
+
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+</div>

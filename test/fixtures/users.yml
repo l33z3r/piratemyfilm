@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110110160522
+# Schema version: 20110521081435
 #
 # Table name: users
 #
@@ -16,6 +16,11 @@
 #  email_verification        :string(255)   
 #  email_verified            :boolean(1)    
 #  member_rating             :integer(4)    default(0)
+#  warn_points               :integer(4)    default(0)
+#  activation_code           :string(40)    
+#  activated_at              :datetime      
+#  following_mkc_blogs       :boolean(1)    
+#  following_admin_blogs     :boolean(1)    
 #
 
 user:

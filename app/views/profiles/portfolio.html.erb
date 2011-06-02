@@ -132,12 +132,13 @@
   <div class="project_listing_box">
 
     <div class="pageTitle">
+      Projects
       <% if @p == @profile %>
         You have
       <% else %>
         <%=@profile.user.login%> has
       <% end %>
-      <i>reserved</i> shares in these funded projects
+      helped to fund
     </div>
 
     <%= render :partial => "projects/listings", :object => @user_funded_subscriptions %>

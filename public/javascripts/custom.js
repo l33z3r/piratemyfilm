@@ -33,7 +33,31 @@ function hideLoadingImage() {
     loadingImage = false;
 }
 
-function selectTalent(talentName, talentId, talentUsername) {
+function addTalent(talentId, projectId) {
+    $.ajax({
+        url: "/projects/" + projectId + "/add_talent",
+        type : "POST",
+        dataType: 'script',
+        data : {
+            talent_id : talentId
+        }
+    });
+
+    ModalPopups.Close('talentSelectListContainer');
+}
+
+function removeTalent(pt_id, projectId) {
+    $.ajax({
+        url: "/projects/" + projectId + "/remove_talent",
+        type : "POST",
+        dataType: 'script',
+        data : {
+            pt_id : pt_id
+        }
+    });
+}
+
+function selectTalent_OLD(talentName, talentId, talentUsername) {
     talentIdContainerId = $('#' + talentName + '_talent_id');
     talentUsernameContainerId = $('#' + talentName + '_name');
     talentClearLink = $('#' + talentName + '_clear_talent_link_container');
@@ -46,15 +70,4 @@ function selectTalent(talentName, talentId, talentUsername) {
     talentIdContainerId = talentUsernameContainerId = null;
 
     ModalPopups.Close('talentSelectListContainer');
-}
-
-function clearTalent(talentName) {
-    talentIdContainerId = $('#' + talentName + '_talent_id');
-    talentUsernameContainerId = $('#' + talentName + '_name');
-    talentClearLink = $('#' + talentName + '_clear_talent_link_container');
-
-    talentIdContainerId.val('');
-    talentUsernameContainerId.val('');
-    talentUsernameContainerId.attr('disabled', false);
-    talentClearLink.hide();
 }

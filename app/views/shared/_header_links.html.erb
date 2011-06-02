@@ -1,20 +1,19 @@
 <div id="header_links">
-  <div id="social_links">
-    <div class="twitter-link">
-      <%= link_to image_tag("twitter.gif", :size => "35x30"),
-        "http://www.twitter.com/piratemyfilm",
-        :target => "_blank" %>
-    </div>
 
-    <div class="fb-link">
-      <%= link_to image_tag("facebook-logo.png", :size => "30x30"),
-        "http://www.facebook.com/pages/PirateMyFilm/75309097341",
-        :target => "_blank" %>
+  <a href="/projects/new">
+    <div id="new_project_button" class="local-navbar-button">
+      <span>List a Project
+        <span>Start Raising Money</span>
+      </span>
     </div>
+  </a>
 
-    <div id="widget_link">
+  <div id="widget_link">
       <%= link_to "Get a PirateMyfilm Widget For Your Site!", project_widgets_path %>
-    </div>
+  </div>
+  
+  <div id="site_stats_link">
+    <a href="/pages/stats">Site Stats</a>
   </div>
 
   <%= render :partial => "shared/login_box" %>

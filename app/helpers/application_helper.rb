@@ -98,6 +98,30 @@ module ApplicationHelper
       end
     end
   end
+  
+  def follow_admin_blogs_button_small
+    if @u and @u.following_admin_blogs
+      content_tag :div, :class => "following_text left" do
+        "Following"
+      end
+    else
+      content_tag :div, :class => "button_small left" do
+        link_to "Follow", {:controller => "blogs", :action => "follow_admin_blogs"}, :method => "post"
+      end
+    end
+  end
+  
+  def follow_mkc_blogs_button_small
+    if @u and @u.following_mkc_blogs
+      content_tag :div, :class => "following_text left" do
+        "Following"
+      end
+    else
+      content_tag :div, :class => "button_small left" do
+        link_to "Follow", {:controller => "blogs", :action => "follow_mkc_blogs"}, :method => "post"
+      end
+    end
+  end
 
   def small_view_edit_link project
     if @u && (project.owner == @u || @u.is_admin)
@@ -106,7 +130,7 @@ module ApplicationHelper
   end
 
   def subscription_info project
-    @info = nil
+    @info = "You must log in to reserve shares for this project."
 
     if @u
       if project.finished_payment_collection
@@ -127,6 +151,8 @@ module ApplicationHelper
           end
 
           @info = "You have #{@total_amount} shares #{@outstanding_string} reserved for this project."
+        else 
+          @info = "You do not have any shares in this project."
         end
       end
     end
@@ -220,56 +246,92 @@ module ApplicationHelper
   end
 
   #helpers to display project talent
-  def director_for project
-    if project.director_talent
-      link_to h(project.director_talent.user.login), profile_path(project.director_talent.user.profile)
+  def producers_for project
+    if !project.producer_project_talents.empty?
+      content = ""
+      
+      project.producer_project_talents.each do |p_ut|
+        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
+      end
+      
+      return "#{h(project.producer_name)} #{content}"
     else
-      h project.director
+      return h(project.producer_name)
     end
   end
 
-  def writer_for project
-    if project.writer_talent
-      link_to h(project.writer_talent.user.login), profile_path(project.writer_talent.user.profile)
+  def directors_for project
+    if !project.director_project_talents.empty?
+      content = ""
+      
+      project.director_project_talents.each do |p_ut|
+        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
+      end
+      
+      return "#{h(project.director)} #{content}"
     else
-      h project.writer
+      return h(project.director)
     end
   end
 
-  def exec_producer_for project
-    if project.exec_producer_talent
-      link_to h(project.exec_producer_talent.user.login), profile_path(project.exec_producer_talent.user.profile)
+  def exec_producers_for project
+    if !project.exec_producer_project_talents.empty?
+      content = ""
+      
+      project.exec_producer_project_talents.each do |p_ut|
+        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
+      end
+      
+      return "#{h(project.exec_producer)} #{content}"
     else
-      h project.exec_producer
+      return h(project.exec_producer)
+    end
+  end
+  
+  def writers_for project
+    if !project.writer_project_talents.empty?
+      content = ""
+      
+      project.writer_project_talents.each do |p_ut|
+        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
+      end
+      
+      return "#{h(project.writer)} #{content}"
+    else
+      return h(project.writer)
     end
   end
 
-  def director_photography_for project
-    if project.director_photography_talent
-      link_to h(project.director_photography_talent.user.login), profile_path(project.director_photography_talent.user.profile)
+  def editors_for project
+    if !project.editor_project_talents.empty?
+      content = ""
+      
+      project.editor_project_talents.each do |p_ut|
+        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
+      end
+      
+      return "#{h(project.editor)} #{content}"
     else
-      h project.director_photography
+      return h(project.editor)
     end
   end
 
-  def editor_for project
-    if project.editor_talent
-      link_to h(project.editor_talent.user.login), profile_path(project.editor_talent.user.profile)
+  def directors_photography_for project
+    if !project.director_photography_project_talents.empty?
+      content = ""
+      
+      project.director_photography_project_talents.each do |p_ut|
+        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
+      end
+      
+      return "#{h(project.director_photography)} #{content}"
     else
-      h project.editor
-    end
-  end
-
-  def producer_for project
-    if project.producer_talent
-      link_to h(project.producer_talent.user.login), profile_path(project.producer_talent.user.profile)
-    else
-      h project.producer_name
+      return h(project.director_photography)
     end
   end
 
   def blog_icon_path blog, size
-    if blog.is_producer_blog
+    if blog.project
       return project_icon_path(blog.project, size)
     elsif blog.is_mkc_blog
       return "/images/mkc_avatar.png"
@@ -315,28 +377,14 @@ module ApplicationHelper
 
       @body = awesome_truncate(@blog_body_content, @truncate_length)
 
-      if @blog_body_content.length > @truncate_length
-        @body += link_to "(More)", {:controller => "blogs", :action => "show", :id => blog.id}, :class => "more_link"
-      end
-    else
+      else
       @body = blog_body_content blog
     end
+    
+    #always show the 'more' link 
+    @body += link_to(" (more)", url_for(:controller => "blogs", :action => "show", :id => blog.id, :only_path => false), :class => "more_link")
 
     return @body
-  end
-
-  def blog_template_name blog
-    if blog.is_member_blog
-      return "member_blog"
-    elsif blog.is_pmf_producer_blog
-      return "pmf_producer_blog"
-    elsif blog.is_producer_blog
-      return "producer_blog"
-    elsif blog.is_mkc_blog
-      return "mkc_blog"
-    elsif blog.is_admin_blog
-      return "admin_blog"
-    end
   end
 
   def up_down_arrow value

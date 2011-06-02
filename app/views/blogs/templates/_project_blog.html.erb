@@ -8,8 +8,23 @@
       </div>
     </div>
     <div class="info">
-      <div class="blog_type">
-        <%= link_to "Producer Blog", :controller => "blogs", :action => "producer" %> by:
+      <div class="project_info">
+        <div class="project_title">
+          <%= link_to h(blog.project.title), project_path(blog.project) %>
+        </div>
+        <div class="pmf_clear">&nbsp;</div>
+        <div class="project_stats">
+          <div class="funds_needed">
+            <span><%= print_money blog.project.capital_required %></span> needed
+          </div>
+          <div class="pmf_clear">&nbsp;</div>
+          <div class="percent_funded">
+            <span><%= blog.project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
+          </div>
+        </div>
+      </div>
+      <div class="blog_user_relationship">
+        by <%= blog.user_relationship %>
       </div>
       <div class="user_info">
         <div class="user_icon">
@@ -18,15 +33,6 @@
         <div class="user_name">
           <%= link_to h(blog.profile.user.login), profile_path(blog.profile) %>
         </div>
-      </div>
-
-      <div class="pmf_clear">&nbsp;</div>
-
-      <div class="project_title">
-        on project <%= blog_project_header(blog, truncate_blog) %>:
-      </div>
-      <div class="blog_title">
-        <%= blog_header(blog, link_blog_header, truncate_blog) %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>

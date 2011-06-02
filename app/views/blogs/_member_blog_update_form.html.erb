@@ -1,43 +1,66 @@
-<div class="pageTitleSmall">
-  <%= link_to_function "Click Here to Post an Update >>>", "$('#blog_entry_section').slideDown();" %>
-</div>
+<div id="post_update_box">
 
-<div id="blog_entry_section" style="display: none;">
-  <% form_for blog, :url => {:controller => "blogs", :action => "create", :id => blog.id}  do |f| %>
+  <div class="pageTitleSmall">
+    <%= link_to_function "Click Here to Post an Update >>>", "$('#blog_entry_section').slideDown();" %>
+  </div>
 
-    <%= f.hidden_field :profile_id, :value => @u.profile.id %>
+  <div id="blog_entry_section" style="display: none;">
+    <% form_tag :controller => "blogs", :action => "create" do %>
 
-    <table class="project_form" style="border-spacing: 10px; width: 100%;">
+      <table class="project_form" style="border-spacing: 10px; width: 100%;">
 
-      <thead>
+        <thead>
+          <tr>
+            <td style="width: 20%;"></td>
+            <td style="width: 80%;"></td>
+          </tr>
+        </thead>
+
         <tr>
-          <td style="width: 20%;"></td>
-          <td style="width: 80%;"></td>
+          <td>Link Project:</td>
+          <td>
+            <select name="project_id" id="project_id">
+              <option value="-1">Select a project...</option>
+              <% @u.project_select_opts(project).each do |group_name, projects| %>
+                <optgroup label="<%=group_name%>">
+                  <% projects.each do |project, put| %>
+                  <option value="<%=project.id%>" onclick="$('#project_user_talent_id').val(<%=put ? put.id : ''%>);">
+                      <%=project.title%>
+                    </option>
+                  <% end %>
+                </optgroup>
+              <% end %>
+            </select>
+            <input type="hidden" id="project_user_talent_id" name="project_user_talent_id" value=""/>
+          </td>
         </tr>
-      </thead>
 
-      <tr>
-        <td>Title</td>
-        <td><%= f.text_field :title %></td>
-      </tr>
-      <tr>
-        <td>Body</td>
-        <td><%= f.text_area :body, :rows => 4 %></td>
-      </tr>
-      <tr>
-        <td>Link a project (optional):</td>
-        <td>
-        <%= select_tag :project_id, options_for_select(@u.project_select_opts) %></td>
-      </tr>
-      <tr>
-        <td colspan="2" align="right">
-          <%= f.submit "Post" %>
-        </td>
-      </tr>
-    </table>
+        <tr>
+          <td>Your Update:</td>
+          <td><textarea id="blog_body" name="blog[body]" rows="3" cols="102"></textarea></td>
+        </tr>
 
-    <input type="hidden" name="blog[is_member_blog]" value="true"/>
-  <% end %>
+        <% if @u.mkc_post_ability %>
+          <tr>
+            <td>
+              Publish to MKC?
+            </td>
+            <td>
+              <input type="checkbox" name="publish_to_mkc"/>
+            </td>
+          </tr>
+        <% end %>
+
+        <tr>
+          <td colspan="2" align="right">
+            <%= submit_tag "Post" %>
+          </td>
+        </tr>
+      </table>
+
+    <% end %>
+
+  </div>
 
 </div>
 

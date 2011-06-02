@@ -1,7 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :blogs,
     :collection => {:all_member_blogs => :get, :my_member_blogs => :get, 
-    :my_project_blogs => :get, :admin => :get, :producer => :get, :mkc => :get}
+    :my_project_blogs => :get, :admin => :get, :mkc => :get,
+    :follow_mkc_blogs => :post, :follow_admin_blogs => :post}
 
   map.resources :project_comments
 
@@ -12,7 +13,8 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :projects,
-    :member=>{:delete_icon=>:post, :invite_friends => :get, :send_friends_invite => :post, :flag => :post, :player => :get},
+    :member=>{:delete_icon=>:post, :invite_friends => :get, :send_friends_invite => :post, 
+    :flag => :post, :player => :get, :add_talent => :post, :remove_talent => :post},
     :collection=>{:search=>:get} do | project |
     project.resources :project_subscriptions, :collection => {:cancel => :delete}
     project.resources :project_followings, :collection => {:unfollow => :delete}, :only => [:create]

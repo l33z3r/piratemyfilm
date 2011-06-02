@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110110160522
+# Schema version: 20110521081435
 #
 # Table name: projects
 #
@@ -52,12 +52,19 @@
 #  exec_producer_talent_id          :integer(4)    
 #  director_photography_talent_id   :integer(4)    
 #  editor_talent_id                 :integer(4)    
+#  fully_funded_time                :datetime      
+#  completion_date                  :datetime      
+#  watch_url                        :string(255)   
+#  premier_date                     :date          
+#  percent_bad_shares               :integer(4)    default(0)
+#  main_video                       :string(255)   
+#  daily_percent_move               :integer(4)    default(0)
 #
 
 class Project < ActiveRecord::Base    
 
   @@PROJECT_STATUSES = ["Pre Production", "In Production", "Post Production",
-    "Finishing Funds", "Trailer", "In Release"]
+    "Ransom", "Finishing Funds", "Trailer", "In Release"]
 
   @@PROJECT_PAYMENT_STATUSES = ["In Payment", "Finished Payment"]
   
@@ -118,12 +125,25 @@ class Project < ActiveRecord::Base
   has_many :project_comments, :dependent => :destroy
   has_one :latest_project_comment, :class_name => "ProjectComment", :order => "created_at DESC"
 
-  belongs_to :director_talent, :class_name => "UserTalent", :foreign_key => 'director_talent_id'
-  belongs_to :writer_talent, :class_name => "UserTalent", :foreign_key => 'writer_talent_id'
-  belongs_to :exec_producer_talent, :class_name => "UserTalent", :foreign_key => 'exec_producer_talent_id'
-  belongs_to :director_photography_talent, :class_name => "UserTalent", :foreign_key => 'director_photography_talent_id'
-  belongs_to :editor_talent, :class_name => "UserTalent", :foreign_key => 'editor_talent_id'
-  belongs_to :producer_talent, :class_name => "UserTalent", :foreign_key => 'producer_talent_id'
+  has_many :project_user_talents
+  
+  has_many :director_project_talents, :class_name => "ProjectUserTalent", 
+    :include => "user_talent", :conditions => "user_talents.talent_type = 'director'", :dependent => :destroy
+  
+  has_many :writer_project_talents, :class_name => "ProjectUserTalent",
+    :include => "user_talent", :conditions => "user_talents.talent_type = 'writer'", :dependent => :destroy
+  
+  has_many :exec_producer_project_talents, :class_name => "ProjectUserTalent",
+    :include => "user_talent", :conditions => "user_talents.talent_type = 'exec_producer'", :dependent => :destroy
+  
+  has_many :director_photography_project_talents, :class_name => "ProjectUserTalent",
+    :include => "user_talent", :conditions => "user_talents.talent_type = 'director_photography'", :dependent => :destroy
+  
+  has_many :editor_project_talents, :class_name => "ProjectUserTalent",
+    :include => "user_talent", :conditions => "user_talents.talent_type = 'editor'", :dependent => :destroy
+  
+  has_many :producer_project_talents, :class_name => "ProjectUserTalent",
+    :include => "user_talent", :conditions => "user_talents.talent_type = 'producer'", :dependent => :destroy
 
   file_column :icon, :magick => {
     :versions => { 
@@ -136,8 +156,7 @@ class Project < ActiveRecord::Base
   file_column :main_video
 
   after_create :generate_symbol
-  before_save :set_talent
-
+  
   def youtube_vid_id_stripped
     #split the url to get the video id
     @start = youtube_vid_id.rindex("v=")
@@ -785,33 +804,6 @@ class Project < ActiveRecord::Base
 
   def update_recycled_percent
     self.capital_recycled_percent = 100 - share_percent_ads_producer
-  end
-
-  def set_talent
-    #check if any of the talent ids are set, and set the text fields accordingly
-    if director_talent_id
-      self.director = director_talent.user.login
-    end
-
-    if writer_talent_id
-      self.writer = writer_talent.user.login
-    end
-
-    if exec_producer_talent_id
-      self.exec_producer = exec_producer_talent.user.login
-    end
-
-    if director_photography_talent_id
-      self.director_photography = director_photography_talent.user.login
-    end
-
-    if editor_talent_id
-      self.editor = editor_talent.user.login
-    end
-
-    if producer_talent_id
-      self.producer_name = producer_talent.user.login
-    end
   end
 
 end

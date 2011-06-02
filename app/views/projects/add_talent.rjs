@@ -1,0 +1,7 @@
+if @pt
+  page << "
+$('##{@pt.user_talent.talent_type}_user_talent_ids_input_container:last-child')
+.append(\"#{escape_javascript(render :partial => "project_user_talent_form_field", :locals => {:pt => @pt})}\");"
+else
+  page.alert('This user is already listed here');
+end
