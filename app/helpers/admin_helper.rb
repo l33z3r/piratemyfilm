@@ -16,10 +16,10 @@ module AdminHelper
     end
   end
 
-  def admin_blog_body(blog, truncate_blog_body)
+  def admin_blog_body(blog, truncate_blog_body)return "a"
     if defined?(truncate_blog_body) && truncate_blog_body
       @blog_body_content = blog.body
-      @truncate_length = 50
+      @truncate_length = 140
 
       @body = awesome_truncate(@blog_body_content, @truncate_length)
 

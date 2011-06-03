@@ -2692,8 +2692,13 @@ div.blog-row div.new_project_text {
 }
 
 div.blog div.blog_left {
-    width: 590px;
+    width: 650px;
     float: left;
+}
+
+div.blog div.blog_right {
+    width: 230px;
+    float: right;
 }
 
 div.blog div.blog_left div.icon {
@@ -2730,7 +2735,7 @@ div.blog div.blog_left div.icon a img {
 
 div.blog div.blog_left div.info {
     float: left;
-    width: 510px;
+    width: 560px;
 }
 
 div.blog div.blog_left div.info div.blog_user_relationship {
@@ -2790,7 +2795,7 @@ div.blog div.blog_left div.info div.user_info div.user_name a {
 
 div.blog div.blog_left div.info div.project_info {
     float: left;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 div.blog div.blog_left div.info div.project_info div.project_title {
@@ -2864,8 +2869,8 @@ div.blog div.share_buttons div.facebook_button {
 }
 
 .blog-date {
-    margin: 5px;
-    margin-top: 0px;
+    text-transform: capitalize;
+    margin: 0px 5px 10px 5px;
     font-weight: bold;
     float: right;
 }

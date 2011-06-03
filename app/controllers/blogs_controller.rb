@@ -79,6 +79,11 @@ class BlogsController < ApplicationController
     begin
       @blog = Blog.new(params[:blog])
       
+      if @blog.body.blank?
+        flash[:error] = "Your update has no content..."
+        redirect_to :back and return
+      end
+      
       if params[:project_id] and params[:project_id] != "-1"
         if !params[:project_user_talent_id].blank?
           @put = ProjectUserTalent.find(params[:project_user_talent_id])
@@ -109,7 +114,7 @@ class BlogsController < ApplicationController
       redirect_to :controller => "blogs", :action => "show", :id => @blog.id
     rescue ActiveRecord::RecordInvalid
       flash[:error] = "Sorry, there was a problem creating your blog post"
-      render :action => 'new'
+      redirect_to :back
     end
   end
   

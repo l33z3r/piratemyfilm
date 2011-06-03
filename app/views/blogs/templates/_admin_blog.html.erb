@@ -13,7 +13,7 @@
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
-      
+
       <div class="blog_body">
         <%= blog_body(blog, truncate_blog) %>
       </div>
@@ -21,15 +21,17 @@
   </div>
 
   <div class="blog_right">
+    <div class="blog-date">
+      <%= time_ago_in_words blog.created_at %> ago
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
     <div class="share_buttons">
       <%= render :partial => "/blogs/templates/share_buttons",
         :locals => {:target_url => url_for(:only_path => false,
           :controller => "blogs", :action => "show", :id => blog.id),
         :tweet_text => "New PMF Fund Blog: #{blog.title}"} %>
-
-      <div class="blog-date">
-        <%= time_ago_in_words blog.created_at %> ago
-      </div>
     </div>
 
     <div class="pmf_clear">&nbsp;</div>

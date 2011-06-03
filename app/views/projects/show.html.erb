@@ -118,7 +118,7 @@
   <div class="pmf_clear">&nbsp;</div>
 
   <div class="view-lite-row-description latest_blog">
-    <span class="header">Latest Blog Entry:</span>
+    <span class="header">Latest Project Update:</span>
     <% if @latest_project_blog %>
       <span class="date"><%= time_ago_in_words @latest_project_blog.created_at %> ago</span>
       <span class="body">
@@ -127,7 +127,7 @@
       </span>
       <span class="comments_link"><%= link_to "#{pluralize(@latest_project_blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => @latest_project_blog.id %></span>
     <% else %>
-      <span class="body">No Blogs Found!</span>
+      <span class="body">No Updates Found!</span>
     <% end %>
   </div>
 
@@ -177,7 +177,7 @@
   <% end %>
 
   <div id="project_blogs">
-    <h3>Latest Project Blogs</h3>
+    <h3>Latest Project Updates</h3>
     
     <div class="dashed_light_border">&nbsp;</div>
     

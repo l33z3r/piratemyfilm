@@ -1,3 +1,5 @@
+<% project ||= nil %>
+
 <div id="post_update_box">
 
   <div class="pageTitleSmall">
@@ -11,8 +13,8 @@
 
         <thead>
           <tr>
-            <td style="width: 20%;"></td>
-            <td style="width: 80%;"></td>
+            <td style="width: 40%;"></td>
+            <td style="width: 60%;"></td>
           </tr>
         </thead>
 
@@ -37,7 +39,7 @@
 
         <tr>
           <td>Your Update:</td>
-          <td><textarea id="blog_body" name="blog[body]" rows="3" cols="102"></textarea></td>
+          <td><textarea id="blog_body" name="blog[body]" rows="3" cols="98"></textarea></td>
         </tr>
 
         <% if @u.mkc_post_ability %>

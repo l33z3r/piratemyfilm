@@ -44,15 +44,18 @@
   </div>
 
   <div class="blog_right">
+    <div class="blog-date">
+      <%= time_ago_in_words blog.created_at %> ago
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+    
     <div class="share_buttons">
       <%= render :partial => "/blogs/templates/share_buttons",
         :locals => {:target_url => url_for(:only_path => false,
           :controller => "profiles", :action => "show", :id => blog.profile.user.id),
         :tweet_text => "New member blog from #{blog.profile.user.login}"} %>
 
-      <div class="blog-date">
-        <%= time_ago_in_words blog.created_at %> ago
-      </div>
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
