@@ -45,7 +45,7 @@ class BlogsController < ApplicationController
   end
 
   def mkc
-    @blogs = Blog.mkc_blogs
+    @blogs = Blog.mkc_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
   end
   
   def create

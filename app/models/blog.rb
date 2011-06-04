@@ -59,6 +59,9 @@ class Blog < ActiveRecord::Base
 
     (doc/:item).each do |item|
       @next_guid = item.search("guid").first.children.first.inner_text
+      
+      puts "GUID: #{@next_guid}"
+      
       @blog = Blog.find_by_guid(@next_guid) || Blog.new()
       @blog.guid = @next_guid
       
