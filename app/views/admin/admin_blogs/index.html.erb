@@ -15,8 +15,8 @@
 <% else %>
   <% @blogs.each do |blog| %>
     <%= render :partial => "/admin/admin_blogs/blog",
-      :locals => {:blog => blog} %>
+      :locals => {:blog => blog, :truncate_blog => true} %>
   <% end %>
 <% end %>
 
-<div class="pmf_clear">&nbsp;</div>
+<%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>
