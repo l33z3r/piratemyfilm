@@ -9,13 +9,13 @@
     </div>
     <div class="info">
       <div class="blog_type">
-        <%= link_to "maxkeiser.com Blog", :controller => "blogs", :action => "mkc" %>
+        <%= link_to "maxkeiser.com", :controller => "blogs", :action => "mkc" %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
 
       <div class="blog_body">
-        <%= blog_body(blog, truncate_blog) %>
+        <%= blog_body(blog, truncate_blog, show_more_link) %>
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@
       <%= render :partial => "/blogs/templates/share_buttons",
         :locals => {:target_url => url_for(:only_path => false,
           :controller => "blogs", :action => "show", :id => blog.id),
-        :tweet_text => "New mkc blog: #{blog.title}"} %>
+        :tweet_text => "New MKC blog: #{h awesome_truncate(blog.body, 50)}"} %>
 
     </div>
 

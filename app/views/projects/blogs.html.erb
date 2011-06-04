@@ -17,7 +17,7 @@
   <% @blogs.each do |blog| %>
     <%= render :partial => "/blogs/templates/project_blog",
       :locals => {:blog => blog, :truncate_blog => true,
-      :link_blog_header => true } %>
+      :show_more_link => true} %>
   <% end %>
 
   <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>

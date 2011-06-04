@@ -10,4 +10,13 @@
 
 <div class="pmf_clear">&nbsp;</div>
 
-<%= render :partial => '/admin/admin_blogs/blogs', :locals => {:blogs => @blogs} %>
+<% if @blogs.empty? %>
+  No Blogs Found!
+<% else %>
+  <% @blogs.each do |blog| %>
+    <%= render :partial => "/admin/admin_blogs/blog",
+      :locals => {:blog => blog} %>
+  <% end %>
+<% end %>
+
+<div class="pmf_clear">&nbsp;</div>

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110521081435
+# Schema version: 20110604084348
 #
 # Table name: users
 #
@@ -21,6 +21,7 @@
 #  activated_at              :datetime      
 #  following_mkc_blogs       :boolean(1)    
 #  following_admin_blogs     :boolean(1)    
+#  mkc_post_ability          :boolean(1)    
 #
 
 
@@ -223,7 +224,7 @@ class User < ActiveRecord::Base
 
     @talent_types_map.each do |key, value|
       if !@current_talent_keys.include?(key)
-        @talents[key] = value.humanize.titleize
+        @talents[key] = UserTalent.talent_type_names_map[key]
       end
     end
 

@@ -9,7 +9,7 @@
   <% @blogs.each do |blog| %>
     <%= render :partial => "/blogs/templates/admin_blog",
       :locals => {:blog => blog, :truncate_blog => true,
-      :link_blog_header => true } %>
+      :show_more_link => true} %>
   <% end %>
 <% end %>
 

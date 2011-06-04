@@ -556,7 +556,7 @@ div#user_subnav_links {
 }
 
 div#user_subnav_links div.link {
-    width: 125px;
+    width: 128px;
     text-align: center;
     margin-right: 5px;
     float: left;
@@ -1118,18 +1118,18 @@ div.project_mini_view div.project_extra_info {
 }
 
 div.project_mini_view div.project_icon {
-    width: 100px;
+    width: 70px;
     margin-right: 10px;
     float: left;
 }
 
 div.project_mini_view div.project_icon img {
-    width: 100px;
+    width: 70px;
 }
 
 div.project_mini_view div.project_icon div.follow_button {
     margin-top: 7px;
-    margin-left: 15px;
+    margin-left: 2px;
 }
 
 div.project_mini_view div.project_icon div.follow_button div.following_text {
@@ -1154,7 +1154,6 @@ div.project_mini_view div.green_light span.on {
 
 div.project_mini_view div.project_info {
     float: left;
-    margin-top: 4px;
 }
 
 div.project_mini_view div.project_info div.project_title {
@@ -2736,6 +2735,15 @@ div.blog div.blog_left div.icon a img {
 div.blog div.blog_left div.info {
     float: left;
     width: 560px;
+}
+
+div.blog div.blog_left div.info div.blog_type {
+    font-weight: bold;
+}
+
+div.blog div.blog_left div.info div.blog_type a {
+    text-decoration: underline;
+    color: #000;
 }
 
 div.blog div.blog_left div.info div.blog_user_relationship {

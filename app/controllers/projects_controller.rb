@@ -255,6 +255,15 @@ class ProjectsController < ApplicationController
   def add_talent
     @user_talent = UserTalent.find(params[:talent_id])
     
+    #check that we are not exceeding max allowed talents
+    @existing_puts_for_type = ProjectUserTalent.find(:all, :include => "user_talent", :conditions => "project_id = #{@project.id} and user_talents.talent_type = '#{@user_talent.talent_type}'")
+    
+    @exceeding_amount = false
+    
+    if @existing_puts_for_type.size >= UserTalent.max_talents_allowed
+      @exceeding_amount = true
+    end
+    
     @pt = ProjectUserTalent.find_or_initialize_by_project_id_and_user_talent_id({:project_id => @project.id, :user_talent_id => @user_talent.id})
     
     if @pt.new_record?

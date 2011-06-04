@@ -9,7 +9,7 @@ class BlogCommentsController < ApplicationController
     #verify captcha
     if need_captcha
       if !check_captcha true
-        redirect_to blog_url(@blog) and return
+        render :template => "/blogs/show" and return
       end
     end
 

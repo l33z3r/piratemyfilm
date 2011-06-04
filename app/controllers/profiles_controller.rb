@@ -45,7 +45,7 @@ class ProfilesController < ApplicationController
 
     @selected_user_subnav_link = "my_profile"
     
-    @blogs = Blog.user_blogs @profile.user
+    @blogs = Blog.user_blogs(@profile.user).paginate :page => (params[:page] || 1), :per_page=> 10
     
     render :action => "profile"
   end

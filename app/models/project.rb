@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110521081435
+# Schema version: 20110604084348
 #
 # Table name: projects
 #
@@ -46,12 +46,6 @@
 #  editor                           :string(255)   
 #  pmf_fund_investment_share_amount :integer(4)    default(0)
 #  project_payment_status           :string(255)   
-#  producer_talent_id               :integer(4)    
-#  director_talent_id               :integer(4)    
-#  writer_talent_id                 :integer(4)    
-#  exec_producer_talent_id          :integer(4)    
-#  director_photography_talent_id   :integer(4)    
-#  editor_talent_id                 :integer(4)    
 #  fully_funded_time                :datetime      
 #  completion_date                  :datetime      
 #  watch_url                        :string(255)   
@@ -126,6 +120,7 @@ class Project < ActiveRecord::Base
   has_one :latest_project_comment, :class_name => "ProjectComment", :order => "created_at DESC"
 
   has_many :project_user_talents
+  has_many :user_talents, :through => :project_user_talents
   
   has_many :director_project_talents, :class_name => "ProjectUserTalent", 
     :include => "user_talent", :conditions => "user_talents.talent_type = 'director'", :dependent => :destroy
@@ -207,13 +202,6 @@ class Project < ActiveRecord::Base
     else
       return nil
     end
-  end
-
-  def self.find_all_for_talent_id talent_id
-    Project.find(:all, :conditions => "director_talent_id = #{talent_id} or
-      writer_talent_id = #{talent_id} or exec_producer_talent_id = #{talent_id}
-      or director_photography_talent_id = #{talent_id} or editor_talent_id = #{talent_id}
-      or producer_talent_id = #{talent_id}")
   end
   
   def self.search query = '', options = {}

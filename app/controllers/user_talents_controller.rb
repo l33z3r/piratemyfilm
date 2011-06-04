@@ -28,19 +28,22 @@ class UserTalentsController < ApplicationController
       @talent_type_id = 1
     end
 
-    @talent_type_name = UserTalent.talent_types_map[@talent_type_id]
+    @talent_type_key = UserTalent.talent_types_map[@talent_type_id]
 
     @talents = nil
 
     #need the project for the popup
     @project = Project.find(params[:project_id])
     
-    if @talent_type_name
-      @talents = UserTalent.all_for_talent_type(@talent_type_name)
+    if @talent_type_key
+      @talents = UserTalent.all_for_talent_type(@talent_type_key)
     else
       flash[:error] = "Cannot find that talent!"
       redirect_to home_path
     end
+  
+    @talent_type_name = UserTalent.talent_type_names_map[@talent_type_id]
+    
   end
 
   def create
@@ -74,7 +77,7 @@ class UserTalentsController < ApplicationController
         @user_talent = @u.talent(@talent_type_id)
 
         #make sure the user is not part of a project
-        if !Project.find_all_for_talent_id(@user_talent.id).empty?
+        if !ProjectUserTalent.find_all_by_user_talent_id(@user_talent.id).empty?
           flash[:error] = "You cannot un-register from this talent, as you are currently enlisted in a project!"
           redirect_to profile_path(@u.profile) and return
         end

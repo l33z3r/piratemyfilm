@@ -331,12 +331,14 @@ module ApplicationHelper
   end
 
   def blog_icon_path blog, size
-    if blog.project
-      return project_icon_path(blog.project, size)
-    elsif blog.is_mkc_blog
+    if blog.is_mkc_blog
       return "/images/mkc_avatar.png"
     elsif blog.is_admin_blog
       return "/images/pmf_fund_avatar_40.png"
+    elsif blog.project
+      return project_icon_path(blog.project, size)
+      elselse
+      return avatar_url_for(blog.profile)
     end
   end
 
@@ -370,7 +372,7 @@ module ApplicationHelper
     link_to h(@blog_header_title.capitalize), project_path(blog.project)
   end
 
-  def blog_body(blog, truncate_blog_body)
+  def blog_body(blog, truncate_blog_body, show_more_link=true)
     if defined?(truncate_blog_body) && truncate_blog_body
       @blog_body_content = blog.body
       @truncate_length = 140
@@ -380,9 +382,11 @@ module ApplicationHelper
       @body = blog_body_content blog
     end
     
-    #always show the 'more' link 
-    @body += link_to(" (more)", url_for(:controller => "blogs", :action => "show", :id => blog.id, :only_path => false), :class => "more_link")
-
+    if show_more_link
+      #show the 'more' link unless instructed otherwise
+      @body += link_to(" (more)", url_for(:controller => "blogs", :action => "show", :id => blog.id, :only_path => false), :class => "more_link")
+    end
+    
     return @body
   end
 

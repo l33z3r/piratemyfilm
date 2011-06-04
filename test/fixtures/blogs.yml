@@ -1,19 +1,20 @@
 # == Schema Information
-# Schema version: 20110521081435
+# Schema version: 20110604084348
 #
 # Table name: blogs
 #
-#  id               :integer(4)    not null, primary key
-#  title            :string(255)   
-#  body             :text          
-#  profile_id       :integer(4)    
-#  created_at       :datetime      
-#  updated_at       :datetime      
-#  is_admin_blog    :boolean(1)    
-#  project_id       :integer(4)    
-#  num_wp_comments  :integer(4)    default(0)
-#  wp_comments_link :string(255)   
-#  guid             :string(255)   
+#  id                     :integer(4)    not null, primary key
+#  title                  :string(255)   
+#  body                   :text          
+#  profile_id             :integer(4)    
+#  created_at             :datetime      
+#  updated_at             :datetime      
+#  is_admin_blog          :boolean(1)    
+#  project_id             :integer(4)    
+#  num_wp_comments        :integer(4)    default(0)
+#  wp_comments_link       :string(255)   
+#  guid                   :string(255)   
+#  project_user_talent_id :integer(4)    
 #
 
 first:

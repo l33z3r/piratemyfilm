@@ -24,7 +24,7 @@ EOB
     out
   end
 
-  def show_blog_edit_buttons
-    @p && (@p.id == @blog.profile_id || @u.is_admin)
+  def show_blog_edit_buttons blog
+    @p && (@p.id == blog.profile_id || @u.is_admin) && !blog.is_admin_blog
   end
 end

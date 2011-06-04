@@ -8,4 +8,11 @@
 
 <% form_for @project, edit_project_path, :html=>{:multipart=>true} do |f| %>
   <%= render :partial => "projects/form", :locals => {:project => @project, :f => f } %>
+
+  <% if owner_or_admin? %>
+    <%= delete_project_link @project %>
+  <% end %>
+
+  <div class="pmf_clear_20">&nbsp;</div>
+
 <% end %>

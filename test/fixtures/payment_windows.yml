@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110521081435
+# Schema version: 20110604084348
 #
 # Table name: payment_windows
 #

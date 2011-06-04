@@ -1,13 +1,6 @@
-<% content_for :head do %>
-  <meta name="title" content="<%= h @blog.title %>" />
-  <meta name="description" content="<%= h @blog.body %>" />
-  <link rel="image_src" href="<%= blog_icon_path @blog, :big %>"/>
-<% end %>
+<div class="border_top blog">
 
-<div id="blog_<%= @blog.id %>" class="border_top blog">
-
-  <%= render :partial => "blog", :locals => {:blog => @blog,
-    :truncate_blog => false, :link_blog_header => false} %>
+  <%= render :partial => "/admin/admin_blogs/blog", :locals => {:blog => @blog} %>
 
   <div class="pmf_clear">&nbsp;</div>
 

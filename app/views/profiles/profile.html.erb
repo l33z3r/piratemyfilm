@@ -16,7 +16,7 @@
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
-  
+
   <div id="profile_section">
 
     <div class="half left">
@@ -200,7 +200,9 @@
   <% @blogs.each do |blog| %>
     <%= render :partial => "/blogs/templates/member_blog",
       :locals => {:blog => blog, :truncate_blog => true,
-      :link_blog_header => true } %>
+      :show_more_link => true} %>
   <% end %>
+
+  <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>
 
 </div>

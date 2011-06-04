@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110521081435
+# Schema version: 20110604084348
 #
 # Table name: user_talents
 #
@@ -23,6 +23,14 @@ class UserTalent < ActiveRecord::Base
     4 => "director_photography",
     5 => "editor",
     6 => "producer"}
+  
+  @@TALENT_TYPE_NAMES_MAP = {
+    1 => "Director",
+    2 => "Writer",
+    3 => "Executive Producer",
+    4 => "DOP",
+    5 => "Editor",
+    6 => "Producer"}
 
   validates_inclusion_of :talent_type, :in => @@TALENT_TYPES_MAP.values
 
@@ -31,7 +39,7 @@ class UserTalent < ActiveRecord::Base
   end
 
   def label
-    talent_type.humanize.titleize
+    @@TALENT_TYPE_NAMES_MAP[key]
   end
 
   def current_rating
@@ -46,7 +54,7 @@ class UserTalent < ActiveRecord::Base
     @filter_param_select_opts = []
 
     @@TALENT_TYPES_MAP.each {  |key, value|
-      @filter_param_select_opts << [value.humanize.titleize, key.to_s]
+      @filter_param_select_opts << [@@TALENT_TYPE_NAMES_MAP[key], key.to_s]
     }
 
     @filter_param_select_opts << ["View Talents By", "0"]
@@ -60,6 +68,10 @@ class UserTalent < ActiveRecord::Base
     @filter_param_select_opts
   end
 
+  def self.talent_type_names_map
+    @@TALENT_TYPE_NAMES_MAP
+  end
+  
   def self.talent_types_map
     @@TALENT_TYPES_MAP
   end
@@ -75,6 +87,10 @@ class UserTalent < ActiveRecord::Base
   def self.all_for_talent_type talent_type_name
     find(:all, :include => :talent_rating, :conditions => "talent_type = '#{talent_type_name}'",
       :order => "talent_ratings.average_rating desc")
+  end
+  
+  def self.max_talents_allowed
+    return 2
   end
 
 end

@@ -6,8 +6,8 @@ module ProjectsHelper
 
   def delete_project_link project
     if !project.green_light
-      content_tag :div, :class => "left" do
-        " - " + link_to("Delete Project", {:controller => "projects", :action => "delete", :id => project.id}, :confirm => "Are you sure?")
+      content_tag :div, :class => "left button" do
+        link_to("Delete Project", {:controller => "projects", :action => "delete", :id => project.id}, :confirm => "Are you sure?")
       end
     end
   end

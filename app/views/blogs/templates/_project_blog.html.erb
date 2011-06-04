@@ -38,7 +38,7 @@
       <div class="pmf_clear">&nbsp;</div>
 
       <div class="blog_body">
-        <%= blog_body(blog, truncate_blog) %>
+        <%= blog_body(blog, truncate_blog, show_more_link) %>
       </div>
     </div>
   </div>
@@ -55,7 +55,7 @@
       <%= render :partial => "/blogs/templates/share_buttons",
         :locals => {:target_url => url_for(:only_path => false,
           :controller => "blogs", :action => "show", :id => blog.id),
-        :tweet_text => "New blog on project: #{blog.project.symbol}"} %>
+        :tweet_text => "New update on project: #{blog.project.symbol}"} %>
     </div>
 
     <div class="pmf_clear">&nbsp;</div>

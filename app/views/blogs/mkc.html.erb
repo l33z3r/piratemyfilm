@@ -1,4 +1,4 @@
-<div class="pageTitle">maxkeiser.com Blog</div>
+<div class="pageTitle">maxkeiser.com</div>
 
 <div class="pmf_clear">&nbsp;</div>
 
@@ -9,7 +9,7 @@
   <% @blogs.each do |blog| %>
     <%= render :partial => "/blogs/templates/mkc_blog",
       :locals => {:blog => blog, :truncate_blog => true,
-      :link_blog_header => true } %>
+      :show_more_link => true} %>
   <% end %>
 <% end %>
 
