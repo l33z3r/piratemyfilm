@@ -54,15 +54,21 @@ class Blog < ActiveRecord::Base
     
     @wordpress_feed_url = CUSTOM_CONFIG['mkc_wordpress_feed_url']
     
-    puts "Updating Max Blog"
+    @wordpress_feed_url += "?z=#{Time.new.to_i}"
+    
+    puts "Updating Max Blog from url #{@wordpress_feed_url}"
+    
     doc = Hpricot(open(@wordpress_feed_url))
 
+    puts "Parsing #{(doc/:item).size} items"
+    
     (doc/:item).each do |item|
       @next_guid = item.search("guid").first.children.first.inner_text
       
       puts "GUID: #{@next_guid}"
       
-      @blog = Blog.find_by_guid(@next_guid) || Blog.new()
+      @blog = Blog.find_by_guid(@next_guid) || Blog.new
+      
       @blog.guid = @next_guid
       
       @blog.title = item.search("title").inner_html
@@ -82,6 +88,8 @@ class Blog < ActiveRecord::Base
       @blog.wp_comments_link = item.search("comments").first.children.first.inner_text
       @blog.profile_id = nil
       @blog.created_at = @blog.updated_at = item.search("pubdate").first.children.first.inner_text
+      
+      puts "Saving blog with body: #{@blog.body[0..40]}"
       
       if @blog.body.length != 0
         @blog.save!
