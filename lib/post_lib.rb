@@ -23,9 +23,18 @@ module PostLib
     @title = CGI::escape("Status Update on PMF!")
     
     @body = "#{html_content}"
+    
+    #get rid of new lines, as json api has a problem with them 
+    @body = @body.gsub(/\r/," ")
+    @body = @body.gsub(/\n/," ")
+    
     @body = CGI::escape(@body)
     
-    @params = "json=create_post&nonce=#{@nonce}&status=publish&title=#{@title}&content=#{@body}"
+    @is_draft = false
+    
+    @publish_status = @is_draft ? "draft" : "publish"
+    
+    @params = "json=create_post&nonce=#{@nonce}&status=#{@publish_status}&title=#{@title}&content=#{@body}"
     @post_url = "#{@wordpress_site_url}?#{@params}"
     
     a.get(@post_url) do |page|

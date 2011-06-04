@@ -14,9 +14,9 @@ test:
   maxriot_profile_id: 10
   mkc_wordpress_feed_url: http://maxkeiser.com/category/pirate-myfilm/feed
   paypal_button_submission_url: https://www.sandbox.paypal.com/cgi-bin/webscr
-  wordpress_site_url: http://blah.com
-  wordpress_site_login_name: blah
-  wordpress_site_login_pw: blah
+  wordpress_site_url: http://leefarrell.com/music
+  wordpress_site_login_name: admin
+  wordpress_site_login_pw: leefarrellmixes
 
 production:
   #this profile id is actually the pmf fund user id (need to change the property name eventually)

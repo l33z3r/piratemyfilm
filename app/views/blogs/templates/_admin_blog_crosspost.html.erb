@@ -1,0 +1,27 @@
+<%= render :partial => "/blogs/templates/crosspost_styles" %>
+
+<div class="blog-row blog">
+
+  <div class="blog_left">
+    <div class="icon">
+      <%= link_to image_tag("/images/big_p.png"), url_for(:only_path => false, :controller => "/blogs", :action => "admin") %>
+      <div class="follow_button">
+        <div class="button_small left">
+          <%= link_to "Follow", url_for(:only_path => false, :controller => "/blogs", :action => "admin") %>
+        </div>
+      </div>
+    </div>
+    <div class="info">
+      <div class="blog_type">
+        <%= link_to "PMF Blog", url_for(:only_path => false, :controller => "/blogs", :action => "admin") %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <div class="blog_body">
+        <%= link_to blog_body(blog, false, false), blog_url(blog) %>
+      </div>
+    </div>
+  </div>
+
+</div>

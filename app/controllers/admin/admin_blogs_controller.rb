@@ -18,13 +18,12 @@ class Admin::AdminBlogsController < Admin::AdminController
       @blog.save!
 
       if params[:publish_to_mkc]
-        @link_back_html = "</br></br>Posted by <div class='icon'>#{@template.icon(@blog.profile, :small)}</div>"
-        @link_back_html += "<div class='name'>#{@template.link_to(@blog.profile.user.f.titleize, @template.profile_url(@blog.profile))} - #{@template.link_to("Follow this member!", @template.profile_url(@blog.profile))}</div>" 
-        @link_back_html += "</br></br>on <a href='http://www.piratemyfilm.com'>www.piratemyfilm.com</a>"
+        #send blog to wordpress
+        @html_content = render_to_string(
+          :partial => "/blogs/templates/admin_blog_crosspost",
+          :locals => {:blog => @blog})
         
-        #send blog to mkc
-        @post_url = PostLib.do_post @blog, @link_back_html
-        logger.info "Sent blog to wordpress site via url: #{@post_url}"
+        @post_url = PostLib.do_post @html_content
       end
 
       flash[:notice] = 'New blog post created.'
