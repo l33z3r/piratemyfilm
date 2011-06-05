@@ -305,7 +305,7 @@ module ApplicationHelper
       
     project_talents.each do |p_ut|
       content += "<div class='linked_talent'>"
-      content += "<div class='talent_icon'>#{icon(p_ut.project.owner.profile, :small)}</div>"
+      content += "<div class='talent_icon'>#{icon(p_ut.user_talent.user.profile, :small)}</div>"
       content += "<div class='talent_name'>#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}</div></div>"
     end
       
