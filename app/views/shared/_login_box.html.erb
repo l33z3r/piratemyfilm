@@ -33,7 +33,7 @@
     <% else %>
       <div id="welcome_message">
         <div id="icon">
-          <%= link_to icon(@p, :small), profile_path(@p) %>
+          <%= icon(@p, :small) %>
         </div>
 
         <div id="message">Welcome <%= link_to @u.f, profile_path(@p) %></div>

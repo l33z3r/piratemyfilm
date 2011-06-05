@@ -14,6 +14,14 @@ project_link_action ||= "show"
     </div>
   <% end %>
 
+  <% if project.finished_payment_collection %>
+    Project Fully Funded For <%= print_money project.capital_required %>!
+    <% if project.premier_date %>
+      Premier Date: <%= project.premier_date.to_s(:short) %>
+    <% end %>
+    <a href="<%= watch_project_url project %>">Watch Film Here</a>
+  <% end %>
+
   <div class="project_icon">
     <%= link_to project_icon(project, :big), project_path(project) %>
     <div class="follow_button">
@@ -33,10 +41,10 @@ project_link_action ||= "show"
       <%= link_to image_tag("right_arrow.png"), :controller => project_link_controller,
         :action => project_link_action, :id => project %>
     </div>
-    
+
     <div class="user_info">
       <div class="user_icon">
-        <%= link_to icon(project.owner.profile, :small), profile_path(project.owner.profile) %>
+        <%= icon(project.owner.profile, :small) %>
       </div>
       <div class="user_name">
         <%= link_to h(project.owner.login), profile_path(project.owner.profile) %>
@@ -56,7 +64,7 @@ project_link_action ||= "show"
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
-  
+
   <div class="project_extra_info">
     <%= subscription_info project %>
   </div>

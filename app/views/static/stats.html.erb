@@ -100,7 +100,7 @@
 
         <div class="stat_row">
           <div class="label">Total Site Volume (24 Hour):</div>
-          <div class="stat"><%= up_down_arrow @total_volume %><%= @total_volume.abs %></div>
+          <div class="stat"><%= @total_volume.abs %></div>
           <div class="pmf_clear">&nbsp;</div>
         </div>
 
@@ -115,6 +115,10 @@
           </div>
 
           <div id="winners">
+            <div class="explain">
+              Gainers:
+            </div>
+
             <div class="stat_label_header">Symbol</div>
             <div class="stat_header">Todays Change</div>
             <div class="stat_header">% Move</div>
@@ -130,7 +134,7 @@
                 <%= tp.share_change.abs %> Shares
               </div>
               <div class="move">
-                (<%= number_to_percentage(tp.percent_move, :precision => 0) %> Move)
+                <%= number_to_percentage(tp.percent_move, :precision => 0) %>
               </div>
               <div class="pmf_clear">&nbsp;</div>
             <% end %>
@@ -139,6 +143,10 @@
           </div>
 
           <div id="losers">
+            <div class="explain">
+              Losers:
+            </div>
+
             <div class="stat_label_header">Symbol</div>
             <div class="stat_header">Todays Change</div>
             <div class="stat_header">% Move</div>
@@ -154,7 +162,7 @@
                 <%= tp.share_change.abs %> Shares
               </div>
               <div class="move">
-                (<%= number_to_percentage(tp.percent_move, :precision => 0) %> Move)
+                <%= number_to_percentage(tp.percent_move, :precision => 0) %>
               </div>
               <div class="pmf_clear">&nbsp;</div>
             <% end %>
@@ -199,7 +207,7 @@
           <div class="stat">
             PMF Fund Reserving
             <b><%= link_to "#{print_money(@total_pmf_shares_reserved_amount)}",
-              profile_path(PMF_FUND_ACCOUNT_ID) %></b>
+                profile_path(PMF_FUND_ACCOUNT_ID) %></b>
             in
             <b><%= link_to "#{@total_pmf_projects_invested_in}",
                 profile_path(PMF_FUND_ACCOUNT_ID) %> Projects</b>

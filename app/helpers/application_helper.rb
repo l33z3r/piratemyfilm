@@ -248,13 +248,8 @@ module ApplicationHelper
   #helpers to display project talent
   def producers_for project
     if !project.producer_project_talents.empty?
-      content = ""
-      
-      project.producer_project_talents.each do |p_ut|
-        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
-      end
-      
-      return "#{h(project.producer_name)} #{content}"
+      content = wrap_talents project.producer_project_talents
+      return "#{content} #{h(project.producer_name)}"
     else
       return h(project.producer_name)
     end
@@ -262,13 +257,8 @@ module ApplicationHelper
 
   def directors_for project
     if !project.director_project_talents.empty?
-      content = ""
-      
-      project.director_project_talents.each do |p_ut|
-        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
-      end
-      
-      return "#{h(project.director)} #{content}"
+      content = wrap_talents project.director_project_talents
+      return "#{content} #{h(project.director)}"
     else
       return h(project.director)
     end
@@ -276,13 +266,8 @@ module ApplicationHelper
 
   def exec_producers_for project
     if !project.exec_producer_project_talents.empty?
-      content = ""
-      
-      project.exec_producer_project_talents.each do |p_ut|
-        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
-      end
-      
-      return "#{h(project.exec_producer)} #{content}"
+      content = wrap_talents project.exec_producer_project_talents
+      return "#{content} #{h(project.exec_producer)}"
     else
       return h(project.exec_producer)
     end
@@ -290,13 +275,8 @@ module ApplicationHelper
   
   def writers_for project
     if !project.writer_project_talents.empty?
-      content = ""
-      
-      project.writer_project_talents.each do |p_ut|
-        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
-      end
-      
-      return "#{h(project.writer)} #{content}"
+      content = wrap_talents project.writer_project_talents
+      return "#{content} #{h(project.writer)}"
     else
       return h(project.writer)
     end
@@ -304,13 +284,8 @@ module ApplicationHelper
 
   def editors_for project
     if !project.editor_project_talents.empty?
-      content = ""
-      
-      project.editor_project_talents.each do |p_ut|
-        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
-      end
-      
-      return "#{h(project.editor)} #{content}"
+      content = wrap_talents project.editor_project_talents
+      return "#{content} #{h(project.editor)}"
     else
       return h(project.editor)
     end
@@ -318,16 +293,27 @@ module ApplicationHelper
 
   def directors_photography_for project
     if !project.director_photography_project_talents.empty?
-      content = ""
-      
-      project.director_photography_project_talents.each do |p_ut|
-        content += "#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}&nbsp;"
-      end
-      
-      return "#{h(project.director_photography)} #{content}"
+      content = wrap_talents project.director_photography_project_talents
+      return "#{content} #{h(project.director_photography)}"
     else
       return h(project.director_photography)
     end
+  end
+  
+  def wrap_talents project_talents
+    content = ""
+      
+    project_talents.each do |p_ut|
+      content += "<div class='linked_talent'>"
+      content += "<div class='talent_icon'>#{icon(p_ut.project.owner.profile, :small)}</div>"
+      content += "<div class='talent_name'>#{link_to h(p_ut.user_talent.user.login), profile_path(p_ut.user_talent.user.profile)}</div></div>"
+    end
+      
+    content
+  end
+  
+  def clear_html 
+    return "<div class='pmf_clear'>&nbsp;</div>"
   end
 
   def blog_icon_path blog, size

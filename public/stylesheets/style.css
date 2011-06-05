@@ -861,6 +861,28 @@ fieldset#select	{
 div#project_show div.fields {
     margin: 5px 0px;
 }
+
+div#project_show div.talent_fields {
+    margin: 5px 0px;
+}
+
+div#project_show div.talent_fields .view-lite-row-numbers {
+    width: 410px;
+}
+
+div#project_show div.talent_fields .view-lite-row-numbers li.stat {
+  color: #636363;
+  overflow: hidden;
+  text-align: left;
+  width: 280px;
+  padding-top: 8px;
+}
+
+div#project_show div.talent_fields .view-lite-row-numbers li.label {
+  width: 100px;
+  padding-top: 8px;
+}
+
 div#project_show div.project_top {
     margin-top: 15px;
     margin-bottom: 10px;
@@ -976,7 +998,7 @@ div#project_show div.top_share_buttons div.facebook_button {
 }
 
 div#project_show .view-lite-row-description .body {
-    width:82%;
+    
 }
 
 div#project_show div.reservation_form_container div.text {
@@ -1825,6 +1847,11 @@ div#users div#filter_param_box div.label {
 
 div.static_content {
     margin: 20px 0px;
+}
+
+div#how_it_works div#text {
+    text-align: justify;
+    width: 80%;
 }
 
 /* end static pages */
@@ -3306,18 +3333,9 @@ div#buyout_requests div.odd {
 }
 
 .view-lite-row-numbers {
-    width: 280px;
-    padding-left: 10px;
+    width: 270px;
+    padding-left: 5px;
     float: left;
-}
-
-.view-lite-row-numbers ul li.fully_funded_textline {
-    text-align: center; font-weight: bold; width: 100%;
-}
-
-.view-lite-row-numbers ul li.fully_funded_textline a {
-    color: #000000;
-    text-decoration: underline;
 }
 
 .view-lite-row-numbers ul {
@@ -3343,9 +3361,30 @@ div#buyout_requests div.odd {
 #content .view-lite-row-numbers li.stat {
     text-align: left;
     color: #636363;
-    width: 135px;
+    width: 80px;
     margin-bottom: 1px;
     overflow: hidden;
+}
+
+#content .view-lite-row-numbers li.stat div.linked_talent {
+    float: left;
+    margin-top: -7px;
+    margin-right: 20px;
+}
+
+#content .view-lite-row-numbers li.stat div.linked_talent div.talent_name {
+    float: left;
+    margin-top: 7px;
+    margin-left: 5px;
+}
+
+#content .view-lite-row-numbers li.stat div.linked_talent div.talent_icon {
+    float: left;
+    padding: 2px;
+}
+
+#content .view-lite-row-numbers li.stat div.linked_talent div.talent_icon a img {
+    width: 25px;
 }
 
 .view-lite-row-numbers li span {

@@ -24,7 +24,7 @@
 
     <div class="user_info">
       <div class="user_icon">
-        <%= link_to icon(project.owner.profile, :small), profile_path(project.owner.profile) %>
+        <%= icon(project.owner.profile, :small) %>
       </div>
       <div class="user_name">
         <%= link_to h(project.owner.login), profile_path(project.owner.profile) %>

@@ -1,5 +1,5 @@
 <div class="user-icon">
-  <%= link_to icon(profile, :small), profile_path(profile) %>
+  <%= icon(profile, :small) %>
   <span><%= link_to profile.user.login, profile_path(profile) %></span>
   <div class="follow_button">
     <%= follow_member_button_small profile %>
