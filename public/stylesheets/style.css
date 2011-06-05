@@ -1236,6 +1236,13 @@ div.project_mini_view div.project_info div.user_info div.user_name a {
     color: #000;
 }
 
+div.project_mini_view div.project_info div.user_info div.owned_by {
+    font-weight: bold;
+    color: #000;
+    float: left;
+    margin-left: 5px;
+}
+
 div.project_mini_view div.project_info div.user_info div.user_icon {
     margin-left: 10px;
     float: left;

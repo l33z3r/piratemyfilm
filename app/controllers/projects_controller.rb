@@ -400,7 +400,7 @@ class ProjectsController < ApplicationController
     super :all, :only => [:index, :show, :player, :blogs, :search, :filter_by_param]
     super :admin, :all => true
     super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon, 
-      :share_queue, :invite_friends, :send_friends_invite, :buy_shares]
+      :share_queue, :invite_friends, :send_friends_invite, :buy_shares, :add_talent, :remove_talent]
   end
 
 end

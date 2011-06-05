@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
   layout 'application'  
 
+#  protect_from_forgery
+  
   helper_method :print_money, :print_number, :allowed_reserve_shares, :need_captcha
   
   def check_featured

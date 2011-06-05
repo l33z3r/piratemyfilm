@@ -57,6 +57,8 @@ class BlogsController < ApplicationController
   end
   
   def create
+    return if !request.post?
+    
     begin
       @blog = Blog.new(params[:blog])
       

@@ -3,6 +3,8 @@ class BlogCommentsController < ApplicationController
   skip_before_filter :check_permissions
   
   def create
+    return if !request.post?
+    
     @blog_comment = BlogComment.new(params[:blog_comment])
     @blog = @blog_comment.blog
 

@@ -20,7 +20,7 @@ module PostLib
 
     @nonce = @json_response["nonce"]
 
-    @title = CGI::escape("Status Update on PMF!")
+    @title = CGI::escape("Status Update on PirateMyfilm.com!")
     
     @body = "#{html_content}"
     

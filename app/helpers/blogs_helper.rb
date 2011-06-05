@@ -25,6 +25,6 @@ EOB
   end
 
   def show_blog_edit_buttons blog
-    @p && (@p.id == blog.profile_id || @u.is_admin) && !blog.is_admin_blog
+    @p && (@p.id == blog.profile_id || @u.is_admin) && !blog.is_admin_blog && !blog.is_mkc_blog
   end
 end
