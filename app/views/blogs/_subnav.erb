@@ -1,28 +1,28 @@
 <div id="subnav_links">
 
-  <div class="link">
+  <div class="link <%= (@selected_subnav_link == "member_updates" ? "selected" : "") %>">
     <%= link_to "Member Updates", :controller => "/blogs", :action => "all_member_blogs" %> -
   </div>
 
-  <div class="link">
+  <div class="link <%= (@selected_subnav_link == "project_updates" ? "selected" : "") %>">
     <%= link_to "Project Updates", :controller => "/blogs", :action => "index" %> -
   </div>
 
-  <div class="link">
+  <div class="link <%= (@selected_subnav_link == "pmf_fund" ? "selected" : "") %>">
     <span class="fund_image_comments_subnav">
       <%= link_to image_tag("coin_bag_tiny.png", :size => "15x15"), latest_comments_path %>
     </span>
     <%= link_to "PMF Fund", latest_comments_path %> -
   </div>
 
-  <div class="link">
+  <div class="link <%= (@selected_subnav_link == "pmf" ? "selected" : "") %>">
     <span class="fund_image_blog_subnav">
       <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), :action => "admin" %>
     </span>
     <%= link_to "PMF", :controller => "/blogs", :action => "admin" %> -
   </div>
 
-  <div class="link">
+  <div class="link <%= (@selected_subnav_link == "maxkeiser" ? "selected" : "") %>">
     <span class="mkc_image_blog_subnav">
       <%= link_to image_tag("mkc_favicon.png", :size => "15x15"), :controller => :blogs, :action => "mkc" %>
     </span>

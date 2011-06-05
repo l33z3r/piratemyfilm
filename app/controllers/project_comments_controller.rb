@@ -15,6 +15,8 @@ class ProjectCommentsController < ApplicationController
     end
 
     @items = @items.paginate :page => (params[:page] || 1), :per_page=> 15
+    
+    @selected_subnav_link = "pmf_fund"
   end
 
   def index

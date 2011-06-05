@@ -43,7 +43,9 @@ class ProfilesController < ApplicationController
     #load talent rating select opts
     @talent_rating_select_opts = TalentRating.rating_select_opts
 
-    @selected_user_subnav_link = "my_profile"
+    if @p == @profile
+      @selected_user_subnav_link = "my_profile"
+    end
     
     @blogs = Blog.user_blogs(@profile.user).paginate :page => (params[:page] || 1), :per_page=> 10
     

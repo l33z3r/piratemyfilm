@@ -1,15 +1,15 @@
 <% if @u %>
   <div id="user_subnav_links">
     <div class="link <%= (@selected_user_subnav_link == "my_member_blogs" ? "selected" : "") %>">
-      <%= link_to "My Member Updates", :controller => :blogs, :action => "my_member_blogs" %>
+      <%= link_to "My Member Updates", :controller => :blogs, :action => "my_member_blogs" %> - 
     </div>
 
     <div class="link <%= (@selected_user_subnav_link == "my_project_blogs" ? "selected" : "") %>">
-      <%= link_to "My Project Updates", :controller => :blogs, :action => "my_project_blogs" %>
+      <%= link_to "My Project Updates", :controller => :blogs, :action => "my_project_blogs" %> - 
     </div>
 
     <div class="link <%= (@selected_user_subnav_link == "my_portfolio" ? "selected" : "") %>">
-      <%= link_to "My Portfolio", portfolio_profile_path(@u.profile) %>
+      <%= link_to "My Portfolio", portfolio_profile_path(@u.profile) %> - 
     </div>
 
     <div class="link <%= (@selected_user_subnav_link == "my_profile" ? "selected" : "") %>">

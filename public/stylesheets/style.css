@@ -546,6 +546,11 @@ div#subnav_links div.link a {
     text-decoration: underline;
 }
 
+div#subnav_links div.link.selected a {
+    text-decoration: none;
+    color: #000;
+}
+
 /* End sub navigation */
 
 /* user sub navigation */
@@ -556,26 +561,19 @@ div#user_subnav_links {
 }
 
 div#user_subnav_links div.link {
-    width: 128px;
-    text-align: center;
     margin-right: 5px;
     float: left;
-    font-size: 12px;
-    font-weight: bold;
-    text-decoration: none;
-    padding: 2px;
-    border: 1px solid #666666;
-    color: #666;
-    background-color: #EEE;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
 }
 
-div#user_subnav_links div.link.selected {
-    background-color: #FFF;
+div#user_subnav_links div.link a {
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: #666;
 }
 
 div#user_subnav_links div.link.selected a {
+    text-decoration: none;
     color: #000;
 }
 
@@ -619,7 +617,7 @@ div.project_listings {
 }
 
 .project_form div.talent_select div.project_talent_container {
-    
+
 }
 
 .project_form div.talent_select div.clear_talent_link_container {
@@ -871,16 +869,16 @@ div#project_show div.talent_fields .view-lite-row-numbers {
 }
 
 div#project_show div.talent_fields .view-lite-row-numbers li.stat {
-  color: #636363;
-  overflow: hidden;
-  text-align: left;
-  width: 280px;
-  padding-top: 8px;
+    color: #636363;
+    overflow: hidden;
+    text-align: left;
+    width: 280px;
+    padding-top: 8px;
 }
 
 div#project_show div.talent_fields .view-lite-row-numbers li.label {
-  width: 100px;
-  padding-top: 8px;
+    width: 100px;
+    padding-top: 8px;
 }
 
 div#project_show div.project_top {
@@ -998,7 +996,7 @@ div#project_show div.top_share_buttons div.facebook_button {
 }
 
 div#project_show .view-lite-row-description .body {
-    
+
 }
 
 div#project_show div.reservation_form_container div.text {

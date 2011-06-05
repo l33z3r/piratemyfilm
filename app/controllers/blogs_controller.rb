@@ -14,6 +14,8 @@ class BlogsController < ApplicationController
       render :action => "all_blogs_rss", :layout => false
       response.headers["Content-Type"] = "application/xml; charset=utf-8"
     end
+    
+    @selected_subnav_link = "project_updates"
   end
   
   #this is the users personal live project feed
@@ -30,6 +32,8 @@ class BlogsController < ApplicationController
   def all_member_blogs
     @blogs = Blog.all_member_blogs
     @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+    
+    @selected_subnav_link = "member_updates"
   end
   
   #this is the users personal live member feed
@@ -42,10 +46,14 @@ class BlogsController < ApplicationController
 
   def admin
     @blogs = Blog.admin_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+    
+    @selected_subnav_link = "pmf"
   end
 
   def mkc
     @blogs = Blog.mkc_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+    
+    @selected_subnav_link = "maxkeiser"
   end
   
   def create
