@@ -231,12 +231,6 @@ function invite_friends_project_ajaxx(id, verb, params, options){ return less_aj
 function formatted_invite_friends_project_path(id, format, verb){ return '/projects/' + id + '/invite_friends.' + format + '';}
 function formatted_invite_friends_project_ajax(id, format, verb, params, options){ return less_ajax('/projects/' + id + '/invite_friends.' + format + '', verb, params, options);}
 function formatted_invite_friends_project_ajaxx(id, format, verb, params, options){ return less_ajaxx('/projects/' + id + '/invite_friends.' + format + '', verb, params, options);}
-function flag_project_path(id, verb){ return '/projects/' + id + '/flag';}
-function flag_project_ajax(id, verb, params, options){ return less_ajax('/projects/' + id + '/flag', verb, params, options);}
-function flag_project_ajaxx(id, verb, params, options){ return less_ajaxx('/projects/' + id + '/flag', verb, params, options);}
-function formatted_flag_project_path(id, format, verb){ return '/projects/' + id + '/flag.' + format + '';}
-function formatted_flag_project_ajax(id, format, verb, params, options){ return less_ajax('/projects/' + id + '/flag.' + format + '', verb, params, options);}
-function formatted_flag_project_ajaxx(id, format, verb, params, options){ return less_ajaxx('/projects/' + id + '/flag.' + format + '', verb, params, options);}
 function send_friends_invite_project_path(id, verb){ return '/projects/' + id + '/send_friends_invite';}
 function send_friends_invite_project_ajax(id, verb, params, options){ return less_ajax('/projects/' + id + '/send_friends_invite', verb, params, options);}
 function send_friends_invite_project_ajaxx(id, verb, params, options){ return less_ajaxx('/projects/' + id + '/send_friends_invite', verb, params, options);}
@@ -255,6 +249,12 @@ function remove_talent_project_ajaxx(id, verb, params, options){ return less_aja
 function formatted_remove_talent_project_path(id, format, verb){ return '/projects/' + id + '/remove_talent.' + format + '';}
 function formatted_remove_talent_project_ajax(id, format, verb, params, options){ return less_ajax('/projects/' + id + '/remove_talent.' + format + '', verb, params, options);}
 function formatted_remove_talent_project_ajaxx(id, format, verb, params, options){ return less_ajaxx('/projects/' + id + '/remove_talent.' + format + '', verb, params, options);}
+function flag_project_path(id, verb){ return '/projects/' + id + '/flag';}
+function flag_project_ajax(id, verb, params, options){ return less_ajax('/projects/' + id + '/flag', verb, params, options);}
+function flag_project_ajaxx(id, verb, params, options){ return less_ajaxx('/projects/' + id + '/flag', verb, params, options);}
+function formatted_flag_project_path(id, format, verb){ return '/projects/' + id + '/flag.' + format + '';}
+function formatted_flag_project_ajax(id, format, verb, params, options){ return less_ajax('/projects/' + id + '/flag.' + format + '', verb, params, options);}
+function formatted_flag_project_ajaxx(id, format, verb, params, options){ return less_ajaxx('/projects/' + id + '/flag.' + format + '', verb, params, options);}
 function delete_icon_project_path(id, verb){ return '/projects/' + id + '/delete_icon';}
 function delete_icon_project_ajax(id, verb, params, options){ return less_ajax('/projects/' + id + '/delete_icon', verb, params, options);}
 function delete_icon_project_ajaxx(id, verb, params, options){ return less_ajaxx('/projects/' + id + '/delete_icon', verb, params, options);}
