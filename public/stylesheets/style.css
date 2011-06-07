@@ -3801,6 +3801,21 @@ div.project_listings_widget div.project_mini_view div.project_stats div.percent_
     font-size: 13px;
 }
 
+div.project_listings_widget div.project_mini_view div.project_stats div.percent_move {
+    font-size: 13px;
+    font-weight: bold;
+    float: left;
+}
+
+div.project_listings_widget div.project_mini_view div.project_stats div.percent_move div.arrow {
+    float: left;
+}
+
+div.project_listings_widget div.project_mini_view div.project_stats div.percent_move div.amount {
+    margin-top: -2px;
+    margin-left: 6px;
+}
+
 div.project_listings_widget div.project_mini_view div.follow_button {
     margin-left: 8px;
 }

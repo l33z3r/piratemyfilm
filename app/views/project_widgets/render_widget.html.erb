@@ -39,7 +39,7 @@
             <div class="project_info">
               <div class="project_title">
                 <!-- force a truncate without breaks -->
-                <%= link_to(h(truncate(project.title, 27)), project_path(project), :target => "_blank") %>
+                <%= link_to(h(truncate(project.title, 25)), project_path(project), :target => "_blank") %>
               </div>
 
               <div class="pmf_clear">&nbsp;</div>
@@ -61,6 +61,12 @@
                 </div>
                 <div class="percent_funded">
                   <span><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
+                </div>
+                <div class="percent_move">
+                  <div class="arrow">
+                    <%= up_down_arrow 3 %>
+                  </div>
+                  <div class="amount"><%= project.daily_percent_move %>&#37</div>
                 </div>
               </div>
             </div>
