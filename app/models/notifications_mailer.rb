@@ -51,7 +51,7 @@ class NotificationsMailer < ActionMailer::Base
   end
 
   def project_90_percent_funded project, recipient
-    @subject        = "Your Project Is now 90% Funded on PMF!"
+    @subject        = "Project Is now 90% Funded on PMF!"
     @recipients     = recipient
     @body['project'] = project
     @from           = MAILER_FROM_ADDRESS
@@ -61,7 +61,7 @@ class NotificationsMailer < ActionMailer::Base
   end
 
   def my_project_90_percent_funded project, recipient
-    @subject        = "Project 90% Funded on PMF!"
+    @subject        = "Your Project 90% Funded on PMF!"
     @recipients     = recipient
     @body['project'] = project
     @from           = MAILER_FROM_ADDRESS

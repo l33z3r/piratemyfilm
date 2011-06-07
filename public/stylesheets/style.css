@@ -2787,6 +2787,10 @@ div.blog div.blog_left div.info div.blog_user_relationship {
     color: #000000;
 }
 
+div.blog div.project_rating div.info div.user_info {
+    float: left;
+}
+
 div.blog div.blog_left div.info div.user_info {
     float: left;
     margin-right: 4px;

@@ -28,25 +28,28 @@
           <div class="project_mini_view">
 
             <div class="project_icon">
-              <%= link_to project_icon(project, :big), project_path(project) %>
+              <%= link_to project_icon(project, :big), project_path(project), :target => "_blank" %>
               <div class="follow_button">
-                <%= follow_project_button_small project %>
+                <div class="button_small left">
+                  <%= link_to "Follow", project_path(project), :target => "_blank" %>
+                </div>
               </div>
             </div>
 
             <div class="project_info">
               <div class="project_title">
-                <%= link_to h(project.title), project_path(project) %>
+                <!-- force a truncate without breaks -->
+                <%= link_to(h(truncate(project.title, 27)), project_path(project), :target => "_blank") %>
               </div>
 
               <div class="pmf_clear">&nbsp;</div>
 
               <div class="user_info">
                 <div class="user_icon">
-                  <%= icon(project.owner.profile, :small) %>
+                  <%= link_to avatar_tag(project.owner.profile, {:size => :small, :file_column_version => :small }), profile_path(project.owner.profile), :target => "_blank" %>
                 </div>
                 <div class="user_name">
-                  <%= link_to h(project.owner.login), profile_path(project.owner.profile) %>
+                  <%= link_to h(project.owner.login), profile_path(project.owner.profile), :target => "_blank" %>
                 </div>
               </div>
 
