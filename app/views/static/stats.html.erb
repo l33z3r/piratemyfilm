@@ -134,7 +134,7 @@
                 <%= tp.share_change.abs %> Shares
               </div>
               <div class="move">
-                <%= number_to_percentage(tp.project.daily_percent_move, :precision => 0) %>
+                <%= number_to_percentage(tp.project.daily_percent_move.abs, :precision => 0) %>
               </div>
               <div class="pmf_clear">&nbsp;</div>
             <% end %>
@@ -162,7 +162,7 @@
                 <%= tp.share_change.abs %> Shares
               </div>
               <div class="move">
-                <%= number_to_percentage(tp.project.daily_percent_move, :precision => 0) %>
+                <%= number_to_percentage(tp.project.daily_percent_move.abs, :precision => 0) %>
               </div>
               <div class="pmf_clear">&nbsp;</div>
             <% end %>
