@@ -460,12 +460,12 @@ class Project < ActiveRecord::Base
 
   def self.get_order_sql filter_param
     case filter_param
-    when "2" then return "percent_funded DESC"
-    when "3" then return "percent_funded DESC"
-    when "4" then return "percent_funded DESC"
-    when "5" then return "percent_funded DESC"
-    when "6" then return "percent_funded DESC"
-    when "7" then return "percent_funded DESC"
+    when "2" then return "percent_funded_total DESC"
+    when "3" then return "percent_funded_total DESC"
+    when "4" then return "percent_funded_total DESC"
+    when "5" then return "percent_funded_total DESC"
+    when "6" then return "percent_funded_total DESC"
+    when "7" then return "percent_funded_total DESC"
     when "8" then return "capital_required DESC"
     when "9" then return "(downloads_reserved * ipo_price) DESC"
     when "10" then return "admin_rating DESC"

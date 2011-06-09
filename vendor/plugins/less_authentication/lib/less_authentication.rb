@@ -82,19 +82,16 @@ class ActionController::Base
     return true if request.xhr?
     session[:return_to] = "#{request.request_uri}"
   end
-
-
-
-    
-    
     
   # Redirect to the URI stored by the most recent store_location call or
   # to the passed default.
   def redirect_back url
     redirect_back_or_default url
   end
+  
   def redirect_back_or_default(default)
     return if performed?
+    
     if session[:return_to] && 
       session[:return_to] != home_url && 
       session[:return_to] != "#{request.request_uri}" &&
@@ -103,24 +100,15 @@ class ActionController::Base
     else 
       redirect_to(default)
     end
+    
     session[:return_to] = nil
   end
-
-
-
-
 
   # Inclusion hook to make #user and #logged_in?
   # available as ActionView helper methods.
   def self.included(base)
     base.send :helper_method, :user, :logged_in?
   end
-
-
-
-
-
-
 
   # When called with before_filter :login_from_cookie will check for an :auth_token
   # cookie and log the user back in if apropriate

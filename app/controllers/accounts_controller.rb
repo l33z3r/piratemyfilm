@@ -3,12 +3,17 @@ class AccountsController < ApplicationController
   skip_after_filter :store_location
  
   def login
-    redirect_back_or_default(home_path) and return if @u
+    if @u
+      redirect_back_or_default(home_path) 
+      return
+    end
+    
     @user = User.new
+    
     return unless request.post?
     
     #plays double duty login/forgot (due to the ajax nature of the login/forgot form)
-    if params[:user][:email] && params[:user][:email].size > 0
+    if params[:user] && params[:user][:email] && params[:user][:email].size > 0
       u = Profile.find_by_email(params[:user][:email]).user rescue nil
       flash.now[:error] = "Could not find that email address. Try again." and return if u.nil?
 
