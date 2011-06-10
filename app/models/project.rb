@@ -332,7 +332,7 @@ class Project < ActiveRecord::Base
     
     @change_amount = @now_share_amount - @last_night_share_amount
     
-    @change_percent = (@change_amount/total_copies) * 100
+    @change_percent = ((@change_amount/total_copies) * 100).ceil
   end
 
   def user_rating
