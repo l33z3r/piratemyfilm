@@ -905,7 +905,7 @@ div#project_show div.project_top div.green_light {
     font-weight: bold;
     float: right;
     margin-right: 10px;
-    margin-top: 7px;
+    margin-top: 20px;
     font-size: 15px;
     color: #000;
 }
@@ -939,6 +939,26 @@ div#project_show div.project_top div.project_info div.project_stats div.percent_
     font-size: 14px;
     font-weight: bold;
     margin-bottom: 5px;
+}
+
+div#project_show div.project_top div.project_info div.project_stats div.percent_move {
+    font-size: 13px;
+    font-weight: bold;
+    float: left;
+}
+
+div#project_show div.project_top div.project_info div.project_stats div.percent_move div.arrow {
+    float: left;
+}
+
+div#project_show div.project_top div.project_info div.project_stats div.percent_move div.arrow img {
+    margin-top: 3px;
+    float: left;
+}
+
+div#project_show div.project_top div.project_info div.project_stats div.percent_move div.amount {
+    margin-left: 6px;
+    float: left;
 }
 
 div#project_show div.project_top div.project_info div.user_info {
@@ -1050,7 +1070,6 @@ div.project_action_links div a {
 }
 
 div.project_share_buttons {
-    margin-top: 20px;
     float: right;
 }
 
@@ -1133,7 +1152,7 @@ div.project_mini_view div.project_extra_info {
     color: #000;
     font-weight: bold;
     float: right;
-    margin-top: -20px;
+    margin-top: -10px;
     text-align: right;
 }
 
@@ -1160,6 +1179,8 @@ div.project_mini_view div.green_light {
     font-weight: bold;
     float: right;
     margin-right: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 15px;
     color: #000;
 }

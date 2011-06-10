@@ -29,31 +29,6 @@
 
   <div class="dashed_light_border">&nbsp;</div>
 
-  <div class="project_share_buttons">
-
-    <div class="tweet_button">
-      <a href="http://twitter.com/share?url=<%= url_encode(project_url(@project)) %>&via=piratemyfilm&text=Check out this project on PMF! <%= @project.title %>"
-         class="twitter-share-button" data-count="horizontal" data-related="piratemyfilm">
-        Tweet
-      </a>
-      <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-    </div>
-
-    <div class="facebook_button">
-      <a name="fb_share" type="button_count" share_url="<%= project_url(@project) %>"
-         href="http://www.facebook.com/sharer.php">Share</a>
-      <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
-    </div>
-
-    <div class="facebook_like_button">
-      <iframe src="http://www.facebook.com/plugins/like.php?href=<%= url_encode(project_url(@project)) %>&amp;layout=button_count&amp;show_faces=false&amp;width=80&amp;action=like&amp;colorscheme=light&amp;height=21"
-              scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;"
-              allowTransparency="true">
-      </iframe>
-    </div>
-
-  </div>
-
   <%= render :partial => "project_top", :locals => {:project => @project} %>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -125,7 +100,7 @@
     <% if @latest_project_blog %>
       <span class="date"><%= time_ago_in_words @latest_project_blog.created_at %> ago</span>
       <span class="body">
-        <%= truncate(h(@latest_project_blog.body), 50) %>
+        <%= h(truncate(@latest_project_blog.body, 50)) %>
         <%= link_to "...(more)", {:controller => "blogs", :action => "show", :id => @latest_project_blog.id} unless @latest_project_blog.body.length < 51 %>
       </span>
       <span class="comments_link"><%= link_to "#{pluralize(@latest_project_blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => @latest_project_blog.id %></span>

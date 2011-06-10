@@ -68,7 +68,7 @@ class Project < ActiveRecord::Base
   has_many :subscribers, :through => :project_subscriptions, :source => :user,
     :order => "project_subscriptions.created_at", :group => "id"
 
-  has_many :project_change_info_one_days, :dependent => :destroy
+  has_many :project_change_info_one_days, :dependent => :destroy, :order => "created_at DESC"
   
   has_many :blogs, :dependent => :destroy
   has_many :project_flaggings, :dependent => :destroy
@@ -260,7 +260,7 @@ class Project < ActiveRecord::Base
     self.downloads_reserved = @downloads_reserved
     self.downloads_available = @total_copies - self.downloads_reserved
 
-    @new_funding_percentage = (downloads_reserved * 100) / @total_copies
+    @new_funding_percentage = ((downloads_reserved * 100) / @total_copies).ceil
 
     if percent_funded < 100 and @new_funding_percentage >= 100
       Notification.deliver_fully_funded_notification self
@@ -324,6 +324,15 @@ class Project < ActiveRecord::Base
 
   def percent_funded_with_pmf_fund_non_outstanding
     percent_funded + pmf_fund_investment_percentage
+  end
+  
+  def percent_move_since_last_change_info
+    @last_night_share_amount = project_change_info_one_days.first.share_amount
+    @now_share_amount = pmf_fund_investment_share_amount + downloads_reserved
+    
+    @change_amount = @now_share_amount - @last_night_share_amount
+    
+    @change_percent = (@change_amount/total_copies) * 100
   end
 
   def user_rating

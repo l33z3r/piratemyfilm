@@ -64,9 +64,9 @@
                 </div>
                 <div class="percent_move">
                   <div class="arrow">
-                    <%= up_down_arrow project.daily_percent_move %>
+                    <%= up_down_arrow project.percent_move_since_last_change_info %>
                   </div>
-                  <div class="amount"><%= project.daily_percent_move.abs %>&#37</div>
+                  <div class="amount"><%= project.percent_move_since_last_change_info.abs %>&#37 (live)</div>
                 </div>
               </div>
             </div>
