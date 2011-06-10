@@ -24,9 +24,11 @@
             <%= link_to project_icon(blog.project, :medium), project_url(blog.project) %>
           </div>
           <div class="project_title">
-            <%= link_to h(blog.project.title), project_url(blog.project) %>
-            &nbsp;-&nbsp;
+            <%= link_to h(truncate(blog.project.title, 25)), project_url(blog.project) %>
           </div>
+
+          <div class="pmf_clear">&nbsp;</div>
+
           <div class="project_stats">
             <div class="funds_needed">
               <span><%= print_money blog.project.capital_required %></span> needed

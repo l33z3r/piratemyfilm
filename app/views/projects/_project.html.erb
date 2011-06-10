@@ -60,13 +60,13 @@ project_link_action ||= "show"
       <%= link_to h(truncate(project.title, 30)), :controller => project_link_controller,
         :action => project_link_action, :id => project %>
     </div>
-    <div class="edit_link">
+    <!--div class="edit_link">
       <%= small_view_edit_link project %>
     </div>
     <div class="link_arrow">
       <%= link_to image_tag("right_arrow.png"), :controller => project_link_controller,
         :action => project_link_action, :id => project %>
-    </div>
+    </div-->
 
     <div class="user_info">
       <div class="owned_by">Owned By: </div>
