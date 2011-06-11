@@ -1164,6 +1164,7 @@ div.project_mini_view div.project_icon {
 
 div.project_mini_view div.project_icon img {
     width: 70px;
+    height: 70px;
 }
 
 div.project_mini_view div.project_icon div.follow_button {
@@ -1271,6 +1272,7 @@ div.project_mini_view div.project_info div.user_info div.user_icon {
 
 div.project_mini_view div.project_info div.user_info div.user_icon a img {
     height: 30px;
+    width: 30px;
     margin-top: -7px;
 }
 
