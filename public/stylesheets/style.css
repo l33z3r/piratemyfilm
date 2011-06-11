@@ -1297,6 +1297,13 @@ div#share_queue div#queue_header div {
     width: 70px;
 }
 
+div#share_queue div#queue_header div.name_header {
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 115px;
+}
+
 div#share_queue div#queue_header div.subscription_outstanding_header {
     float: left;
     font-weight: bold;
@@ -1342,7 +1349,7 @@ div#share_queue div.subscription div.icon {
 
 div#share_queue div.subscription div.name {
     float: left;
-    width: 70px;
+    width: 115px;
     margin-top: 20px;
     margin-right: 10px;
 }
