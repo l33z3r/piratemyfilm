@@ -380,6 +380,15 @@ module ApplicationHelper
     return " - " if value == 0
     image_tag(value > 0 ? "green_arrow_up.png" : "red_arrow_down.png")
   end
+  
+  def avatar(person, avatar_options={}, html_options={})
+    #never want to have an alt param
+    if !html_options[:alt]
+      html_options.merge!(:alt => "")
+    end
+        
+    avatar_tag(person, avatar_options, html_options)
+  end
 
   #RJS helper methods
 

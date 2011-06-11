@@ -46,7 +46,7 @@
 
               <div class="user_info">
                 <div class="user_icon">
-                  <%= link_to avatar_tag(project.owner.profile, {:size => :small, :file_column_version => :small }), profile_path(project.owner.profile), :target => "_blank" %>
+                  <%= link_to avatar(project.owner.profile, {:size => :small, :file_column_version => :small }), profile_path(project.owner.profile), :target => "_blank" %>
                 </div>
                 <div class="user_name">
                   <%= link_to h(project.owner.login), profile_path(project.owner.profile), :target => "_blank" %>

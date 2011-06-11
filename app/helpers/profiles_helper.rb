@@ -6,13 +6,13 @@ module ProfilesHelper
   def icon profile, size = :small, img_opts = {}
     return "" if profile.nil?
     img_opts = {:title => profile.full_name, :alt => profile.full_name, :class => size}.merge(img_opts)
-    link_to(avatar_tag(profile, {:size => size, :file_column_version => size }, img_opts), profile_url(profile))
+    link_to(avatar(profile, {:size => size, :file_column_version => size }, img_opts), profile_url(profile))
   end
   
   def unlinked_icon profile, size = :small, img_opts = {}
     return "" if profile.nil?
     img_opts = {:title => profile.full_name, :alt => profile.full_name, :class => size}.merge(img_opts)
-    avatar_tag(profile, {:size => size, :file_column_version => size }, img_opts)
+    avatar(profile, {:size => size, :file_column_version => size }, img_opts)
   end
   
   def location_link profile = @p
