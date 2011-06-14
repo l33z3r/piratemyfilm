@@ -329,12 +329,21 @@ class Project < ActiveRecord::Base
   end
   
   def percent_move_since_last_change_info
-    @last_night_share_amount = project_change_info_one_days.first.share_amount
+    if project_change_info_one_days.first
+      @last_night_share_amount = project_change_info_one_days.first.share_amount
+    else 
+      @last_night_share_amount = 0
+    end
+    
     @now_share_amount = ProjectSubscription.calculate_amount project_subscriptions
     
     @change_amount = @now_share_amount - @last_night_share_amount
     
-    @change_percent = ((@change_amount/@last_night_share_amount) * 100).ceil
+    if @last_night_share_amount == 0
+      @change_percent = 100
+    else
+      @change_percent = ((@change_amount/@last_night_share_amount) * 100).ceil
+    end
   end
 
   def user_rating
