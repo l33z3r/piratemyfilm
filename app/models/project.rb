@@ -344,6 +344,8 @@ class Project < ActiveRecord::Base
     else
       @change_percent = ((@change_amount/@last_night_share_amount) * 100).ceil
     end
+    
+    @change_percent
   end
 
   def user_rating
