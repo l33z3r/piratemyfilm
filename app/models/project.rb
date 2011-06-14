@@ -99,6 +99,8 @@ class Project < ActiveRecord::Base
   validate_on_create :funding_limit_not_exceeded, :min_funding_limit_passed
   validate_on_update :funding_limit_not_exceeded, :min_funding_limit_passed
 
+  validates_format_of :web_address, :with => URI::regexp(%w(http https)), :allow_blank => true
+  
   acts_as_ferret :fields => [ :title, :synopsis, :description, 
     :user_login, :user_full_name, :director, :writer, :exec_producer,
     :director_photography, :editor ], :remote => true
@@ -332,7 +334,7 @@ class Project < ActiveRecord::Base
     
     @change_amount = @now_share_amount - @last_night_share_amount
     
-    @change_percent = ((@change_amount/total_copies) * 100).ceil
+    @change_percent = ((@change_amount/@last_night_share_amount) * 100).ceil
   end
 
   def user_rating

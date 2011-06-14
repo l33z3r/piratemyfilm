@@ -107,6 +107,6 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
   end
 
   def percent_move
-    (share_change/project.total_copies) * 100
+    ((share_change/(share_amount - share_change)) * 100).ceil
   end
 end
