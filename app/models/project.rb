@@ -328,7 +328,7 @@ class Project < ActiveRecord::Base
   
   def percent_move_since_last_change_info
     @last_night_share_amount = project_change_info_one_days.first.share_amount
-    @now_share_amount = pmf_fund_investment_share_amount + downloads_reserved
+    @now_share_amount = ProjectSubscription.calculate_amount project_subscriptions
     
     @change_amount = @now_share_amount - @last_night_share_amount
     
