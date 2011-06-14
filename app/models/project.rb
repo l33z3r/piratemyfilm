@@ -342,7 +342,7 @@ class Project < ActiveRecord::Base
     if @last_night_share_amount == 0
       @change_percent = 100
     else
-      @change_percent = ((@change_amount/@last_night_share_amount) * 100).ceil
+      @change_percent = ((@change_amount.to_f/@last_night_share_amount) * 100).ceil
     end
     
     @change_percent
