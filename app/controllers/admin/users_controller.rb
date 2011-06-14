@@ -92,7 +92,14 @@ class Admin::UsersController < Admin::AdminController
       p = []
     end
     @search_query = p.delete(:uq)
-    @profiles = Profile.search((@search_query || ''), p, @find_conditions).paginate:page => (params[:page] || 1), :per_page => 50
+    
+    if @search_query.blank?
+      @profiles = Profile.find(:all, @find_conditions)
+    else
+      @profiles = Profile.search((@search_query || ''), p, @find_conditions)
+    end
+    
+    @profiles = @profiles.paginate:page => (params[:page] || 1), :per_page => 50
   end
 
   def set_selected_tab

@@ -70,6 +70,27 @@
     </td>
   </tr>
 
+  <% unless project.icon.blank? %>
+    <tr>
+      <td>
+        Current Icon:
+      </td>
+      <td>
+        <%= project_icon project, :small %>
+      </td>
+    </tr>
+  <% end %>
+
+  <tr>
+    <td>
+      How long is your film in minutes?
+    </td>
+    <td>
+      <%= f.text_field :project_length %>
+      <%= display_error_on(project, :project_length) -%>
+    </td>
+  </tr>
+
   <tr>
     <td>
       Enter a site address associated with your project
@@ -368,26 +389,6 @@
       <%= display_error_on(project, :cast) -%>
     </td>
   </tr>
-  <tr>
-    <td>
-      How long is your film in minutes?
-    </td>
-    <td>
-      <%= f.text_field :project_length %>
-      <%= display_error_on(project, :project_length) -%>
-    </td>
-  </tr>
-
-  <% unless project.icon.blank? %>
-    <tr>
-      <td>
-        Current Icon:
-      </td>
-      <td>
-        <%= project_icon project, :small %>
-      </td>
-    </tr>
-  <% end %>
 
   <% unless project.main_video.blank? %>
     <tr>

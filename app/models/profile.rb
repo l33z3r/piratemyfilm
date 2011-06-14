@@ -220,7 +220,7 @@ class Profile < ActiveRecord::Base
     q = '*' + query.gsub(/[^\w\s-]/, '').gsub(' ', '* *') + '*'
     options.each {|key, value| q += " #{key}:#{value}"}
     arr = find_by_contents q, {:limit=>:all}, conditions
-    logger.debug arr.inspect
+    logger.debug "TTT: #{arr.inspect}"
     arr
   end
 

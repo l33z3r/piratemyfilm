@@ -100,11 +100,11 @@
   <div class="project_listing_box">
     <div class="pageTitle">
       <% if @p == @profile %>
-        You have
+        Your
       <% else %>
-        <%=@profile.user.login%> has
+        <%=@profile.user.login%>'s
       <% end %>
-      <i>funded</i> these projects
+      projects that members helped fund
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
@@ -121,7 +121,7 @@
       <% else %>
         <%=@profile.user.login%> is
       <% end %>
-      <i>offering</i> shares in these projects
+      <i>offering</i> shares (raising money) for these projects
     </div>
 
     <%= render :partial => "projects/listings", :object => @user_projects %>
@@ -132,13 +132,12 @@
   <div class="project_listing_box">
 
     <div class="pageTitle">
-      Projects
       <% if @p == @profile %>
-        You have
+        You are
       <% else %>
-        <%=@profile.user.login%> has
+        <%=@profile.user.login%> iss
       <% end %>
-      helped to fund
+      one of the PMF members that helped fund these projects
     </div>
 
     <%= render :partial => "projects/listings", :object => @user_funded_subscriptions %>
@@ -154,7 +153,7 @@
       <% else %>
         <%=@profile.user.login%> is
       <% end %>
-      <i>reserving</i> shares in these projects that are not yet funded
+      <i>reserving</i> reserving shares in these projects
     </div>
 
     <%= render :partial => "projects/listings", :object => @user_non_funded_subscriptions %>

@@ -449,7 +449,10 @@ class Project < ActiveRecord::Base
 
   def self.get_filter_sql filter_param
 
+    #filter out all the projects that are finished payment
     @payment_status_filter = "(project_payment_status is null or project_payment_status != 'Finished Payment')"
+    
+    #filter out all projects that are green lit
     @green_light_filter = " green_light is null"
     
     case filter_param
@@ -470,7 +473,7 @@ class Project < ActiveRecord::Base
     when "16" then return "#{@payment_status_filter} and #{@green_light_filter}"
     when "17" then return "#{@payment_status_filter} and #{@green_light_filter}"
     when "18" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "19" then return "#{@payment_status_filter} and green_light is NOT NULL"
+    when "19" then return "project_payment_status is null and green_light is NOT NULL"
     when "20" then return "project_payment_status = 'In Payment'"
     when "21" then return "project_payment_status = 'Finished Payment'"
     when "22" then return "project_payment_status = 'Finished Payment' and status = 'In Release'"
@@ -797,6 +800,10 @@ class Project < ActiveRecord::Base
 
   def funding_limit_not_exceeded
     #set funding limit equal to either the users limit, or the current demand
+    #TODO: have to record each time the budget has been pushed 
+    
+    
+    
     funding_limit = owner.membership_type.funding_limit_per_project
     
     if !self.is_deleted && !self.in_payment? && !green_light && self.capital_required > funding_limit
