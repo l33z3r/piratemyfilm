@@ -110,7 +110,13 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
     @last_night_share_amount = share_amount - share_change
     
     if @last_night_share_amount == 0
-      @change_percent = 100
+      #if we have two consecutive days of 0, then the % is zero,
+      #else the change is 100%
+      if share_change == 0 
+        @change_percent = 0
+      else
+        @change_percent = 100
+      end
     else
       @change_percent = ((share_change.to_f/@last_night_share_amount) * 100).ceil
     end
