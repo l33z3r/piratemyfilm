@@ -99,7 +99,12 @@
 
     <div class="pmf_clear">&nbsp;</div>
 
-    <% @payment_window.subscription_payments.each do |subscription_payment| %>
+    <% 
+    #have to refresh the association cache before displaying
+    @payment_window.subscription_payments.reload 
+    %>
+    
+    <%  @payment_window.subscription_payments.each do |subscription_payment| %>
       <div class="<%= cycle('odd','even') %> subscription_payment">
         <div class="sp_id"><%= subscription_payment.id %></div>
         <div class="user_name"><%= link_to subscription_payment.user.login, profile_path(subscription_payment.user.id) %></div>
