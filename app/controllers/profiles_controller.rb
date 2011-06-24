@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   include ApplicationHelper
     
-  prepend_before_filter :setup, :except => [:index, :portfolio_awaiting_payment]
+  prepend_before_filter :setup, :except => [:index]
 
   before_filter :search_results, :only => :index
   skip_filter :login_required, :only => [:index, :show, :portfolio, :friend_list]
@@ -71,13 +71,13 @@ class ProfilesController < ApplicationController
   end
 
   def portfolio_awaiting_payment
-    @profile = @u.profile
-
     @projects_awaiting_payment = @profile.user.subscribed_projects_awaiting_payment
 
     if @projects_awaiting_payment.size == 0
       flash[:error] = "No projects are awaiting payment of shares by you!"
       redirect_to profile_path(@profile)
+    elsif @projects_awaiting_payment.size == 1
+      redirect_to project_path(@projects_awaiting_payment.first)
     end
   end
 
