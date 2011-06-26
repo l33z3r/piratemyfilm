@@ -49,6 +49,16 @@ class Admin::UsersController < Admin::AdminController
     redirect_to :action => "index"
   end
   
+  def login_as
+    return unless request.post?
+    
+    @user_id = params[:user_id]
+    @user = User.find(@user_id)
+    session[:user] = @user_id
+    flash[:notice] = "Logged in as #{@user.login}!"
+    redirect_to :action => "index"
+  end
+  
   private
 
   def prepare_update_confirm_vars

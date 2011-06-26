@@ -32,13 +32,22 @@ class PaymentWindowController < ApplicationController
       
       break if @total_amount >= @project.capital_required
 
+      @previous_window_subscription_ids = []
+      
       #check this subscription has not already been used in a previous window
       if subscription.subscription_payment_id
-        next
+        if !@previous_window_subscription_ids.include? subscription.subscription_payment_id.to_s
+          @previous_window_subscription_ids << subscription.subscription_payment_id.to_s
+          @previous_window_subscription_ids.uniq!
+          
+          @subscription_amount_dollar = subscription.subscription_payment.share_amount * @project_share_price
+          
+          #next
+        end
+      else
+        @subscription_amount_dollar = subscription.amount * @project_share_price
       end
-
-      @subscription_amount_dollar = subscription.amount * @project_share_price
-
+      
       #do we need to split a users subscription amount?
       if @total_amount + @subscription_amount_dollar > @project.capital_required
         @over_amount_dollar = (@total_amount + @subscription_amount_dollar) - @project.capital_required

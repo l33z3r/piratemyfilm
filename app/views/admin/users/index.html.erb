@@ -26,7 +26,7 @@
     <div class="name_header">User Name</div>
     <div class="email_header">User Email</div>
     <div class="membership_type_header">Membership Type</div>
-    <div class="mkc_post_ability_header">MKC Cross Post?</div>
+    <div class="mkc_post_ability_header">MKC Cross Post?</div>z
   </div>
 
   <div class="dashed_light_border">&nbsp;</div>
@@ -34,7 +34,10 @@
   <% @profiles.each do |p| %>
     <div class="<%= cycle('odd','even') %> search_row left user">
       <div class="icon"><%= icon p, :small %></div>
-      <div class="name"><%= h p.f %></div>
+      <div class="name">
+        <%= h p.f %>&nbsp;
+        <%= link_to "(Login)", {:action => "login_as", :user_id => p.user.id}, :method => :post %>
+      </div>
       <div class="email">
         <%= p.email %>
         <a href="mailto:<%= p.email %>?subject=Message From PMF!">(Send Message)</a>
