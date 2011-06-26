@@ -56,7 +56,7 @@ class Admin::UsersController < Admin::AdminController
     @user = User.find(@user_id)
     session[:user] = @user_id
     flash[:notice] = "Logged in as #{@user.login}!"
-    redirect_to :action => "index"
+    redirect_to home_path
   end
   
   private
