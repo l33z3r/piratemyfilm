@@ -45,7 +45,7 @@
       <div class="membership_type">
         <% form_remote_tag :url => {:action => "update_membership"}, :html => {:id => "membership_#{p.user.id}"} do %>
           <%= select_tag "user_membership", options_for_select(@membership_select_opts,
-            [p.user.membership.membership_type.name, p.user.membership.membership_type.id.to_s]), :onchange => "$('#submit_container_#{p.user.id}').show();" %>
+            [p.user.membership.membership_type.name, p.user.membership.membership_type.id.to_s]), :onchange => "alert('This feature is temporarily disabled, please contact Lee');//$('#submit_container_#{p.user.id}').show();" %>
           <%= hidden_field_tag :user_id, p.user.id %>
           <input type="hidden" id="skip_confirm_<%= p.user.id %>" name="skip_confirm" value=""/>
           <div class="submit" id="submit_container_<%= p.user.id %>" style="display: none;">
