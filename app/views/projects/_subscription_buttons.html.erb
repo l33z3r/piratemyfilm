@@ -1,18 +1,25 @@
 <div id="subscription_buttons">
-  <h3>Shareholder Info</h3>
+  <h2>Shareholder Info</h2>
 
   <% if logged_in %>
     <% if allowed_reserve_shares %>
-      <% if @project.in_payment? %>
-        <%= render :partial => "/projects/in_payment_info" %>
-      <% elsif @project.finished_payment_collection %>
-        <p>
-          This project has successfully finished collecting funds. 
-          You own <%= @u.completed_subscription_payment_amount @project %> share worth
-          <%= print_money @u.completed_subscription_payment_dollar_amount @project %>. 
-          Your dividends will be managed by the producer, who will be in touch.
-        </p>
+      <% if @project.in_payment? or @project.finished_payment_collection %>
+  
+        <% if @project.finished_payment_collection %>
+          <p>
+            This project has successfully finished collecting funds. 
+            You own <%= @u.completed_subscription_payment_amount @project %> share worth
+            <%= print_money @u.completed_subscription_payment_dollar_amount @project %>. 
+            Your dividends will be managed by the producer, who will be in touch.
+          </p>
+        <% end %>
+          
         <div class="pmf_clear_10">&nbsp;</div>
+
+        <%= render :partial => "/projects/in_payment_info" %>
+
+        <div class="pmf_clear_10">&nbsp;</div>
+
       <% else %>
         <%= render :partial => "/projects/reserve_share_section" %>
       <% end %>

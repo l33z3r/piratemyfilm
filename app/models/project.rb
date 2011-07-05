@@ -276,7 +276,7 @@ class Project < ActiveRecord::Base
     @bad_share_count = 0
 
     project_subscriptions.each do |ps|
-      next if ps.user.id == PMF_FUND_ACCOUNT_ID
+      next if ps.user.id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
       @bad_share_count += ps.amount if ps.user.warn_points > 0
     end
 
@@ -302,7 +302,7 @@ class Project < ActiveRecord::Base
   def update_pmf_fund_investment
     logger.debug "Updating PMF Fund Investment!"
 
-    @pmf_fund_user = User.find(PMF_FUND_ACCOUNT_ID)
+    @pmf_fund_user = Profile.find(PMF_FUND_ACCOUNT_ID).user
 
     @subscriptions = ProjectSubscription.load_non_outstanding_subscriptions @pmf_fund_user, self
     @subscription_amount = ProjectSubscription.calculate_amount @subscriptions
@@ -314,7 +314,7 @@ class Project < ActiveRecord::Base
   end
 
   def pmf_fund_investment_share_amount_incl_outstanding
-    @pmf_fund_user = User.find(PMF_FUND_ACCOUNT_ID)
+    @pmf_fund_user = Profile.find(PMF_FUND_ACCOUNT_ID).user
 
     @subscriptions = ProjectSubscription.load_subscriptions @pmf_fund_user, self
     @subscription_amount = ProjectSubscription.calculate_amount @subscriptions
@@ -663,10 +663,6 @@ class Project < ActiveRecord::Base
 
   def share_queue_exhausted?
     project_subscriptions.find(:all, :conditions => "subscription_payment_id is null").empty?
-  end
-
-  def share_queue_has_enough_funds_left
-    amount_shares_left_in_share_queue >= amount_shares_outstanding_payment
   end
 
   def amount_shares_left_in_share_queue

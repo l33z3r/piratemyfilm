@@ -88,10 +88,10 @@ class ProjectsController < ApplicationController
       redirect_to project_path(@project) and return
     end
 
-    @ps = @u.current_subscription_payment(@project)
+    @ps = @u.subscription_payments.find(params[:subscription_payment_id])
 
     if !@ps
-      flash[:error] = "You do not have an active subscription payment!"
+      flash[:error] = "Cannot find subscription!"
       redirect_to project_path(@project) and return
     end
 

@@ -20,7 +20,7 @@ class PaymentWindow < ActiveRecord::Base
 
   has_many :pending_payments, :class_name => "SubscriptionPayment", :foreign_key => "payment_window_id", :conditions => "status = 'Pending' or status = 'Open'"
   has_many :completed_payments, :class_name => "SubscriptionPayment", :foreign_key => "payment_window_id", :conditions => "status = 'Paid'"
-  has_many :defaulted_payments, :class_name => "SubscriptionPayment", :foreign_key => "payment_window_id", :conditions => "status = 'Defaulted'"
+  has_many :defaulted_payments, :class_name => "SubscriptionPayment", :foreign_key => "payment_window_id", :conditions => "status = 'Defaulted' or status = 'Dumped'"
 
   validates_format_of :paypal_email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
     :on => :create, :message=>"Invalid email address."

@@ -222,7 +222,7 @@ module ApplicationHelper
   end
 
   def pmf_fund_user? u
-    return u.id == PMF_FUND_ACCOUNT_ID
+    return u.id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
   end
 
   def project_icon project, size

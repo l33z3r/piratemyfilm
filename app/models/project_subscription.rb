@@ -153,7 +153,7 @@ class ProjectSubscription < ActiveRecord::Base
 
     #take out any shares that are not belonging to pmf fund
     @subscriptions = @subscriptions.reject do |sub|
-      sub.user_id != PMF_FUND_ACCOUNT_ID
+      sub.user_id != Profile.find(PMF_FUND_ACCOUNT_ID).user.id
     end
 
     @subscriptions
@@ -250,7 +250,7 @@ class ProjectSubscription < ActiveRecord::Base
     @temp_pmf_fund_subs = []
 
     @subscriptions.each do |sub|
-      if sub.user_id == PMF_FUND_ACCOUNT_ID
+      if sub.user_id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
         @temp_pmf_fund_subs << sub
       else
         @temp_subscriptions << sub
@@ -302,7 +302,7 @@ class ProjectSubscription < ActiveRecord::Base
     @subscriptions.each do |sub|
       if sub.user_id == @maxriot_user_id
         @temp_maxriot_subs << sub
-      elsif sub.user_id == PMF_FUND_ACCOUNT_ID
+      elsif sub.user_id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
         @temp_pmf_fund_subs << sub
       elsif sub.user.membership.membership_type_id == MembershipType.find_by_name("Black Pearl").id
         @temp_black_pearl_subs << sub

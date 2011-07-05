@@ -148,7 +148,7 @@ class ApplicationController < ActionController::Base
   end
 
   def allowed_reserve_shares
-    @project.owner != @u || @u.id == PMF_FUND_ACCOUNT_ID
+    @project.owner != @u || @u.id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
   end
 
 end

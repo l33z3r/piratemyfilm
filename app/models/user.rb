@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
   def login
     #special case for pmf_fund
     #special case for pmf_fund
-    if id == PMF_FUND_ACCOUNT_ID
+    if id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
       return "PMF Fund"
     end
 
@@ -246,6 +246,10 @@ class User < ActiveRecord::Base
   def apply_membership_limits
     #firstly, delete the latest projects over the listing limit
     @user_projects = owned_public_projects
+    
+    #Disregard any project that is in payment or finished payment
+    #in_payment_phases?
+    
     @num_projects_delete = @user_projects.length - membership.membership_type.max_projects_listed
 
     if @num_projects_delete > 0
@@ -433,8 +437,8 @@ class User < ActiveRecord::Base
     @num
   end
 
-  def current_subscription_payment project
-    subscription_payments.find(:first, :conditions => "project_id = #{project.id} and (status = 'Open' or status = 'Pending')")
+  def current_subscription_payments project
+    subscription_payments.find(:all, :conditions => "project_id = #{project.id} and (status = 'Open' or status = 'Pending')")
   end
 
   def completed_subscription_payments project
@@ -442,7 +446,7 @@ class User < ActiveRecord::Base
   end
 
   def failed_subscription_payments project
-    subscription_payments.find(:all, :conditions => "project_id = #{project.id} and status = 'Defaulted'")
+    subscription_payments.find(:all, :conditions => "project_id = #{project.id} and (status = 'Defaulted' or status = 'Dumped')")
   end
 
   def completed_subscription_payment_amount project
@@ -490,7 +494,7 @@ class User < ActiveRecord::Base
   end
 
   def update_warn_points
-    @unpaid_payments = SubscriptionPayment.find(:all, :conditions => "user_id = #{id} and status = 'Defaulted'", :group => "project_id")
+    @unpaid_payments = SubscriptionPayment.find(:all, :conditions => "user_id = #{id} and (status = 'Defaulted' or status = 'Dumped') and counts_as_warn_point = true", :group => "project_id")
     self.warn_points = @unpaid_payments.size
     save
   end
@@ -498,7 +502,7 @@ class User < ActiveRecord::Base
   def subscribed_projects_awaiting_payment
     Project.find_by_sql("select projects.* from projects where id in
     (select project_id from subscription_payments where (status is null or (status != 'Pending' and status != 'Paid'
-    and status != 'Defaulted') and user_id = #{id}) group by project_id)")
+    and status != 'Defaulted' and status != 'Dumped') and user_id = #{id}) group by project_id)")
   end
 
   # Activates the user in the database.

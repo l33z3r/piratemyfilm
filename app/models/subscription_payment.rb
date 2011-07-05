@@ -21,7 +21,7 @@ class SubscriptionPayment < ActiveRecord::Base
   
   has_many :project_subscriptions
 
-  @@PAYMENT_STATUSES = ["Open", "Pending", "Paid", "Defaulted"]
+  @@PAYMENT_STATUSES = ["Open", "Pending", "Paid", "Defaulted", "Dumped"]
 
   def payment_amount
     share_amount * share_price
@@ -42,4 +42,9 @@ class SubscriptionPayment < ActiveRecord::Base
   def defaulted?
     status == "Defaulted"
   end
+  
+  def dumped?
+    status == "Dumped"
+  end
+  
 end

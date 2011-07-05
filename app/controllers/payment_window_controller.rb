@@ -1,8 +1,8 @@
 class PaymentWindowController < ApplicationController
-  before_filter :load_project, :except => ["mark_payment_paid", "show"]
+  before_filter :load_project, :except => ["mark_payment", "show"]
 
   #we will manually check ownership in the mark_payment_paid action
-  before_filter :check_owner_or_admin, :except => ["mark_payment_paid", "show"]
+  before_filter :check_owner_or_admin, :except => ["mark_payment", "show"]
   
   before_filter :check_allow_create_window, :only => ["new", "create"]
   
@@ -28,47 +28,54 @@ class PaymentWindowController < ApplicationController
     @total_amount = @project.amount_payment_collected
     @project_share_price = @project.ipo_price
 
+    @previous_window_subscription_ids = []
+      
     @project.share_queue.each do |subscription|
       
       break if @total_amount >= @project.capital_required
 
-      #check this subscription has not already been used in a previous window
+      #if the subscription is defaulted it is carried over to the next payment window by default
+      #if it is maked as dumped then we leave it behind
       if subscription.subscription_payment_id
-        next
-      end
-
-      @subscription_amount_dollar = subscription.amount * @project_share_price
-
-      #do we need to split a users subscription amount?
-      if @total_amount + @subscription_amount_dollar > @project.capital_required
-        @over_amount_dollar = (@total_amount + @subscription_amount_dollar) - @project.capital_required
-        @over_amount = @over_amount_dollar / @project.ipo_price
-        @actual_amount = subscription.amount
-        @available_amount = @actual_amount - @over_amount
-
-        #we must split this subscription into @over_amount and @available_amount
-        subscription.amount = @available_amount
-        subscription.save!
-
-        @new_subscription = ProjectSubscription.create( :user => subscription.user,
-          :project => subscription.project, :amount => @over_amount,
-          :outstanding => true )
-        @new_subscription.created_at = subscription.created_at
-        @new_subscription.save!
-
-        @subscription_amount_dollar = @available_amount * @project.ipo_price
-
-      end
-
-      if @user_subscription_array[subscription.user_id]
-        @user_subscription_array[subscription.user_id][:share_amount] += subscription.amount
-        @user_subscription_array[subscription.user_id][:subscription_ids] << subscription.id
+        if subscription.subscription_payment.defaulted? and !@previous_window_subscription_ids.include? subscription.subscription_payment_id.to_s
+          @previous_window_subscription_ids << subscription.subscription_payment_id.to_s
+          @subscription_amount_dollar = subscription.subscription_payment.share_amount * @project_share_price
+        else
+          @subscription_amount_dollar = 0
+        end
       else
-        @user_subscription_array[subscription.user_id] =
-          {:share_price => @project_share_price, :share_amount => subscription.amount,
-          :subscription_ids => [subscription.id]}
-      end
+        @subscription_amount_dollar = subscription.amount * @project_share_price
+        
+        #do we need to split a users subscription amount?
+        if @total_amount + @subscription_amount_dollar > @project.capital_required
+          @over_amount_dollar = (@total_amount + @subscription_amount_dollar) - @project.capital_required
+          @over_amount = @over_amount_dollar / @project.ipo_price
+          @actual_amount = subscription.amount
+          @available_amount = @actual_amount - @over_amount
 
+          #we must split this subscription into @over_amount and @available_amount
+          subscription.amount = @available_amount
+          subscription.save!
+
+          @new_subscription = ProjectSubscription.create( :user => subscription.user,
+            :project => subscription.project, :amount => @over_amount,
+            :outstanding => true )
+          @new_subscription.created_at = subscription.created_at
+          @new_subscription.save!
+
+          @subscription_amount_dollar = @available_amount * @project.ipo_price
+        end
+
+        if @user_subscription_array[subscription.user_id]
+          @user_subscription_array[subscription.user_id][:share_amount] += subscription.amount
+          @user_subscription_array[subscription.user_id][:subscription_ids] << subscription.id
+        else
+          @user_subscription_array[subscription.user_id] =
+            {:share_price => @project_share_price, :share_amount => subscription.amount,
+            :subscription_ids => [subscription.id]}
+        end
+      end
+    
       @total_amount += @subscription_amount_dollar
     end
 
@@ -81,6 +88,25 @@ class PaymentWindowController < ApplicationController
 
     @notify_emails = []
     
+    #all failed payments from previous window are recorded and reused in this window
+    @previous_window_subscription_ids.each do |subscription_payment_id|
+      @sp = SubscriptionPayment.find subscription_payment_id
+      
+      #record a failed payment and reuse the payment in next window
+      @new_sp = SubscriptionPayment.create({:payment_window_id => @payment_window.id, 
+          :project_id => @sp.project_id, :user_id => @sp.user_id, 
+          :share_amount => @sp.share_amount, :share_price => @sp.share_price,
+          :status => "Open"})
+      
+      @notify_emails << @sp.user.profile.email
+
+      @sp.project_subscriptions.each do |project_subscription|
+        project_subscription.subscription_payment_id = @new_sp.id
+        project_subscription.save!
+      end
+    end
+
+    #create new subscription payments
     @user_subscription_array.each do |user_id, subscription_map|
       @user_share_amount = subscription_map[:share_amount]
       @user_share_price = subscription_map[:share_price]
@@ -101,7 +127,7 @@ class PaymentWindowController < ApplicationController
       end
       
     end
-
+    
     @project.project_payment_status = "In Payment"
     @project.save!
 
@@ -204,9 +230,16 @@ class PaymentWindowController < ApplicationController
     @payment_window.subscription_payments.each do |payment|
       if payment.paid?
         @notify_emails_paid << payment.user.profile.email
+      elsif payment.dumped?
+        @notify_emails_defaulted << payment.user.profile.email
+        payment.counts_as_warn_point = true
+        payment.save!
+        
+        payment.user.update_warn_points        
       else
         @notify_emails_defaulted << payment.user.profile.email
         payment.status = "Defaulted"
+        payment.counts_as_warn_point = true
         payment.save!
 
         payment.user.update_warn_points
@@ -277,7 +310,7 @@ class PaymentWindowController < ApplicationController
     @previous_payment_windows = @project.payment_windows.find(:all, :conditions => "status != 'Active'")
   end
 
-  def mark_payment_paid
+  def mark_payment
     #only allow post
     return unless request.post?
 
@@ -300,35 +333,40 @@ class PaymentWindowController < ApplicationController
         redirect_to :action => "history", :id => @project and return
       end
 
-      if @subscription_payment.pending?
-        @subscription_payment.status = "Paid"
+      if params[:marking] == "paid"
+        if @subscription_payment.pending? or @subscription_payment.open?
+          @subscription_payment.status = "Paid"
 
-        #email the user whos payment has been marked as paid
-        begin
-          PaymentsMailer.deliver_payment_succeeded @payment_window, @subscription_payment.user.profile.email
-        rescue Exception
-          logger.info "Error sending mail!"
-        end
+          #email the user whos payment has been marked as paid
+          begin
+            PaymentsMailer.deliver_payment_succeeded @payment_window, @subscription_payment.user.profile.email
+          rescue Exception
+            logger.info "Error sending mail!"
+          end
     
-        @subscription_payment.save!
+          @subscription_payment.save!
 
-        #check is this window finished... close it if it is
+          #check is this window finished... close it if it is
 
-      elsif @subscription_payment.paid?
-        flash[:error] = "This payment has already been marked as Paid"
-        redirect_to :action => "show_current", :id => @subscription_payment.project and return
-      elsif @subscription_payment.open?
-        #we now allow a payment to be marked as paid regardless of its current status
-        #to allow payments to come in from another way than paypal
-#        flash[:error] = "This payment cannot be marked as paid, as the user has not yet clicked the 'Pay For Shares' button."
-#        redirect_to :action => "show_current", :id => @subscription_payment.project and return
+        elsif @subscription_payment.paid?
+          flash[:error] = "This payment has already been marked as Paid"
+          redirect_to :action => "show_current", :id => @subscription_payment.project and return
+        end
+      elsif params[:marking] == "dumped"
+        if @subscription_payment.pending? or @subscription_payment.open?
+          @subscription_payment.status = "Dumped"
+          @subscription_payment.save!
+        elsif @subscription_payment.paid?
+          flash[:error] = "This payment has already been marked as Dumped"
+          redirect_to :action => "show_current", :id => @subscription_payment.project and return
+        end
       end
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "Subscription Payment Not Found"
       redirect_to :action => "show_current", :id => @subscription_payment.project and return
     end
 
-    flash[:positive] = "Payment has been marked as paid!"
+    flash[:positive] = "Payment has been marked!"
     redirect_to :controller => "payment_window", :action => "show_current", :id => @subscription_payment.project.id
   end
 

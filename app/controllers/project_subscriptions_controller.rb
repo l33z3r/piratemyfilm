@@ -10,7 +10,7 @@ class ProjectSubscriptionsController < ApplicationController
     begin            
 
       #if we are the pmf_fund
-      if @u.id == PMF_FUND_ACCOUNT_ID
+      if @u.id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
         pmf_fund_reserve
         return
       end
@@ -109,7 +109,7 @@ class ProjectSubscriptionsController < ApplicationController
 
       ProjectSubscription.cancel_shares_for_project(@project_subscriptions, @num_shares)
 
-      if @u.id == PMF_FUND_ACCOUNT_ID
+      if @u.id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
         #store in reservation history for pmf fund
         PmfFundSubscriptionHistory.create(:project => @project, :amount => (0 - @num_shares))
       end
