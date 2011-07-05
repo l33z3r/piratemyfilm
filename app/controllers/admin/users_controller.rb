@@ -3,24 +3,13 @@ class Admin::UsersController < Admin::AdminController
 
   def index
     @membership_select_opts = MembershipType.membership_select_opts
+    @membership_select_opts_indiv = MembershipType.membership_select_opts false
 
     @membership_type_filter_params = []
     @membership_type_filter_params += @membership_select_opts
   end
 
   def update_membership
-    
-    
-    
-    #This feature is disabled untill we stop the projects in payment from being affected by the membership limits
-    return
-    
-    
-    
-    
-    
-    
-    
     begin
       @user = User.find(params[:user_id])
     rescue ActiveRecord::RecordNotFound

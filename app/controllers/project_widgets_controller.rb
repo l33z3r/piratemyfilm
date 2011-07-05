@@ -23,15 +23,6 @@ class ProjectWidgetsController < ApplicationController
     if !@num_projects or !@num_projects.is_a?(Integer) or !@filter_param
       render :inline => "Bad Parameters" and return
     end
-
-    if @filter_param = params[:filter_param]
-      @filter = Project.get_filter_sql @filter_param
-      @order = Project.get_order_sql @filter_param
-
-      @projects = Project.find_all_public(:select => '*, percent_funded + pmf_fund_investment_percentage AS percent_funded_total', :conditions => @filter, :order=> @order, :limit => @num_projects).paginate :page => (params[:page] || 1), :per_page=> 15
-    else
-      @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 15
-    end
     
     render :action => "render_widget", :layout => false
   end

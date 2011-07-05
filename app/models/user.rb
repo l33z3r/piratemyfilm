@@ -62,14 +62,24 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   validates_less_reverse_captcha
 
+  #owned_public_projects does not include projects that have started the payment phases
   has_many :owned_public_projects, :class_name => "Project", :foreign_key => "owner_id", 
-    :conditions=>"symbol IS NOT NULL and is_deleted = 0 and (project_payment_status is null or project_payment_status != 'Finished Payment')", 
+    :conditions=>"symbol IS NOT NULL and is_deleted = 0 and project_payment_status is null", 
+    :order => "created_at"
+  
+  has_many :owned_public_in_payment_projects, :class_name => "Project", :foreign_key => "owner_id",
+    :conditions=>"symbol IS NOT NULL and is_deleted = 0 and project_payment_status = 'In Payment'",
     :order => "created_at"
   
   has_many :owned_public_funded_projects, :class_name => "Project", :foreign_key => "owner_id",
     :conditions=>"symbol IS NOT NULL and is_deleted = 0 and project_payment_status = 'Finished Payment'",
     :order => "created_at"
 
+  #owned_public_projects_all are all non deleted projects owned by a user and includes projects in payment and finished payment
+  has_many :owned_public_projects_all, :class_name => "Project", :foreign_key => "owner_id", 
+    :conditions=>"symbol IS NOT NULL and is_deleted = 0", 
+    :order => "created_at"
+  
   has_many :owned_projects, :class_name => "Project", :foreign_key => "owner_id"
 
   has_many :project_subscriptions, :dependent => :destroy
@@ -301,18 +311,6 @@ class User < ActiveRecord::Base
 
   #get all projects a user takes part in
   #return them as select opts for a dropdown
-  def project_select_opts_old
-    @project_select_opts = [["Choose a project...", -1], ["None", -1]]
-
-    owned_public_projects.each do |project|
-      @project_select_opts << [project.title, project.id]
-    end
-
-    @project_select_opts
-  end
-  
-  #get all projects a user takes part in
-  #return them as select opts for a dropdown
   def project_select_opts target_project
     @project_participations = {}
     
@@ -320,7 +318,7 @@ class User < ActiveRecord::Base
     
     @project_participations[@ownership_rel_name] = []
     
-    owned_public_projects.each do |project|
+    owned_public_projects_all.each do |project|
       next if target_project and target_project.id != project.id
       
       @project_participations[@ownership_rel_name] << [project, nil]

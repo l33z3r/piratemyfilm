@@ -62,6 +62,7 @@ class ProfilesController < ApplicationController
     @total_shares_reserved_amount = @total_shares_reserved * 5
 
     @user_projects = @profile.user.owned_public_projects
+    @user_projects_in_payment = @profile.user.owned_public_in_payment_projects
     @user_funded_projects = @profile.user.owned_public_funded_projects
 
     @user_non_funded_subscriptions = @profile.user.subscribed_non_funded_projects
