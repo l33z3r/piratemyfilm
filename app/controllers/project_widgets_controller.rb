@@ -20,7 +20,7 @@ class ProjectWidgetsController < ApplicationController
   end
 
   def render_widget
-    if !@num_projects or !@num_projects.is_a?(Integer) or !@filter_param
+    if !@num_projects or !@num_projects.is_a?(Integer) or !@filter_param or !@filter_param.is_a?(Integer)
       render :inline => "Bad Parameters" and return
     end
     
