@@ -459,7 +459,7 @@ class Project < ActiveRecord::Base
     #filter out all projects that are green lit
     @green_light_filter = " green_light is null"
     
-    case filter_param
+    case filter_param.to_s
     when "2" then return "#{@payment_status_filter} and #{@green_light_filter}"
     when "3" then return "status = \"Pre Production\" and #{@payment_status_filter} and #{@green_light_filter}"
     when "4" then return "status = \"In Production\" and #{@payment_status_filter} and #{@green_light_filter}"
@@ -488,7 +488,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.get_order_sql filter_param
-    case filter_param
+    case filter_param.to_s
     when "2" then return "percent_funded_total DESC"
     when "3" then return "percent_funded_total DESC"
     when "4" then return "percent_funded_total DESC"
