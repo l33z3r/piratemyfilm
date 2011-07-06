@@ -37,6 +37,10 @@ class ProjectWidgetsController < ApplicationController
     end
 
     @filter_param = params[:filter_param]
+    
+    if @filter_param
+      @filter_param = @filter_param.to_i
+    end
   end
 
   def allow_to
