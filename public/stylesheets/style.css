@@ -281,6 +281,15 @@ div#signup_section div#welcome_message div#links div.link a {
     color: #000;
 }
 
+div#signup_section div#welcome_message div#links div.awaiting_payment_link {
+    margin-right: 10px;
+}
+
+div#signup_section div#welcome_message div#links div.awaiting_payment_link a {
+    color: #000000;
+    font-weight: bold;
+}
+
 div#signup_section div#welcome_message div#links div.link {
     float: right;
 }
@@ -298,15 +307,6 @@ div#profile_links div.link a {
     color: #000000;
     text-decoration: underline;
     font-size: 12px;
-}
-
-div#profile_links div.awaiting_payment_link a {
-    color: #000000;
-    font-weight: bold;
-}
-
-div#profile_links div.awaiting_payment_link a:hover {
-    text-decoration: underline;
 }
 
 /* Latest Max Blog */
@@ -1030,6 +1030,17 @@ div#project_show div.reservation_form_container div.controls {
     float: left;
 }
 
+div.pay_for_shares_link {
+    margin-bottom: 20px;
+}
+
+div.pay_for_shares_link a {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+}
+
 div#project_show .view-lite-row-description {
     padding: 1px 5px;
     width: 870px;
@@ -1496,7 +1507,7 @@ div#payment_window div#subscription_payments div.subscription_payment div.paymen
 
 div#payment_window div#subscription_payments div.subscription_payment div.mark_as_paid {
     float: left;
-    width: 90px;
+    width: 250px;
     margin-top: 9px;
     font-weight: bold;
 }

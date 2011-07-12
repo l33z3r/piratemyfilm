@@ -6,7 +6,7 @@
   <% if @my_subscriptions_amount > 0 %>
     <li>
       You are currently subscribed to this project.
-      You have <b><%= @my_subscriptions_amount %></b> shares
+      You have  reserved <b><%= @my_subscriptions_amount %></b> shares
       <% if @my_outstanding_subscriptions_amount > 0 %>
         <i>
           <b>(<%= @my_outstanding_subscriptions_amount %> initially marked as on
@@ -22,60 +22,91 @@
     </li>
 
     <li>
+      Failure to pay for your shares will result in them being given to another user in the share queue.
+    </li>
+    
+    <li>
+      If you have paid for shares, the project owner will be in contact with you in due course.
+    </li>
+  </ul>
+
+  <h4>Shares You Have Paid For</h4>
+
+  <ul>
+    <li>
       You have <i>paid</i> for a total of <b><%= @u.completed_subscription_payment_amount @project %></b> shares in this project,
       amounting to <b><%= print_money @u.completed_subscription_payment_dollar_amount @project %></b>.
     </li>
+  </ul>
+  <ul>
+    <% @u.completed_subscription_payments(@project).each do |subscription_payment| %>
+      <li>
+        Payment <b>#<%= subscription_payment.id %></b> <b>(<%= subscription_payment.created_at.to_s(:short) %>)</b>: <b><%= subscription_payment.share_amount %></b> shares
+        (Cost: <b><%= print_money subscription_payment.payment_amount %></b>) have been paid for.
+      </li>
+    <% end %>
+  </ul>
 
+  <h4>Shares You Have Defaulted On</h4>
+
+  <ul>
     <li>
       You have <i>defaulted</i> on a total of <b><%= @u.failed_subscription_payment_amount @project %></b> shares in this project,
       amounting to <b><%= print_money @u.failed_subscription_payment_dollar_amount @project %></b>.
     </li>
+  </ul>
+  <ul>
+    <% @u.failed_subscription_payments(@project).each do |subscription_payment| %>
+      <li>
+        Payment <b>#<%= subscription_payment.id %></b> <b>(<%= subscription_payment.created_at.to_s(:short) %>)</b>: <b><%= subscription_payment.share_amount %></b> shares
+        (Cost: <b><%= print_money subscription_payment.payment_amount %></b>) have been defaulted on.
+      </li>
+    <% end %>
+  </ul>
 
-    <li>
-      Failure to pay for your shares will result in them being given to another user in the share queue.
-    </li>
+  <h4>Shares To Be Paid For</h4>
+  <% if @project.current_payment_window && @u.current_subscription_payments(@project).size > 0 %>
 
-    <% if @project.current_payment_window && @u.current_subscription_payment(@project) %>
-      <% if @u.current_subscription_payment(@project).paid? %>
-        <li>
-          You have already paid for your <b><%= @u.current_subscription_payment(@project).share_amount %></b> shares in this payment window.
-        </li>
-      <% else %>
-        <% if @u.current_subscription_payment(@project).open? %>
-          <li>
-            You can now pay for <b><%= @u.current_subscription_payment(@project).share_amount %></b> shares by paypal.
-          </li>
+    <ul>
+      <li>
+        The following is a list of payments due by you. You may see more than one payment here, as you may have reserved shares 
+        in this project on more than one occasion, or shares have became available to you due to another user defaulting on payment. 
+      </li>
+    </ul>
 
-          <li>
-            Click the "Pay For Shares" button below to pay into the producers paypal account.
-          </li>
-        <% elsif @u.current_subscription_payment(@project).pending? %>
+    <% @u.current_subscription_payments(@project).each do |subscription_payment| %>
+      <ul>
+        <% if subscription_payment.pending? %>
           <li class="warn">
-            You have <b><%= @u.current_subscription_payment(@project).share_amount %></b>
-            shares pending verification. It is in our system that you have
-            already clicked "Pay For Shares" for your shares in this window.
+            You have <b><%= subscription_payment.share_amount %></b>
+            shares pending verification in this payment. It is in our system that you have
+            already clicked "Pay For Shares" for your shares in this payment.
             If you are sure that you did not complete the transaction and still
-            need to pay for your shares, click the "Pay For Shares" button below.
+            need to pay for your shares in this payment, click the "Pay For Shares" button below.
             If you do not pay for your shares, and they are not verified by the
             window close date, they will be given to the next user in the queue.
           </li>
         <% end %>
         <li>
-          Click the button below to start the payment process for your
-          <b><%= @u.current_subscription_payment(@project).share_amount %></b> shares
-          (Cost: <b><%= print_money @u.current_subscription_payment(@project).payment_amount %></b>).
+          Click the link below to start the payment process for your
+          <b><%= subscription_payment.share_amount %></b> shares
+          (Cost: <b><%= print_money subscription_payment.payment_amount %></b>) in payment <b>#<%= subscription_payment.id %></b>.
 
           <div class="pmf_clear_10">&nbsp;</div>
 
-          <div class="button left">
-            <%= link_to "Pay For Shares", :action => "buy_shares", :id => @project.id %>
+          <div class="pay_for_shares_link">
+            <%= link_to "Click Here to Pay For #{subscription_payment.share_amount} Shares (Cost: #{print_money subscription_payment.payment_amount}) - Payment ##{subscription_payment.id}", 
+              :action => "buy_shares", :id => @project.id, :subscription_payment_id => subscription_payment.id %>
           </div>
         </li>
-      <% end %>
-    <% else %>
+      </ul>
+    <% end %>
+  <% else %>
+    <ul>
       <li>
         There are currently no shares available for you to pay for.
       </li>
-    <% end %>
+    </ul>
   <% end %>
+<% end %>
 </ul>

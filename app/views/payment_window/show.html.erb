@@ -1,7 +1,5 @@
 <div class="pageTitle">Viewing Payment Window #<%= @payment_window.id %></div>
 
-<div class="dashed_light_border">&nbsp;</div>
-
 <div class="pageTitleSmall">
   For Project <%= link_to @payment_window.project.title, project_path(@project) %>
 </div>
@@ -23,7 +21,6 @@
   <% end %>
 
   <ul>
-
     <li>
       A total of <b><%= print_money @payment_window.amount_payment_collected %></b>
       has been collected from <b><%= @payment_window.completed_payments.size %></b> payments for this payment window.
@@ -35,7 +32,7 @@
     </li>
 
     <li>
-      There are <b><%= @payment_window.defaulted_payments.size %></b> defaulted payments, amounting to
+      There are <b><%= @payment_window.defaulted_payments.size %></b> defaulted/dumped payments, amounting to
       <b><%= print_money @payment_window.amount_defaulted_payment %></b>.
     </li>
 
@@ -65,7 +62,10 @@
 
   <div class="pmf_clear_10">&nbsp;</div>
 
-  Click below to close this window. All shares that have not been marked as paid, will be marked as defaulted.
+  Click below to close this window. All shares that have not been marked as paid, will be brough 
+  forward to the next payment window, unless you mark them as dumped.
+  This gives you an opportunity to allow a user to have another go at paying for their shares.
+  The user will receive a black mark for not paying for their shares regardless of wether they are carried over to the next window or not.
   You can then offer the outstanding shares to the next users in the queue, by opening a new window.
 
   <div class="pmf_clear_10">&nbsp;</div>
@@ -99,7 +99,12 @@
 
     <div class="pmf_clear">&nbsp;</div>
 
-    <% @payment_window.subscription_payments.each do |subscription_payment| %>
+    <% 
+    #have to refresh the association cache before displaying
+    @payment_window.subscription_payments.reload 
+    %>
+    
+    <%  @payment_window.subscription_payments.each do |subscription_payment| %>
       <div class="<%= cycle('odd','even') %> subscription_payment">
         <div class="sp_id"><%= subscription_payment.id %></div>
         <div class="user_name"><%= link_to subscription_payment.user.login, profile_path(subscription_payment.user.id) %></div>
@@ -112,10 +117,17 @@
             Paid
           <% elsif subscription_payment.defaulted? %>
             Defaulted
+          <% elsif subscription_payment.dumped? %>
+            Dumped
           <% else %>
-            <div class="button">
+            <div class="left button">
               <%= link_to "Mark As Paid",
-                {:action => "mark_payment_paid", :id => subscription_payment.id},
+                {:action => "mark_payment", :id => subscription_payment.id, :marking => "paid"},
+                :confirm => "Are you sure?", :method => :post %>
+            </div>
+            <div class="left button">
+              <%= link_to "Mark As Dumped",
+                {:action => "mark_payment", :id => subscription_payment.id, :marking => "dumped"},
                 :confirm => "Are you sure?", :method => :post %>
             </div>
           <% end %>

@@ -47,7 +47,7 @@ class StaticController < ApplicationController
     @num_funded_projects = Project.all_funded.size
     @total_funded_amount = Project.all_funded_amount
 
-    @pmf_fund_user = User.find(PMF_FUND_ACCOUNT_ID)
+    @pmf_fund_user = Profile.find(PMF_FUND_ACCOUNT_ID).user
 
     @total_pmf_projects_invested_in = @pmf_fund_user.subscribed_non_funded_projects.length
     @total_pmf_shares_reserved_all_projects = @pmf_fund_user.non_funded_project_subscriptions.sum("amount")

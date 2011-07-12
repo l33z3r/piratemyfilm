@@ -46,7 +46,7 @@ class MembershipType < ActiveRecord::Base
     @@FUNDING_OPTIONS
   end
 
-  def self.membership_select_opts
+  def self.membership_select_opts include_all=true
     @membership_select_opts = []
 
     @membership_types = find(:all)
@@ -55,8 +55,10 @@ class MembershipType < ActiveRecord::Base
       @membership_select_opts << [@mt.name, @mt.id.to_s]
     end
 
-    @membership_select_opts.unshift(["All", "0"])
-
+    if include_all
+      @membership_select_opts.unshift(["All", "0"])
+    end
+    
     @membership_select_opts
   end
   

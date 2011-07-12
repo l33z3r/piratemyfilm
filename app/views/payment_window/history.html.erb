@@ -1,8 +1,6 @@
 <div id="payment_window_history">
   <div class="pageTitle">Collect Funds</div>
 
-  <div class="dashed_light_border">&nbsp;</div>
-
   <div class="pageTitleSmall">
     For Project <%= link_to h(@project.title), project_path(@project) %>
   </div>
@@ -47,6 +45,10 @@
     </li>
     <li>
       The producer clicks "Mark as Paid" for each payment he receives
+    </li>
+    <li>
+      The producer can also mark shares as dumped, meaning that they will not carry over to the next payment window.
+      By default, any shares that are not paid for will carry over into the next payment window to give the user another opportunity to pay for them.
     </li>
     <li>The producer must then close the payment window, marking all defaulted shares as such</li>
     <li>
@@ -154,18 +156,11 @@
 
       <p>There is no currently active payment window for this project.</p>
 
-      <% if @project.share_queue_has_enough_funds_left %>
-        <p>
-          Note: Opening a new payment window will allocate payments in the share queue
-          for the amount of <%= print_money @project.amount_payment_outstanding %>
-        </p>
-      <% else %>
-        <p>
-          Note: There is not enough users in the rest of the queue to fill the rest of the required funding.
-          This window will allocate shares to the amount of <%= @project.amount_shares_left_in_share_queue %>.
-          You must then require that PMF buy out whatever amount of shares are left over after the window has been closed.
-        </p>
-      <% end %>
+      <p>
+        Note: Opening a new payment window will allocate payments in the share queue
+        for the amount of <%= print_money @project.amount_payment_outstanding %>
+      </p>
+
       <div class="button left">
         <%= link_to "New Window", :action => "new", :id => @project.id %>
       </div>

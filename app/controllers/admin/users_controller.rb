@@ -3,6 +3,7 @@ class Admin::UsersController < Admin::AdminController
 
   def index
     @membership_select_opts = MembershipType.membership_select_opts
+    @membership_select_opts_indiv = MembershipType.membership_select_opts false
 
     @membership_type_filter_params = []
     @membership_type_filter_params += @membership_select_opts
@@ -47,6 +48,16 @@ class Admin::UsersController < Admin::AdminController
     
     flash[:positive] = "Setting updated!"
     redirect_to :action => "index"
+  end
+  
+  def login_as
+    return unless request.post?
+    
+    @user_id = params[:user_id]
+    @user = User.find(@user_id)
+    session[:user] = @user_id
+    flash[:notice] = "Logged in as #{@user.login}!"
+    redirect_to home_path
   end
   
   private

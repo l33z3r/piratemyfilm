@@ -17,84 +17,99 @@
 
   <body id="widget" onload="doInit();">
 
-    <div class="project_listings_widget">
+    <% cache("project_listings_widget_#{@num_projects}_#{@filter_param}", :expires_in => 2.minutes) do %>
 
-      <div class="project_widget_header">
-        <%= link_to image_tag("widgets/projects_widget/widget-header.png"),
-          {:controller => "home"}, :only_path => false, :target => "_blank" %>
-      </div>
+      <% 
+        if @filter_param
+          @filter = Project.get_filter_sql @filter_param
+          @order = Project.get_order_sql @filter_param
 
-      <% for project in @projects do %>
-          <div class="project_mini_view">
+          @projects = Project.find_all_public(:select => '*, percent_funded + pmf_fund_investment_percentage AS percent_funded_total', :conditions => @filter, :order=> @order, :limit => @num_projects).paginate :page => (params[:page] || 1), :per_page=> 15
+        else
+          @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 15
+        end
+      %>
+    
+      <div class="project_listings_widget">
 
-            <div class="project_icon">
-              <%= link_to project_icon(project, :big), project_path(project), :target => "_blank" %>
-              <div class="follow_button">
-                <div class="button_small left">
-                  <%= link_to "Follow", project_path(project), :target => "_blank" %>
-                </div>
-              </div>
-            </div>
-
-            <div class="project_info">
-              <div class="project_title">
-                <!-- force a truncate without breaks -->
-                <%= link_to(h(truncate(project.title, 25)), project_path(project), :target => "_blank") %>
-              </div>
-
-              <div class="pmf_clear">&nbsp;</div>
-
-              <div class="user_info">
-                <div class="user_icon">
-                  <%= link_to avatar(project.owner.profile, {:size => :small, :file_column_version => :small }), profile_path(project.owner.profile), :target => "_blank" %>
-                </div>
-                <div class="user_name">
-                  <%= link_to h(project.owner.login), profile_path(project.owner.profile), :target => "_blank" %>
-                </div>
-              </div>
-
-              <div class="pmf_clear">&nbsp;</div>
-
-              <div class="project_stats">
-                <div class="funds_needed">
-                  <span><%= print_money project.capital_required %></span> needed
-                </div>
-                <div class="percent_funded">
-                  <span><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
-                </div>
-                <div class="percent_move">
-                  <div class="arrow">
-                    <%= up_down_arrow project.percent_move_since_last_change_info %>
-                  </div>
-                  <div class="amount"><%= project.percent_move_since_last_change_info.abs %>&#37 (live)</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="pmf_clear">&nbsp;</div>
-
-          </div>
-
-          <div class="pmf_clear">&nbsp;</div>
-        <% end %>
-
-        <div class="pmf_clear">&nbsp;</div>
-
-        <div class="project_widget_footer">
-          <%= link_to image_tag("widgets/projects_widget/widget-footer.png"),
+        <div class="project_widget_header">
+          <%= link_to image_tag("widgets/projects_widget/widget-header.png"),
             {:controller => "home"}, :only_path => false, :target => "_blank" %>
         </div>
 
-        <div class="pmf_clear">&nbsp;</div>
+        <% for project in @projects do %>
+            <div class="project_mini_view">
 
-        <div class="project_widget_footer">
-          <%= link_to image_tag("widgets/projects_widget/widget-footer-invite.png"),
-            {:controller => "project_widgets"}, :only_path => false, :target => "_blank" %>
+              <div class="project_icon">
+                <%= link_to project_icon(project, :big), project_path(project), :target => "_blank" %>
+                <div class="follow_button">
+                  <div class="button_small left">
+                    <%= link_to "Follow", project_path(project), :target => "_blank" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="project_info">
+                <div class="project_title">
+                  <!-- force a truncate without breaks -->
+                  <%= link_to(h(truncate(project.title, 25)), project_path(project), :target => "_blank") %>
+                </div>
+
+                <div class="pmf_clear">&nbsp;</div>
+
+                <div class="user_info">
+                  <div class="user_icon">
+                    <%= link_to avatar(project.owner.profile, {:size => :small, :file_column_version => :small }), profile_path(project.owner.profile), :target => "_blank" %>
+                  </div>
+                  <div class="user_name">
+                    <%= link_to h(project.owner.login), profile_path(project.owner.profile), :target => "_blank" %>
+                  </div>
+                </div>
+
+                <div class="pmf_clear">&nbsp;</div>
+
+                <div class="project_stats">
+                  <div class="funds_needed">
+                    <span><%= print_money project.capital_required %></span> needed
+                  </div>
+                  <div class="percent_funded">
+                    <span><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
+                  </div>
+                  <div class="percent_move">
+                    <div class="arrow">
+                      <%= up_down_arrow project.percent_move_since_last_change_info %>
+                    </div>
+                    <div class="amount"><%= project.percent_move_since_last_change_info.abs %>&#37 (live)</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pmf_clear">&nbsp;</div>
+
+            </div>
+
+            <div class="pmf_clear">&nbsp;</div>
+          <% end %>
+
+          <div class="pmf_clear">&nbsp;</div>
+
+          <div class="project_widget_footer">
+            <%= link_to image_tag("widgets/projects_widget/widget-footer.png"),
+              {:controller => "home"}, :only_path => false, :target => "_blank" %>
+          </div>
+
+          <div class="pmf_clear">&nbsp;</div>
+
+          <div class="project_widget_footer">
+            <%= link_to image_tag("widgets/projects_widget/widget-footer-invite.png"),
+              {:controller => "project_widgets"}, :only_path => false, :target => "_blank" %>
+          </div>
+
+          <div class="pmf_clear">&nbsp;</div>
+
         </div>
 
-        <div class="pmf_clear">&nbsp;</div>
-
-      </div>
+      <% end %>
 
     </body>
 

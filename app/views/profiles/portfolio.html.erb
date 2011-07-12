@@ -48,6 +48,8 @@
         </div>
         <div class="stat_label">No. Projects Offering Shares:</div>
         <div class="stat"><%= @user_projects.size %></div>
+        <div class="stat_label">No. Projects In Payment:</div>
+        <div class="stat"><%= @user_projects_in_payment.size %></div>
         <div class="pmf_clear">&nbsp;</div>
         <div class="stat_label">No. Projects Funded:</div>
         <div class="stat"><%= @user_funded_projects.size %></div>
@@ -110,6 +112,23 @@
     <div class="pmf_clear">&nbsp;</div>
 
     <%= render :partial => "projects/listings", :object => @user_funded_projects %>
+  </div>
+  
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_listing_box">
+    <div class="pageTitle">
+      <% if @p == @profile %>
+        Your
+      <% else %>
+        <%=@profile.user.login%>'s
+      <% end %>
+      projects that are in payment
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <%= render :partial => "projects/listings", :object => @user_projects_in_payment %>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>

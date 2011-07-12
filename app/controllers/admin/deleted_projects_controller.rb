@@ -15,7 +15,7 @@ class Admin::DeletedProjectsController < Admin::AdminController
   end
 
   def restore
-    #check the owners limits on projects listed if membership not black pearl
+    #check the owners limits on projects listed
     @membership = @project.owner.membership.membership_type
 
     @user_projects = @project.owner.owned_public_projects
