@@ -606,7 +606,7 @@ class Project < ActiveRecord::Base
       ps.user.membership.membership_type_id != membership_type.id
     end
 
-    @subs.collect(&:user).uniq
+    @subs.collect(&:user).uniq.collect(&:profile)
   end
 
   def in_payment_phases?

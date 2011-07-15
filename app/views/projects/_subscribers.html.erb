@@ -3,8 +3,8 @@
   <div class="pmf_clear_bottom_border">&nbsp;</div>
 
   <div class="users">
-    <% @project.ordered_subscribers_for_black_pearl_membership.each do |user| %>
-      <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
+    <% @project.ordered_subscribers_for_black_pearl_membership.each do |profile| %>
+      <%= render :partial => "/profiles/tiny", :locals => { :profile => profile } %>
     <% end %>
   </div>
 
@@ -16,8 +16,8 @@
   <div class="pmf_clear_bottom_border">&nbsp;</div>
 
   <div class="users">
-    <% @project.ordered_subscribers_for_platinum_membership.each do |user| %>
-      <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
+    <% @project.ordered_subscribers_for_platinum_membership.each do |profile| %>
+      <%= render :partial => "/profiles/tiny", :locals => { :profile => profile } %>
     <% end %>
   </div>
 
@@ -29,8 +29,8 @@
   <div class="pmf_clear_bottom_border">&nbsp;</div>
 
   <div class="users">
-    <% @project.ordered_subscribers_for_gold_membership.each do |user| %>
-      <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
+    <% @project.ordered_subscribers_for_gold_membership.each do |profile| %>
+      <%= render :partial => "/profiles/tiny", :locals => { :profile => profile } %>
     <% end %>
   </div>
 
@@ -42,8 +42,8 @@
   <div class="pmf_clear_bottom_border">&nbsp;</div>
 
   <div class="users">
-    <% @project.ordered_subscribers_for_basic_membership.each do |user| %>
-      <%= render :partial => "/profiles/tiny", :locals => { :profile => user.profile } %>
+    <% @project.ordered_subscribers_for_basic_membership.each do |profile| %>
+      <%= render :partial => "/profiles/tiny", :locals => { :profile => profile } %>
     <% end %>
   </div>
 

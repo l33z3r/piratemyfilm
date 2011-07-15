@@ -231,13 +231,13 @@ class ProjectSubscription < ActiveRecord::Base
 
     #pmf fund subs go to back of queue
     @subscriptions = sort_pmf_fund_subs(@subscriptions)
-    
+
     #maxriot goes to front of queue
     @subscriptions = sort_maxriot_subs(@subscriptions)
-    
+
     #some accounts can skip the queue
     @subscriptions = apply_account_skipping(@subscriptions)
-    
+
     @subscriptions
   end
 
