@@ -11,7 +11,10 @@ YOUTUBE_BASE_URL = "http://gdata.youtube.com/feeds/api/videos/"
 
 #some ids of various users
 PMF_FUND_ACCOUNT_ID = CUSTOM_CONFIG['max_profile_id']
+PMF_FUND_USER_ID = Profile.find(PMF_FUND_ACCOUNT_ID).user.id
+
 MAXRIOT_PROFILE_ID = CUSTOM_CONFIG['maxriot_profile_id']
+MAXRIOT_USER_ID = Profile.find(MAXRIOT_PROFILE_ID).user.id
 
 #these are used to log into a remote wordpress site to cross post blogs
 WP_SITE_LOGIN_NAME = CUSTOM_CONFIG['wordpress_site_login_name']

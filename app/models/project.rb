@@ -569,16 +569,16 @@ class Project < ActiveRecord::Base
   end
 
   def share_queue
-    ProjectSubscription.share_queue self
+    @share_queue ||= ProjectSubscription.share_queue self
   end
 
   #get the end of the queue that has not been assigned a payment yet
   def share_queue_pending
-    ProjectSubscription.share_queue_pending self
+    @share_queue_pending ||= ProjectSubscription.share_queue_pending self
   end
 
   def share_queue_pending_pmf_fund
-    ProjectSubscription.share_queue_pending_pmf_fund self
+    @share_queue_pending_pmf_fund ||= ProjectSubscription.share_queue_pending_pmf_fund self
   end
 
   def ordered_subscribers
