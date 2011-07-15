@@ -126,7 +126,8 @@ class ProjectSubscription < ActiveRecord::Base
   end
 
   def self.share_queue project
-    @subscriptions = find_all_by_project_id(project, :order => "created_at, id")
+    logger.info "here"
+    @subscriptions = find_all_by_project_id(project, :order => "created_at, id")#, :include => {:user => {:membership => :membership_type}})
     @subscriptions = apply_sorting_rules(@subscriptions)
     @subscriptions
   end
