@@ -23,4 +23,3 @@ config.action_mailer.raise_delivery_errors = true
 config.action_mailer.delivery_method = :test
 
 config.cache_store = :mem_cache_store
-

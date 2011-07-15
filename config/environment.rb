@@ -44,6 +44,7 @@ Rails::Initializer.run do |config|
   config.gem 'rflickr', :version => '2006.02.01', :lib => 'flickr'
   config.gem 'recaptcha', :version => '0.2.3'
   config.gem 'RedCloth', :version => '4.1.9'
+  config.gem 'newrelic_rpm'
 end
 
 Less::JsRoutes.generate!
