@@ -15,7 +15,8 @@
       <div class="pmf_clear">&nbsp;</div>
 
       <div class="blog_body">
-        <%= blog_body(blog, truncate_blog, show_more_link) %>
+         <%= link_to blog_body(blog, truncate_blog, false),  blog.wp_comments_link %>
+    
       </div>
     </div>
   </div>
