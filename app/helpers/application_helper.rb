@@ -386,6 +386,14 @@ module ApplicationHelper
     image_tag(value > 0 ? "green_arrow_up.png" : "red_arrow_down.png")
   end
   
+  def funding_change_display value
+    
+    return "- no recent change" if value == 0
+    
+    return "#{up_down_arrow(value)}  #{value.abs}&#37"
+  end
+  
+  
   def avatar(person, avatar_options={}, html_options={})
     #never want to have an alt param
     if !html_options[:alt]
