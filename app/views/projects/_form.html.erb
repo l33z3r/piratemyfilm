@@ -34,7 +34,7 @@
   </tr>
 
   <tr>
-    <td>
+    <td class="mandatory">
       * Please Select Genre
     </td>
     <td>
@@ -44,12 +44,27 @@
   </tr>
 
   <tr>
-    <td>
+    <td class="mandatory">
       * What is the status of your film?
     </td>
     <td>
       <%= f.select :status, Project.statuses, :id=>"project-status" %>
       <%= display_error_on(project, :status) -%>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      Paypal Email
+      <div class="pmf_clear">&nbsp;</div>
+      <span class="subtext">
+        Note: Enter an email address that you have a paypal account linked to. 
+        It will be used by users to send share payments.
+      </span>
+    </td>
+    <td>
+      <%= f.text_field :paypal_email %>
+      <%= display_error_on(project, :paypal_email) -%>
     </td>
   </tr>
 

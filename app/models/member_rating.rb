@@ -1,15 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: member_ratings
-#
-#  id             :integer(4)    not null, primary key
-#  member_id      :integer(4)    
-#  average_rating :integer(4)    
-#  created_at     :datetime      
-#  updated_at     :datetime      
-#
-
 class MemberRating < ActiveRecord::Base
   belongs_to :member, :class_name => "User", :foreign_key => "member_id"
   
@@ -52,3 +40,15 @@ class MemberRating < ActiveRecord::Base
     @@ratings_map
   end
 end
+
+# == Schema Information
+#
+# Table name: member_ratings
+#
+#  id             :integer(4)      not null, primary key
+#  member_id      :integer(4)
+#  average_rating :integer(4)
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+

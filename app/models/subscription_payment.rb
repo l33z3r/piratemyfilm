@@ -1,19 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: subscription_payments
-#
-#  id                :integer(4)    not null, primary key
-#  payment_window_id :integer(4)    
-#  project_id        :integer(4)    
-#  user_id           :integer(4)    
-#  share_amount      :integer(4)    
-#  share_price       :float         
-#  status            :string(255)   
-#  created_at        :datetime      
-#  updated_at        :datetime      
-#
-
 class SubscriptionPayment < ActiveRecord::Base
   belongs_to :payment_window
   belongs_to :user
@@ -21,7 +5,7 @@ class SubscriptionPayment < ActiveRecord::Base
   
   has_many :project_subscriptions
 
-  @@PAYMENT_STATUSES = ["Open", "Pending", "Paid", "Defaulted", "Dumped"]
+  @@PAYMENT_STATUSES = ["Open", "Pending", "Paid", "Defaulted", "Thrown"]
 
   def payment_amount
     share_amount * share_price
@@ -43,8 +27,29 @@ class SubscriptionPayment < ActiveRecord::Base
     status == "Defaulted"
   end
   
-  def dumped?
-    status == "Dumped"
+  def thrown?
+    status == "Thrown"
+  end
+  
+  def reused?
+    status == "Reused"
   end
   
 end
+
+# == Schema Information
+#
+# Table name: subscription_payments
+#
+#  id                   :integer(4)      not null, primary key
+#  payment_window_id    :integer(4)
+#  project_id           :integer(4)
+#  user_id              :integer(4)
+#  share_amount         :integer(4)
+#  share_price          :float
+#  status               :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  counts_as_warn_point :boolean(1)      default(FALSE)
+#
+

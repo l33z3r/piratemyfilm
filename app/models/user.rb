@@ -1,29 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: users
-#
-#  id                        :integer(4)    not null, primary key
-#  login                     :string(255)   
-#  crypted_password          :string(40)    
-#  salt                      :string(40)    
-#  created_at                :datetime      
-#  updated_at                :datetime      
-#  remember_token            :string(255)   
-#  remember_token_expires_at :datetime      
-#  is_admin                  :boolean(1)    
-#  can_send_messages         :boolean(1)    default(TRUE)
-#  email_verification        :string(255)   
-#  email_verified            :boolean(1)    
-#  member_rating             :integer(4)    default(0)
-#  warn_points               :integer(4)    default(0)
-#  activation_code           :string(40)    
-#  activated_at              :datetime      
-#  following_mkc_blogs       :boolean(1)    
-#  following_admin_blogs     :boolean(1)    
-#  mkc_post_ability          :boolean(1)    
-#
-
 
 require 'digest/sha1'
 require 'mime/types'
@@ -444,7 +418,7 @@ class User < ActiveRecord::Base
   end
 
   def failed_subscription_payments project
-    subscription_payments.find(:all, :conditions => "project_id = #{project.id} and (status = 'Defaulted' or status = 'Dumped')")
+    subscription_payments.find(:all, :conditions => "project_id = #{project.id} and (status = 'Defaulted')")
   end
 
   def completed_subscription_payment_amount project
@@ -492,7 +466,7 @@ class User < ActiveRecord::Base
   end
 
   def update_warn_points
-    @unpaid_payments = SubscriptionPayment.find(:all, :conditions => "user_id = #{id} and (status = 'Defaulted' or status = 'Dumped') and counts_as_warn_point = true", :group => "project_id")
+    @unpaid_payments = SubscriptionPayment.find(:all, :conditions => "user_id = #{id} and (status = 'Defaulted') and counts_as_warn_point = true")
     self.warn_points = @unpaid_payments.size
     save
   end
@@ -500,7 +474,7 @@ class User < ActiveRecord::Base
   def subscribed_projects_awaiting_payment
     Project.find_by_sql("select projects.* from projects where id in
     (select project_id from subscription_payments where (status is null or (status != 'Pending' and status != 'Paid'
-    and status != 'Defaulted' and status != 'Dumped') and user_id = #{id}) group by project_id)")
+    and status != 'Defaulted' and status != 'Thrown' and status != 'Reused') and user_id = #{id}) group by project_id)")
   end
 
   # Activates the user in the database.
@@ -528,3 +502,29 @@ class User < ActiveRecord::Base
     crypted_password.blank? || !password.blank?
   end
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                        :integer(4)      not null, primary key
+#  login                     :string(255)
+#  crypted_password          :string(40)
+#  salt                      :string(40)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  remember_token            :string(255)
+#  remember_token_expires_at :datetime
+#  is_admin                  :boolean(1)
+#  can_send_messages         :boolean(1)      default(TRUE)
+#  email_verification        :string(255)
+#  email_verified            :boolean(1)
+#  member_rating             :integer(4)      default(0)
+#  warn_points               :integer(4)      default(0)
+#  activation_code           :string(40)
+#  activated_at              :datetime
+#  following_mkc_blogs       :boolean(1)      default(FALSE)
+#  following_admin_blogs     :boolean(1)      default(FALSE)
+#  mkc_post_ability          :boolean(1)      default(FALSE)
+#
+

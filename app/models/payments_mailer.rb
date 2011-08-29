@@ -39,6 +39,16 @@ class PaymentsMailer < ActionMailer::Base
     @headers        = {}
     content_type "text/html"
   end
+  
+  def window_closed_payment_thrown payment_window, recipient
+    @subject        = "Payment Window Closed For Project #{payment_window.project.title} On PMF"
+    @recipients     = recipient
+    @body['payment_window'] = payment_window
+    @from           = MAILER_FROM_ADDRESS
+    @sent_on        = Time.new
+    @headers        = {}
+    content_type "text/html"
+  end
 
   def pmf_share_buyout_denied pmf_share_buyout, recipient
     @subject        = "PMF Share Buyout Denied for Project #{pmf_share_buyout.project.title} on PMF"

@@ -1,16 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: forums
-#
-#  id          :integer(4)    not null, primary key
-#  name        :string(255)   
-#  description :text          
-#  position    :integer(4)    
-#  created_at  :datetime      
-#  updated_at  :datetime      
-#
-
 class Forum < ActiveRecord::Base
   
   acts_as_list
@@ -36,3 +23,16 @@ class Forum < ActiveRecord::Base
   
   
 end
+
+# == Schema Information
+#
+# Table name: forums
+#
+#  id          :integer(4)      not null, primary key
+#  name        :string(255)
+#  description :text
+#  position    :integer(4)
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+

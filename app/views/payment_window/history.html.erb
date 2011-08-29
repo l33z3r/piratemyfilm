@@ -35,7 +35,8 @@
   </div>
 
   <ol id="payment_procedure_explanation">
-    <li>Producer collects funds By opening payment window below, and linking their paypal email address</li>
+    <li>Producer links their paypal email to their project</li>
+    <li>PMF Admin give the project a green light, which initiates the payment phase and opens the first payment window</li>
     <li>Users get an email stating that they must now pay for their shares</li>
     <li>User pays for his shares in the current window</li>
     <li>Funds appear in the producers paypal account</li>
@@ -47,16 +48,15 @@
       The producer clicks "Mark as Paid" for each payment he receives
     </li>
     <li>
-      The producer can also mark shares as dumped, meaning that they will not carry over to the next payment window.
-      By default, any shares that are not paid for will carry over into the next payment window to give the user another opportunity to pay for them.
+      The payment window will automatically close on the due date, and all shares that have not been marked as paid for will be
+      thrown to the back of the queue and will be reused if needed. This gives users further down the queue a chance to pay for shares.
     </li>
-    <li>The producer must then close the payment window, marking all defaulted shares as such</li>
     <li>
       If funds are not fully collected in a particular window, and there are more users wanting shares,
-      the producer opens another window, and the above process repeats
+      the subsequent windows will allow these users to pay for their shares.
     </li>
     <li>
-      If the queue has been exhausted, the producer then requests that the pmf_fund buy out the rest of the shares
+      After 3 subsequent share windows, there will be a request sent to PMF admin to buy out the rest of the shares.
     </li>
     <li>
       The project automatically gets bumped to "fully funded" once the final payment window closes successfully
@@ -74,16 +74,6 @@
     your paypal account. You will also see a list of previous windows.
   </p>
 
-  <p>
-    You select a window close date, at which users must pay for their shares.
-    If you close the window, their shares will be given to the users who were
-    initially given outstanding shares in the queue.
-    Once you close a window, and still have not fully funded your project, you
-    can open another one until you exhaust the share queue.
-    When you have reached the end of the share queue, you can then request that
-    PMF buy the outstanding shares.
-  </p>
-
   <div class="pmf_clear">&nbsp;</div>
 
   <ul>
@@ -98,9 +88,7 @@
 
   <div class="pmf_clear_10">&nbsp;</div>
 
-  <% if @project.finished_payment_collection %>
-    <p>You cannot open another payment window, as your funds have been collected in full!</p>
-  <% elsif @project.current_payment_window or (!@project.finished_payment_collection and !@project.share_queue_exhausted?) %>
+  <% if @project.current_payment_window or (!@project.finished_payment_collection and !@project.share_queue_exhausted?) %>
     <div class="pageTitleSmall">
       Currently Active Payment Window
     </div>
@@ -146,24 +134,16 @@
         </div>
 
         <div class="pmf_clear_10">&nbsp;</div>
-
-        <div class="button">
-          <%= link_to "Close Window", {:action => "close", :id => @project.id},
-            :confirm => "This will mark all non paid shares as such. Are you sure?", :method => :post %>
-        </div>
       </div>
     <% else %>
 
       <p>There is no currently active payment window for this project.</p>
 
       <p>
-        Note: Opening a new payment window will allocate payments in the share queue
+        Note: The next window will allocate payments in the share queue
         for the amount of <%= print_money @project.amount_payment_outstanding %>
       </p>
-
-      <div class="button left">
-        <%= link_to "New Window", :action => "new", :id => @project.id %>
-      </div>
+      
     <% end %>
   <% else %>
     <!-- pmf buyout -->
@@ -174,7 +154,7 @@
     <div class="pmf_clear">&nbsp;</div>
 
     <p>
-      As there are no more users in the share queue for your project, you must request additional funds off PMF.
+      As there are no more users in the share queue for your project, additional funds will be automatically requested off PMF.
     </p>
 
     <% if @project.pmf_share_buyout_open? %>
@@ -201,14 +181,6 @@
       You previously sent a request to PMF to buy out <%= @project.amount_shares_outstanding_payment %> shares
       worth <%= print_money @project.amount_payment_outstanding %>.
       This request was <b>denied</b>. You can <a href="/pages/contact_us">contact us</a> for more info.
-    <% else %>
-      <p>
-        You must request that PMF buys your remaining <%= @project.amount_shares_outstanding_payment %> shares, which are worth <%= print_money @project.amount_payment_outstanding %>.
-        Click the button below to do so.
-      </p>
-      <div class="button left">
-        <%= link_to "Make Request", {:action => "pmf_buyout_request", :id => @project.id}, :method => :post %>
-      </div>
     <% end %>
   <% end %>
 

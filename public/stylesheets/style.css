@@ -1212,10 +1212,7 @@ div.project_mini_view div.project_info {
 div.project_mini_view div.project_info div.project_title {
     font-size: 16px;
     font-weight: bold;
-    float: right;
-    height: 32px;
-    overflow: hidden;
-    width: 176px;
+    float: left;
 }
 
 div.project_mini_view div.project_info div.project_title a {

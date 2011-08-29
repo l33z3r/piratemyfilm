@@ -1,18 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: messages
-#
-#  id          :integer(4)    not null, primary key
-#  subject     :string(255)   
-#  body        :text          
-#  created_at  :datetime      
-#  updated_at  :datetime      
-#  sender_id   :integer(4)    
-#  receiver_id :integer(4)    
-#  read        :boolean(1)    not null
-#
-
 class Message < ActiveRecord::Base
   belongs_to :sender, :class_name => "Profile"
   belongs_to :receiver, :class_name => "Profile"
@@ -24,3 +9,18 @@ class Message < ActiveRecord::Base
     !read
   end
 end
+
+# == Schema Information
+#
+# Table name: messages
+#
+#  id          :integer(4)      not null, primary key
+#  subject     :string(255)
+#  body        :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#  sender_id   :integer(4)
+#  receiver_id :integer(4)
+#  read        :boolean(1)      default(FALSE), not null
+#
+

@@ -1,19 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: membership_types
-#
-#  id                            :integer(4)    not null, primary key
-#  name                          :string(255)   
-#  max_projects_listed           :integer(4)    
-#  pc_limit                      :integer(4)    
-#  pc_project_limit              :integer(4)    
-#  funding_limit_per_project     :integer(4)    
-#  created_at                    :datetime      
-#  updated_at                    :datetime      
-#  min_funding_limit_per_project :integer(4)    default(0)
-#
-
 class MembershipType < ActiveRecord::Base
   
   has_many :memberships, :dependent => :destroy
@@ -63,3 +47,19 @@ class MembershipType < ActiveRecord::Base
   end
   
 end
+
+# == Schema Information
+#
+# Table name: membership_types
+#
+#  id                            :integer(4)      not null, primary key
+#  name                          :string(255)
+#  max_projects_listed           :integer(4)
+#  pc_limit                      :integer(4)
+#  pc_project_limit              :integer(4)
+#  funding_limit_per_project     :integer(4)
+#  created_at                    :datetime
+#  updated_at                    :datetime
+#  min_funding_limit_per_project :integer(4)      default(0)
+#
+

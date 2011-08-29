@@ -1,18 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: project_subscriptions
-#
-#  id                      :integer(4)    not null, primary key
-#  project_id              :integer(4)    
-#  user_id                 :integer(4)    
-#  created_at              :datetime      
-#  updated_at              :datetime      
-#  amount                  :integer(10)   default(1)
-#  outstanding             :boolean(1)    
-#  subscription_payment_id :integer(4)    
-#
-
 class ProjectSubscription < ActiveRecord::Base
   
   belongs_to :user
@@ -331,3 +316,18 @@ class ProjectSubscription < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: project_subscriptions
+#
+#  id                      :integer(4)      not null, primary key
+#  project_id              :integer(4)
+#  user_id                 :integer(4)
+#  created_at              :datetime
+#  updated_at              :datetime
+#  amount                  :integer(10)     default(1)
+#  outstanding             :boolean(1)      default(FALSE)
+#  subscription_payment_id :integer(4)
+#
+

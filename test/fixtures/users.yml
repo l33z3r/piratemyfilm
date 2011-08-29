@@ -1,29 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: users
-#
-#  id                        :integer(4)    not null, primary key
-#  login                     :string(255)   
-#  crypted_password          :string(40)    
-#  salt                      :string(40)    
-#  created_at                :datetime      
-#  updated_at                :datetime      
-#  remember_token            :string(255)   
-#  remember_token_expires_at :datetime      
-#  is_admin                  :boolean(1)    
-#  can_send_messages         :boolean(1)    default(TRUE)
-#  email_verification        :string(255)   
-#  email_verified            :boolean(1)    
-#  member_rating             :integer(4)    default(0)
-#  warn_points               :integer(4)    default(0)
-#  activation_code           :string(40)    
-#  activated_at              :datetime      
-#  following_mkc_blogs       :boolean(1)    
-#  following_admin_blogs     :boolean(1)    
-#  mkc_post_ability          :boolean(1)    
-#
-
 user:
     id: 1
     login: user
@@ -67,3 +41,29 @@ admin:
     salt:  7e3041ebc2fc05a40c60028e2c4901a81035d3cd
     is_admin: true
     can_send_messages: true
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                        :integer(4)      not null, primary key
+#  login                     :string(255)
+#  crypted_password          :string(40)
+#  salt                      :string(40)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  remember_token            :string(255)
+#  remember_token_expires_at :datetime
+#  is_admin                  :boolean(1)
+#  can_send_messages         :boolean(1)      default(TRUE)
+#  email_verification        :string(255)
+#  email_verified            :boolean(1)
+#  member_rating             :integer(4)      default(0)
+#  warn_points               :integer(4)      default(0)
+#  activation_code           :string(40)
+#  activated_at              :datetime
+#  following_mkc_blogs       :boolean(1)      default(FALSE)
+#  following_admin_blogs     :boolean(1)      default(FALSE)
+#  mkc_post_ability          :boolean(1)      default(FALSE)
+#
+

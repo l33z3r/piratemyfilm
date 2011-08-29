@@ -1,16 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: project_comments
-#
-#  id         :integer(4)    not null, primary key
-#  body       :text          
-#  user_id    :integer(4)    
-#  project_id :integer(4)    
-#  created_at :datetime      
-#  updated_at :datetime      
-#
-
 class ProjectComment < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
@@ -35,3 +22,16 @@ class ProjectComment < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: project_comments
+#
+#  id         :integer(4)      not null, primary key
+#  body       :text
+#  user_id    :integer(4)
+#  project_id :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

@@ -1,14 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: genres
-#
-#  id         :integer(4)    not null, primary key
-#  title      :string(255)   
-#  created_at :datetime      
-#  updated_at :datetime      
-#
-
 class Genre < ActiveRecord::Base
   
   has_many :projects
@@ -32,3 +21,14 @@ class Genre < ActiveRecord::Base
   end
   
 end
+
+# == Schema Information
+#
+# Table name: genres
+#
+#  id         :integer(4)      not null, primary key
+#  title      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

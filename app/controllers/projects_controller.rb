@@ -141,12 +141,20 @@ class ProjectsController < ApplicationController
         redirect_to project_path(@project) and return
       end
         
+      #start the payment phase
+      if @project.paypal_email.blank?
+        flash[:error] = "User has not entered a paypal email address associated with their project!"
+        redirect_to project_path(@project) and return
+      end
+      
+      PaymentWindow.create_for_project @project
+      
       @project.green_light = Time.now
       @project.save!
 
       Notification.deliver_green_light_notification @project
       
-      flash[:positive] = "Project Updated."
+      flash[:positive] = "Project Now Green Lit!"
       redirect_to project_path(@project)
     rescue ActiveRecord::RecordInvalid
       flash[:error] = "Error updating project"

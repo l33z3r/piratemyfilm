@@ -1,16 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: forum_topics
-#
-#  id         :integer(4)    not null, primary key
-#  title      :string(255)   
-#  forum_id   :integer(4)    
-#  owner_id   :integer(4)    
-#  created_at :datetime      
-#  updated_at :datetime      
-#
-
 class ForumTopic < ActiveRecord::Base
   validates_presence_of :title, :owner_id, :forum_id
   attr_immutable :id, :forum_id, :owner_id
@@ -33,3 +20,16 @@ class ForumTopic < ActiveRecord::Base
   end
   
 end
+
+# == Schema Information
+#
+# Table name: forum_topics
+#
+#  id         :integer(4)      not null, primary key
+#  title      :string(255)
+#  forum_id   :integer(4)
+#  owner_id   :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

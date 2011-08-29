@@ -1,16 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: photos
-#
-#  id         :integer(4)    not null, primary key
-#  caption    :string(1000)  
-#  created_at :datetime      
-#  updated_at :datetime      
-#  profile_id :integer(4)    
-#  image      :string(255)   
-#
-
 
 class Photo < ActiveRecord::Base
   
@@ -34,3 +21,16 @@ class Photo < ActiveRecord::Base
   }
     
 end
+
+# == Schema Information
+#
+# Table name: photos
+#
+#  id         :integer(4)      not null, primary key
+#  caption    :string(1000)
+#  created_at :datetime
+#  updated_at :datetime
+#  profile_id :integer(4)
+#  image      :string(255)
+#
+

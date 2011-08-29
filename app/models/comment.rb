@@ -1,19 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: comments
-#
-#  id               :integer(4)    not null, primary key
-#  comment          :text          
-#  created_at       :datetime      not null
-#  updated_at       :datetime      not null
-#  profile_id       :integer(4)    
-#  commentable_type :string(255)   default(""), not null
-#  commentable_id   :integer(4)    not null
-#  is_denied        :integer(4)    default(0), not null
-#  is_reviewed      :boolean(1)    
-#
-
 class Comment < ActiveRecord::Base
   
   validates_presence_of :comment, :profile
@@ -37,3 +21,19 @@ class Comment < ActiveRecord::Base
     })
   end
 end
+
+# == Schema Information
+#
+# Table name: comments
+#
+#  id               :integer(4)      not null, primary key
+#  comment          :text
+#  created_at       :datetime        not null
+#  updated_at       :datetime        not null
+#  profile_id       :integer(4)
+#  commentable_type :string(255)     default(""), not null
+#  commentable_id   :integer(4)      not null
+#  is_denied        :integer(4)      default(0), not null
+#  is_reviewed      :boolean(1)      default(FALSE)
+#
+

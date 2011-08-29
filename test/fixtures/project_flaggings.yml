@@ -1,15 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: project_flaggings
-#
-#  id         :integer(4)    not null, primary key
-#  user_id    :integer(4)    
-#  project_id :integer(4)    
-#  created_at :datetime      
-#  updated_at :datetime      
-#
-
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 # one:
@@ -17,3 +5,15 @@
 #
 # two:
 #   column: value
+
+# == Schema Information
+#
+# Table name: project_flaggings
+#
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)
+#  project_id :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

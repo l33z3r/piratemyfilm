@@ -1,14 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: countries
-#
-#  id         :integer(4)    not null, primary key
-#  name       :string(255)   not null
-#  created_at :datetime      
-#  updated_at :datetime      
-#
-
 class Country < ActiveRecord::Base
 
   has_many :profiles
@@ -40,3 +29,14 @@ class Country < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: countries
+#
+#  id         :integer(4)      not null, primary key
+#  name       :string(255)     not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+

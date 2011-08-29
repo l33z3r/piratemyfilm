@@ -1,15 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: admin_project_ratings
-#
-#  id         :integer(4)    not null, primary key
-#  project_id :integer(4)    
-#  rating     :integer(4)    
-#  created_at :datetime      
-#  updated_at :datetime      
-#
-
 class AdminProjectRating < ActiveRecord::Base
   belongs_to :project
   
@@ -73,3 +61,15 @@ class AdminProjectRating < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: admin_project_ratings
+#
+#  id         :integer(4)      not null, primary key
+#  project_id :integer(4)
+#  rating     :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

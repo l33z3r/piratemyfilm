@@ -1,16 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: forum_posts
-#
-#  id         :integer(4)    not null, primary key
-#  body       :text          
-#  owner_id   :integer(4)    
-#  topic_id   :integer(4)    
-#  created_at :datetime      
-#  updated_at :datetime      
-#
-
 class ForumPost < ActiveRecord::Base
   validates_presence_of :body, :owner_id
   attr_immutable :id, :owner_id, :topic_id
@@ -34,3 +21,16 @@ private
   end
   
 end
+
+# == Schema Information
+#
+# Table name: forum_posts
+#
+#  id         :integer(4)      not null, primary key
+#  body       :text
+#  owner_id   :integer(4)
+#  topic_id   :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

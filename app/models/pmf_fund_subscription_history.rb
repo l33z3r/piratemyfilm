@@ -1,15 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: pmf_fund_subscription_histories
-#
-#  id         :integer(4)    not null, primary key
-#  project_id :integer(4)    
-#  amount     :integer(4)    
-#  created_at :datetime      
-#  updated_at :datetime      
-#
-
 class PmfFundSubscriptionHistory < ActiveRecord::Base
 
   belongs_to :project
@@ -34,3 +22,15 @@ class PmfFundSubscriptionHistory < ActiveRecord::Base
   end
   
 end
+
+# == Schema Information
+#
+# Table name: pmf_fund_subscription_histories
+#
+#  id         :integer(4)      not null, primary key
+#  project_id :integer(4)
+#  amount     :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

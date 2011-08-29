@@ -6,3 +6,20 @@ class SubscriptionPaymentTest < ActiveSupport::TestCase
     assert true
   end
 end
+
+# == Schema Information
+#
+# Table name: subscription_payments
+#
+#  id                   :integer(4)      not null, primary key
+#  payment_window_id    :integer(4)
+#  project_id           :integer(4)
+#  user_id              :integer(4)
+#  share_amount         :integer(4)
+#  share_price          :float
+#  status               :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  counts_as_warn_point :boolean(1)      default(FALSE)
+#
+

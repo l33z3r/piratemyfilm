@@ -6,3 +6,15 @@ class TalentRatingTest < ActiveSupport::TestCase
     assert true
   end
 end
+
+# == Schema Information
+#
+# Table name: talent_ratings
+#
+#  id             :integer(4)      not null, primary key
+#  user_talent_id :integer(4)
+#  average_rating :integer(4)
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+

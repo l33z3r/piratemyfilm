@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110704173102) do
+ActiveRecord::Schema.define(:version => 20110825092859) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -354,6 +354,7 @@ ActiveRecord::Schema.define(:version => 20110704173102) do
     t.integer  "percent_bad_shares",                                                            :default => 0
     t.string   "main_video"
     t.integer  "daily_percent_move",                                                            :default => 0
+    t.string   "paypal_email"
   end
 
   create_table "sessions", :force => true do |t|
@@ -375,6 +376,7 @@ ActiveRecord::Schema.define(:version => 20110704173102) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "counts_as_warn_point", :default => false
+    t.integer  "reused_by_payment_id"
   end
 
   create_table "talent_rating_histories", :force => true do |t|

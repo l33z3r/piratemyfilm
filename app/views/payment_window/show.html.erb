@@ -11,12 +11,20 @@
 </div>
 
 <div id="payment_window">
+  <% if !@payment_window.open? %>
+    <div class="pmf_clear_10">&nbsp;</div>
+
+    <div class="pageTitleSmaller">
+      This payment window is closed!
+    </div>
+  <% end %>
+
   <% if @payment_window.all_payments_collected? %>
     <div class="pmf_clear_10">&nbsp;</div>
 
     <div class="pageTitleSmaller">
       This payment window has been successful, all funds have been collected! Congratulations!
-      Please Close this window to complete the funding process!
+      This window will close automatically, tonight, to complete the funding process!
     </div>
   <% end %>
 
@@ -41,8 +49,10 @@
       <b><%= print_money @project.amount_payment_collected %></b> has been collected.
     </li>
   </ul>
-  This payment window will close <b><%= @payment_window.close_date %></b>
-  <i>(Note, you must close the window manually, this date is only used to notify users)</i>
+
+  <% if @payment_window.open? %>
+    This payment window will close <b><%= @payment_window.all_payments_collected? ? "Tonight" : @payment_window.close_date %></b>
+  <% end %>
 
   <div class="pmf_clear_20">&nbsp;</div>
 
@@ -62,22 +72,12 @@
 
   <div class="pmf_clear_10">&nbsp;</div>
 
-  Click below to close this window. All shares that have not been marked as paid, will be brough 
-  forward to the next payment window, unless you mark them as dumped.
+  This window will automatically close on the due date. All shares that have not been marked as paid, will be put to the back of the queue.
   This gives you an opportunity to allow a user to have another go at paying for their shares.
-  The user will receive a black mark for not paying for their shares regardless of wether they are carried over to the next window or not.
-  You can then offer the outstanding shares to the next users in the queue, by opening a new window.
+  Any users who fail to pay for shares in the project will receive a black mark.
+  Any shares that have not been allocated during this window, will be made available to users further down the queue.
 
   <div class="pmf_clear_10">&nbsp;</div>
-
-  <% if @payment_window.open? %>
-    <div class="button">
-      <%= link_to "Close Window", {:action => "close", :id => @project.id},
-        :confirm => "This will mark all non paid shares as such. Are you sure?", :method => :post %>
-    </div>
-
-    <div class="pmf_clear_10">&nbsp;</div>
-  <% end %>
 
   <div class="pageTitleSmall">
     Payment Log For This Window
@@ -102,8 +102,8 @@
     <% 
     #have to refresh the association cache before displaying
     @payment_window.subscription_payments.reload 
-    %>
-    
+  %>
+
     <%  @payment_window.subscription_payments.each do |subscription_payment| %>
       <div class="<%= cycle('odd','even') %> subscription_payment">
         <div class="sp_id"><%= subscription_payment.id %></div>
@@ -117,17 +117,14 @@
             Paid
           <% elsif subscription_payment.defaulted? %>
             Defaulted
-          <% elsif subscription_payment.dumped? %>
-            Dumped
+          <% elsif subscription_payment.thrown? %>
+            Thrown
+          <% elsif subscription_payment.reused? %>
+            Reused
           <% else %>
             <div class="left button">
               <%= link_to "Mark As Paid",
                 {:action => "mark_payment", :id => subscription_payment.id, :marking => "paid"},
-                :confirm => "Are you sure?", :method => :post %>
-            </div>
-            <div class="left button">
-              <%= link_to "Mark As Dumped",
-                {:action => "mark_payment", :id => subscription_payment.id, :marking => "dumped"},
                 :confirm => "Are you sure?", :method => :post %>
             </div>
           <% end %>

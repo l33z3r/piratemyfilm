@@ -1,15 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: user_talents
-#
-#  id          :integer(4)    not null, primary key
-#  user_id     :integer(4)    
-#  talent_type :string(255)   
-#  created_at  :datetime      
-#  updated_at  :datetime      
-#
-
 class UserTalent < ActiveRecord::Base
   belongs_to :user
   has_one :talent_rating, :dependent => :destroy
@@ -94,3 +82,15 @@ class UserTalent < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: user_talents
+#
+#  id          :integer(4)      not null, primary key
+#  user_id     :integer(4)
+#  talent_type :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+

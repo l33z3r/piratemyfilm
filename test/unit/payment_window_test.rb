@@ -6,3 +6,17 @@ class PaymentWindowTest < ActiveSupport::TestCase
     assert true
   end
 end
+
+# == Schema Information
+#
+# Table name: payment_windows
+#
+#  id           :integer(4)      not null, primary key
+#  project_id   :integer(4)
+#  paypal_email :string(255)
+#  close_date   :date
+#  status       :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

@@ -1,0 +1,13 @@
+A payment window has closed for a project you have reserved shares in:
+
+<br/><br/>
+
+<%= h  @payment_window.project.title %>
+
+<br/><br/>
+
+Your shares have been moved to the back of the queue and you may get another chance to pay for them depending on availablitly.
+
+You can
+<a href="<%= project_url(@payment_window.project) %>">Log In</a>
+to PirateMyFilm to see your info on these shares.

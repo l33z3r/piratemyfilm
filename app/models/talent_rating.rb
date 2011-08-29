@@ -1,15 +1,3 @@
-# == Schema Information
-# Schema version: 20110604084348
-#
-# Table name: talent_ratings
-#
-#  id             :integer(4)    not null, primary key
-#  user_talent_id :integer(4)    
-#  average_rating :integer(4)    
-#  created_at     :datetime      
-#  updated_at     :datetime      
-#
-
 class TalentRating < ActiveRecord::Base
   belongs_to :user_talent
 
@@ -52,3 +40,15 @@ class TalentRating < ActiveRecord::Base
     @@ratings_map
   end
 end
+
+# == Schema Information
+#
+# Table name: talent_ratings
+#
+#  id             :integer(4)      not null, primary key
+#  user_talent_id :integer(4)
+#  average_rating :integer(4)
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+

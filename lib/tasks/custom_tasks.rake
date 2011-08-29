@@ -8,6 +8,13 @@ task :generate_project_change_info => :environment do
   ProjectChangeInfoOneDay.generate_daily_change
 end
 
+desc "Rollover all payment windows"
+task :payment_window_rollovers => :environment do
+  Project.all.each do |p|
+    PaymentWindow.rollover_payment_window p
+  end
+end
+
 desc "Clear the whole memcahce"
 task :clear_cache => :environment do
   ActionController::Base.cache_store.clear

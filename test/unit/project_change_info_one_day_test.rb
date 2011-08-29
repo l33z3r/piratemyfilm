@@ -6,3 +6,16 @@ class ProjectChangeInfoOneDayTest < ActiveSupport::TestCase
     assert true
   end
 end
+
+# == Schema Information
+#
+# Table name: project_change_info_one_days
+#
+#  id           :integer(4)      not null, primary key
+#  share_amount :integer(4)      default(0)
+#  share_change :integer(4)      default(0)
+#  project_id   :integer(4)
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
