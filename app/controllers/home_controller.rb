@@ -1,15 +1,15 @@
 class HomeController < ApplicationController
   skip_before_filter :login_required	
 
-  def roll
-    #    PaymentWindow.rollover_payment_window Project.find(4)
-
-    Project.all.each do |p|
-      PaymentWindow.rollover_payment_window p
-    end
-    
-    render :text => "rolled"
-  end
+#  def roll
+#    #    PaymentWindow.rollover_payment_window Project.find(4)
+#
+#    Project.all.each do |p|
+#      PaymentWindow.rollover_payment_window p
+#    end
+#    
+#    render :text => "rolled"
+#  end
   
   def index
     @blogs = Blog.all_member_blogs

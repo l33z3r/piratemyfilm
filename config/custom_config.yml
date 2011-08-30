@@ -26,5 +26,5 @@ production:
   paypal_button_submission_url: https://www.paypal.com/cgi-bin/webscr
   wordpress_site_url: http://maxkeiser.com
   wordpress_site_login_name: maxkeiser
-  wordpress_site_login_pw: h0llyw00d
+  wordpress_site_login_pw: m3nac301
 

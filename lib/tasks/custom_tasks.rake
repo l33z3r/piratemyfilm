@@ -10,7 +10,7 @@ end
 
 desc "Rollover all payment windows"
 task :payment_window_rollovers => :environment do
-  Project.all.each do |p|
+  Project.find_all_public.each do |p|
     PaymentWindow.rollover_payment_window p
   end
 end
