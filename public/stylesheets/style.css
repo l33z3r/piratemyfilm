@@ -3657,6 +3657,9 @@ div#admin_stats {
 {
     margin-bottom:30px;
     margin-left:100px;
+}
+
+.blog-comment p.body {
     white-space: pre-wrap;
 }
 

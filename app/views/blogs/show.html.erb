@@ -53,7 +53,7 @@
             </div>
             <div class="blog-comment">
               <p><b>Posted by:</b> <%= "#{blog_comment.user.login} on #{blog_comment.created_at.to_formatted_s(:long_ordinal)}:" %></p>
-              <p><%= h blog_comment.body %></p>
+              <p class="body"><%= h blog_comment.body %></p>
             </div>
           </div>
         <% end %>
