@@ -3659,8 +3659,9 @@ div#admin_stats {
     margin-left:100px;
 }
 
-.blog-comment p.body {
+.blog-comment div.body {
     white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .profile-pic
