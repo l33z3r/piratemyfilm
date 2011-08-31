@@ -40,14 +40,6 @@ project_link_action ||= "show"
     <% end %>
   </div>
 
-  <% if project.finished_payment_collection %>
-    Project Fully Funded For <%= print_money project.capital_required %>!
-    <% if project.premier_date %>
-      Premier Date: <%= project.premier_date.to_s(:short) %>
-    <% end %>
-    <a href="<%= watch_project_url project %>">Watch Film Here</a>
-  <% end %>
-
   <div class="project_icon">
     <%= link_to project_icon(project, :big), project_path(project) %>
     <div class="follow_button">
@@ -61,11 +53,11 @@ project_link_action ||= "show"
         :action => project_link_action, :id => project %>
     </div>
     <!--div class="edit_link">
-      <%= small_view_edit_link project %>
+    <%= small_view_edit_link project %>
     </div>
     <div class="link_arrow">
-      <%= link_to image_tag("right_arrow.png"), :controller => project_link_controller,
-        :action => project_link_action, :id => project %>
+    <%= link_to image_tag("right_arrow.png"), :controller => project_link_controller,
+      :action => project_link_action, :id => project %>
     </div-->
 
     <div class="user_info">
@@ -87,6 +79,12 @@ project_link_action ||= "show"
       <div class="percent_funded">
         <span><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
       </div>
+      <div class="percent_change">
+        <span><%= funding_change_display project.percent_move_since_last_change_info %></span>
+      </div>
+      <div class="num_followers">
+        <span><%= pluralize project.project_followings.size, "follower" %></span>
+      </div>
     </div>
   </div>
 
@@ -94,6 +92,18 @@ project_link_action ||= "show"
 
   <div class="project_extra_info">
     <%= subscription_info project %>
+
+    <% if project.finished_payment_collection %>
+      <div class="watch_url">
+        <a href="<%= watch_project_url project %>">Watch Film Here</a>
+      </div>
+      <% if project.premier_date %>
+        <div class="premier_date">
+          Premier Date: <%= project.premier_date.to_s(:short) %>
+        </div>
+      <% end %>
+      <div class="pmf_clear">&nbsp;</div>
+    <% end %>
   </div>
 
 </div>

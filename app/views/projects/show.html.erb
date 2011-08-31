@@ -29,15 +29,15 @@
 
   <div class="dashed_light_border">&nbsp;</div>
 
-  <%= render :partial => "project_top", :locals => {:project => @project} %>
+  <div class="left">
+    <%= render :partial => "subscription_buttons" %>
+  </div>
 
   <div class="pmf_clear">&nbsp;</div>
 
   <div class="dashed_light_border">&nbsp;</div>
 
-  <div class="left">
-    <%= render :partial => "subscription_buttons" %>
-  </div>
+  <%= render :partial => "project_top", :locals => {:project => @project} %>
 
   <div class="pmf_clear">&nbsp;</div>
 

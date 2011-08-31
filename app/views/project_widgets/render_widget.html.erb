@@ -2,16 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; utf-8" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
 
-      <meta name="description" content="The Film Futures Market for Pirates" />
-      <meta name="keywords" content="max keiser, pirate film, market" />
+    <meta name="description" content="The Film Futures Market for Pirates" />
+    <meta name="keywords" content="max keiser, pirate film, market" />
 
-      <title><%= @title || "Pirate My Film" %></title>
+    <title><%= @title || "Pirate My Film" %></title>
 
-      <%= render :partial => 'shared/head_load' %>
+    <%= render :partial => 'shared/head_load' %>
 
-      <%= yield :head %>
+    <%= yield :head %>
 
   </head>
 
@@ -20,16 +20,16 @@
     <% cache("project_listings_widget_#{@num_projects}_#{@filter_param}", :expires_in => 2.minutes) do %>
 
       <% 
-        if @filter_param
-          @filter = Project.get_filter_sql @filter_param
-          @order = Project.get_order_sql @filter_param
+      if @filter_param
+        @filter = Project.get_filter_sql @filter_param
+        @order = Project.get_order_sql @filter_param
 
-          @projects = Project.find_all_public(:select => '*, percent_funded + pmf_fund_investment_percentage AS percent_funded_total', :conditions => @filter, :order=> @order, :limit => @num_projects).paginate :page => (params[:page] || 1), :per_page=> 15
-        else
-          @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 15
-        end
-      %>
-    
+        @projects = Project.find_all_public(:select => '*, percent_funded + pmf_fund_investment_percentage AS percent_funded_total', :conditions => @filter, :order=> @order, :limit => @num_projects).paginate :page => (params[:page] || 1), :per_page=> 15
+      else
+        @projects = Project.find_all_public(:order => "percent_funded DESC, rated_at DESC, created_at DESC").paginate :page => (params[:page] || 1), :per_page=> 15
+      end
+    %>
+
       <div class="project_listings_widget">
 
         <div class="project_widget_header">
@@ -74,8 +74,7 @@
                   </div>
                   <div class="percent_funded">
                     <span><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
-                    <%=  funding_change_display project.percent_move_since_last_change_info %>
-                    
+                    <%= funding_change_display project.percent_move_since_last_change_info %>
                   </div>
                 </div>
               </div>

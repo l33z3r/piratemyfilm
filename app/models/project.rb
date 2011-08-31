@@ -69,6 +69,8 @@ class Project < ActiveRecord::Base
   has_many :project_user_talents
   has_many :user_talents, :through => :project_user_talents
   
+  has_many :project_followings
+  
   has_many :director_project_talents, :class_name => "ProjectUserTalent", 
     :include => "user_talent", :conditions => "user_talents.talent_type = 'director'", :dependent => :destroy
   

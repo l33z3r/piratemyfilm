@@ -8,7 +8,6 @@ class AccountMailer < ActionMailer::Base
     @sent_on        = Time.new
     @headers        = {}
   end
-  
 
   def forgot_password(email, name, login, password)
     @subject        = "Password reset from #{SITE_NAME}"
@@ -18,7 +17,6 @@ class AccountMailer < ActionMailer::Base
     @sent_on        = Time.new
     @headers        = {}
   end
-  
   
   def follow inviter, invited, description
     @subject        = "Follow notice from #{SITE_NAME}"

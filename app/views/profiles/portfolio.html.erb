@@ -106,23 +106,6 @@
       <% else %>
         <%=@profile.user.login%>'s
       <% end %>
-      projects that members helped fund
-    </div>
-
-    <div class="pmf_clear">&nbsp;</div>
-
-    <%= render :partial => "projects/listings", :object => @user_funded_projects %>
-  </div>
-  
-  <div class="pmf_clear">&nbsp;</div>
-
-  <div class="project_listing_box">
-    <div class="pageTitle">
-      <% if @p == @profile %>
-        Your
-      <% else %>
-        <%=@profile.user.login%>'s
-      <% end %>
       projects that are in payment
     </div>
 
@@ -154,12 +137,27 @@
       <% if @p == @profile %>
         You are
       <% else %>
-        <%=@profile.user.login%> iss
+        <%=@profile.user.login%> is
       <% end %>
-      one of the PMF members that helped fund these projects
+      <i>reserving</i> reserving shares in these projects
     </div>
 
-    <%= render :partial => "projects/listings", :object => @user_funded_subscriptions %>
+    <%= render :partial => "projects/listings", :object => @user_non_funded_subscriptions %>
+  </div>
+
+  <div class="project_listing_box">
+    <div class="pageTitle">
+      <% if @p == @profile %>
+        Your
+      <% else %>
+        <%=@profile.user.login%>'s
+      <% end %>
+      projects that members helped fund
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <%= render :partial => "projects/listings", :object => @user_funded_projects %>
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -172,9 +170,12 @@
       <% else %>
         <%=@profile.user.login%> is
       <% end %>
-      <i>reserving</i> reserving shares in these projects
+      one of the PMF members that helped fund these projects
     </div>
 
-    <%= render :partial => "projects/listings", :object => @user_non_funded_subscriptions %>
+    <%= render :partial => "projects/listings", :object => @user_funded_subscriptions %>
   </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
 </div>

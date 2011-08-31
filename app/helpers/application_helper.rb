@@ -132,36 +132,28 @@ module ApplicationHelper
   def subscription_info project
     @info = "You must log in to reserve shares for this project."
 
-    if @u
-      if project.finished_payment_collection
-        @info = "This project has successfully finished collecting funds"
-      else
-        @amount = project.user_subscription_amount @u
-        @outstanding_amount = project.user_subscription_amount_outstanding @u
-        @total_amount = @amount + @outstanding_amount
+    if @u and !project.in_payment? and !project.finished_payment_collection
+      @amount = project.user_subscription_amount @u
+      @outstanding_amount = project.user_subscription_amount_outstanding @u
+      @total_amount = @amount + @outstanding_amount
 
-        if @total_amount > 0
-          @outstanding_string = ""
+      if @total_amount > 0
+        @outstanding_string = ""
 
-          if @outstanding_amount > 0
-            @outstanding_string = "<i>(#{@outstanding_amount} on
+        if @outstanding_amount > 0
+          @outstanding_string = "<i>(#{@outstanding_amount} on
             <a class='tooltip_arrow'
                title='standby shares become valid when new or existing shares become available'>
               standby</a>)</i>"
-          end
-
-          @info = "You have #{@total_amount} shares #{@outstanding_string} reserved for this project."
-        else 
-          @info = "You do not have any shares in this project."
         end
+
+        @info = "You have #{@total_amount} shares #{@outstanding_string} reserved for this project."
+      else 
+        @info = "You do not have any shares in this project."
       end
-    end
 
-    if project.in_payment? and !project.current_payment_window
-      @info = "#{@info} Producer has not yet opened the next payment window!"
+      return @info
     end
-
-    return @info
   end
   
   # type can be error or positive or blank
@@ -387,9 +379,6 @@ module ApplicationHelper
   end
   
   def funding_change_display value
-    
-    return "- no recent change" if value == 0
-    
     return "#{up_down_arrow(value)}  #{value.abs}&#37"
   end
   

@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
   layout 'application'  
 
-#  protect_from_forgery
+  protect_from_forgery :secret => "ppppmfs3cr3t4352345234533"
   
   helper_method :print_money, :print_number, :allowed_reserve_shares, :need_captcha
   

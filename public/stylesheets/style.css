@@ -1167,6 +1167,21 @@ div.project_mini_view div.project_extra_info {
     text-align: right;
 }
 
+div.project_mini_view div.project_extra_info div.premier_date {
+    float: right;
+}
+
+div.project_mini_view div.project_extra_info div.watch_url {
+    float: right;
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+div.project_mini_view div.project_extra_info div.watch_url a {
+    color: #000;
+    font-weight: bold;
+}
+
 div.project_mini_view div.project_icon {
     width: 70px;
     margin-right: 10px;
@@ -1244,7 +1259,9 @@ div.project_mini_view div.project_info div.project_stats {
 }
 
 div.project_mini_view div.project_info div.project_stats div.funds_needed,
-div.project_mini_view div.project_info div.project_stats div.percent_funded {
+div.project_mini_view div.project_info div.project_stats div.percent_funded,
+div.project_mini_view div.project_info div.project_stats div.percent_change,
+div.project_mini_view div.project_info div.project_stats div.num_followers {
     font-size: 14px;
     font-weight: bold;
     margin-bottom: 5px;
@@ -3640,6 +3657,7 @@ div#admin_stats {
 {
     margin-bottom:30px;
     margin-left:100px;
+    white-space: pre-wrap;
 }
 
 .profile-pic
@@ -3818,6 +3836,7 @@ div.project_listings_widget div.project_mini_view div.project_title {
 
 div.project_listings_widget div.project_mini_view div.project_info {
     margin-top: 0px;
+    width: 190px;
 }
 
 div.project_listings_widget div.project_mini_view div.user_info {
