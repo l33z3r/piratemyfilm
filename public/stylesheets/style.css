@@ -397,45 +397,6 @@ div#header_links span.welcome_message {
     font-weight: bold;
 }
 
-div#topsite_links {
-    margin-bottom: 4px;
-}
-
-div#topsite_links div#widget_link {
-    float: left;
-    margin: 2px 0px 0px 6px;
-    font-weight: normal;
-}
-
-div#topsite_links div#widget_link a {
-    color: black;
-    text-decoration: underline;
-}
-
-div#topsite_links div#pmf_fund_stats_container {
-    float: left;
-    margin-top: 7px;
-}
-
-div#topsite_links div#pmf_fund_stats_container div.pic {
-    float: left;
-}
-
-div#topsite_links div#pmf_fund_stats_container div.pic a img {
-    height: 35px;
-}
-
-div#topsite_links div#pmf_fund_stats_container div#stats {
-    margin: 10px 0px 0px 12px;
-    font-weight: bold;
-    float: left;
-}
-
-div#topsite_links div#pmf_fund_stats_container div#stats div.stat a {
-    color: black;
-    text-decoration: underline;
-}
-
 div#short_stats {
     width: 500px;
     margin: 5px 0px;
@@ -532,21 +493,21 @@ div#filter_talent_nav div#filter_param_box select {
 
 /* sub navigation */
 
-div#subnav_links {
+div.subnav_links {
     margin-top: 7px;
 }
 
-div#subnav_links div.link {
+div.subnav_links div.link {
     float: left;
     margin-right: 6px;
 }
 
-div#subnav_links div.link a {
+div.subnav_links div.link a {
     font-weight: bold;
     text-decoration: underline;
 }
 
-div#subnav_links div.link.selected a {
+div.subnav_links div.link.selected a {
     text-decoration: none;
     color: #000;
 }
@@ -2040,18 +2001,6 @@ div#signup_form div#captcha_section {
 
 /* Top Site */
 
-div#header div#widget_link {
-    font-size: 14px;
-    float: right;
-    font-weight: bold;
-}
-
-div#header div#stats_container {
-    float: left;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 div#stats_page div#stats div.sitewide_portfolio_info {
     margin: 15px 0px 15px 0px;
     width: 460px;
@@ -2991,18 +2940,18 @@ div.blog div.share_buttons div.facebook_button {
     float: right;
 }
 
-div#subnav_links span.fund_image_comments_subnav {
+div.subnav_links span.fund_image_comments_subnav {
     margin-right: 4px;
     float: left;
 }
 
-div#subnav_links span.fund_image_blog_subnav {
+div.subnav_links span.fund_image_blog_subnav {
     margin-top: -2px;
     margin-right: 2px;
     float: left;
 }
 
-div#subnav_links span.mkc_image_blog_subnav {
+div.subnav_links span.mkc_image_blog_subnav {
     margin-top: 1px;
     margin-right: 4px;
     float: left;
