@@ -37,7 +37,7 @@
 
 <% if !@max_subscription_reached && !@max_project_subscription_reached %>
   <div class="reservation_form_container">
-    <form method="post" action="<%= project_project_subscriptions_path(@project)-%>" class="left">
+    <% form_tag project_project_subscriptions_path(@project), :method => :post do %>
       <div class="text">
         Enter amount of shares to reserve (max <%= @num_shares_allowed %>) :
       </div>
@@ -45,7 +45,7 @@
         <input type="text" value="1" name="num_shares" size="3"/>
         <%= submit_tag "Reserve Shares", :confirm => "Are You Sure You Want to Reserve Shares?" %>
       </div>
-    </form>
+    <% end %>
   </div>
 <% end %>
 

@@ -52,7 +52,7 @@
       <%= display_error_on(project, :status) -%>
     </td>
   </tr>
-  
+
   <tr>
     <td>
       Paypal Email
@@ -66,6 +66,42 @@
       <%= f.text_field :paypal_email %>
       <%= display_error_on(project, :paypal_email) -%>
     </td>
+  </tr>
+
+</table>
+
+<div class="dashed_light_border pmf_bottom_margin_20 pmf_top_margin_20">&nbsp;</div>
+<h4>Dividends</h4>
+
+<table class="project_form" style="">
+
+  <tr>
+    <td>
+      What percentage of future
+      <br/>dividends are you taking? (0 - 100)%
+      <br/><br/>
+      <i>
+        Note: Any percentages not taken by the producer and shareholders will
+        automatically be credited to the PMF Fund
+      </i>
+    </td>
+    <td>NYA</td>
+    <!--td>
+    <%= f.text_field :share_percent_ads_producer %>
+    <%= display_error_on(project, :share_percent_ads_producer) -%>
+    </td-->
+  </tr>
+
+  <tr>
+    <td>
+      What percentage of <i>your</i> percentage of future
+      <br/>dividends are you offering to share holders? (0 - 100)%
+    </td>
+    <td>NYA</td>
+    <!--td>
+    <%= f.text_field :share_percent_ads %>
+    <%= display_error_on(project, :share_percent_ads) -%>
+    </td-->
   </tr>
 
 </table>
@@ -168,35 +204,6 @@
     <!--td>
     <%= f.text_field :ipo_price, :value => 0 %>
     <%= display_error_on(project, :ipo_price) -%>
-    </td-->
-  </tr>
-
-  <tr>
-    <td>
-      What percentage of future
-      <br/>dividends are you taking? (0 - 100)%
-      <br/><br/>
-      <i>
-        Note: Any percentages not taken by the producer and shareholders will
-        automatically be credited to the PMF Fund
-      </i>
-    </td>
-    <td>NYA</td>
-    <!--td>
-    <%= f.text_field :share_percent_ads_producer %>
-    <%= display_error_on(project, :share_percent_ads_producer) -%>
-    </td-->
-  </tr>
-
-  <tr>
-    <td>
-      What percentage of <i>your</i> percentage of future
-      <br/>dividends are you offering to share holders? (0 - 100)%
-    </td>
-    <td>NYA</td>
-    <!--td>
-    <%= f.text_field :share_percent_ads %>
-    <%= display_error_on(project, :share_percent_ads) -%>
     </td-->
   </tr>
 
@@ -429,6 +436,12 @@
   <%= display_error_on(project, :main_video) -%>
     </td>
   </tr-->
+
+</table>
+
+<div class="dashed_light_border pmf_bottom_margin_20 pmf_top_margin_20">&nbsp;</div>
+
+<table class="project_form" style="">
 
   <% if(defined?(include_captcha) && include_captcha) %>
     <tr>

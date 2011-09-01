@@ -10,7 +10,7 @@
     <div class="info">
       <div class="project_info">
         <div class="project_title">
-          <%= link_to h(blog.project.title), project_path(blog.project) %>
+          <%= link_to h(truncate(blog.project.title, 30)), project_path(blog.project) %>
         </div>
         <div class="pmf_clear">&nbsp;</div>
         <div class="project_stats">

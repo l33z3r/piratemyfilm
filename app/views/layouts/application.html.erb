@@ -20,13 +20,11 @@
 
     <div id="site_wrapper">
 
-      <%= render :partial => 'shared/header_links' %>
-
-      <div class="pmf_clear">&nbsp;</div>
-
       <div id="content_container">
         <div id="stage">
           <%= render :partial => 'shared/header' %>
+
+          <div class="pmf_clear">&nbsp;</div>
 
           <div id="content">
 
@@ -35,7 +33,7 @@
             </div>
 
             <%= render :partial => "/shared/user_subnav" %>
-            
+
             <%= yield %>
 
           </div>

@@ -6,6 +6,18 @@
 
       <div class="view-lite-row-numbers">
         <ul>
+          <li class="label">Owner:</li>
+          <li class="stat">
+            <div class="linked_talent">
+              <div class="talent_icon">
+                <%= icon(project.owner.profile, :small) %>
+              </div>
+              <div class="talent_name">
+                <%= link_to h(project.owner.login), profile_path(project.owner.profile) %>
+              </div>
+            </div>
+          </li>
+          <li class="pmf_clear"></li>
           <li class="label">Producers:</li><li class="stat"><%= producers_for project %></li>
           <li class="pmf_clear"></li>
           <li class="label">DOPs:</li><li class="stat"><%= directors_photography_for project %></li>
@@ -17,6 +29,8 @@
 
       <div class="view-lite-row-numbers">
         <ul>
+          <li class="label">&nbsp;</li><li class="stat">&nbsp;</li>
+          <li class="pmf_clear"></li>
           <li class="label">Directors:</li><li class="stat"><%= directors_for project %></li>
           <li class="pmf_clear"></li>
           <li class="label">Writers:</li><li class="stat"><%= writers_for project %></li>

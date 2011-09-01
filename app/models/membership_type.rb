@@ -4,10 +4,16 @@ class MembershipType < ActiveRecord::Base
   has_many :users, :through => :memberships
 
   #options for select as they will appear in the view:
-  @@SELECT_OPTIONS = [1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 100,
-    200, 500, 1000, 10000, 100000]
-  @@MIN_FUNDING_OPTIONS = [0, 100, 200, 300, 400, 500, 1000, 2000, 3000, 5000]
-  @@FUNDING_OPTIONS = [5000, 10000, 15000, 20000, 25000, 30000, 40000, 50000,
+  @@SELECT_OPTIONS = 
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 
+    35, 40, 45, 50, 100, 200, 500, 1000, 10000, 
+    2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 100000]
+  
+  @@MIN_FUNDING_OPTIONS = 
+    [0, 100, 200, 300, 400, 500, 1000, 2000, 3000, 5000]
+  
+  @@FUNDING_OPTIONS = 
+    [5000, 10000, 15000, 20000, 25000, 30000, 40000, 50000,
     75000, 100000, 250000, 500000, 1000000]
 
   #here we are validating presence of membership_type name, we are also ensuring

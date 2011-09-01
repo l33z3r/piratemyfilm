@@ -22,7 +22,7 @@
               allowTransparency="true">
       </iframe>
     </div>
-    
+
     <div class="pmf_clear">&nbsp;</div>
 
     <% if !project.finished_payment_collection %>
@@ -45,11 +45,11 @@
 
   <div class="project_info">
     <div class="project_title">
-      <%= h(truncate(project.title, 30)) %>
-      &nbsp;-&nbsp;Owned By 
+      <%= h(project.title) %> 
     </div>
 
     <div class="user_info">
+      <div class="owned_by_text">Owned By</div>
       <div class="user_icon">
         <%= icon(project.owner.profile, :small) %>
       </div>

@@ -1,6 +1,6 @@
 <div class="fields view-lite-row-description">
 
-  <span class="header">Project Stats:</span>
+  <span class="header">Project Info:</span>
   <span class="body">
     <div class="view-lite-row-numbers">
       <ul>
@@ -24,17 +24,9 @@
           <%= project.percent_bad_shares %>&#37
           (<a class="tooltip_arrow" title="This is the percentage of shares held by plank walkers!">?</a>)
         </li>
-        <li class="pmf_clear"></li><li class="label">
-          PMF Fund Dividend:
-        </li>
-        <li class="stat">
-          <%= print_money project.fund_dividend %>
-          (<a class="tooltip_arrow" title="This is the estimated pmf fund
-              return per $1000 of ad sales.">?</a>)
-        </li>
         <li class="pmf_clear"></li>
         <li class="label">
-          % Producer Fee:
+          &#37; Producer Fee:
         </li>
         <li class="stat">NYA</li>
         <!--li class="stat">
@@ -50,6 +42,8 @@
 
     <div class="view-lite-row-numbers">
       <ul>
+        <li class="label">Symbol:</li><li class="stat"><%= h project.symbol %></li>
+        <li class="pmf_clear"></li>
         <li class="label">Price Per Share:</li><li class="stat"><%= print_money project.ipo_price %></li>
         <li class="pmf_clear"></li>
         <li class="label">Total Shares:</li><li class="stat"><%= project.total_copies.to_i %></li>
@@ -60,23 +54,7 @@
         <li class="pmf_clear"></li>
         <li class="label">No. PMF Fund Shares:</li>
         <li class="stat"><%= project.pmf_fund_investment_share_amount %></li>
-        <li class="label">% Funded Total:</li><li class="stat"><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</li>
-        <li class="pmf_clear"></li>
-        <li class="label">
-          Producer Dividend:
-        </li>
-        <li class="stat">
-          <%= print_money project.producer_dividend %>
-          (<a class="tooltip_arrow" title="This is the estimated producer
-              return per $1000 of ad sales.">?</a>)
-        </li>
-        <li class="pmf_clear"></li>
-        <li class="label">Share Dividend:</li>
-        <li class="stat">
-          <%= print_money project.shareholder_dividend %>
-          (<a class="tooltip_arrow" title="This is the estimated shareholder
-              return per $1000 of ad sales.">?</a>)
-        </li>
+        <li class="label">&#37; Funded Total:</li><li class="stat"><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</li>
         <li class="pmf_clear"></li>
         <li class="label">Time to Completion:</li>
         <li class="stat">
@@ -96,25 +74,8 @@
           <%= project.member_rating %>
         </li>
         <li class="pmf_clear"></li><li class="label">Project Length:</li><li class="stat"><%=h project.project_length %> mins</li>
-        <li class="pmf_clear"></li>
-        <li class="label">% Producer:</li>
-        <li class="stat">NYA</li>
-        <!--li class="stat">
-        <%= project.share_percent_ads_producer %>%
-          (<a class="tooltip_arrow" title="The producer will take this percentage of the advertisement revenue.
-              The remaining percent will go to the PMF Fund (see below)">?</a>)
-        </li-->
-        <li class="pmf_clear"></li>
-        <li class="label">% Shares:</li>
-        <li class="stat">NYA</li>
-        <!--li class="stat">
-        <%= project.share_percent_ads %>%
-          (<a class="tooltip_arrow" title="This is a percentage of the producers
-              take (above) that will go to the shareholders.">?</a>)
-        </li-->
-        <li class="pmf_clear"></li>
-        <li class="label">
-          % PMF Fund:
+        <li class="pmf_clear"></li><li class="label">
+          &#37; PMF Fund:
         </li>
         <li class="stat">
           <%= project.capital_recycled_percent %>%
@@ -125,8 +86,6 @@
         <li class="label">Genre:</li><li class="stat"><%=  h project.genre.title %></li>
         <li class="pmf_clear"></li>
         <li class="label">Project Status:</li><li class="stat"><%= project.status %></li>
-        <li class="pmf_clear"></li>
-        <li class="label">Symbol:</li><li class="stat"><%= h project.symbol %></li>
         <li class="pmf_clear"></li>
       </ul>
     </div>

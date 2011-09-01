@@ -366,7 +366,7 @@ div#profile_links div.link a {
 }
 
 div#header_links {
-    margin: 0px 40px;
+    margin: 0px;
 }
 
 div#social_links {
@@ -486,7 +486,7 @@ div#sub_nav {
 }
 
 div#filter_param_box {
-    padding: 7px 8px;
+    padding: 7px 13px;
     float: right;
     color: #000000;
     background: #ccc url(/images/local-nav-bg.png) top left repeat-x;
@@ -924,6 +924,9 @@ div#project_show div.project_top div.project_info {
 }
 
 div#project_show div.project_top div.project_info div.project_title {
+    width: 280px;
+    line-height: 20px;
+    margin-bottom: 10px;
     font-size: 16px;
     font-weight: bold;
     float: left;
@@ -963,6 +966,14 @@ div#project_show div.project_top div.project_info div.project_stats div.percent_
 
 div#project_show div.project_top div.project_info div.user_info {
     float: left;
+    margin-left: 20px;
+}
+
+div#project_show div.project_top div.project_info div.user_info div.owned_by_text {
+    float: left;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
 }
 
 div#project_show div.project_top div.project_info div.user_info div.user_name {
@@ -2146,6 +2157,7 @@ div#footer_ad_banner {
 
 div#site_wrapper {
     width: 960px;
+    padding-top: 10px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -2320,7 +2332,7 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #header {
-    margin: 10px 0px;
+    margin: 0px;
     text-align: left;
 }
 
@@ -2659,6 +2671,7 @@ div#new_project_button {
     text-align: left;
     margin-top: 10px;
     height: 46px;
+    box-shadow: 2px 2px 2px #999;
 }
 
 div#new_project_button.local-navbar-button span {
@@ -2678,7 +2691,7 @@ div#new_project_button.local-navbar-button span span {
 div#header_links div#widget_link {
     float: left;
     margin-top: 17px;
-    margin-left: 40px;
+    margin-left: 20px;
     font-family: menu;
     width: 155px;
     text-decoration: underline;
@@ -2691,9 +2704,9 @@ div#header_links div#widget_link a {
 div#header_links div#site_stats_link {
     float: left;
     margin-top: 25px;
-    margin-left: 6px;
+    margin-left: 30px;
     font-family: menu;
-    width: 155px;
+    width: 100px;
     text-decoration: underline;
 }
 
