@@ -543,6 +543,22 @@ div#user_subnav_links div.link {
     float: left;
 }
 
+div#user_subnav_links div.link.project_updates {
+    margin-left: 10px;
+}
+
+div#user_subnav_links div.link.member_updates {
+    margin-left: 25px;
+}
+
+div#user_subnav_links div.link.portfolio {
+    margin-left: 30px;
+}
+
+div#user_subnav_links div.link.profile {
+    margin-left: 10px;
+}
+
 div#user_subnav_links div.link a {
     font-size: 12px;
     font-weight: bold;
