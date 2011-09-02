@@ -83,6 +83,14 @@ div.dashed_light_border {
     clear: both;
 }
 
+.upcase {
+    text-transform: uppercase;
+}
+
+.font13 {
+    font-size: 13px;
+}
+
 div.banner {
     font-size: 13px;
 }
@@ -282,7 +290,7 @@ div#signup_section div#welcome_message div#links div.link a {
 }
 
 div#signup_section div#welcome_message div#links div.awaiting_payment_link {
-    margin-right: 10px;
+    margin-top: 5px;
 }
 
 div#signup_section div#welcome_message div#links div.awaiting_payment_link a {
@@ -447,7 +455,7 @@ div#sub_nav {
 }
 
 div#filter_param_box {
-    padding: 7px 13px;
+    padding: 7px 3px;
     float: right;
     color: #000000;
     background: #ccc url(/images/local-nav-bg.png) top left repeat-x;
@@ -500,6 +508,15 @@ div.subnav_links {
 div.subnav_links div.link {
     float: left;
     margin-right: 6px;
+}
+
+div.subnav_links div.link.project_updates {
+    margin-left: 20px;
+}
+
+div.subnav_links div.link.member_updates {
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
 div.subnav_links div.link a {
@@ -1235,7 +1252,6 @@ div.project_mini_view div.project_info div.project_stats div.percent_funded,
 div.project_mini_view div.project_info div.project_stats div.percent_change,
 div.project_mini_view div.project_info div.project_stats div.num_followers {
     font-size: 14px;
-    font-weight: bold;
     margin-bottom: 5px;
 }
 
@@ -2618,7 +2634,7 @@ div#new_project_button {
     margin-right: 0px;
     float: left;
     text-align: left;
-    margin-top: 10px;
+    margin-top: 15px;
     height: 46px;
     box-shadow: 2px 2px 2px #999;
 }

@@ -1,7 +1,11 @@
 <div id="profile">
 
-  <div class="pageTitle">There are shares in the following projects awaiting payment by you</div>
+  <div class="pageTitleSmall">Projects Awaiting Payment</div>
+  
+  <div class="upcase pageTitleSmaller">This is a list of projects with payment due, click on a project to complete payment</div>
 
+  <div class="dashed_light_border">&nbsp;</div>
+  
   <div class="project_listing_box">
     <%= render :partial => "projects/listings", :object => @projects_awaiting_payment %>
   </div>

@@ -15,7 +15,19 @@
   <div class="pmf_clear">&nbsp;</div>
 </div>
 
-<%= render :partial => 'shared/header_links' %>
+<div id="header_links">
+
+  <a href="/projects/new">
+    <div id="new_project_button" class="local-navbar-button">
+      <span>Need Money?
+        <span>List A Project</span>
+      </span>
+    </div>
+  </a>
+
+  <%= render :partial => "shared/login_box" %>
+
+</div>
 
 <div class="pmf_clear_10">&nbsp;</div>
 

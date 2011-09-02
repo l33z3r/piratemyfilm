@@ -72,6 +72,11 @@ class ProfilesController < ApplicationController
   end
 
   def portfolio_awaiting_payment
+    if @p != @profile
+      flash[:error] = "You do not have permission to view this page!"
+      redirect_to profile_path(@p) and return
+    end
+    
     @projects_awaiting_payment = @profile.user.subscribed_projects_awaiting_payment
 
     if @projects_awaiting_payment.size == 0

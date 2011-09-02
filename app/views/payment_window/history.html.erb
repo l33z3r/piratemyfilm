@@ -18,9 +18,9 @@
       Please disregard any info below about outstanding shares.
     </p>
 
-  <% end %>
+    <div class="pmf_clear_10">&nbsp;</div>
 
-  <div class="pmf_clear_10">&nbsp;</div>
+  <% end %>
 
   <% if @project.finished_payment_collection %>
     <div class="pageTitleSmall">
@@ -28,10 +28,22 @@
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
+  <% else %>
+
+    <div class="pageTitleSmall">
+      Important
+    </div>
+
+    <p class="bold font13">
+      You will receive an "item number" in your paypal payment along with the payment that is made by a user. 
+      You must match this up with the "item number" column here on the payment window page in order to identify who the payment came from. 
+      Failure to do this will result in funds not being accounted for.
+    </p>
+
   <% end %>
 
   <div class="pageTitleSmall">
-    Payment Procedure Brief Explanation
+    Payment Procedure Explanation
   </div>
 
   <ol id="payment_procedure_explanation">
@@ -143,7 +155,7 @@
         Note: The next window will allocate payments in the share queue
         for the amount of <%= print_money @project.amount_payment_outstanding %>
       </p>
-      
+
     <% end %>
   <% else %>
     <!-- pmf buyout -->
