@@ -34,17 +34,18 @@
               The remaining percent will go to the PMF Fund (see below)">?</a>)
         </li-->
         <li class="pmf_clear"></li>
-        <li class="label">&#37; Shares:</li>
-        <li class="stat">NYA</li>
-        <!--li class="stat">
-        <%= project.share_percent_ads %>&#37;
-          (<a class="tooltip_arrow" title="This is a percentage of the producers
-              take (above) that will go to the shareholders.">?</a>)
-        </li-->
+        <li class="label">
+          &#37; PMF Fund:
+        </li>
+        <li class="stat">
+          <%= project.capital_recycled_percent %>%
+          (<a class="tooltip_arrow" title="This fund is used to invest (top up)
+              existing projects at the discretion of PMF.">?</a>)
+        </li>
         <li class="pmf_clear"></li>
       </ul>
     </div>
-    
+
     <div class="view-lite-row-numbers">
       <ul>
         <li class="label">Share Dividend:</li>
@@ -53,6 +54,14 @@
           (<a class="tooltip_arrow" title="This is the estimated shareholder
               return per $1000 of ad sales.">?</a>)
         </li>
+        <li class="pmf_clear"></li>
+        <li class="label">&#37; Shares:</li>
+        <li class="stat">NYA</li>
+        <!--li class="stat">
+        <%= project.share_percent_ads %>&#37;
+          (<a class="tooltip_arrow" title="This is a percentage of the producers
+              take (above) that will go to the shareholders.">?</a>)
+        </li-->
         <li class="pmf_clear"></li>
       </ul>
     </div>
