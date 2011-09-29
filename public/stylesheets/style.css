@@ -291,6 +291,7 @@ div#signup_section div#welcome_message div#links div.link a {
 
 div#signup_section div#welcome_message div#links div.awaiting_payment_link {
     margin-top: 5px;
+    color: #000;
 }
 
 div#signup_section div#welcome_message div#links div.awaiting_payment_link a {
@@ -549,14 +550,6 @@ div#user_subnav_links div.link.project_updates {
 
 div#user_subnav_links div.link.member_updates {
     margin-left: 25px;
-}
-
-div#user_subnav_links div.link.portfolio {
-    margin-left: 30px;
-}
-
-div#user_subnav_links div.link.profile {
-    margin-left: 10px;
 }
 
 div#user_subnav_links div.link a {
@@ -878,6 +871,23 @@ div#project_show div.talent_fields .view-lite-row-numbers li.label {
 div#project_show div.project_top {
     margin-top: 15px;
     margin-bottom: 10px;
+}
+
+div.project_icon div.project_image_container {
+    position: relative;
+}
+
+div.project_icon div.project_image_container div.percent_funded_float {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: #FFF;
+    color: #000;
+    text-align: center;
+    filter: alpha(opacity=60);
+    -moz-opacity: .60;
+    opacity: .60;
 }
 
 div#project_show div.project_top div.project_icon {
@@ -4017,7 +4027,7 @@ div#post_update_box {
     border: 1px solid #CCC;
     width: 866px;
     padding-left: 10px;
-    margin: 10px 0px;
+    margin-bottom: 10px;
 }
 
 div#post_update_box input[type=checkbox] {

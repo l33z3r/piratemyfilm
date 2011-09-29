@@ -28,7 +28,7 @@ class AccountsController < ApplicationController
         self.user = User.authenticate(params[:login], params[:password])
         if @u
           remember_me if params[:remember_me] == "1"
-          redirect_to :controller => :blogs, :action => "my_member_blogs" and return
+          redirect_to :controller => :blogs, :action => "my_project_blogs" and return
         else
           flash.now[:error] = "Uh-oh, login didn't work. Do you have caps locks on? Try it again."
         end

@@ -218,7 +218,14 @@ module ApplicationHelper
   end
 
   def project_icon project, size
-    image_tag project_icon_path(project, size)
+    content_tag(:div, :class => "project_image_container") do
+      image_tag(project_icon_path(project, size)) +
+      
+      #include the %funded var as a float over the image
+      content_tag(:div, :class => "percent_funded_float") do
+        project.percent_funded.to_s + "&#37 funded"
+      end
+    end
   end
 
   def project_icon_path project, size

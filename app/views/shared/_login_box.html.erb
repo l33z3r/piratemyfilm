@@ -41,24 +41,38 @@
         <div class="pmf_clear">&nbsp;</div>
 
         <div id="links">
+          <div class="link">
+            &nbsp; -
+            <%= link_to 'Log Out', logout_path %>
+          </div>
+
           <% if_admin do %>
             <div id="admin_link" class="link">
               &nbsp; -
               <%= link_to 'Admin', :controller => "admin/home" %>
             </div>
           <% end %>
-          <div class="link"><%= link_to 'Log Out', logout_path %></div>
+
+          <div class="link portfolio <%= (@selected_user_subnav_link == "my_portfolio" ? "selected" : "") %>">
+            &nbsp; -
+            <%= link_to "My Portfolio", portfolio_profile_path(@u.profile) %>
+          </div>
+
+          <div class="link profile <%= (@selected_user_subnav_link == "my_profile" ? "selected" : "") %>">
+            <%= link_to "My Profile", profile_path(@u.profile) %>
+          </div>
+
+          <div class="pmf_clear">&nbsp;</div>
 
           <% if @projects_awaiting_payment_count > 0 %>
-            <div class="pmf_clear">&nbsp;</div>
-
             <div class="link awaiting_payment_link">
-              (You have
+              You have
               <a href="<%= url_for(:controller => "profiles", :action => "portfolio_awaiting_payment", :id => @u.profile.id) %>">
                 <%= pluralize(@projects_awaiting_payment_count, "Project") %></a>
-              awaiting payment of shares!)
+              awaiting payment of shares!
             </div>
           <% end %>
+
         </div>
 
       </div>
