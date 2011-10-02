@@ -1202,14 +1202,14 @@ div.project_mini_view div.project_extra_info div.watch_url a {
 }
 
 div.project_mini_view div.project_icon {
-    width: 70px;
+    width: 80px;
     margin-right: 10px;
     float: left;
 }
 
 div.project_mini_view div.project_icon img {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
 }
 
 div.project_mini_view div.project_icon div.follow_button {
@@ -2801,6 +2801,7 @@ div.blog div.blog_right {
 div.blog div.blog_left div.icon {
     float: left;
     width: 80px;
+    margin-right: 10px;
 }
 
 div.blog div.blog_left div.info div.user_name {
@@ -2826,8 +2827,7 @@ div.blog div.blog_left div.icon div.follow_button div.following_text {
 }
 
 div.blog div.blog_left div.icon a img {
-    width: 70px;
-    margin-right: 10px;
+    width: 80px;
 }
 
 div.blog div.blog_left div.info {
