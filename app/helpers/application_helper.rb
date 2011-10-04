@@ -223,7 +223,7 @@ module ApplicationHelper
       
       #include the %funded var as a float over the image
       content_tag(:div, :class => "percent_funded_float") do
-        project.percent_funded.to_s + "&#37 funded"
+        project.percent_funded_with_pmf_fund_non_outstanding.to_s + "&#37 funded"
       end
     end
   end
