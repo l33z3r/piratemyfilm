@@ -45,7 +45,7 @@ class UserTalent < ActiveRecord::Base
       @filter_param_select_opts << [@@TALENT_TYPE_NAMES_MAP[key], key.to_s]
     }
 
-    @filter_param_select_opts << ["View Talents By", "0"]
+    @filter_param_select_opts << ["Need Talent?", "0"]
     
     @filter_param_select_opts.sort! { |arr1, arr2|
       arr2[1].to_i <=> arr1[1].to_i

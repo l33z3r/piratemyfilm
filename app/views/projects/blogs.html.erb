@@ -5,8 +5,6 @@
 
   <div class="pmf_clear">&nbsp;</div>
 
-  <%= render :partial => "/blogs/member_blog_update_form", :locals => {:project => @project} unless !@u %>
-
   <% if @blogs.empty? %>
     <div class="pageTitleSmaller">
       No Updates Found!

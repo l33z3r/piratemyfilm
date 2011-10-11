@@ -4,9 +4,8 @@
 
   <div id="text">
     <p>
-      Project owners list projects during any stage of development; specifying 
-      the funds they need and various details including any dividends (if any) 
-      they are offering to share buyers.
+      Project owners list projects during any stage of development; specifying the 
+      funds they need and various details including any dividends (if any) they are offering to share buyers.
     </p>
 
     <p>
@@ -25,20 +24,23 @@
     </p>
 
     <p class="pageTitleSmaller">
-      Depending on the membership level, members (reserving shares) and project owners (offering shares) are restricted by:
+      Depending on the membership level, members (reserving shares) and project 
+      owners (offering shares) are restricted by:
     </p>
 
     <p>
-      1. the number of projects they can list.<br/>
-      2. the number of shares they can offer in each project they list.<br/>
-      3. The number of other member's projects they can reserve shares in.<br/>
-      4. The number of shares they can reserve in other member's projects.<br/>
+    <ol>
+      <li>the number of projects they can list</li>
+      <li>the number of shares they can offer in each project they list</li>
+      <li>The number of other member's projects they can reserve shares in</li>
+      <li>The number of shares they can reserve in other member's projects</li>
+    </ol>
     </p>
 
     <p>
       If the demand for project's shares exceeds the number of shares on offer 
       (above the limit set by the system), the system automatically raises the share limit, 
-      and the owner has the option of increasing their share offering. 
+      and the owner has the option of increasing their share offering.
     </p>
 
     <p class="pageTitleSmaller">
@@ -47,10 +49,12 @@
     </p>
 
     <p>
-      1. Rating of the PMF Fund (the PMF Fund rates each project on a scale from C- to A+).<br/>
-      2. Rating of the project by members (on a scale of 1-10).<br/>
-      3. Rating of the talent attached to the project.<br/>
-      4. Popularity of the shares on offer. <br/>
+    <ol>
+      <li>Rating of the PMF Fund (the PMF Fund rates each project on a scale from C- to A+)</li>
+      <li>Rating of the project by members (on a scale of 1-10)</li>
+      <li>Rating of the talent attached to the project</li>
+      <li>Popularity of the shares on offer</li>
+    </ol>
     </p>
 
     <p class="pageTitleSmaller">
@@ -58,38 +62,34 @@
     </p>
 
     <p>
-      1. Members may add or cancel share reservations in any project at any time.<br/>
-      2. Owners may add or subtract the number of shares on offer.<br/>
-      3. Owners may increase or decrease dividends on offer (if any).<br/>
+    <ol>
+      <li>Members may add or cancel share reservations in any project at any time</li>
+      <li>Owners may add or subtract the number of shares on offer</li>
+      <li>Owners may increase or decrease dividends on offer (if any)</li>
+    </ol>
+    </p>
+
+    <p class="pageTitleSmaller">
+      After a green light:
     </p>
 
     <p>
-      After a project has been 'green lit' members receive an email from the 
-      owner instructing them on how to pay for their shares * See <a href="#payment_desc">Below</a> For Details. 
-    </p>
-
-    <p>
-      Once a project has been green lit,  owners cannot change any element of 
-      the project on offer. Members can add or initiate share reservations but 
-      they can’t cancel share orders.
-    </p>
-
-    <p>
-      The PMF Fund guarantees to buy any shares unreserved after share orders, 
-      including standby orders, have been filled. Standby orders are shares awaiting 
-      validation when new or existing shares become available.
-    </p>
-
-    <p>
-      The producer takes full responsibility for collecting funds, producing 
-      projects, paying out any dividends to share holders (and/or the PMF Fund) 
-      and providing download information for their projects to be pirated.
+    <ol>
+      <li>Owners cannot change any element of the project on offer</li>
+      <li>The system issues payments to members in the queue. Members are then 
+        contacted and instructed how to pay for their shares 
+        * See <a href="#payment_desc">Below</a> For Details</li>
+    </ol>
     </p>
 
     <p>
       Owners who fail to live up their responsibilities - or members who fail 
-      to pay for their shares - can be voted out of the community and/or 
-      forced to 'walk the plank'. 
+      to pay for their shares - are forced to 'walk the plank.'
+    </p>
+
+    <p>
+      To guarantee funding of a project, the PMF Fund will buy all unreserved or 
+      defaulted shares needed to fund the project. 
     </p>
 
     <p class="pageTitleSmaller">
@@ -97,64 +97,52 @@
     </p>
 
     <p>
-      1. The project reaches 100% funding.<br/>
-      2. Given green light by admin.<br/>
-      3. Producer clicks "Collect Funds", which opens a payment window in 
-      which funds will be collected from users.<br/>
-      4. The producer enters their paypal email address and a date in the 
-      future when they will close this payment window.<br/>
-      5. This payment window is now active.<br/>
-      6. Our system creates a bunch of rows in a table for each payment that 
-      is due to be processed for the project. It does this by looking at the 
-      share queue. It will sum up all the non-outstanding shares for each user, 
-      and will create a row in this table that represents the total amount of 
-      shares they have purchased.<br/>
-      7. Emails get sent to all the users who are to pay for their shares in this window.<br/>
-      8. A user logs in and goes to the project page where they own the shares. 
-      They now see a paypal button and a some information regarding what shares 
-      they have, what are outstanding, and what they are about to pay for.<br/>
-      9. The paypal button brings the user to the paypal site, to a page where 
-      we pass the amount due to be paid. The user then goes through the standard 
-      paypal payment process and the money goes to the project owners paypal 
-      account (via the email address they entered when opening this payment window).<br/>
-      10. A unique code is also passed to paypal that appears on the payment 
-      receipt that the producer sees. This code is used by the producer in the next step.<br/>
-      11. The producer logs into PMF and goes to the project page, where 
-      they can see a list of users who are due to pay for shares in the current 
-      window. It shows the username and the amount they are due to pay. It also 
-      shows the unique code that was passed through to paypal earlier on. 
-      The producer matches up the code in the receipt to this code, and then 
-      clicks "Mark as Paid" for that user. The system updates the project funding 
-      variables and the producer can then see how much money has actually been collected. 
-      This process continues for all the users who are in this payment window.<br/>
-      12. On the window close date, the project owner logs in and clicks "Close Window". 
-      This then marks all unpaid shares as "defaulted", but maintains the value of 
-      the amount that was collected in that window.<br/>
-      13. The producer now clicks "Open window" again and another window is created. 
-      This time the system looks down the queue to the users holding outstanding 
-      shares and creates a payment row for each user until the window is full with 
-      enough people to potentially reach the target funding and the paypal process 
-      described above takes place again.<br/>
-      14. If the payment window fails again, the producer opens another window 
-      and the system looks down the queue like before.<br/>
-      15. The producer has access to a page where they can see statistics on all 
-      of the payment windows that were created and all the users who were involved 
-      in each window.<br/>
-      16. The above steps are repeated until either all funds have been collected, 
-      or the queue has been exhausted.<br/>
-      17. When the queue has been exhausted, the user can ask PMF to buy out the 
-      remaining shares. This request will appear in a new section in the admin part 
-      of the site, where the admin user can accept or deny to buy out the shares.<br/>
-      18. When a window is open/closed or a payment has been verified by a producer, 
-      an email is sent to the associated user.<br/>
+    <ol>
+      <li>The project reaches 100% funding (or more).</li>
+      <li>The project is given a 'green light' by the PMF Fund</li>
+      <li>The project owner links a paypal email address to the project. 
+        This will be the address that all payments will go to. 
+        (Note to Project Owners: Make sure your paypal limits are set high enough 
+        to accept the funds you are raising for your project). 
+        A 'payment window' automatically opens up and  emails are sent to 
+        all the users to pay for their shares.</li>
+      <li>Members will see a paypal button and some information 
+        regarding what shares they have, what are outstanding, and what they are 
+        about to pay for after they login and click on the project page of the green lit project</li>
+      <li>Click on the paypal button. The paypal button brings the user to the 
+        paypal site,The user then goes through the standard paypal payment process 
+        and the money goes to the project owners paypal account (via the email 
+        address entered when creating the project)</li>
+      <li>A unique code is also passed to paypal that appears on the payment 
+        receipt that the producer sees. This code is used by the producer in the next step</li>
+      <li>The producer logs into PMF and goes to the project page, where they 
+        can see a list of users who are due to pay for shares in the current window. 
+        It shows the username and the amount they are due to pay. It also shows 
+        the unique code that was passed through to paypal earlier on. 
+        The producer matches up the code in the receipt to this code, and then 
+        clicks "Mark as Paid" for that user. The system updates the project 
+        funding variables and the producer can then see how much money has actually been collected. 
+        This process continues for all the users who are in this payment window</li>
+      <li>When a window is open/closed or a payment has been verified by a producer, 
+        an email is sent to the associated user</li>
+      <li>After 3  days, the payment window closes, emails are sent to members 
+        who have paid, any members who have not paid get pushed to the back of 
+        the payment queue, and new emails are sent out repeating the payment process</li>
+      <li>After 3 days, the new payment window closes and the process is 
+        repeated opening up a second payment window</li>
+      <li>After another 3 days, the final payment window is closed and an email 
+        is sent to the PMF Fund to buy any outstanding shares (this request will 
+        appear in a new section in the admin part of the site, where the admin user 
+        can accept or deny to buy out the shares)</li>
+    </ol>
     </p>
 
     <p>
       <b>Disclaimer:</b>
-      PMF takes zero responsibility for funds collected, projects, and downloads 
-      related to projects. Producers are not contractually obligated to make good 
-      on funds, or to produce projects or make downloads available. Share buyers 
-      assume 100% of the risk for funding.
+      PirateMyfilim Ltd. takes zero responsibility for funds collected, projects, 
+      and downloads related to projects. Producers are not contractually obligated 
+      to make good on funds, or to produce projects or make downloads available. 
+      Share buyers assume 100% of the risk for funding,
     </p>
 
   </div>

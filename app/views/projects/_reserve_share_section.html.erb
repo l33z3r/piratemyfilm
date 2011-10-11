@@ -1,39 +1,4 @@
-<h3>Membership Limits</h3>
-
-<ul>
-  <li>You are currently on <b><%= @u.membership_type.name %></b> Membership</li>
-  <li>With this membership, you can reserve a maximum of <b><%= pluralize @u.membership_type.pc_limit, "share" %></b> in any one project</li>
-  <li>With this membership, you can reserve shares in a maximum of <b><%= pluralize @u.membership_type.pc_limit, "project" %></b></li>
-  <li>You currently have <b><%= pluralize ProjectSubscription.calculate_amount(@u.non_funded_project_subscriptions), "share" %></b> reserved in <b><%= pluralize @u.number_non_funded_projects_subscribed_to, "project" %></b></li>
-</ul>
-
-<h3>Current Subscription</h3>
-
-<ul>
-  <li>
-    You have
-    <%= @my_subscriptions_amount == 0 ? "no" : @my_subscriptions_amount %> shares
-    <% if @my_outstanding_subscriptions_amount > 0 %>
-      <i>
-        (<%= @my_outstanding_subscriptions_amount %> on
-        <a class="tooltip_arrow"
-           title="standby shares become valid when new or existing shares become available">
-          standby</a>)
-      </i>
-    <% end %>
-    reserved for this project.
-  </li>
-
-  <% if @max_subscription_reached %>
-    <li><b>Your share limit for this project has been reached.</b></li>
-  <% elsif @max_project_subscription_reached %>
-    <li><b>You cannot reserve shares for any more projects.</b></li>
-  <% else %>
-    <li>You can reserve up to <%= @max_subscription %> shares.</li>
-  <% end %>
-</ul>
-
-<h3>Reserve/Cancel Shares</h3>
+<h2>Reserve/Cancel Shares</h2>
 
 <% if !@max_subscription_reached && !@max_project_subscription_reached %>
   <div class="reservation_form_container">
@@ -68,3 +33,42 @@
     <p>You cannot cancel any shares in the green light stage of a project!</p>
   <% end %>
 <% end %>
+
+<div class="pmf_clear_10">&nbsp;</div>
+
+<h2>Shareholder Info</h2>
+
+<h3>Membership Limits</h3>
+
+<ul>
+  <li>You are currently on <b><%= @u.membership_type.name %></b> Membership</li>
+  <li>With this membership, you can reserve a maximum of <b><%= pluralize @u.membership_type.pc_limit, "share" %></b> in any one project</li>
+  <li>With this membership, you can reserve shares in a maximum of <b><%= pluralize @u.membership_type.pc_limit, "project" %></b></li>
+  <li>You currently have <b><%= pluralize ProjectSubscription.calculate_amount(@u.non_funded_project_subscriptions), "share" %></b> reserved in <b><%= pluralize @u.number_non_funded_projects_subscribed_to, "project" %></b></li>
+</ul>
+
+<h3>Current Subscription</h3>
+
+<ul>
+  <li>
+    You have
+    <%= @my_subscriptions_amount == 0 ? "no" : @my_subscriptions_amount %> shares
+    <% if @my_outstanding_subscriptions_amount > 0 %>
+      <i>
+        (<%= @my_outstanding_subscriptions_amount %> on
+        <a class="tooltip_arrow"
+           title="standby shares become valid when new or existing shares become available">
+          standby</a>)
+      </i>
+    <% end %>
+    reserved for this project.
+  </li>
+
+  <% if @max_subscription_reached %>
+    <li><b>Your share limit for this project has been reached.</b></li>
+  <% elsif @max_project_subscription_reached %>
+    <li><b>You cannot reserve shares for any more projects.</b></li>
+  <% else %>
+    <li>You can reserve up to <%= @max_subscription %> shares.</li>
+  <% end %>
+</ul>

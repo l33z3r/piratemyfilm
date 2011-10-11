@@ -16,8 +16,8 @@ module FriendsHelper
     return if @u and target_member == @u.profile
     
     if @u and (@u.profile.following? target_member or @u.profile.friend_of? target_member)
-      content_tag :div, :class => "following_text left" do
-        "Following"
+      content_tag :div, :class => "button_small left" do
+        link_to "Un-Follow", profile_friend_path(@u.profile, target_member), :method => :delete
       end
     else
       content_tag :div, :class => "button_small left" do
@@ -30,8 +30,8 @@ module FriendsHelper
     return if @u and target_member == @u.profile
     
     if @u and (@u.profile.following? target_member or @u.profile.friend_of? target_member)
-      content_tag :div, :class => "following_text left" do
-        "Following"
+      content_tag :div, :class => "button left" do
+        link_to "Un-Follow", profile_friend_path(@u.profile, target_member), :method => :delete
       end
     else
       content_tag :div, :class => "button left" do

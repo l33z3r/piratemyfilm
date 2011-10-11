@@ -2,7 +2,7 @@
 
   <div id="brand">
     <a href="/">
-      <img id="header_image" src="/images/pmf-logo-temp.png"/>
+      <img id="header_image" src="/images/pmf-logo-new.png"/>
     </a>
   </div>
 
@@ -36,10 +36,6 @@
     <div class="left">
 
       <% if !@hide_filter_params %>
-        <div id="filter_talent_nav" class="right">
-          <%= render :partial => 'shared/filter_talent_param_box' %>
-        </div>
-
         <div id="filter_users_nav" class="right">
           <%= render :partial => 'shared/filter_users_param_box' %>
         </div>
@@ -58,6 +54,12 @@
             (params[:search] && params[:search][:q] ? params[:search][:q] : 'Search'),
             :id => 'search_q', :size => 14, :onfocus => "$(this).select();" %>
           <input type="submit" value="Search"/>
+        </div>
+      <% end %>
+
+      <% if !@hide_filter_params %>
+        <div id="filter_talent_nav" class="right">
+          <%= render :partial => 'shared/filter_talent_param_box' %>
         </div>
       <% end %>
     </div>

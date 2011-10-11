@@ -17,7 +17,7 @@ class FriendsController < ApplicationController
 
         format.html do
           flash[:positive] = "You are now following #{@profile.user.f}"
-          redirect_to profile_path @profile
+          redirect_to profile_path @profile and return
         end
       end
     else
@@ -33,12 +33,14 @@ class FriendsController < ApplicationController
   def destroy
     Friend.reset @p, @profile
 
-    render :update do |page|
-      #not sure why this is here
-      following = @p.reload.following? @profile
-
-      page.replace @p.dom_id(@profile.dom_id + '_friendship_'), get_friend_link( @p, @profile)
-    end
+    flash[:positive] = "You are no longer following #{@profile.user.f}"
+    redirect_to profile_path @profile and return
+    #    render :update do |page|
+    #      #not sure why this is here
+    #      following = @p.reload.following? @profile
+    #
+    #      page.replace @p.dom_id(@profile.dom_id + '_friendship_'), get_friend_link( @p, @profile)
+    #    end
   end
   
   protected

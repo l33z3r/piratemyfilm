@@ -1,10 +1,10 @@
 <div id="subscription_buttons">
   <% if logged_in %>
 
-    <h2>Shareholder Info</h2>
-
     <% if allowed_reserve_shares %>
       <% if @project.in_payment? or @project.finished_payment_collection %>
+
+        <h2>Payment Info</h2>
 
         <% if @project.finished_payment_collection %>
           <p>

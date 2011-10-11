@@ -18,7 +18,12 @@
       <% end %>
 
       <div class="activity_box learn">
-        <div class="left avatar"><%= icon @profile, :medium %></div>
+        <div class="left avatar">
+          <%= icon @profile, :medium %>
+          <div class="follow_button">
+            <%= follow_member_button @profile %>
+          </div>
+        </div>
         <div class="left bio_stuff">
           <div class="user_name"><%= h @profile.f %></div>
         </div>

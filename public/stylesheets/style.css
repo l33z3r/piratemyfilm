@@ -545,11 +545,11 @@ div#user_subnav_links div.link {
 }
 
 div#user_subnav_links div.link.project_updates {
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 div#user_subnav_links div.link.member_updates {
-    margin-left: 25px;
+    margin-left: 5px;
 }
 
 div#user_subnav_links div.link a {
@@ -1215,10 +1215,6 @@ div.project_mini_view div.project_icon img {
 div.project_mini_view div.project_icon div.follow_button {
     margin-top: 7px;
     margin-left: 2px;
-}
-
-div.project_mini_view div.project_icon div.follow_button div.following_text {
-    margin-left: 4px;
 }
 
 div.project_mini_view div.green_light {
@@ -1932,7 +1928,6 @@ div.static_content {
 
 div#how_it_works div#text {
     text-align: justify;
-    width: 80%;
 }
 
 /* end static pages */
