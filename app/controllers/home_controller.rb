@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 #  end
   
   def index
-    @blogs = Blog.all_project_blogs
+    @blogs = Blog.all_member_blogs
     @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
 
     @blog = Blog.new
@@ -20,9 +20,9 @@ class HomeController < ApplicationController
     #tell view that this is homepage (used for banner ad for now)
     @is_home_page = true
     
-    @selected_subnav_link = "project_updates"
+    @selected_subnav_link = "member_updates"
     
-    render :template => "/blogs/index"
+    render :template => "/blogs/all_member_blogs"
   end
 
   def newest_members

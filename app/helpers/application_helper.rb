@@ -362,23 +362,30 @@ module ApplicationHelper
     link_to h(@blog_header_title.capitalize), project_path(blog.project)
   end
 
-  def blog_body(blog, truncate_blog_body, show_more_link=true)
-    if defined?(truncate_blog_body) && truncate_blog_body
-      @blog_body_content = blog.body
-      @truncate_length = 140
-
-      @body = awesome_truncate(@blog_body_content, @truncate_length)
-    else
-      @body = blog_body_content blog
+  def blog_body blog
+    blog.body.gsub!( /@\w+/) do |mention|
+      @user_login = mention[1..mention.length-1]
+      link_to mention, "/#{@user_login}"
     end
-    
-    if show_more_link
-      #show the 'more' link unless instructed otherwise
-      @body += link_to(" (more)", url_for(:controller => "blogs", :action => "show", :id => blog.id, :only_path => false), :class => "more_link")
-    end
-    
-    return @body
   end
+  
+#  def blog_body(blog, truncate_blog_body, show_more_link=true)
+#    if defined?(truncate_blog_body) && truncate_blog_body
+#      @blog_body_content = blog.body
+#      @truncate_length = 140
+#
+#      @body = awesome_truncate(@blog_body_content, @truncate_length)
+#    else
+#      @body = blog_body_content blog
+#    end
+#    
+#    if show_more_link
+#      #show the 'more' link unless instructed otherwise
+#      @body += link_to(" (more)", url_for(:controller => "blogs", :action => "show", :id => blog.id, :only_path => false), :class => "more_link")
+#    end
+#    
+#    return @body
+#  end
 
   def up_down_arrow value
     return " - " if value == 0

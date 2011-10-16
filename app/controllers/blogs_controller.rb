@@ -43,6 +43,14 @@ class BlogsController < ApplicationController
 
     @selected_user_subnav_link = "my_member_blogs"
   end
+  
+  #this is the users personal live member feed
+  def my_mentions
+    @blogs = User.my_mentions @u
+    @blogs = @blogs.paginate :page => (params[:page] || 1), :per_page=> 15
+
+    @selected_user_subnav_link = "my_mentions"
+  end
 
   def admin
     @blogs = Blog.admin_blogs.paginate :page => (params[:page] || 1), :per_page=> 15
@@ -64,6 +72,12 @@ class BlogsController < ApplicationController
       
       if @blog.body.blank?
         flash[:error] = "Your update has no content..."
+        redirect_to :back and return
+      end
+      
+      #we now limit to 140 chars
+      if @blog.body.length > 140
+        flash[:error] = "Only 140 character buzz is allowed!"
         redirect_to :back and return
       end
       

@@ -3,11 +3,15 @@ class Blog < ActiveRecord::Base
   belongs_to :profile
   validates_presence_of :body
 
+  has_many :blog_user_mentions
+  
   belongs_to :project
 
   has_many :blog_comments
 
   belongs_to :project_user_talent
+  
+  after_save :create_blog_user_mentions
   
   def num_comments
     if is_mkc_blog
@@ -187,6 +191,22 @@ class Blog < ActiveRecord::Base
     find(:all, :include => :project, 
       :conditions => "blogs.project_id is not null and projects.is_deleted = false
         and projects.id = #{project.id}", :order => "blogs.created_at desc")
+  end
+  
+  def create_blog_user_mentions
+    @mentions = body.scan(/@\w+/)
+    
+    @mentions.each do |mention|
+      @user_login = mention[1..mention.length-1]
+      @user_mentioned = User.find_by_login(@user_login)
+      
+      if @user_mentioned 
+        #does an obj already exist
+        if !blog_user_mentions.find_by_user_id(@user_mentioned.id)
+          blog_user_mentions.build(:user_id => @user_mentioned.id).save
+        end
+      end
+    end
   end
   
 end

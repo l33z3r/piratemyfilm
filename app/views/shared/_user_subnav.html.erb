@@ -1,15 +1,18 @@
 <% if @u %>
   <div id="user_subnav_links">
-    <div class="link project_updates <%= (@selected_user_subnav_link == "my_project_blogs" ? "selected" : "") %>">
-      <%= link_to "Updates From Projects I Follow", :controller => :blogs, :action => "my_project_blogs" %>
+    <div class="link member_updates <%= (@selected_user_subnav_link == "my_member_blogs" ? "selected" : "") %>">
+      <%= link_to "Members Buzz I Follow", :controller => :blogs, :action => "my_member_blogs" %>
     </div>
 
-    <div class="link member_updates <%= (@selected_user_subnav_link == "my_member_blogs" ? "selected" : "") %>">
-      <%= link_to "Updates From Members I Follow", :controller => :blogs, :action => "my_member_blogs" %>
+    <div class="link member_updates <%= (@selected_user_subnav_link == "my_mentions" ? "selected" : "") %>">
+      <%= link_to "Mentions", :controller => :blogs, :action => "my_mentions" %>
+    </div>
+
+    <div class="link project_updates <%= (@selected_user_subnav_link == "my_project_blogs" ? "selected" : "") %>">
+      <%= link_to "Project Buzz I Follow", :controller => :blogs, :action => "my_project_blogs" %>
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
-
   </div>
 
   <div class="pmf_clear">&nbsp;</div>

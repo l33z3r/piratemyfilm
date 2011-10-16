@@ -71,3 +71,14 @@ function selectTalent_OLD(talentName, talentId, talentUsername) {
 
     ModalPopups.Close('talentSelectListContainer');
 }
+
+function doBuzzCharCount(el) {
+    var inputLength = $(el).val().length;
+    
+    if(inputLength > 140) {
+        $(el).val($(el).val().substring(0,140));
+    }
+    
+    chars_left = (140 - inputLength < 0) ? 0 : 140 - inputLength;
+    $('#char_count').html(chars_left);
+}

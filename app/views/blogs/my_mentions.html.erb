@@ -2,16 +2,25 @@
 
 <% if @blogs.empty? %>
   <div class="pageTitleSmaller">
-    You have no mentions!
+    You are not following any PMF Members!
   </div>
   <div class="pageTitleSmaller">
-    When somebody @mentions you, that buzz will appear here!
+    When you follow someone, their buzz will appear here!
   </div>
   <div class="pmf_clear">&nbsp;</div>
 <% end %>
 
 <% @blogs.each do |blog| %>
-  <%= render :partial => "/blogs/templates/member_blog",
+  <% 
+    if blog.is_mkc_blog
+      @template_name = "mkc_blog"
+    elsif blog.is_admin_blog
+      @template_name = "admin_blog"
+    else
+      @template_name = "member_blog"
+    end
+  %>
+  <%= render :partial => "/blogs/templates/#{@template_name}",
     :locals => {:blog => blog, :truncate_blog => true,
     :show_more_link => true} %>
 <% end %>

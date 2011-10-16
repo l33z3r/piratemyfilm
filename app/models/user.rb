@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :user_talents
   has_many :project_user_talents, :through => :user_talents
 
+  has_many :blog_user_mentions
+  
   has_many :notifications
 
   has_many :blogs, :through => :profiles
@@ -475,6 +477,12 @@ class User < ActiveRecord::Base
     Project.find_by_sql("select projects.* from projects where id in
     (select project_id from subscription_payments where (status is null or (status != 'Pending' and status != 'Paid'
     and status != 'Defaulted' and status != 'Thrown' and status != 'Reused') and user_id = #{id}) group by project_id)")
+  end
+  
+  def self.my_mentions user
+    user.blog_user_mentions.collect do |bum|
+      bum.blog
+    end
   end
 
   # Activates the user in the database.

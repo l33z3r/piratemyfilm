@@ -36,13 +36,14 @@
     <div class="left">
 
       <% if !@hide_filter_params %>
+        <div id="filter_projects_nav" class="right">
+          <%= render :partial => 'shared/filter_param_box' %>
+        </div>
+
         <div id="filter_users_nav" class="right">
           <%= render :partial => 'shared/filter_users_param_box' %>
         </div>
 
-        <div id="filter_projects_nav" class="right">
-          <%= render :partial => 'shared/filter_param_box' %>
-        </div>
       <% end %>
 
     </div>

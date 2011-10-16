@@ -513,10 +513,11 @@ div.subnav_links div.link {
 
 div.subnav_links div.link.project_updates {
     margin-left: 20px;
+    margin-right: 46px;
 }
 
 div.subnav_links div.link.member_updates {
-    margin-left: 40px;
+    margin-left: 30px;
     margin-right: 40px;
 }
 
@@ -4024,9 +4025,41 @@ div#stats_page div#stats div.stat {
 
 div#post_update_box {
     border: 1px solid #CCC;
+    background-color: #eee;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
     width: 866px;
-    padding-left: 10px;
+    padding: 10px;
     margin-bottom: 10px;
+}
+
+div#post_update_box div#header {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+div#post_update_box #blog_body {
+    width: 860px;
+    margin-bottom: 10px;
+}
+
+div#post_update_box div#link_project_area {
+    float: left;
+}
+
+div#post_update_box div#link_project_area select#project_id {
+    width: 200px;
+}
+
+div#post_update_box div#char_count {
+    float: right;
+    font-size: 18px;
+    color: #000;
+    margin: 10px 10px 0px 0px;
+}
+
+div#post_update_box input {
+    float: right;
 }
 
 div#post_update_box input[type=checkbox] {

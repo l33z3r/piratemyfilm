@@ -40,7 +40,7 @@
       <div class="pmf_clear">&nbsp;</div>
 
       <div class="blog_body">
-        <%= blog_body(blog, truncate_blog, show_more_link) %>
+        <%= blog_body blog %>
       </div>
     </div>
   </div>
@@ -62,10 +62,10 @@
 
     <div class="pmf_clear">&nbsp;</div>
 
-    <div class="blog_comments_link">
+    <!--div class="blog_comments_link">
       <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
       <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
-    </div>
+    </div-->
 
     <div class="pmf_clear">&nbsp;</div>
 
