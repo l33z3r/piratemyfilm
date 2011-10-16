@@ -21,6 +21,10 @@
           <div class="percent_funded">
             <span><%= blog.project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
           </div>
+          <div class="pmf_clear">&nbsp;</div>
+            <div class="followers">
+              <span><%= pluralize blog.project.project_followings.size, "follower" %></span>
+            </div>
         </div>
       </div>
       <div class="blog_user_relationship">
