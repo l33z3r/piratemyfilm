@@ -363,10 +363,12 @@ module ApplicationHelper
   end
 
   def blog_body blog
-    blog.body.gsub!( /@\w+/) do |mention|
+    @blog_body = blog.body.gsub( /@\w+/) do |mention|
       @user_login = mention[1..mention.length-1]
       link_to mention, "/#{@user_login}"
     end
+    
+    @blog_body
   end
   
 #  def blog_body(blog, truncate_blog_body, show_more_link=true)
