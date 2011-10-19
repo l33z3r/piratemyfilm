@@ -168,9 +168,7 @@
       <div class="pmf_clear">&nbsp;</div>
     <% else %>
       <% @project_blogs.each do |blog| %>
-        <%= render :partial => "/blogs/templates/member_blog",
-          :locals => {:blog => blog, :truncate_blog => true,
-          :show_more_link => true} %>
+        <%= render :partial => "/blogs/templates/buzz", :locals => {:blog => blog} %>
       <% end %>
     <% end %>
     <div class="links">

@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :user_talents
   has_many :project_user_talents, :through => :user_talents
 
-  has_many :blog_user_mentions
+  has_many :blog_user_mentions, :order => "CREATED_AT DESC"
   
   has_many :notifications
 
@@ -115,6 +115,11 @@ class User < ActiveRecord::Base
     end
 
     super
+  end
+  
+  #this returns the raw login, not like above
+  def login_for_buzz_mention
+    return read_attribute("login")
   end
 
   def f

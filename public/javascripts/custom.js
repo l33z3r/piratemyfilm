@@ -82,3 +82,18 @@ function doBuzzCharCount(el) {
     chars_left = (140 - inputLength < 0) ? 0 : 140 - inputLength;
     $('#char_count').html(chars_left);
 }
+
+function doRebuzz(blogId) {
+    $('#post_update_box #blog_rebuzz_id').val(blogId);    
+    $('#blog_form').submit();
+    return false;
+}
+
+function doReply(mention) {
+    $('#post_update_box #blog_body').val(mention);
+    $('#post_update_box #blog_rebuzz_id').val("");
+    $('#post_update_box #blog_body').focus();
+    
+    var animation = {scrollTop: $('#post_update_box').offset().top};
+    $('html,body').animate(animation, 'slow', 'swing');
+}

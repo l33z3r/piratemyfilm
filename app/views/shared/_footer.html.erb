@@ -1,11 +1,37 @@
+<div class="pmf_top_margin_5">&nbsp;</div>
+
 <div id="footer">
+
+  <div class="subnav_links left" id="blog_footer_links">
+    <div class="link <%= (@selected_subnav_link == "pmf_fund" ? "selected" : "") %>">
+      <span class="fund_image_comments_subnav">
+        <%= link_to image_tag("pmf_fund_avatar_tiny.png", :size => "15x15"), latest_comments_path %>
+      </span>
+      <%= link_to "PMF Fund", latest_comments_path %> -
+    </div>
+
+    <div class="link <%= (@selected_subnav_link == "pmf" ? "selected" : "") %>">
+      <span class="fund_image_blog_subnav">
+        <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), :action => "admin" %>
+      </span>
+      <%= link_to "PMF", :controller => "/blogs", :action => "admin" %> -
+    </div>
+
+    <div class="link <%= (@selected_subnav_link == "maxkeiser" ? "selected" : "") %>">
+      <span class="mkc_image_blog_subnav">
+        <%= link_to image_tag("mkc_favicon.png", :size => "15x15"), :controller => :blogs, :action => "mkc" %>
+      </span>
+      <%= link_to "maxkeiser", :controller => "/blogs", :action => "mkc" %>
+    </div>
+  </div>
+
   <ul>
     <li><a href="/pages/contact_us">CONTACT US</a></li>
     <li><a href="/pages/about_us">ABOUT US</a></li>
     <li><a href="/pages/how_it_works">HOW IT WORKS</a></li>
     <li><a href="http://lovdbyless.com/" target="_blank">This Site Uses <i>LovdByLess</i></a></li>
   </ul>
-  
+
   <div id="social_links">
     <div class="twitter-link">
       <%= link_to image_tag("twitter.gif", :size => "35x30"),
@@ -18,6 +44,6 @@
         "http://www.facebook.com/pages/PirateMyFilm/75309097341",
         :target => "_blank" %>
     </div>
-    
+
   </div>
 </div>

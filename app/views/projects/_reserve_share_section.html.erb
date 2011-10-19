@@ -42,7 +42,7 @@
 
 <ul>
   <li>You are currently on <b><%= @u.membership_type.name %></b> Membership</li>
-  <li>With this membership, you can reserve a maximum of <b><%= pluralize @u.membership_type.pc_limit, "share" %></b> in any one project</li>
+  <li>With this membership, you can reserve a maximum of <b><%= pluralize @u.membership_type.pc_limit, "share" %></b> (priced at $5 per share) in any one project</li>
   <li>With this membership, you can reserve shares in a maximum of <b><%= pluralize @u.membership_type.pc_limit, "project" %></b></li>
   <li>You currently have <b><%= pluralize ProjectSubscription.calculate_amount(@u.non_funded_project_subscriptions), "share" %></b> reserved in <b><%= pluralize @u.number_non_funded_projects_subscribed_to, "project" %></b></li>
 </ul>

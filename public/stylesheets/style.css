@@ -380,7 +380,7 @@ div#header_links {
 
 div#social_links {
     float: right;
-    margin-top: 4px;
+    margin-top: -8px;
 }
 
 div#social_links div.twitter-link {
@@ -874,9 +874,18 @@ div#project_show div.project_top {
     margin-bottom: 10px;
 }
 
+div#project_show div.icon div.project_image_container,
+div#project_show div.project_icon div.project_image_container {
+    position: relative;
+    border: 1px solid #777;
+    width: 100px;
+}
+
 div.icon div.project_image_container,
 div.project_icon div.project_image_container {
     position: relative;
+    border: 1px solid #777;
+    width: 80px;
 }
 
 div.icon div.project_image_container div.percent_funded_float,
@@ -1934,9 +1943,11 @@ div#how_it_works div#text {
 /* end static pages */
 
 #footer	{
-    background: #fff url(/images/footer-contents-bg.gif) repeat-x left top;
-    font-size:85%;
-    line-height: 3.1em;
+    background: #fff url(/images/footer-contents-bg.gif) repeat-x left top;    
+}
+
+div#blog_footer_links {
+    margin: -1px 10px 0px 0px;
 }
 
 #footer ul	{
@@ -2774,7 +2785,7 @@ div.project_listings .blog-row {
 
 div.blog-row {
     margin-top: 10px;
-    min-height: 100px;
+    min-height: 90px;
 }
 
 div.blog-row div.new_project_text {
@@ -2785,19 +2796,19 @@ div.blog-row div.new_project_text {
 }
 
 div.blog div.blog_left {
-    width: 650px;
+    width: 710px;
     float: left;
 }
 
 div.blog div.blog_right {
-    width: 230px;
+    width: 170px;
     float: right;
 }
 
 div.blog div.blog_left div.icon {
     float: left;
-    width: 80px;
-    margin-right: 10px;
+    width: 40px;
+    margin-right: 5px;
 }
 
 div.blog div.blog_left div.info div.user_name {
@@ -2812,23 +2823,32 @@ div.blog div.blog_left div.info div.user_name a {
     text-decoration: underline;
 }
 
-div.blog div.blog_left div.icon div.follow_button {
-    margin-top: 6px;
-    margin-left: 3px;
-}
-
 div.blog div.blog_left div.icon div.follow_button div.following_text {
     margin-left: 6px;
     margin-top: 2px;
 }
 
 div.blog div.blog_left div.icon a img {
-    width: 80px;
+    width: 40px;
 }
 
 div.blog div.blog_left div.info {
     float: left;
-    width: 560px;
+}
+
+div.blog div.blog_left div.user_info {
+    width: 300px;
+}
+
+div.blog div.blog_left div.project_info_holder {
+    width: 330px;
+    margin-left: 30px;
+}
+
+div.blog div.blog_left div.info div.follow_button {
+    float: left;
+    margin-top: -3px;
+    margin-right: 5px;
 }
 
 div.blog div.blog_left div.info div.blog_type {
@@ -2841,12 +2861,11 @@ div.blog div.blog_left div.info div.blog_type a {
 }
 
 div.blog div.blog_left div.info div.blog_user_relationship {
-    float: left;
-    margin-right: 7px;
     margin-top: 1px;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: bold;
-    color: #000000;
+    float: left;
+    margin-right: 5px;
 }
 
 div.blog div.project_rating div.info div.user_info {
@@ -2899,20 +2918,31 @@ div.blog div.blog_left div.info div.user_info div.user_name a {
     font-weight: bold;
 }
 
+div.blog div.blog_left div.info div.project_icon {
+    float: left;
+    width: 80px;
+    margin-right: 10px;
+}
+
+div.blog div.blog_left div.info div.project_icon img {
+    width: 80px;
+    height: 80px;
+}
+
 div.blog div.blog_left div.info div.project_info {
     float: left;
     margin-right: 5px;
 }
 
 div.blog div.blog_left div.info div.project_info div.project_title {
-    margin-bottom: 2px;
+    margin-top: -1px;
     float: left;
 }
 
 div.blog div.blog_left div.info div.project_info div.project_title a {
     font-weight: bold;
     color: #000000;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 div.blog div.blog_left div.info div.project_info div.project_stats {
@@ -2930,17 +2960,6 @@ div.blog div.blog_left div.info div.project_info div.project_stats div span {
     font-weight: bold;
 }
 
-div.blog div.blog_left div.info div.project_info div.project_icon {
-    float: left;
-    width: 35px;
-    margin-top: -3px
-}
-
-div.blog div.blog_left div.info div.project_info div.project_icon img {
-    width: 30px;
-    height: 30px;
-}
-
 div.blog div.blog_left div.info div.blog_title {
     float: left;
     margin-top: 4px;
@@ -2953,7 +2972,12 @@ div.blog div.blog_left div.info div.blog_title a {
 
 div.blog div.blog_left div.info div.blog_body {
     margin-top: 6px;
+    min-height: 30px;
     color: #000000;
+}
+
+div.blog div.blog_left div.info div.blog_body div.rebuzz_content {
+    display: none;
 }
 
 div.blog div.blog_right div.blog_comments_link {
@@ -2980,6 +3004,19 @@ div.blog div.share_buttons div.facebook_button {
     margin: 0px 5px 10px 5px;
     font-weight: bold;
     float: right;
+}
+
+div.blog div.blog_left div.buzz_links {
+    margin-top: 5px;
+    float: right;
+}
+
+div.blog div.blog_left div.buzz_links>div.button_small {
+    font-weight: bold;
+    float: left;
+    padding: 4px;
+    margin-left: 10px;
+    width: 55px
 }
 
 div.subnav_links span.fund_image_comments_subnav {
@@ -3385,6 +3422,10 @@ div#buyout_requests div.odd {
     margin-left: 25px;
 }
 
+.user-icon div.follow_button div.button_small {
+    width: 60px;
+}
+
 .user-icon div.follow_button div.following_text {
     margin-left: 2px;
     margin-top: 3px;
@@ -3732,21 +3773,25 @@ div.button a:hover {
     text-decoration: none;
 }
 
-div.button_small {
-    background: url(/images/button_bg_small.png) transparent left top;
-    padding: 5px 3px 4px 3px;
-    width: 58px;
+#content div.button_small {
+    border: 1px solid #333;
+    background: -moz-linear-gradient(#FFFFFF, #CCCCCC) repeat scroll 0 0 transparent;
+    border: 1px solid #777777;
+    border-radius: 7px;
+    margin: 1px;
+    padding: 2px;
     text-align: center;
+    cursor: pointer;
 }
 
-div.button_small a {
+#content div.button_small a {
     text-decoration: none;
     color: #666666;
     font-weight: bold;
     font-size: 11px;
 }
 
-div.button_small a:hover {
+#content div.button_small a:hover {
     text-decoration: none;
 }
 

@@ -1,16 +1,18 @@
 class Blog < ActiveRecord::Base
   has_many :comments, :as => :commentable, :order => "created_at asc"
   belongs_to :profile
-  validates_presence_of :body
 
   has_many :blog_user_mentions
   
   belongs_to :project
 
+  belongs_to :blog, :foreign_key => "blog_rebuzz_id"
+  
   has_many :blog_comments
 
   belongs_to :project_user_talent
   
+  before_save :prepare_rebuzz
   after_save :create_blog_user_mentions
   
   def num_comments
@@ -26,13 +28,18 @@ class Blog < ActiveRecord::Base
   end
   
   def user_relationship
-    if project and project.owner.id == profile.user.id
-      return "Owner"
-    elsif project_user_talent
-      return "#{project_user_talent.user_talent.talent_type.titleize}"
-    else
-      "Shareholder"
+    @rel_text = ""
+    if project
+      if project.owner.id == profile.user.id
+        @rel_text += "(Owner)"
+      elsif project_user_talent
+        @rel_text += "(#{project_user_talent.user_talent.talent_type.titleize})"
+      else
+        @rel_text += "(Shareholder)"
+      end 
     end
+    
+    @rel_text
   end
 
   def self.update_max_blog
@@ -140,7 +147,7 @@ class Blog < ActiveRecord::Base
       (blogs.project_id is null or projects.is_deleted = false)
       and (profile_id in
       (select invited_id from friends where inviter_id = #{user.profile.id}) or
-      profile_id = #{user.profile.id} or profile_id in (select inviter_id from friends
+      profile_id in (select inviter_id from friends
       where invited_id = #{user.id} and status = 1)) order by blogs.created_at desc")
   end
   
@@ -191,6 +198,18 @@ class Blog < ActiveRecord::Base
     find(:all, :include => :project, 
       :conditions => "blogs.project_id is not null and projects.is_deleted = false
         and projects.id = #{project.id}", :order => "blogs.created_at desc")
+  end
+  
+  def prepare_rebuzz
+    if blog_rebuzz_id
+      @rebuzzed_blog = Blog.find(blog_rebuzz_id)
+      
+      self.project_user_talent_id = @rebuzzed_blog.project_user_talent_id
+      self.project_id = @rebuzzed_blog.project_id
+      
+      self.title = @rebuzzed_blog.title
+      self.body = @rebuzzed_blog.body
+    end
   end
   
   def create_blog_user_mentions

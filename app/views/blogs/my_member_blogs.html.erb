@@ -2,18 +2,13 @@
 
 <% if @blogs.empty? %>
   <div class="pageTitleSmaller">
-    You have no mentions!
-  </div>
-  <div class="pageTitleSmaller">
-    When somebody @mentions you, that buzz will appear here!
+    No Buzz Found!
   </div>
   <div class="pmf_clear">&nbsp;</div>
 <% end %>
 
 <% @blogs.each do |blog| %>
-  <%= render :partial => "/blogs/templates/member_blog",
-    :locals => {:blog => blog, :truncate_blog => true,
-    :show_more_link => true} %>
+  <%= render :partial => "/blogs/templates/#{blog_template_name blog}", :locals => {:blog => blog} %>
 <% end %>
 
 <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>

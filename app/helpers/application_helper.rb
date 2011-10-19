@@ -80,7 +80,7 @@ module ApplicationHelper
   def follow_project_button project
     content_tag :div, :class => "button left" do
       if @u and @u.following? project
-        link_to "Un-Follow", unfollow_project_project_followings_path(project), :method => :delete
+        link_to "Unfollow", unfollow_project_project_followings_path(project), :method => :delete
       else
         link_to "Follow", project_project_followings_path(project), :method => "post"
       end
@@ -221,7 +221,7 @@ module ApplicationHelper
     content_tag(:div, :class => "project_image_container") do
       image_tag(project_icon_path(project, size)) +
       
-      #include the %funded var as a float over the image
+        #include the %funded var as a float over the image
       content_tag(:div, :class => "percent_funded_float") do
         project.percent_funded_with_pmf_fund_non_outstanding.to_s + "&#37 funded"
       end
@@ -371,70 +371,84 @@ module ApplicationHelper
     @blog_body
   end
   
-#  def blog_body(blog, truncate_blog_body, show_more_link=true)
-#    if defined?(truncate_blog_body) && truncate_blog_body
-#      @blog_body_content = blog.body
-#      @truncate_length = 140
-#
-#      @body = awesome_truncate(@blog_body_content, @truncate_length)
-#    else
-#      @body = blog_body_content blog
-#    end
-#    
-#    if show_more_link
-#      #show the 'more' link unless instructed otherwise
-#      @body += link_to(" (more)", url_for(:controller => "blogs", :action => "show", :id => blog.id, :only_path => false), :class => "more_link")
-#    end
-#    
-#    return @body
-#  end
-
-  def up_down_arrow value
-    return " - " if value == 0
-    image_tag(value > 0 ? "green_arrow_up.png" : "red_arrow_down.png")
-  end
-  
-  def funding_change_display value
-    return "#{up_down_arrow(value)}  #{value.abs}&#37"
-  end
-  
-  
-  def avatar(person, avatar_options={}, html_options={})
-    #never want to have an alt param
-    if !html_options[:alt]
-      html_options.merge!(:alt => "")
+  def blog_template_name blog
+    @template_name = nil
+    
+    if blog.is_mkc_blog
+      @template_name = "mkc_blog"
+    elsif blog.is_admin_blog
+      @template_name = "admin_blog"
+    else
+      @template_name = "buzz"
     end
+    
+    @template_name
+  end
+  
+    #  def blog_body(blog, truncate_blog_body, show_more_link=true)
+    #    if defined?(truncate_blog_body) && truncate_blog_body
+    #      @blog_body_content = blog.body
+    #      @truncate_length = 140
+    #
+    #      @body = awesome_truncate(@blog_body_content, @truncate_length)
+    #    else
+    #      @body = blog_body_content blog
+    #    end
+    #    
+    #    if show_more_link
+    #      #show the 'more' link unless instructed otherwise
+    #      @body += link_to(" (more)", url_for(:controller => "blogs", :action => "show", :id => blog.id, :only_path => false), :class => "more_link")
+    #    end
+    #    
+    #    return @body
+    #  end
+
+    def up_down_arrow value
+      return " - " if value == 0
+      image_tag(value > 0 ? "green_arrow_up.png" : "red_arrow_down.png")
+    end
+  
+    def funding_change_display value
+      return "#{up_down_arrow(value)}  #{value.abs}&#37"
+    end
+  
+  
+    def avatar(person, avatar_options={}, html_options={})
+      #never want to have an alt param
+      if !html_options[:alt]
+        html_options.merge!(:alt => "")
+      end
         
-    avatar_tag(person, avatar_options, html_options)
+      avatar_tag(person, avatar_options, html_options)
+    end
+
+    #RJS helper methods
+
+    def rjs_update_flashes flash
+      if flash[:positive]
+        page.replace_html :flash_positive, "<p class=\"feedback positive\">#{flash[:positive]}</p>"
+      else
+        page.replace_html :flash_positive, ""
+      end
+
+      if flash[:notice]
+        page.replace_html :flash_notice, "<p class=\"feedback notice\">#{flash[:notice]}</p>"
+      else
+        page.replace_html :flash_notice, ""
+      end
+
+      if flash[:error]
+        page.replace_html :flash_error, "<p class=\"feedback error\">#{flash[:error]}</p>"
+      else
+        page.replace_html :flash_error, ""
+      end
+    end
+
+    def me_or_login
+      if @p == @profile
+        "My"
+      else
+        @profile.user.login + "'s"
+      end
+    end
   end
-
-  #RJS helper methods
-
-  def rjs_update_flashes flash
-    if flash[:positive]
-      page.replace_html :flash_positive, "<p class=\"feedback positive\">#{flash[:positive]}</p>"
-    else
-      page.replace_html :flash_positive, ""
-    end
-
-    if flash[:notice]
-      page.replace_html :flash_notice, "<p class=\"feedback notice\">#{flash[:notice]}</p>"
-    else
-      page.replace_html :flash_notice, ""
-    end
-
-    if flash[:error]
-      page.replace_html :flash_error, "<p class=\"feedback error\">#{flash[:error]}</p>"
-    else
-      page.replace_html :flash_error, ""
-    end
-  end
-
-  def me_or_login
-    if @p == @profile
-      "My"
-    else
-      @profile.user.login + "'s"
-    end
-  end
-end

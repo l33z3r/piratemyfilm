@@ -6,9 +6,9 @@ module FriendsHelper
     dom_id = profile.dom_id(target.dom_id + '_friendship_')
     
     return wrap_get_friend_link('') if profile == target
-    return wrap_get_friend_link(link_to_remote( 'Stop Being Friends', :url => profile_friend_path(profile, target), :method => :delete), dom_id) if profile.friend_of? target
+    #return wrap_get_friend_link(link_to_remote( 'Stop Being Friends', :url => profile_friend_path(profile, target), :method => :delete), dom_id) if profile.friend_of? target
     return wrap_get_friend_link(link_to_remote( 'Stop Following', :url => profile_friend_path(profile, target), :method => :delete), dom_id) if profile.following? target
-    return wrap_get_friend_link(link_to_remote( 'Be Friends', :url => profile_friends_path(target), :method => :post), dom_id) if profile.followed_by? target
+    #return wrap_get_friend_link(link_to_remote( 'Be Friends', :url => profile_friends_path(target), :method => :post), dom_id) if profile.followed_by? target
     wrap_get_friend_link(link_to_remote( 'Start Following', :url => profile_friends_path(target), :method => :post), dom_id)
   end
 
@@ -17,7 +17,7 @@ module FriendsHelper
     
     if @u and (@u.profile.following? target_member or @u.profile.friend_of? target_member)
       content_tag :div, :class => "button_small left" do
-        link_to "Un-Follow", profile_friend_path(@u.profile, target_member), :method => :delete
+        link_to "Unfollow", profile_friend_path(@u.profile, target_member), :method => :delete
       end
     else
       content_tag :div, :class => "button_small left" do

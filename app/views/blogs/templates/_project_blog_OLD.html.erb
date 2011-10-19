@@ -22,9 +22,9 @@
             <span><%= blog.project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
           </div>
           <div class="pmf_clear">&nbsp;</div>
-            <div class="followers">
-              <span><%= pluralize blog.project.project_followings.size, "follower" %></span>
-            </div>
+          <div class="followers">
+            <span><%= pluralize blog.project.project_followings.size, "follower" %></span>
+          </div>
         </div>
       </div>
       <div class="blog_user_relationship">
@@ -64,9 +64,11 @@
 
     <div class="pmf_clear">&nbsp;</div>
 
+    <%= render :partial => '/blogs/buzz_links', :locals => {:blog => blog} %>
+
     <!--div class="blog_comments_link">
-      <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
-      <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
+    <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
+    <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
     </div-->
 
     <div class="pmf_clear">&nbsp;</div>

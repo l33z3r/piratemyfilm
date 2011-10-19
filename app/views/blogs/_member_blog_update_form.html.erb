@@ -3,7 +3,7 @@
 <div id="post_update_box">
 
   <div id="blog_entry_section">
-    <% form_tag :controller => "blogs", :action => "create" do %>
+    <% form_tag({:controller => "blogs", :action => "create"}, {:id => "blog_form"}) do %>
 
       <div id="header">What's the Buzz?</div>
 
@@ -27,6 +27,8 @@
         </select>
         <input type="hidden" id="project_user_talent_id" name="project_user_talent_id" value=""/>
       </div>
+      
+      <input type="hidden" id="blog_rebuzz_id" name="blog[blog_rebuzz_id]"/>
 
       <%= submit_tag "Post" %>
 

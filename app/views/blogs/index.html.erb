@@ -4,15 +4,13 @@
 
 <% if @blogs.empty? %>
   <div class="pageTitleSmaller">
-    No Updates Found!
+    No Buzz Found!
   </div>
   <div class="pmf_clear">&nbsp;</div>
 <% end %>
 
 <% @blogs.each do |item| %>
-  <%= render :partial => "/blogs/templates/project_blog",
-    :locals => {:blog => item, :truncate_blog => true,
-    :show_more_link => true} %>
+  <%= render :partial => "/blogs/templates/buzz", :locals => {:blog => item} %>
 <% end %>
 
 <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>

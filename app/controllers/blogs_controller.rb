@@ -70,11 +70,6 @@ class BlogsController < ApplicationController
     begin
       @blog = Blog.new(params[:blog])
       
-      if @blog.body.blank?
-        flash[:error] = "Your update has no content..."
-        redirect_to :back and return
-      end
-      
       #we now limit to 140 chars
       if @blog.body.length > 140
         flash[:error] = "Only 140 character buzz is allowed!"
@@ -107,8 +102,8 @@ class BlogsController < ApplicationController
         logger.info "Sent blog to wordpress site via url: #{@post_url}"
       end
 
-      flash[:notice] = 'New blog post created.'
-      redirect_to :controller => "blogs", :action => "show", :id => @blog.id
+      flash[:notice] = 'Your Buzz has been posted!'
+      redirect_to :controller => "home", :action => "index"
     rescue ActiveRecord::RecordInvalid
       flash[:error] = "Sorry, there was a problem creating your blog post"
       redirect_to :back

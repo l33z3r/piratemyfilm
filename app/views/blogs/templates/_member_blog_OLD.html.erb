@@ -22,9 +22,9 @@
           <div class="project_title">
             <%= link_to h(truncate(blog.project.title, 30)), project_path(blog.project) %>
           </div>
-          
+
           <div class="pmf_clear">&nbsp;</div>
-          
+
           <div class="project_stats">
             <div class="funds_needed">
               <span><%= print_money blog.project.capital_required %></span> needed
@@ -56,7 +56,7 @@
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
-    
+
     <div class="share_buttons">
       <%= render :partial => "/blogs/templates/share_buttons",
         :locals => {:target_url => url_for(:only_path => false,
@@ -67,9 +67,11 @@
 
     <div class="pmf_clear">&nbsp;</div>
 
+    <%= render :partial => '/blogs/buzz_links', :locals => {:blog => blog}  %>
+
     <!--div class="blog_comments_link">
-      <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
-      <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
+    <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
+    <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
     </div-->
 
     <div class="pmf_clear">&nbsp;</div>

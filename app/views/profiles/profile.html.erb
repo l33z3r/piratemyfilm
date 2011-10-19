@@ -113,7 +113,7 @@
           <% else %>
             <%=@profile.user.login%>'s
           <% end %>
-          Friends
+          Followers
         </div>
 
         <div class="label">Followed By:</div>
@@ -128,14 +128,6 @@
         <div class="value">
           <%= link_to pluralize(@profile.followings.length, "User"),
             friend_list_profile_path(@profile, :friend_type => Profile::FOLLOWINGS) %>
-        </div>
-
-        <div class="pmf_clear">&nbsp;</div>
-
-        <div class="label">Friends With:</div>
-        <div class="value">
-          <%= link_to pluralize(@profile.friends.length, "User"),
-            friend_list_profile_path(@profile, :friend_type => Profile::FRIENDS) %>
         </div>
 
         <div class="pmf_clear">&nbsp;</div>
@@ -198,9 +190,7 @@
   <% end %>
 
   <% @blogs.each do |blog| %>
-    <%= render :partial => "/blogs/templates/member_blog",
-      :locals => {:blog => blog, :truncate_blog => true,
-      :show_more_link => true} %>
+    <%= render :partial => "/blogs/templates/buzz", :locals => {:blog => blog} %>
   <% end %>
 
   <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>
