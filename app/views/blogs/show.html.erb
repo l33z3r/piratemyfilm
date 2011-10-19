@@ -8,7 +8,7 @@
 
 <div id="blog_<%= @blog.id %>" class="border_top blog">
 
-  <%= render :partial => "/blogs/templates/#{blog_template_name blog}", :locals => {:blog => @blog} %>
+  <%= render :partial => "/blogs/templates/#{blog_template_name @blog}", :locals => {:blog => @blog} %>
 
   <div class="pmf_clear">&nbsp;</div>
 
