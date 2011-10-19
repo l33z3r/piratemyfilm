@@ -2932,6 +2932,7 @@ div.blog div.blog_left div.info div.project_icon img {
 div.blog div.blog_left div.info div.project_info {
     float: left;
     margin-right: 5px;
+    width: 230px;
 }
 
 div.blog div.blog_left div.info div.project_info div.project_title {
