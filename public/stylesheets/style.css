@@ -61,6 +61,10 @@ a:hover {
     float: none;
 }
 
+.pmf_top_margin_5 {
+    margin-top: 5px;
+}
+
 .pmf_top_margin_10 {
     margin-top: 10px;
 }
@@ -180,6 +184,7 @@ div#signup_section div#login_form_top div#fields div.input {
 }
 
 div#signup_section div#login_form_top div#fields div.input input {
+    border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     width: 70px;
@@ -190,6 +195,7 @@ div#signup_section div#login_form_top div#fields div.input input {
 }
 
 div#signup_section div#login_form_top div#controls input[type=submit] {
+    border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     margin-left: 5px;
@@ -207,6 +213,7 @@ div#signup_section div#login_form_top div#controls input[type=submit] {
 }
 
 div#signup_section div#signup_link {
+    border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     margin-left: 5px;
@@ -874,8 +881,7 @@ div#project_show div.project_top {
     margin-bottom: 10px;
 }
 
-div#project_show div.icon div.project_image_container,
-div#project_show div.project_icon div.project_image_container {
+div#project_show div.project_top div.project_image_container {
     position: relative;
     border: 1px solid #777;
     width: 100px;
@@ -938,13 +944,12 @@ div#project_show div.project_top div.green_light span.on {
 
 div#project_show div.project_top div.project_info {
     float: left;
-    margin-top: 6px;
 }
 
 div#project_show div.project_top div.project_info div.project_title {
     width: 280px;
     line-height: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-size: 16px;
     font-weight: bold;
     float: left;
@@ -984,7 +989,6 @@ div#project_show div.project_top div.project_info div.project_stats div.percent_
 
 div#project_show div.project_top div.project_info div.user_info {
     float: left;
-    margin-left: 20px;
 }
 
 div#project_show div.project_top div.project_info div.user_info div.owned_by_text {
@@ -1615,6 +1619,7 @@ div#profile div#profile_section div.sublinks div.profile_sublink {
     border: 1px solid #666666;
     color: #666;
     background-color: #EEE;
+    border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
 }
@@ -2381,19 +2386,25 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 }
 
 #content input[type=submit] {
-    color: #666666;
-    font-weight: bold;
-    font-size: 11px;
-    border: 0px;
-    background: transparent url(/images/button_bg.png) left top;
-    padding: 9px 10px 10px 10px;
-    width: 120px;
+    background: -moz-linear-gradient(#FFFFFF, #CCCCCC) repeat scroll 0 0 transparent;
+    border: 1px solid #777777;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
     cursor: pointer;
+    margin: 1px;
     text-align: center;
+    min-width: 120px;
+    padding: 4px;
 }
 
 #content input[type=submit].button_small {
-    background: url(/images/button_bg_small.png) transparent left top;
+    background: -moz-linear-gradient(#FFFFFF, #CCCCCC) repeat scroll 0 0 transparent;
+    border: 1px solid #777777;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    cursor: pointer;
     padding: 5px 3px 4px 3px;
     width: 62px;
     text-align: center;
@@ -3779,8 +3790,10 @@ div.button a:hover {
     background: -moz-linear-gradient(#FFFFFF, #CCCCCC) repeat scroll 0 0 transparent;
     border: 1px solid #777777;
     border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
     margin: 1px;
-    padding: 2px;
+    padding: 3px 6px;
     text-align: center;
     cursor: pointer;
 }
@@ -3865,6 +3878,7 @@ div.project_listings_widget {
     width: 298px;
     background: #fcf8e8;
     border: 1px solid #dcdab8;
+    border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
 }
@@ -4072,11 +4086,13 @@ div#stats_page div#stats div.stat {
 div#post_update_box {
     border: 1px solid #CCC;
     background-color: #eee;
+    border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     width: 866px;
     padding: 10px;
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 div#post_update_box div#header {
@@ -4091,6 +4107,7 @@ div#post_update_box #blog_body {
 
 div#post_update_box div#link_project_area {
     float: left;
+    margin-top: 5px;
 }
 
 div#post_update_box div#link_project_area select#project_id {
@@ -4104,8 +4121,10 @@ div#post_update_box div#char_count {
     margin: 10px 10px 0px 0px;
 }
 
-div#post_update_box input {
+div#post_update_box div#post_button {
     float: right;
+    padding: 10px 35px;
+    margin-top: -3px;
 }
 
 div#post_update_box input[type=checkbox] {
@@ -4119,11 +4138,6 @@ div#post_update_box div.pageTitleSmall a {
 div#post_update_box div.pageTitleSmall a:hover {
     text-decoration: none;
     color: #666;
-}
-
-div#blog_entry_section form {
-    width: 840px;
-    font-weight: bold;
 }
 
 div#blog_entry_section form input[type=textarea] {

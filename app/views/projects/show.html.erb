@@ -46,14 +46,35 @@
   <%= render :partial => "project_fields", :locals => {:project => @project} %>
 
   <div class="pmf_clear">&nbsp;</div>
-  
+
   <%= render :partial => "project_dividends", :locals => {:project => @project} %>
 
   <div class="pmf_clear">&nbsp;</div>
-  
+
   <%= render :partial => "project_talents", :locals => {:project => @project} %>
-  
+
   <div class="pmf_clear">&nbsp;</div>
+
+  <div id="project_blogs">
+    <h3>Latest Project Buzz</h3>
+
+    <div class="dashed_light_border">&nbsp;</div>
+
+    <% if @project_blogs.empty? %>
+      No Buzz Found!
+      <div class="pmf_clear">&nbsp;</div>
+    <% else %>
+      <% @project_blogs.each do |blog| %>
+        <%= render :partial => "/blogs/templates/buzz", :locals => {:blog => blog} %>
+      <% end %>
+    <% end %>
+
+    <div class="pmf_clear pmf_top_margin_5">&nbsp;</div>
+
+    <div class="button_small right">
+      <%= link_to "All Buzz For This Project", {:controller => "projects", :action => "blogs", :id => @project.id} %>
+    </div>
+  </div>
 
   <div class="view-lite-row-description">
     <span class="header">Project Logline:</span>
@@ -158,46 +179,13 @@
     </div>
   <% end %>
 
-  <div id="project_blogs">
-    <h3>Latest Project Buzz</h3>
-
-    <div class="dashed_light_border">&nbsp;</div>
-
-    <% if @project_blogs.empty? %>
-      No Buzz Found!
-      <div class="pmf_clear">&nbsp;</div>
-    <% else %>
-      <% @project_blogs.each do |blog| %>
-        <%= render :partial => "/blogs/templates/buzz", :locals => {:blog => blog} %>
-      <% end %>
-    <% end %>
-    <div class="links">
-      <h4 class="right">
-        <%= link_to "Show All", {:controller => "projects", :action => "blogs", :id => @project.id} %>
-      </h4>
-    </div>
-  </div>
-
   <div id="project_comments">
-    <fieldset>
-      <div class="header">Latest PMF Fund Project Comments</div>
-      <div class="links">
-        <% if @project_comments %>
-          <div class="button left">
-            <%= link_to "All Comments", project_project_comments_path(@project) %>
-          </div>
-        <% end %>
-      </div>
-      <ol>
-        <li>
-          <% if @project_comments %>
-            <%= render :partial => 'project_comments/comments', :locals => {:project_comments => @project_comments} %>
-          <% else %>
-            No Comments Found!
-          <% end %>
-        </li>
-      </ol>
-    </fieldset>
+    <h3>Latest Project Comments</h3>
+    <% if @project_comments %>
+      <%= render :partial => 'project_comments/comments', :locals => {:project_comments => @project_comments} %>
+    <% else %>
+      No Comments Found!
+    <% end %>    
   </div>
 
   <% if_admin do %>
