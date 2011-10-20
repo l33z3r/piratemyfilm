@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_one :profile, :dependent => :nullify
 
   has_many :user_talents
-  has_many :project_user_talents, :through => :user_talents
+  has_many :project_user_talents, :include => "project", :conditions=>"projects.symbol IS NOT NULL and projects.is_deleted = 0", :through => :user_talents
 
   has_many :blog_user_mentions, :order => "CREATED_AT DESC"
   

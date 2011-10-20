@@ -1,11 +1,5 @@
 <div id="header">
 
-  <div id="brand">
-    <a href="/">
-      <img id="header_image" src="/images/pmf-logo-temp.png"/>
-    </a>
-  </div>
-
   <div id="ad_banner">
     <script language="JavaScript" type="text/javascript">;
       document.write('<script language="JavaScript" src="http://ad.doubleclick.net/adj/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;dcopt=ist;sz=728x90;ord=' + ord + '?" type="text/javascript"><\/script>');
@@ -13,23 +7,32 @@
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
+
+  <div id="brand">
+    <a href="/">
+      <img id="header_image" src="/images/pmf-logo-temp.png"/>
+    </a>
+  </div>
+
+  <div id="header_links">
+
+    <a href="/projects/new">
+      <div id="new_project_button" class="local-navbar-button">
+        <span>Need Money?
+          <span>List A Project</span>
+        </span>
+      </div>
+    </a>
+
+    <%= render :partial => "shared/login_box" %> 
+
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
 </div>
 
-<div id="header_links">
-
-  <a href="/projects/new">
-    <div id="new_project_button" class="local-navbar-button">
-      <span>Need Money?
-        <span>List A Project</span>
-      </span>
-    </div>
-  </a>
-
-  <%= render :partial => "shared/login_box" %>
-
-</div>
-
-<div class="pmf_clear_10">&nbsp;</div>
+<div class="pmf_clear">&nbsp;</div>
 
 <div id="icatch">
   <div class="icatch-pictures">

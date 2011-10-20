@@ -90,7 +90,7 @@ function doRebuzz(blogId) {
 }
 
 function doReply(mention) {
-    $('#post_update_box #blog_body').val(mention);
+    $('#post_update_box #blog_body').val(mention + " ");
     $('#post_update_box #blog_rebuzz_id').val("");
     $('#post_update_box #blog_body').focus();
     
