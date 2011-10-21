@@ -24,6 +24,7 @@ class Forum < ActiveRecord::Base
   
 end
 
+
 # == Schema Information
 #
 # Table name: forums

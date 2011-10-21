@@ -42,6 +42,7 @@ admin:
     is_admin: true
     can_send_messages: true
 
+
 # == Schema Information
 #
 # Table name: users

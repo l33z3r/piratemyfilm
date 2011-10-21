@@ -3,6 +3,7 @@ class ProjectFlagging < ActiveRecord::Base
   belongs_to :project
 end
 
+
 # == Schema Information
 #
 # Table name: project_flaggings

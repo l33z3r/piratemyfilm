@@ -42,6 +42,7 @@ deleted:
   email: deleted@ldjf.com
   is_active: false
 
+
 # == Schema Information
 #
 # Table name: profiles

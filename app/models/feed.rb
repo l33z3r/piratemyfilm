@@ -4,6 +4,7 @@ class Feed < ActiveRecord::Base
   attr_immutable :id, :profile_id, :feed_item_id
 end
 
+
 # == Schema Information
 #
 # Table name: feeds

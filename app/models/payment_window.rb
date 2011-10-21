@@ -355,6 +355,7 @@ class PaymentWindow < ActiveRecord::Base
   
 end
 
+
 # == Schema Information
 #
 # Table name: payment_windows

@@ -261,7 +261,7 @@ div#signup_section div#login_form_top input#user_password {
 }
 
 div#signup_section div#welcome_message {
-    margin-top: 3px;
+    
 }
 
 div#signup_section div#welcome_message div#icon {
@@ -924,7 +924,10 @@ div#project_show div.project_top div.project_icon img {
 
 div#project_show div.project_top div.project_icon div.follow_button {
     margin-top: 7px;
-    margin-left: 15px;
+}
+
+div#project_show div.project_top div.project_icon div.follow_button div.button_small {
+    width: 85px;
 }
 
 div#project_show div.project_top div.green_light {
@@ -964,9 +967,15 @@ div#project_show div.project_top div.project_info div.project_stats {
 
 div#project_show div.project_top div.project_info div.project_stats div.funds_needed,
 div#project_show div.project_top div.project_info div.project_stats div.percent_funded {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
+}
+
+div#project_show div.project_top div.project_info div.project_stats div.num_followers {
+    font-size: 13px;
+    font-weight: bold;
+    float: left;
 }
 
 div#project_show div.project_top div.project_info div.project_stats div.percent_move {
@@ -996,12 +1005,11 @@ div#project_show div.project_top div.project_info div.user_info {
 div#project_show div.project_top div.project_info div.user_info div.owned_by_text {
     float: left;
     font-weight: bold;
-    font-size: 14px;
-    color: #000;
+    font-size: 13px;
 }
 
 div#project_show div.project_top div.project_info div.user_info div.user_name {
-    margin-left: 10px;
+    margin-left: 5px;
     float: left;
     font-weight: bold;
     font-size: 14px;
@@ -1021,8 +1029,8 @@ div#project_show div.project_top div.project_info div.user_info div.user_icon {
 }
 
 div#project_show div.project_top div.project_info div.user_info div.user_icon a img {
-    height: 30px;
-    margin-top: -7px;
+    height: 20px;
+    margin-top: -2px;
 }
 
 .project_listings .project_row .view-lite-row-icon {
@@ -2354,12 +2362,10 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 
 #header a {
     color: #666;
-    text-decoration:none;
 }
 
 #header a:hover {
     color: #000000;
-    text-decoration:underline
 }
 
 #content {
@@ -2863,6 +2869,23 @@ div.blog div.blog_left div.project_info_holder {
     margin-left: 30px;
 }
 
+div.blog div.blog_left div.project_info_holder div.project_left {
+    float: left;
+    width: 80px;
+}
+
+div.blog div.blog_left div.project_info_holder div.project_left div.percent_change {
+    text-align: center;
+    margin-top: 3px;
+    font-weight: bold;
+}
+
+div.blog div.blog_left div.project_info_holder div.project_left div.follow_button div.button_small {    
+    margin-top: 5px;
+    width: 66px;
+    font-weight: bold;
+}
+
 div.blog div.blog_left div.info div.follow_button {
     float: left;
     margin-top: -3px;
@@ -2939,7 +2962,6 @@ div.blog div.blog_left div.info div.user_info div.user_name a {
 div.blog div.blog_left div.info div.project_icon {
     float: left;
     width: 80px;
-    margin-right: 10px;
 }
 
 div.blog div.blog_left div.info div.project_icon img {
@@ -2949,6 +2971,7 @@ div.blog div.blog_left div.info div.project_icon img {
 
 div.blog div.blog_left div.info div.project_info {
     float: left;
+    margin-left: 10px;
     margin-right: 5px;
     width: 230px;
 }
@@ -3023,6 +3046,26 @@ div.blog div.share_buttons div.facebook_button {
     margin: 0px 5px 10px 5px;
     font-weight: bold;
     float: right;
+}
+
+div.blog div.blog_left div.rebuzz_text {
+    float: left;
+    margin-top: 11px;
+    width: 155px;
+}
+
+div.blog div.blog_left div.rebuzz_text div.text {
+    
+}
+
+div.blog div.blog_left div.rebuzz_text div.rebuzz_icon {
+    float: left;
+    margin-top: 1px;
+    margin-right: 5px;
+}
+
+div.blog div.blog_left div.rebuzz_text div.rebuzz_icon img {
+    height: 13px;
 }
 
 div.blog div.blog_left div.buzz_links {

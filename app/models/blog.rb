@@ -11,6 +11,7 @@ class Blog < ActiveRecord::Base
   has_many :blog_comments
 
   belongs_to :project_user_talent
+  belongs_to :blog_rebuzz, :class_name => "Blog"
   
   before_save :prepare_rebuzz
   after_save :create_blog_user_mentions
@@ -27,13 +28,13 @@ class Blog < ActiveRecord::Base
     "#{self.id}"
   end
   
-  def user_relationship
+  def user_relationship the_profile
     @rel_text = ""
     if project
-      if project.owner.id == profile.user.id
-        @rel_text += "(Owner)"
-      elsif project_user_talent
+      if project_user_talent
         @rel_text += "(#{project_user_talent.user_talent.talent_type.titleize})"
+      elsif project.owner.id == the_profile.user.id
+        @rel_text += "(Owner)"
       else
         @rel_text += "(Shareholder)"
       end 
@@ -230,6 +231,7 @@ class Blog < ActiveRecord::Base
   
 end
 
+
 # == Schema Information
 #
 # Table name: blogs
@@ -246,5 +248,6 @@ end
 #  wp_comments_link       :string(255)
 #  guid                   :string(255)
 #  project_user_talent_id :integer(4)
+#  blog_rebuzz_id         :integer(4)
 #
 

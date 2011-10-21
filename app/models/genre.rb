@@ -22,6 +22,7 @@ class Genre < ActiveRecord::Base
   
 end
 
+
 # == Schema Information
 #
 # Table name: genres

@@ -42,6 +42,7 @@ class ProjectRating < ActiveRecord::Base
   
 end
 
+
 # == Schema Information
 #
 # Table name: project_ratings

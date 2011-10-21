@@ -4,6 +4,7 @@ class MemberRatingHistory < ActiveRecord::Base
   belongs_to :member_rating
 end
 
+
 # == Schema Information
 #
 # Table name: member_rating_histories

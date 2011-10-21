@@ -10,6 +10,10 @@
 
 <%= stylesheet_link_tag 'style', 'jquery.tooltip' %>
 
+<script language="javascript" type="text/javascript">
+  loggedIn = <%= @u ? "true" : "false" %>;
+</script>
+
 <!-- Random number generator to be placed in page header -->
 <script language="javascript" type="text/javascript">var ord = Math.random() * 10000000000000000;</script>
 

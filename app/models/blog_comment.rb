@@ -4,6 +4,7 @@ class BlogComment < ActiveRecord::Base
   validates_presence_of :body
 end
 
+
 # == Schema Information
 #
 # Table name: blog_comments

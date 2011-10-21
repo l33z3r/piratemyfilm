@@ -3,6 +3,7 @@ class TalentRatingHistory < ActiveRecord::Base
   belongs_to :user
 end
 
+
 # == Schema Information
 #
 # Table name: talent_rating_histories

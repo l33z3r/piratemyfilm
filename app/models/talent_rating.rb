@@ -41,6 +41,7 @@ class TalentRating < ActiveRecord::Base
   end
 end
 
+
 # == Schema Information
 #
 # Table name: talent_ratings

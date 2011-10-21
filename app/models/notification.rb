@@ -137,6 +137,7 @@ class Notification < ActiveRecord::Base
 
 end
 
+
 # == Schema Information
 #
 # Table name: notifications

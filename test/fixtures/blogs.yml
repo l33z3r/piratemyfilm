@@ -71,6 +71,7 @@ sixteen:
   body: "blah blah blah blah blah"
   profile: user
 
+
 # == Schema Information
 #
 # Table name: blogs
@@ -87,5 +88,6 @@ sixteen:
 #  wp_comments_link       :string(255)
 #  guid                   :string(255)
 #  project_user_talent_id :integer(4)
+#  blog_rebuzz_id         :integer(4)
 #
 

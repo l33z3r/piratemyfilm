@@ -4,6 +4,7 @@ class ProjectRatingHistory < ActiveRecord::Base
   belongs_to :project_rating
 end
 
+
 # == Schema Information
 #
 # Table name: project_rating_histories

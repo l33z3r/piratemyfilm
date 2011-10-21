@@ -5,6 +5,7 @@ class ProjectUserTalent < ActiveRecord::Base
   has_many :blogs
 end
 
+
 # == Schema Information
 #
 # Table name: project_user_talents

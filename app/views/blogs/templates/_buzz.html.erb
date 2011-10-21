@@ -1,18 +1,26 @@
 <div class="blog-row blog">
 
+  <% 
+  if blog.blog_rebuzz
+    the_profile = blog.blog_rebuzz.profile
+  else
+    the_profile = blog.profile
+  end 
+%>
+
   <div class="blog_left">
     <div class="icon">
-      <%= icon(blog.profile, :small) %>
+      <%= icon(the_profile, :small) %>
     </div>
     <div class="user_info info">
       <div class="user_name">
-        <%= link_to blog.profile.user.login, profile_path(blog.profile) %>
+        <%= link_to the_profile.user.login, profile_path(the_profile) %>
       </div>
       <div class="blog_user_relationship">
-        <%= blog.user_relationship %>
+        <%= blog.user_relationship the_profile %>
       </div>
       <div class="follow_button">
-        <%= follow_member_button_small blog.profile %>
+        <%= follow_member_button_small the_profile %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
@@ -23,13 +31,39 @@
 
       <div class="pmf_clear">&nbsp;</div>
 
+      <% if blog.blog_rebuzz_id %>
+        <div class="rebuzz_text">
+          <div class="rebuzz_icon">
+            <%= image_tag "rebuzz_icon.png" %>
+          </div>
+          <div class="text">
+            by <%= link_to blog.profile.user.login, profile_path(blog.profile) %>
+          </div>
+        </div>
+      <% end %>
+
       <%= render :partial => '/blogs/buzz_links', :locals => {:blog => blog}  %>
     </div>
     <div class="project_info_holder info">
       <% if blog.project %>
-        <div class="project_icon">
-          <%= link_to project_icon(blog.project, :medium), project_path(blog.project) %>
+        <div class="project_left">
+          <div class="project_icon">
+            <%= link_to project_icon(blog.project, :medium), project_path(blog.project) %>
+          </div>
+          
+          <div class="pmf_clear">&nbsp;</div>
+          
+          <div class="percent_change">
+            <span><%= funding_change_display blog.project.percent_move_since_last_change_info %></span>
+          </div>
+          
+          <div class="pmf_clear">&nbsp;</div>
+          
+          <div class="follow_button">
+            <%= follow_project_button_small blog.project %>
+          </div>
         </div>
+
         <div class="project_info">
           <div class="project_title">
             <%= link_to h(truncate(blog.project.title, 30)), project_path(blog.project) %>
@@ -40,10 +74,6 @@
           <div class="project_stats">
             <div class="funds_needed">
               <span><%= print_money blog.project.capital_required %></span> needed
-            </div>
-            <div class="pmf_clear">&nbsp;</div>
-            <div class="percent_funded">
-              <span><%= blog.project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
             </div>
             <div class="pmf_clear">&nbsp;</div>
             <div class="followers">
@@ -67,7 +97,7 @@
       <%= render :partial => "/blogs/templates/share_buttons",
         :locals => {:target_url => url_for(:only_path => false,
           :controller => "blogs", :action => "show", :id => blog.id),
-        :tweet_text => "New update from #{blog.profile.user.login}"} %>
+        :tweet_text => "New buzz from #{the_profile.user.login}"} %>
     </div>
 
     <div class="pmf_clear">&nbsp;</div>

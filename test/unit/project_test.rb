@@ -9,6 +9,7 @@ class ProjectTest < ActiveSupport::TestCase
   end
   
 end
+
 # == Schema Information
 #
 # Table name: projects
@@ -50,7 +51,7 @@ end
 #  shareholder_dividend             :float           default(0.0)
 #  symbol                           :string(255)
 #  fund_dividend                    :float           default(0.0)
-#  pmf_fund_investment_percentage   :integer(4)
+#  pmf_fund_investment_percentage   :integer(4)      default(0)
 #  green_light                      :datetime
 #  director_photography             :string(255)
 #  editor                           :string(255)
@@ -63,5 +64,6 @@ end
 #  percent_bad_shares               :integer(4)      default(0)
 #  main_video                       :string(255)
 #  daily_percent_move               :integer(4)      default(0)
+#  paypal_email                     :string(255)
 #
 

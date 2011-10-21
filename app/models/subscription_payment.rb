@@ -37,6 +37,7 @@ class SubscriptionPayment < ActiveRecord::Base
   
 end
 
+
 # == Schema Information
 #
 # Table name: subscription_payments
@@ -51,5 +52,6 @@ end
 #  created_at           :datetime
 #  updated_at           :datetime
 #  counts_as_warn_point :boolean(1)      default(FALSE)
+#  reused_by_payment_id :integer(4)
 #
 

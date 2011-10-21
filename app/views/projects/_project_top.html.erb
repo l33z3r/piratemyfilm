@@ -66,9 +66,11 @@
       <div class="funds_needed">
         <span><%= print_money project.capital_required %></span> needed
       </div>
-      <div class="percent_funded">
-        <span><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded total
+      <div class="pmf_clear">&nbsp;</div>
+      <div class="num_followers">
+        <span><%= pluralize project.project_followings.size, "follower" %></span>
       </div>
+      <div class="pmf_clear">&nbsp;</div>
       <div class="percent_move">
         <div class="arrow">
           <%= up_down_arrow project.percent_move_since_last_change_info %>

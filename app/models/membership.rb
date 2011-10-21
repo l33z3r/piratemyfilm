@@ -3,6 +3,7 @@ class Membership < ActiveRecord::Base
   belongs_to :membership_type
 end
 
+
 # == Schema Information
 #
 # Table name: memberships

@@ -10,6 +10,7 @@ class Message < ActiveRecord::Base
   end
 end
 
+
 # == Schema Information
 #
 # Table name: messages

@@ -3,6 +3,7 @@ class ProjectFollowing < ActiveRecord::Base
   belongs_to :user
 end
 
+
 # == Schema Information
 #
 # Table name: project_followings
