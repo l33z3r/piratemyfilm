@@ -2161,7 +2161,6 @@ form	{
 }
 
 #header #brand a img {
-    width: 146px;
     float: left;
 }
 
@@ -2690,28 +2689,15 @@ div.TabView div.Pages div.Page div.Pad {
 }
 
 div#new_project_button {
-    width: 118px;
-    margin-left: 5px;
     float: left;
-    text-align: left;
-    height: 50px;
-    margin-top: 1px;
-    box-shadow: 2px 2px 2px #999;
 }
 
-div#new_project_button.local-navbar-button span {
-    text-decoration:none;
-    color: #666;
-    font-size: 15px;
-    float: left;
-    margin-left: 3px;
-    margin-top: 4px;
-}
-
-div#new_project_button.local-navbar-button span span {
-    font-size: 12px;
-    margin-top: 3px;
-    margin-left: 0px;
+div#new_project_button img {
+    margin-left: 20px;
+    border: 1px solid #CCC;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
 }
 
 div#header_links div#widget_link {
