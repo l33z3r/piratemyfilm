@@ -180,6 +180,33 @@ div#signup_section div#login_form_top div#fields div.label {
     margin-left: 5px;
 }
 
+div#signup_section div#login_form_top div#controls {
+    margin-top: 3px;
+}
+
+div#signup_section div#login_form_top div#controls div#remember_me {
+    float: right;
+    margin-right: 3px;
+    margin-top: 4px;
+}
+
+div#signup_section div#login_form_top div#controls div#remember_me input {
+    float: left;
+    margin-right: 3px;
+}
+
+div#signup_section div#login_form_top div#controls div#remember_me div.label {
+    float: left;
+    margin-top: 2px;
+    margin-right: 3px;
+}
+
+div#signup_section div#login_form_top div#controls div.button_small {
+    width: 50px;
+    margin-left: 5px;
+    float: right;
+}
+
 div#signup_section div#login_form_top div#fields div.input {
     float: left;
 }
@@ -195,65 +222,6 @@ div#signup_section div#login_form_top div#fields div.input input {
     background-color: #EEEEEE;
 }
 
-div#signup_section div#login_form_top div#controls input[type=submit] {
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    margin-left: 5px;
-    background-image: none;
-    background-color: #EEE;
-    border: 1px solid #666;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 0px;
-    text-align: center;
-    width: 60px;
-    float: left;
-    color: #333;
-}
-
-div#signup_section div#signup_link {
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    margin-left: 5px;
-    background-image: none;
-    background-color: #6CE26C;
-    border: 1px solid #666;
-    cursor: pointer;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 5px;
-    width: 60px;
-    float: right;
-    text-decoration: none;
-    padding-top: 1px;
-    height: 16px;
-}
-
-div#signup_section div#signup_link a div {
-    color: #333;
-}
-
-div#signup_section div#login_form_top div#controls input[type=checkbox] {
-    margin-left: 0px;
-    float: left;
-    cursor: pointer;
-}
-
-div#signup_section div#login_form_top div#controls {
-    float: right;
-    margin: 5px 0px 5px 0px;
-}
-
-div#signup_section div#login_form_top div#controls div.label {
-    float: left;
-    margin-right: 5px;
-    width: auto;
-    margin-top: 2px;
-}
-
 div#signup_section div#login_form_top input#user_login,
 div#signup_section div#login_form_top input#user_password {
     width: 100px;
@@ -261,7 +229,7 @@ div#signup_section div#login_form_top input#user_password {
 }
 
 div#signup_section div#welcome_message {
-    
+
 }
 
 div#signup_section div#welcome_message div#icon {
@@ -464,7 +432,8 @@ div#sub_nav {
 }
 
 div#filter_param_box {
-    padding: 7px 3px;
+    height: 22px;
+    padding: 8px 8px 6px 8px;
     float: right;
     color: #000000;
     background: #ccc url(/images/local-nav-bg.png) top left repeat-x;
@@ -501,6 +470,7 @@ div#filter_users_nav div#filter_param_box select {
 }
 
 div#filter_talent_nav div#filter_param_box select {
+    height: 20px;
     width: 135px;
     font-size: 12px;
     cursor: pointer;
@@ -1243,6 +1213,10 @@ div.project_mini_view div.project_icon img {
 div.project_mini_view div.project_icon div.follow_button {
     margin-top: 7px;
     margin-left: 2px;
+}
+
+div.project_mini_view div.project_icon div.follow_button div.button_small {
+    width: 60px;
 }
 
 div.project_mini_view div.green_light {
@@ -3045,7 +3019,7 @@ div.blog div.blog_left div.rebuzz_text {
 }
 
 div.blog div.blog_left div.rebuzz_text div.text {
-    
+
 }
 
 div.blog div.blog_left div.rebuzz_text div.rebuzz_icon {
@@ -3821,6 +3795,7 @@ div#admin_stats {
     padding: 4px;
 }
 
+div.button a,
 #content div.button a {
     text-decoration: none;
     color: #666666;
@@ -3828,10 +3803,12 @@ div#admin_stats {
     font-size: 11px;
 }
 
+div.button a:hover,
 #content div.button a:hover {
     text-decoration: none;
 }
 
+div.button_small,
 #content div.button_small {
     border: 1px solid #333;
     background: -moz-linear-gradient(#FFFFFF, #CCCCCC) repeat scroll 0 0 transparent;
@@ -3846,6 +3823,7 @@ div#admin_stats {
     cursor: pointer;
 }
 
+div.button_small a,
 #content div.button_small a {
     text-decoration: none;
     color: #666666;
@@ -3853,6 +3831,7 @@ div#admin_stats {
     font-size: 11px;
 }
 
+div.button_small a:hover,
 #content div.button_small a:hover {
     text-decoration: none;
 }
@@ -4167,6 +4146,22 @@ div#post_update_box div#char_count {
     font-size: 18px;
     color: #000;
     margin: 10px 10px 0px 0px;
+}
+
+div#post_update_box div#crosspost {
+    margin-top: 6px;
+    margin-left: 20px;
+    float: left;
+}
+
+div#post_update_box div#crosspost div.input_container {
+    float: left;
+}
+
+div#post_update_box div#crosspost div.input_label {
+    margin-top: 3px;
+    margin-left: 5px;
+    float: left;
 }
 
 div#post_update_box div#post_button {

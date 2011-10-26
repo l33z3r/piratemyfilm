@@ -1,0 +1,102 @@
+<div class="blog-row blog">
+
+  <% 
+  if blog.blog_rebuzz
+    the_profile = blog.blog_rebuzz.profile
+  else
+    the_profile = blog.profile
+  end 
+%>
+
+  <div class="blog_left">
+    <div class="icon">
+      <%= icon(the_profile, :small) %>
+    </div>
+    <div class="user_info info">
+      <div class="user_name">
+        <%= link_to the_profile.user.login, profile_url(the_profile) %>
+      </div>
+      <div class="blog_user_relationship">
+        <%= blog.user_relationship the_profile %>
+      </div>
+      <div class="follow_button">
+        <div class="button_small left">
+          <%= link_to "Follow", profile_url(the_profile) %>
+        </div>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <div class="blog_body">
+        <%= blog_body blog %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <% if blog.blog_rebuzz_id %>
+        <div class="rebuzz_text">
+          <div class="rebuzz_icon">
+            <%= image_tag "rebuzz_icon.png" %>
+          </div>
+          <div class="text">
+            by <%= link_to blog.profile.user.login, profile_url(blog.profile) %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="buzz_links">
+        <div class="rebuzz button_small">
+          <a href="<%=blog_url(blog)%>">Rebuzz</a>
+        </div>
+        <div class="reply button_small">
+          <a href="<%=blog_url(blog)%>">Reply</a>
+        </div>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+    </div>
+    <div class="project_info_holder info">
+      <% if blog.project %>
+        <div class="project_left">
+          <div class="project_icon">
+            <%= link_to project_icon(blog.project, :medium), project_url(blog.project) %>
+          </div>
+
+          <div class="pmf_clear">&nbsp;</div>
+
+          <div class="percent_change">
+            <span><%= funding_change_display blog.project.percent_move_since_last_change_info %></span>
+          </div>
+
+          <div class="pmf_clear">&nbsp;</div>
+
+          <div class="follow_button">
+            <div class="button_small left">
+              <%= link_to "Follow", project_url(blog.project) %>
+            </div>
+          </div>
+        </div>
+
+        <div class="project_info">
+          <div class="project_title">
+            <%= link_to h(truncate(blog.project.title, 15)), project_url(blog.project) %>
+          </div>
+
+          <div class="pmf_clear">&nbsp;</div>
+
+          <div class="project_stats">
+            <div class="funds_needed">
+              <span><%= print_money blog.project.capital_required %></span> needed
+            </div>
+            <div class="pmf_clear">&nbsp;</div>
+            <div class="followers">
+              <span><%= pluralize blog.project.project_followings.size, "follower" %></span>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+
+</div>

@@ -27,13 +27,21 @@
         </select>
         <input type="hidden" id="project_user_talent_id" name="project_user_talent_id" value=""/>
       </div>
-      
+
       <input type="hidden" id="blog_rebuzz_id" name="blog[blog_rebuzz_id]"/>
 
       <div class="button_small" id="post_button" onclick="$('#blog_form').submit();">Post</div>
 
       <div id="char_count">140</div>
 
+      <% if @u.mkc_post_ability %>
+        <div id="crosspost">
+          <div class="input_container">
+            <input type="checkbox" name="publish_to_mkc"/>
+          </div>
+          <div class="input_label">Publish to maxkeiser.com?</div>
+        </div>
+      <% end %>
     <% end %>
 
     <div class="pmf_clear">&nbsp;</div>

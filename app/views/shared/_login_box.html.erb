@@ -3,7 +3,7 @@
     <% if(@u.nil? or @u.new_record?) %>
       <div id="login_form_top">
 
-        <% form_tag login_path, :method => :post do |f| %>
+        <% form_tag login_path, :method => :post, :id => "login_form" do |f| %>
 
           <div id="fields">
             <div class="label">Username:</div>
@@ -14,14 +14,19 @@
 
           <div class="pmf_clear">&nbsp;</div>
 
-          <div id="signup_link">
-            <a href="<%= signup_path %>"><div class="signup">Join PMF</div></a>
-          </div>
-
           <div id="controls">
-            <div class="label">Remember Me</div>
-            <%= check_box_tag :remember_me %>
-            <%= submit_tag 'Log In', :class=>'button' %>
+            <div id="login_link" class="button_small">
+              <a href="<%= signup_path %>">Join</a>
+            </div>
+
+            <div id="login_link" class="button_small">
+              <a href="#" onclick="$('#login_form').submit();return false;">Log In</a>
+            </div>
+
+            <div id="remember_me">
+              <div class="label">Remember Me</div>
+              <%= check_box_tag :remember_me %>
+            </div>
           </div>
 
           <div class="pmf_clear">&nbsp;</div>

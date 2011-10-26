@@ -94,7 +94,7 @@ class BlogsController < ApplicationController
         
         #send blog to wordpress
         @html_content = render_to_string(
-          :partial => "/blogs/templates/member_blog_crosspost",
+          :partial => "/blogs/templates/buzz_crosspost",
           :locals => {:blog => @blog})
         
         @post_url = PostLib.do_post @html_content
