@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   
-  skip_before_filter :verify_authenticity_token, :only => [:remove_talent]
+  skip_before_filter :verify_authenticity_token, :only => [:remove_talent, :add_talent]
   skip_filter :store_location, :only => [:create]
   skip_before_filter :login_required, :only => [:index, :show, :player, :blogs, :search, :filter_by_param]
 
