@@ -624,7 +624,11 @@ div.project_listings {
 
 .project_form div.talent_select div.user_info {
     float: left;
-    margin-top: 20px;
+    margin-top: 15px;
+}
+
+#content .project_form div.talent_select div.clear_talent_link_container {
+    margin: 10px 0px 0px 5px;
 }
 
 .project_form div.talent_select div.user_info div.user_name {
