@@ -50,11 +50,12 @@
     </div>
 
     <div class="right">
-      <% form_tag search_projects_path, :method => :get, :class => "navbar-search" do -%>
+      <% form_tag search_path, :method => :get, :class => "navbar-search", :id => :global_search_form do -%>
         <div id="search">
           <%= text_field_tag 'search[q]',
             (params[:search] && params[:search][:q] ? params[:search][:q] : 'Search'),
             :id => 'search_q', :size => 14, :onfocus => "$(this).select();" %>
+          <input id="global_search_type" type="hidden" name="search_type" value="projects"/>
           <input type="submit" value="Search"/>
         </div>
       <% end %>

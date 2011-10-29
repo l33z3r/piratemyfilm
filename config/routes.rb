@@ -48,7 +48,8 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.home "home", :controller => "home", :action => "index"
-
+  map.search "home/search", :controller => "home", :action => "search", :conditions => {:method => "post"}
+  
   map.login_vanity '/:userlogin', :controller => "profiles", :action => "show"
 
   map.connect ':controller/:action/:id'

@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
     :flag, :buy_shares, :add_talent]
 
   skip_before_filter :setup, :only => [:blogs]
-  before_filter :search_results, :only => [:search]
+  
   before_filter :check_owner_or_admin, :only => [:edit, :update, :delete, :share_queue]
   before_filter :check_admin, :only => [:update_green_light]
 
@@ -221,10 +221,6 @@ class ProjectsController < ApplicationController
     redirect_to :controller => "/home", :action => "index"
   end
   
-  def search
-    render
-  end
-  
   def delete_icon
     respond_to do |wants|
       @project.update_attribute :icon, nil
@@ -377,16 +373,6 @@ class ProjectsController < ApplicationController
       flash[:error] = "Project Not Found"
       redirect_to :controller => "home"
     end
-  end
-
-  def search_results
-    if params[:search]
-      p = params[:search].dup
-    else
-      p = []
-    end
-    @search_string = p.delete(:q) || ''
-    @results = Project.search(@search_string, p).paginate(:page => @page, :per_page => @per_page)
   end
 
   def round_budget_from_params

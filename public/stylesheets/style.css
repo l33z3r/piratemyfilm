@@ -2026,6 +2026,45 @@ div#blog_footer_links {
     margin-top: 3px;
 }
 
+/* Generic Tabs */
+
+ul.tabs {
+    float: left;
+    width: 100%;
+    list-style: none;
+    padding-left: 0px;
+    border-bottom: 1px solid #666666;
+}
+
+ul.tabs li {
+    float:left;
+    margin:0;
+    padding:0;
+}
+
+ul.tabs a {
+    display:block;
+    color:#444;
+    text-decoration:none;
+    font-weight:bold;
+    background:#ddd;
+    margin-right: 3px;
+    padding:0.25em 1em;
+    border: 1px solid #000000;
+    border-bottom-width: 0px;
+}
+
+ul.tabs a:hover,
+ul.tabs a:active,
+ul.tabs a.selected:link,
+ul.tabs a.selected:visited {
+    background: #FFFFFF;
+    margin-bottom: -1px;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+/* Generic Tabs */
+
 .big-number	{
     margin-right: 60px;
     margin-top:30px;
@@ -2841,7 +2880,7 @@ div.blog div.blog_left div.project_info_holder div.project_left {
 
 div.blog div.blog_left div.project_info_holder div.project_left div.percent_change {
     text-align: center;
-    margin-top: 3px;
+    margin: 3px 0px;
     font-weight: bold;
 }
 

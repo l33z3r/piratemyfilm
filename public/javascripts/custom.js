@@ -115,3 +115,13 @@ function doReply(mention) {
 function redirectToLogin() {
     location = "/login";
 }
+
+function doProjectSearch() {
+    $('#global_search_type').val('projects');
+    $('#global_search_form').submit();
+}
+
+function doUserSearch() {
+    $('#global_search_type').val('users');
+    $('#global_search_form').submit();
+}

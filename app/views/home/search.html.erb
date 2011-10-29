@@ -1,0 +1,27 @@
+<ul class="tabs" id="search_links">
+  <li id="project_search_link">
+    <a href="#" onclick="doProjectSearch();return false;" <%= @search_type == "projects" ? "class='selected'" : "" %>>Projects</a>
+  </li>
+  <li id="user_search_link">
+    <a href="#" onclick="doUserSearch();return false;" <%= @search_type == "users" ? "class='selected'" : "" %>>Users</a>
+  </li>  
+</ul>
+
+<div class="pmf_clear">&nbsp;</div>
+
+<div id="MENU_HEADER" class="pageTitleSmall">Search Results for "<%= h @search_string %>" </div>
+
+<% if params[:search_type] == "users" %>
+  <% @results.each do |p| %>
+    <%= render :partial => "/profiles/small", :locals => { :profile => p } %>
+  <% end %>
+<% else %>
+  <%= render :partial => "projects/listings", :object => @results %>
+<% end %>
+
+<%= pagination_controls_for @results if @results.respond_to? :total_pages %>
+
+<div style="float: right;">
+  <%= link_to "List a Project", new_project_path %>|
+  <%= link_to "All Projects", projects_path %>
+</div>
