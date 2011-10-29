@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   
   skip_before_filter :verify_authenticity_token, :only => [:remove_talent, :add_talent]
   skip_filter :store_location, :only => [:create]
-  skip_before_filter :login_required, :only => [:index, :show, :player, :blogs, :search, :filter_by_param]
+  skip_before_filter :login_required, :only => [:index, :show, :player, :blogs, :search, :filter_by_param, :share_queue]
 
   before_filter :setup
 
@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
 
   skip_before_filter :setup, :only => [:blogs]
   
-  before_filter :check_owner_or_admin, :only => [:edit, :update, :delete, :share_queue]
+  before_filter :check_owner_or_admin, :only => [:edit, :update, :delete]
   before_filter :check_admin, :only => [:update_green_light]
 
   before_filter :load_membership_settings, :only => [:new, :create]
@@ -392,10 +392,10 @@ class ProjectsController < ApplicationController
   end
 
   def allow_to
-    super :all, :only => [:index, :show, :player, :blogs, :search, :filter_by_param]
+    super :all, :only => [:index, :show, :player, :blogs, :search, :filter_by_param, :share_queue]
     super :admin, :all => true
     super :user, :only => [:new, :create, :edit, :update, :delete, :delete_icon, 
-      :share_queue, :invite_friends, :send_friends_invite, :buy_shares, :add_talent, :remove_talent]
+      :invite_friends, :send_friends_invite, :buy_shares, :add_talent, :remove_talent]
   end
 
 end

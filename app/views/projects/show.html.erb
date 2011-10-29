@@ -7,27 +7,26 @@
 
 <div id="project_show">
 
-  <div class="dashed_light_border">&nbsp;</div>
+  <div class="pageTitle"><%= h @project.title %></div>
 
   <div class="project_action_links">
 
-    <div class="left">
+    <div class="left button">
       <%= link_to "Invite Friends", invite_friends_project_path(@project) %>
     </div>
 
+    <%= share_queue_link @project %>
+
     <% if owner_or_admin? %>
       <%= edit_project_link @project %>
-      <%= share_queue_link @project %>
       <%= fund_collection_link @project %>
+      <%= green_light_link @project %>
     <% end %>
-
-    <%= green_light_link @project %>
-    <%= follow_project_link @project %>
 
     <%= flag_project_link @project %>
   </div>
-
-  <div class="dashed_light_border">&nbsp;</div>
+  
+  <div class="pmf_clear">&nbsp;</div>
 
   <div class="left">
     <%= render :partial => "subscription_buttons" %>

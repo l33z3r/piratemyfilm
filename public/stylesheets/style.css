@@ -2028,7 +2028,7 @@ div#blog_footer_links {
 
 /* Generic Tabs */
 
-ul.tabs {
+#content ul.tabs {
     float: left;
     width: 100%;
     list-style: none;
@@ -2036,13 +2036,13 @@ ul.tabs {
     border-bottom: 1px solid #666666;
 }
 
-ul.tabs li {
+#content ul.tabs li {
     float:left;
     margin:0;
     padding:0;
 }
 
-ul.tabs a {
+#content ul.tabs li a {
     display:block;
     color:#444;
     text-decoration:none;
@@ -2054,10 +2054,10 @@ ul.tabs a {
     border-bottom-width: 0px;
 }
 
-ul.tabs a:hover,
-ul.tabs a:active,
-ul.tabs a.selected:link,
-ul.tabs a.selected:visited {
+#content ul.tabs li a:hover,
+#content ul.tabs li a:active,
+#content ul.tabs li a.selected:link,
+#content ul.tabs li a.selected:visited {
     background: #FFFFFF;
     margin-bottom: -1px;
     border-bottom: 1px solid #FFFFFF;
@@ -3823,6 +3823,7 @@ div#admin_stats {
 /* link buttons */
 
 #content div.button {
+    display: inline-block;
     background: -moz-linear-gradient(#FFFFFF, #CCCCCC) repeat scroll 0 0 transparent;
     background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#CCCCCC));
     border: 1px solid #777777;
@@ -3851,6 +3852,7 @@ div.button a:hover,
 
 div.button_small,
 #content div.button_small {
+    display: inline-block;
     border: 1px solid #333;
     background: -moz-linear-gradient(#FFFFFF, #CCCCCC) repeat scroll 0 0 transparent;
     background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#CCCCCC));
