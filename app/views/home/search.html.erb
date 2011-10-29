@@ -20,8 +20,3 @@
 <% end %>
 
 <%= pagination_controls_for @results if @results.respond_to? :total_pages %>
-
-<div style="float: right;">
-  <%= link_to "List a Project", new_project_path %>|
-  <%= link_to "All Projects", projects_path %>
-</div>

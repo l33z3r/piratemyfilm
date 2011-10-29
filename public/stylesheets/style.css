@@ -2061,6 +2061,7 @@ ul.tabs a.selected:visited {
     background: #FFFFFF;
     margin-bottom: -1px;
     border-bottom: 1px solid #FFFFFF;
+    text-decoration: none;
 }
 
 /* Generic Tabs */
