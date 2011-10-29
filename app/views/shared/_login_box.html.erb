@@ -58,12 +58,7 @@
             </div>
           <% end %>
 
-          <div class="link portfolio <%= (@selected_user_subnav_link == "my_portfolio" ? "selected" : "") %>">
-            &nbsp; -
-            <%= link_to "My Portfolio", portfolio_profile_path(@u.profile) %>
-          </div>
-
-          <div class="link profile <%= (@selected_user_subnav_link == "my_profile" ? "selected" : "") %>">
+          <div class="link profile">
             <%= link_to "My Profile", profile_path(@u.profile) %>
           </div>
 

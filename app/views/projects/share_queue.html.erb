@@ -49,7 +49,10 @@
     <div class="<%= cycle('odd','even') %> subscription <%= subscription.outstanding ? "outstanding" : "" %>">
       <div class="number"><%= index + 1 %></div>
       <div class="icon"><%= icon subscription.user.profile, :small %></div>
-      <div class="name"><%= link_to h(subscription.user.profile.f), profile_path(subscription.user.profile) %></div>
+      <div class="name">
+        <%= link_to h(subscription.user.profile.f), profile_path(subscription.user.profile) %>
+        (<%= subscription.user.membership_type.name %> Membership)
+      </div>
       <div class="subscription_amount">
         <%= subscription.amount %>
       </div>

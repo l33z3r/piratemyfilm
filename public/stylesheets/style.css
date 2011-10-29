@@ -74,11 +74,11 @@ a:hover {
 }
 
 .pmf_top_margin_20 {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .pmf_bottom_margin_20 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 div.dashed_light_border {
@@ -1088,9 +1088,9 @@ div.project_action_links {
     margin: 5px 0px;
 }
 
-div.project_action_links div {
+#content div.project_action_links div.button {
     margin-top: 3px;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 div.project_action_links div a {
@@ -1346,14 +1346,14 @@ div#share_queue div#queue_header div.name_header {
     float: left;
     font-weight: bold;
     margin-right: 10px;
-    width: 115px;
+    width: 240px;
 }
 
 div#share_queue div#queue_header div.subscription_outstanding_header {
     float: left;
     font-weight: bold;
     margin-right: 10px;
-    width: 110px;
+    width: 70px;
 }
 
 div#share_queue div#queue_header div.subscription_payment_status {
@@ -1394,7 +1394,8 @@ div#share_queue div.subscription div.icon {
 
 div#share_queue div.subscription div.name {
     float: left;
-    width: 115px;
+    font-weight: bold;
+    width: 240px;
     margin-top: 20px;
     margin-right: 10px;
 }
@@ -1409,7 +1410,7 @@ div#share_queue div.subscription div.subscription_amount {
 
 div#share_queue div.subscription div.subscription_outstanding {
     float: left;
-    width: 110px;
+    width: 70px;
     margin-left: 10px;
     margin-top: 18px;
     font-weight: bold;
@@ -1781,7 +1782,7 @@ div#profile div#friend_info div#friend_link_container a {
 }
 
 div#profile div#user_talents {
-    margin-top: 20px;
+    
 }
 
 div#profile div#user_talents div#current_talents div.list div.talent_label,
@@ -1819,7 +1820,9 @@ div#profile div#user_talents div#current_talents div.list div#talent_ratings div
 }
 
 div#profile div#user_talents div#current_talents div.list div#talent_ratings input#rating_submit {
-    margin-top: -5px;
+    margin-top: -2px;
+    margin-left: 5px;
+    min-width: 30px;
 }
 
 div#profile div#user_talents div#current_talents div.list div.talent_label {
@@ -3833,7 +3836,7 @@ div#admin_stats {
     cursor: pointer;
     margin: 1px;
     text-align: center;
-    min-width: 120px;
+    min-width: 90px;
     padding: 4px;
 }
 

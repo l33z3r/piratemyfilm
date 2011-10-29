@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
   prepend_before_filter :setup, :except => [:index]
 
   before_filter :search_results, :only => :index
-  skip_filter :login_required, :only => [:index, :show, :portfolio, :friend_list]
+  skip_filter :login_required, :only => [:index, :show, :friend_list]
 
   def index
     #@profiles could be set due to a search
@@ -43,16 +43,12 @@ class ProfilesController < ApplicationController
     #load talent rating select opts
     @talent_rating_select_opts = TalentRating.rating_select_opts
 
-    if @p == @profile
-      @selected_user_subnav_link = "my_profile"
-    end
-    
     @blogs = Blog.user_blogs(@profile.user).paginate :page => (params[:page] || 1), :per_page=> 10
     
-    render :action => "profile"
-  end
-  
-  def portfolio
+    #
+    #load portfolio related info
+    #
+    
     #this users top projects (24 hour change)
     @top_projects = ProjectChangeInfoOneDay.top_five_change_for_user @profile.user
 
@@ -67,8 +63,6 @@ class ProfilesController < ApplicationController
 
     @user_non_funded_subscriptions = @profile.user.subscribed_non_funded_projects
     @user_funded_subscriptions = @profile.user.subscribed_funded_projects
-    
-    @selected_user_subnav_link = "my_portfolio"
   end
 
   def portfolio_awaiting_payment
@@ -139,7 +133,7 @@ class ProfilesController < ApplicationController
   
   def allow_to
     super :owner, :all => true
-    super :all, :only => [:show, :index, :search, :portfolio]
+    super :all, :only => [:show, :index, :search]
   end
   
   def setup

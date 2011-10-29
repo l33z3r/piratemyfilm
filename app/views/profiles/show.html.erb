@@ -21,13 +21,6 @@
 
     <div class="half left">
 
-      <% if @p != @profile %>
-        <div class="sublinks">
-          <div class="profile_sublink"><%= link_to "View Portfolio", portfolio_profile_path(@profile) %></div>
-          <div class="pmf_clear">&nbsp;</div>
-        </div>
-      <% end %>
-
       <div class="activity_box learn">
         <div class="left avatar">
           <%= icon @profile, :medium %>
@@ -69,7 +62,7 @@
       <div class="pmf_clear">&nbsp;</div>
 
       <% if @p != @profile %>
-        <div id="producer_rating_area" class="pmf_top_margin_10">
+        <div id="producer_rating_area" class="pmf_top_margin_20">
           <div class="pageTitle pmf_top_margin_10">Rate This Member</div>
           <div class="pmf_clear pmf_top_margin_10">&nbsp;</div>
 
@@ -164,6 +157,71 @@
 
       <div class="pmf_clear">&nbsp;</div>
 
+      <div class="portfolio_info pmf_top_margin_20">
+        <div class="title">Portfolio Info</div>
+        <div class="pmf_clear">&nbsp;</div>
+
+        <% if @projects_awaiting_payment_count > 0 %>
+          <div class="stat_label">Projects Awaiting Payment:</div>
+          <div class="stat">
+            <a href="<%= url_for(:controller => "profiles", :action => "portfolio_awaiting_payment") %>">
+              <b><%= @projects_awaiting_payment_count %></b>
+            </a>
+          </div>
+          <div class="pmf_clear">&nbsp;</div>
+        <% end %>
+
+        <div class="stat_label">Walked the plank:</div>
+        <div class="stat">
+          <%= pluralize(@user.warn_points, "time") %>
+          (<a class="tooltip_arrow" title="When a user defaults on paying for shares, he will walk the plank!">?</a>)
+        </div>
+        <div class="stat_label">No. Projects Offering Shares:</div>
+        <div class="stat"><%= @user_projects.size %></div>
+        <div class="stat_label">No. Projects In Payment:</div>
+        <div class="stat"><%= @user_projects_in_payment.size %></div>
+        <div class="pmf_clear">&nbsp;</div>
+        <div class="stat_label">No. Projects Funded:</div>
+        <div class="stat"><%= @user_funded_projects.size %></div>
+        <div class="pmf_clear">&nbsp;</div>
+        <div class="stat_label">No. Funded Projects Reserving Shares In:</div>
+        <div class="stat"><%= @user_funded_subscriptions.size %></div>
+        <div class="pmf_clear">&nbsp;</div>
+        <div class="stat_label">No. Non Funded Projects Reserving Shares In:</div>
+        <div class="stat"><%= @user_non_funded_subscriptions.size %></div>
+        <div class="pmf_clear">&nbsp;</div>
+        <div class="stat_label">No. Shares Reserved Total:</div>
+        <div class="stat"><%= @total_shares_reserved %></div>
+        <div class="stat_label">$ Amount of Shares Reserved Total:</div>
+        <div class="stat">$<%= @total_shares_reserved_amount %></div>
+        <div class="pmf_clear">&nbsp;</div>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <div class="portfolio_info">
+        <% if !@top_projects.empty? %>
+          <div class="title"><%= me_or_login %> Top 5 Projects (24 Hour Change)</div>
+
+          <div class="stat_label_header">Symbol</div>
+          <div class="stat_header">Todays Change</div>
+          <div class="pmf_clear">&nbsp;</div>
+
+          <% @top_projects.each do |tp| %>
+            <div class="pmf_clear">&nbsp;</div>
+            <div class="stat_label"><%= link_to tp.project.symbol, project_path(tp.project) %></div>
+            <div class="arrow">
+              <%= up_down_arrow tp.share_change %>
+            </div>
+            <div class="stat">
+              <%= tp.share_change.abs %> Shares
+            </div>
+            <div class="pmf_clear">&nbsp;</div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
     </div>
   </div>
 
@@ -194,5 +252,86 @@
   <% end %>
 
   <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_listing_box">
+    <div class="pageTitle">
+      <% if @p == @profile %>
+        Your
+      <% else %>
+        <%=@profile.user.login%>'s
+      <% end %>
+      projects that are in payment
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <%= render :partial => "projects/listings", :object => @user_projects_in_payment %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_listing_box">
+    <div class="pageTitle">
+      <% if @p == @profile %>
+        You are
+      <% else %>
+        <%=@profile.user.login%> is
+      <% end %>
+      <i>offering</i> shares (raising money) for these projects
+    </div>
+
+    <%= render :partial => "projects/listings", :object => @user_projects %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_listing_box">
+
+    <div class="pageTitle">
+      <% if @p == @profile %>
+        You are
+      <% else %>
+        <%=@profile.user.login%> is
+      <% end %>
+      <i>reserving</i> reserving shares in these projects
+    </div>
+
+    <%= render :partial => "projects/listings", :object => @user_non_funded_subscriptions %>
+  </div>
+
+  <div class="project_listing_box">
+    <div class="pageTitle">
+      <% if @p == @profile %>
+        Your
+      <% else %>
+        <%=@profile.user.login%>'s
+      <% end %>
+      projects that members helped fund
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <%= render :partial => "projects/listings", :object => @user_funded_projects %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_listing_box">
+
+    <div class="pageTitle">
+      <% if @p == @profile %>
+        You are
+      <% else %>
+        <%=@profile.user.login%> is
+      <% end %>
+      one of the PMF members that helped fund these projects
+    </div>
+
+    <%= render :partial => "projects/listings", :object => @user_funded_subscriptions %>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
 
 </div>

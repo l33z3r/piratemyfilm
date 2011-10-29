@@ -28,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   map.latest_comments "latest_comments", :controller => "project_comments", :action => "latest"
 
   map.resources :profiles, 
-    :member=>{:delete_icon=>:post, :portfolio=>:get, :friend_list => :get}, 
+    :member=>{:delete_icon=>:post, :friend_list => :get}, 
     :collection=>{:search=>:get, :portfolio_awaiting_payment => :get},
     :has_many=>[:friends, :blogs, :photos, :comments, :feed_items, :messages]
 
