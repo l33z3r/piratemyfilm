@@ -76,11 +76,14 @@ project_link_action ||= "show"
       <div class="funds_needed">
         <span><%= print_money project.capital_required %></span> needed
       </div>
-      <div class="percent_change">
-        <span><%= funding_change_display project.percent_move_since_last_change_info %></span>
-      </div>
       <div class="num_followers">
         <span><%= pluralize project.project_followings.size, "follower" %></span>
+      </div>
+      <div class="percent_change">
+        <span><%= funding_change_display project.percent_move_since_last_change_info %> (Today)</span>
+      </div>
+      <div class="percent_change">
+        <span><%= funding_change_display project.daily_percent_move %> (Yesterday)</span>
       </div>
     </div>
   </div>

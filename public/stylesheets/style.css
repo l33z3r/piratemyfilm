@@ -1281,6 +1281,7 @@ div.project_mini_view div.project_info div.project_stats div.percent_change,
 div.project_mini_view div.project_info div.project_stats div.num_followers {
     font-size: 14px;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 div.project_mini_view div.project_info div.user_info {
