@@ -2712,6 +2712,20 @@ div.TabView div.Pages div.Page div.Pad {
 
 div#new_project_button {
     float: left;
+    margin-top: 6px;
+}
+
+div#skull_bullet_links {
+    float: left;
+    margin-left: 20px;
+    margin-top: -2px;
+    width: 150px;
+}
+
+div#skull_bullet_links img {
+    float: left;
+    margin-right: 5px;
+    margin-top: 2px;
 }
 
 div#new_project_button img {
@@ -2722,31 +2736,7 @@ div#new_project_button img {
     -moz-border-radius: 7px;
 }
 
-div#header_links div#widget_link {
-    float: left;
-    margin-top: 17px;
-    margin-left: 20px;
-    font-family: menu;
-    width: 155px;
-    text-decoration: underline;
-}
-
-div#header_links div#widget_link a {
-    font-weight: bold;
-}
-
-div#header_links div#site_stats_link {
-    float: left;
-    margin-top: 25px;
-    margin-left: 30px;
-    font-family: menu;
-    width: 100px;
-    text-decoration: underline;
-}
-
-div#header_links div#site_stats_link a {
-    font-weight: bold;
-}
+div 
 
 .local-navbar-button span a:hover {
     text-decoration:none;

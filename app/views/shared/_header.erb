@@ -10,7 +10,7 @@
 
   <div id="brand">
     <a href="/">
-      <img id="header_image" src="/images/header_logo.png"/>
+      <img id="header_image" src="/images/pmf_header.png"/>
     </a>
   </div>
 
@@ -21,6 +21,30 @@
         <img id="header_image" src="/images/need_money.png"/>
       </div>
     </a>
+
+    <div id="skull_bullet_links">
+      <%= image_tag "skull_bullet.png" %>
+      
+      <div class="link">
+        <%= link_to "PirateMyfilm Widget", project_widgets_path %>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <%= image_tag "skull_bullet.png" %>
+      
+      <div class="link">
+        <a href="/pages/stats">Site Stats</a>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+      <%= image_tag "skull_bullet.png" %>
+      
+      <div class="link">
+        <a href="/pages/how_it_works">How It Works</a>
+      </div>
+    </div>
 
     <%= render :partial => "shared/login_box" %> 
 
