@@ -45,7 +45,7 @@ class Profile < ActiveRecord::Base
   #Forums
   has_many :forum_posts, :foreign_key => 'owner_id', :dependent => :destroy
   
-  acts_as_ferret :fields => [ :location, :f, :about_me, :user_login ], :remote => true
+  acts_as_ferret :fields => [ :location, :f, :first_name, :last_name, :about_me, :user_login ], :remote => true
   
   file_column :icon, :magick => {
     :versions => { 
