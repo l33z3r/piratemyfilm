@@ -18,42 +18,52 @@
 
   <body onload="doInit();">
 
-    <div id="site_wrapper">
+    <div id="ad_banner">
+      <script language="JavaScript" type="text/javascript">;
+        document.write('<script language="JavaScript" src="http://ad.doubleclick.net/adj/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;dcopt=ist;sz=728x90;ord=' + ord + '?" type="text/javascript"><\/script>');
+      </script><noscript><a href="http://ad.doubleclick.net/jump/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;sz=728x90;ord=123456789?" target="_blank"><img src="http://ad.doubleclick.net/ad/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;sz=728x90;ord=123456789?" width="728" height="90" border="0" alt=""></a></noscript>
+    </div>
 
-      <div id="content_container">
-        <div id="stage">
-          <%= render :partial => 'shared/header' %>
+    <div id="bg_wrapper">
+      <div id="site_wrapper">
 
-          <div class="pmf_clear">&nbsp;</div>
+        <div id="content_container">
+          <div id="stage">
+            <%= render :partial => 'shared/header' %>
 
-          <div id="content">
+            <div class="pmf_clear">&nbsp;</div>
 
-            <div id="flashes">
-              <%= show_default_flash -%>
+            <div id="content">
+
+              <div id="flashes">
+                <%= show_default_flash -%>
+              </div>
+
+              <%= render :partial => "/shared/user_subnav" %>
+
+              <%= yield %>
+
             </div>
 
-            <%= render :partial => "/shared/user_subnav" %>
+            <div class="pmf_clear">&nbsp;</div>
 
-            <%= yield %>
+            <%= render :partial => 'shared/footer' %>
 
           </div>
 
           <div class="pmf_clear">&nbsp;</div>
 
-          <%= render :partial => 'shared/footer' %>
+          <%= render :partial => "shared/footer_banner_ad" %>
 
         </div>
 
-        <div class="pmf_clear">&nbsp;</div>
-
-        <%= render :partial => "shared/footer_banner_ad" %>
-
       </div>
 
-    </div>
 
-    <div id="footer_scripts">
-      <%= render :partial => 'shared/footer_scripts' %>
+      <div id="footer_scripts">
+        <%= render :partial => 'shared/footer_scripts' %>
+      </div>
+
     </div>
 
     <!-- IC Metric Beacon Code -->

@@ -2188,7 +2188,8 @@ form	{
 
 div#ad_banner {
     text-align: center;
-    margin-bottom: 15px;
+    padding: 15px 0px;
+    background: #000;
 }
 
 div#footer_ad_banner {
@@ -2308,13 +2309,11 @@ div#site_wrapper div#content_container {
     font-size: 10px;
 }
 
-/*body {
-font-family: Verdana, "Trebuchet MS", Arial;
-background: #333333;
-}*/
+div#bg_wrapper {
+    background: #fff url(/images/body-bg-2.png) repeat-x;
+}
 
 body	{
-    background: #fff url(/images/body-bg-2.png) repeat-x;
     font-size:0.8em;
     line-height:1.4em;
     font-family: "lucida grande", "tahoma", "arial", "sans-serif";
