@@ -4207,7 +4207,7 @@ div#post_update_box div#char_count {
     float: right;
     font-size: 18px;
     color: #000;
-    margin: 10px 10px 0px 0px;
+    margin: 7px 10px 0px 0px;
 }
 
 div#post_update_box div#crosspost {
@@ -4224,6 +4224,14 @@ div#post_update_box div#crosspost div.input_label {
     margin-top: 3px;
     margin-left: 5px;
     float: left;
+}
+
+div#post_update_box div#link_shorten_message {
+    display: none;
+    float: right;
+    margin-top: 9px;
+    margin-right: 10px;
+    font-style: italic;
 }
 
 div#post_update_box div#post_button {

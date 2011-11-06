@@ -75,7 +75,7 @@ class BlogsController < ApplicationController
       end
       
       #we now limit to 140 chars
-      if @blog.body.length > 140
+      if @blog.body_length_before_bitly > 140
         flash[:error] = "Only 140 character buzz is allowed!"
         redirect_to :back and return
       end

@@ -14,6 +14,7 @@ class Blog < ActiveRecord::Base
   belongs_to :blog_rebuzz, :class_name => "Blog"
   
   after_save :create_blog_user_mentions
+  before_save :shorten_urls
   
   def num_comments
     if is_mkc_blog
@@ -224,6 +225,32 @@ class Blog < ActiveRecord::Base
         end
       end
     end
+  end
+  
+  def shorten_urls
+    return if blog_rebuzz_id
+    
+    @shortened_urls = {}
+    
+    URI.extract(body).each do |url|
+      @shortened_urls[url] = BITLY.shorten(url).short_url
+    end
+    
+    @shortened_urls.each do |url, shortened_url|
+      body.gsub!(url, shortened_url)
+    end
+  end
+  
+  def body_length_before_bitly
+    @chars_per_link = 24
+    
+    @extracted_links = URI.extract(body)
+    @old_link_char_count = @extracted_links.join.length
+    @new_link_char_count = @extracted_links.length * @chars_per_link
+    
+    @body_length = (body.length - @old_link_char_count) + @new_link_char_count
+    
+    @body_length
   end
   
 end

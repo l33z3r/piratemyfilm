@@ -58,27 +58,54 @@ function removeTalent(pt_id, projectId) {
         }
     });
 }
-
-function selectTalent_OLD(talentName, talentId, talentUsername) {
-    talentIdContainerId = $('#' + talentName + '_talent_id');
-    talentUsernameContainerId = $('#' + talentName + '_name');
-    talentClearLink = $('#' + talentName + '_clear_talent_link_container');
-
-    talentIdContainerId.val(talentId);
-    talentUsernameContainerId.val(talentUsername);
-    talentUsernameContainerId.attr('disabled', true);
-    talentClearLink.show();
-
-    talentIdContainerId = talentUsernameContainerId = null;
-
-    ModalPopups.Close('talentSelectListContainer');
-}
+//
+//function selectTalent_OLD(talentName, talentId, talentUsername) {
+//    talentIdContainerId = $('#' + talentName + '_talent_id');
+//    talentUsernameContainerId = $('#' + talentName + '_name');
+//    talentClearLink = $('#' + talentName + '_clear_talent_link_container');
+//
+//    talentIdContainerId.val(talentId);
+//    talentUsernameContainerId.val(talentUsername);
+//    talentUsernameContainerId.attr('disabled', true);
+//    talentClearLink.show();
+//
+//    talentIdContainerId = talentUsernameContainerId = null;
+//
+//    ModalPopups.Close('talentSelectListContainer');
+//}
 
 function doBuzzCharCount(el) {
-    var inputLength = $(el).val().length;
+    var input = $(el).val();
+    
+    //extract links (they count for 24 chars)
+    var URLexp = /(^|\s|-)+http:\/\//g;
+    var words = input.split(" ");
+    
+    var linkCount = 0;
+    var charDeduction = 0;
+    
+    for(var i=0; i<words.length; i++) {
+        var exists = words[i].match(URLexp);
+        
+        if(exists) {
+            linkCount++;
+            charDeduction += words[i].length;
+        }
+    }
+    
+    var bitlyCharsPerLink = 24;
+    var inputLength = input.length - charDeduction + (linkCount * bitlyCharsPerLink);
+    
+    //console.log("Links: " + linkCount + " Deduct: " + charDeduction + " Orig Input Length: " + input.length + " New Input Length: " + inputLength);
     
     if(inputLength > 140) {
         $(el).val($(el).val().substring(0,140));
+    }
+    
+    if(linkCount > 0) {
+        $('#link_shorten_message').show();
+    } else {
+        $('#link_shorten_message').hide();
     }
     
     chars_left = (140 - inputLength < 0) ? 0 : 140 - inputLength;
@@ -90,10 +117,6 @@ function doRebuzz(blogId, confirm) {
         redirectToLogin();
         return;
     }
-    
-//    $('#post_update_box #blog_rebuzz_id').val(blogId);    
-//    $('#post_update_box #confirm_rebuzz').val("true");
-//    $('#blog_form').submit();
     
     $.ajax({
         url: "/blogs",

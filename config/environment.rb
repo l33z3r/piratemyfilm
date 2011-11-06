@@ -45,6 +45,7 @@ Rails::Initializer.run do |config|
   config.gem 'recaptcha', :version => '0.2.3'
   config.gem 'RedCloth', :version => '4.1.9'
   config.gem 'newrelic_rpm', :version => '3.1.0'
+  config.gem 'bitly', :version => '0.6.1'
 end
 
 Less::JsRoutes.generate!

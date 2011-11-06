@@ -363,9 +363,15 @@ module ApplicationHelper
   end
 
   def blog_body blog
+    #replace the mentions
     @blog_body = blog.body.gsub( /@\w+/) do |mention|
       @user_login = mention[1..mention.length-1]
       link_to mention, "/#{@user_login}"
+    end
+    
+    #hotlink the urls
+    @blog_body = blog.body.gsub( /http:\/\/bit.ly\/\w+/) do |url|
+      link_to url, url, :target => "_blank"
     end
     
     @blog_body

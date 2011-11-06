@@ -7,3 +7,7 @@ ENV['RECAPTCHA_PRIVATE_KEY'] = '6LfRB7oSAAAAALewA_omNEU_4kJm810F1RYnxFyb'
 payment_window_logfile = File.open("#{RAILS_ROOT}/log/payment_window.log", 'a')
 payment_window_logfile.sync = true
 ORDER_PROGRESS_LOG = PaymentWindowLogger.new(payment_window_logfile)
+
+#use bitly for shortening urls
+Bitly.use_api_version_3
+BITLY = Bitly.new('l33z3r','R_b5f1193993ef5c0738c946bd2882f155')
