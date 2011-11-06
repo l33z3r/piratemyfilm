@@ -14,7 +14,7 @@ page << "ModalPopups.Confirm('confirmRebuzzContainer',
     //resend request
     ModalPopups.Close('confirmRebuzzContainer');
     doRebuzz(#{@blog.blog_rebuzz_id}, false);
-    window.location = '/';
+    setTimeout(window.location = '/', 2000);
   }
 
   function confirmNo() {
