@@ -13,7 +13,6 @@ class Blog < ActiveRecord::Base
   belongs_to :project_user_talent
   belongs_to :blog_rebuzz, :class_name => "Blog"
   
-  before_save :prepare_rebuzz
   after_save :create_blog_user_mentions
   
   def num_comments
@@ -201,16 +200,14 @@ class Blog < ActiveRecord::Base
         and projects.id = #{project.id}", :order => "blogs.created_at desc")
   end
   
-  def prepare_rebuzz
-    if blog_rebuzz_id
-      @rebuzzed_blog = Blog.find(blog_rebuzz_id)
+  def self.prepare_rebuzz blog
+    @rebuzzed_blog = Blog.find(blog.blog_rebuzz_id)
       
-      self.project_user_talent_id = @rebuzzed_blog.project_user_talent_id
-      self.project_id = @rebuzzed_blog.project_id
+    blog.project_user_talent_id = @rebuzzed_blog.project_user_talent_id
+    blog.project_id = @rebuzzed_blog.project_id
       
-      self.title = @rebuzzed_blog.title
-      self.body = @rebuzzed_blog.body
-    end
+    blog.title = @rebuzzed_blog.title
+    blog.body = @rebuzzed_blog.body
   end
   
   def create_blog_user_mentions

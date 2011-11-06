@@ -85,14 +85,27 @@ function doBuzzCharCount(el) {
     $('#char_count').html(chars_left);
 }
 
-function doRebuzz(blogId) {
+function doRebuzz(blogId, confirm) {
     if(!loggedIn) {
         redirectToLogin();
         return;
     }
     
-    $('#post_update_box #blog_rebuzz_id').val(blogId);    
-    $('#blog_form').submit();
+//    $('#post_update_box #blog_rebuzz_id').val(blogId);    
+//    $('#post_update_box #confirm_rebuzz').val("true");
+//    $('#blog_form').submit();
+    
+    $.ajax({
+        url: "/blogs",
+        type : "POST",
+        dataType: 'script',
+        data : {
+            "blog[blog_rebuzz_id]" : blogId,
+            confirm_rebuzz : confirm,
+            authenticity_token : $("#post_update_box input[name='authenticity_token']").val()
+        }
+    });
+    
     return false;
 }
 
@@ -110,6 +123,7 @@ function doReply(mention) {
         scrollTop: $('#post_update_box').offset().top
         };
     $('html,body').animate(animation, 'slow', 'swing');
+    
 }
 
 function redirectToLogin() {

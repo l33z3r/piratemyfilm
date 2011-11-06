@@ -70,6 +70,10 @@ class BlogsController < ApplicationController
     begin
       @blog = Blog.new(params[:blog])
       
+      if @blog.blog_rebuzz_id
+        Blog.prepare_rebuzz @blog
+      end
+      
       #we now limit to 140 chars
       if @blog.body.length > 140
         flash[:error] = "Only 140 character buzz is allowed!"
@@ -87,6 +91,13 @@ class BlogsController < ApplicationController
       end
 
       @blog.profile_id = @u.profile.id
+      
+      if params[:confirm_rebuzz] == "true"
+        #must manually set times for the confirm dialog
+        @blog.created_at = @blog.updated_at = Time.now
+        render :action => "confirm_rebuzz" and return
+      end
+      
       @blog.save!
       
       #do mkc cross post

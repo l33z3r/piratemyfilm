@@ -1,0 +1,22 @@
+page << "ModalPopups.Confirm('confirmRebuzzContainer',
+  'Do you want to Rebuzz this?', '#{escape_javascript(render :partial => "/blogs/templates/buzz", :locals => {:blog => @blog})}',
+  {
+    yesButtonText: 'Yes',
+    noButtonText: 'No',
+    onYes: 'confirmYes()',
+    onNo: 'confirmNo()',
+    width: 960,
+    height: 200
+  }
+);
+
+  function confirmYes() {
+    //resend request
+    ModalPopups.Close('confirmRebuzzContainer');
+    doRebuzz(#{@blog.blog_rebuzz_id}, false);
+    window.location = '/';
+  }
+
+  function confirmNo() {
+    ModalPopups.Close('confirmRebuzzContainer');
+  }"
