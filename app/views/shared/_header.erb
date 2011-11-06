@@ -16,7 +16,7 @@
 
     <div id="skull_bullet_links">
       <%= image_tag "skull_bullet.png" %>
-      
+
       <div class="link">
         <%= link_to "PirateMyfilm Widget", project_widgets_path %>
       </div>
@@ -24,7 +24,7 @@
       <div class="pmf_clear">&nbsp;</div>
 
       <%= image_tag "skull_bullet.png" %>
-      
+
       <div class="link">
         <a href="/pages/stats">Site Stats</a>
       </div>
@@ -32,10 +32,22 @@
       <div class="pmf_clear">&nbsp;</div>
 
       <%= image_tag "skull_bullet.png" %>
-      
+
       <div class="link">
         <a href="/pages/how_it_works">How It Works</a>
       </div>
+    </div>
+
+    <div id="global_search_container">
+      <% form_tag search_path, :method => :get, :class => "navbar-search", :id => :global_search_form do -%>
+        <div id="search">
+          <%= text_field_tag 'search[q]',
+            (params[:search] && params[:search][:q] ? params[:search][:q] : 'Search'),
+            :id => 'search_q', :onfocus => "$(this).select();" %>
+          <div id="search_button" onclick="$('#global_search_form').submit();">&nbsp;</div>
+          <input id="global_search_type" type="hidden" name="search_type" value="projects"/>
+        </div>
+      <% end %>
     </div>
 
     <%= render :partial => "shared/login_box" %> 
@@ -66,16 +78,6 @@
     </div>
 
     <div class="right">
-      <% form_tag search_path, :method => :get, :class => "navbar-search", :id => :global_search_form do -%>
-        <div id="search">
-          <%= text_field_tag 'search[q]',
-            (params[:search] && params[:search][:q] ? params[:search][:q] : 'Search'),
-            :id => 'search_q', :size => 14, :onfocus => "$(this).select();" %>
-          <input id="global_search_type" type="hidden" name="search_type" value="projects"/>
-          <input type="submit" value="Search"/>
-        </div>
-      <% end %>
-
       <% if !@hide_filter_params %>
         <div id="filter_talent_nav" class="right">
           <%= render :partial => 'shared/filter_talent_param_box' %>

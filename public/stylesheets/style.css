@@ -164,20 +164,20 @@ div#hp_latest_blog div.blog_comments_link {
 
 div#signup_section {
     float: right;
-    margin-top: 10px;
     height: 65px;
 }
 
 div#signup_section div#login_form_top div#fields {
-    float: left;
+    float: right;
     text-align: left;
 }
 
 div#signup_section div#login_form_top div#fields div.label {
-    width: 65px;
+    width: 60px;
+    text-align: right;
     margin-top: 3px;
     float: left;
-    margin-left: 5px;
+    margin-right: 2px;
 }
 
 div#signup_section div#login_form_top div#controls {
@@ -215,7 +215,7 @@ div#signup_section div#login_form_top div#fields div.input input {
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
-    width: 70px;
+    width: 60px;
     height: 15px;
     border: 1px solid #666;
     margin-top: 2px;
@@ -2000,7 +2000,7 @@ div#blog_footer_links {
 }
 
 .navbar-search {
-    float:right;
+    
 }
 
 .icatch-button	a {
@@ -2009,15 +2009,28 @@ div#blog_footer_links {
 }
 
 #search	{
-    height: 30px;
-    background:#ccc url(/images/local-nav-bg.png) top left repeat-x;
-    padding: 3px 7px;
-    padding-left: 25px;
-    border-bottom: 1px solid #999999;
+    margin-top: -1px;
+    background: -moz-linear-gradient(#FFFFFF, #CCCCCC) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#CCCCCC));
+    position: relative;
+    padding: 7px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
 }
 
 #search input[type=submit] {
     cursor: pointer;
+}
+
+#search input[type=text] {
+    width: 146px;
+    margin-top: -1px;
+    height: 22px;
+    border: 2px solid #999999;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
 }
 
 #search form	{
@@ -2027,6 +2040,17 @@ div#blog_footer_links {
 
 #search_q {
     margin-top: 3px;
+}
+
+#search div#search_button {
+    left: 133px;
+    top: 9px;
+    position: absolute;
+    cursor: pointer;
+    float: left;
+    width: 20px;
+    height: 21px;
+    background: url(/images/magnify_small.png);
 }
 
 /* Generic Tabs */
@@ -2716,9 +2740,9 @@ div#new_project_button {
 
 div#skull_bullet_links {
     float: left;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-top: -2px;
-    width: 150px;
+    width: 140px;
 }
 
 div#skull_bullet_links img {
@@ -2728,14 +2752,17 @@ div#skull_bullet_links img {
 }
 
 div#new_project_button img {
-    margin-left: 20px;
+    margin-left: 10px;
     border: 1px solid #CCC;
     border-radius: 7px;
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
 }
 
-div 
+div#global_search_container {
+    float: left;
+    margin-top: 2px;
+}
 
 .local-navbar-button span a:hover {
     text-decoration:none;
