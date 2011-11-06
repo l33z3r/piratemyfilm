@@ -232,8 +232,13 @@ class Blog < ActiveRecord::Base
     
     @shortened_urls = {}
     
+    #try to shorten the url, it may fail, but we dont care for now
+    #this also deals with urls that are already bitly shortened
     URI.extract(body).each do |url|
-      @shortened_urls[url] = BITLY.shorten(url).short_url
+      begin
+        @shortened_urls[url] = BITLY.shorten(url).short_url
+      rescue 
+      end
     end
     
     @shortened_urls.each do |url, shortened_url|
