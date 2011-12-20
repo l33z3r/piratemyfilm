@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111011102512) do
+ActiveRecord::Schema.define(:version => 20111220081122) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(:version => 20111011102512) do
     t.datetime "updated_at"
   end
 
+  create_table "blog_user_mentions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "blog_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "blogs", :force => true do |t|
     t.string   "title"
     t.text     "body"
@@ -38,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20111011102512) do
     t.string   "wp_comments_link"
     t.string   "guid"
     t.integer  "project_user_talent_id"
+    t.integer  "blog_rebuzz_id"
   end
 
   add_index "blogs", ["profile_id"], :name => "index_blogs_on_profile_id"
@@ -355,6 +363,7 @@ ActiveRecord::Schema.define(:version => 20111011102512) do
     t.string   "main_video"
     t.integer  "daily_percent_move",                                                            :default => 0
     t.string   "paypal_email"
+    t.datetime "yellow_light"
   end
 
   create_table "sessions", :force => true do |t|

@@ -46,6 +46,10 @@ class Admin::PmfBuyoutRequestsController < Admin::AdminController
     @project.pmf_share_buyout.status = "Denied"
     @project.pmf_share_buyout.save!
 
+    #still mark project as finished payment
+    @project.mark_as_finished_payment
+    @project.save!
+    
     #send the user a notification mail
     begin
       PaymentsMailer.deliver_pmf_share_buyout_denied @project.pmf_share_buyout, @project.owner.profile.email

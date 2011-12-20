@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   before_filter :setup
 
   before_filter :load_project, :only => [:show, :edit, :player, :update, :delete, :update_symbol,
-    :update_green_light, :share_queue, :blogs, :invite_friends, :send_friends_invite, 
+    :update_yellow_light, :share_queue, :blogs, :invite_friends, :send_friends_invite, 
     :flag, :buy_shares, :add_talent]
 
   skip_before_filter :setup, :only => [:blogs]
@@ -131,31 +131,23 @@ class ProjectsController < ApplicationController
       redirect_to :action => "show", :id => @project
     end
   end
-
-  def update_green_light
+  
+  def update_yellow_light
     begin
       #we only allow granting of green light for now
-      return if @project.green_light
+      return if @project.yellow_light
     
-      if !@project.budget_reached_include_pmf?
-        flash[:error] = "Project must have 100% budget to be Green!"
-        redirect_to project_path(@project) and return
-      end
-        
-      #start the payment phase
       if @project.paypal_email.blank?
         flash[:error] = "User has not entered a paypal email address associated with their project!"
         redirect_to project_path(@project) and return
       end
-      
-      PaymentWindow.create_for_project @project
-      
-      @project.green_light = Time.now
+
+      @project.yellow_light = Time.now
       @project.save!
 
-      Notification.deliver_green_light_notification @project
+      Notification.deliver_yellow_light_notification @project
       
-      flash[:positive] = "Project Now Green Lit!"
+      flash[:positive] = "Project Now Yellow Lit!"
       redirect_to project_path(@project)
     rescue ActiveRecord::RecordInvalid
       flash[:error] = "Error updating project"
@@ -163,6 +155,38 @@ class ProjectsController < ApplicationController
       render :action => "show"
     end
   end
+
+  #  def update_green_light
+  #    begin
+  #      #we only allow granting of green light for now
+  #      return if @project.green_light
+  #    
+  #      if !@project.budget_reached_include_pmf?
+  #        flash[:error] = "Project must have 100% budget to be Green!"
+  #        redirect_to project_path(@project) and return
+  #      end
+  #        
+  #      #start the payment phase
+  #      if @project.paypal_email.blank?
+  #        flash[:error] = "User has not entered a paypal email address associated with their project!"
+  #        redirect_to project_path(@project) and return
+  #      end
+  #      
+  #      PaymentWindow.create_for_project @project
+  #      
+  #      @project.green_light = Time.now
+  #      @project.save!
+  #
+  #      Notification.deliver_green_light_notification @project
+  #      
+  #      flash[:positive] = "Project Now Green Lit!"
+  #      redirect_to project_path(@project)
+  #    rescue ActiveRecord::RecordInvalid
+  #      flash[:error] = "Error updating project"
+  #      perform_show
+  #      render :action => "show"
+  #    end
+  #  end
 
   def share_queue
     @subscriptions = @project.share_queue
@@ -345,7 +369,7 @@ class ProjectsController < ApplicationController
 
   def check_admin
     if !@u || !@u.is_admin
-      flash[:error] = 'You are not the owner of this project.'
+      flash[:error] = 'You must be admin to do this.'
       redirect_to project_path(@project)
     end
   end

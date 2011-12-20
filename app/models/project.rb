@@ -395,7 +395,8 @@ class Project < ActiveRecord::Base
     #17 => "% PMF Fund Shares",
     #18 => "No. PMF Fund Shares",
     19 => "Green Light", 20 => "In Payment", 21 => "Fully Funded",
-    22 => "In Release", 23 => "% Move Up", 24 => "% Move Down"
+    22 => "In Release", 23 => "% Move Up", 24 => "% Move Down", 
+    25 => "Yellow Light"
   }
 
   def self.get_filter_sql filter_param
@@ -405,32 +406,34 @@ class Project < ActiveRecord::Base
     
     #filter out all projects that are green lit
     @green_light_filter = " green_light is null"
+    @yellow_light_filter = " yellow_light is null"
     
     case filter_param.to_s
-    when "2" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "3" then return "status = \"Pre Production\" and #{@payment_status_filter} and #{@green_light_filter}"
-    when "4" then return "status = \"In Production\" and #{@payment_status_filter} and #{@green_light_filter}"
-    when "5" then return "status = \"Post Production\" and #{@payment_status_filter} and #{@green_light_filter}"
-    when "6" then return "status = \"Finishing Funds\" and #{@payment_status_filter} and #{@green_light_filter}"
-    when "7" then return "genre_id = #{Genre.find_by_title("Trailer").id} and #{@payment_status_filter} and #{@green_light_filter}"
-    when "8" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "9" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "10" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "11" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "12" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "13" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "14" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "15" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "16" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "17" then return "#{@payment_status_filter} and #{@green_light_filter}"
-    when "18" then return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "2" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "3" then return "status = \"Pre Production\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "4" then return "status = \"In Production\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "5" then return "status = \"Post Production\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "6" then return "status = \"Finishing Funds\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "7" then return "genre_id = #{Genre.find_by_title("Trailer").id} and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "8" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "9" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "10" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "11" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "12" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "13" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "14" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "15" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "16" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "17" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "18" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
     when "19" then return "project_payment_status is null and green_light is NOT NULL"
     when "20" then return "project_payment_status = 'In Payment'"
     when "21" then return "project_payment_status = 'Finished Payment'"
     when "22" then return "project_payment_status = 'Finished Payment' and status = 'In Release'"
     when "23" then return "#{@payment_status_filter}"
     when "24" then return "#{@payment_status_filter}"
-    else return "#{@payment_status_filter} and #{@green_light_filter}"
+    when "25" then return "project_payment_status is null and yellow_light is NOT NULL"
+    else return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
     end
   end
 
@@ -459,6 +462,7 @@ class Project < ActiveRecord::Base
     when "22" then return "fully_funded_time DESC"
     when "23" then return "daily_percent_move DESC"
     when "24" then return "daily_percent_move"
+    when "25" then return "yellow_light DESC"
     else return "created_at DESC"
     end
   end
@@ -724,6 +728,7 @@ class Project < ActiveRecord::Base
   end
 
   def validate
+    validate_yellow_light_fields
     validate_green_light_fields
     errors.add(:share_percent_ads_producer, "must be between 0% - 100%") if share_percent_ads_producer && (share_percent_ads_producer < 0 || share_percent_ads_producer > 100)
     errors.add(:share_percent_ads, "must be 0% if producer % is 0") if share_percent_ads_producer && share_percent_ads_producer == 0 && share_percent_ads > 0
@@ -732,6 +737,17 @@ class Project < ActiveRecord::Base
     errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
     errors.add(:symbol, "must be 5 characters long") if symbol && !symbol.blank? && !(symbol=~/[0-9a-zA-Z]{5}/)
     logger.info "Validation Errors: #{errors_to_s}"
+  end
+  
+  def validate_yellow_light_fields
+    if yellow_light
+      #must not perform the change? check if the old val of the attribute was 0 due to some bug????
+
+      errors.add(:capital_required, "cannot be modified in yellow light stage, proper value was #{capital_required_was}") if capital_required_was != 0 && capital_required_changed?
+      errors.add(:share_percent_ads_producer, "cannot be modified in yellow light stage, proper value was #{share_percent_ads_producer_was}") if share_percent_ads_producer_was !=0 && share_percent_ads_producer_changed?
+      errors.add(:share_percent_ads, "cannot be modified in yellow light stage, proper value was #{share_percent_ads_was}") if share_percent_ads_was !=0 && share_percent_ads_changed?
+      errors.add(:producer_fee_percent, "cannot be modified in yellow light stage, proper value was #{producer_fee_percent_was}") if producer_fee_percent_was != 0 && producer_fee_percent_changed?
+    end
   end
 
   def validate_green_light_fields

@@ -1,5 +1,25 @@
 class NotificationsMailer < ActionMailer::Base
   
+  def my_yellow_light project, recipient
+    @subject        = "Yellow Light On Your Project!"
+    @recipients     = recipient
+    @body['project'] = project
+    @from           = MAILER_FROM_ADDRESS
+    @sent_on        = Time.new
+    @headers        = {}
+    content_type "text/html"
+  end
+
+  def yellow_light project, recipient
+    @subject        = "Project Given Yellow Light on PMF!"
+    @recipients     = recipient
+    @body['project'] = project
+    @from           = MAILER_FROM_ADDRESS
+    @sent_on        = Time.new
+    @headers        = {}
+    content_type "text/html"
+  end
+  
   def my_green_light project, recipient
     @subject        = "Green Light On Your Project!"
     @recipients     = recipient

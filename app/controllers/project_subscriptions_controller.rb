@@ -86,6 +86,12 @@ class ProjectSubscriptionsController < ApplicationController
         flash[:error] = "As the owner of this project, you cannot cancel shares!"
         redirect_to project_path(@project) and return
       end
+      
+      #can't cancel at yellow light stage
+      if @project.yellow_light
+        flash[:error] = "You cannot cancel shares at the yellow light stage!"
+        redirect_to project_path(@project) and return
+      end
 
       #can't cancel at green light stage
       if @project.green_light

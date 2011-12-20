@@ -32,13 +32,21 @@ module ProjectsHelper
     end
   end
 
-  def green_light_link project
-    if @u && @u.is_admin && project.budget_reached_include_pmf? && !project.green_light
+  def yellow_light_link project
+    if @u && @u.is_admin && !project.yellow_light
       content_tag :div, :class => "left button" do
-        link_to("Give Green", {:action => "update_green_light", :id => project.id})
+        link_to("Give Yellow", {:action => "update_yellow_light", :id => project.id})
       end
     end
   end
+  
+#  def green_light_link project
+#    if @u && @u.is_admin && project.budget_reached_include_pmf? && !project.green_light
+#      content_tag :div, :class => "left button" do
+#        link_to("Give Green", {:action => "update_green_light", :id => project.id})
+#      end
+#    end
+#  end
 
   def follow_project_link project
     content_tag :div, :class => "left" do

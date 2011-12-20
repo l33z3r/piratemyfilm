@@ -26,12 +26,21 @@
     <div class="pmf_clear">&nbsp;</div>
 
     <% if !project.finished_payment_collection %>
-      <div class="green_light">
-        Green Light:
-        <span class="<%= project.green_light ? "on" : "off" %>">
-          <%= project.green_light ? "On" : "Off" %>
-        </span>
-      </div>
+      <% if project.yellow_light and !project.green_light %>
+        <div class="yellow_light">
+          Yellow Light:
+          <span class="on">
+            On
+          </span>
+        </div>
+      <% else %>
+        <div class="green_light">
+          Green Light:
+          <span class="<%= project.green_light ? "on" : "off" %>">
+            <%= project.green_light ? "On" : "Off" %>
+          </span>
+        </div>
+      <% end %>
     <% end %>
 
   </div>
@@ -49,7 +58,7 @@
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
-    
+
     <div class="user_info">
       <div class="owned_by_text">Owned By</div>
       <div class="user_icon">

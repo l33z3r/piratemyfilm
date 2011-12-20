@@ -904,6 +904,32 @@ div#project_show div.project_top div.project_icon div.follow_button div.button_s
     width: 85px;
 }
 
+div#project_show div.project_top div.yellow_light {
+    font-weight: bold;
+    float: right;
+    margin-right: 10px;
+    margin-top: 20px;
+    font-size: 15px;
+    color: #000;
+}
+
+div#project_show div.project_top div.yellow_light span.off {
+    color: red;
+}
+
+div#project_show div.project_top div.yellow_light span.on {
+    color: yellow;
+}
+
+div#project_show div.project_top div.yellow_light {
+    font-weight: bold;
+    float: right;
+    margin-right: 10px;
+    margin-top: 20px;
+    font-size: 15px;
+    color: #000;
+}
+
 div#project_show div.project_top div.green_light {
     font-weight: bold;
     float: right;
@@ -1217,6 +1243,24 @@ div.project_mini_view div.project_icon div.follow_button {
 
 div.project_mini_view div.project_icon div.follow_button div.button_small {
     width: 60px;
+}
+
+div.project_mini_view div.yellow_light {
+    font-weight: bold;
+    float: right;
+    margin-right: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #000;
+}
+
+div.project_mini_view div.yellow_light span.off {
+    color: red;
+}
+
+div.project_mini_view div.yellow_light span.on {
+    color: yellow;
 }
 
 div.project_mini_view div.green_light {
