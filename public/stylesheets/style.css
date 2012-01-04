@@ -2254,10 +2254,42 @@ form	{
     float: left;
 }
 
-div#ad_banner {
+div#top_banner_container {
     text-align: center;
-    padding: 15px 0px;
     background: #000;
+}
+
+div#top_banner_container div#ad_banner_container {
+    width: 960px;
+    margin: auto;
+}
+
+div#top_banner_container div#ad_banner_container div#ad_banner {
+    float: left;
+    padding: 15px 0px;
+}
+
+div#top_banner_container div#ad_banner_container div#site_stats {
+    width: 210px;
+    text-align: left;
+    float: left;
+    color: #FFF;
+    padding: 10px;
+}
+
+div#top_banner_container div#ad_banner_container div#site_stats div.stat {
+    float: left;
+    color: #FFF;
+    font-weight: bold;
+    padding: 4px;
+}
+
+div#top_banner_container div#ad_banner_container div#site_stats div.stat.more {
+    float: right;
+}
+
+div#top_banner_container div#ad_banner_container div#site_stats div.stat.more a {
+    color: #FFF;
 }
 
 div#footer_ad_banner {

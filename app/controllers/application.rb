@@ -118,6 +118,18 @@ class ApplicationController < ActionController::Base
   end
 
   def load_sitewide_vars
+    @total_reservations_amount = ProjectSubscription.sum(:amount) * 5
+    
+    @total_reservations = Project.find_all_public.size
+    
+    @total_budget = Project.find_all_public.sum(&:capital_required)
+    
+    @total_funds_needed = @total_budget
+    
+    @total_funded_amount = Project.all_funded_amount
+    
+    @num_funded_projects = Project.all_funded.size
+
     @projects_awaiting_payment_count = @u ? @u.subscribed_projects_awaiting_payment.size : 0
   end
 
