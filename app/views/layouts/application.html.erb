@@ -20,27 +20,30 @@
 
     <div id="top_banner_container">
       <div id="ad_banner_container">
-        <div id="ad_banner">
-          <script language="JavaScript" type="text/javascript">;
-            document.write('<script language="JavaScript" src="http://ad.doubleclick.net/adj/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;dcopt=ist;sz=728x90;ord=' + ord + '?" type="text/javascript"><\/script>');
-          </script><noscript><a href="http://ad.doubleclick.net/jump/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;sz=728x90;ord=123456789?" target="_blank"><img src="http://ad.doubleclick.net/ad/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;sz=728x90;ord=123456789?" width="728" height="90" border="0" alt=""></a></noscript>
-        </div>
-
         <div id="site_stats">
           <div class="stat">
-            <b><%= print_money @total_reservations_amount %></b>
+            <%= print_money @total_reservations_amount %>
             Reserved In
-            <b><%= @total_reservations %></b> Projects
-            Seeking <b><%= print_money @total_funds_needed %></b>
+            <%= @total_reservations %></b> Projects
+            Seeking <%= print_money @total_funds_needed %>
           </div>
           <div class="stat">
-            <b><%= print_money @total_funded_amount %></b>
+            <%= print_money @total_funded_amount %>
             In Funds Have Been Raised For
-            <b><%= pluralize @num_funded_projects, "Project" %></b>
+            <%= pluralize @num_funded_projects, "Project" %>
+          </div>
+          <div class="stat">
+            $0 dividends paid out to 0 projects 
           </div>
           <div class="stat more">
             <a href="/pages/stats">More Stats</a>
           </div>
+        </div>
+
+        <div id="ad_banner">
+          <script language="JavaScript" type="text/javascript">;
+            document.write('<script language="JavaScript" src="http://ad.doubleclick.net/adj/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;dcopt=ist;sz=728x90;ord=' + ord + '?" type="text/javascript"><\/script>');
+          </script><noscript><a href="http://ad.doubleclick.net/jump/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;sz=728x90;ord=123456789?" target="_blank"><img src="http://ad.doubleclick.net/ad/invc.maxkeiser/piratemyfilm_default;kw=;kval=piratemyfilm;kval=default;tile=1;sz=728x90;ord=123456789?" width="728" height="90" border="0" alt=""></a></noscript>
         </div>
 
         <div class="pmf_clear">&nbsp;</div>

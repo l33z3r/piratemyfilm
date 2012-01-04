@@ -173,7 +173,7 @@ class Blog < ActiveRecord::Base
     find(:all, :include => :project, :conditions => "(blogs.project_id is not null and projects.is_deleted = false)
         and projects.id in (#{@project_ids.join(",")})", :order => "blogs.created_at desc")
   end
-  
+    
   #mkc blogs
   def self.mkc_blogs
     find(:all, :conditions => "guid IS NOT NULL", :order => "created_at DESC")

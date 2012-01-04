@@ -370,7 +370,7 @@ module ApplicationHelper
     end
     
     #hotlink the urls
-    @blog_body = blog.body.gsub( /http:\/\/bit.ly\/\w+/) do |url|
+    @blog_body = @blog_body.gsub( /http:\/\/bit.ly\/\w+/) do |url|
       link_to url, url, :target => "_blank"
     end
     

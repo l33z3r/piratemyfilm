@@ -2270,22 +2270,24 @@ div#top_banner_container div#ad_banner_container div#ad_banner {
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats {
-    width: 210px;
+    width: 220px;
     text-align: left;
     float: left;
     color: #FFF;
-    padding: 10px;
+    padding: 5px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats div.stat {
     float: left;
     color: #FFF;
     font-weight: bold;
-    padding: 4px;
+    padding: 2px;
+    font-size: 11px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats div.stat.more {
     float: right;
+    margin-top: 4px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats div.stat.more a {
@@ -2816,8 +2818,8 @@ div#new_project_button {
 
 div#skull_bullet_links {
     float: left;
-    margin-left: 10px;
-    margin-top: -2px;
+    margin-left: 14px;
+    margin-top: 5px;
     width: 140px;
 }
 

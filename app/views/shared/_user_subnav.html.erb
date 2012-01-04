@@ -5,7 +5,7 @@
     </div>
 
     <div class="link member_updates <%= (@selected_user_subnav_link == "my_mentions" ? "selected" : "") %>">
-      <%= link_to "@Mentions", :controller => :blogs, :action => "my_mentions" %>
+      <%= link_to "@#{@u.login}", :controller => :blogs, :action => "my_mentions" %>
     </div>
 
     <div class="link project_updates <%= (@selected_user_subnav_link == "my_project_blogs" ? "selected" : "") %>">
