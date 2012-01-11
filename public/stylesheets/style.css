@@ -3114,6 +3114,11 @@ div.blog div.blog_left div.info div.blog_title a {
     color: #000000;
 }
 
+div.admin_blog div.blog_left div.info div.blog_body {
+    width: 500px;
+    float: left;
+}
+
 div.blog div.blog_left div.info div.blog_body {
     margin-top: 6px;
     min-height: 30px;
