@@ -10,7 +10,9 @@ class UserTalent < ActiveRecord::Base
     3 => "exec_producer",
     4 => "director_photography",
     5 => "editor",
-    6 => "producer"}
+    6 => "producer",
+    7 => "actor"
+  }
   
   @@TALENT_TYPE_NAMES_MAP = {
     1 => "Director",
@@ -18,7 +20,9 @@ class UserTalent < ActiveRecord::Base
     3 => "Executive Producer",
     4 => "DOP",
     5 => "Editor",
-    6 => "Producer"}
+    6 => "Producer",
+    7 => "Actor"
+  }
 
   validates_inclusion_of :talent_type, :in => @@TALENT_TYPES_MAP.values
 

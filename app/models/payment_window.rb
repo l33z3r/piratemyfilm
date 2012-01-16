@@ -191,7 +191,7 @@ class PaymentWindow < ActiveRecord::Base
     @payment_window = PaymentWindow.new()
 
     @payment_window.project_id = @project.id
-    @payment_window.close_date = Date.today + 3
+    @payment_window.close_date = Date.today + 2
     @payment_window.paypal_email = @project.paypal_email
     @payment_window.status = "Active"
     @payment_window.project_id = @project.id

@@ -1,27 +1,20 @@
-<div class="blog-row blog">
+<div class="blog-row blog project_comment">
 
-  <div class="blog_left project_comment">
+  <div class="blog_left">
     <div class="icon">
       <%= link_to image_tag("/images/pmf_fund_avatar.png"), profile_path(PMF_FUND_ACCOUNT_ID) %>
-      <div class="follow_button">
-        <%= follow_project_button_small project_comment.project %>
-      </div>
     </div>
     <div class="info">
-      <div class="blog_type">
+      <div class="blog_link">
         <b><%= link_to "PMF Fund Comment", :controller => "project_comments", :action => "latest" %></b> on project
       </div>
-      <div class="user_info">
-        <div class="user_icon">
-          <%= link_to project_icon(project_comment.project, :small), project_path(project_comment.project) %>
+      <div class="project_info">
+        <div class="project_title">
+          <%= link_to awesome_truncate(project_comment.project.title, 50), project_path(project_comment.project) %>:
         </div>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
-
-      <div class="project_title">
-        <%= link_to awesome_truncate(project_comment.project.title, 50), project_path(project_comment.project) %>:
-      </div>
 
       <div class="blog_body">
         <%= link_to h(project_comment.body), :controller => "project_comments", :action => "show", :id => project_comment.id %>

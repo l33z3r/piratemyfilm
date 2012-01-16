@@ -3,13 +3,15 @@
   <div class="blog_left">
     <div class="icon">
       <%= link_to image_tag("/images/big_p.png"), :action => "admin" %>
-      <div class="follow_button">
-        <%= follow_admin_blogs_button_small %>
-      </div>
     </div>
     <div class="info">
       <div class="blog_type">
-        <%= link_to "PMF Blog", :controller => "blogs", :action => "admin" %>
+        <div class="user_name">
+          <%= link_to "PMF Blog", :controller => "blogs", :action => "admin" %>
+        </div>
+        <div class="follow_button">
+          <%= follow_admin_blogs_button_small %>
+        </div>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
@@ -35,11 +37,6 @@
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
-
-    <!--div class="blog_comments_link">
-    <%= link_to "#{pluralize(blog.num_comments, "comment")}", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "comment_list" %> -
-    <%= link_to "Add comment", :controller => "blogs", :action => "show", :id => blog.id, :anchor => "add_comment" %>
-    </div-->
 
     <div class="pmf_clear">&nbsp;</div>
 

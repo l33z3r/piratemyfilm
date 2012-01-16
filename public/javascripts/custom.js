@@ -74,6 +74,23 @@ function removeTalent(pt_id, projectId) {
 //    ModalPopups.Close('talentSelectListContainer');
 //}
 
+var postInProgress = false;
+
+function doPostBuzz() {
+    if(postInProgress) {
+        alert("Please wait while your post is sent.");
+        return;
+    }
+    
+    if($('#blog_body').val().length == 0) {
+        alert("Please enter a buzz.");
+        return;
+    }
+    
+    postInProgress = true;
+    
+    $('#blog_form').submit();
+}
 function doBuzzCharCount(el) {
     var input = $(el).val();
     
@@ -115,7 +132,7 @@ function doBuzzCharCount(el) {
 function doRebuzz(blogId, confirm) {
     if(!loggedIn) {
         redirectToLogin();
-        return;
+        return false;
     }
     
     $.ajax({

@@ -2,11 +2,11 @@
 
   <div class="blog_left">
     <div class="icon">
-      <%= link_to image_tag("/images/big_p.png"), url_for(:only_path => false, :controller => "/blogs", :action => "admin") %>
+      <%= link_to image_tag("/images/big_p.png"), url_for(:only_path => false, :controller => "/blogs", :action => "show", :id => blog.id) %>
     </div>
     <div class="info">
       <div class="blog_type">
-        <%= link_to "PMF Blog", url_for(:only_path => false, :controller => "/blogs", :action => "admin") %>
+        <%= link_to "PMF Blog", url_for(:only_path => false, :controller => "/blogs", :action => "show", :id => blog.id) %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>

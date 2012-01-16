@@ -30,12 +30,12 @@
 
       <input type="hidden" id="blog_rebuzz_id" name="blog[blog_rebuzz_id]"/>
 
-      <div class="button_small" id="post_button" onclick="$('#blog_form').submit();">Post</div>
+      <div class="button_small" id="post_button" onclick="doPostBuzz()">Post</div>
 
       <div id="char_count">140</div>
 
       <div id="link_shorten_message">(links will be shortened)</div>
-      
+
       <% if @u.mkc_post_ability %>
         <div id="crosspost">
           <div class="input_container">

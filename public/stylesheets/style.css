@@ -2813,7 +2813,10 @@ div.TabView div.Pages div.Page div.Pad {
 
 div#new_project_button {
     float: left;
-    margin-top: 6px;
+}
+
+div#new_project_button img {
+    height: 42px;
 }
 
 div#skull_bullet_links {
@@ -2906,6 +2909,32 @@ div.project_listings .blog-row {
     background-color: #ffffff;
     border-bottom: 1px solid #999999;
 }
+
+/* project comments */
+
+div.project_comment div.info div.blog_link,
+div.project_rating div.info div.blog_link {
+    float: left;
+}
+
+div.project_rating div.blog_body,
+div.project_comment div.blog_body {
+    margin-left: 10px;
+}
+
+div.blog.project_rating div.blog_left div.info div.project_info,
+div.blog.project_comment div.blog_left div.info div.project_info {
+    width: 400px;
+}
+
+div.blog.project_rating div.blog_left div.info div.project_info div.project_title,
+div.blog.project_comment div.blog_left div.info div.project_info div.project_title {
+    float: left;
+    margin-top: 1px;
+    font-size: 14px;
+}
+
+/* project comments */
 
 /* blogs */
 

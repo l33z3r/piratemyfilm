@@ -1,27 +1,20 @@
-<div class="blog-row blog">
+<div class="blog-row blog project_rating">
 
-  <div class="blog_left project_rating">
+  <div class="blog_left">
     <div class="icon">
       <%= link_to image_tag("/images/pmf_fund_avatar.png"), profile_path(PMF_FUND_ACCOUNT_ID) %>
-      <div class="follow_button">
-        <%= follow_project_button_small admin_project_rating.project %>
-      </div>
     </div>
     <div class="info">
-      <div class="blog_type">
+      <div class="blog_link">
         <span>Project Rating Changed</span> for project
       </div>
-      <div class="user_info">
-        <div class="user_icon">
-          <%= link_to project_icon(admin_project_rating.project, :small), project_path(admin_project_rating.project) %>
+      <div class="project_info">
+        <div class="project_title">
+          <%= link_to awesome_truncate(admin_project_rating.project.title, 50), project_path(admin_project_rating.project) %>
         </div>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
-
-      <div class="project_title">
-        <%= link_to awesome_truncate(admin_project_rating.project.title, 50), project_path(admin_project_rating.project) %>:
-      </div>
 
       <div class="blog_body">
         <a href="<%= url_for :controller => "project_rating", :action => "pmf_rating", :pmf_rating_id => admin_project_rating.id %>">

@@ -71,6 +71,9 @@ class Project < ActiveRecord::Base
   
   has_many :project_followings
   
+  has_many :actor_project_talents, :class_name => "ProjectUserTalent",
+    :include => "user_talent", :conditions => "user_talents.talent_type = 'actor'", :dependent => :destroy
+  
   has_many :director_project_talents, :class_name => "ProjectUserTalent", 
     :include => "user_talent", :conditions => "user_talents.talent_type = 'director'", :dependent => :destroy
   

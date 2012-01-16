@@ -256,7 +256,7 @@
 
     <tr>
       <td>
-        Enter the name of the director
+        Enter the names of the directors
       </td>
       <td>
         <%= f.text_field :director, :id => "director_name" %>
@@ -280,10 +280,37 @@
         </div>
       </td>
     </tr>
+    
+    <tr>
+      <td>
+        Enter the names of the actors
+      </td>
+      <td>
+        <%= f.text_field :director, :id => "director_name" %>
+        <%= display_error_on(project, :director) -%>
+        <br/>
+        <div class="talent_select">
+          <% if project.actor_project_talents.size < UserTalent.max_talents_allowed %>
+            <div class="button_small left">
+              <%= link_to_remote "Select", :url => {:controller => "user_talents",
+                :action => "talent_select_list", 
+                :talent_filter_param => UserTalent.talent_types_map.invert["actor"],
+                :project_id => project.id} %>
+            </div>
+            <div class="talent_select_text">Or select members:</div>
+          <% end %>
+          <div id="actor_user_talent_container">
+            <% project.actor_project_talents.each do |dpt| %>
+              <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+            <% end %>
+          </div>
+        </div>
+      </td>
+    </tr>
 
     <tr>
       <td>
-        Enter the name of the executive producer
+        Enter the names of the executive producers
       </td>
       <td>
         <%= f.text_field :exec_producer, :id => "exec_producer_name" %>
@@ -310,7 +337,7 @@
 
     <tr>
       <td>
-        Enter the name of the writer
+        Enter the names of the writers
       </td>
       <td>
         <%= f.text_field :writer, :id => "writer_name" %>
@@ -337,7 +364,7 @@
 
     <tr>
       <td>
-        Enter the name of the editor
+        Enter the names of the editors
       </td>
       <td>
         <%= f.text_field :editor, :id => "editor_name" %>
@@ -364,7 +391,7 @@
 
     <tr>
       <td>
-        Enter the name of the DOP
+        Enter the names of the DOPs
       </td>
       <td>
         <%= f.text_field :director_photography, :id => "director_photography_name" %>

@@ -246,6 +246,15 @@ module ApplicationHelper
   end
 
   #helpers to display project talent
+  def actors_for project
+    if !project.actor_project_talents.empty?
+      content = wrap_talents project.actor_project_talents
+      return "#{content} #{h(project.producer_name)}"
+    else
+      return h(project.producer_name)
+    end
+  end
+  
   def producers_for project
     if !project.producer_project_talents.empty?
       content = wrap_talents project.producer_project_talents
@@ -366,9 +375,7 @@ module ApplicationHelper
 
     @body = awesome_truncate(@blog_body_content, @truncate_length)
 
-    if @blog_body_content.length > @truncate_length
-      @body += link_to "(More)", {:controller => "admin/admin_blogs", :action => "show", :id => blog.id}, :class => "more_link"
-    end
+    @body += link_to " (More)", {:controller => "blogs", :action => "show", :id => blog.id}, :class => "more_link"
     
     return @body
   end

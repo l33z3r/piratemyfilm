@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111220081122) do
+ActiveRecord::Schema.define(:version => 20120116150037) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -364,6 +364,7 @@ ActiveRecord::Schema.define(:version => 20111220081122) do
     t.integer  "daily_percent_move",                                                            :default => 0
     t.string   "paypal_email"
     t.datetime "yellow_light"
+    t.string   "actors"
   end
 
   create_table "sessions", :force => true do |t|

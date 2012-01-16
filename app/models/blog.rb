@@ -14,7 +14,7 @@ class Blog < ActiveRecord::Base
   belongs_to :blog_rebuzz, :class_name => "Blog"
   
   after_save :create_blog_user_mentions
-  before_save :shorten_urls
+  before_save :parse_urls
   
   def num_comments
     if is_mkc_blog
@@ -227,7 +227,7 @@ class Blog < ActiveRecord::Base
     end
   end
   
-  def shorten_urls
+  def parse_urls
     return if blog_rebuzz_id
     
     @shortened_urls = {}
@@ -236,7 +236,19 @@ class Blog < ActiveRecord::Base
     #this also deals with urls that are already bitly shortened
     URI.extract(body).each do |url|
       begin
-        @shortened_urls[url] = BITLY.shorten(url).short_url
+        if url.starts_with? "http://www.youtube.com/watch?v="
+          #replace with an embed
+          @vid_id = url[31..url.length-1]
+          
+          @vid_embed_html = "<iframe align='center' width='500' height='300'
+                    src='http://www.youtube.com/embed/#{@vid_id}'
+                    frameborder='0'>
+            </iframe>"
+          
+          body.gsub!(url, @vid_embed_html)
+        else
+          @shortened_urls[url] = BITLY.shorten(url).short_url
+        end
       rescue 
       end
     end
