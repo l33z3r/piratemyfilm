@@ -76,7 +76,7 @@ class PaymentWindow < ActiveRecord::Base
     @payment_window = @project.current_payment_window
     
     #is this project ready for green light
-    if @project.yellow_light and @project.yellow_light < 24.hours.ago
+    if !@project.green_light and @project.yellow_light and @project.yellow_light < 24.hours.ago
       PaymentWindow.create_for_project @project      
       @project.green_light = Time.now    
       @project.save!
