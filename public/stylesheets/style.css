@@ -4127,7 +4127,8 @@ div.project_listings_widget div.project_mini_view div.project_stats {
 }
 
 div.project_listings_widget div.project_mini_view div.project_stats div.funds_needed,
-div.project_listings_widget div.project_mini_view div.project_stats div.percent_funded {
+div.project_listings_widget div.project_mini_view div.project_stats div.percent_funded,
+div.project_listings_widget div.project_mini_view div.project_stats div.percent_change {
     font-size: 13px;
 }
 

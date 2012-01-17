@@ -74,7 +74,12 @@
                   </div>
                   <div class="percent_funded">
                     <span><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</span> funded
-                    <%= funding_change_display project.percent_move_since_last_change_info %>
+                  </div>
+                  <div class="percent_change">
+                    <span><%= funding_change_display project.daily_percent_move %> (Yesterday)</span>
+                  </div>
+                  <div class="percent_change">
+                    <span><%= funding_change_display project.percent_move_since_last_change_info %> (Today)</span>
                   </div>
                 </div>
               </div>

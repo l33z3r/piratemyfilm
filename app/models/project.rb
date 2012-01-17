@@ -717,7 +717,7 @@ class Project < ActiveRecord::Base
 
   def generate_symbol
     gen_symbol = title.downcase
-    gen_symbol = gen_symbol.gsub("and", "").gsub("the", "Ruby").gsub(" ", "")
+    gen_symbol = gen_symbol.gsub("and", "").gsub("the", "").gsub(" ", "").gsub(/\W/, "")
     gen_symbol = gen_symbol[0..4]
 
     while Project.find_by_symbol gen_symbol
