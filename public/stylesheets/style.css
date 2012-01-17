@@ -1826,7 +1826,7 @@ div#profile div#friend_info div#friend_link_container a {
 }
 
 div#profile div#user_talents {
-    
+
 }
 
 div#profile div#user_talents div#current_talents div.list div.talent_label,
@@ -2044,7 +2044,7 @@ div#blog_footer_links {
 }
 
 .navbar-search {
-    
+
 }
 
 .icatch-button	a {
@@ -2259,6 +2259,43 @@ div#top_banner_container {
     background: #000;
 }
 
+/*sopa-banner*/
+
+.sopa-banner	{
+    width: 960px;
+    height: 30px;
+    background: #fff;
+    color: #000;
+    text-align: center;
+}
+
+.sopa-banner span	{
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size:0.85em;
+    text-transform:uppercase;
+    margin:0 auto;
+}
+
+.sopa-banner span a	{
+    color: #C30;
+    text-decoration:underline;
+}
+
+.sopa-banner span a:hover	{
+    color: #C30;
+    text-decoration:underline;
+}
+
+.sopa-banner a.hiw_link {
+    display: inline-block;
+    color: #000;
+    margin-left: 10px;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+/*sopa-banner*/
+
 div#top_banner_container div#ad_banner_container {
     width: 960px;
     margin: auto;
@@ -2274,7 +2311,7 @@ div#top_banner_container div#ad_banner_container div#site_stats {
     text-align: left;
     float: left;
     color: #FFF;
-    padding: 5px;
+    padding: 10px 5px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats div.stat {
@@ -2822,7 +2859,7 @@ div#new_project_button img {
 div#skull_bullet_links {
     float: left;
     margin-left: 14px;
-    margin-top: 5px;
+    margin-top: 15px;
     width: 140px;
 }
 
