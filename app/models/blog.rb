@@ -238,7 +238,14 @@ class Blog < ActiveRecord::Base
       begin
         if url.starts_with? "http://www.youtube.com/watch?v="
           #replace with an embed
-          @vid_id = url[31..url.length-1]
+          
+          @vid_id_end_index = url.length-1
+          
+          if url.index("&", 31)
+            @vid_id_end_index = url.index("&", 31) - 1
+          end
+          
+          @vid_id = url[31..@vid_id_end_index]
           
           @vid_embed_html = "<iframe align='center' width='300' height='200'
                     src='http://www.youtube.com/embed/#{@vid_id}'
