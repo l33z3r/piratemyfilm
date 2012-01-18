@@ -236,7 +236,7 @@ class Blog < ActiveRecord::Base
     #this also deals with urls that are already bitly shortened
     URI.extract(body).each do |url|
       begin
-        if url.starts_with? "http://www.youtube.com/watch?v="
+        if url.starts_with? "http://www.youtube.com/watch?v=" or url.starts_with? "https://www.youtube.com/watch?v="
           #replace with an embed
           
           @vid_id_end_index = url.length-1
