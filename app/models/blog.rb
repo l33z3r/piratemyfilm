@@ -241,7 +241,7 @@ class Blog < ActiveRecord::Base
       begin
         if url.starts_with? @youtube_url_http or url.starts_with? @youtube_url_https
           #replace with an embed
-          @vid_id_start_index = url.starts_with? @youtube_url_http ? 31 : 32
+          @vid_id_start_index = url.starts_with?(@youtube_url_http) ? 31 : 32
           @vid_id_end_index = url.length-1
           
           
