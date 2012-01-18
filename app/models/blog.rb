@@ -232,20 +232,24 @@ class Blog < ActiveRecord::Base
     
     @shortened_urls = {}
     
+    @youtube_url_http = "http://www.youtube.com/watch?v="
+    @youtube_url_https = "https://www.youtube.com/watch?v="
+    
     #try to shorten the url, it may fail, but we dont care for now
     #this also deals with urls that are already bitly shortened
     URI.extract(body).each do |url|
       begin
-        if url.starts_with? "http://www.youtube.com/watch?v=" or url.starts_with? "https://www.youtube.com/watch?v="
+        if url.starts_with? @youtube_url_http or url.starts_with? @youtube_url_https
           #replace with an embed
-          
+          @vid_id_start_index = url.starts_with? @youtube_url_http ? 31 : 32
           @vid_id_end_index = url.length-1
           
-          if url.index("&", 31)
-            @vid_id_end_index = url.index("&", 31) - 1
+          
+          if url.index("&", @vid_id_start_index)
+            @vid_id_end_index = url.index("&", @vid_id_start_index) - 1
           end
           
-          @vid_id = url[31..@vid_id_end_index]
+          @vid_id = url[@vid_id_start_index..@vid_id_end_index]
           
           @vid_embed_html = "<iframe align='center' width='300' height='200'
                     src='http://www.youtube.com/embed/#{@vid_id}'
