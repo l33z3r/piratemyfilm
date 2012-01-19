@@ -14,7 +14,7 @@ config.action_controller.perform_caching             = true
 config.action_view.debug_rjs                         = true
 
 # needed for Avatar::Source::RailsAssetSource
-config.action_controller.asset_host                  = "http://localhost:3001" 
+config.action_controller.asset_host                  = "http://localhost:3009" 
 
 config.action_mailer.default_url_options = {:host => "localhost:3001"}
 

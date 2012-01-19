@@ -18,6 +18,13 @@
 
   <body onload="doInit();">
 
+    <div class="sopa-banner">
+      <span>
+        Get your films financed and distributed on MaxKeiser's legal piracy site PirateMyfilm.com using CrowdFunding & CreativeCommons
+        <a href="/static/how_it_works">HOW IT WORKS</a>
+      </span>
+    </div>
+
     <div id="top_banner_container">
       <div id="ad_banner_container">
         <div id="site_stats">
@@ -48,64 +55,54 @@
 
         <div class="pmf_clear">&nbsp;</div>
 
-        <!--anti-sopa banner-->
-        <div class="sopa-banner">
-          <span>
-            <strong>STOP SOPA/PIPA</strong>
-            All projects on PirateMyfilm are CreativeCommons licensed unless otherwise stipulated. </br>
-            Dividends are distributed to shareholders by project owners at their discretion. 
-            Read more at <a href="http://www.maxkeiser.com" target="_blank">maxkeiser.com</a>
-          </span>
-          <a class="hiw_link" href="/pages/how_it_works">How Piratemyfilm Works</a>
-          <!--/anti-sopa banner-->
-        </div>
       </div>
+    </div>
 
-      <div id="bg_wrapper">
-        <div id="site_wrapper">
+    <div id="bg_wrapper">
+      <div id="site_wrapper">
 
-          <div id="content_container">
-            <div id="stage">
-              <%= render :partial => 'shared/header' %>
+        <div id="content_container">
+          <div id="stage">
+            <%= render :partial => 'shared/header' %>
 
-              <div class="pmf_clear">&nbsp;</div>
+            <div class="pmf_clear">&nbsp;</div>
 
-              <div id="content">
+            <div id="content">
 
-                <div id="flashes">
-                  <%= show_default_flash -%>
-                </div>
-
-                <%= render :partial => "/shared/user_subnav" %>
-
-                <%= yield %>
-
+              <div id="flashes">
+                <%= show_default_flash -%>
               </div>
 
-              <div class="pmf_clear">&nbsp;</div>
+              <%= render :partial => "/shared/user_subnav" %>
 
-              <%= render :partial => 'shared/footer' %>
+              <%= yield %>
 
             </div>
 
             <div class="pmf_clear">&nbsp;</div>
 
-            <%= render :partial => "shared/footer_banner_ad" %>
+            <%= render :partial => 'shared/footer' %>
 
           </div>
 
-        </div>
+          <div class="pmf_clear">&nbsp;</div>
 
+          <%= render :partial => "shared/footer_banner_ad" %>
 
-        <div id="footer_scripts">
-          <%= render :partial => 'shared/footer_scripts' %>
         </div>
 
       </div>
 
-      <!-- IC Metric Beacon Code -->
-      <script src="http://cdn.investingchannel.com/ic_beacon.js" type="text/javascript"></script>
-      <script type="text/javascript"> icBeacon('piratemyfilm'); </script>
+
+      <div id="footer_scripts">
+        <%= render :partial => 'shared/footer_scripts' %>
+      </div>
+
+    </div>
+
+    <!-- IC Metric Beacon Code -->
+    <script src="http://cdn.investingchannel.com/ic_beacon.js" type="text/javascript"></script>
+    <script type="text/javascript"> icBeacon('piratemyfilm'); </script>
 
   </body>
 </html>

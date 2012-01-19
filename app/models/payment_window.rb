@@ -19,6 +19,16 @@ class PaymentWindow < ActiveRecord::Base
     status == "Active"
   end
   
+  def status_description
+    if status == "Active"
+      return "Active"
+    elsif status == "Successful"
+      return "Successful"
+    elsif status == "Failed"
+      return "Closed"
+    end
+  end
+  
   def amount_payment_collected
     @amount = 0
 
@@ -50,7 +60,11 @@ class PaymentWindow < ActiveRecord::Base
   end
 
   def all_payments_collected?
-    pending_payments.size == 0 && defaulted_payments.size == 0 && thrown_payments.size == 0 && reused_payments.size == 0
+    num_non_paid_payments == 0
+  end
+  
+  def num_non_paid_payments
+    pending_payments.size + defaulted_payments.size + thrown_payments.size + reused_payments.size
   end
 
   def total_share_amount
@@ -139,7 +153,7 @@ class PaymentWindow < ActiveRecord::Base
     @notify_emails_thrown = []
     @notify_emails_paid = []
 
-    #mark all payment_subscriptions to defaulted, that are not already marked as paid
+    #mark all payment_subscriptions to thrown, that are not already marked as paid
     @payment_window.subscription_payments.each do |payment|
       if payment.paid?
         @notify_emails_paid << payment.user.profile.email

@@ -59,6 +59,9 @@ class Project < ActiveRecord::Base
   has_many :pmf_fund_subscription_histories, :dependent => :destroy
 
   has_many :subscription_payments, :order => "created_at"
+  has_many :completed_payments, :class_name => 'SubscriptionPayment', :foreign_key => 'project_id', :conditions => "status = 'Paid'", :order => "created_at"
+  has_many :defaulted_payments, :class_name => 'SubscriptionPayment', :foreign_key => 'project_id', :conditions => "status = 'Defaulted'", :order => "created_at"
+  
   has_many :payment_windows
 
   has_one :pmf_share_buyout
@@ -711,6 +714,21 @@ class Project < ActiveRecord::Base
 
   def user_full_name
     owner.f
+  end
+  
+  def num_all_payment_users
+    @all_payment_user_ids = subscription_payments.collect(&:user_id).uniq
+    @all_payment_user_ids.size
+  end
+  
+  def num_completed_payment_users
+    @completed_payment_user_ids = completed_payments.collect(&:user_id).uniq
+    @completed_payment_user_ids.size
+  end
+  
+  def num_defaulted_payment_users
+    @defaulted_payment_user_ids = defaulted_payments.collect(&:user_id).uniq
+    @defaulted_payment_user_ids.size
   end
 
   protected

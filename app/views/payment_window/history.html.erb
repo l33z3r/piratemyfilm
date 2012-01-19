@@ -27,6 +27,13 @@
       Funds For This Project Have Been Collected In Full! Congratulations!
     </div>
 
+    <ul>
+      <li>
+        <%= @project.num_completed_payment_users %> people did not pay out of <%= @project.num_all_payment_users %> 
+        - these members are now marked 'plank' and will be at the end of the queue in subsequent offerings...
+      </li>
+    </ul>
+    
     <div class="pmf_clear">&nbsp;</div>
   <% else %>
 
@@ -107,13 +114,20 @@
 
     <div class="pmf_clear">&nbsp;</div>
 
+    <ul>
+      <li>
+        <%= @project.current_payment_window.num_non_paid_payments %>
+        payments have not been paid. These will be added to the back of the queue when the next window opens up.
+      </li>
+    </ul>
+
     <div id="active_window">
       <div class="window_header">
         <div class="window_id">Window ID</div>
-        <div class="window_opened_date">Window Open Date</div>
-        <div class="window_close_date">Window Close Date</div>
+        <div class="window_opened_date">Open Date</div>
+        <div class="window_close_date">Close Date</div>
         <div class="amount_collected">Amount Collected</div>
-        <div class="amount_defaulted">Amount Defaulted</div>
+        <div class="amount_defaulted">Amount Unpaid</div>
         <div class="window_status">Window Status</div>
         <div class="pmf_clear">&nbsp;</div>
       </div>
@@ -134,13 +148,15 @@
             <%= @current_payment_window.close_date.to_s(:short) %>
           </div>
           <div class="amount_collected">
+            <%= @current_payment_window.completed_payments.size %> payments:
             <%= print_money @current_payment_window.amount_payment_collected %>
           </div>
           <div class="amount_defaulted">
+            <%= @current_payment_window.num_non_paid_payments %> payments: 
             <%= print_money @current_payment_window.amount_defaulted_payment %>
           </div>
           <div class="window_status">
-            <%= @current_payment_window.status %>
+            <%= @current_payment_window.status_description %>
           </div>
           <div class="pmf_clear">&nbsp;</div>
         </div>
@@ -210,7 +226,7 @@
       <div class="window_opened_date">Open Date</div>
       <div class="window_close_date">Close Date</div>
       <div class="amount_collected">Amount Collected</div>
-      <div class="amount_defaulted">Amount Defaulted</div>
+      <div class="amount_defaulted">Amount Unpaid</div>
       <div class="window_status">Window Status</div>
       <div class="pmf_clear">&nbsp;</div>
     </div>
@@ -235,13 +251,15 @@
           <%= window.close_date.to_s(:short) %>
         </div>
         <div class="amount_collected">
+          <%= window.completed_payments.size %> payments: 
           <%= print_money window.amount_payment_collected %>
         </div>
         <div class="amount_defaulted">
+          <%= window.num_non_paid_payments %> payments: 
           <%= print_money window.amount_defaulted_payment %>
         </div>
         <div class="window_status">
-          <%= window.status %>
+          <%= window.status_description %>
         </div>
         <div class="pmf_clear">&nbsp;</div>
       </div>

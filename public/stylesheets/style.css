@@ -164,7 +164,7 @@ div#hp_latest_blog div.blog_comments_link {
 
 div#signup_section {
     float: right;
-    height: 65px;
+    width: 255px;
 }
 
 div#signup_section div#login_form_top div#fields {
@@ -277,6 +277,7 @@ div#signup_section div#welcome_message div#links div.awaiting_payment_link a {
 
 div#signup_section div#welcome_message div#links div.link {
     float: right;
+    text-align: right;
 }
 
 div#profile_links {
@@ -378,6 +379,11 @@ div#header_links ul li {
     font-weight: bold;
 }
 
+div#header_links div#dropdowns_container {
+    float: left;
+    margin-top: -5px;
+}
+
 div#header_links span.welcome_message {
     font-weight: bold;
 }
@@ -432,12 +438,8 @@ div#sub_nav {
 }
 
 div#filter_param_box {
-    height: 22px;
-    padding: 8px 8px 6px 8px;
-    float: right;
     color: #000000;
-    background: #ccc url(/images/local-nav-bg.png) top left repeat-x;
-    border-bottom: 1px solid #999999;
+    margin: 0px 12px;
 }
 
 div#filter_param_box div.label {
@@ -482,22 +484,12 @@ div#filter_talent_nav div#filter_param_box select {
 
 div.subnav_links {
     margin-top: 5px;
-    margin-left: 10px;
 }
 
 div.subnav_links div.link {
+    font-size: 15px;
     float: left;
-    margin-left: 6px;
-}
-
-div.subnav_links div.link.project_updates {
-    margin-left: 20px;
-    margin-right: 46px;
-}
-
-div.subnav_links div.link.member_updates {
-    margin-left: 30px;
-    margin-right: 40px;
+    margin-right: 20px;
 }
 
 div.subnav_links div.link a {
@@ -2263,8 +2255,9 @@ div#top_banner_container {
 
 .sopa-banner	{
     width: 960px;
-    height: 30px;
-    background: #fff;
+    height: 25px;
+    padding-top: 8px;
+    margin: auto;
     color: #000;
     text-align: center;
 }
@@ -2449,10 +2442,11 @@ div#site_wrapper div#content_container {
 }
 
 div#bg_wrapper {
-    background: #fff url(/images/body-bg-2.png) repeat-x;
+    
 }
 
 body	{
+    background: #fff url(/images/body-bg-2.png) repeat-x;
     font-size:0.8em;
     line-height:1.4em;
     font-family: "lucida grande", "tahoma", "arial", "sans-serif";
@@ -2533,7 +2527,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
     margin-top: 1px;
     display: block;
     text-align: left;
-    background: url(/images/content-bg.gif) repeat-x left top;
 }
 
 #content .takeAction {
@@ -2856,19 +2849,6 @@ div#new_project_button img {
     height: 42px;
 }
 
-div#skull_bullet_links {
-    float: left;
-    margin-left: 14px;
-    margin-top: 15px;
-    width: 140px;
-}
-
-div#skull_bullet_links img {
-    float: left;
-    margin-right: 5px;
-    margin-top: 2px;
-}
-
 div#new_project_button img {
     margin-left: 10px;
     border: 1px solid #CCC;
@@ -3186,6 +3166,7 @@ div.admin_blog div.blog_left div.info div.blog_body {
 }
 
 div.blog div.blog_left div.info div.blog_body {
+    max-width: 540px;
     margin-top: 6px;
     min-height: 30px;
     color: #000000;
@@ -4126,6 +4107,7 @@ div.project_listings_widget {
 div.project_listings_widget div.project_mini_view {
     padding: 7px;
     margin-top: 0px;
+    height: 150px;
 }
 
 div.project_listings_widget div.project_mini_view div.project_icon {

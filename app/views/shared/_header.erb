@@ -14,14 +14,24 @@
       </div>
     </a>
 
-    <div id="skull_bullet_links">
-      <%= image_tag "skull_bullet.png" %>
+    <div id="dropdowns_container">
+      <% if !@hide_filter_params %>
+        <div id="filter_projects_nav" class="right">
+          <%= render :partial => 'shared/filter_param_box' %>
+        </div>
 
-      <div class="link">
-        <%= link_to "Widget", project_widgets_path %>
-      </div>
+        <div class="pmf_clear">&nbsp;</div>
 
-      <div class="pmf_clear">&nbsp;</div>
+        <div id="filter_users_nav" class="right">
+          <%= render :partial => 'shared/filter_users_param_box' %>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+
+        <div id="filter_talent_nav" class="right">
+          <%= render :partial => 'shared/filter_talent_param_box' %>
+        </div>
+      <% end %>
     </div>
 
     <div id="global_search_container">
@@ -49,26 +59,6 @@
 <div id="icatch">
   <div class="icatch-pictures">
     <div class="left">
-
-      <% if !@hide_filter_params %>
-        <div id="filter_projects_nav" class="right">
-          <%= render :partial => 'shared/filter_param_box' %>
-        </div>
-
-        <div id="filter_users_nav" class="right">
-          <%= render :partial => 'shared/filter_users_param_box' %>
-        </div>
-
-      <% end %>
-
-    </div>
-
-    <div class="right">
-      <% if !@hide_filter_params %>
-        <div id="filter_talent_nav" class="right">
-          <%= render :partial => 'shared/filter_talent_param_box' %>
-        </div>
-      <% end %>
     </div>
   </div>
 
