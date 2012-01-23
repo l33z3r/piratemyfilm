@@ -7,14 +7,14 @@
       <span class="fund_image_comments_subnav">
         <%= link_to image_tag("skull_small.png", :size => "22x18"), latest_comments_path %>
       </span>
-      <%= link_to "PMF Fund", latest_comments_path %> -
+      <%= link_to "PMF Fund", latest_comments_path %>
     </div>
 
     <div class="link <%= (@selected_subnav_link == "pmf" ? "selected" : "") %>">
       <span class="fund_image_blog_subnav">
         <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), :action => "admin" %>
       </span>
-      <%= link_to "PMF Blog", :controller => "/blogs", :action => "admin" %> -
+      <%= link_to "PMF Blog", :controller => "/blogs", :action => "admin" %>
     </div>
 
     <div class="link <%= (@selected_subnav_link == "maxkeiser" ? "selected" : "") %>">
@@ -29,11 +29,17 @@
     <li><a href="/pages/contact_us">CONTACT US</a></li>
     <li><a href="/pages/about_us">ABOUT US</a></li>
     <li><a href="/pages/how_it_works">HOW IT WORKS</a></li>
-    <li><%= link_to "Get a Widget", project_widgets_path %></li>
     <li><a href="http://lovdbyless.com/" target="_blank">This Site Uses <i>LovdByLess</i></a></li>
   </ul>
 
   <div id="social_links">
+    <div class="widget-link">
+      <%= image_tag "skull_bullet.png" %>
+
+      <div class="link">
+        <%= link_to "Widget", project_widgets_path %>
+      </div>
+    </div>
     <div class="twitter-link">
       <%= link_to image_tag("twitter.gif", :size => "35x30"),
         "http://www.twitter.com/piratemyfilm",

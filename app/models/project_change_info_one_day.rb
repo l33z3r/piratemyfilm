@@ -105,7 +105,7 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
         @change_percent = 100
       end
     else
-      @change_percent = ((share_change.to_f/@last_night_share_amount) * 100).ceil
+      @change_percent = ((share_change.to_f.abs/@last_night_share_amount) * 100).ceil
     end
     
   end

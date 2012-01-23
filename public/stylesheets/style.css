@@ -357,7 +357,32 @@ div#header_links {
 
 div#social_links {
     float: right;
-    margin-top: -8px;
+    margin-top: 20px;
+}
+
+div#social_links div.widget-link {
+    float: left;
+    margin-right: 10px;
+    margin-top: 7px;
+}
+
+div#social_links div.widget-link img {
+    float: left;
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+div#social_links div.widget-link img {
+    float: left;
+    margin-top: 3px;
+    margin-right: 9px;
+}
+
+div#social_links div.widget-link div.link {
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 div#social_links div.twitter-link {
@@ -381,7 +406,7 @@ div#header_links ul li {
 
 div#header_links div#dropdowns_container {
     float: left;
-    margin-top: -5px;
+    margin-top: -3px;
 }
 
 div#header_links span.welcome_message {
@@ -461,20 +486,22 @@ div#filter_param_box form select {
 
 div#filter_projects_nav div#filter_param_box select {
     width: 135px;
-    font-size: 12px;
+    height: 16px;
+    font-size: 10px;
     cursor: pointer;
 }
 
 div#filter_users_nav div#filter_param_box select {
     width: 135px;
-    font-size: 12px;
+    height: 16px;
+    font-size: 10px;
     cursor: pointer;
 }
 
 div#filter_talent_nav div#filter_param_box select {
-    height: 20px;
     width: 135px;
-    font-size: 12px;
+    height: 16px;
+    font-size: 10px;
     cursor: pointer;
 }
 
@@ -487,7 +514,7 @@ div.subnav_links {
 }
 
 div.subnav_links div.link {
-    font-size: 15px;
+    font-size: 13px;
     float: left;
     margin-right: 20px;
 }
@@ -2255,8 +2282,8 @@ div#top_banner_container {
 
 .sopa-banner	{
     width: 960px;
-    height: 25px;
-    padding-top: 8px;
+    height: 18px;
+    padding-top: 4px;
     margin: auto;
     color: #000;
     text-align: center;
@@ -2296,7 +2323,7 @@ div#top_banner_container div#ad_banner_container {
 
 div#top_banner_container div#ad_banner_container div#ad_banner {
     float: left;
-    padding: 15px 0px;
+    padding: 3px 0px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats {
@@ -2304,7 +2331,7 @@ div#top_banner_container div#ad_banner_container div#site_stats {
     text-align: left;
     float: left;
     color: #FFF;
-    padding: 10px 5px;
+    padding: 0px 5px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats div.stat {
@@ -2317,7 +2344,6 @@ div#top_banner_container div#ad_banner_container div#site_stats div.stat {
 
 div#top_banner_container div#ad_banner_container div#site_stats div.stat.more {
     float: right;
-    margin-top: 4px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats div.stat.more a {
@@ -2523,8 +2549,6 @@ head:first-child+body .floatButtonFormat, head:first-child+body .pageFooter {	/*
 
 #content {
     clear: both;
-    padding-top: 9px;
-    margin-top: 1px;
     display: block;
     text-align: left;
 }
@@ -4310,7 +4334,7 @@ div#post_update_box {
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
-    width: 866px;
+    width: 858px;
     padding: 10px;
     margin-bottom: 10px;
     font-weight: bold;
