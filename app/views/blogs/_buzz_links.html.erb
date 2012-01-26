@@ -1,5 +1,5 @@
 <div class="buzz_links">
-  <% if blog.profile.id == @u.profile.id %>
+  <% if @u and (blog.profile.id == @u.profile.id) %>
     <div class="rebuzz button_small">
       <%= link_to "Delete", blog_path(blog), :method => :delete %>
     </div>
