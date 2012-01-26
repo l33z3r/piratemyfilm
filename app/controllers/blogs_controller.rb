@@ -2,7 +2,7 @@ class BlogsController < ApplicationController
   skip_before_filter :login_required, :only=> [:show, :index, :all_member_blogs, :admin, :mkc]
 
   before_filter :load_blog, :only => [:show, :edit, :update, :destroy]
-  before_filter :check_blog_permissions, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :check_blog_permissions, :only => [:new, :create, :edit, :update]
 
   #this is the global live project feed
   def index
@@ -147,9 +147,15 @@ class BlogsController < ApplicationController
   end
 
   def destroy
-    @blog.destroy
-    flash[:notice] = 'Blog post deleted.'
-    redirect_to :controller => "home"
+    #only allow delete if owner or admin
+    if @u.id == @blog.profile.user.id or @u.is_admin
+      @blog.destroy
+      flash[:notice] = 'Buzz Deleted.'
+      redirect_to :controller => "home"
+    else
+      flash[:error] = 'You have not got permission to do this.'
+      redirect_to :controller => "home"
+    end
   end
   
   def follow_admin_blogs

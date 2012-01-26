@@ -4340,6 +4340,10 @@ div#post_update_box {
     font-weight: bold;
 }
 
+div#post_update_box div.subnav_links {
+    margin-top: 0px;
+}
+
 div#post_update_box div#header {
     font-size: 15px;
     margin-bottom: 5px;

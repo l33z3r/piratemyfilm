@@ -59,7 +59,7 @@ project_link_action ||= "show"
   <div class="project_info">
     <div class="project_title">
       <%= link_to h(truncate(project.title, 30)), :controller => project_link_controller,
-        :action => project_link_action, :id => project %>
+        :action => project_link_action, :id => project %> <%= link_to h("(#{project.symbol})"), project_path(project), :title => "#{h project.title}"%>
     </div>
     <!--div class="edit_link">
     <%= small_view_edit_link project %>

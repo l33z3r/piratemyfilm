@@ -54,7 +54,7 @@
 
   <div class="project_info">
     <div class="project_title">
-      <%= h(project.title) %> 
+      <%= h(project.title) %> <%= link_to h("(#{project.symbol})"), project_path(project), :title => "#{h project.title}"%>
     </div>
 
     <div class="pmf_clear">&nbsp;</div>

@@ -5,7 +5,7 @@ var loadingImage = false;
 var loggedIn;
 
 function doInit() {
-    $("#content_container *").tooltip();
+    $("#content_container *").tooltip({showURL: false});
 
     //attach ajax loading images to elements
     $(document).ajaxStart(function() {
