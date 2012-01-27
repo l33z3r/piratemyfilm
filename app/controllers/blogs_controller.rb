@@ -153,7 +153,7 @@ class BlogsController < ApplicationController
       flash[:notice] = 'Buzz Deleted.'
       redirect_to :controller => "home"
     else
-      flash[:error] = 'You have not got permission to do this.'
+      flash[:error] = 'You do not have permission to do this.'
       redirect_to :controller => "home"
     end
   end
