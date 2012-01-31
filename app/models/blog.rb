@@ -2,7 +2,7 @@ class Blog < ActiveRecord::Base
   has_many :comments, :as => :commentable, :order => "created_at asc"
   belongs_to :profile
 
-  has_many :blog_user_mentions
+  has_many :blog_user_mentions, :dependent => :destroy
   
   belongs_to :project
 

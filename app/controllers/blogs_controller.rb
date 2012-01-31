@@ -116,7 +116,7 @@ class BlogsController < ApplicationController
       flash[:notice] = 'Your Buzz has been posted!'
       redirect_to :controller => "home", :action => "index"
     rescue ActiveRecord::RecordInvalid
-      flash[:error] = "Sorry, there was a problem creating your blog post"
+      flash[:error] = "Sorry, there was a problem creating your buzz"
       redirect_to :back
     end
   end
