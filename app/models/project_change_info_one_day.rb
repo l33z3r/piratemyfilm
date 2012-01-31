@@ -108,7 +108,11 @@ class ProjectChangeInfoOneDay < ActiveRecord::Base
       @abs_change_percent = ((share_change.to_f.abs/@last_night_share_amount) * 100).ceil
       
       #multiplying by this var will convert back to neg/pos
-      @neg_pos = share_change/share_change
+      if share_change == 0
+        @neg_pos = 1
+      else
+        @neg_pos = share_change/share_change
+      end
       
       #now convert back to neg/pos
       @change_percent = @abs_change_percent * @neg_pos
