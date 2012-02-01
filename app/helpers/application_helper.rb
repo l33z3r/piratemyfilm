@@ -226,11 +226,11 @@ module ApplicationHelper
 
   def project_icon_path project, size
     if project.icon.nil?
-      @img_path = "/images/generic-project-icon.png"
+      @img_path = "/images/generic_project_icon.png"
     else
       @img_path = url_for_image_column(project, "icon", size)
       if !@img_path
-        @img_path = "/images/generic-project-icon.png"
+        @img_path = "/images/generic_project_icon.png"
       end
     end
     
