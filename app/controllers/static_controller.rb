@@ -23,9 +23,6 @@ class StaticController < ApplicationController
 
     #top movers that used to be at the top of the site
     @top_sitewide_projects = ProjectChangeInfoOneDay.top_five_change_for_site
-    @top_sitewide_projects.each do |ci|
-      ci.percent_move
-    end
     @bottom_sitewide_projects = ProjectChangeInfoOneDay.bottom_five_change_for_site
 
     @projects_by_genre = []
