@@ -58,6 +58,18 @@ class PaymentWindow < ActiveRecord::Base
 
     @amount
   end
+  
+  def amount_non_paid_payment
+    @amount = 0
+
+    [pending_payments, defaulted_payments, thrown_payments, reused_payments].each do |payments|
+      payments.each do |sp|
+        @amount += (sp.share_amount * sp.share_price)
+      end
+    end
+
+    @amount
+  end
 
   def all_payments_collected?
     num_non_paid_payments == 0

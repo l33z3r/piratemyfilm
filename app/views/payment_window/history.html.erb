@@ -153,7 +153,7 @@
           </div>
           <div class="amount_defaulted">
             <%= @current_payment_window.num_non_paid_payments %> payments: 
-            <%= print_money @current_payment_window.amount_defaulted_payment %>
+            <%= print_money @current_payment_window.amount_non_paid_payment %>
           </div>
           <div class="window_status">
             <%= @current_payment_window.status_description %>
@@ -256,7 +256,7 @@
         </div>
         <div class="amount_defaulted">
           <%= window.num_non_paid_payments %> payments: 
-          <%= print_money window.amount_defaulted_payment %>
+          <%= print_money window.amount_non_paid_payment %>
         </div>
         <div class="window_status">
           <%= window.status_description %>

@@ -95,6 +95,66 @@ class ProjectsController < ApplicationController
       flash[:error] = "Cannot find subscription!"
       redirect_to project_path(@project) and return
     end
+    
+    
+    
+    
+    
+#    
+#    
+#    
+#    @secret = "thesecret"
+#    @posData = Digest::MD5.hexdigest(@secret + @ps.id.to_s)
+#    
+#    @orderID = @project.title
+#    @price = @ps.share_amount * @ps.share_price
+#    
+#    @currency = "BTC"
+#    
+#    @notificationURL = "http://url"
+#    @redirectURL = "http://url"
+#    
+#    @data = {
+#      :posData => @posData,
+#      :orderID => @orderID,
+#      :price => @price,
+#      :currency => @currency,
+#      :notificationURL => @notificationURL,
+#      :redirectURL => @redirectURL
+#    }
+#    
+#    @data_json = @data.to_json
+#    
+#    @bitpay_cert_pem = File.read("#{Rails.root}/public/certs/bit-pay.com.crt")
+#    
+#    @cert = OpenSSL::X509::Certificate.new(@bitpay_cert_pem)
+#    @data_der = OpenSSL::PKCS7::encrypt([@cert], @data_json, OpenSSL::Cipher::Cipher::new("DES3"), OpenSSL::PKCS7::BINARY).to_der
+#    
+#    @data_der_encode64 = Base64.encode64(@data_der)
+#    
+#    logger.info "!!!!!!!!#{@data_der_encode64}"
+#    
+#    @checkout_data = @data_der_encode64
+#    
+#    #posData, orderID, price, currency ("BTC" by default), notificationURL, and redirectURL
+#    
+#    
+#    
+#    
+#    
+#    
+#    
+#    
+#    
+#    
+#    
+#    
+    
+    
+    
+    
+    
+    
 
     @warn = true
 
@@ -104,9 +164,6 @@ class ProjectsController < ApplicationController
       @ps.status = "Pending"
       @ps.save!
     end
-
-    #load the paypal submission url
-    @paypal_url = CUSTOM_CONFIG['paypal_button_submission_url']
     
     perform_show
   end

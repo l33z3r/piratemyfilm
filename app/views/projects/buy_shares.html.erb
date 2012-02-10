@@ -1,3 +1,13 @@
+<!--form action="https://bit-pay.com/checkout" method="post">
+  <input type="hidden" name="action" value="checkout"/>
+  <input type="hidden" name="checkoutData" value="@checkout_data"/>
+  <input type="image" src="https://bit-pay.com/img/button5.png" border="0" name="submit" alt="Bit-pay, the easy way to pay with bitcoins.">
+</form-->
+
+
+
+
+
 <div class="pageTitle">Buying Shares</div>
 
 <div class="pageTitleSmall">
@@ -33,7 +43,7 @@
     At <b><%= print_money @ps.share_price %></b> per share,
     this will cost you <b><%= print_money @ps.payment_amount %></b>
   </li>
-  
+
   <li>Your payment number is <b>#<%= @ps.id %></b>. Please record this for future reference.</li>
 
   <li>    
