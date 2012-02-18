@@ -3,6 +3,9 @@ class BlogUserMention < ActiveRecord::Base
   belongs_to :blog
 end
 
+
+
+
 # == Schema Information
 #
 # Table name: blog_user_mentions

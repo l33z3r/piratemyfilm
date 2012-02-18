@@ -328,6 +328,9 @@ class Profile < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: profiles

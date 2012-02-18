@@ -74,6 +74,21 @@
       <%= display_error_on(project, :paypal_email) -%>
     </td>
   </tr>
+  
+  <tr>
+    <td>
+      OR Bitpay Email
+      <div class="pmf_clear">&nbsp;</div>
+      <span class="subtext">
+        Note: Enter an email address that you have a bitpay (<a target="_blank" href="http://www.bit-pay.com">www.bit-pay.com</a>) account linked to. 
+        It will be used by users to send share payments.
+      </span>
+    </td>
+    <td>
+      <%= f.text_field :bitpay_email %>
+      <%= display_error_on(project, :bitpay_email) -%>
+    </td>
+  </tr>
 
 </table>
 

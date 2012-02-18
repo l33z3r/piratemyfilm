@@ -45,6 +45,7 @@ class Project < ActiveRecord::Base
   validates_format_of :web_address, :with => URI::regexp(%w(http https)), :allow_blank => true
   
   validates_format_of :paypal_email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :allow_blank => true, :message => "Invalid email address."
+  validates_format_of :bitpay_email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :allow_blank => true, :message => "Invalid email address."
   
   acts_as_ferret :fields => [ :title, :synopsis, :description, 
     :user_login, :user_full_name, :director, :writer, :exec_producer,
@@ -757,6 +758,8 @@ class Project < ActiveRecord::Base
     errors.add(:producer_fee_percent, "must be between 0% - 100%") if producer_fee_percent && (producer_fee_percent < 0 || producer_fee_percent > 100)
     errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
     errors.add(:symbol, "must be 5 characters long") if symbol && !symbol.blank? && !(symbol=~/[0-9a-zA-Z]{5}/)
+    errors.add(:bitpay_email, "Can only choose either bitpay or paypal") if !bitpay_email.blank? and !paypal_email.blank?
+    errors.add(:paypal_email, "Can only choose either bitpay or paypal") if !bitpay_email.blank? and !paypal_email.blank?
     logger.info "Validation Errors: #{errors_to_s}"
   end
   
@@ -808,6 +811,9 @@ class Project < ActiveRecord::Base
   end
 
 end
+
+
+
 
 
 # == Schema Information
@@ -865,5 +871,8 @@ end
 #  main_video                       :string(255)
 #  daily_percent_move               :integer(4)      default(0)
 #  paypal_email                     :string(255)
+#  yellow_light                     :datetime
+#  actors                           :string(255)
+#  bitpay_email                     :string(255)
 #
 

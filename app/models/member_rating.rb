@@ -42,6 +42,9 @@ class MemberRating < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: member_ratings

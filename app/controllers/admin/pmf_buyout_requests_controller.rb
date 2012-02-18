@@ -9,6 +9,49 @@ class Admin::PmfBuyoutRequestsController < Admin::AdminController
 
     #load the paypal submission url
     @paypal_url = CUSTOM_CONFIG['paypal_button_submission_url']
+     
+    @checkoutDataMap = {}
+      
+    @open_requests.each do |orq|
+      if !orq.project.bitpay_email.blank?
+        @secret = BITPAY_SECRET
+        @posData = "#{orq.id},#{Digest::MD5.hexdigest(@secret + orq.id.to_s)}"
+    
+        @orderID = orq.project.title + " buyout request"
+        @price = 0.01#orq.payment_amount
+    
+        @currency = "BTC"
+    
+        @notificationURL = url_for(:controller => "/payment_window", :action => "bitpay_notify_buyout", :only_path => false)
+        @redirectURL = root_url
+    
+        @email = orq.project.bitpay_email
+    
+        @data = {
+          :email => @email,
+          :posData => @posData,
+          :orderID => @orderID,
+          :price => @price,
+          :currency => @currency,
+          :notificationURL => @notificationURL,
+          :redirectURL => @redirectURL
+        }
+    
+        @data_json = @data.to_json
+    
+        @bitpay_cert_pem = File.read("#{Rails.root}/public/certs/bit-pay.com.crt")
+    
+        @cert = OpenSSL::X509::Certificate.new(@bitpay_cert_pem)
+        @data_der = OpenSSL::PKCS7::encrypt([@cert], @data_json, OpenSSL::Cipher::Cipher::new("DES3"), OpenSSL::PKCS7::BINARY).to_der
+    
+        @data_der_encode64 = Base64.encode64(@data_der)
+    
+        @checkout_data = @data_der_encode64
+        
+        @checkoutDataMap[orq.id] = @checkout_data
+      end
+    end
+    
   end
 
   def accept

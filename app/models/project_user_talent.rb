@@ -6,6 +6,9 @@ class ProjectUserTalent < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: project_user_talents

@@ -7,6 +7,7 @@ development:
   wordpress_site_url: http://leefarrell.com/music
   wordpress_site_login_name: admin
   wordpress_site_login_pw: leefarrellmixes
+  bitpay_secret: awejtv98wutve
 
 test:
   #this profile id is actually the pmf fund user id (need to change the property name eventually)
@@ -17,6 +18,7 @@ test:
   wordpress_site_url: http://leefarrell.com/music
   wordpress_site_login_name: admin
   wordpress_site_login_pw: leefarrellmixes
+  bitpay_secret: awejtv98wutve
 
 production:
   #this profile id is actually the pmf fund user id (need to change the property name eventually)
@@ -27,4 +29,5 @@ production:
   wordpress_site_url: http://maxkeiser.com
   wordpress_site_login_name: maxkeiser
   wordpress_site_login_pw: h0llyw00d
+  bitpay_secret: awejtv98wutve
 

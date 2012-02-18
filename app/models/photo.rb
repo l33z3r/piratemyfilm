@@ -23,6 +23,9 @@ class Photo < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: photos

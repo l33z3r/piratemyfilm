@@ -79,6 +79,9 @@ class Friend < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: friends

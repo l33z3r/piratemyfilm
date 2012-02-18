@@ -88,6 +88,9 @@ class UserTalent < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: user_talents

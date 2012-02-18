@@ -7,6 +7,7 @@ class PaymentWindowTest < ActiveSupport::TestCase
   end
 end
 
+
 # == Schema Information
 #
 # Table name: payment_windows
@@ -18,5 +19,6 @@ end
 #  status       :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
+#  bitpay_email :string(255)
 #
 

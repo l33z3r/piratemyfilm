@@ -122,11 +122,13 @@
           <% elsif subscription_payment.reused? %>
             Reused
           <% else %>
-            <div class="left button">
-              <%= link_to "Mark As Paid",
-                {:action => "mark_payment", :id => subscription_payment.id, :marking => "paid"},
-                :confirm => "Are you sure?", :method => :post %>
-            </div>
+            <% if @project.bitpay_email.blank? %>
+              <div class="left button">
+                <%= link_to "Mark As Paid",
+                  {:action => "mark_payment", :id => subscription_payment.id, :marking => "paid"},
+                  :confirm => "Are you sure?", :method => :post %>
+              </div>
+            <% end %>
           <% end %>
         </div>
 

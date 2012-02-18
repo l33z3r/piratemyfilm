@@ -38,6 +38,9 @@ class SubscriptionPayment < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: subscription_payments
@@ -53,5 +56,6 @@ end
 #  updated_at           :datetime
 #  counts_as_warn_point :boolean(1)      default(FALSE)
 #  reused_by_payment_id :integer(4)
+#  bitpay_invoice_id    :string(255)
 #
 

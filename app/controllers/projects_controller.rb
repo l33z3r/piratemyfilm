@@ -96,65 +96,43 @@ class ProjectsController < ApplicationController
       redirect_to project_path(@project) and return
     end
     
+    if !@project.bitpay_email.blank?
+      @secret = BITPAY_SECRET
+      @posData = "#{@ps.id},#{Digest::MD5.hexdigest(@secret + @ps.id.to_s)}"
     
+      @orderID = @project.title
+      @price = 0.01#@ps.share_amount * @ps.share_price
     
+      @currency = "BTC"
     
+      @notificationURL = url_for(:controller => "payment_window", :action => "bitpay_notify", :only_path => false)
+      @redirectURL = root_url
     
-#    
-#    
-#    
-#    @secret = "thesecret"
-#    @posData = Digest::MD5.hexdigest(@secret + @ps.id.to_s)
-#    
-#    @orderID = @project.title
-#    @price = @ps.share_amount * @ps.share_price
-#    
-#    @currency = "BTC"
-#    
-#    @notificationURL = "http://url"
-#    @redirectURL = "http://url"
-#    
-#    @data = {
-#      :posData => @posData,
-#      :orderID => @orderID,
-#      :price => @price,
-#      :currency => @currency,
-#      :notificationURL => @notificationURL,
-#      :redirectURL => @redirectURL
-#    }
-#    
-#    @data_json = @data.to_json
-#    
-#    @bitpay_cert_pem = File.read("#{Rails.root}/public/certs/bit-pay.com.crt")
-#    
-#    @cert = OpenSSL::X509::Certificate.new(@bitpay_cert_pem)
-#    @data_der = OpenSSL::PKCS7::encrypt([@cert], @data_json, OpenSSL::Cipher::Cipher::new("DES3"), OpenSSL::PKCS7::BINARY).to_der
-#    
-#    @data_der_encode64 = Base64.encode64(@data_der)
-#    
-#    logger.info "!!!!!!!!#{@data_der_encode64}"
-#    
-#    @checkout_data = @data_der_encode64
-#    
-#    #posData, orderID, price, currency ("BTC" by default), notificationURL, and redirectURL
-#    
-#    
-#    
-#    
-#    
-#    
-#    
-#    
-#    
-#    
-#    
-#    
+      @email = @project.bitpay_email
     
+      @data = {
+        :email => @email,
+        :posData => @posData,
+        :orderID => @orderID,
+        :price => @price,
+        :currency => @currency,
+        :notificationURL => @notificationURL,
+        :redirectURL => @redirectURL
+      }
     
+      @data_json = @data.to_json
     
+      @bitpay_cert_pem = File.read("#{Rails.root}/public/certs/bit-pay.com.crt")
     
+      @cert = OpenSSL::X509::Certificate.new(@bitpay_cert_pem)
+      @data_der = OpenSSL::PKCS7::encrypt([@cert], @data_json, OpenSSL::Cipher::Cipher::new("DES3"), OpenSSL::PKCS7::BINARY).to_der
     
+      @data_der_encode64 = Base64.encode64(@data_der)
     
+      @checkout_data = @data_der_encode64
+    end
+    
+    @paypal_url = CUSTOM_CONFIG['paypal_button_submission_url']
 
     @warn = true
 
@@ -194,8 +172,8 @@ class ProjectsController < ApplicationController
       #we only allow granting of green light for now
       return if @project.yellow_light
     
-      if @project.paypal_email.blank?
-        flash[:error] = "User has not entered a paypal email address associated with their project!"
+      if @project.paypal_email.blank? and @project.bitpay_email.blank?
+        flash[:error] = "User has not entered a paypal or bitpay email address associated with their project!"
         redirect_to project_path(@project) and return
       end
 

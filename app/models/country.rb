@@ -31,6 +31,9 @@ class Country < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: countries

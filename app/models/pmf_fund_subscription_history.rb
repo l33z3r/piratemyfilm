@@ -24,6 +24,9 @@ class PmfFundSubscriptionHistory < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: pmf_fund_subscription_histories

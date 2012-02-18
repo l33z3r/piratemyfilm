@@ -10,6 +10,9 @@ class ProjectTest < ActiveSupport::TestCase
   
 end
 
+
+
+
 # == Schema Information
 #
 # Table name: projects
@@ -65,5 +68,8 @@ end
 #  main_video                       :string(255)
 #  daily_percent_move               :integer(4)      default(0)
 #  paypal_email                     :string(255)
+#  yellow_light                     :datetime
+#  actors                           :string(255)
+#  bitpay_email                     :string(255)
 #
 

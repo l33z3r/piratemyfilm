@@ -1,13 +1,3 @@
-<!--form action="https://bit-pay.com/checkout" method="post">
-  <input type="hidden" name="action" value="checkout"/>
-  <input type="hidden" name="checkoutData" value="@checkout_data"/>
-  <input type="image" src="https://bit-pay.com/img/button5.png" border="0" name="submit" alt="Bit-pay, the easy way to pay with bitcoins.">
-</form-->
-
-
-
-
-
 <div class="pageTitle">Buying Shares</div>
 
 <div class="pageTitleSmall">
@@ -34,53 +24,84 @@
 
 <div class="pmf_clear_10">&nbsp;</div>
 
-<ul>
-  <li>
-    You are about to pay for <b><%= @ps.share_amount %></b> shares held in this project via paypal.
-  </li>
+<% if !@project.bitpay_email.blank? %>
 
-  <li>
-    At <b><%= print_money @ps.share_price %></b> per share,
-    this will cost you <b><%= print_money @ps.payment_amount %></b>
-  </li>
+  <ul>
+    <li>
+      You are about to pay for <b><%= @ps.share_amount %></b> shares held in this project via bitpay.
+    </li>
 
-  <li>Your payment number is <b>#<%= @ps.id %></b>. Please record this for future reference.</li>
+    <li>
+      At <b><%= print_money @ps.share_price %></b> per share,
+      this will cost you <b><%= print_money @ps.payment_amount %></b>
+    </li>
 
-  <li>    
-    If you have already paid for these shares, please be aware that they payments may take a while to validate.
-    In this case, do not go through the payment process again.
-    You will receive an email when your payments have been verified.
-  </li>
+    <li>Your payment number is <b>#<%= @ps.id %></b>. Please record this for future reference.</li>
 
-  <li>
-    The producer will be sent a payment with your share ID's, and can validate them.
+    <li>    
+      Your payment will automatically be marked as paid, once bitpay process the payment.
+    </li>
+  </ul>
 
-    <div class="pmf_clear_10">&nbsp;</div>
+  <div class="pmf_clear_10">&nbsp;</div>
 
-    <form action="<%= @paypal_url %>" method="post">
-      <!-- Identify your business so that you can collect the payments. -->
-      <input type="hidden" name="business" value="<%= @ps.payment_window.paypal_email %>">
+  <form action="https://bit-pay.com/checkout" method="post">
+    <input type="hidden" name="action" value="checkout"/>
+    <input type="hidden" name="checkoutData" value="<%=@checkout_data%>"/>
+    <input type="image" src="https://bit-pay.com/img/button5.png" border="0" name="submit" alt="Bit-pay, the easy way to pay with bitcoins.">
+  </form>
 
-      <!-- Specify a Buy Now button. -->
-      <input type="hidden" name="cmd" value="_xclick">
+<% else %>
 
-      <!-- Specify details about the item that buyers will purchase. -->
-      <input type="hidden" name="item_name"
-             value="<%= @ps.share_amount %>
-             Shares in <%= h @project.title %> (ID:#<%= @project.id %>) on PMF">
-      <input type="hidden" name="amount" value="<%= @ps.share_amount * @ps.share_price %>">
-      <input type="hidden" name="currency_code" value="USD">
+  <ul>
+    <li>
+      You are about to pay for <b><%= @ps.share_amount %></b> shares held in this project via paypal.
+    </li>
 
-      <!-- pass the subscription_payment id for producer verification -->
-      <input type="hidden" name="item_number" value="<%= @ps.id %>">
+    <li>
+      At <b><%= print_money @ps.share_price %></b> per share,
+      this will cost you <b><%= print_money @ps.payment_amount %></b>
+    </li>
 
-      <!-- return to the project page -->
-      <input type="hidden" name="return" value="<%= project_url(@project) %>">
+    <li>Your payment number is <b>#<%= @ps.id %></b>. Please record this for future reference.</li>
 
-      <!-- Display the payment button. -->
-      <input type="image" name="submit" border="0" src="https://www.paypal.com/en_US/i/btn/btn_buynow_LG.gif"
-             alt="PayPal - The safer, easier way to pay online">
-      <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >
-    </form>
-  </li>
-</ul>
+    <li>    
+      If you have already paid for these shares, please be aware that they payments may take a while to validate.
+      In this case, do not go through the payment process again.
+      You will receive an email when your payments have been verified.
+    </li>
+
+    <li>
+      The producer will be sent a payment with your share ID's, and can validate them.
+
+      <div class="pmf_clear_10">&nbsp;</div>
+
+      <form action="<%= @paypal_url %>" method="post">
+        <!-- Identify your business so that you can collect the payments. -->
+        <input type="hidden" name="business" value="<%= @ps.payment_window.paypal_email %>">
+
+        <!-- Specify a Buy Now button. -->
+        <input type="hidden" name="cmd" value="_xclick">
+
+        <!-- Specify details about the item that buyers will purchase. -->
+        <input type="hidden" name="item_name"
+               value="<%= @ps.share_amount %>
+               Shares in <%= h @project.title %> (ID:#<%= @project.id %>) on PMF">
+        <input type="hidden" name="amount" value="<%= @ps.share_amount * @ps.share_price %>">
+        <input type="hidden" name="currency_code" value="USD">
+
+        <!-- pass the subscription_payment id for producer verification -->
+        <input type="hidden" name="item_number" value="<%= @ps.id %>">
+
+        <!-- return to the project page -->
+        <input type="hidden" name="return" value="<%= project_url(@project) %>">
+
+        <!-- Display the payment button. -->
+        <input type="image" name="submit" border="0" src="https://www.paypal.com/en_US/i/btn/btn_buynow_LG.gif"
+               alt="PayPal - The safer, easier way to pay online">
+        <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >
+      </form>
+    </li>
+  </ul>
+
+<% end %>

@@ -9,6 +9,9 @@ class FeedItem < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: feed_items

@@ -5,6 +5,9 @@ class BlogComment < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: blog_comments

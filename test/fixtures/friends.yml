@@ -13,6 +13,9 @@ third:
   status: <%= Friend::PENDING %>
 
 
+
+
+
 # == Schema Information
 #
 # Table name: friends

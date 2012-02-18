@@ -5,7 +5,7 @@
 <p>
   Below are a list of buyout requests from users who can not get full funding for their projects.
   You can accept/deny the requests using the buttons provided. If you accept the payment, you will be
-  able to transfer money to that producers paypal account by clicking the paypal button that will
+  able to transfer money to that producers paypal/bitpay account by clicking the buy button that will
   appear beside the accepted request.
 </p>
 
@@ -44,37 +44,45 @@
       <div class="status">
         <% if buyout_request.open? %>
           <%= link_to "Accept",
-              {:action => "accept", :id => buyout_request.project.id },
-              :confirm => "Are you sure?", :method => :post %> |
+            {:action => "accept", :id => buyout_request.project.id },
+            :confirm => "Are you sure?", :method => :post %> |
           <%= link_to "Deny",
-              {:action => "deny", :id => buyout_request.project.id },
-              :confirm => "Are you sure?", :method => :post %>
+            {:action => "deny", :id => buyout_request.project.id },
+            :confirm => "Are you sure?", :method => :post %>
         <% elsif buyout_request.pending? %>
-          <form action="<%= @paypal_url %>" method="post">
-            <!-- Identify your business so that you can collect the payments. -->
-            <input type="hidden" name="business" value="<%= buyout_request.project.last_window_paypal_email %>">
+          <% if buyout_request.project.bitpay_email.blank? %>
+            <form action="<%= @paypal_url %>" method="post">
+              <!-- Identify your business so that you can collect the payments. -->
+              <input type="hidden" name="business" value="<%= buyout_request.project.last_window_paypal_email %>">
 
-            <!-- Specify a Buy Now button. -->
-            <input type="hidden" name="cmd" value="_xclick">
+              <!-- Specify a Buy Now button. -->
+              <input type="hidden" name="cmd" value="_xclick">
 
-            <!-- Specify details about the item that buyers will purchase. -->
-            <input type="hidden" name="item_name"
-                   value="<%= buyout_request.share_amount %>
-                   Shares in <%= h buyout_request.project.title %> (ID:#<%= buyout_request.project.id %>) on PMF">
-            <input type="hidden" name="amount" value="<%= buyout_request.payment_amount %>">
-            <input type="hidden" name="currency_code" value="USD">
+              <!-- Specify details about the item that buyers will purchase. -->
+              <input type="hidden" name="item_name"
+                     value="<%= buyout_request.share_amount %>
+                     Shares in <%= h buyout_request.project.title %> (ID:#<%= buyout_request.project.id %>) on PMF">
+              <input type="hidden" name="amount" value="<%= buyout_request.payment_amount %>">
+              <input type="hidden" name="currency_code" value="USD">
 
-            <!-- pass the subscription_payment id for producer verification -->
-            <input type="hidden" name="item_number" value="<%= buyout_request.project.pmf_share_buyout_paypal_id %>">
+              <!-- pass the subscription_payment id for producer verification -->
+              <input type="hidden" name="item_number" value="<%= buyout_request.project.pmf_share_buyout_paypal_id %>">
 
-            <!-- return to the project page -->
-            <input type="hidden" name="return" value="<%= project_url(buyout_request.project) %>">
+              <!-- return to the project page -->
+              <input type="hidden" name="return" value="<%= project_url(buyout_request.project) %>">
 
-            <!-- Display the payment button. -->
-            <input type="image" name="submit" border="0" src="https://www.paypal.com/en_US/i/btn/btn_buynow_LG.gif"
-                   alt="PayPal - The safer, easier way to pay online">
-            <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >
-          </form>
+              <!-- Display the payment button. -->
+              <input type="image" name="submit" border="0" src="https://www.paypal.com/en_US/i/btn/btn_buynow_LG.gif"
+                     alt="PayPal - The safer, easier way to pay online">
+              <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" >
+            </form>
+          <% else %>
+            <form action="https://bit-pay.com/checkout" method="post">
+              <input type="hidden" name="action" value="checkout"/>
+              <input type="hidden" name="checkoutData" value="<%=@checkoutDataMap[buyout_request.id]%>"/>
+              <input type="image" src="https://bit-pay.com/img/button5.png" border="0" name="submit" alt="Bit-pay, the easy way to pay with bitcoins.">
+            </form>
+          <% end %>
         <% end %>
       </div>
 

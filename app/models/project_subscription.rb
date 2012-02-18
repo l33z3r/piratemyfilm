@@ -318,6 +318,9 @@ class ProjectSubscription < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: project_subscriptions

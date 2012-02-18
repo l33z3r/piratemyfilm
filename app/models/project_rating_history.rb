@@ -5,6 +5,9 @@ class ProjectRatingHistory < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: project_rating_histories

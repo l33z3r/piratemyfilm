@@ -10,9 +10,6 @@ class PaymentWindow < ActiveRecord::Base
   has_many :thrown_payments, :class_name => "SubscriptionPayment", :foreign_key => "payment_window_id", :conditions => "status = 'Thrown'"
   has_many :reused_payments, :class_name => "SubscriptionPayment", :foreign_key => "payment_window_id", :conditions => "status = 'Reused'"
 
-  validates_format_of :paypal_email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
-    :on => :create, :message=>"Invalid email address."
-
   @@PAYMENT_STATUSES = ["Active", "Successful", "Failed"]
 
   def open?
@@ -218,7 +215,13 @@ class PaymentWindow < ActiveRecord::Base
 
     @payment_window.project_id = @project.id
     @payment_window.close_date = Date.today + 2
-    @payment_window.paypal_email = @project.paypal_email
+    
+    if !@project.bitpay_email.blank?
+      @payment_window.bitpay_email = @project.bitpay_email
+    else
+      @payment_window.paypal_email = @project.paypal_email
+    end
+      
     @payment_window.status = "Active"
     @payment_window.project_id = @project.id
 
@@ -393,6 +396,9 @@ class PaymentWindow < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: payment_windows
@@ -404,5 +410,6 @@ end
 #  status       :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
+#  bitpay_email :string(255)
 #
 

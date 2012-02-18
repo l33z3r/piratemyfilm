@@ -33,7 +33,7 @@
         - these members are now marked 'plank' and will be at the end of the queue in subsequent offerings...
       </li>
     </ul>
-    
+
     <div class="pmf_clear">&nbsp;</div>
   <% else %>
 
@@ -49,39 +49,71 @@
 
   <% end %>
 
-  <div class="pageTitleSmall">
-    Payment Procedure Explanation
-  </div>
+  <% if @project.bitpay_email.blank? %>
+    <div class="pageTitleSmall">
+      Paypal Payment Procedure Explanation
+    </div>
 
-  <ol id="payment_procedure_explanation">
-    <li>Producer links their paypal email to their project</li>
-    <li>PMF Admin give the project a green light, which initiates the payment phase and opens the first payment window</li>
-    <li>Users get an email stating that they must now pay for their shares</li>
-    <li>User pays for his shares in the current window</li>
-    <li>Funds appear in the producers paypal account</li>
-    <li>
-      Using the "item number" that we pass to paypal, the producer matches up a users payment in paypal
-      with his associated payment in the payment window
-    </li>
-    <li>
-      The producer clicks "Mark as Paid" for each payment he receives
-    </li>
-    <li>
-      The payment window will automatically close on the due date, and all shares that have not been marked as paid for will be
-      thrown to the back of the queue and will be reused if needed. This gives users further down the queue a chance to pay for shares.
-    </li>
-    <li>
-      If funds are not fully collected in a particular window, and there are more users wanting shares,
-      the subsequent windows will allow these users to pay for their shares.
-    </li>
-    <li>
-      After 3 subsequent share windows, there will be a request sent to PMF admin to buy out the rest of the shares.
-    </li>
-    <li>
-      The project automatically gets bumped to "fully funded" once the final payment window closes successfully
-      (meaning all funds were collected in that window)
-    </li>
-  </ol>
+    <ol id="payment_procedure_explanation">
+      <li>Producer links their paypal email to their project</li>
+      <li>PMF Admin give the project a green light, which initiates the payment phase and opens the first payment window</li>
+      <li>Users get an email stating that they must now pay for their shares</li>
+      <li>User pays for his shares in the current window</li>
+      <li>Funds appear in the producers paypal account</li>
+      <li>
+        Using the "item number" that we pass to paypal, the producer matches up a users payment in paypal
+        with his associated payment in the payment window
+      </li>
+      <li>
+        The producer clicks "Mark as Paid" for each payment he receives
+      </li>
+      <li>
+        The payment window will automatically close on the due date, and all shares that have not been marked as paid for will be
+        thrown to the back of the queue and will be reused if needed. This gives users further down the queue a chance to pay for shares.
+      </li>
+      <li>
+        If funds are not fully collected in a particular window, and there are more users wanting shares,
+        the subsequent windows will allow these users to pay for their shares.
+      </li>
+      <li>
+        After 3 subsequent share windows, there will be a request sent to PMF admin to buy out the rest of the shares.
+      </li>
+      <li>
+        The project automatically gets bumped to "fully funded" once the final payment window closes successfully
+        (meaning all funds were collected in that window)
+      </li>
+    </ol>
+  <% else %>
+    <div class="pageTitleSmall">
+      Bitpay Payment Procedure Explanation
+    </div>
+
+    <ol id="payment_procedure_explanation">
+      <li>Producer links their bitpay email to their project</li>
+      <li>PMF Admin give the project a green light, which initiates the payment phase and opens the first payment window</li>
+      <li>Users get an email stating that they must now pay for their shares</li>
+      <li>User pays for his shares in the current window</li>
+      <li>Funds appear in the producers paypal account</li>
+      <li>
+        Shares are automatically marked as paid once bitpay gives us the callback.
+      </li>
+      <li>
+        The payment window will automatically close on the due date, and all shares that have not been marked as paid for will be
+        thrown to the back of the queue and will be reused if needed. This gives users further down the queue a chance to pay for shares.
+      </li>
+      <li>
+        If funds are not fully collected in a particular window, and there are more users wanting shares,
+        the subsequent windows will allow these users to pay for their shares.
+      </li>
+      <li>
+        After 3 subsequent share windows, there will be a request sent to PMF admin to buy out the rest of the shares.
+      </li>
+      <li>
+        The project automatically gets bumped to "fully funded" once the final payment window closes successfully
+        (meaning all funds were collected in that window)
+      </li>
+    </ol>
+  <% end %>
 
   <div class="pageTitleSmall">
     More Info
@@ -90,7 +122,7 @@
   <p>
     The following is a summary of the payment windows associated with this project.
     You can create a payment window, where users will be able to pay for their shares by depositing into
-    your paypal account. You will also see a list of previous windows.
+    either your paypal/bitpay account. You will also see a list of previous windows.
   </p>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -107,33 +139,34 @@
 
   <div class="pmf_clear_10">&nbsp;</div>
 
-  <% if @project.current_payment_window or (!@project.finished_payment_collection and !@project.share_queue_exhausted?) %>
+  <% if @current_payment_window and (!@project.finished_payment_collection and !@project.share_queue_exhausted?) %>
     <div class="pageTitleSmall">
       Currently Active Payment Window
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
 
-    <ul>
-      <li>
-        <%= @project.current_payment_window.num_non_paid_payments %>
-        payments have not been paid. These will be added to the back of the queue when the next window opens up.
-      </li>
-    </ul>
+    <% if @current_payment_window %>
+      <ul>
+        <li>
+          <%= @project.current_payment_window.num_non_paid_payments %>
+          payments have not been paid. These will be added to the back of the queue when the next window opens up.
+        </li>
+      </ul>
 
-    <div id="active_window">
-      <div class="window_header">
-        <div class="window_id">Window ID</div>
-        <div class="window_opened_date">Open Date</div>
-        <div class="window_close_date">Close Date</div>
-        <div class="amount_collected">Amount Collected</div>
-        <div class="amount_defaulted">Amount Unpaid</div>
-        <div class="window_status">Window Status</div>
+      <div id="active_window">
+        <div class="window_header">
+          <div class="window_id">Window ID</div>
+          <div class="window_opened_date">Open Date</div>
+          <div class="window_close_date">Close Date</div>
+          <div class="amount_collected">Amount Collected</div>
+          <div class="amount_defaulted">Amount Unpaid</div>
+          <div class="window_status">Window Status</div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+
         <div class="pmf_clear">&nbsp;</div>
-      </div>
-      <div class="pmf_clear">&nbsp;</div>
 
-      <% if @current_payment_window %>
         <div class="odd payment_window">
           <div class="window_id">
             <%= link_to @current_payment_window.id, :action => "show_current", :id => @project.id %>
@@ -196,15 +229,19 @@
         You previously sent a request to PMF to buy out <%= @project.amount_shares_outstanding_payment %> shares
         worth <%= print_money @project.amount_payment_outstanding %>.
       </p>
-      <p>
-        This request was accepted. You will receive a payment to your last registered paypal email address: <%= @project.last_window_paypal_email %>
-        with an item number of <b><%= @project.pmf_share_buyout_paypal_id %></b>. Once you have received the payment, click the button below to mark the payment
-        as paid. If you have any issues, you can <a href="/pages/contact_us">contact us</a>.
-      </p>
-      <div class="button left">
-        <%= link_to "Mark As Paid", {:action => "pmf_buyout_request_paid", :id => @project.id},
-          :method => :post, :confirm => "Are You Sure?" %>
-      </div>
+      <% if @project.bitpay_email.blank? %>
+        <p>
+          This request was accepted. You will receive a payment to your last registered paypal email address: <%= @project.last_window_paypal_email %>
+          with an item number of <b><%= @project.pmf_share_buyout_paypal_id %></b>. Once you have received the payment, click the button below to mark the payment
+          as paid. If you have any issues, you can <a href="/pages/contact_us">contact us</a>.
+        </p>
+        <div class="button left">
+          <%= link_to "Mark As Paid", {:action => "pmf_buyout_request_paid", :id => @project.id},
+            :method => :post, :confirm => "Are You Sure?" %>
+        </div>
+      <% else %>
+        <p>As soon as we receive notice from bitpay, these shares will be marked as paid.</p>
+      <% end %>
     <% elsif @project.pmf_share_buyout_denied? %>
       You previously sent a request to PMF to buy out <%= @project.amount_shares_outstanding_payment %> shares
       worth <%= print_money @project.amount_payment_outstanding %>.

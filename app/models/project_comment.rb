@@ -24,6 +24,9 @@ class ProjectComment < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: project_comments

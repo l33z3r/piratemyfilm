@@ -4,6 +4,9 @@ class ProjectFlagging < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: project_flaggings

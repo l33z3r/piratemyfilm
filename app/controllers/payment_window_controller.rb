@@ -1,195 +1,11 @@
 class PaymentWindowController < ApplicationController
-  before_filter :load_project, :except => ["mark_payment", "show"]
+  before_filter :load_project, :except => ["mark_payment", "show", "bitpay_notify", "bitpay_notify_buyout"]
 
   #we will manually check ownership in the mark_payment_paid action
-  before_filter :check_owner_or_admin, :except => ["mark_payment", "show"]
+  before_filter :check_owner_or_admin, :except => ["mark_payment", "show", "bitpay_notify", "bitpay_notify_buyout"]
+  skip_filter :login_required, :only => [:bitpay_notify, :bitpay_notify_buyout]
+  skip_before_filter :verify_authenticity_token, :only => [:bitpay_notify, :bitpay_notify_buyout]
   
-  #before_filter :check_allow_create_window, :only => ["new", "create"]
-  
-#  def new
-#    @payment_window = PaymentWindow.new
-#  end
-    
-#  def create
-#    @payment_window = PaymentWindow.new(params[:payment_window])
-#
-#    #make sure the date is in the future only on window creation
-#    if @payment_window.close_date <= (Date.today + 2)
-#      flash[:error] = "Payment Window closing date must be set to at least 2 days from now!"
-#      render :action => "new" and return
-#    end
-#
-#    @payment_window.status = "Active"
-#    @payment_window.project_id = @project.id
-#
-#    #create subscription payments using the share queue
-#    #create a hash indexed on user ids, to work out exactly what we need to create
-#    @user_subscription_array = {}
-#    @total_amount = @project.amount_payment_collected
-#    @project_share_price = @project.ipo_price
-#
-#    @previous_window_subscription_ids = []
-#      
-#    @project.share_queue.each do |subscription|
-#      
-#      break if @total_amount >= @project.capital_required
-#
-#      #if the subscription is defaulted it is carried over to the next payment window by default
-#      #if it is maked as dumped then we leave it behind
-#      if subscription.subscription_payment_id
-#        if subscription.subscription_payment.defaulted? and !@previous_window_subscription_ids.include? subscription.subscription_payment_id.to_s
-#          @previous_window_subscription_ids << subscription.subscription_payment_id.to_s
-#          @subscription_amount_dollar = subscription.subscription_payment.share_amount * @project_share_price
-#        else
-#          @subscription_amount_dollar = 0
-#        end
-#      else
-#        @subscription_amount_dollar = subscription.amount * @project_share_price
-#        
-#        #do we need to split a users subscription amount?
-#        if @total_amount + @subscription_amount_dollar > @project.capital_required
-#          @over_amount_dollar = (@total_amount + @subscription_amount_dollar) - @project.capital_required
-#          @over_amount = @over_amount_dollar / @project.ipo_price
-#          @actual_amount = subscription.amount
-#          @available_amount = @actual_amount - @over_amount
-#
-#          #we must split this subscription into @over_amount and @available_amount
-#          subscription.amount = @available_amount
-#          subscription.save!
-#
-#          @new_subscription = ProjectSubscription.create( :user => subscription.user,
-#            :project => subscription.project, :amount => @over_amount,
-#            :outstanding => true )
-#          @new_subscription.created_at = subscription.created_at
-#          @new_subscription.save!
-#
-#          @subscription_amount_dollar = @available_amount * @project.ipo_price
-#        end
-#
-#        if @user_subscription_array[subscription.user_id]
-#          @user_subscription_array[subscription.user_id][:share_amount] += subscription.amount
-#          @user_subscription_array[subscription.user_id][:subscription_ids] << subscription.id
-#        else
-#          @user_subscription_array[subscription.user_id] =
-#            {:share_price => @project_share_price, :share_amount => subscription.amount,
-#            :subscription_ids => [subscription.id]}
-#        end
-#      end
-#    
-#      @total_amount += @subscription_amount_dollar
-#    end
-#
-#    begin
-#      @payment_window.save!
-#    rescue ActiveRecord::RecordInvalid
-#      flash[:error] = "Error Creating Payment Window"
-#      render :action=>'new' and return
-#    end
-#
-#    @notify_emails = []
-#    
-#    #all failed payments from previous window are recorded and reused in this window
-#    @previous_window_subscription_ids.each do |subscription_payment_id|
-#      @sp = SubscriptionPayment.find subscription_payment_id
-#      
-#      #record a failed payment and reuse the payment in next window
-#      @new_sp = SubscriptionPayment.create({:payment_window_id => @payment_window.id, 
-#          :project_id => @sp.project_id, :user_id => @sp.user_id, 
-#          :share_amount => @sp.share_amount, :share_price => @sp.share_price,
-#          :status => "Open"})
-#      
-#      @notify_emails << @sp.user.profile.email
-#
-#      @sp.project_subscriptions.each do |project_subscription|
-#        project_subscription.subscription_payment_id = @new_sp.id
-#        project_subscription.save!
-#      end
-#    end
-#
-#    #create new subscription payments
-#    @user_subscription_array.each do |user_id, subscription_map|
-#      @user_share_amount = subscription_map[:share_amount]
-#      @user_share_price = subscription_map[:share_price]
-#
-#      @subscription_payment = SubscriptionPayment.create(:payment_window_id => @payment_window.id,
-#        :project_id => @project.id, :user_id => user_id, :share_amount => @user_share_amount,
-#        :share_price => @user_share_price, :status => "Open")
-#
-#      @notify_emails << @subscription_payment.user.profile.email
-#
-#      #link all the project_subscriptions to their associated subscription payment
-#      @project_subscription_ids = subscription_map[:subscription_ids]
-#
-#      @project_subscription_ids.each do |subscription_id|
-#        @subscription = ProjectSubscription.find(subscription_id)
-#        @subscription.subscription_payment_id = @subscription_payment.id
-#        @subscription.save!
-#      end
-#      
-#    end
-#    
-#    @project.project_payment_status = "In Payment"
-#    @project.save!
-#
-#    #email all users in this payment window
-#    @notify_emails.each do |email_address|
-#      begin
-#        PaymentsMailer.deliver_window_opened @payment_window, email_address
-#      rescue Exception
-#        logger.info "Error sending mail!"
-#      end
-#    end
-#    
-#    flash[:positive] = "Payment Window Created! Users will be notified that they must submit payment for their shares!"
-#    redirect_to :controller => "payment_window", :action => "show_current", :id => @project.id
-#  end
-
-#  def pmf_buyout_request
-#    #only allow post
-#    return unless request.post?
-#
-#    #must have green light
-#    if !@project.green_light
-#      flash[:error] = "Project has not been given green light by admin"
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#
-#    #has project already collected all funds
-#    if @project.finished_payment_collection
-#      flash[:error] = "All funds have already been collected for this project!"
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#
-#    #must not have window open already
-#    if @project.current_payment_window
-#      flash[:error] = "There is already an active payment window for this project!"
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#
-#    #is there a request pending
-#    if !@project.share_queue_exhausted?
-#      flash[:error] = "You cannot create this request as there are still users in the queue who will buy out your outstanding shares!"
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#
-#    if @project.pmf_share_buyout
-#      flash[:error] = "There is already a request created for this project. It will be dealt with shorlty!"
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#
-#    #if all conditions above are met... create the request!
-#    @pmf_share_buyout = PmfShareBuyout.create(:project => @project, :user => @project.owner,
-#      :share_amount => @project.amount_shares_outstanding_payment,
-#      :share_price => @project.ipo_price, :status => "Open")
-#
-#    #email pmf admin
-#    PaymentsMailer.deliver_buyout_request @pmf_share_buyout
-#
-#    flash[:positive] = "Your request has been created and will be dealt with shortly!"
-#    redirect_to :action => "history", :id => @project
-#
-#  end
-
   def pmf_buyout_request_paid
     #only allow post
     return unless request.post?
@@ -205,79 +21,6 @@ class PaymentWindowController < ApplicationController
     flash[:positive] = "Payment Confirmed!"
     redirect_to :action => "history", :id => @project
   end
-  
-#  def close
-#    #only allow post
-#    return unless request.post?
-#
-#    @payment_window = @project.current_payment_window
-#
-#    if !@payment_window
-#      flash[:error] = "There is no active payment window for this project!"
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#
-#    #payment window date must have elapsed
-#    if !@payment_window.all_payments_collected? && @payment_window.close_date > Date.today
-#      flash[:error] = "It has not passed the payment window close date, you must wait till then to close this window!"
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#    
-#    @notify_emails_defaulted = []
-#    @notify_emails_paid = []
-#
-#    #mark all payment_subscriptions to defaulted, that are not already marked as paid
-#    @payment_window.subscription_payments.each do |payment|
-#      if payment.paid?
-#        @notify_emails_paid << payment.user.profile.email
-#      elsif payment.dumped?
-#        @notify_emails_defaulted << payment.user.profile.email
-#        payment.counts_as_warn_point = true
-#        payment.save!
-#        
-#        payment.user.update_warn_points        
-#      else
-#        @notify_emails_defaulted << payment.user.profile.email
-#        payment.status = "Defaulted"
-#        payment.counts_as_warn_point = true
-#        payment.save!
-#
-#        payment.user.update_warn_points
-#      end
-#    end
-#
-#    #email all users in this payment window who defaulted on payment
-#    @notify_emails_defaulted.each do |email_address|
-#      begin
-#        PaymentsMailer.deliver_window_closed_payment_failed @payment_window, email_address
-#      rescue Exception
-#        logger.info "Error sending mail!"
-#      end
-#    end
-#
-#    #email all users in this payment window who succeeded in payment
-#    @notify_emails_paid.each do |email_address|
-#      begin
-#        PaymentsMailer.deliver_window_closed_payment_succeeded @payment_window, email_address
-#      rescue Exception
-#        logger.info "Error sending mail!"
-#      end
-#    end
-#    
-#    #if we have enough paid shares, mark the project as payment complete
-#    if @project.amount_payment_collected >= @project.capital_required
-#      @payment_window.status = "Successful"
-#      @project.mark_as_finished_payment
-#    else
-#      @payment_window.status = "Failed"
-#    end
-#
-#    @project.save!
-#    @payment_window.save!
-#
-#    flash[:positive] = "Payment Window Closed!"
-#    redirect_to :action => "history", :id => @project
-#  end
 
   def show
     begin
@@ -364,6 +107,175 @@ class PaymentWindowController < ApplicationController
     flash[:positive] = "Payment has been marked!"
     redirect_to :controller => "payment_window", :action => "show_current", :id => @subscription_payment.project.id
   end
+  
+  def bitpay_notify
+    #    action: 'invoiceStatus'
+    #    invoice_id: the bit-pay invoice id (that you see in the url for an invoice)
+    #      amount: the amount of the invoice
+    #      posData: the pos data you sent us in the encrypted checkoutData field
+    #      status: either "confirmed" or "complete"
+
+    BITPAY_CALLBACK_LOG.info "Received bitpay callback: " + params.inspect
+    
+    #only allow post
+    render :inline => "Only post allowed" and return unless request.post?
+    
+    #check the hash
+    @posData = params[:posData]
+    
+    @sp_id = @posData.split(",")[0]
+    @md5hash = @posData.split(",")[1]
+    
+    @secret = BITPAY_SECRET
+    @requiredMD5Hash = Digest::MD5.hexdigest(@secret + @sp_id.to_s)
+    
+    BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Comparing digest #{@requiredMD5Hash} to incoming: #{@md5hash}"
+    
+    if @md5hash.eql? @requiredMD5Hash
+      BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Digest match!"
+      
+      @sp = SubscriptionPayment.find_by_id(@sp_id)
+      
+      if !@sp
+        BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Cannot find subscription for id #{@sp_id}"
+        render :inline => "Cannot find subscription for id #{@sp_id}" and return
+      end
+      
+      @amount = params[:amount]
+      @required_amount = @sp.share_amount * @sp.share_price
+      
+      BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Comparing required amount #{@required_amount} to incoming amount #{@amount}"
+
+      if true#@amount.to_f == @required_amount
+        
+        BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Amount match!"
+        
+        @status = params[:status]
+        
+        if @status.eql? "confirmed" or @status.eql? "complete"
+          
+          BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Status OK!"
+          
+          @payment_window = @sp.payment_window
+
+          if !@payment_window or !@payment_window.open?
+            BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: This payment window is not active!"
+            render :inline => "This payment window is not active" and return
+          end
+          
+          if @sp.pending? or @sp.open?
+            @sp.status = "Paid"
+
+            @sp.bitpay_invoice_id = params[:invoice_id]
+            
+            #email the user whos payment has been marked as paid
+            begin
+              PaymentsMailer.deliver_payment_succeeded @payment_window, @sp.user.profile.email
+            rescue Exception
+              logger.info "Error sending mail!"
+            end
+    
+            @sp.save!
+
+            BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: #{@sp.id} SUCCESSFULLY marked as Paid!"
+            
+          elsif @subscription_payment.paid?
+            BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: This payment has already been marked as Paid!"
+            render :inline => "This payment has already been marked as Paid" and return
+          end
+        else
+          BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Status NOT OK!"
+          render :inline => "Status not complete" and return
+        end
+      else
+        BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Invalid amount."
+        render :inline => "Invalid Amount" and return
+      end
+    else
+      BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Invalid Digest"
+      render :inline => "Invalid Digest" and return
+    end
+    
+    render :inline => "OK"
+  end
+  
+  def bitpay_notify_buyout
+    #    action: 'invoiceStatus'
+    #    invoice_id: the bit-pay invoice id (that you see in the url for an invoice)
+    #      amount: the amount of the invoice
+    #      posData: the pos data you sent us in the encrypted checkoutData field
+    #      status: either "confirmed" or "complete"
+
+    BITPAY_CALLBACK_LOG.info "ORQ Received bitpay callback: " + params.inspect
+    
+    #only allow post
+    render :inline => "Only post allowed" and return unless request.post?
+    
+    #check the hash
+    @posData = params[:posData]
+    
+    @orq_id = @posData.split(",")[0]
+    @md5hash = @posData.split(",")[1]
+    
+    @secret = BITPAY_SECRET
+    @requiredMD5Hash = Digest::MD5.hexdigest(@secret + @orq_id.to_s)
+    
+    BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Comparing digest #{@requiredMD5Hash} to incoming: #{@md5hash}"
+    
+    if @md5hash.eql? @requiredMD5Hash
+      BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Digest match!"
+      
+      @orq = PmfShareBuyout.find_by_id(@orq_id)
+      
+      if !@orq
+        BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Cannot find orq for id #{@orq_id}"
+        render :inline => "Cannot find orq for id #{@orq_id}" and return
+      end
+      
+      @amount = params[:amount]
+      @required_amount = @orq.payment_amount
+      
+      BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Comparing required amount #{@required_amount} to incoming amount #{@amount}"
+
+      if true#@amount.to_f == @required_amount
+        
+        BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Amount match!"
+        
+        @status = params[:status]
+        
+        if @status.eql? "confirmed" or @status.eql? "complete"
+          
+          BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Status OK!"
+          
+          if @orq.project.pmf_share_buyout.status != "Verified"
+            @orq.project.pmf_share_buyout.status = "Verified"
+            @orq.project.pmf_share_buyout.bitpay_invoice_id = params[:invoice_id]
+            
+            @orq.project.pmf_share_buyout.save!
+
+            @orq.project.mark_as_finished_payment
+            @orq.project.save!
+            
+            BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Buyout successfully marked as paid!"
+          else
+            BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Share buyout ##{@orq.id} already verified!"
+            render :inline => "Already verified" and return
+          end
+        else
+          BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Status NOT OK!"
+          render :inline => "Status not complete" and return
+        end
+      else
+        BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Invalid amount."
+        render :inline => "Invalid Amount" and return
+      end
+    else
+      BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Invalid Digest"
+      render :inline => "Invalid Digest" and return
+    end
+    
+    render :inline => "OK"
+  end
 
   protected
 
@@ -390,33 +302,7 @@ class PaymentWindowController < ApplicationController
   def allow_to
     super :admin, :all => true
     super :user, :all => true
+    super :all, :only => [:bitpay_notify, :bitpay_notify_buyout]
   end
-
-#  def check_allow_create_window
-#    #must have green light
-#    if !@project.green_light
-#      flash[:error] = "Project has not been given green light by admin"
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#
-#    #has project already collected all funds
-#    if @project.finished_payment_collection
-#      flash[:error] = "All funds have already been collected for this project!"
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#
-#    #must not have window open already
-#    if @project.current_payment_window
-#      flash[:error] = "There is already an active payment window for this project!"
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#    
-#    #must be users left in the share queue
-#    if @project.share_queue_exhausted?
-#      flash[:error] = "There are no users left in the share queue to offer outstanding shares to. You must request that PMF buy out the remaining shares."
-#      redirect_to :action => "history", :id => @project and return
-#    end
-#    
-#  end
 
 end

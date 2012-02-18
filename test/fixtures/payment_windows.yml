@@ -7,6 +7,9 @@
 #   column: value
 
 
+
+
+
 # == Schema Information
 #
 # Table name: payment_windows
@@ -18,5 +21,6 @@
 #  status       :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
+#  bitpay_email :string(255)
 #
 

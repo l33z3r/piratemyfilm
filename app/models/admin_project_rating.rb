@@ -63,6 +63,9 @@ class AdminProjectRating < ActiveRecord::Base
 end
 
 
+
+
+
 # == Schema Information
 #
 # Table name: admin_project_ratings
