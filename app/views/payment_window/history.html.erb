@@ -139,7 +139,7 @@
 
   <div class="pmf_clear_10">&nbsp;</div>
 
-  <% if @current_payment_window and (!@project.finished_payment_collection and !@project.share_queue_exhausted?) %>
+  <% if @current_payment_window and !@project.pmf_share_buyout %>
     <div class="pageTitleSmall">
       Currently Active Payment Window
     </div>
