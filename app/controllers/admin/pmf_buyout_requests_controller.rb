@@ -20,7 +20,7 @@ class Admin::PmfBuyoutRequestsController < Admin::AdminController
         @orderID = orq.project.title + " buyout request"
         @price = 0.01#orq.payment_amount
     
-        @currency = "BTC"
+        @currency = "USD"
     
         @notificationURL = url_for(:controller => "/payment_window", :action => "bitpay_notify_buyout", :only_path => false)
         @redirectURL = root_url

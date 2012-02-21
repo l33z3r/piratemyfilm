@@ -103,7 +103,7 @@ class ProjectsController < ApplicationController
       @orderID = @project.title
       @price = 0.01#@ps.share_amount * @ps.share_price
     
-      @currency = "BTC"
+      @currency = "USD"
     
       @notificationURL = url_for(:controller => "payment_window", :action => "bitpay_notify", :only_path => false)
       @redirectURL = root_url
