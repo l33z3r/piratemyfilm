@@ -18,7 +18,7 @@ class Admin::PmfBuyoutRequestsController < Admin::AdminController
         @posData = "#{orq.id},#{Digest::MD5.hexdigest(@secret + orq.id.to_s)}"
     
         @orderID = orq.project.title + " buyout request"
-        @price = 0.01#orq.payment_amount
+        @price = 0.05#orq.payment_amount
     
         @currency = "USD"
     
