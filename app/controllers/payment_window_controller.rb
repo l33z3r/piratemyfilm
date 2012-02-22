@@ -146,7 +146,7 @@ class PaymentWindowController < ApplicationController
       
       BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Comparing required amount #{@required_amount} to incoming amount #{@amount}"
 
-      if true#@amount.to_f == @required_amount
+      if @amount.to_f >= @required_amount
         
         BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: Amount match!"
         
@@ -237,7 +237,7 @@ class PaymentWindowController < ApplicationController
       
       BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Comparing required amount #{@required_amount} to incoming amount #{@amount}"
 
-      if true#@amount.to_f == @required_amount
+      if @amount.to_f >= @required_amount
         
         BITPAY_CALLBACK_LOG.info "ORQ INV #{params[:invoice_id]}: Amount match!"
         

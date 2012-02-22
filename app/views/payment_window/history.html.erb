@@ -35,18 +35,19 @@
     </ul>
 
     <div class="pmf_clear">&nbsp;</div>
-  <% else %>
 
-    <div class="pageTitleSmall">
-      Important
-    </div>
+    <% if @project.bitpay_email.blank? %>
+      <div class="pageTitleSmall">
+        Important
+      </div>
 
-    <p class="bold font13">
-      You will receive an "item number" in your paypal payment along with the payment that is made by a user. 
-      You must match this up with the "item number" column here on the payment window page in order to identify who the payment came from. 
-      Failure to do this will result in funds not being accounted for.
-    </p>
-
+      <p class="bold font13">
+        You will receive an "item number" in your paypal payment along with the payment that is made by a user. 
+        You must match this up with the "item number" column here on the payment window page in order to identify who the payment came from. 
+        Failure to do this will result in funds not being accounted for.
+      </p>
+    <% end %>
+      
   <% end %>
 
   <% if @project.bitpay_email.blank? %>
@@ -93,7 +94,7 @@
       <li>PMF Admin give the project a green light, which initiates the payment phase and opens the first payment window</li>
       <li>Users get an email stating that they must now pay for their shares</li>
       <li>User pays for his shares in the current window</li>
-      <li>Funds appear in the producers paypal account</li>
+      <li>Funds appear in the producers bitpay account</li>
       <li>
         Shares are automatically marked as paid once bitpay gives us the callback.
       </li>

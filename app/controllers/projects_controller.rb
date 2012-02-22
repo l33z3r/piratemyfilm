@@ -101,7 +101,7 @@ class ProjectsController < ApplicationController
       @posData = "#{@ps.id},#{Digest::MD5.hexdigest(@secret + @ps.id.to_s)}"
     
       @orderID = @project.title
-      @price = 0.05#@ps.share_amount * @ps.share_price
+      @price = @ps.share_amount * @ps.share_price
     
       @currency = "USD"
     

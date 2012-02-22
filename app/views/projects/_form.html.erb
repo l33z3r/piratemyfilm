@@ -20,9 +20,9 @@
   <tr>
     <td class="mandatory">
       * Funds Needed ($)
-      
+
       <div class="pmf_clear_10">&nbsp;</div>
-      
+
       <span class="subtext">
         <b>Note:</b> If demand for shares in a project exceeds the maximum 
         supply allowed when a project is originally listed the owner will be 
@@ -60,35 +60,63 @@
     </td>
   </tr>
 
-  <tr>
-    <td>
-      Paypal Email
-      <div class="pmf_clear">&nbsp;</div>
-      <span class="subtext">
-        Note: Enter an email address that you have a paypal account linked to. 
-        It will be used by users to send share payments.
-      </span>
-    </td>
-    <td>
-      <%= f.text_field :paypal_email %>
-      <%= display_error_on(project, :paypal_email) -%>
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      OR Bitpay Email
-      <div class="pmf_clear">&nbsp;</div>
-      <span class="subtext">
-        Note: Enter an email address that you have a bitpay (<a target="_blank" href="http://www.bit-pay.com">www.bit-pay.com</a>) account linked to. 
-        It will be used by users to send share payments.
-      </span>
-    </td>
-    <td>
-      <%= f.text_field :bitpay_email %>
-      <%= display_error_on(project, :bitpay_email) -%>
-    </td>
-  </tr>
+  <% if project.in_payment? %>
+
+    <% if project.bitpay_email.blank? %>
+      <tr>
+        <td>
+          Paypal Email
+          <div class="pmf_clear">&nbsp;</div>
+        </td>
+        <td>
+          <%= project.paypal_email %>
+        </td>
+      </tr>
+    <% else %>
+      <tr>
+        <td>
+          Bitpay Email
+          <div class="pmf_clear">&nbsp;</div>
+        </td>
+        <td>
+          <%= project.bitpay_email %>
+        </td>
+      </tr>
+    <% end %>
+
+  <% else %>
+
+    <tr>
+      <td>
+        Paypal Email
+        <div class="pmf_clear">&nbsp;</div>
+        <span class="subtext">
+          Note: Enter an email address that you have a paypal account linked to. 
+          It will be used by users to send share payments.
+        </span>
+      </td>
+      <td>
+        <%= f.text_field :paypal_email %>
+        <%= display_error_on(project, :paypal_email) -%>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OR Bitpay Email
+        <div class="pmf_clear">&nbsp;</div>
+        <span class="subtext">
+          Note: Enter an email address that you have a bitpay (<a target="_blank" href="http://www.bit-pay.com">www.bit-pay.com</a>) account linked to. 
+          It will be used by users to send share payments.
+        </span>
+      </td>
+      <td>
+        <%= f.text_field :bitpay_email %>
+        <%= display_error_on(project, :bitpay_email) -%>
+      </td>
+    </tr>
+
+  <% end %>
 
 </table>
 
@@ -295,7 +323,7 @@
         </div>
       </td>
     </tr>
-    
+
     <tr>
       <td>
         Enter the names of the actors
@@ -501,6 +529,6 @@
     </tr>
   <% end %>
 
-    </table>
+</table>
 
 <input type="submit" class="right" value="Submit"/>
