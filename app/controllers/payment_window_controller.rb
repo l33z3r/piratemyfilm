@@ -179,7 +179,7 @@ class PaymentWindowController < ApplicationController
 
             BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: #{@sp.id} SUCCESSFULLY marked as Paid!"
             
-          elsif @subscription_payment.paid?
+          elsif @sp.paid?
             BITPAY_CALLBACK_LOG.info "INV #{params[:invoice_id]}: This payment has already been marked as Paid!"
             render :inline => "This payment has already been marked as Paid" and return
           end

@@ -175,6 +175,8 @@ end
 
 
 
+
+
 # == Schema Information
 #
 # Table name: notifications

@@ -422,12 +422,19 @@ class ProjectsController < ApplicationController
   end
 
   def load_project
+    @a
     begin
       @project = Project.find_single_public(params[:id]) unless params[:id].blank?
     rescue ActiveRecord::RecordNotFound
       @project = nil
+      
+      begin
+        @project = Project.find_first_public(:conditions => "symbol = '#{params[:id]}'")
+      rescue ActiveRecord::RecordNotFound
+        @project = nil
+      end
     end
-
+    
     if !@project
       flash[:error] = "Project Not Found"
       redirect_to :controller => "home"

@@ -91,6 +91,8 @@ end
 
 
 
+
+
 # == Schema Information
 #
 # Table name: user_talents

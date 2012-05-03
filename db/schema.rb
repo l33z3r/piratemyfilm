@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120116150037) do
+ActiveRecord::Schema.define(:version => 20120212120617) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20120116150037) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "bitpay_email"
   end
 
   create_table "photos", :force => true do |t|
@@ -221,6 +222,7 @@ ActiveRecord::Schema.define(:version => 20120116150037) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "bitpay_invoice_id"
   end
 
   create_table "profiles", :force => true do |t|
@@ -365,6 +367,7 @@ ActiveRecord::Schema.define(:version => 20120116150037) do
     t.string   "paypal_email"
     t.datetime "yellow_light"
     t.string   "actors"
+    t.string   "bitpay_email"
   end
 
   create_table "sessions", :force => true do |t|
@@ -387,6 +390,7 @@ ActiveRecord::Schema.define(:version => 20120116150037) do
     t.datetime "updated_at"
     t.boolean  "counts_as_warn_point", :default => false
     t.integer  "reused_by_payment_id"
+    t.string   "bitpay_invoice_id"
   end
 
   create_table "talent_rating_histories", :force => true do |t|

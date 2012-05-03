@@ -1,9 +1,7 @@
-class BlogComment < ActiveRecord::Base
-  belongs_to :user
+class BlogProjectMention < ActiveRecord::Base
+  belongs_to :project
   belongs_to :blog
-  validates_presence_of :body
 end
-
 
 
 
@@ -12,12 +10,11 @@ end
 
 # == Schema Information
 #
-# Table name: blog_comments
+# Table name: blog_project_mentions
 #
 #  id         :integer(4)      not null, primary key
 #  user_id    :integer(4)
-#  blog_id    :integer(4)
-#  body       :text
+#  project_id :integer(4)
 #  created_at :datetime
 #  updated_at :datetime
 #

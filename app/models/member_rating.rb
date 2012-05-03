@@ -45,6 +45,8 @@ end
 
 
 
+
+
 # == Schema Information
 #
 # Table name: member_ratings

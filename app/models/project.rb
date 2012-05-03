@@ -132,7 +132,6 @@ class Project < ActiveRecord::Base
 
     #TODO: use with_scope
 
-
     options = args[0] ? args[0] : {}
 
     if options[:conditions]
@@ -147,6 +146,18 @@ class Project < ActiveRecord::Base
 
     @projects
     
+  end
+  
+  def self.find_first_public(*args) 
+    @projects = Project.find_all_public(*args)
+    
+    @project = nil
+    
+    if @projects.size > 0
+      @project = @projects.first
+    end
+    
+    @project
   end
 
   def self.find_single_public(id)
@@ -811,6 +822,8 @@ class Project < ActiveRecord::Base
   end
 
 end
+
+
 
 
 

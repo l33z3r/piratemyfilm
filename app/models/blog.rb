@@ -3,6 +3,7 @@ class Blog < ActiveRecord::Base
   belongs_to :profile
 
   has_many :blog_user_mentions, :dependent => :destroy
+  has_many :blog_project_mentions, :dependent => :destroy
   
   belongs_to :project
 
@@ -14,6 +15,8 @@ class Blog < ActiveRecord::Base
   belongs_to :blog_rebuzz, :class_name => "Blog"
   
   after_save :create_blog_user_mentions
+  after_save :create_blog_project_mentions
+  
   before_save :parse_urls
   
   def num_comments
@@ -227,6 +230,22 @@ class Blog < ActiveRecord::Base
     end
   end
   
+  def create_blog_project_mentions
+    @mentions = body.scan(/\*\w+/)
+    
+    @mentions.each do |mention|
+      @project_symbol = mention[1..mention.length-1]
+      @project_mentioned = Project.find_first_public(:conditions => "symbol = '#{@project_symbol}'")
+      
+      if @project_mentioned 
+        #does an obj already exist
+        if !blog_project_mentions.find_by_project_id(@project_mentioned.id)
+          blog_project_mentions.build(:project_id => @project_mentioned.id).save
+        end
+      end
+    end
+  end
+  
   def parse_urls
     return if blog_rebuzz_id
     
@@ -282,6 +301,7 @@ class Blog < ActiveRecord::Base
   end
   
 end
+
 
 
 

@@ -381,10 +381,16 @@ module ApplicationHelper
   end
 
   def blog_body blog
-    #replace the mentions
+    #replace the user mentions
     @blog_body = blog.body.gsub( /@\w+/) do |mention|
       @user_login = mention[1..mention.length-1]
       link_to mention, "/#{@user_login}"
+    end
+    
+    #replace the project mentions
+    @blog_body = @blog_body.gsub( /\*\w+/) do |mention|
+      @project_symbol = mention[1..mention.length-1]
+      link_to mention, "/projects/#{@project_symbol}"
     end
     
     #hotlink the urls
