@@ -88,6 +88,11 @@ class ProjectsController < ApplicationController
       flash[:error] = "There is no active payment window for this project"
       redirect_to project_path(@project) and return
     end
+    
+    if @project.bitpay_grace_period?
+      flash[:error] = "This window has been closed for the bitpay 1 hour grace period."
+      redirect_to project_path(@project) and return
+    end
 
     @ps = @u.subscription_payments.find(params[:subscription_payment_id])
 

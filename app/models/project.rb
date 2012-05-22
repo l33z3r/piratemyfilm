@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base    
 
   @@PROJECT_STATUSES = ["Pre Production", "In Production", "Post Production",
-    "Ransom", "Finishing Funds", "Trailer", "In Release"]
+    "Ransom", "Finishing Funds", "Trailer"]
 
   @@PROJECT_PAYMENT_STATUSES = ["In Payment", "Finished Payment"]
   
@@ -623,6 +623,29 @@ class Project < ActiveRecord::Base
 
     (total_copies - @amount_shares_paid_for).to_i
   end
+  
+  def bitpay_grace_period?
+    if !bitpay_email.blank? and in_payment?
+      @pw = current_payment_window
+      
+      @now = Time.now
+      
+      #for testing
+      #@now = Time.parse("Tue May 25 00:45:53 +0100 2012")
+      
+      #close the window 1 hour before 1am on the window close date to allow bitpay grace period
+      @after_grace_period_start = (1.day.from_now(@pw.close_date.midnight) < @now)
+      @before_window_close = (25.hours.from_now(@pw.close_date.midnight) > @now)
+      
+      if(@after_grace_period_start and @before_window_close)
+        return true
+      else 
+        return false
+      end
+    else
+      return false
+    end
+  end
 
   def mark_as_finished_payment
     self.project_payment_status = "Finished Payment"
@@ -782,6 +805,9 @@ class Project < ActiveRecord::Base
       errors.add(:share_percent_ads_producer, "cannot be modified in yellow light stage, proper value was #{share_percent_ads_producer_was}") if share_percent_ads_producer_was !=0 && share_percent_ads_producer_changed?
       errors.add(:share_percent_ads, "cannot be modified in yellow light stage, proper value was #{share_percent_ads_was}") if share_percent_ads_was !=0 && share_percent_ads_changed?
       errors.add(:producer_fee_percent, "cannot be modified in yellow light stage, proper value was #{producer_fee_percent_was}") if producer_fee_percent_was != 0 && producer_fee_percent_changed?
+      
+      errors.add(:paypal_email, "cannot be modified in yellow light stage, proper value was #{paypal_email_was}") if paypal_email_changed?
+      errors.add(:bitpay_email, "cannot be modified in yellow light stage, proper value was #{bitpay_email_was}") if bitpay_email_changed?
     end
   end
 
@@ -793,6 +819,9 @@ class Project < ActiveRecord::Base
       errors.add(:share_percent_ads_producer, "cannot be modified in green light stage, proper value was #{share_percent_ads_producer_was}") if share_percent_ads_producer_was !=0 && share_percent_ads_producer_changed?
       errors.add(:share_percent_ads, "cannot be modified in green light stage, proper value was #{share_percent_ads_was}") if share_percent_ads_was !=0 && share_percent_ads_changed?
       errors.add(:producer_fee_percent, "cannot be modified in green light stage, proper value was #{producer_fee_percent_was}") if producer_fee_percent_was != 0 && producer_fee_percent_changed?
+      
+      errors.add(:paypal_email, "cannot be modified in green light stage, proper value was #{paypal_email_was}") if paypal_email_changed?
+      errors.add(:bitpay_email, "cannot be modified in green light stage, proper value was #{bitpay_email_was}") if bitpay_email_changed?
     end
   end
 

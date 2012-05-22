@@ -164,7 +164,7 @@ div#hp_latest_blog div.blog_comments_link {
 
 div#signup_section {
     float: right;
-    width: 255px;
+    width: 250px;
 }
 
 div#signup_section div#login_form_top div#fields {
@@ -2338,12 +2338,13 @@ div#top_banner_container div#ad_banner_container div#site_stats div.stat {
     float: left;
     color: #FFF;
     font-weight: bold;
-    padding: 2px;
+    padding: 7px 2px;
     font-size: 11px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats div.stat.more {
     float: right;
+    padding: 0px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats div.stat.more a {
