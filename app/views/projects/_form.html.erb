@@ -62,7 +62,7 @@
 
   <% if project.in_payment? %>
 
-    <% if project.bitpay_email.blank? %>
+    <% if false#project.bitpay_email.blank? %>
       <tr>
         <td>
           Paypal Email
@@ -87,7 +87,7 @@
   <% else %>
 
     <tr>
-      <td>
+      <!--td>
         Paypal Email
         <div class="pmf_clear">&nbsp;</div>
         <span class="subtext">
@@ -99,11 +99,11 @@
         <%= f.text_field :paypal_email %>
         <%= display_error_on(project, :paypal_email) -%>
       </td>
-    </tr>
+    </tr-->
 
     <tr>
       <td>
-        OR Bitpay Email
+        Bitpay Email
         <div class="pmf_clear">&nbsp;</div>
         <span class="subtext">
           Note: Enter an email address that you have a bitpay (<a target="_blank" href="http://www.bit-pay.com">www.bit-pay.com</a>) account linked to. 

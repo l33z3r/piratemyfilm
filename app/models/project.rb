@@ -625,7 +625,7 @@ class Project < ActiveRecord::Base
   end
   
   def bitpay_grace_period?
-    if !bitpay_email.blank? and in_payment?
+    if in_payment? and true#!bitpay_email.blank?
       @pw = current_payment_window
       
       @now = Time.now
@@ -792,8 +792,8 @@ class Project < ActiveRecord::Base
     errors.add(:producer_fee_percent, "must be between 0% - 100%") if producer_fee_percent && (producer_fee_percent < 0 || producer_fee_percent > 100)
     errors.add(:capital_required, "must be a multiple of your share price") if capital_required % ipo_price !=0 || capital_required < ipo_price
     errors.add(:symbol, "must be 5 characters long") if symbol && !symbol.blank? && !(symbol=~/[0-9a-zA-Z]{5}/)
-    errors.add(:bitpay_email, "Can only choose either bitpay or paypal") if !bitpay_email.blank? and !paypal_email.blank?
-    errors.add(:paypal_email, "Can only choose either bitpay or paypal") if !bitpay_email.blank? and !paypal_email.blank?
+#    errors.add(:bitpay_email, "Can only choose either bitpay or paypal") if !bitpay_email.blank? and !paypal_email.blank?
+#    errors.add(:paypal_email, "Can only choose either bitpay or paypal") if !bitpay_email.blank? and !paypal_email.blank?
     logger.info "Validation Errors: #{errors_to_s}"
   end
   
@@ -806,7 +806,7 @@ class Project < ActiveRecord::Base
       errors.add(:share_percent_ads, "cannot be modified in yellow light stage, proper value was #{share_percent_ads_was}") if share_percent_ads_was !=0 && share_percent_ads_changed?
       errors.add(:producer_fee_percent, "cannot be modified in yellow light stage, proper value was #{producer_fee_percent_was}") if producer_fee_percent_was != 0 && producer_fee_percent_changed?
       
-      errors.add(:paypal_email, "cannot be modified in yellow light stage, proper value was #{paypal_email_was}") if paypal_email_changed?
+#      errors.add(:paypal_email, "cannot be modified in yellow light stage, proper value was #{paypal_email_was}") if paypal_email_changed?
       errors.add(:bitpay_email, "cannot be modified in yellow light stage, proper value was #{bitpay_email_was}") if bitpay_email_changed?
     end
   end

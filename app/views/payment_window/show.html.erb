@@ -67,11 +67,6 @@
 
   <div class="pmf_clear_10">&nbsp;</div>
 
-  You will receive an <i>item number</i> in your paypal payment. It corresponds to the payment ID's below.
-  Using the ID's you receive in the payments, you can mark each payment as paid.
-
-  <div class="pmf_clear_10">&nbsp;</div>
-
   This window will automatically close on the due date. All shares that have not been marked as paid, will be put to the back of the queue.
   This gives you an opportunity to allow a user to have another go at paying for their shares.
   Any users who fail to pay for shares in the project will receive a black mark.
@@ -122,7 +117,7 @@
           <% elsif subscription_payment.reused? %>
             Reused
           <% else %>
-            <% if @project.bitpay_email.blank? %>
+            <% if false#@project.bitpay_email.blank? %>
               <div class="left button">
                 <%= link_to "Mark As Paid",
                   {:action => "mark_payment", :id => subscription_payment.id, :marking => "paid"},

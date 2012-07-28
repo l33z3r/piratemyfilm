@@ -13,7 +13,7 @@ class Admin::PmfBuyoutRequestsController < Admin::AdminController
     @checkoutDataMap = {}
       
     @open_requests.each do |orq|
-      if !orq.project.bitpay_email.blank?
+      if true#!orq.project.bitpay_email.blank?
         @secret = BITPAY_SECRET
         @posData = "#{orq.id},#{Digest::MD5.hexdigest(@secret + orq.id.to_s)}"
     

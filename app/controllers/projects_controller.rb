@@ -101,7 +101,7 @@ class ProjectsController < ApplicationController
       redirect_to project_path(@project) and return
     end
     
-    if !@project.bitpay_email.blank?
+    if true#!@project.bitpay_email.blank?
       @secret = BITPAY_SECRET
       @posData = "#{@ps.id},#{Digest::MD5.hexdigest(@secret + @ps.id.to_s)}"
     
@@ -177,8 +177,8 @@ class ProjectsController < ApplicationController
       #we only allow granting of green light for now
       return if @project.yellow_light
     
-      if @project.paypal_email.blank? and @project.bitpay_email.blank?
-        flash[:error] = "User has not entered a paypal or bitpay email address associated with their project!"
+      if @project.bitpay_email.blank?# and @project.paypal_email.blank?
+        flash[:error] = "User has not entered a bitpay email address associated with their project!"
         redirect_to project_path(@project) and return
       end
 

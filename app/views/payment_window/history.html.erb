@@ -36,7 +36,7 @@
 
     <div class="pmf_clear">&nbsp;</div>
 
-    <% if @project.bitpay_email.blank? %>
+    <% if false#@project.bitpay_email.blank? %>
       <div class="pageTitleSmall">
         Important
       </div>
@@ -50,7 +50,7 @@
       
   <% end %>
 
-  <% if @project.bitpay_email.blank? %>
+  <% if false#@project.bitpay_email.blank? %>
     <div class="pageTitleSmall">
       Paypal Payment Procedure Explanation
     </div>
@@ -123,7 +123,7 @@
   <p>
     The following is a summary of the payment windows associated with this project.
     You can create a payment window, where users will be able to pay for their shares by depositing into
-    either your paypal/bitpay account. You will also see a list of previous windows.
+    either your bitpay account. You will also see a list of previous windows.
   </p>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -230,7 +230,7 @@
         You previously sent a request to PMF to buy out <%= @project.amount_shares_outstanding_payment %> shares
         worth <%= print_money @project.amount_payment_outstanding %>.
       </p>
-      <% if @project.bitpay_email.blank? %>
+      <% if false#@project.bitpay_email.blank? %>
         <p>
           This request was accepted. You will receive a payment to your last registered paypal email address: <%= @project.last_window_paypal_email %>
           with an item number of <b><%= @project.pmf_share_buyout_paypal_id %></b>. Once you have received the payment, click the button below to mark the payment

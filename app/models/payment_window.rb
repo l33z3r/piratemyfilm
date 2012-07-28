@@ -216,7 +216,7 @@ class PaymentWindow < ActiveRecord::Base
     @payment_window.project_id = @project.id
     @payment_window.close_date = Date.today + 2
     
-    if !@project.bitpay_email.blank?
+    if true#!@project.bitpay_email.blank?
       @payment_window.bitpay_email = @project.bitpay_email
     else
       @payment_window.paypal_email = @project.paypal_email
@@ -237,7 +237,16 @@ class PaymentWindow < ActiveRecord::Base
 
     @project.share_queue.each do |subscription|
       
-      break if @total_amount >= @project.capital_required
+      
+      
+      
+      
+      #we moved to a new model where all users get the chance to pay for shares, 
+      #so this loop is not limited by budget and will allocate payments for all shares in the queue
+      #on the second window, the subscription_payment_id will be set for all payments so this loop will 
+      #really just be skipped by the statement following this one, and the shares that were 
+      #thrown will be used to fill the outstanding amount needed
+      #break if @total_amount >= @project.capital_required
 
       #ignore it if it has already been used
       next if subscription.subscription_payment_id
@@ -245,7 +254,9 @@ class PaymentWindow < ActiveRecord::Base
       @subscription_amount_dollar = subscription.amount * @project_share_price
         
       #do we need to split a users subscription amount?
-      if @total_amount + @subscription_amount_dollar > @project.capital_required
+      #we used to do this to make sure the payments didn't go over the required amount but it is not needed anymore
+      #as we allow overfunding
+      if false#@total_amount + @subscription_amount_dollar > @project.capital_required
         @over_amount_dollar = (@total_amount + @subscription_amount_dollar) - @project.capital_required
         @over_amount = @over_amount_dollar / @project.ipo_price
         @actual_amount = subscription.amount
@@ -285,12 +296,16 @@ class PaymentWindow < ActiveRecord::Base
     
     @project.subscription_payments.each do |payment|
       
-      break if @excess_budget_needed == 0
+      #we moved to a new model where all users get the chance to pay for shares, 
+      #so this loop is not limited by budget and will allocate payments for all shares in the queue
+      #break if @excess_budget_needed == 0
       
       next unless payment.thrown?
         
       #do we need to split this payment?
-      if @excess_budget_needed - payment.payment_amount < 0
+      #we used to do this to make sure the payments didn't go over the required amount but it is not needed anymore
+      #as we allow overfunding
+      if false#@excess_budget_needed - payment.payment_amount < 0
         @over_share_amount = (payment.payment_amount - @excess_budget_needed) / @project.ipo_price
         @available_share_amount = @excess_budget_needed / @project.ipo_price
         
