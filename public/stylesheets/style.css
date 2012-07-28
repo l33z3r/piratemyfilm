@@ -2282,8 +2282,8 @@ div#top_banner_container {
 
 .sopa-banner	{
     width: 960px;
-    height: 18px;
-    padding-top: 4px;
+    height: 25px;
+    padding-top: 10px;
     margin: auto;
     color: #000;
     text-align: center;
@@ -2291,7 +2291,7 @@ div#top_banner_container {
 
 .sopa-banner span	{
     font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-    font-size:0.85em;
+    font-size: 13px;
     text-transform:uppercase;
     margin:0 auto;
 }

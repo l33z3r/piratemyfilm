@@ -53,14 +53,14 @@
   <li>
     You have
     <%= @my_subscriptions_amount == 0 ? "no" : @my_subscriptions_amount %> shares
-    <% if @my_outstanding_subscriptions_amount > 0 %>
-      <i>
-        (<%= @my_outstanding_subscriptions_amount %> on
-        <a class="tooltip_arrow"
-           title="standby shares become valid when new or existing shares become available">
-          standby</a>)
-      </i>
-    <% end %>
+    <%# if @my_outstanding_subscriptions_amount > 0 %>
+      <%#*<i>%>
+        <%#*(<%= @my_outstanding_subscriptions_amount %> on%>
+        <%#*<a class="tooltip_arrow"%>
+           <%#*title="standby shares become valid when new or existing shares become available">%>
+          <%#*standby</a>)%>
+      <%#*</i>%>
+    <%# end %>
     reserved for this project.
   </li>
 

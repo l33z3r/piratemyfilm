@@ -214,7 +214,7 @@ class PaymentWindow < ActiveRecord::Base
     @payment_window = PaymentWindow.new()
 
     @payment_window.project_id = @project.id
-    @payment_window.close_date = Date.today + 2
+    @payment_window.close_date = Date.today + 1
     
     if true#!@project.bitpay_email.blank?
       @payment_window.bitpay_email = @project.bitpay_email
