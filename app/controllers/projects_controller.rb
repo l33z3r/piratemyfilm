@@ -172,29 +172,26 @@ class ProjectsController < ApplicationController
     end
   end
   
-  def update_yellow_light
-    begin
-      #we only allow granting of green light for now
-      return if @project.yellow_light
-    
-      if @project.bitpay_email.blank?# and @project.paypal_email.blank?
-        flash[:error] = "User has not entered a bitpay email address associated with their project!"
-        redirect_to project_path(@project) and return
-      end
-
-      @project.yellow_light = Time.now
-      @project.save!
-
-      Notification.deliver_yellow_light_notification @project
-      
-      flash[:positive] = "Project Now Yellow Lit!"
-      redirect_to project_path(@project)
-    rescue ActiveRecord::RecordInvalid
-      flash[:error] = "Error updating project"
-      perform_show
-      render :action => "show"
-    end
-  end
+#  def update_yellow_light
+#    begin
+#      #we only allow granting of green light for now
+#      return if @project.yellow_light
+#    
+#      if @project.bitpay_email.blank?# and @project.paypal_email.blank?
+#        flash[:error] = "User has not entered a bitpay email address associated with their project!"
+#        redirect_to project_path(@project) and return
+#      end
+#
+#      @project.give_yellow_light
+#      
+#      flash[:positive] = "Project Now Yellow Lit!"
+#      redirect_to project_path(@project)
+#    rescue ActiveRecord::RecordInvalid
+#      flash[:error] = "Error updating project"
+#      perform_show
+#      render :action => "show"
+#    end
+#  end
 
   #  def update_green_light
   #    begin
