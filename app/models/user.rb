@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     :conditions=>"symbol IS NOT NULL and is_deleted = 0 and project_payment_status is null", 
     :order => "created_at"
   
+  has_many :owned_frozen_yellow_projects, :class_name => "Project", :foreign_key => "owner_id", 
+    :conditions=>"yellow_light IS NOT NULL and is_deleted = 0 and project_payment_status is null and (bitpay_email is null or length(bitpay_email) = 0)", 
+    :order => "created_at"
+  
   has_many :owned_public_in_payment_projects, :class_name => "Project", :foreign_key => "owner_id",
     :conditions=>"symbol IS NOT NULL and is_deleted = 0 and project_payment_status = 'In Payment'",
     :order => "created_at"

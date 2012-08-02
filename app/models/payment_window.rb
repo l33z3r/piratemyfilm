@@ -98,6 +98,13 @@ class PaymentWindow < ActiveRecord::Base
     @project = project
     @payment_window = @project.current_payment_window
     
+    #is the project in frozen yellow light stage
+    if !@project.green_light and @project.yellow_light and @project.bitpay_email.blank?
+      PaymentsMailer.deliver_bitpay_email_prompt @project
+      ORDER_PROGRESS_LOG.info("Project #{@project.id} is in frozen yellow stage and owner will be notified")
+      return
+    end
+      
     #is this project ready for green light
     if !@project.green_light and @project.yellow_light and @project.yellow_light < 24.hours.ago
       PaymentWindow.create_for_project @project      

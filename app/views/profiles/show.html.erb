@@ -251,7 +251,24 @@
     <%= render :partial => "/blogs/templates/buzz", :locals => {:blog => blog} %>
   <% end %>
 
-  <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>
+  <%= pagination_controls_for @blogs if @blogs.respond_to? :total_pages %>   
+    
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="project_listing_box">
+    <div class="pageTitle">
+      <% if @p == @profile %>
+        Your
+      <% else %>
+        <%=@profile.user.login%>'s
+      <% end %>
+      projects that are frozen in yellow light stage awaiting a bitpay email
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+
+    <%= render :partial => "projects/listings", :object => @user_owned_frozen_yellow_projects %>
+  </div>
 
   <div class="pmf_clear">&nbsp;</div>
 

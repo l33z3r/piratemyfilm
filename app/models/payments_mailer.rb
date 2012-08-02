@@ -81,5 +81,15 @@ class PaymentsMailer < ActionMailer::Base
     @headers        = {}
     content_type "text/html"
   end
+  
+  def bitpay_email_prompt project
+    @subject        = "PMF, Action Required! Missing Bitpay Email For Project #{project.title}!"
+    @recipients     = project.owner.profile.email
+    @body['project'] = project
+    @from           = MAILER_FROM_ADDRESS
+    @sent_on        = Time.new
+    @headers        = {}
+    content_type "text/html"
+  end
 
 end

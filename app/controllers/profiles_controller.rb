@@ -60,7 +60,8 @@ class ProfilesController < ApplicationController
     @user_projects = @profile.user.owned_public_projects
     @user_projects_in_payment = @profile.user.owned_public_in_payment_projects
     @user_funded_projects = @profile.user.owned_public_funded_projects
-
+    @user_owned_frozen_yellow_projects = @profile.user.owned_frozen_yellow_projects
+    
     @user_non_funded_subscriptions = @profile.user.subscribed_non_funded_projects
     @user_funded_subscriptions = @profile.user.subscribed_funded_projects
   end

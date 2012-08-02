@@ -20,7 +20,7 @@ class Project < ActiveRecord::Base
 
   attr_protected :symbol
 
-  validates_presence_of :owner_id, :title, :status, :bitpay_email
+  validates_presence_of :owner_id, :title, :status
   validates_presence_of :ipo_price, :genre_id, :capital_required
   
   validates_inclusion_of :status, :in => @@PROJECT_STATUSES
@@ -44,7 +44,7 @@ class Project < ActiveRecord::Base
 
   validates_format_of :web_address, :with => URI::regexp(%w(http https)), :allow_blank => true
   
-  validates_format_of :paypal_email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :allow_blank => true, :message => "Invalid email address."
+#  validates_format_of :paypal_email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :allow_blank => true, :message => "Invalid email address."
   validates_format_of :bitpay_email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :allow_blank => true, :message => "Invalid email address."
   
   acts_as_ferret :fields => [ :title, :synopsis, :description, 
@@ -231,7 +231,17 @@ class Project < ActiveRecord::Base
 
     if percent_funded < 100 and @new_funding_percentage >= 100
       Notification.deliver_fully_funded_notification self
-      self.give_yellow_light
+      
+      #do yellow light 
+      self.yellow_light = Time.now
+    save(false)
+
+    Notification.deliver_yellow_light_notification self
+    
+      # are we in frozen yellow light?
+      if self.bitpay_email.blank?
+        PaymentsMailer.deliver_bitpay_email_prompt self
+      end
     elsif percent_funded < 90 and @new_funding_percentage >= 90
       Notification.deliver_90_percent_funded_notification self
     end
@@ -247,15 +257,6 @@ class Project < ActiveRecord::Base
     end
 
     self.percent_bad_shares = @downloads_reserved > 0 ? (@bad_share_count * 100) / @downloads_reserved : 0
-  end
-  
-  def give_yellow_light
-    if !self.bitpay_email.blank    
-      self.yellow_light = Time.now
-      self.save!
-
-      Notification.deliver_yellow_light_notification self
-    end
   end
 
   def update_estimates
@@ -424,7 +425,7 @@ class Project < ActiveRecord::Base
     #18 => "No. PMF Fund Shares",
     19 => "Green Light", 20 => "In Payment", 21 => "Fully Funded",
     22 => "In Release", 23 => "% Move Up", 24 => "% Move Down", 
-    25 => "Yellow Light"
+    25 => "Yellow Light", 26 => "Frozen Yellow Light"
   }
 
   def self.get_filter_sql filter_param
@@ -461,6 +462,7 @@ class Project < ActiveRecord::Base
     when "23" then return "#{@payment_status_filter}"
     when "24" then return "#{@payment_status_filter}"
     when "25" then return "project_payment_status is null and yellow_light is NOT NULL"
+    when "26" then return "yellow_light IS NOT NULL and is_deleted = 0 and project_payment_status is null and (bitpay_email is null or length(bitpay_email) = 0)"
     else return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
     end
   end
@@ -491,6 +493,7 @@ class Project < ActiveRecord::Base
     when "23" then return "daily_percent_move DESC"
     when "24" then return "daily_percent_move"
     when "25" then return "yellow_light DESC"
+    when "26" then return "yellow_light DESC"
     else return "created_at DESC"
     end
   end
