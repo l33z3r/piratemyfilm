@@ -229,7 +229,7 @@ class Project < ActiveRecord::Base
 
     @new_funding_percentage = ((downloads_reserved * 100) / @total_copies).ceil
 
-    if percent_funded < 100 and @new_funding_percentage >= 100
+    if @new_funding_percentage >= 100 and !yellow_light
       Notification.deliver_fully_funded_notification self
       
       #do yellow light 
