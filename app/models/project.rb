@@ -461,8 +461,8 @@ class Project < ActiveRecord::Base
     when "22" then return "project_payment_status = 'Finished Payment' and status = 'In Release'"
     when "23" then return "#{@payment_status_filter}"
     when "24" then return "#{@payment_status_filter}"
-    when "25" then return "project_payment_status is null and yellow_light is NOT NULL"
-    when "26" then return "yellow_light IS NOT NULL and is_deleted = 0 and project_payment_status is null and (bitpay_email is null or length(bitpay_email) = 0)"
+    when "25" then return "project_payment_status is null and yellow_light is not null and (bitpay_email is not null and length(bitpay_email) > 0)"
+    when "26" then return "project_payment_status is null and yellow_light is not null and (bitpay_email is null or length(bitpay_email) = 0)"
     else return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
     end
   end

@@ -134,16 +134,7 @@ module ApplicationHelper
       @total_amount = @amount + @outstanding_amount
 
       if @total_amount > 0
-        @outstanding_string = ""
-
-        if @outstanding_amount > 0
-          @outstanding_string = "<i>(#{@outstanding_amount} on
-            <a class='tooltip_arrow'
-               title='standby shares become valid when new or existing shares become available'>
-              standby</a>)</i>"
-        end
-
-        @info = "You have #{@total_amount} shares #{@outstanding_string} reserved for this project."
+        @info = "You have #{@total_amount} shares reserved for this project."
       else 
         @info = "You do not have any shares in this project."
       end

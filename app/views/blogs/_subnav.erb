@@ -18,12 +18,12 @@
       <%= link_to "Members Buzz I Follow", :controller => :blogs, :action => "my_member_blogs" %>
     </div>
 
-    <div class="link member_updates <%= (@selected_user_subnav_link == "my_mentions" ? "selected" : "") %>">
-      <%= link_to "@#{@u.login}", :controller => :blogs, :action => "my_mentions" %>
-    </div>
-
     <div class="link project_updates <%= (@selected_user_subnav_link == "my_project_blogs" ? "selected" : "") %>">
       <%= link_to "Project Buzz I Follow", :controller => :blogs, :action => "my_project_blogs" %>
+    </div>
+
+    <div class="link member_updates <%= (@selected_user_subnav_link == "my_mentions" ? "selected" : "") %>">
+      <%= link_to "@#{@u.login}", :controller => :blogs, :action => "my_mentions" %>
     </div>
 
     <div class="pmf_clear">&nbsp;</div>
