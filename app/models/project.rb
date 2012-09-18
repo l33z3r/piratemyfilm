@@ -44,7 +44,7 @@ class Project < ActiveRecord::Base
 
   validates_format_of :web_address, :with => URI::regexp(%w(http https)), :allow_blank => true
   
-#  validates_format_of :paypal_email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :allow_blank => true, :message => "Invalid email address."
+  #  validates_format_of :paypal_email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :allow_blank => true, :message => "Invalid email address."
   validates_format_of :bitpay_email, :with => /^([^@\s]{1}+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :allow_blank => true, :message => "Invalid email address."
   
   acts_as_ferret :fields => [ :title, :synopsis, :description, 
@@ -234,9 +234,9 @@ class Project < ActiveRecord::Base
       
       #do yellow light 
       self.yellow_light = Time.now
-    save(false)
+      save(false)
 
-    Notification.deliver_yellow_light_notification self
+      Notification.deliver_yellow_light_notification self
     
       # are we in frozen yellow light?
       if self.bitpay_email.blank?
@@ -818,9 +818,6 @@ class Project < ActiveRecord::Base
       errors.add(:share_percent_ads_producer, "cannot be modified in yellow light stage, proper value was #{share_percent_ads_producer_was}") if share_percent_ads_producer_was !=0 && share_percent_ads_producer_changed?
       errors.add(:share_percent_ads, "cannot be modified in yellow light stage, proper value was #{share_percent_ads_was}") if share_percent_ads_was !=0 && share_percent_ads_changed?
       errors.add(:producer_fee_percent, "cannot be modified in yellow light stage, proper value was #{producer_fee_percent_was}") if producer_fee_percent_was != 0 && producer_fee_percent_changed?
-      
-      #      errors.add(:paypal_email, "cannot be modified in yellow light stage, proper value was #{paypal_email_was}") if paypal_email_changed?
-      errors.add(:bitpay_email, "cannot be modified in yellow light stage, proper value was #{bitpay_email_was}") if bitpay_email_changed?
     end
   end
 
