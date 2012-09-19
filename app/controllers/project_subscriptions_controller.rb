@@ -87,10 +87,23 @@ class ProjectSubscriptionsController < ApplicationController
         redirect_to project_path(@project) and return
       end
       
+      @num_shares = params[:num_shares].to_i
+
       #can't cancel at yellow light stage
       if @project.yellow_light
-        flash[:error] = "You cannot cancel shares at the yellow light stage!"
-        redirect_to project_path(@project) and return
+        if @u.id == PMF_FUND_USER_ID or @u.id == MAXRIOT_USER_ID
+          #we might be able to cancel shares if it means that the project still has enough shares to fill 100% afterwards
+          @downloads_reserved_after_cancel = @project.downloads_reserved - @num_shares
+          @new_funding_percentage = ((@downloads_reserved_after_cancel * 100) / @project.total_copies).ceil
+          
+          if @new_funding_percentage < 100
+            flash[:error] = "You cannot cancel this amount of shares in the yellow light stage as it will result in the project being under funded!"
+            redirect_to project_path(@project) and return
+          end
+        else
+          flash[:error] = "You cannot cancel shares at the yellow light stage!"
+          redirect_to project_path(@project) and return
+        end
       end
 
       #can't cancel at green light stage
@@ -98,8 +111,6 @@ class ProjectSubscriptionsController < ApplicationController
         flash[:error] = "You cannot cancel shares at the green light stage!"
         redirect_to project_path(@project) and return
       end
-
-      @num_shares = params[:num_shares].to_i
 
       if !@num_shares || @num_shares <= 0
         flash[:error] = "Make sure you enter a number bigger than 0"
@@ -115,7 +126,7 @@ class ProjectSubscriptionsController < ApplicationController
 
       ProjectSubscription.cancel_shares_for_project(@project_subscriptions, @num_shares)
 
-      if @u.id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
+      if @u.id == PMF_FUND_USER_ID
         #store in reservation history for pmf fund
         PmfFundSubscriptionHistory.create(:project => @project, :amount => (0 - @num_shares))
       end
