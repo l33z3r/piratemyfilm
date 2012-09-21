@@ -199,7 +199,9 @@ class PaymentWindow < ActiveRecord::Base
     end
     
     #if we have enough paid shares, mark the project as payment complete
-    if @project.amount_payment_collected >= @project.capital_required
+    #    if @project.amount_payment_collected >= @project.capital_required
+    # if all users in this window successfully paid, then there are no more users for the next window, so mark as successful!
+    if @notify_emails_thrown.size == 0
       @payment_window.status = "Successful"
       @project.mark_as_finished_payment
     else
