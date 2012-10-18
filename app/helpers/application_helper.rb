@@ -381,7 +381,11 @@ module ApplicationHelper
     #replace the project mentions
     @blog_body = @blog_body.gsub( /\*\w+/) do |mention|
       @project_symbol = mention[1..mention.length-1]
-      @project_symbol.size == 5 ? link_to(mention.upcase, "#{root_url}projects/#{@project_symbol.upcase}") : mention
+      
+      #load the associated project
+      @project = blog.mention_projects.find(:first, :conditions => "symbol = '#{@project_symbol}'")
+      
+      @project_symbol.size == 5 ? link_to(mention.upcase, "#{root_url}projects/#{@project_symbol.upcase}", :title => "#{h @project.title}") : mention
     end
     
     #hotlink the urls

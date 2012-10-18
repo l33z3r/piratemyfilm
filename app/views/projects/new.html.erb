@@ -2,6 +2,6 @@
   <div class="pageTitle">New Project</div>
 
   <%= render :partial => "projects/form",
-    :locals => {:project => @project, :f => f, :include_captcha => true} %>
+    :locals => {:project => @project, :new_listing => true, :f => f, :include_captcha => true} %>
 
 <% end %>

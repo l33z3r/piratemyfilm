@@ -31,20 +31,25 @@ project_link_action ||= "show"
     <div class="pmf_clear">&nbsp;</div>
 
     <% if !project.finished_payment_collection %>
-      <% if project.yellow_light and !project.green_light %>
-        <div class="yellow_light">
-          Yellow Light:
-          <span class="on">
-            On
-          </span>
+      <% if project.green_light %>
+        <div class="green_light">
+          Green Light: <span class="on">On</span>
         </div>
       <% else %>
-        <div class="green_light">
-          Green Light:
-          <span class="<%= project.green_light ? "on" : "off" %>">
-            <%= project.green_light ? "On" : "Off" %>
-          </span>
-        </div>
+        <% if project.yellow_light? %>
+          <% if !project.frozen_yellow? %>
+            <div class="yellow_light">
+              Yellow Light:
+              <span class="on">
+                On
+              </span>
+            </div>
+          <% else %>
+            <div class="yellow_light">Frozen Yellow</div>
+          <% end %>
+        <% else %>
+          <!-- NO YELLOW OR GREEN -->
+        <% end %>
       <% end %>
     <% end %>
   </div>

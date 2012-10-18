@@ -20,7 +20,7 @@ module ProjectsHelper
 
   def share_queue_link project
     content_tag :div, :class => "left button" do
-      link_to("Share Queue", :action => "share_queue", :id => project.id)
+      link_to("Share Queue (#{project.subscribers.count} Members)", :action => "share_queue", :id => project.id)
     end
   end
 

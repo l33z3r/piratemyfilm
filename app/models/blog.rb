@@ -4,6 +4,7 @@ class Blog < ActiveRecord::Base
 
   has_many :blog_user_mentions, :dependent => :destroy
   has_many :blog_project_mentions, :dependent => :destroy
+  has_many :mention_projects, :source => :project, :through => :blog_project_mentions
   
   belongs_to :project
 

@@ -41,7 +41,7 @@
           <%= icon(@p, :small) %>
         </div>
 
-        <div id="message">Welcome <%= link_to @u.f, profile_path(@p) %></div>
+        <div id="message"><%= link_to @u.f, profile_path(@p) %></div>
 
         <div class="pmf_clear">&nbsp;</div>
 
@@ -53,14 +53,9 @@
 
           <% if_admin do %>
             <div id="admin_link" class="link">
-              &nbsp; -
               <%= link_to 'Admin', :controller => "admin/home" %>
             </div>
           <% end %>
-
-          <div class="link profile">
-            <%= link_to "My Profile/Portfolio", profile_path(@u.profile) %>
-          </div>
 
           <div class="pmf_clear">&nbsp;</div>
 

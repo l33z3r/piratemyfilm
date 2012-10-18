@@ -195,9 +195,7 @@
         <div class="stat_row">
           <div class="label">Total Amount of Funds Collected:</div>
           <div class="stat">
-            <b><%= print_money @total_funded_amount %></b>
-            In Funds Have Been Raised For
-            <b><%= pluralize @num_funded_projects, "Project" %></b>
+            <%= link_to "<b>#{print_money @total_funded_amount}</b> In Funds Have Been Raised For <b>#{pluralize @num_funded_projects, "Project"}</b>", :controller => "/projects", :filter_param => "21" %>
           </div>
           <div class="pmf_clear">&nbsp;</div>
         </div>

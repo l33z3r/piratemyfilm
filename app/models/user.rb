@@ -484,7 +484,7 @@ class User < ActiveRecord::Base
 
   def subscribed_projects_awaiting_payment
     Project.find_by_sql("select projects.* from projects where id in
-    (select project_id from subscription_payments where (status is null or (status != 'Pending' and status != 'Paid'
+    (select project_id from subscription_payments where (status is null or (status != 'Paid'
     and status != 'Defaulted' and status != 'Thrown' and status != 'Reused') and user_id = #{id}) group by project_id)")
   end
   

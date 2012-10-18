@@ -50,15 +50,19 @@
     </td>
   </tr>
 
-  <tr>
-    <td class="mandatory">
-      * What is the status of your film?
-    </td>
-    <td>
-      <%= f.select :status, Project.statuses, :id=>"project-status" %>
-      <%= display_error_on(project, :status) -%>
-    </td>
-  </tr>
+  <% if !new_listing %>
+    <tr>
+      <td class="mandatory">
+        * What is the status of your film?
+      </td>
+      <td>
+        <%= f.select :status, Project.statuses, :id=>"project-status" %>
+        <%= display_error_on(project, :status) -%>
+      </td>
+    </tr>
+  <% else %>
+    <%= f.hidden_field :status, :value => Project.statuses.first %>
+  <% end %>
 
   <% if project.in_payment? %>
 
@@ -96,8 +100,8 @@
         </span>
       </td>
       <td>
-        <%= f.text_field :paypal_email %>
-        <%= display_error_on(project, :paypal_email) -%>
+      <%= f.text_field :paypal_email %>
+      <%= display_error_on(project, :paypal_email) -%>
       </td>
     </tr-->
 
@@ -111,11 +115,11 @@
         </span>
         <div class="pmf_clear">&nbsp;</div>
         <span class="subtext">
-            Note: You can get bitcoins at the following address: 
-            <a href="http://lovebitcoins.org/getStarted.html" target="_blank">
-              http://lovebitcoins.org/getStarted.html
-            </a>
-          </span>
+          Note: You can get bitcoins at the following address: 
+          <a href="http://lovebitcoins.org/getStarted.html" target="_blank">
+            http://lovebitcoins.org/getStarted.html
+          </a>
+        </span>
       </td>
       <td>
         <%= f.text_field :bitpay_email %>

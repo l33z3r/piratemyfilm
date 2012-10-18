@@ -80,6 +80,12 @@
               <span><%= pluralize blog.project.project_followings.size, "follower" %></span>
             </div>
           </div>
+          
+          <div class="pmf_clear">&nbsp;</div>
+
+          <div class="button_small">
+            <%= link_to "Pirate Fund", project_path(blog.project) %>
+          </div>
         </div>
 
       <% end %>

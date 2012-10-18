@@ -8,9 +8,7 @@
         Seeking <%= print_money @total_funds_needed %>
       </div>
       <div class="stat">
-        <%= print_money @total_funded_amount %>
-        Raised For
-        <%= pluralize @num_funded_projects, "Project" %>
+        <%= link_to "<b>#{print_money @total_funded_amount}</b> In Funds Have Been Raised For <b>#{pluralize @num_funded_projects, "Project"}</b>", :controller => "/projects", :filter_param => "21" %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
