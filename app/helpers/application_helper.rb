@@ -383,9 +383,9 @@ module ApplicationHelper
       @project_symbol = mention[1..mention.length-1]
       
       #load the associated project
-      @project = blog.mention_projects.find(:first, :conditions => "symbol = '#{@project_symbol}'")
+      @mentioned_project = blog.mention_projects.find(:first, :conditions => "symbol = '#{@project_symbol}'")
       
-      @project_symbol.size == 5 ? link_to(mention.upcase, "#{root_url}projects/#{@project_symbol.upcase}", :title => "#{h @project.title}") : mention
+      @project_symbol.size == 5 ? link_to(mention.upcase, "#{root_url}projects/#{@project_symbol.upcase}", :title => "#{h @mentioned_project.title}") : mention
     end
     
     #hotlink the urls
