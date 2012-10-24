@@ -164,7 +164,7 @@ div#hp_latest_blog div.blog_comments_link {
 
 div#signup_section {
     float: right;
-    width: 250px;
+    width: 280px;
 }
 
 div#signup_section div#login_form_top div#fields {
@@ -2272,10 +2272,6 @@ form	{
     padding:0;
 }
 
-#header #brand a img {
-    float: left;
-}
-
 div#top_banner_container {
     text-align: center;
     background: #000;
@@ -2327,6 +2323,11 @@ div#top_banner_container div#ad_banner_container {
 div#top_banner_container div#ad_banner_container div#ad_banner {
     float: left;
     padding: 3px 0px;
+    margin-top: 20px;
+}
+
+div#top_banner_container div#ad_banner_container div#site_stats img#header_image {
+    margin: 7px 0px 0px 3px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats {
@@ -2350,7 +2351,8 @@ div#top_banner_container div#ad_banner_container div#site_stats div.stat a {
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats div.stat.more {
-    float: right;
+    float: left;
+    margin-bottom: 3px;
     padding: 0px;
 }
 
@@ -2882,7 +2884,6 @@ div#new_project_button img {
 }
 
 div#new_project_button img {
-    margin-left: 10px;
     border: 1px solid #CCC;
     border-radius: 7px;
     -webkit-border-radius: 7px;

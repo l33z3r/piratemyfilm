@@ -131,6 +131,8 @@ class ApplicationController < ActionController::Base
     @num_funded_projects = Project.all_funded.size
 
     @projects_awaiting_payment_count = @u ? @u.subscribed_projects_awaiting_payment.size : 0
+    
+    @projects_frozen_yellow_count = @u ? @u.owned_frozen_yellow_projects.size : 0
   end
 
   def print_money value

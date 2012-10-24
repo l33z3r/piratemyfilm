@@ -82,6 +82,22 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def portfolio_frozen_yellow
+    if @p != @profile
+      flash[:error] = "You do not have permission to view this page!"
+      redirect_to profile_path(@p) and return
+    end
+    
+    @projects_frozen_yellow = @profile.user.owned_frozen_yellow_projects
+
+    if @projects_frozen_yellow.size == 0
+      flash[:error] = "None of your projects are in the frozen yellow stage!"
+      redirect_to profile_path(@profile)
+    elsif @projects_frozen_yellow.size == 1
+      redirect_to project_path(@projects_frozen_yellow.first)
+    end
+  end
+
   def friend_list
     @friend_type = params[:friend_type]
 

@@ -29,7 +29,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :profiles, 
     :member=>{:delete_icon=>:post, :friend_list => :get}, 
-    :collection=>{:search=>:get, :portfolio_awaiting_payment => :get},
+    :collection=>{:search=>:get, :portfolio_awaiting_payment => :get, :portfolio_frozen_yellow => :get},
     :has_many=>[:friends, :blogs, :photos, :comments, :feed_items, :messages]
 
   map.resources :messages, :collection => {:sent => :get}

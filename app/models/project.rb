@@ -425,8 +425,10 @@ class Project < ActiveRecord::Base
     #16 => "Producer Dividend", 17 => "Shareholder Dividend", 18 => "PMF Fund Dividend",
     #19 => "% PMF Fund Shares",
     #20 => "No. PMF Fund Shares",
-    21 => "In Payment", 22 => "Fully Funded",
-    23 => "In Release", 24 => "% Move Up", 25 => "% Move Down", 
+    #21 => "In Payment", 
+    22 => "Fully Funded",
+    #23 => "In Release", 
+    24 => "% Move Up", 25 => "% Move Down", 
     26 => "Frozen Yellow Light"
   }
 
@@ -663,7 +665,8 @@ class Project < ActiveRecord::Base
   end
   
   def frozen_yellow?
-    bitpay_email.blank? and yellow_light
+    #we have to add !finished_payment_collection to deal with old projects that were funded through paypal
+    bitpay_email.blank? and yellow_light and !finished_payment_collection
   end
 
   def mark_as_finished_payment

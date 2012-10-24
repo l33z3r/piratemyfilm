@@ -271,7 +271,7 @@ class Blog < ActiveRecord::Base
           
           @vid_id = url[@vid_id_start_index..@vid_id_end_index - 1]
           
-          @vid_embed_html = "<iframe align='center' width='300' height='200'
+          @vid_embed_html = "<iframe align='center' width='200' height='140'
                     src='http://www.youtube.com/embed/#{@vid_id}'
                     frameborder='0'>
             </iframe>"
