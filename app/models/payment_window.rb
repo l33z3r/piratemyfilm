@@ -149,6 +149,9 @@ class PaymentWindow < ActiveRecord::Base
       #it will stop negative buyouts happening
       if @project.amount_shares_outstanding_payment <= 0
         PaymentWindow.mark_defaulted_shares @project
+        @project.payment_windows.last.status = "Successful"
+        @project.payment_windows.last.save
+        @project.mark_as_finished_payment
         ORDER_PROGRESS_LOG.info("Skipping buyout for project #{@project.id} as it is already funded and the buyout would have been for #{@project.amount_shares_outstanding_payment} shares!")
         return
       end
