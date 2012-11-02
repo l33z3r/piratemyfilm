@@ -226,7 +226,10 @@ class ProjectsController < ApplicationController
   #  end
 
   def share_queue
-    @subscriptions = @project.share_queue
+    @project_subscribers = @project.subscribers
+    
+    @project_subscribers.delete_if {|u| u.id == PMF_FUND_USER_ID }
+    @project_subscribers.insert(0, User.find(PMF_FUND_USER_ID))
   end
 
   def show

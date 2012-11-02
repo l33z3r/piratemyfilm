@@ -142,6 +142,17 @@ class PaymentWindow < ActiveRecord::Base
     
     #check for buyout
     if @project.payment_windows.count == 3
+      
+      #what can happen here is that the project still has unpaid subscription_payments, 
+      #but the project itself has got all 100% of funds
+      #if this is the case, we mark it as finished payment collection
+      #it will stop negative buyouts happening
+      if @project.amount_shares_outstanding_payment <= 0
+        PaymentWindow.mark_defaulted_shares @project
+        ORDER_PROGRESS_LOG.info("Skipping buyout for project #{@project.id} as it is already funded and the buyout would have been for #{@project.amount_shares_outstanding_payment} shares!")
+        return
+      end
+      
       ORDER_PROGRESS_LOG.info("Three windows opened for project #{@project.id} creating pmf buyout!")
       PaymentWindow.mark_defaulted_shares @project
       
@@ -198,8 +209,6 @@ class PaymentWindow < ActiveRecord::Base
       end
     end
     
-    #if we have enough paid shares, mark the project as payment complete
-    #    if @project.amount_payment_collected >= @project.capital_required
     # if all users in this window successfully paid, then there are no more users for the next window, so mark as successful!
     if @notify_emails_thrown.size == 0
       @payment_window.status = "Successful"

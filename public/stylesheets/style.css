@@ -1161,6 +1161,14 @@ div#project_blogs {
     margin-top: 20px;
 }
 
+div#project_youtube_vid {
+    margin-top: 20px;
+}
+
+div#project_youtube_vid div.container {
+    margin: 30px;
+}
+
 #video	{
     width:640px;
     height:391px;
@@ -1405,7 +1413,7 @@ div#share_queue div#queue_header div {
     float: left;
     font-weight: bold;
     margin-right: 10px;
-    width: 70px;
+    width: 170px;
 }
 
 div#share_queue div#queue_header div.name_header {
@@ -1413,22 +1421,6 @@ div#share_queue div#queue_header div.name_header {
     font-weight: bold;
     margin-right: 10px;
     width: 240px;
-}
-
-div#share_queue div#queue_header div.subscription_outstanding_header {
-    float: left;
-    font-weight: bold;
-    margin-right: 10px;
-    width: 70px;
-}
-
-div#share_queue div#queue_header div.subscription_payment_status {
-    width: 110px;
-}
-
-div#share_queue div#queue_header div.subscription_payment_window {
-    width: 130px;
-    margin-left: 10px;
 }
 
 div#share_queue div.subscription {
@@ -1454,7 +1446,7 @@ div#share_queue div.subscription div.number {
 
 div#share_queue div.subscription div.icon {
     float: left;
-    width: 70px;
+    width: 170px;
     margin-right: 10px;
 }
 
@@ -1469,34 +1461,6 @@ div#share_queue div.subscription div.name {
 div#share_queue div.subscription div.subscription_amount {
     float: left;
     width: 70px;
-    margin-left: 10px;
-    margin-top: 18px;
-    font-weight: bold;
-}
-
-div#share_queue div.subscription div.subscription_outstanding {
-    float: left;
-    width: 70px;
-    margin-left: 10px;
-    margin-top: 18px;
-    font-weight: bold;
-}
-
-div#share_queue div.subscription div.subscription_outstanding span.outstanding {
-    color: #D8000C;
-}
-
-div#share_queue div.subscription div.subscription_payment_status {
-    float: left;
-    width: 110px;
-    margin-left: 10px;
-    margin-top: 18px;
-    font-weight: bold;
-}
-
-div#share_queue div.subscription div.subscription_payment_window {
-    float: left;
-    width: 130px;
     margin-left: 10px;
     margin-top: 18px;
     font-weight: bold;

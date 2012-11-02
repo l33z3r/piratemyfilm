@@ -1,4 +1,4 @@
-<div class="pageTitle">Share Queue</div>
+<div class="pageTitle">Member Shares</div>
 
 <div class="pageTitleSmaller">
   For Project: <%= link_to h(@project.title), project_path(@project) %>
@@ -12,7 +12,7 @@
 
 <p class="bold font13">
   Once this project has been given a green light, the payment procedure will begin. 
-  Users will start to receive notifications to pay for shares in the order that the queue appears below.
+  Users will start to receive notifications to pay for shares.
 </p>
 
 <div class="pmf_clear">&nbsp;</div>
@@ -31,44 +31,26 @@
   <div class="pmf_clear">&nbsp;</div>
 
   <div id="queue_header">
-    <div class="number_header">Position</div>
     <div class="icon_header">User</div>
     <div class="name_header">&nbsp;</div>
     <div class="subscription_amount_header">Amount</div>
-    <div class="subscription_outstanding_header">Standby?</div>
-    <div class="subscription_payment_status">Payment Status</div>
-    <div class="subscription_payment_window">Payment Window ID</div>
     <div class="pmf_clear">&nbsp;</div>
   </div>
   <div class="pmf_clear">&nbsp;</div>
 
-  <% @subscriptions.each_with_index do |subscription, index| %>
-    <div class="<%= cycle('odd','even') %> subscription <%= subscription.outstanding ? "outstanding" : "" %>">
-      <div class="number"><%= index + 1 %></div>
-      <div class="icon"><%= icon subscription.user.profile, :small %></div>
+  <% @project_subscribers.each do |subscriber| %>
+    <div class="<%= cycle('odd','even') %> subscription">
+      <div class="icon"><%= icon subscriber.profile, :small %></div>
       <div class="name">
-        <%= link_to h(subscription.user.profile.f), profile_path(subscription.user.profile) %>
-        (<%= subscription.user.membership_type.name %> Membership)
+        <%= link_to h(subscriber.profile.f), profile_path(subscriber.profile) %>
+        (<%= subscriber.membership_type.name %> Membership)
       </div>
       <div class="subscription_amount">
-        <%= subscription.amount %>
+        <%= @project.user_subscription_amount subscriber %>
       </div>
-      <div class="subscription_outstanding">
-        <%  if subscription.outstanding %>
-          <span class="outstanding">Yes</span>
-        <% else %>
-          No
-        <% end %>
-      </div>
-      <div class="subscription_payment_status">
-        <%= subscription.payment_status %>
-      </div>
-      <div class="subscription_payment_window">
-        <%= subscription.payment_window_id %>
-        <%= subscription.in_active_window? ? "(Current Window)" : "" %>
-      </div>
+
       <div class="pmf_clear">&nbsp;</div>
+
     </div>
-    <div class="pmf_clear">&nbsp;</div>
   <% end %>
 </div>

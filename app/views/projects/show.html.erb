@@ -20,12 +20,12 @@
     <% if owner_or_admin? %>
       <%= edit_project_link @project %>
       <%= fund_collection_link @project %>
-      <%#= yellow_light_link @project %>
+  <%#= yellow_light_link @project %>
     <% end %>
 
     <%= flag_project_link @project %>
   </div>
-  
+
   <div class="pmf_clear">&nbsp;</div>
 
   <div class="left">
@@ -164,17 +164,13 @@
 
   <% if @project.youtube_vid_id and !@project.youtube_vid_id.blank? %>
     <div id="project_youtube_vid">
-      <fieldset>
-        <div class="header">Youtube Video</div>
-        <ol>
-          <li>
-            <iframe align="center" title="YouTube video player" width="800" height="500"
-                    src="http://www.youtube.com/embed/<%= @project.youtube_vid_id_stripped %>"
-                    frameborder="0" allowfullscreen>
-            </iframe>
-          </li>
-        </ol>
-      </fieldset>
+      <h3>Youtube Video</h3>
+      <div class="container">
+        <iframe align="center" title="YouTube video player" width="400" height="300"
+                src="http://www.youtube.com/embed/<%= @project.youtube_vid_id_stripped %>"
+                frameborder="0" allowfullscreen>
+        </iframe>
+      </div>
     </div>
   <% end %>
 
