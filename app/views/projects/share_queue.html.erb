@@ -43,7 +43,7 @@
       <div class="icon"><%= icon subscriber.profile, :small %></div>
       <div class="name">
         <%= link_to h(subscriber.profile.f), profile_path(subscriber.profile) %>
-        (<%= subscriber.membership_type.name %> Membership)
+        (<%= subscriber.membership_type.name %>)
       </div>
       <div class="subscription_amount">
         <%= @project.user_subscription_amount subscriber %>

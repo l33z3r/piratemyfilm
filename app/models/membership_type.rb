@@ -24,6 +24,13 @@ class MembershipType < ActiveRecord::Base
   attr_accessible :max_projects_listed, :min_funding_limit_per_project,
     :funding_limit_per_project, :pc_limit, :pc_project_limit
 
+  def sort_val
+    return 1 if self.name == "Basic"
+    return 2 if self.name == "Gold"
+    return 3 if self.name == "Platinum"
+    return 4 if self.name == "Black Pearl"
+  end
+  
   def self.select_options
     @@SELECT_OPTIONS
   end

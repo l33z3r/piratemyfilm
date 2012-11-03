@@ -225,8 +225,14 @@ class ProjectsController < ApplicationController
   #    end
   #  end
 
-  def share_queue
+  def share_queue    
     @project_subscribers = @project.subscribers
+    
+    @project_subscribers.sort! { |s1, s2|
+      s1.membership_type.sort_val <=> s2.membership_type.sort_val
+    }
+    
+    @project_subscribers.reverse!
     
     @project_subscribers.delete_if {|u| u.id == PMF_FUND_USER_ID }
     @project_subscribers.insert(0, User.find(PMF_FUND_USER_ID))
