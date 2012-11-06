@@ -223,7 +223,7 @@ class Project < ActiveRecord::Base
   def update_funding
     logger.debug "Updating percent funded"
     @total_copies = total_copies
-    @downloads_reserved = project_subscriptions.collect { |s| s.amount }.sum - self.pmf_fund_investment_share_amount_incl_outstanding
+    @downloads_reserved = project_subscriptions.collect { |s| s.amount }.sum #- self.pmf_fund_investment_share_amount_incl_outstanding
     self.downloads_reserved = @downloads_reserved
     self.downloads_available = @total_copies - self.downloads_reserved
 
@@ -252,7 +252,7 @@ class Project < ActiveRecord::Base
     @bad_share_count = 0
 
     project_subscriptions.each do |ps|
-      next if ps.user.id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
+      #next if ps.user.id == Profile.find(PMF_FUND_ACCOUNT_ID).user.id
       @bad_share_count += ps.amount if ps.user.warn_points > 0
     end
 

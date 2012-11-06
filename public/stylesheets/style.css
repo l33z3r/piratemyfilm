@@ -2277,6 +2277,19 @@ div#top_banner_container {
     text-decoration: underline;
 }
 
+.sopa-banner div.bitcoin_vid_link {
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    text-transform:uppercase;
+    margin:0 auto;
+    margin-left: 20px;
+    float: right;
+}
+
+.sopa-banner div.bitcoin_vid_link a {
+    color: #000;
+}
+
 /*sopa-banner*/
 
 div#top_banner_container div#ad_banner_container {

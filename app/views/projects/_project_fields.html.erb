@@ -15,8 +15,6 @@
         <li class="label">% Funded:</li>
         <li class="stat">
           <%= project.percent_funded %>&#37
-          (<a class="tooltip_arrow" title="This is the value of the investment by the PMF
-              community and does not include shares held by the PMF Fund.">?</a>)
         </li>
         <li class="pmf_clear"></li>
         <li class="label">% Bad Shares:</li>
@@ -53,9 +51,7 @@
         <li class="label">Shares Reserved:</li><li class="stat"><%=h project.downloads_reserved %></li>
         <li class="pmf_clear"></li>
         <li class="label">No. PMF Fund Shares:</li>
-        <li class="stat"><%= project.pmf_fund_investment_share_amount %></li>
-        <li class="label">&#37; Funded Total:</li><li class="stat"><%= project.percent_funded_with_pmf_fund_non_outstanding %>&#37</li>
-        <li class="pmf_clear"></li>
+        <li class="stat"><%= project.pmf_fund_investment_share_amount %></li>        
         <li class="label">Time to Completion:</li>
         <li class="stat">
           <%= project_completion project %>
