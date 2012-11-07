@@ -2,20 +2,35 @@
   <div id="ad_banner_container">
     <div id="site_stats">
       <a href="/"><img id="header_image" src="/images/pmf-logo-black-white.jpg"/></a>
-      
+
       <div class="stat">
-        <%= print_money @total_reservations_amount %>
-        Reserved In
-        <%= @total_reservations %></b> Projects </br>
-        Seeking <%= print_money @total_funds_needed %>
+        <%= link_to "<b>#{print_money @total_funded_amount}</b> Raised For <b>#{pluralize @num_funded_projects, "Project"}</b>", :controller => "/projects", :filter_param => "22" %>
       </div>
       <div class="stat">
-        <%= link_to "<b>#{print_money @total_funded_amount}</b> In Funds Have Been Raised For <b>#{pluralize @num_funded_projects, "Project"}</b>", :controller => "/projects", :filter_param => "22" %>
+        <%= print_money @total_reservations_amount %> Raised For <%= @total_reservations %></b> Projects </br>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
 
-      <div class="stat more">
+      <div class="volume_stats">
+        <div class="volume_stat">
+          <div class="label">Total + Volume (24h):</div>
+          <div class="stat"><%= up_down_arrow @site_banner_total_ups %><%= @site_banner_total_ups.abs %></div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+
+        <div class="volume_stat">
+          <div class="label">Total - Volume (24h):</div>
+          <div class="stat"><%= up_down_arrow @site_banner_total_downs %><%= @site_banner_total_downs.abs %></div>
+          <div class="pmf_clear">&nbsp;</div>
+        </div>
+      </div>
+
+      <div class="pmf_clear">&nbsp;</div>
+
+        <div class="stat more">
         <a href="/pages/stats">More Stats >>></a>
       </div>
     </div>

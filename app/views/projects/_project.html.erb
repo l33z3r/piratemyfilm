@@ -111,11 +111,6 @@ project_link_action ||= "show"
       <div class="watch_url">
         <a href="<%= watch_project_url project %>">Watch Film Here</a>
       </div>
-      <% if project.premier_date %>
-        <div class="premier_date">
-          Premier Date: <%= project.premier_date.to_s(:short) %>
-        </div>
-      <% end %>
       <div class="pmf_clear">&nbsp;</div>
     <% end %>
   </div>

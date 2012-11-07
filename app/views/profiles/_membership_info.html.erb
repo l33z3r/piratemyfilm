@@ -24,9 +24,9 @@
     </div>
   <% else %>
     <div class="membership_type">
-      <div class="title"><%=@profile.user.login%>'s Membership</div>
+      <div class="title"><%=  h @profile.user.login %>'s Membership</div>
       <ul>
-        <li><%=@profile.user.login%> is currently on <b><%= @profile.user.membership_type.name %></b> Membership</li>
+        <li><%= h @profile.user.login %> is currently on <b><%= @profile.user.membership_type.name %></b> Membership</li>
       </ul>
     </div>
   <% end %>

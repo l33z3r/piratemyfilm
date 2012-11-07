@@ -16,7 +16,7 @@
       </div>
       <div class="talent_info">
         <div class="username">
-          <%= link_to_function talent.user.login, "addTalent(#{talent.id}, #{project.id});" %>
+          <%= link_to_function h(talent.user.login), "addTalent(#{talent.id}, #{project.id});" %>
         </div>
         <div class="rating">
           Rating: <span><%= talent.current_rating %></span>

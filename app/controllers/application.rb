@@ -133,6 +133,9 @@ class ApplicationController < ActionController::Base
     @projects_awaiting_payment_count = @u ? @u.subscribed_projects_awaiting_payment.size : 0
     
     @projects_frozen_yellow_count = @u ? @u.owned_frozen_yellow_projects.size : 0
+    
+    @site_banner_total_ups = ProjectChangeInfoOneDay.total_today_ups
+    @site_banner_total_downs = ProjectChangeInfoOneDay.total_today_downs
   end
 
   def print_money value

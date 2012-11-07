@@ -2,7 +2,7 @@
   <% if @p == @profile %>
     My
   <% else %>
-    <%=  @profile.user.login %>'s
+    <%= h @profile.user.login %>'s
   <% end %>
 
   <%= @friend_type_string %>

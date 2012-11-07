@@ -2304,7 +2304,7 @@ div#top_banner_container div#ad_banner_container div#ad_banner {
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats img#header_image {
-    margin: 7px 0px 0px 3px;
+    margin: 8px 0px 8px 0px;
 }
 
 div#top_banner_container div#ad_banner_container div#site_stats {
@@ -2319,7 +2319,7 @@ div#top_banner_container div#ad_banner_container div#site_stats div.stat {
     float: left;
     color: #FFF;
     font-weight: bold;
-    padding: 7px 2px;
+    padding: 2px 0px;
     font-size: 11px;
 }
 
@@ -2327,9 +2327,37 @@ div#top_banner_container div#ad_banner_container div#site_stats div.stat a {
     color: #FFF;
 }
 
+div#top_banner_container div#ad_banner_container div#site_stats div.volume_stats {
+    padding: 2px 0px;
+}
+
+div#top_banner_container div#ad_banner_container div#site_stats div.volume_stats div.volume_stat {
+    float: left;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+div#top_banner_container div#ad_banner_container div#site_stats div.volume_stats div.volume_stat div.label {
+    float: left;
+    width: 120px;
+}
+
+div#top_banner_container div#ad_banner_container div#site_stats div.volume_stats div.volume_stat div.stat {
+    float: left;
+    margin-top: -3px;
+    margin-left: 10px;
+}
+
+div#top_banner_container div#ad_banner_container div#site_stats div.volume_stats div.volume_stat div.stat img {
+    margin-bottom: -2px;
+    margin-right: 3px;
+}
+
 div#top_banner_container div#ad_banner_container div#site_stats div.stat.more {
     float: left;
     margin-bottom: 3px;
+    margin-top: 3px;
     padding: 0px;
 }
 
@@ -2455,7 +2483,7 @@ div#site_wrapper div#content_container {
 }
 
 div#bg_wrapper {
-    
+
 }
 
 body	{

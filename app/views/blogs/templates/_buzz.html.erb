@@ -14,7 +14,7 @@
     </div>
     <div class="user_info info">
       <div class="user_name">
-        <%= link_to the_profile.user.login, profile_path(the_profile) %>
+        <%= link_to h(the_profile.user.login), profile_path(the_profile) %>
       </div>
       <div class="blog_user_relationship">
         <%= blog.user_relationship the_profile %>
@@ -37,7 +37,7 @@
             <%= image_tag "rebuzz_icon.png" %>
           </div>
           <div class="text">
-            by <%= link_to blog.profile.user.login, profile_path(blog.profile) %>
+            by <%= link_to h(blog.profile.user.login), profile_path(blog.profile) %>
           </div>
         </div>
       <% end %>
@@ -103,7 +103,7 @@
       <%= render :partial => "/blogs/templates/share_buttons",
         :locals => {:target_url => url_for(:only_path => false,
           :controller => "blogs", :action => "show", :id => blog.id),
-        :tweet_text => "New buzz from #{the_profile.user.login}"} %>
+        :tweet_text => "New buzz from #{h the_profile.user.login}"} %>
     </div>
 
     <div class="pmf_clear">&nbsp;</div>

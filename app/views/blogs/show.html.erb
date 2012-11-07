@@ -38,7 +38,7 @@
               <%= icon blog_comment.user.profile, :medium %>
             </div>
             <div class="blog-comment">
-              <p><b>Posted by:</b> <%= "#{blog_comment.user.login} on #{blog_comment.created_at.to_formatted_s(:long_ordinal)}:" %></p>
+              <p><b>Posted by:</b> <%= "#{h blog_comment.user.login} on #{blog_comment.created_at.to_formatted_s(:long_ordinal)}:" %></p>
               <div class="body"><%= h blog_comment.body %></div>
             </div>
           </div>

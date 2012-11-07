@@ -3,7 +3,7 @@
 </div>
 <div class="talent_info">
   <div class="username">
-    <%= link_to user_talent.user.login, profile_path(user_talent.user.profile) %>
+    <%= link_to h(user_talent.user.login), profile_path(user_talent.user.profile) %>
   </div>
   <div class="rating">
     Rating: <span><%= user_talent.current_rating %></span>

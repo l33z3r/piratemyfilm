@@ -14,7 +14,7 @@
     </div>
     <div class="user_info info">
       <div class="user_name">
-        <%= link_to the_profile.user.login, profile_url(the_profile) %>
+        <%= link_to h(the_profile.user.login), profile_url(the_profile) %>
       </div>
       <div class="blog_user_relationship">
         <%= blog.user_relationship the_profile %>
@@ -39,7 +39,7 @@
             <%= image_tag "rebuzz_icon.png" %>
           </div>
           <div class="text">
-            by <%= link_to blog.profile.user.login, profile_url(blog.profile) %>
+            by <%= link_to h(blog.profile.user.login), profile_url(blog.profile) %>
           </div>
         </div>
       <% end %>

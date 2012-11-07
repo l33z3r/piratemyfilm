@@ -8,7 +8,7 @@
       <a onclick="doRebuzz(<%=blog.blog_rebuzz ? blog.blog_rebuzz.id : blog.id%>, true);">Rebuzz</a>
     </div>
     <div class="reply button_small">
-      <a onclick="doReply('@<%=blog.blog_rebuzz ? blog.blog_rebuzz.profile.user.login_for_buzz_mention : blog.profile.user.login_for_buzz_mention%>');">Reply</a>
+      <a onclick="doReply('@<%=blog.blog_rebuzz ? h(blog.blog_rebuzz.profile.user.login_for_buzz_mention) : h(blog.profile.user.login_for_buzz_mention) %>');">Reply</a>
     </div>
   <% end %>
 </div>

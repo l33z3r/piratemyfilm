@@ -235,7 +235,7 @@
     </td>
   </tr>
 
-  <tr>
+  <!--tr>
     <td>
       Enter estimated project completion date
     </td>
@@ -253,7 +253,7 @@
       <%= f.date_select :premier_date %>
       <%= display_error_on(project, :premier_date) -%>
     </td>
-  </tr>
+  </tr-->
 
   <tr>
     <td>
@@ -474,7 +474,7 @@
 
   <tr>
     <td>
-      Enter a logline for your project (limited to 140 chars)
+      Describe your project (limited to 140 chars)
     </td>
     <td>
       <%= f.text_field :description, {:size => 30, :maxlength => 140} %>

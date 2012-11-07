@@ -102,7 +102,7 @@
     <%  @payment_window.subscription_payments.each do |subscription_payment| %>
       <div class="<%= cycle('odd','even') %> subscription_payment">
         <div class="sp_id"><%= subscription_payment.id %></div>
-        <div class="user_name"><%= link_to subscription_payment.user.login, profile_path(subscription_payment.user.id) %></div>
+        <div class="user_name"><%= link_to h(subscription_payment.user.login), profile_path(subscription_payment.user.id) %></div>
         <div class="share_amount"><%= subscription_payment.share_amount %></div>
         <div class="share_price"><%= print_money subscription_payment.share_price %></div>
         <div class="payment_amount"><%= print_money subscription_payment.payment_amount %></div>

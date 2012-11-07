@@ -1,6 +1,6 @@
 <% if @p != @profile %>
   <div class="pageTitle">
-    <%=@profile.user.login%>'s
+    <%= h @profile.user.login %>'s
     Profile
   </div>
 <% end %>
@@ -104,7 +104,7 @@
           <% if @p == @profile %>
             My
           <% else %>
-            <%=@profile.user.login%>'s
+            <%= h @profile.user.login %>'s
           <% end %>
           Followers
         </div>
@@ -233,7 +233,7 @@
     <% if @p == @profile %>
       My
     <% else %>
-      <%=@profile.user.login%>'s
+      <%= h @profile.user.login %>'s
     <% end %>
     Updates
   </h2>
@@ -260,7 +260,7 @@
       <% if @p == @profile %>
         Your
       <% else %>
-        <%=@profile.user.login%>'s
+        <%= h @profile.user.login %>'s
       <% end %>
       projects that are frozen in yellow light stage awaiting a bitpay email
     </div>
@@ -277,7 +277,7 @@
       <% if @p == @profile %>
         Your
       <% else %>
-        <%=@profile.user.login%>'s
+        <%= h @profile.user.login %>'s
       <% end %>
       projects that are in payment
     </div>
@@ -294,7 +294,7 @@
       <% if @p == @profile %>
         You are
       <% else %>
-        <%=@profile.user.login%> is
+        <%= h @profile.user.login %> is
       <% end %>
       <i>offering</i> shares (raising money) for these projects
     </div>
@@ -310,7 +310,7 @@
       <% if @p == @profile %>
         You are
       <% else %>
-        <%=@profile.user.login%> is
+        <%= h @profile.user.login %> is
       <% end %>
       <i>reserving</i> reserving shares in these projects
     </div>
@@ -323,7 +323,7 @@
       <% if @p == @profile %>
         Your
       <% else %>
-        <%=@profile.user.login%>'s
+        <%= h @profile.user.login %>'s
       <% end %>
       projects that members helped fund
     </div>
@@ -341,7 +341,7 @@
       <% if @p == @profile %>
         You are
       <% else %>
-        <%=@profile.user.login%> is
+        <%= h @profile.user.login %> is
       <% end %>
       one of the PMF members that helped fund these projects
     </div>

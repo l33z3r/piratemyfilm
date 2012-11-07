@@ -17,21 +17,11 @@
           <%= project.percent_funded %>&#37
         </li>
         <li class="pmf_clear"></li>
-        <li class="label">% Bad Shares:</li>
+        <li class="label">% Plank Shares:</li>
         <li class="stat">
           <%= project.percent_bad_shares %>&#37
           (<a class="tooltip_arrow" title="This is the percentage of shares held by plank walkers!">?</a>)
         </li>
-        <li class="pmf_clear"></li>
-        <li class="label">
-          &#37; Producer Fee:
-        </li>
-        <li class="stat">NYA</li>
-        <!--li class="stat">
-        <%= project.producer_fee_percent %>%
-          (<a class="tooltip_arrow" title="This is a % of the budget
-              that the producer will take as an initial fee">?</a>)
-        </li-->
         <li class="pmf_clear"></li>
         <li class="label">Daily % Move:</li><li class="stat"><%= number_to_percentage(project.daily_percent_move, :precision => 0) %></li>
         <li class="pmf_clear"></li>
@@ -52,11 +42,6 @@
         <li class="pmf_clear"></li>
         <li class="label">No. PMF Fund Shares:</li>
         <li class="stat"><%= project.pmf_fund_investment_share_amount %></li>        
-        <li class="label">Time to Completion:</li>
-        <li class="stat">
-          <%= project_completion project %>
-          (<a class="tooltip_arrow" title="This is the estimated time it will take to complete the project production">?</a>)
-        </li>
         <li class="pmf_clear"></li>
       </ul>
     </div>

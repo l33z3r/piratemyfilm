@@ -36,7 +36,7 @@
   <% @open_requests.each do |buyout_request| %>
     <div class="<%= cycle('odd','even') %> request">
       <div class="project"><%= link_to buyout_request.project.title, project_path(buyout_request.project) %></div>
-      <div class="user"><%= link_to buyout_request.user.login, profile_path(buyout_request.user.id) %></div>
+      <div class="user"><%= link_to h(buyout_request.user.login), profile_path(buyout_request.user.id) %></div>
       <div class="share_amount"><%= buyout_request.share_amount %></div>
       <div class="share_price"><%= print_money buyout_request.share_price %></div>
       <div class="payment_amount"><%= print_money buyout_request.payment_amount %></div>
@@ -122,7 +122,7 @@
   <% @verified_requests.each do |buyout_request| %>
     <div class="<%= cycle('odd','even') %> request">
       <div class="project"><%= link_to buyout_request.project.title, project_path(buyout_request.project) %></div>
-      <div class="user"><%= link_to buyout_request.user.login, profile_path(buyout_request.user.id) %></div>
+      <div class="user"><%= link_to h(buyout_request.user.login), profile_path(buyout_request.user.id) %></div>
       <div class="share_amount"><%= buyout_request.share_amount %></div>
       <div class="share_price"><%= print_money buyout_request.share_price %></div>
       <div class="payment_amount"><%= print_money buyout_request.payment_amount %></div>
@@ -165,7 +165,7 @@
   <% @denied_requests.each do |buyout_request| %>
     <div class="<%= cycle('odd','even') %> request">
       <div class="project"><%= link_to buyout_request.project.title, project_path(buyout_request.project) %></div>
-      <div class="user"><%= link_to buyout_request.user.login, profile_path(buyout_request.user.id) %></div>
+      <div class="user"><%= link_to h(buyout_request.user.login), profile_path(buyout_request.user.id) %></div>
       <div class="share_amount"><%= buyout_request.share_amount %></div>
       <div class="share_price"><%= print_money buyout_request.share_price %></div>
       <div class="payment_amount"><%= print_money buyout_request.payment_amount %></div>

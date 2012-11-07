@@ -46,10 +46,6 @@
 
   <div class="pmf_clear">&nbsp;</div>
 
-  <%= render :partial => "project_dividends", :locals => {:project => @project} %>
-
-  <div class="pmf_clear">&nbsp;</div>
-
   <%= render :partial => "project_talents", :locals => {:project => @project} %>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -254,4 +250,9 @@
       </ol>
     </fieldset>
   <% end %>
+
+  <%= render :partial => "project_dividends", :locals => {:project => @project} %>
+
+  <div class="pmf_clear">&nbsp;</div>
+  
 </div>
