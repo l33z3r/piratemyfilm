@@ -7,7 +7,7 @@
         <%= link_to "<b>#{print_money @total_funded_amount}</b> Raised For <b>#{pluralize @num_funded_projects, "Project"}</b>", :controller => "/projects", :filter_param => "22" %>
       </div>
       <div class="stat">
-        <%= print_money @total_reservations_amount %> Raised For <%= @total_reservations %></b> Projects </br>
+        <%= print_money @total_reservations_amount %> Reserved In <%= @total_reservations %></b> Projects </br>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
