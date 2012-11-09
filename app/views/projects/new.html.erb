@@ -1,5 +1,5 @@
 <% form_for @project, projects_path, :html=>{:multipart=>true} do |f| %>  
-  <div class="pageTitle">Need PirateFunds? List your project on and start raising money immediately!</div>
+  <div class="pageTitle">Need PirateFunds? List your project and start raising money immediately!</div>
 
   <%= render :partial => "projects/form",
     :locals => {:project => @project, :new_listing => true, :f => f, :include_captcha => true} %>
