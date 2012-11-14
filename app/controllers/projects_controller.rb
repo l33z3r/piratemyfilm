@@ -234,8 +234,14 @@ class ProjectsController < ApplicationController
     
     @project_subscribers.reverse!
     
+    @old_size = @project_subscribers.size
+    
     @project_subscribers.delete_if {|u| u.id == PMF_FUND_USER_ID }
-    @project_subscribers.insert(0, User.find(PMF_FUND_USER_ID))
+    
+    @new_size = @project_subscribers.size
+    
+    #now insert the pmf fund user if he was originally in it
+    @project_subscribers.insert(0, User.find(PMF_FUND_USER_ID)) if @old_size != @new_size
   end
 
   def show
