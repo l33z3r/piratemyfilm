@@ -109,7 +109,7 @@
           Followers
         </div>
 
-        <div class="label">Followed By:</div>
+        <div class="label">Members Following Me:</div>
         <div class="value">
           <%= link_to pluralize(@profile.followers.length, "User"),
             friend_list_profile_path(@profile, :friend_type => Profile::FOLLOWERS) %>
@@ -117,10 +117,24 @@
 
         <div class="pmf_clear">&nbsp;</div>
 
-        <div class="label">Following:</div>
+        <div class="label">Members I Follow:</div>
         <div class="value">
           <%= link_to pluralize(@profile.followings.length, "User"),
             friend_list_profile_path(@profile, :friend_type => Profile::FOLLOWINGS) %>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+        
+        <div class="label">Members Following My Projects:</div>
+        <div class="value">
+          <%= pluralize(@profile.user.num_project_followers, "User") %>
+        </div>
+
+        <div class="pmf_clear">&nbsp;</div>
+        
+        <div class="label">Projects I Follow:</div>
+        <div class="value">
+          <%= pluralize(@profile.user.followed_projects.count, "Projects") %>
         </div>
 
         <div class="pmf_clear">&nbsp;</div>

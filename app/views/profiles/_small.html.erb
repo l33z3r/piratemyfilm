@@ -1,6 +1,26 @@
-<div class="user-icon">
-  <%= icon(profile, :small) %>
-  <span><%= link_to h(profile.user.login), profile_path(profile) %></span>
+<div class="user_small">
+  <div class="user-icon">
+    <%= icon(profile, :small) %>  
+  </div>
+  
+  <div class="user_info">
+    <div class="username_link">
+      <%= link_to h(profile.user.login), profile_path(profile) %>
+    </div>
+    
+    <div class="user_stats">
+      <div class="label">No. Plank Walks:</div>
+      <div class="stat"><%= profile.user.warn_points %></div>
+      
+      <div class="pmf_clear">&nbsp;</div>
+      
+      <div class="label">No. Bad Shares:</div>
+      <div class="stat"><%= profile.user.num_defaulted_shares %></div>
+    </div>
+  </div>
+  
+  <div class="pmf_clear">&nbsp;</div>
+  
   <div class="follow_button">
     <%= follow_member_button_small profile %>
   </div>

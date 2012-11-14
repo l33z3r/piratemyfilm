@@ -81,6 +81,7 @@ class User < ActiveRecord::Base
     :order => "project_subscriptions.created_at", :group => "projects.id"
 
   has_many :subscription_payments
+  has_many :defaulted_subscription_payments, :class_name => "SubscriptionPayment", :conditions => "status = 'Defaulted'"
 
   has_many :pmf_share_buyouts
 
@@ -486,6 +487,20 @@ class User < ActiveRecord::Base
     Project.find_by_sql("select projects.* from projects where id in
     (select project_id from subscription_payments where (status is null or (status != 'Paid'
     and status != 'Defaulted' and status != 'Thrown' and status != 'Reused') and user_id = #{id}) group by project_id)")
+  end
+  
+  def num_defaulted_shares
+    defaulted_subscription_payments.to_a.sum(&:share_amount)
+  end
+  
+  def num_project_followers
+    return 0 if self.owned_projects.count == 0
+    
+    my_project_ids = self.owned_projects.map(&:id)
+        
+    my_project_followers = User.find_by_sql("select users.* from users where id in (select user_id from project_followings where project_id in (#{my_project_ids.join(",")}))")
+    
+    return my_project_followers.size
   end
   
   def self.my_mentions user

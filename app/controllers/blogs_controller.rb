@@ -70,6 +70,9 @@ class BlogsController < ApplicationController
     begin
       @blog = Blog.new(params[:blog])
       
+      #escape body
+      @blog.body = CGI.escapeHTML @blog.body
+      
       if @blog.blog_rebuzz_id
         Blog.prepare_rebuzz @blog
       end

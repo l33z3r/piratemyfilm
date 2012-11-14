@@ -1423,6 +1423,13 @@ div#share_queue div#queue_header div.name_header {
     width: 240px;
 }
 
+div#share_queue div#queue_header div.subscription_amount_header {
+    float: left;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 70px;
+}
+
 div#share_queue div.subscription {
     margin-bottom: 20px;
     padding: 5px 0px 5px 0px;
@@ -1459,6 +1466,13 @@ div#share_queue div.subscription div.name {
 }
 
 div#share_queue div.subscription div.subscription_amount {
+    float: left;
+    width: 70px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+div#share_queue div.subscription div.subscription_payment_status {
     float: left;
     width: 70px;
     margin-left: 10px;
@@ -2245,7 +2259,7 @@ div#top_banner_container {
 
 .sopa-banner	{
     width: 960px;
-    height: 25px;
+    height: 55px;
     padding-top: 10px;
     margin: auto;
     color: #000;
@@ -2259,6 +2273,17 @@ div#top_banner_container {
     margin:0 auto;
 }
 
+.sopa-banner img#title_bar_img {
+    float: left;
+    margin-top: -4px;
+}
+
+.sopa-banner span#bitcoin_donation {
+    display: block;
+    text-transform: none;
+    margin-top: 5px;
+}
+
 .sopa-banner span a	{
     color: #C30;
     text-decoration:underline;
@@ -2269,12 +2294,9 @@ div#top_banner_container {
     text-decoration:underline;
 }
 
-.sopa-banner a.hiw_link {
-    display: inline-block;
-    color: #000;
+.sopa-banner div#how_it_works_link {
     margin-left: 10px;
-    text-transform: uppercase;
-    text-decoration: underline;
+    float: left;
 }
 
 .sopa-banner div.bitcoin_vid_link {
@@ -3665,28 +3687,51 @@ div#buyout_requests div.odd {
     margin-top:5px;
 }
 
-.user-icon {
+div.user_small div.user-icon {
     text-align: center;
     float: left;
-    padding: 10px;
-    width: 115px;
-}
-
-.user-icon div.follow_button {
-    margin-left: 25px;
-}
-
-.user-icon div.follow_button div.button_small {
+    padding: 3px 10px 0px 0px;
     width: 60px;
 }
 
-.user-icon div.follow_button div.following_text {
+div.user_small {
+    width: 210px;
+    float: left;
+    margin: 5px;
+}
+
+div.user_small div.follow_button {
+    margin: 10px 0px 20px 25px;
+}
+
+div.user_small div.follow_button div.button_small {
+    width: 60px;
+}
+
+div.user_small div.follow_button div.following_text {
     margin-left: 2px;
     margin-top: 3px;
 }
 
-.user-icon span {
-    display:block;
+div.user_small div.user_info {
+    float: left;
+}
+
+div.user_small div.user_info div.username_link {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000;
+}
+
+#content div.user_small div.user_info div.user_stats div.label {
+    float: left;
+    width: 100px;
+    font-weight: bold;
+}
+
+div.user_small div.user_info div.user_stats div.stat {
+    float: left;
 }
 
 .view-lite-row-user-icon span a	{
