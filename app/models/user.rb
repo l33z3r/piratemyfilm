@@ -508,6 +508,16 @@ class User < ActiveRecord::Base
       bum.blog
     end
   end
+  
+  def subscription_payment_status project
+    sp = self.subscription_payments.find_by_project_id(project.id)
+    
+    if sp
+      return sp.status
+    else
+      return "N/A"
+    end
+  end
 
   # Activates the user in the database.
   def activate

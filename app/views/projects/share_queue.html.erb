@@ -50,7 +50,7 @@
         <%= @project.user_subscription_amount subscriber %>
       </div>
       <div class="subscription_payment_status">
-        <%= subscriber.subscription_payments.find_by_project_id(@project.id).status %>
+        <%= subscriber.subscription_payment_status @project %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
