@@ -510,10 +510,10 @@ class User < ActiveRecord::Base
   end
   
   def subscription_payment_status project
-    sp = self.subscription_payments.find_by_project_id(project.id)
+    sps = self.subscription_payments.find_all_by_project_id(project.id, :order => "created_at")
     
-    if sp
-      return sp.status
+    if sps.size > 0
+      return sps.last.status
     else
       return "N/A"
     end
