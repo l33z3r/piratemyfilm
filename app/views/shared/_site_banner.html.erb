@@ -4,10 +4,10 @@
       <a href="/"><img id="header_image" src="/images/pmf-logo-black-white.jpg"/></a>
 
       <div class="stat">
-        <%= link_to "<b>#{print_money @total_funded_amount}</b> Raised: <b>#{pluralize @num_funded_projects, "Project"}</b>", :controller => "/projects", :filter_param => "22" %>
+        <%= print_money @total_reservations_amount %> Reserved: <%= @total_reservations %></b> Projects </br>
       </div>
       <div class="stat">
-        <%= print_money @total_reservations_amount %> Reserved: <%= @total_reservations %></b> Projects </br>
+        <%= link_to "<b>#{print_money @total_funded_amount}</b> Raised: <b>#{pluralize @num_funded_projects, "Project"}</b>", :controller => "/projects", :filter_param => "22" %>
       </div>
 
       <div class="pmf_clear">&nbsp;</div>
@@ -30,7 +30,7 @@
 
       <div class="pmf_clear">&nbsp;</div>
 
-        <div class="stat more">
+      <div class="stat more">
         <a href="/pages/stats">More Stats >>></a>
       </div>
     </div>

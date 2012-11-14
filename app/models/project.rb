@@ -525,7 +525,7 @@ class Project < ActiveRecord::Base
   def user_subscription_amount user
     @sum = 0
 
-    project_subscriptions.find_all_by_user_id_and_outstanding(user.id, false).each do |sub|
+    project_subscriptions.find_all_by_user_id(user.id).each do |sub|
       @sum += sub.amount
     end
 
