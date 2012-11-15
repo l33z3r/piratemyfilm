@@ -13,6 +13,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: projects
@@ -61,9 +62,7 @@ end
 #  pmf_fund_investment_share_amount :integer(4)      default(0)
 #  project_payment_status           :string(255)
 #  fully_funded_time                :datetime
-#  completion_date                  :datetime
 #  watch_url                        :string(255)
-#  premier_date                     :date
 #  percent_bad_shares               :integer(4)      default(0)
 #  main_video                       :string(255)
 #  daily_percent_move               :integer(4)      default(0)
@@ -71,5 +70,6 @@ end
 #  yellow_light                     :datetime
 #  actors                           :string(255)
 #  bitpay_email                     :string(255)
+#  weeks_to_finish                  :integer(4)
 #
 

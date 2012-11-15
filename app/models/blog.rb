@@ -308,6 +308,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: blogs

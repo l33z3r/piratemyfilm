@@ -33,7 +33,7 @@ class Project < ActiveRecord::Base
   validates_length_of :description, :within => 0..140
   validates_length_of :title, :minimum => 5
   
-  validates_numericality_of :capital_required, :ipo_price, :project_length, :allow_nil => true
+  validates_numericality_of :capital_required, :ipo_price, :project_length, :weeks_to_finish, :allow_nil => true
   validates_numericality_of :capital_recycled_percent, :producer_fee_percent, :allow_nil => true
   validates_numericality_of :share_percent_ads, :allow_nil => true
 
@@ -416,20 +416,19 @@ class Project < ActiveRecord::Base
   end
 
   @@filter_params_map = {
-    1 => "View Projects By", 2 => "Yellow Light", 3 => "Green Light", 4 => "% Funded All", 
-    #    5 => "% Funded - Pre Production", 6 => "% Funded - In Production", 
-    #    7 => "% Funded - Post Production", 8 => "% Funded - Finishing Funds",
-    #    9 => "% Funded - Trailer", 
-    10 => "Funds Needed", 11 => "Funds Reserved",
-    12 => "PMF Fund Rating", 13 => "Member Rating", 14 => "Newest", 15 => "Oldest",
-    #16 => "Producer Dividend", 17 => "Shareholder Dividend", 18 => "PMF Fund Dividend",
-    #19 => "% PMF Fund Shares",
-    #20 => "No. PMF Fund Shares",
-    #21 => "In Payment", 
-    22 => "Fully Funded",
-    #23 => "In Release", 
-    24 => "% Move Up", 25 => "% Move Down", 
-    26 => "Frozen Yellow Light"
+    1 => "View Projects By", 2 => "Frozen Yellow Light", 3 => "Yellow Light", 4 => "Green Light", 5 => "% Funded All", 
+    #    6 => "% Funded - Pre Production", 7 => "% Funded - In Production", 
+    #    8 => "% Funded - Post Production", 9 => "% Funded - Finishing Funds",
+    #    10 => "% Funded - Trailer", 
+    11 => "Funds Needed", 12 => "Funds Reserved",
+    13 => "PMF Fund Rating", 14 => "Member Rating", 15 => "Newest", 16 => "Oldest",
+    #17 => "Producer Dividend", 18 => "Shareholder Dividend", 19 => "PMF Fund Dividend",
+    #20 => "% PMF Fund Shares",
+    #21 => "No. PMF Fund Shares",
+    #22 => "In Payment", 
+    23 => "Fully Funded",
+    #24 => "In Release", 
+    25 => "% Move Up", 26 => "% Move Down"
   }
 
   def self.get_filter_sql filter_param
@@ -442,15 +441,15 @@ class Project < ActiveRecord::Base
     @yellow_light_filter = " yellow_light is null"
     
     case filter_param.to_s
-    when "2" then return "project_payment_status is null and yellow_light is not null and (bitpay_email is not null and length(bitpay_email) > 0)"
-    when "3" then return "green_light is NOT NULL and project_payment_status != 'Finished Payment'"
-    when "4" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
-    when "5" then return "status = \"Pre Production\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
-    when "6" then return "status = \"In Production\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
-    when "7" then return "status = \"Post Production\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
-    when "8" then return "status = \"Finishing Funds\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
-    when "9" then return "genre_id = #{Genre.find_by_title("Trailer").id} and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
-    when "10" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "2" then return "project_payment_status is null and yellow_light is not null and (bitpay_email is null or length(bitpay_email) = 0)"
+    when "3" then return "project_payment_status is null and yellow_light is not null and (bitpay_email is not null and length(bitpay_email) > 0)"
+    when "4" then return "green_light is NOT NULL and project_payment_status != 'Finished Payment'"
+    when "5" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "6" then return "status = \"Pre Production\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "7" then return "status = \"In Production\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "8" then return "status = \"Post Production\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "9" then return "status = \"Finishing Funds\" and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "10" then return "genre_id = #{Genre.find_by_title("Trailer").id} and #{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
     when "11" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
     when "12" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
     when "13" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
@@ -461,12 +460,12 @@ class Project < ActiveRecord::Base
     when "18" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
     when "19" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
     when "20" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
-    when "21" then return "project_payment_status = 'In Payment'"
-    when "22" then return "project_payment_status = 'Finished Payment'"
-    when "23" then return "project_payment_status = 'Finished Payment' and status = 'In Release'"
-    when "24" then return "#{@payment_status_filter}"
+    when "21" then return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
+    when "22" then return "project_payment_status = 'In Payment'"
+    when "23" then return "project_payment_status = 'Finished Payment'"
+    when "24" then return "project_payment_status = 'Finished Payment' and status = 'In Release'"
     when "25" then return "#{@payment_status_filter}"
-    when "26" then return "project_payment_status is null and yellow_light is not null and (bitpay_email is null or length(bitpay_email) = 0)"
+    when "26" then return "#{@payment_status_filter}"    
     else return "#{@payment_status_filter} and #{@green_light_filter} and #{@yellow_light_filter}"
     end
   end
@@ -474,30 +473,30 @@ class Project < ActiveRecord::Base
   def self.get_order_sql filter_param
     case filter_param.to_s
     when "2" then return "yellow_light DESC"
-    when "3" then return "green_light DESC"        
-    when "4" then return "percent_funded_total DESC"
+    when "3" then return "yellow_light DESC"
+    when "4" then return "green_light DESC"        
     when "5" then return "percent_funded_total DESC"
     when "6" then return "percent_funded_total DESC"
     when "7" then return "percent_funded_total DESC"
     when "8" then return "percent_funded_total DESC"
     when "9" then return "percent_funded_total DESC"
-    when "10" then return "capital_required DESC"
-    when "11" then return "(downloads_reserved * ipo_price) DESC"
-    when "12" then return "admin_rating DESC"
-    when "13" then return "member_rating DESC"
-    when "14" then return "created_at DESC"
-    when "15" then return "created_at ASC"
-      #    when "16" then return "producer_dividend DESC"
-      #    when "17" then return "shareholder_dividend DESC"
-      #    when "18" then return "fund_dividend DESC"
-      #    when "19" then return "pmf_fund_investment_percentage DESC"
-    when "20" then return "pmf_fund_investment_share_amount DESC"
-    when "21" then return "green_light DESC"
-    when "22" then return "fully_funded_time DESC"
+    when "10" then return "percent_funded_total DESC"
+    when "11" then return "capital_required DESC"
+    when "12" then return "(downloads_reserved * ipo_price) DESC"
+    when "13" then return "admin_rating DESC"
+    when "14" then return "member_rating DESC"
+    when "15" then return "created_at DESC"
+    when "16" then return "created_at ASC"
+      #    when "17" then return "producer_dividend DESC"
+      #    when "18" then return "shareholder_dividend DESC"
+      #    when "19" then return "fund_dividend DESC"
+      #    when "20" then return "pmf_fund_investment_percentage DESC"
+    when "21" then return "pmf_fund_investment_share_amount DESC"
+    when "22" then return "green_light DESC"
     when "23" then return "fully_funded_time DESC"
-    when "24" then return "daily_percent_move DESC"
-    when "25" then return "daily_percent_move"
-    when "26" then return "yellow_light DESC"
+    when "24" then return "fully_funded_time DESC"
+    when "25" then return "daily_percent_move DESC"
+    when "26" then return "daily_percent_move"    
     else return "created_at DESC"
     end
   end
@@ -877,6 +876,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: projects
@@ -925,9 +925,7 @@ end
 #  pmf_fund_investment_share_amount :integer(4)      default(0)
 #  project_payment_status           :string(255)
 #  fully_funded_time                :datetime
-#  completion_date                  :datetime
 #  watch_url                        :string(255)
-#  premier_date                     :date
 #  percent_bad_shares               :integer(4)      default(0)
 #  main_video                       :string(255)
 #  daily_percent_move               :integer(4)      default(0)
@@ -935,5 +933,6 @@ end
 #  yellow_light                     :datetime
 #  actors                           :string(255)
 #  bitpay_email                     :string(255)
+#  weeks_to_finish                  :integer(4)
 #
 

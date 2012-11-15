@@ -48,6 +48,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: project_ratings

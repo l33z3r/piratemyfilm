@@ -28,6 +28,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: forum_posts

@@ -131,7 +131,7 @@
 
 </table>
 
-<div class="dashed_light_border pmf_bottom_margin_20 pmf_top_margin_20">&nbsp;</div>
+<!--div class="dashed_light_border pmf_bottom_margin_20 pmf_top_margin_20">&nbsp;</div>
 <h4>Dividends</h4>
 
 <table class="project_form" style="">
@@ -165,7 +165,7 @@
     </td-->
   </tr>
 
-</table>
+</table-->
 
 <div class="dashed_light_border pmf_bottom_margin_20 pmf_top_margin_20">&nbsp;</div>
 <h4>All of these fields can be changed after the project appears in the system by clicking on the 'edit project' button</h4>
@@ -215,7 +215,7 @@
     </td>
   </tr>
 
-  <tr>
+  <!--tr>
     <td>
       Enter a youtube link for your project
     </td>
@@ -233,27 +233,17 @@
       <%= f.text_field :watch_url %>
       <%= display_error_on(project, :watch_url) %>
     </td>
-  </tr>
-
-  <!--tr>
-    <td>
-      Enter estimated project completion date
-    </td>
-    <td>
-      <%= f.date_select :completion_date %>
-      <%= display_error_on(project, :completion_date) -%>
-    </td>
-  </tr>
+  </tr-->
 
   <tr>
     <td>
-      Enter date of premier
+      Enter estimated number of weeks needed to complete your project
     </td>
     <td>
-      <%= f.date_select :premier_date %>
-      <%= display_error_on(project, :premier_date) -%>
+      <%= f.text_field :weeks_to_finish %>
+      <%= display_error_on(project, :weeks_to_finish) -%>
     </td>
-  </tr-->
+  </tr>
 
   <tr>
     <td>
@@ -268,7 +258,7 @@
     </td-->
   </tr>
 
-  <tr>
+  <!--tr>
     <td>
       What percentage of the budget will
       <br/>the producer take as a fee? (0 - 100)%
@@ -278,7 +268,7 @@
     <%= f.text_field :producer_fee_percent %>
     <%= display_error_on(project, :producer_fee_percent) -%>
     </td-->
-  </tr>
+  </tr-->
 
   <% if !project.new_record? %>
     <tr>
@@ -482,7 +472,7 @@
     </td>
   </tr>
 
-  <tr>
+  <!--tr>
     <td>
       Enter a short synopsis for your project
     </td>
@@ -500,7 +490,7 @@
       <%= f.text_area :cast, :cols => 42, :rows => 4 %>
       <%= display_error_on(project, :cast) -%>
     </td>
-  </tr>
+  </tr-->
 
   <% unless project.main_video.blank? %>
     <tr>

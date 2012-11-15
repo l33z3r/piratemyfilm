@@ -67,6 +67,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: membership_types

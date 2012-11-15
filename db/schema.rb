@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120212120617) do
+ActiveRecord::Schema.define(:version => 20121115104931) do
 
   create_table "admin_project_ratings", :force => true do |t|
     t.integer  "project_id"
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(:version => 20120212120617) do
     t.integer  "user_id"
     t.integer  "blog_id"
     t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "blog_project_mentions", :force => true do |t|
+    t.integer  "blog_id"
+    t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -244,8 +251,8 @@ ActiveRecord::Schema.define(:version => 20120212120617) do
     t.boolean  "is_active",        :default => false
     t.string   "youtube_username"
     t.string   "flickr_username"
-    t.datetime "last_activity_at"
     t.string   "time_zone",        :default => "UTC"
+    t.datetime "last_activity_at"
     t.integer  "country_id",       :default => 1
   end
 
@@ -324,7 +331,7 @@ ActiveRecord::Schema.define(:version => 20120212120617) do
     t.text     "cast"
     t.string   "web_address"
     t.decimal  "ipo_price",                                      :precision => 10, :scale => 2
-    t.integer  "percent_funded",                   :limit => 3,  :precision => 3,  :scale => 0
+    t.integer  "percent_funded",                   :limit => 3
     t.string   "icon"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -358,9 +365,7 @@ ActiveRecord::Schema.define(:version => 20120212120617) do
     t.integer  "pmf_fund_investment_share_amount",                                              :default => 0
     t.string   "project_payment_status"
     t.datetime "fully_funded_time"
-    t.datetime "completion_date"
     t.string   "watch_url"
-    t.date     "premier_date"
     t.integer  "percent_bad_shares",                                                            :default => 0
     t.string   "main_video"
     t.integer  "daily_percent_move",                                                            :default => 0
@@ -368,6 +373,7 @@ ActiveRecord::Schema.define(:version => 20120212120617) do
     t.datetime "yellow_light"
     t.string   "actors"
     t.string   "bitpay_email"
+    t.integer  "weeks_to_finish"
   end
 
   create_table "sessions", :force => true do |t|
@@ -429,8 +435,8 @@ ActiveRecord::Schema.define(:version => 20120212120617) do
     t.boolean  "email_verified"
     t.integer  "member_rating",                           :default => 0
     t.integer  "warn_points",                             :default => 0
-    t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
+    t.string   "activation_code",           :limit => 40
     t.boolean  "following_mkc_blogs",                     :default => false
     t.boolean  "following_admin_blogs",                   :default => false
     t.boolean  "mkc_post_ability",                        :default => false

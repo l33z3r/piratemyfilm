@@ -8,11 +8,7 @@
 <div id="profile">
 
   <div class="profile_links">
-    <% if @p == @profile %>
-      <div class="link">
-        <%= link_to "Edit Profile", edit_profile_path(@profile) %>
-      </div>
-    <% end %>
+    
   </div>
 
   <div class="pmf_clear">&nbsp;</div>
@@ -156,8 +152,7 @@
             <div class="title">Your Email Notifications</div>
             <p>
               You are currently set to receive email notifications for the
-              following events (note you can change these settings by clicking
-              the edit profile button just above your avatar at the top of this page):
+              following events:
             </p>
 
             <ul>
@@ -223,7 +218,7 @@
 
           <% @top_projects.each do |tp| %>
             <div class="pmf_clear">&nbsp;</div>
-            <div class="stat_label"><%= link_to tp.project.symbol, project_path(tp.project) %></div>
+            <div class="stat_label"><%= link_to tp.project.symbol, project_path(tp.project), :title => "#{h project.title}" %></div>
             <div class="arrow">
               <%= up_down_arrow tp.share_change %>
             </div>

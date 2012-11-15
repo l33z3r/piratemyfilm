@@ -333,6 +333,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: profiles
@@ -356,8 +357,8 @@ end
 #  is_active        :boolean(1)      default(FALSE)
 #  youtube_username :string(255)
 #  flickr_username  :string(255)
-#  last_activity_at :datetime
 #  time_zone        :string(255)     default("UTC")
+#  last_activity_at :datetime
 #  country_id       :integer(4)      default(1)
 #
 

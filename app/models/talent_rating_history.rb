@@ -9,6 +9,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: talent_rating_histories

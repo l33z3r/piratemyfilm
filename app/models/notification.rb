@@ -3,7 +3,7 @@ class Notification < ActiveRecord::Base
   belongs_to :user
 
   @@NOTIFICATION_TYPES_MAP = {
-    1 => "My Project Gets Green Light", 2 => "Any Project Gets Green Light",
+    #1 => "My Project Gets Green Light", 2 => "Any Project Gets Green Light",
     3 => "New Project Listed", 4 => "My Project Is Fully Funded",
     5 => "Any Project is Fully Funded", 6 => "My Project Is 90% Funded",
     7 => "Any Project is 90% Funded", 8 => "PMF Rating Changed On My Project",
@@ -52,32 +52,6 @@ class Notification < ActiveRecord::Base
     end
   end
   
-  def self.deliver_green_light_notification project
-    #deliver the personal ones first
-    @owner_email_address = nil
-
-    if project.owner.profile.receiving_notification_type(1)
-      @owner_email_address = project.owner.profile.email
-
-      NotificationsMailer.deliver_my_green_light project, @owner_email_address
-    end
-
-    #deliver to others
-    @email_addresses = Notification.find_all_by_notification_type_id(2).collect do |notification|
-      notification.user.profile.email
-    end
-
-    #remove the owners email address
-    @email_addresses.delete(@owner_email_address)
-
-    @email_addresses.each do |email_address|
-      begin
-        NotificationsMailer.deliver_green_light project, email_address
-      rescue Exception
-      end
-    end
-  end
-
   def self.deliver_project_listed_notification project
     @email_addresses = Notification.find_all_by_notification_type_id(3).collect do |notification|
       notification.user.profile.email
@@ -170,6 +144,7 @@ class Notification < ActiveRecord::Base
   end
 
 end
+
 
 
 

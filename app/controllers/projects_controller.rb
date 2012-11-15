@@ -171,59 +171,6 @@ class ProjectsController < ApplicationController
       redirect_to :action => "show", :id => @project
     end
   end
-  
-#  def update_yellow_light
-#    begin
-#      #we only allow granting of green light for now
-#      return if @project.yellow_light
-#    
-#      if @project.bitpay_email.blank?# and @project.paypal_email.blank?
-#        flash[:error] = "User has not entered a bitpay email address associated with their project!"
-#        redirect_to project_path(@project) and return
-#      end
-#
-#      @project.give_yellow_light
-#      
-#      flash[:positive] = "Project Now Yellow Lit!"
-#      redirect_to project_path(@project)
-#    rescue ActiveRecord::RecordInvalid
-#      flash[:error] = "Error updating project"
-#      perform_show
-#      render :action => "show"
-#    end
-#  end
-
-  #  def update_green_light
-  #    begin
-  #      #we only allow granting of green light for now
-  #      return if @project.green_light
-  #    
-  #      if !@project.budget_reached_include_pmf?
-  #        flash[:error] = "Project must have 100% budget to be Green!"
-  #        redirect_to project_path(@project) and return
-  #      end
-  #        
-  #      #start the payment phase
-  #      if @project.paypal_email.blank?
-  #        flash[:error] = "User has not entered a paypal email address associated with their project!"
-  #        redirect_to project_path(@project) and return
-  #      end
-  #      
-  #      PaymentWindow.create_for_project @project
-  #      
-  #      @project.green_light = Time.now
-  #      @project.save!
-  #
-  #      Notification.deliver_green_light_notification @project
-  #      
-  #      flash[:positive] = "Project Now Green Lit!"
-  #      redirect_to project_path(@project)
-  #    rescue ActiveRecord::RecordInvalid
-  #      flash[:error] = "Error updating project"
-  #      perform_show
-  #      render :action => "show"
-  #    end
-  #  end
 
   def share_queue    
     @project_subscribers = @project.subscribers

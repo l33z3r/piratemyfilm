@@ -2,11 +2,16 @@ The project
 
 <%= h @project.title %>
 
-has just been given the yellow light!
-
-<br/><br/>
-
-You have just over 24 hours to reserve shares (or add more shares to your reservation) before the project gets locked down and given the green light, where payments will start being collected! 
+<% if @project.frozen_yellow? %>
+  is in the frozen yellow state. This means it will go yellow, once the producer has entered his/her bitpay information.
+  After this, you will have just over 24 hours to reserve shares (or add more shares to your reservation) 
+  before the project gets locked down and given the green light, where payments will start being collected!
+<% else %>
+  has just been given the yellow light!
+  <br/><br/>
+  You have just over 24 hours to reserve shares (or add more shares to your reservation) 
+  before the project gets locked down and given the green light, where payments will start being collected! 
+<%  end %>
 
 <br/><br/>
 

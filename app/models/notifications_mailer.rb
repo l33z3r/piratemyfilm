@@ -1,7 +1,7 @@
 class NotificationsMailer < ActionMailer::Base
   
   def my_yellow_light project, recipient
-    @subject        = "Yellow Light On Your Project!"
+    @subject        = project.frozen_yellow? ? "Your Project Frozen Yellow on PMF" : "Yellow Light On Your Project!"
     @recipients     = recipient
     @body['project'] = project
     @from           = MAILER_FROM_ADDRESS
@@ -11,34 +11,14 @@ class NotificationsMailer < ActionMailer::Base
   end
 
   def yellow_light project, recipient
-    @subject        = "Project Given Yellow Light on PMF!"
+    @subject        = project.frozen_yellow? ? "Project Frozen Yellow on PMF" : "Project Given Yellow Light on PMF!"
     @recipients     = recipient
     @body['project'] = project
     @from           = MAILER_FROM_ADDRESS
     @sent_on        = Time.new
     @headers        = {}
     content_type "text/html"
-  end
-  
-  def my_green_light project, recipient
-    @subject        = "Green Light On Your Project!"
-    @recipients     = recipient
-    @body['project'] = project
-    @from           = MAILER_FROM_ADDRESS
-    @sent_on        = Time.new
-    @headers        = {}
-    content_type "text/html"
-  end
-
-  def green_light project, recipient
-    @subject        = "Project Given Green Light on PMF!"
-    @recipients     = recipient
-    @body['project'] = project
-    @from           = MAILER_FROM_ADDRESS
-    @sent_on        = Time.new
-    @headers        = {}
-    content_type "text/html"
-  end
+  end    
 
   def project_listed project, recipient
     @subject        = "Project Listed on PMF!"

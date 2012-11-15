@@ -305,6 +305,9 @@ class User < ActiveRecord::Base
     @project_participations[@ownership_rel_name] = []
     
     owned_public_projects_all.each do |project|
+      #skip all funded projects
+      next if project.finished_payment_collection
+      
       next if target_project and target_project.id != project.id
       
       @project_participations[@ownership_rel_name] << [project, nil]
@@ -312,6 +315,9 @@ class User < ActiveRecord::Base
     
     #all the projects you are a talent of
     project_user_talents.each do |put|
+      #skip all funded projects
+      next if put.project.finished_payment_collection
+      
       next if target_project and target_project.id != put.project.id
       
       @rel_name = "You Are #{put.user_talent.talent_type.titleize} Of"
@@ -326,6 +332,9 @@ class User < ActiveRecord::Base
     @project_participations[@shareholder_rel_name] = []
     
     subscribed_projects.each do |project|
+      #skip all funded projects
+      next if project.finished_payment_collection
+      
       next if target_project and target_project.id != project.id
       
       @project_participations[@shareholder_rel_name] << [project, nil]
@@ -551,6 +560,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -569,8 +579,8 @@ end
 #  email_verified            :boolean(1)
 #  member_rating             :integer(4)      default(0)
 #  warn_points               :integer(4)      default(0)
-#  activation_code           :string(40)
 #  activated_at              :datetime
+#  activation_code           :string(40)
 #  following_mkc_blogs       :boolean(1)      default(FALSE)
 #  following_admin_blogs     :boolean(1)      default(FALSE)
 #  mkc_post_ability          :boolean(1)      default(FALSE)

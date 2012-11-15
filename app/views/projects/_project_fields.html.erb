@@ -30,7 +30,7 @@
 
     <div class="view-lite-row-numbers">
       <ul>
-        <li class="label">Symbol:</li><li class="stat"><%= h project.symbol %></li>
+        <li class="label">Symbol:</li><li class="stat"><%= link_to project.symbol, "#", :title => "#{h project.title}" %></li>
         <li class="pmf_clear"></li>
         <li class="label">Price Per Share:</li><li class="stat"><%= print_money project.ipo_price %></li>
         <li class="pmf_clear"></li>
@@ -59,6 +59,10 @@
         <li class="label">Genre:</li><li class="stat"><%=  h project.genre.title %></li>
         <li class="pmf_clear"></li>
         <li class="label">Project Status:</li><li class="stat"><%= project.status %></li>
+        <li class="pmf_clear"></li>
+        <li class="label">Date Created:</li><li class="stat"><%= project.created_at.strftime('%d/%m/%Y') %></li>
+        <li class="pmf_clear"></li>
+        <li class="label">Estimated Completion:</li><li class="stat"><%= pluralize project.weeks_to_finish, "Week" %></li>
         <li class="pmf_clear"></li>
       </ul>
     </div>

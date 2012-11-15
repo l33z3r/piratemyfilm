@@ -1,4 +1,16 @@
-A payment window has opened for a project you have reserved shares in:
+<% if @window_number == 1 %>
+  The first of three payment windows for a project you have reserved shares in is now open!
+<% elsif @window_number == 2 %>
+  The second of three payment windows for a project you have reserved shares in is now open!
+<% elsif @window_number == 3 %>
+  The last of three payment windows for a project you have reserved shares in is now open!
+  <br/>
+  <a href="<%= url_for(:only_path => false,
+       :controller => "projects", :action => "show", :id => @payment_window.project.id) %>">
+    Pay for your shares
+  </a> 
+  and don't risk walking the plank!
+<% end %>
 
 <br/><br/>
 

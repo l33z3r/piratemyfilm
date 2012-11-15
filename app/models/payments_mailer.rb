@@ -4,6 +4,7 @@ class PaymentsMailer < ActionMailer::Base
     @subject        = "Payment Window Opened For Project #{payment_window.project.title} On PMF"
     @recipients     = recipient
     @body['payment_window'] = payment_window
+    @body['window_number'] = payment_window.project.payment_windows.count
     @from           = MAILER_FROM_ADDRESS
     @sent_on        = Time.new
     @headers        = {}

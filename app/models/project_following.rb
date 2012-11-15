@@ -9,6 +9,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: project_followings

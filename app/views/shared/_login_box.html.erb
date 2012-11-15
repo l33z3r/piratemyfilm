@@ -41,7 +41,12 @@
           <%= icon(@p, :small) %>
         </div>
 
-        <div id="message"><%= link_to @u.f, profile_path(@p) %></div>
+        <div id="message">
+          <%= link_to @u.f, profile_path(@p) %>
+          <% if @p == @profile %>
+            <%= link_to "(Edit Profile)", edit_profile_path(@profile), :id => "edit_profile_link" %>
+          <% end %>
+        </div>
 
         <div class="pmf_clear">&nbsp;</div>
 
@@ -66,9 +71,9 @@
               awaiting payment of shares!
             </div>
           <% end %>
-          
+
           <div class="pmf_clear">&nbsp;</div>
-          
+
           <% if @projects_frozen_yellow_count > 0 %>
             <div class="link awaiting_payment_link">
               You have

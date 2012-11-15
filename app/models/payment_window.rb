@@ -111,8 +111,6 @@ class PaymentWindow < ActiveRecord::Base
       @project.green_light = Time.now    
       @project.save!
 
-      Notification.deliver_green_light_notification @project
-      
       return
     end
     
@@ -430,6 +428,7 @@ class PaymentWindow < ActiveRecord::Base
   end
   
 end
+
 
 
 
