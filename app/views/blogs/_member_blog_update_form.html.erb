@@ -10,8 +10,6 @@
 
   <% if @u %>
 
-    <div class="pmf_clear_20">&nbsp;</div>
-
     <div id="blog_entry_section">
       <% form_tag({:controller => "blogs", :action => "create"}, {:id => "blog_form"}) do %>
 
@@ -56,36 +54,48 @@
         <% end %>
       <% end %>
 
-      <div class="pmf_clear">&nbsp;</div>
-
-      <div class="subnav_links r" id="blog_footer_links">
-        <div class="link <%= (@selected_subnav_link == "pmf_fund" ? "selected" : "") %>">
-          <span class="fund_image_comments_subnav">
-            <%= link_to image_tag("skull_small.png", :size => "22x18"), latest_comments_path %>
-          </span>
-          <%= link_to "PMF Fund", latest_comments_path %>
-        </div>
-
-        <div class="link <%= (@selected_subnav_link == "pmf" ? "selected" : "") %>">
-          <span class="fund_image_blog_subnav">
-            <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), :action => "admin" %>
-          </span>
-          <%= link_to "PMF Blog", :controller => "/blogs", :action => "admin" %>
-        </div>
-
-        <div class="link <%= (@selected_subnav_link == "maxkeiser" ? "selected" : "") %>">
-          <span class="mkc_image_blog_subnav">
-            <%= link_to image_tag("mkc_favicon.png", :size => "15x15"), :controller => :blogs, :action => "mkc" %>
-          </span>
-          <%= link_to "maxkeiser", :controller => "/blogs", :action => "mkc" %>
-        </div>
-        
-        <div class="pmf_clear">&nbsp;</div>
-      </div>
-
     </div>
 
   <% end %>
+
+  <div class="pmf_clear">&nbsp;</div>
+
+  <div class="subnav_links left">
+    <div class="link <%= (@selected_subnav_link == "pmf_fund" ? "selected" : "") %>">
+      <span class="fund_image_comments_subnav">
+        <%= link_to image_tag("skull_small.png", :size => "22x18"), latest_comments_path %>
+      </span>
+      <%= link_to "PMF Fund", latest_comments_path %>
+    </div>
+
+    <div class="link <%= (@selected_subnav_link == "pmf" ? "selected" : "") %>">
+      <span class="fund_image_blog_subnav">
+        <%= link_to image_tag("pmf_fund_avatar_small.png", :size => "20x20"), :action => "admin" %>
+      </span>
+      <%= link_to "PMF Blog", :controller => "/blogs", :action => "admin" %>
+    </div>
+
+    <div class="link <%= (@selected_subnav_link == "maxkeiser" ? "selected" : "") %>">
+      <span class="mkc_image_blog_subnav">
+        <%= link_to image_tag("mkc_favicon.png", :size => "15x15"), :controller => :blogs, :action => "mkc" %>
+      </span>
+      <%= link_to "maxkeiser", :controller => "/blogs", :action => "mkc" %>
+    </div>
+
+    <div class="pmf_clear">&nbsp;</div>
+  </div>
+
+  <div class="subnav_links right">
+    <div class="widget-link">
+      <%= image_tag "skull_bullet.png" %>
+
+      <div class="link">
+        <%= link_to "Widget", project_widgets_path %>
+      </div>
+    </div>
+  </div>
+
+  <div class="pmf_clear">&nbsp;</div>
 
 </div>
 

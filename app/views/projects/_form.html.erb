@@ -147,23 +147,23 @@
       </i>
     </td>
     <td>NYA</td>
-    <!--td>
-    <%= f.text_field :share_percent_ads_producer %>
-    <%= display_error_on(project, :share_percent_ads_producer) -%>
-    </td-->
-  </tr>
+<!--td>
+<%= f.text_field :share_percent_ads_producer %>
+<%= display_error_on(project, :share_percent_ads_producer) -%>
+</td-->
+</tr>
 
-  <tr>
-    <td>
-      What percentage of <i>your</i> percentage of future
-      <br/>dividends are you offering to share holders? (0 - 100)%
-    </td>
-    <td>NYA</td>
-    <!--td>
-    <%= f.text_field :share_percent_ads %>
-    <%= display_error_on(project, :share_percent_ads) -%>
-    </td-->
-  </tr>
+<!--tr>
+  <td>
+    What percentage of <i>your</i> percentage of future
+    <br/>dividends are you offering to share holders? (0 - 100)%
+  </td>
+  <td>NYA</td>
+<!--td>
+<%= f.text_field :share_percent_ads %>
+<%= display_error_on(project, :share_percent_ads) -%>
+</td-->
+</tr-->
 
 </table-->
 
@@ -220,8 +220,8 @@
       Enter a youtube link for your project
     </td>
     <td>
-      <%= f.text_field :youtube_vid_id %>
-      <%= display_error_on(project, :youtube_vid_id) %>
+  <%= f.text_field :youtube_vid_id %>
+  <%= display_error_on(project, :youtube_vid_id) %>
     </td>
   </tr>
 
@@ -230,8 +230,8 @@
       Enter an address to watch your project
     </td>
     <td>
-      <%= f.text_field :watch_url %>
-      <%= display_error_on(project, :watch_url) %>
+  <%= f.text_field :watch_url %>
+  <%= display_error_on(project, :watch_url) %>
     </td>
   </tr-->
 
@@ -264,203 +264,39 @@
       <br/>the producer take as a fee? (0 - 100)%
     </td>
     <td>NYA</td>
-    <!--td>
-    <%= f.text_field :producer_fee_percent %>
-    <%= display_error_on(project, :producer_fee_percent) -%>
-    </td-->
-  </tr-->
+  <!--td>
+  <%= f.text_field :producer_fee_percent %>
+  <%= display_error_on(project, :producer_fee_percent) -%>
+  </td-->
+</tr-->
 
-  <% if !project.new_record? %>
-    <tr>
-      <td>
-        Enter the name of the producer
-      </td>
-      <td>
-        <%= f.text_field :producer_name, :id => "producer_name" %>
-        <%= display_error_on(project, :producer_name) -%>
-        <br/>
-        <div class="talent_select">
-          <% if project.producer_project_talents.size < UserTalent.max_talents_allowed %>
-            <div class="button_small left">
-              <%= link_to_remote "Select", :url => {:controller => "user_talents",
-                :action => "talent_select_list", 
-                :talent_filter_param => UserTalent.talent_types_map.invert["producer"],
-                :project_id => project.id} %>
-            </div>
-            <div class="talent_select_text">Or select members:</div>
-          <% end %>
-          <div id="producer_user_talent_container">
-            <% project.producer_project_talents.each do |dpt| %>
-              <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
-            <% end %>
+<% if !project.new_record? %>
+  <tr>
+    <td>
+      Enter the name of the producer
+    </td>
+    <td>
+      <%= f.text_field :producer_name, :id => "producer_name" %>
+      <%= display_error_on(project, :producer_name) -%>
+      <br/>
+      <div class="talent_select">
+        <% if project.producer_project_talents.size < UserTalent.max_talents_allowed %>
+          <div class="button_small left">
+            <%= link_to_remote "Select", :url => {:controller => "user_talents",
+              :action => "talent_select_list", 
+              :talent_filter_param => UserTalent.talent_types_map.invert["producer"],
+              :project_id => project.id} %>
           </div>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Enter the names of the directors
-      </td>
-      <td>
-        <%= f.text_field :director, :id => "director_name" %>
-        <%= display_error_on(project, :director) -%>
-        <br/>
-        <div class="talent_select">
-          <% if project.director_project_talents.size < UserTalent.max_talents_allowed %>
-            <div class="button_small left">
-              <%= link_to_remote "Select", :url => {:controller => "user_talents",
-                :action => "talent_select_list", 
-                :talent_filter_param => UserTalent.talent_types_map.invert["director"],
-                :project_id => project.id} %>
-            </div>
-            <div class="talent_select_text">Or select members:</div>
+          <div class="talent_select_text">Or select members:</div>
+        <% end %>
+        <div id="producer_user_talent_container">
+          <% project.producer_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
           <% end %>
-          <div id="director_user_talent_container">
-            <% project.director_project_talents.each do |dpt| %>
-              <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
-            <% end %>
-          </div>
         </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Enter the names of the actors
-      </td>
-      <td>
-        <%= f.text_field :director, :id => "director_name" %>
-        <%= display_error_on(project, :director) -%>
-        <br/>
-        <div class="talent_select">
-          <% if project.actor_project_talents.size < UserTalent.max_talents_allowed %>
-            <div class="button_small left">
-              <%= link_to_remote "Select", :url => {:controller => "user_talents",
-                :action => "talent_select_list", 
-                :talent_filter_param => UserTalent.talent_types_map.invert["actor"],
-                :project_id => project.id} %>
-            </div>
-            <div class="talent_select_text">Or select members:</div>
-          <% end %>
-          <div id="actor_user_talent_container">
-            <% project.actor_project_talents.each do |dpt| %>
-              <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
-            <% end %>
-          </div>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Enter the names of the executive producers
-      </td>
-      <td>
-        <%= f.text_field :exec_producer, :id => "exec_producer_name" %>
-        <%= display_error_on(project, :exec_producer) -%>
-        <br/>
-        <div class="talent_select">
-          <% if project.exec_producer_project_talents.size < UserTalent.max_talents_allowed %>
-            <div class="button_small left">
-              <%= link_to_remote "Select", :url => {:controller => "user_talents",
-                :action => "talent_select_list", 
-                :talent_filter_param => UserTalent.talent_types_map.invert["exec_producer"],
-                :project_id => project.id} %>
-            </div>
-            <div class="talent_select_text">Or select members:</div>
-          <% end %>
-          <div id="exec_producer_user_talent_container">
-            <% project.exec_producer_project_talents.each do |dpt| %>
-              <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
-            <% end %>
-          </div>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Enter the names of the writers
-      </td>
-      <td>
-        <%= f.text_field :writer, :id => "writer_name" %>
-        <%= display_error_on(project, :writer) -%>
-        <br/>
-        <div class="talent_select">
-          <% if project.writer_project_talents.size < UserTalent.max_talents_allowed %>
-            <div class="button_small left">
-              <%= link_to_remote "Select", :url => {:controller => "user_talents",
-                :action => "talent_select_list", 
-                :talent_filter_param => UserTalent.talent_types_map.invert["writer"],
-                :project_id => project.id} %>
-            </div>
-            <div class="talent_select_text">Or select members:</div>
-          <% end %>
-          <div id="writer_user_talent_container">
-            <% project.writer_project_talents.each do |dpt| %>
-              <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
-            <% end %>
-          </div>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Enter the names of the editors
-      </td>
-      <td>
-        <%= f.text_field :editor, :id => "editor_name" %>
-        <%= display_error_on(project, :editor) -%>
-        <br/>
-        <div class="talent_select">
-          <% if project.editor_project_talents.size < UserTalent.max_talents_allowed %>
-            <div class="button_small left">
-              <%= link_to_remote "Select", :url => {:controller => "user_talents",
-                :action => "talent_select_list", 
-                :talent_filter_param => UserTalent.talent_types_map.invert["editor"],
-                :project_id => project.id} %>
-            </div>
-            <div class="talent_select_text">Or select members:</div>
-          <% end %>
-          <div id="editor_user_talent_container">
-            <% project.editor_project_talents.each do |dpt| %>
-              <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
-            <% end %>
-          </div>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Enter the names of the DOPs
-      </td>
-      <td>
-        <%= f.text_field :director_photography, :id => "director_photography_name" %>
-        <%= display_error_on(project, :director_photography) -%>
-        <br/>
-        <div class="talent_select">
-          <% if project.director_photography_project_talents.size < UserTalent.max_talents_allowed %>
-            <div class="button_small left">
-              <%= link_to_remote "Select", :url => {:controller => "user_talents",
-                :action => "talent_select_list", 
-                :talent_filter_param => UserTalent.talent_types_map.invert["director_photography"],
-                :project_id => project.id} %>
-            </div>
-            <div class="talent_select_text">Or select members:</div>
-          <% end %>
-          <div id="director_photography_user_talent_container" class="project_talent_container">
-            <% project.director_photography_project_talents.each do |dpt| %>
-              <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
-            <% end %>
-          </div>
-        </div>
-      </td>
-    </tr>
-
-  <% end %>
+      </div>
+    </td>
+  </tr>
 
   <tr>
     <td>
@@ -472,48 +308,212 @@
     </td>
   </tr>
 
-  <!--tr>
+  <tr>
     <td>
-      Enter a short synopsis for your project
+      Enter the names of the directors
     </td>
     <td>
-      <%= f.text_area :synopsis, :cols => 42, :rows => 4 %>
-      <%= display_error_on(project, :synopsis) -%>
+      <%= f.text_field :director, :id => "director_name" %>
+      <%= display_error_on(project, :director) -%>
+      <br/>
+      <div class="talent_select">
+        <% if project.director_project_talents.size < UserTalent.max_talents_allowed %>
+          <div class="button_small left">
+            <%= link_to_remote "Select", :url => {:controller => "user_talents",
+              :action => "talent_select_list", 
+              :talent_filter_param => UserTalent.talent_types_map.invert["director"],
+              :project_id => project.id} %>
+          </div>
+          <div class="talent_select_text">Or select members:</div>
+        <% end %>
+        <div id="director_user_talent_container">
+          <% project.director_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
+        </div>
+      </div>
     </td>
   </tr>
 
   <tr>
     <td>
-      Enter a brief list of cast in your project
+      Enter the names of the actors
     </td>
     <td>
-      <%= f.text_area :cast, :cols => 42, :rows => 4 %>
-      <%= display_error_on(project, :cast) -%>
+      <%= f.text_field :director, :id => "director_name" %>
+      <%= display_error_on(project, :director) -%>
+      <br/>
+      <div class="talent_select">
+        <% if project.actor_project_talents.size < UserTalent.max_talents_allowed %>
+          <div class="button_small left">
+            <%= link_to_remote "Select", :url => {:controller => "user_talents",
+              :action => "talent_select_list", 
+              :talent_filter_param => UserTalent.talent_types_map.invert["actor"],
+              :project_id => project.id} %>
+          </div>
+          <div class="talent_select_text">Or select members:</div>
+        <% end %>
+        <div id="actor_user_talent_container">
+          <% project.actor_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
+        </div>
+      </div>
     </td>
-  </tr-->
+  </tr>
 
-  <% unless project.main_video.blank? %>
-    <tr>
-      <td>
-        Current Main Video:
-      </td>
-      <td>
-        <%= url_for_file_column(project, "main_video") %>
-      </td>
-    </tr>
-  <% end %>
+  <tr>
+    <td>
+      Enter the names of the executive producers
+    </td>
+    <td>
+      <%= f.text_field :exec_producer, :id => "exec_producer_name" %>
+      <%= display_error_on(project, :exec_producer) -%>
+      <br/>
+      <div class="talent_select">
+        <% if project.exec_producer_project_talents.size < UserTalent.max_talents_allowed %>
+          <div class="button_small left">
+            <%= link_to_remote "Select", :url => {:controller => "user_talents",
+              :action => "talent_select_list", 
+              :talent_filter_param => UserTalent.talent_types_map.invert["exec_producer"],
+              :project_id => project.id} %>
+          </div>
+          <div class="talent_select_text">Or select members:</div>
+        <% end %>
+        <div id="exec_producer_user_talent_container">
+          <% project.exec_producer_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
+        </div>
+      </div>
+    </td>
+  </tr>
 
-  <!--tr>
+  <tr>
     <td>
-      Upload a Video:
-      <br/><br/>
-      <i>Note: your project video must be less than 1 megabyte in size</i>
+      Enter the names of the writers
     </td>
     <td>
-  <%= file_column_field( "project", "main_video", :size => 15)%>
-  <%= display_error_on(project, :main_video) -%>
+      <%= f.text_field :writer, :id => "writer_name" %>
+      <%= display_error_on(project, :writer) -%>
+      <br/>
+      <div class="talent_select">
+        <% if project.writer_project_talents.size < UserTalent.max_talents_allowed %>
+          <div class="button_small left">
+            <%= link_to_remote "Select", :url => {:controller => "user_talents",
+              :action => "talent_select_list", 
+              :talent_filter_param => UserTalent.talent_types_map.invert["writer"],
+              :project_id => project.id} %>
+          </div>
+          <div class="talent_select_text">Or select members:</div>
+        <% end %>
+        <div id="writer_user_talent_container">
+          <% project.writer_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
+        </div>
+      </div>
     </td>
-  </tr-->
+  </tr>
+
+  <tr>
+    <td>
+      Enter the names of the editors
+    </td>
+    <td>
+      <%= f.text_field :editor, :id => "editor_name" %>
+      <%= display_error_on(project, :editor) -%>
+      <br/>
+      <div class="talent_select">
+        <% if project.editor_project_talents.size < UserTalent.max_talents_allowed %>
+          <div class="button_small left">
+            <%= link_to_remote "Select", :url => {:controller => "user_talents",
+              :action => "talent_select_list", 
+              :talent_filter_param => UserTalent.talent_types_map.invert["editor"],
+              :project_id => project.id} %>
+          </div>
+          <div class="talent_select_text">Or select members:</div>
+        <% end %>
+        <div id="editor_user_talent_container">
+          <% project.editor_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      Enter the names of the DOPs
+    </td>
+    <td>
+      <%= f.text_field :director_photography, :id => "director_photography_name" %>
+      <%= display_error_on(project, :director_photography) -%>
+      <br/>
+      <div class="talent_select">
+        <% if project.director_photography_project_talents.size < UserTalent.max_talents_allowed %>
+          <div class="button_small left">
+            <%= link_to_remote "Select", :url => {:controller => "user_talents",
+              :action => "talent_select_list", 
+              :talent_filter_param => UserTalent.talent_types_map.invert["director_photography"],
+              :project_id => project.id} %>
+          </div>
+          <div class="talent_select_text">Or select members:</div>
+        <% end %>
+        <div id="director_photography_user_talent_container" class="project_talent_container">
+          <% project.director_photography_project_talents.each do |dpt| %>
+            <%= render :partial => "project_user_talent_form_field", :locals => {:pt => dpt} %>
+          <% end %>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+<% end %>
+
+<!--tr>
+  <td>
+    Enter a short synopsis for your project
+  </td>
+  <td>
+<%= f.text_area :synopsis, :cols => 42, :rows => 4 %>
+<%= display_error_on(project, :synopsis) -%>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    Enter a brief list of cast in your project
+  </td>
+  <td>
+<%= f.text_area :cast, :cols => 42, :rows => 4 %>
+<%= display_error_on(project, :cast) -%>
+  </td>
+</tr-->
+
+<% unless project.main_video.blank? %>
+  <tr>
+    <td>
+      Current Main Video:
+    </td>
+    <td>
+      <%= url_for_file_column(project, "main_video") %>
+    </td>
+  </tr>
+<% end %>
+
+<!--tr>
+  <td>
+    Upload a Video:
+    <br/><br/>
+    <i>Note: your project video must be less than 1 megabyte in size</i>
+  </td>
+  <td>
+<%= file_column_field( "project", "main_video", :size => 15)%>
+<%= display_error_on(project, :main_video) -%>
+  </td>
+</tr-->
 
 </table>
 

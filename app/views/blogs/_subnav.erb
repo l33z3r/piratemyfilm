@@ -1,4 +1,4 @@
-<div class="subnav_links left">
+<div id="buzz_subnav_links" class="subnav_links left">
 
   <div class="link member_updates <%= (@selected_subnav_link == "member_updates" ? "selected" : "") %>">
     <%= link_to "Member Buzz", :controller => "/blogs", :action => "all_member_blogs" %>
@@ -13,7 +13,7 @@
 </div>
 
 <% if @u %>
-  <div class="subnav_links left">
+  <div id="buzz_subnav_links" class="subnav_links left">
     <div class="link member_updates <%= (@selected_user_subnav_link == "my_member_blogs" ? "selected" : "") %>">
       <%= link_to "Members Buzz I Follow", :controller => :blogs, :action => "my_member_blogs" %>
     </div>

@@ -368,31 +368,6 @@ div#social_links {
     margin-top: 20px;
 }
 
-div#social_links div.widget-link {
-    float: left;
-    margin-right: 10px;
-    margin-top: 7px;
-}
-
-div#social_links div.widget-link img {
-    float: left;
-    margin-top: 3px;
-    margin-right: 5px;
-}
-
-div#social_links div.widget-link img {
-    float: left;
-    margin-top: 3px;
-    margin-right: 9px;
-}
-
-div#social_links div.widget-link div.link {
-    float: left;
-    font-size: 15px;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
 div#social_links div.twitter-link {
     float: left;
 }
@@ -511,6 +486,14 @@ div.subnav_links {
     margin-top: 15px;
 }
 
+div#buzz_subnav_links {
+    margin-top: 0px;
+}
+
+div#buzz_subnav_links div.link a {
+    font-size: 14px;
+}
+
 div.subnav_links div.link {
     font-size: 13px;
     float: left;
@@ -525,6 +508,22 @@ div.subnav_links div.link a {
 div.subnav_links div.link.selected a {
     text-decoration: none;
     color: #000;
+}
+
+div.subnav_links div.widget-link {
+    float: right;
+}
+
+div.subnav_links div.widget-link img {
+    float: left;
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+div.subnav_links div.widget-link img {
+    float: left;
+    margin-top: 3px;
+    margin-right: 9px;
 }
 
 /* End sub navigation */
@@ -4453,6 +4452,10 @@ div#post_update_box div.pageTitleSmall a {
 div#post_update_box div.pageTitleSmall a:hover {
     text-decoration: none;
     color: #666;
+}
+
+div#blog_entry_section {
+    margin-top: 15px;
 }
 
 div#blog_entry_section form input[type=textarea] {
