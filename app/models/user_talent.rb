@@ -18,7 +18,7 @@ class UserTalent < ActiveRecord::Base
     1 => "Director",
     2 => "Writer",
     3 => "Executive Producer",
-    4 => "DOP",
+    4 => "Camera",
     5 => "Editor",
     6 => "Producer",
     7 => "Actor"
