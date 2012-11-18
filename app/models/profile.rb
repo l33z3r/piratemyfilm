@@ -89,8 +89,8 @@ class Profile < ActiveRecord::Base
 
   def friends_list type
     case type.to_s
-    when "1" then return followers
-    when "2" then return followings
+    when "1" then return all_followers
+    when "2" then return all_followings
     when "3" then return friends
     else return nil
     end
@@ -316,6 +316,15 @@ class Profile < ActiveRecord::Base
 
   def receiving_notification_type(required_notification_type_id)
     user.notifications.collect(&:notification_type_id).include?(required_notification_type_id)
+  end
+  
+  #these util methods return all followers including friendships
+  def all_followings
+    followings | friends
+  end
+  
+  def all_followers
+    followers | friends
   end
   
   protected
