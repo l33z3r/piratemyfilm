@@ -30,7 +30,7 @@ class Project < ActiveRecord::Base
 
   #description will be the logline of the project
   #we are limiting it to 140 characters so that it is like twitter
-  validates_length_of :description, :within => 0..140
+  validates_length_of :description, :within => 0..140, :allow_blank => true
   validates_length_of :title, :minimum => 5
   
   validates_numericality_of :capital_required, :ipo_price, :project_length, :weeks_to_finish, :allow_nil => true
