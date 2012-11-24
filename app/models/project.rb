@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
   
   has_many :project_subscriptions, :dependent => :destroy
   has_many :subscribers, :through => :project_subscriptions, :source => :user,
-    :order => "project_subscriptions.created_at", :group => "id"
+    :order => "project_subscriptions.created_at", :uniq => true
 
   has_many :project_change_info_one_days, :dependent => :destroy, :order => "created_at DESC"
   
