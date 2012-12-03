@@ -28,8 +28,8 @@ class Profile < ActiveRecord::Base
 
   # Friends
   has_many :friendships, :class_name  => "Friend", :foreign_key => 'inviter_id', :conditions => "status = #{Friend::ACCEPTED}"
-  has_many :follower_friends, :class_name => "Friend", :foreign_key => "invited_id", :conditions => "status = #{Friend::PENDING}"
-  has_many :following_friends, :class_name => "Friend", :foreign_key => "inviter_id", :conditions => "status = #{Friend::PENDING}"
+  has_many :follower_friends, :class_name => "Friend", :foreign_key => "invited_id"
+  has_many :following_friends, :class_name => "Friend", :foreign_key => "inviter_id"
   
   has_many :friends,   :through => :friendships, :source => :invited
   has_many :followers, :through => :follower_friends, :source => :inviter
@@ -89,8 +89,8 @@ class Profile < ActiveRecord::Base
 
   def friends_list type
     case type.to_s
-    when "1" then return all_followers
-    when "2" then return all_followings
+    when "1" then return followers
+    when "2" then return followings
     when "3" then return friends
     else return nil
     end
@@ -316,15 +316,6 @@ class Profile < ActiveRecord::Base
 
   def receiving_notification_type(required_notification_type_id)
     user.notifications.collect(&:notification_type_id).include?(required_notification_type_id)
-  end
-  
-  #these util methods return all followers including friendships
-  def all_followings
-    followings | friends
-  end
-  
-  def all_followers
-    followers | friends
   end
   
   protected

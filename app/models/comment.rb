@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
 
   def after_create
     feed_item = FeedItem.create(:item => self)
-    ([profile] + profile.friends + profile.all_followers).each{ |p| p.feed_items << feed_item }
+    ([profile] + profile.friends + profile.followers).each{ |p| p.feed_items << feed_item }
   end
   
   
